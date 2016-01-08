@@ -1,0 +1,55 @@
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">用户列表</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="UserDetail.Add()">新增</a>
+                    <a class="btn btn-primary" ng-click="UserDetail.Edit()">编辑</a>
+                    <a class="btn btn-primary">删除</a>
+                    <a class="btn btn-primary" ng-click="ViewDetail.View()">详情</a>
+                </span>
+            </header>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="UserInfo.UserList">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>登陆账户</span></th>
+                                <th><span>用户名称</span></th>
+                                <th><span>组织类型</span> </th>
+                                <th><span>组织名称</span></th>
+                                <th><span>手机号码</span></th>
+                                <th><span>锁定状态</span></th>
+                                <th><span>有效状态</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in UserInfo.UserList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                                <td>{{$index+1}}</td>
+                                <td><span>{{row.loginName}}</span></td>
+                                <td><span>{{row.userName}}</span></td>
+                                <td><span>{{row.orgType}}</span> </td>
+                                <td><span>{{row.orgTypeName}}</span></td>
+                                <td><span>{{row.loginMobileNo}}</span></td>
+                                <td><span>{{row.lockStatusName}}</span></td>
+                                <td><span>{{row.validStatusName}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <ul class="pagination pull-right">
+                    <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

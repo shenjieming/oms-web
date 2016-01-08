@@ -1,0 +1,80 @@
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">国家管理列表</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="CountryView.showCountry()">详情</a>
+                </span>
+            </header>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="CountryInfo">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>国家代码</span></th>
+                                <th><span>国家简称</span></th>
+                                <th><span>国家全称</span></th>
+                                <th><span>有效状态</span></th>
+                                <th><span>备注信息</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in CountryInfo" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="CountryView.showCountry(row)">
+                                <td>{{$index+1}}</td>
+                                <td>
+                                    {{row.countryCode}}
+                                </td>
+                                <td>
+                                    {{row.countryName}}
+                                </td>
+                                <td>
+                                    {{row.countryFullName}}
+                                </td>
+                                <td>
+                                    {{row.validStatus=="Y"?"有效":"无效"}}
+                                </td>
+                                <td>
+                                    {{row.remark}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+    </div>
+    <ng-dialog ng-model="CountryView.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                国家代码： {{CountryView.Info.countryCode}}
+            </div>
+            <div class="col-lg-5">
+                有效状态： {{CountryView.Info.validStatus=="Y"?"有效":"无效"}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                国家简称： {{CountryView.Info.countryName}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                国家全称： {{CountryView.Info.countryFullName}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <span style="float:left;"> 备注信息： {{CountryView.Info.remark}}</span>
+            </div>
+        </div>
+    </ng-dialog>
+</div>
+

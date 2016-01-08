@@ -1,0 +1,190 @@
+﻿<div class="row">
+    <div class="tools">
+        <h5 style="float:left; font-weight:bold; margin-left:8px;">
+            <i class="fa fa-file-archive-o"></i>
+            手术订单  <span ng-show="sono" style="color: #0033FF">[{{sono}}]</span>
+        </h5>
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-click="PageService.Save()"><i class="fa fa-save"></i> 保存</a>
+            <a class="btn btn-primary" ng-click="PageService.Submit()"><i class="fa fa-check"></i> 提交</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>基础信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="BaseInformation">
+                <div class="control-group">
+                    <label style="width:85%">
+                        <span class="required">*</span>
+                        货主信息：<span ng-cargo="cargo" ng-model="PageData.sOOIOrgCode"></span>
+                    </label>
+                    <span style="margin-left:10%;">
+                        <a class="btn btn-warning" ng-click="AddressConfig.show()">
+                            <i class="fa fa-map-marker"></i>
+                            收货地址选择
+                        </a>
+                    </span>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        收 货 人：{{PageData.deliveryContact?PageData.deliveryContact:"请选择收货地址"}}
+                    </label>
+                    <label>
+                        联系电话：{{PageData.deliveryrMobile?PageData.deliveryrMobile:"请选择收货地址"}}
+                    </label>
+                    <label>
+                        <span class="required">*</span>配送方式：
+                        <span ng-dictionary="TRANTP" ng-model="PageData.iniitCarrierTransType"></span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        <span>  收货地址：</span>
+                        <span>
+                            {{PageData.deliveryProvinceName}}
+                            {{PageData.deliveryCityName}}
+                            {{PageData.deliveryDistrictName}}
+                            {{PageData.deliveryAddress}}
+                        </span>
+                    </label>
+                </div>
+                <div ng-address="address" ng-model="PageData" ng-operat="AddressConfig"></div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5 data-toggle="collapse" style="width:80%" href="#SurgeryInformation">手术信息</h5>
+                <a class="btn" ng-click="HospitalConfig.show()"><i class="fa fa-reddit-square"></i>选择医生</a>
+            </div>
+            <div id="SurgeryInformation" class="widget-content nopadding collapse in">
+                <div class="control-group ">
+                    <label>
+                        医院名称：{{PageData.initHPCode?PageData.initHPCodeName:"未选择"}}
+                    </label>
+                    <label>
+                        科室名称：{{PageData.initWardDeptCode?PageData.initWardDeptCodeName:"未选择"}}
+                    </label>
+                    <label>
+                        医生名称：{{PageData.initDTCode?PageData.initDTCodeName:"未选择"}}<span style="color:green" ng-show="PageData.initDTCode">[{{PageData.initIsLocalName}}]</span>
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label style="width:100%;">
+                        医院要求：{{PageData.initHPPreferenceDesc}}
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label style="width:100%;">
+                        医生要求：{{PageData.initDTOperationPreferenceDesc}}
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label>
+                        <span class="required">*</span>
+                        <span style="float:left;line-height:32px;">手术时间：</span>
+                        <div class="input-group" style="float:left;width:180px;">
+                            <input type="text" class="form-control" placeholder="请选择手术时间" style="padding:8px;" ng-datatime="" ng-model="PageData.initOperationDate">
+                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </label>
+                    <label style="width:60%">
+                        <span class="required">*</span>
+                        诊断信息：<input type="text" style=" width:78%" ng-model="PageData.initDiseaseInfo" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%;">
+                        患者描述:
+                        <input type="text" style="width: 78%" ng-model="PageData.initPatientInfo" />
+                    </label>
+                </div>
+                <div class="control-group " style="display:none;">
+                    <label style="width:100%">
+                        备注信息：<input style="width:78%" type="text" />
+                    </label>
+                </div>
+                <div ng-doctors="" ng-model="PageData" ng-operat="HospitalConfig"></div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5 style="width:80%" data-toggle="collapse" href="#ProductInformation">产品信息</h5>
+                <a class="btn" ng-click="ProductlineConfig.operat.show()">
+                    <i class="fa fa-medkit"></i>
+                    添加产品线
+                </a>
+            </div>
+            <div id="ProductInformation" class="widget-content nopadding collapse in">
+                <div class="control-group" ng-show="!PageData.prodLns.length">
+                    <label style="width:100%;color:red;">为选择产品线，请添加产品线...</label>
+                </div>
+                <div class="control-group" ng-show="PageData.prodLns.length">
+                    <div class="col-lg-2">
+                        <div class="control-group">
+                            <div ng-tree="" ng-setting="ProductlineConfig.tree.setting" ng-data="ProductlineConfig.tree.data" ng-model="ProductlineConfig.tree.obj"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-10">
+                        <div class="control-group">
+                            <label> 品牌名称：{{ProductlineConfig.useLine.medBrandCodeName}}</label>
+                            <label>产品线名称：{{ProductlineConfig.useLine.medProdLnCodeName}}</label>
+                            <label>
+                                <span style="float:left">工具情况：</span>
+                                <input type="checkbox" id="checkbox" class="chkbox"
+                                       ng-checked="ProductlineConfig.useLine.isChecked" ng-model="ProductlineConfig.useLine.isChecked">
+                                <label for="checkbox" style="float:left"></label>
+                                <span ng-show="ProductlineConfig.useLine.isChecked">需要</span>
+                                <span ng-show="!ProductlineConfig.useLine.isChecked">不需要</span>
+                            </label>
+                        </div>
+                        <div class="control-group">
+                            <label style="width:90%">
+                                备注信息：{{ProductlineConfig.useLine.remark}}
+                            </label>
+                            <a class="btn btn-danger" ng-click="ProductlineConfig.deleteLine()">删除</a>
+                        </div>
+                    </div>
+                </div>
+                <div ng-productline="" ng-model="PageData.prodLns" ng-operat="ProductlineConfig.operat" ng-cargo-model="PageData.sOOIOrgCode"></div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5 data-toggle="collapse" style="width:80%" href="#AdditionalInformation">图片信息</h5>
+                <a class="btn j_file_panel" href="javascript:void(0)">
+                    <i class="fa fa-image"></i>
+                    添加图片
+                    <div ng-file="file" ng-model="file"></div>
+                </a>
+            </div>
+            <div id="AdditionalInformation" class="widget-content nopadding collapse in">
+                <div class="control-group ">
+                    <div ng-img="img" ng-model="PageData.attachments.images"></div>
+                    <label style="opacity:0.5;width:100%;" ng-show="!PageData.attachments.images.length">
+                        添加点图片丰富您的订单吧，
+                        最多支持上传5张图片
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label style="width:100%">
+                        图片说明：<input type="text" style="width:78%;" placeholder="对您的图片说点什么吧..." ng-model="PageData.attachments.remark" />
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tools">
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-click="PageService.Save()"><i class="fa fa-save"></i> 保存</a>
+            <a class="btn btn-primary" ng-click="PageService.Submit()"><i class="fa fa-check"></i> 提交</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa  fa-reply"></i> 返回</a>
+        </span>
+    </div>
+</div>

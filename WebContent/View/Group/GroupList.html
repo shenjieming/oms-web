@@ -1,0 +1,142 @@
+﻿<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">群组列表</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="GroupInfo.showGroup({})">新增</a>
+                    <a class="btn btn-primary" ng-click="GroupInfo.showEditGroup()">编辑</a>
+                    <a class="btn btn-primary" ng-click="GroupView.showRole()">详情</a>
+                </span>
+            </header>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="GroupList">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>群组编码</span></th>
+                                <th><span>群组简称</span></th>
+                                <th><span>群组备注</span></th>
+                                <th><span>状态</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in GroupList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="GroupView.showRole(row)">
+                                <td>{{$index+1}}</td>
+                                <td>
+                                    {{row.teamCode}}
+                                </td>
+                                <td>
+                                    {{row.teamName}}
+                                </td>
+                                <td>
+                                    {{row.remark}}
+                                </td>
+                                <td>
+                                    {{row.validStatusName}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+    </div>
+
+    <ng-dialog ng-model="GroupDetail">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <span class="required">*</span>群组简称：<input type="text" ng-model="GroupInfo.GroupList.teamName" placeholder="请输入群组简称" />
+            </div>
+            <div class="col-lg-5">
+                <span class="required">*</span>群组全称：<input type="text" ng-model="GroupInfo.GroupList.teamFullName" placeholder="请输入群组" />
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <span class="required">*</span> 群组成员：{{GroupInfo.GroupList.userName}}
+            </div>           
+            </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                成员描述： {{GroupInfo.GroupList.nameDesc}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <span style="float:left;"> 群组备注：</span>
+                <textarea style="width:85%;height:60px;" ng-model="RoleDetail.roleInfo.relationDesc" placeholder="请输入角色描述"></textarea>
+            </div>
+        </div>
+        <div class="main-box-body clearfix">
+            <div class="table-responsive list-box" style="min-height:280px;margin:10px 50px;">
+                <table class="table table-bordered table-striped" st-table="GroupInfo.GroupUserList">
+                    <thead>
+                        <tr>
+                            <th><span>序号</span></th>
+                            <th><span>成员姓名</span></th>
+                            <th><span>成员描述</span></th>
+                            <th><span>成员操作</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in GroupInfo.GroupUserList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                            <td>{{$index+1}}</td>
+                            <td>
+                                {{row.userName}}
+                            </td>
+                            <td>
+                                {{row.teamName}}
+                            </td>
+                            <td>
+                                <span style="float:left" ng-click="select.change()">新增</span>
+                                <span style="float:right">删除</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-pagein="page" ng-model="Pagein"></div>
+        </div>
+    </ng-dialog>
+    <ng-dialog ng-model="GroupView.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                群组简称：  {{GroupView.Info.team.teamName}}
+            </div>
+            <div class="col-lg-5">
+                群组全称：  {{GroupView.Info.team.FullName}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                群组备注： {{GroupView.Info.team.remark}}
+            </div>
+            <div class="col-lg-5">
+                状态信息： {{GroupView.Info.team.validStatusName}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <span style="float:left;"> 群组成员：</span>
+                {{GroupView.nameList}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <span style="float:left;"> 成员描述：</span>
+                {{GroupView.desc}}
+            </div>
+        </div>
+    </ng-dialog>
+</div>

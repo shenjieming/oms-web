@@ -1,0 +1,48 @@
+﻿<div>
+    <ng-dialog ng-model="ngOperat">
+        <div class="main-box-body clearfix" style="padding:15px;max-height:450px;overflow:auto;">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" st-table="Service.DoctorsList">
+                    <thead>
+                        <tr>
+                            <th><span>序号</span></th>
+                            <th><span>医院编码</span></th>
+                            <th><span>医院名称</span></th>
+                            <th><span>科室编码</span></th>
+                            <th><span>科室名称</span></th>
+                            <th><span>医生编码</span></th>
+                            <th><span>医生名称</span></th>
+                            <th><span>医生属性</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in Service.DoctorsList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="ngOperat.fixed(row)">
+                            <td>{{$index+1}}</td>
+                            <td>
+                                {{row.hPCode}}
+                            </td>
+                            <td title="{{row.hPPreferenceDesc}}">
+                                {{row.hPName}}
+                            </td>
+                            <td>
+                                {{row.wardDeptCode}}
+                            </td>
+                            <td>
+                                {{row.wardDeptname}}
+                            </td>
+                            <td>
+                                {{row.dTCode}}
+                            </td>
+                            <td title="{{row.dTOperationPreferenceDesc}}">
+                                {{row.dTName}}
+                            </td>
+                            <td>
+                                {{row.isLocalName}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </ng-dialog>
+</div>

@@ -1,0 +1,80 @@
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">语言管理</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="LanguageView.showLanguage()">详情</a>
+                </span>
+            </header>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="LanguageInfo">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>语言代码</span></th>
+                                <th><span>语言简称</span></th>
+                                <th><span>语言全称</span></th>
+                                <th><span>有效状态</span></th>
+                                <th><span>备注信息</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in LanguageInfo" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="LanguageView.showLanguage(row)">
+                                <td>{{$index+1}}</td>
+                                <td>
+                                    {{row.langCode}}
+                                </td>
+                                <td>
+                                    {{row.langName}}
+                                </td>
+                                <td>
+                                    {{row.langFullName}}
+                                </td>
+                                <td>
+                                    {{row.validStatus=="Y"?"有效":"无效"}}
+                                </td>
+                                <td>
+                                    {{row.remark }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+    </div>
+    <ng-dialog ng-model="LanguageView.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                语言全称： {{LanguageView.Info.langFullName}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                语言代码： {{LanguageView.Info.langCode}}
+            </div>
+            <div class="col-lg-5">
+                语言简称： {{LanguageView.Info.langCode}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+
+            <div class="col-lg-5">
+                有效状态： {{LanguageView.Info.validStatus=="Y"?"有效":"无效"}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <span style="float:left;"> 备注信息：  {{LanguageView.Info.remark}}  </span>
+            </div>
+        </div>
+    </ng-dialog>
+</div>

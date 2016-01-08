@@ -1,0 +1,95 @@
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">行政区域列表</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="AdmdivisionView.showAdmdivision()">详情</a>
+                </span>
+            </header>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="AdmdivisionInfo">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>行政编码</span></th>
+                                <th><span>上级编码</span></th>
+                                <th><span>行政名称</span></th>
+                                <th><span>当前层级</span></th>
+                                <th><span>有效状态</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in AdmdivisionInfo" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="AdmdivisionView.showAdmdivision(row)">
+                                <td>{{$index+1}}</td>
+                                <td>
+                                    {{row.divCode}}
+                                </td>
+                                <td>
+                                    {{row.parentDivCode}}
+                                </td>
+                                <td>
+                                    {{row.divName}}
+                                </td>
+                                <td>
+                                    {{row.level}}
+                                </td>
+                                <td>
+                                    {{row.validStatus=="Y"?"有效":"无效"}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+        <ng-dialog ng-model="AdmdivisionView.model">
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    行政编码： {{AdmdivisionView.Info.divCode}}
+                </div>
+                <div class="col-lg-5">
+                    上级编码： {{AdmdivisionView.Info.parentDivCode}}
+                </div>
+            </div>
+            <div class="row row-mt-8">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    区域名称： {{AdmdivisionView.Info.divName}}
+                </div>
+                <div class="col-lg-5">
+                    有效状态： {{AdmdivisionView.Info.validStatus=="Y"?"有效":"无效"}}
+                </div>
+
+            </div>
+            <div class="row row-mt-8">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    区域全称： {{AdmdivisionView.Info.divFullName}}
+                </div>
+            </div>
+            <div class="row row-mt-8">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    当前层级： {{AdmdivisionView.Info.level}}
+                </div>
+            </div>
+            <div class="row row-mt-8">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    邮编编码： {{AdmdivisionView.Info.postcode}}
+                </div>
+            </div>
+            <div class="row row-mt-8">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    <span style="float:left;">备注信息：  {{ AdmdivisionView.Info.remark}}</span>
+                </div>
+            </div>
+        </ng-dialog>
+    </div>
+</div>

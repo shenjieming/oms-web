@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="myApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="script/angular.min.js"></script>
+    <script src="script/jquery-1.11.1.min.js"></script>
+    <script src="script/jquery.ztree.all-3.5.min.js"></script>
+    <script src="script/jquery-ui.min.js"></script>
+    <script src="script/jnDo.Src.min.js"></script>
+    <script src="script/jquery.datetimepicker.js"></script>
+    <script src="jnDo_1.0.js"></script>
+    <link href="style/css/jnDo_1.0.css" rel="stylesheet" />
+    <script>
+        pathConfig = "";
+        var myApp = angular.module('myApp', ["jnDo"]);
+        myApp.controller("case", function ($scope, $FileService) {
+            var flg = 0;
+            $scope.file = {
+                list:new Array()
+            }
+            $scope.newFile = {
+                myImg: new Array(),
+                Upload: function (files) {
+                    $scope.$apply(function () {
+                        if (flg == 0) {
+                            $scope.newFile.myImg.push({ url: "http://mailuo.oss-cn-qingdao.aliyuncs.com/upload/2015/12/56AF3021EBAD83E0EC0DA8582BD5B823" });
+                            flg = 1;
+                            $scope.file.list.push({ url: "http://mailuo.oss-cn-qingdao.aliyuncs.com/upload/2015/12/56AF3021EBAD83E0EC0DA8582BD5B823" });
+                        }
+                        else {
+                            $scope.newFile.myImg.push({ url: "http://h.hiphotos.baidu.com/image/pic/item/4ec2d5628535e5dd2820232370c6a7efce1b623a.jpg" });
+                        }
+                    });
+                }
+            };
+            $scope.datatext = "2015/12/21 11:00:00";
+          
+            $scope.datatime = {
+                format: "Y/m/d H:00:00"
+            }
+            $scope.tree = {
+                setting: {
+                    data: {
+                        simpleData: {
+                            enable: true,
+                            idKey: "roleId",
+                            pIdKey: "pId",
+                            rootPId: 0
+                        }
+                    },
+                    callback: {
+                        beforeExpand: true,
+                        onExpand: function (event, treeId, treeNode) {
+                            /// <summary></summary>
+                            if (!treeNode.reNode) {
+                                treeNode.reNode = true;
+                                $scope.tree.obj.addNodes(treeNode, { name: "上海经销商", isParent: true });
+                            }
+                        },
+                    }
+                },
+                data: [
+                    { roleId: 1, pId: 0, name: "经销商", isParent: true },
+                    { roleId: 11, pId: 0, name: "上海经销商" },
+	                { roleId: 12, pId: 0, name: "子节点2" },
+                    { roleId: 13, pId: 0, name: "八五医院" }
+                ],
+                obj: new Object()
+            }
+            $scope.Pagein = {
+                autoOpen:true,
+                pageSize: 10,
+                pageIndex: 1,
+                total: 200
+            }
+            $scope.getData = function () {
+                $scope.Pagein.total = 100;
+            }
+        });
+    </script>
+</head>
+<body ng-controller="case">
+
+    <div ng-img="myImg" ng-model="file.list">
+    </div>
+    <div ng-img="myImg" ng-model="newFile.myImg"></div>
+
+    <div class="j_file_panel">
+        上传附件
+        <div ng-file="file" ng-model="newFile"></div>
+    </div>
+
+    <input type="text" ng-datatime="{{datatime}}" ng-model="datatext" />
+
+    <button ng-click="getData()">获取数据</button>
+    <div ng-pagein="my" ng-model="Pagein"></div>
+
+    <div ng-tree="" ng-setting="tree.setting" ng-data="tree.data" ng-model="tree.obj"></div>
+
+
+    <div ng-dialog="" ng-model="Pagein">
+        我是天秤
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">事件编码列表</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="EventCodeView.showEventCode()">详情</a>
+                </span>
+            </header>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="EventCodeInfo">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <!--<th><span>业务名称</span></th>-->
+                                <th><span>事件代码</span></th>
+                                <th><span>事件简称</span></th>
+                                <th><span>事件全称</span></th>
+                                <th><span>客户描述</span></th>
+                                <th><span>阶段描述</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in EventCodeInfo" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="EventCodeView.showEventCode(row)">
+                                <td>{{$index+1}}</td>
+                                <td>
+                                    {{row.eventCode}}
+                                </td>
+                                <td>
+                                    {{row.eventName}}
+                                </td>
+                                <td>
+                                    {{row.eventFullName}}
+                                </td>
+                                <td>
+                                    {{row.toCustomerDesc}}
+                                </td>
+                                <td>
+                                    {{row.toCustomerSummaryDesc}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+    </div>
+    <ng-dialog ng-model="EventCodeView.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-4">
+                业务代码：  {{EventCodeView.Info.tableCode}}
+            </div>
+            <div class="col-lg-3">
+                有效状态： {{EventCodeView.Info.validStatus=="Y"?"有效":"无效" }}
+            </div>
+            <div class="col-lg-4">
+                机构类型： {{EventCodeView.Info.orgType}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-4">
+                机构名称： {{EventCodeView.Info.orgTypeName}}
+            </div>
+            <div class="col-lg-3">
+                事件代码： {{EventCodeView.Info.eventCode}}
+            </div>
+            <div class="col-lg-4">
+                事件简称： {{EventCodeView.Info.eventName}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-4">
+                事件全称： {{EventCodeView.Info.eventFullName}}
+            </div>
+            <div class="col-lg-3">
+                英文简称： {{EventCodeView.Info.eventNameEN}}
+            </div>
+            <div class="col-lg-4">
+                英文全称： {{EventCodeView.Info.eventFullNameEN}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-4">
+                事件描述： {{EventCodeView.Info.toCustomerDesc}}
+            </div>
+            <div class="col-lg-3">
+                阶段描述： {{EventCodeView.Info.toCustomerSummaryDesc}}
+            </div>
+            <div class="col-lg-4">
+                描述英文： {{EventCodeView.Info.toCustomerDescEN}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-4">
+                阶段英文： {{EventCodeView.Info.toCustomerSummaryDescEN}}
+            </div>
+
+            <div class="col-lg-3">
+                事件匿名： {{EventCodeView.Info.isAnonymousDisplayed=="Y"?"有":"无"}}
+            </div>
+
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <span style="float:left;"> 备注信息： {{EventCodeView.Info.remark}} </span>
+            </div>
+        </div>
+    </ng-dialog>
+</div>

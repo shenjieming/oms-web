@@ -1,0 +1,119 @@
+﻿<div class="row">
+    <div class="tools">
+        <h5 style="float:left;">用户信息</h5>
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-click="RoleDetail.showRole({})">保存</a>
+            <a class="btn btn-primary" ng-click="goView('app.user.list')">返回</a>
+        </span>
+    </div>
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>基础信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="BaseInformation">
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span> 账户名称：<input type="text" placeholder="请输入账户名称" />
+                    </label>
+                    <label>
+                        <span class="required">*</span> 微信账户：<input type="text" placeholder="请输入微信账户" />
+                    </label>
+                    <label>
+                        <span class="required">*</span>用户姓名：<input type="text" placeholder="请输入用户名" />
+                        <label style=" display:none; width: 100px; height: 120px; position: fixed; margin-left: 30px; background-color:#ccc;text-align:center"><img style="width: 100px;" alt="" src="Content/style/img/samples/scarlet-159.png" /></label>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span> 账户密码：<input type="text" placeholder="请输入账户密码" />
+                    </label>
+                    <label>
+                        <span class="required">*</span> 确认密码：<input type="text" placeholder="请输入账户密码" />
+                    </label>
+                    <label>
+                        <span class="required">*</span>手机号码：<input type="tel" placeholder="请输入用户名" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        <span style="float:left">  账户备注：</span>
+                        <textarea class="box-80" placeholder="请输入该账户的备注信息"></textarea>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#CompetenceInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>权限信息</h5>
+            </div>
+            <div id="CompetenceInformation" class="widget-content nopadding collapse in">
+                <div class="control-group ">
+                    <label>
+                        机构类型：
+                        <select ng-model="PageInfo.UserInfo.orgType" ng-change="SelectInfo.orgType.change()">
+                            <option value="">请选择机构类型</option>
+                            <option ng-repeat="item in SelectInfo.orgType.dic" value="{{item.id}}">{{item.text}}</option>
+                        </select>
+                    </label>
+                    <label>
+                        类型名称：<span>{{PageInfo.UserInfo.orgCode}}</span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%;">
+                        用户角色：
+                        <select>
+                            <option>请选择用户角色</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#NewsletterInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>个人信息</h5>
+            </div>
+            <div id="NewsletterInformation" class="widget-content nopadding collapse in">
+                <div class="control-group ">
+                    <label>
+                        用户性别：<select></select>
+                    </label>
+                    <label>
+                        用户学历：<select></select>
+                    </label>
+                    <label>
+                        邮箱地址：<input type="tel" placeholder="请输入邮箱地址" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:66%">
+                        身 份 证：<input type="text" class="box-80" placeholder="请输入用户身份证信息" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        <span style="float:left">  职位描述：</span>
+                        <textarea class="box-80" placeholder="请输入职位描述"></textarea>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        <span style="float:left">  描述信息：</span>
+                        <textarea class="box-80" placeholder="请输入描述信息"></textarea>
+                    </label>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="tools">
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-click="RoleDetail.showRole({})">保存</a>
+            <a class="btn btn-primary" ng-click="goView('app.user.list')">返回</a>
+        </span>
+    </div>
+</div>

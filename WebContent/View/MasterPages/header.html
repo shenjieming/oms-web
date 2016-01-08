@@ -1,0 +1,79 @@
+﻿
+<div class="container">
+    <a href="" class="navbar-brand logo">
+        <img src="Content/style/img/logo.png" alt="" class="normal-logo logo-white" />
+        <img src="Content/style/img/logo-black.png" alt="" class="normal-logo logo-black" />
+        <img src="Content/style/img/logo-small.png" alt="" class="small-logo hidden-xs hidden-sm hidden" />
+    </a>
+    <div class="clearfix">
+        <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="nav-no-collapse navbar-left pull-left hidden-sm hidden-xs">
+            <ul class="nav navbar-nav pull-left">
+                <li>
+                    <a class="btn" id="make-small-nav" ng-click="AdjustmentFold()">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="nav-no-collapse pull-right">
+            <ul class="nav navbar-nav pull-right">
+                <li class="dropdown profile-dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="Content/style/img/samples/scarlet-159.png" alt="" style="display:none;" />
+                        <span class="hidden-xs">{{User.userInfo.orgName}} {{User.userInfo.userName}}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a ng-href="#/app/my"><i class="fa fa-user"></i>我的信息</a></li>
+                        <li><a href="javascript:void(0)" ng-click="modifyPwd.show()"><i class="fa fa-cog"></i>修改密码</a></li>
+                        <li><a ng-href="#/login"><i class="fa fa-power-off"></i>退出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<ng-dialog ng-model="modifyPwd.dialog">
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-8">
+            用户名称：  {{User.userInfo.userName}}
+        </div>
+    </div>
+    <div class="row row-mt-8">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-8">
+            组织名称： {{User.userInfo.orgName}}
+        </div>
+    </div>
+    <div class="row row-mt-8">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-11">
+            原始密码： <input type="password" ng-model="modifyPwd.pwsInfo.oldPassword" placeholder="请输入原始密码.." />
+            <span class="red" ng-show="!modifyPwd.pwsInfo.oldPassword">请输入原始密码</span>
+            <span class="green" ng-show="modifyPwd.pwsInfo.oldPassword">输入通过</span>
+        </div>
+    </div>
+    <div class="row row-mt-8">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-11">
+            最新密码：<input type="password" ng-model="modifyPwd.pwsInfo.newPassword" placeholder="请输入修改后的新密码.." />
+            <span class="red" ng-show="!modifyPwd.pwsInfo.newPassword">请输入最新密码</span>
+            <span class="red" ng-show="modifyPwd.pwsInfo.newPassword&&(modifyPwd.pwsInfo.newPassword==modifyPwd.pwsInfo.oldPassword)">新密码不能和原始密码相同</span>
+            <span class="green" ng-show="modifyPwd.pwsInfo.newPassword&&(modifyPwd.pwsInfo.newPassword!=modifyPwd.pwsInfo.oldPassword)">输入通过</span>
+        </div>
+    </div>
+    <div class="row row-mt-8">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-11">
+            确认密码：<input type="password" ng-model="modifyPwd.pwsInfo.verifyPassword" placeholder="请确认输入的密码" />
+            <span class="red" ng-show="(modifyPwd.pwsInfo.newPassword!=modifyPwd.pwsInfo.verifyPassword)&&(modifyPwd.pwsInfo.verifyPassword)">两次输入的密码不相同</span>
+            <span class="red" ng-show="!modifyPwd.pwsInfo.verifyPassword">请输入确认密码</span>
+            <span class="green" ng-show="modifyPwd.pwsInfo.verifyPassword&&(modifyPwd.pwsInfo.newPassword==modifyPwd.pwsInfo.verifyPassword)">输入通过</span>
+        </div>
+    </div>
+</ng-dialog>

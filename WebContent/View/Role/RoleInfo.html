@@ -1,0 +1,126 @@
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">角色列表</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="RoleDetail.showRole({})">新增</a>
+                    <a class="btn btn-primary" ng-click="RoleDetail.showEditRole()">编辑</a>
+                    <a class="btn btn-primary">删除</a>
+                    <a class="btn btn-primary" ng-click="RoleView.showRole()">详情</a>
+                </span>
+            </header>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="RoleInfo">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>角色简称</span></th>
+                                <th><span>角色全称</span></th>
+                                <th><span>机构类型</span></th>
+                                <th><span>类型名称</span></th>
+                                <th><span>状态</span></th>
+                                <th><span>关系描述</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in RoleInfo" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="RoleView.showRole(row)">
+                                <td>{{$index+1}}</td>
+                                <td>
+                                    {{row.roleName}}
+                                </td>
+                                <td>
+                                    {{row.roleFullName}}
+                                </td>
+                                <td>
+                                    {{row.orgType}}
+                                </td>
+                                <td>
+                                    {{row.orgTypeName}}
+                                </td>
+                                <td>
+                                    {{row.validStatusName}}
+                                </td>
+                                <td>
+                                    {{row.relationDesc}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+    </div>
+
+    <ng-dialog ng-model="RoleDetail.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <span class="required">*</span>角色简称：<input type="text"  ng-model="RoleDetail.roleInfo.roleName"  placeholder="请输入角色简称" />
+            </div>
+            <div class="col-lg-5">
+                <span class="required">*</span>角色全称：<input type="text" ng-model="RoleDetail.roleInfo.roleFullName" placeholder="请输入角色全称" />
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <span class="required">*</span>  机构类型：<select ng-model="RoleDetail.roleInfo.orgType" ng-change="orgType.change(item)">
+                    <option value="">请选择机构类型</option>
+                         <option ng-repeat="item in orgType.dic" ng-selected="item.id==RoleDetail.roleInfo.orgType" value="{{item.id}}">
+                             {{item.id}} -  {{item.text}}
+                         </option>
+                </select>
+            </div>
+            <div class="col-lg-5">
+                机构名称：<span>{{RoleDetail.roleInfo.orgTypeName}}</span>
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <span style="float:left;"> 角色描述：</span>
+                <textarea style="width:85%;height:60px;" ng-model="RoleDetail.roleInfo.relationDesc" placeholder="请输入角色描述"></textarea>
+            </div>
+        </div>
+    </ng-dialog>
+    <ng-dialog ng-model="RoleView.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                角色简称：  {{RoleView.Info.roleName}}
+            </div>
+            <div class="col-lg-5">
+                角色全称：  {{RoleView.Info.roleFullName}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                机构类型： {{RoleView.Info.orgType}}
+            </div>
+            <div class="col-lg-5">
+                机构名称： {{RoleView.Info.orgTypeName}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <span style="float:left;"> 角色状态：</span>
+                <input type="checkbox" id="checkbox_c2" class="chkbox" ng-change="RoleView.ModifyRoleState()" ng-checked="RoleView.Info.isEnable" ng-model="RoleView.Info.isEnable" /><label for="checkbox_c2" style="float:left;"></label>
+                <span style="float:left;" ng-show="RoleView.Info.isEnable"> 有效 </span>
+                <span style="float:left;" ng-show="!RoleView.Info.isEnable"> 无效 </span>
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <span style="float:left;"> 角色描述：</span>
+                {{RoleView.Info.relationDesc}}
+            </div>
+        </div>
+    </ng-dialog>
+</div>

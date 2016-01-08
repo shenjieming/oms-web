@@ -1,0 +1,143 @@
+.login {
+    top: 0px;
+    position: fixed;
+    width: 100%;
+    text-align: center;
+}
+
+    .login .login-container {
+        margin-top: 10%;
+    }
+
+        .login .login-container h1 {
+            font-size: 50px;
+            font-weight: bold;
+            text-shadow: 0 1px 4px rgba(0,0,0,.2);
+        }
+
+    .login .form {
+        margin: 15px auto 0 auto;
+        text-align: center;
+    }
+
+    .login input.username, .login input.password {
+        width: 300px;
+        height: 42px;
+        line-height: 42px;
+        margin-top: 25px;
+        padding: 0 15px;
+        background: #2d2d2d;
+        background: rgba(45,45,45,.15);
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        border-radius: 6px;
+        border: 1px solid #3d3d3d;
+        border: 1px solid rgba(255,255,255,.15);
+        -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,.1) inset;
+        -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,.1) inset;
+        box-shadow: 0 2px 3px 0 rgba(0,0,0,.1) inset;
+        font-family: "Microsoft YaHei",Helvetica,Arial,sans-serif;
+        font-size: 14px;
+        color: #fff;
+        text-shadow: 0 1px 2px rgba(0,0,0,.1);
+        -o-transition: all .2s;
+        -moz-transition: all .2s;
+        -webkit-transition: all .2s;
+        -ms-transition: all .2s;
+    }
+
+    .login input:-moz-placeholder {
+        color: #fff;
+    }
+
+    .login input:-ms-input-placeholder {
+        color: #fff;
+    }
+
+    .login input::-webkit-input-placeholder {
+        color: #fff;
+    }
+
+    .login input:focus {
+        outline: 0;
+        -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,.1) inset,0 2px 7px 0 rgba(0,0,0,.2);
+        -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,.1) inset,0 2px 7px 0 rgba(0,0,0,.2);
+        box-shadow: 0 2px 3px 0 rgba(0,0,0,.1) inset,0 2px 7px 0 rgba(0,0,0,.2);
+    }
+
+    .login button {
+        cursor: pointer;
+        width: 300px;
+        height: 44px;
+        margin-top: 25px;
+        padding: 0;
+        background: rgba(6, 127, 228, 0.71);
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        border-radius: 6px;
+        border: 0;
+        -moz-box-shadow: 0 15px 30px 0 rgba(255,255,255,.25) inset,0 2px 7px 0 rgba(0,0,0,.2);
+        font-family: "Microsoft YaHei",Helvetica,Arial,sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        color: #fff;
+        text-shadow: 0 1px 2px rgba(0,0,0,.1);
+        -o-transition: all .2s;
+        -moz-transition: all .2s;
+        -webkit-transition: all .2s;
+        -ms-transition: all .2s;
+    }
+
+        .login button:hover {
+            -moz-box-shadow: 0 15px 30px 0 rgba(255,255,255,.15) inset,0 2px 7px 0 rgba(0,0,0,.2);
+            -webkit-box-shadow: 0 15px 30px 0 rgba(255,255,255,.15) inset,0 2px 7px 0 rgba(0,0,0,.2);
+            box-shadow: 0 15px 30px 0 rgba(255,255,255,.15) inset,0 2px 7px 0 rgba(0,0,0,.2);
+        }
+
+        .login button:active {
+            -moz-box-shadow: 0 15px 30px 0 rgba(255,255,255,.15) inset,0 2px 7px 0 rgba(0,0,0,.2);
+            -webkit-box-shadow: 0 15px 30px 0 rgba(255,255,255,.15) inset,0 2px 7px 0 rgba(0,0,0,.2);
+            box-shadow: 0 5px 8px 0 rgba(0,0,0,.1) inset,0 1px 4px 0 rgba(0,0,0,.1);
+            border: 0 solid #016FCB;
+        }
+
+    .login .connect {
+        margin-top: 18px;
+        width: 100%;
+        font-size: 14px;
+        text-shadow: 0 1px 3px rgba(0,0,0,.2);
+    }
+
+        .login .connect p {
+            position: relative;
+            left: -140%;
+            top: 0;
+            margin-top: 20px;
+        }
+
+    .login .backimg {
+        width: 100%;
+        height: 700px;
+        position: fixed;
+        overflow: hidden;
+        z-index: -30;
+        top: 0px;
+        left: 0px;
+        display: inline;
+    }
+
+@media (max-width: 419px ) {
+    .login .backimg {
+        width: auto;
+        height: 700px;
+        left:-415px;
+    }
+}
+
+@media (max-width: 715px ) {
+    .login .backimg {
+        width: auto;
+        height: 700px;
+        left:-315px;
+    }
+}

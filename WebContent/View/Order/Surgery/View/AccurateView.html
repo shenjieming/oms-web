@@ -1,0 +1,234 @@
+﻿
+<div class="row-fluid">
+    <div class="widget-box">
+        <div class="widget-title bg_ly">
+            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+            <h5 data-toggle="collapse" href="#pro_BaseInformation">精确信息[货主：{{PageData.sOOIOrgCodeName}}]</h5>
+        </div>
+        <div class="widget-content nopadding collapse in" id="pro_BaseInformation">
+            <div class="control-group ">
+                <label>
+                    收 货 人：{{PageData.deliveryContact}}
+                </label>
+                <label>
+                    联系电话：{{PageData.deliveryrMobile}}
+                </label>
+                <label>配送方式：{{PageData.carrierTransTypeName}}
+                </label>
+            </div>
+            <div class="control-group ">
+                <label style="width:100%">
+                    <span>  收货地址：</span>
+                    <span>
+                        {{PageData.deliveryProvinceName}}
+                        {{PageData.deliveryCityName}}
+                        {{PageData.deliveryDistrictName}}
+                        {{PageData.deliveryAddress}}
+                    </span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="widget-box">
+        <div class="widget-title bg_ly">
+            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+            <h5 data-toggle="collapse" href="#pro_SurgeryInformation">手术信息</h5>
+        </div>
+        <div id="pro_SurgeryInformation" class="widget-content nopadding collapse in">
+            <div class="control-group ">
+                <label>
+                    医院名称：{{PageData.hPCodeName}}
+                </label>
+                <label>
+                    科室名称：{{PageData.wardDeptCodeName}}
+                </label>
+                <label>
+                    医生名称：{{PageData.dTCodeName}}<span style="color:green">[{{PageData.isLocalName}}]</span>
+                </label>
+            </div>
+            <div class="control-group">
+                <label style="width:100%;">
+                    医院要求：{{PageData.hPPreferenceDesc}}
+                </label>
+            </div>
+            <div class="control-group">
+                <label style="width:100%;">
+                    医生要求：{{PageData.dTOperationPreferenceDesc}}
+                </label>
+            </div>
+            <div class="control-group">
+                <label>
+                   手术时间：{{PageData.operationDate}}
+                </label>
+                <label style="width:60%">
+                    诊断信息：{{PageData.patientDiseaseInfo}}
+                </label>
+            </div>
+            <div class="control-group ">
+                <label style="width:100%;">
+                    患者描述:{{PageData.patientRemark}}
+                </label>
+            </div>
+            <div class="control-group " style="display:none;">
+                <label style="width:100%">
+                    备注信息：<input style="width:78%" type="text" />
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="widget-box">
+        <div class="widget-title bg_ly">
+            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+            <h5 style="width:80%" data-toggle="collapse" href="#pro_ProductInformation">产品信息</h5>
+        </div>
+        <div id="pro_ProductInformation" class="widget-content nopadding collapse in">
+            <div class="control-group" ng-show="!PageData.orderKits.length">
+                <div style="width:100%;">
+                    <span style=" color: #808080; line-height:30px;margin-left:25px" ng-show="!PageData.medKits.length">未使用套件</span>
+                </div>
+            </div>
+            <div class="control-group" ng-show="PageData.orderKits.length">
+                <div class="main-box-body clearfix" style="padding: 15px; max-height: 450px; overflow: auto; width: 100%;">
+                    <div class="table-responsive">
+                        <table class="table table-bordered tab-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>序号</span></th>
+                                    <th><span>套件编码</span></th>
+                                    <th><span>套件名称</span></th>
+                                    <th><span>套件类型</span></th>
+                                    <th><span>使用数量</span></th>
+                                    <th><span>所在仓库</span></th>
+                                    <th style="display:none"><span><a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory()"><i class="fa fa-cubes"></i> 全部库存</a> </span> </th>
+                                    <th><span>库区</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="row in PageData.orderKits">
+                                    <td>{{$index+1}}</td>
+                                    <td>
+                                        {{row.kitCode}}
+                                    </td>
+                                    <td>
+                                        {{row.kitName}}
+                                    </td>
+                                    <td>
+                                        {{row.kitTypeName}}
+                                    </td>
+                                    <td>
+                                        {{row.reqQty}}
+                                    </td>
+                                    <td>
+                                        {{row.estMedMIWarehouseName}}
+                                    </td>
+                                    <td style="display:none">
+                                        <a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory(row)">{{row.inventory?row.inventory:"当前库存"}}</a>
+                                    </td>
+                                    <td>
+                                        {{row.zoneName}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="col-lg-3">
+                    <div class="control-group" style="display:block;">
+                        <div id="AccProductConfig" ng-tree="" ng-setting="AccProductConfig.tree.setting" ng-data="AccProductConfig.tree.data" ng-model="AccProductConfig.tree.obj"></div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="control-group">
+                        <label> 品牌名称：{{AccProductConfig.useLine.medBrandCodeName}}</label>
+                        <label style="width:32%;">产品线名称：{{AccProductConfig.useLine.medProdLnCodeName}}</label>
+                        <label ng-show="">
+                            <span style="float:left">工具情况：</span>
+                            <span ng-show="AccProductConfig.useLine.isChecked">需要</span>
+                            <span ng-show="!AccProductConfig.useLine.isChecked">不需要</span>
+                        </label>
+                    </div>
+                    <div class="control-group">
+                        <label style="width:90%">
+                            备注信息：{{AccProductConfig.useLine.remark}}
+                        </label>
+                    </div>
+                    <span>
+                        <div class="control-group">
+                            <div style="display: inline-block; width: 99%; padding: 5px;">
+                                <a class="btn btn-primary" ng-click="MaterialsConfig.GetShowMaterial()"><i class="fa fa-puzzle-piece"></i> 全部</a>
+                                <a class="btn btn-primary" ng-click="MaterialsConfig.GetShowMaterial('IMPLANT')"><i class="fa fa-puzzle-piece"></i> 植入物</a>
+                                <a class="btn btn-primary" ng-click="MaterialsConfig.GetShowMaterial('TOOL')"><i class="fa fa-wrench"></i> 工具</a>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="main-box-body clearfix" style="max-height: 350px; overflow: auto; width: 100%;">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered tab-striped">
+                                        <thead>
+                                            <tr>
+                                                <th><span>序号</span></th>
+                                                <th><span>物料编码</span></th>
+                                                <th><span>物料名称</span></th>
+                                                <th><span>物料类型</span></th>
+                                                <th><span>物料规格</span></th>
+                                                <th><span>使用数量</span></th>
+                                                <th><span>使用仓库</span> </th>
+                                                <th style="display:none;"><span><a href="javascript:void(0)" ng-click="WarehouseConfig.GetMedmaterialInventory()"><i class="fa fa-cubes"></i> 全部库存</a> </span> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="row in MaterialsConfig.Material">
+                                                <td>{{$index+1}}</td>
+                                                <td>
+                                                    {{row.medMICode}}
+                                                </td>
+                                                <td>
+                                                    {{row.medMICodeName}}
+                                                </td>
+                                                <td>
+                                                    {{row.categoryByPlatformName}}
+                                                </td>
+                                                <td>
+                                                    {{row.specification}}
+                                                </td>
+                                                <td>
+                                                    {{row.reqQty?row.reqQty:'-'}}
+                                                </td>
+                                                <td>
+                                                    {{row.estMedMIWarehouseName}}
+                                                </td>
+                                                <td style="display:none;">
+                                                    <a href="javascript:void(0)" ng-click="WarehouseConfig.GetMedmaterialInventory(row)">{{row.inventory?row.inventory:"当前库存"}}</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="widget-box">
+        <div class="widget-title bg_ly">
+            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+            <h5 data-toggle="collapse" href="#pro_AdditionalInformation">图片信息</h5>
+        </div>
+        <div id="pro_AdditionalInformation" class="widget-content nopadding collapse in">
+            <div class="control-group ">
+                <div ng-img="img" ng-model="PageData.orderFile.images"></div>
+            </div>
+            <div class="control-group">
+                <label style="width:100%">
+                    图片说明：{{PageData.orderFile.remark}}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

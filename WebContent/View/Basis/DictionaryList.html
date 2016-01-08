@@ -1,0 +1,73 @@
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">数据字典列表</h2>
+                <span style="float:right;">
+                </span>
+            </header>
+            <div class="main-box-body clearfix ">
+                <div class="table-responsive list-box" style="height:auto;min-height:200px;">
+                    <table class="table table-bordered table-striped" st-table="DictionaryInfo">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>字典类码</span></th>
+                                <th><span>字典类名</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in DictionaryInfo" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-click="DictionaryView.showDictionary(row)">
+                                <td>{{$index+1}}</td>
+                                <td>
+                                    {{row.tdictTypeCode}}
+                                </td>
+                                <td>
+                                    {{row.tdictTypeName}}
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-pagein="page" ng-model="Pagein"></div>
+                </div>
+                <div class="Dictionary_page">
+                    <div>
+                        <h2>数据字典详情</h2> <p></p>
+                    </div>
+                    <div class="table-responsive list-box" style="height:auto;min-height:200px;">
+                        <table class="table table-bordered table-striped  " st-table="Dictionaryvalue">
+                            <thead>
+                                <tr>
+                                    <th width="12.5%"><span>序号</span></th>
+                                    <th width="25%"><span>字典编码</span></th>
+                                    <th width="25%"><span>字典名称</span></th>
+                                    <th width="25%"><span>字典全称</span></th>
+                                    <th width="12.5%"><span>字典序号</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="row in Dictionaryvalue">
+                                    <td>{{$index+1}}</td>
+                                    <td>
+                                        {{row.vdictTypeCode }}
+                                    </td>
+                                    <td>
+                                        {{row.vdictValueName}}
+                                    </td>
+                                    <td>
+                                        {{row.vdictValueFullName}}
+                                    </td>
+                                    <td>
+                                        {{row.vdictValueSort}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

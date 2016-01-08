@@ -1,0 +1,25 @@
+﻿<div>
+    <ng-dialog ng-model="ngOperat">
+        <div class="row-fluid">
+            <div class="widget-box" style="margin-top:0px;">
+                <div class="widget-content">
+                    <div class="control-group">
+                        <label style="width:100%;">
+                        审批类型：
+                            <select ng-model="Service.operat">
+                                <option value="checkYes">通过申请</option>
+                                <option value="checkNo">打回申请</option>
+                                <option value="cancel">取消订单</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="control-group">
+                        <label style="width:100%;">
+                            备注信息：<input type="text" style="width:78%;" ng-model="Service.eventReasonDesc" />
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-dialog>
+</div>

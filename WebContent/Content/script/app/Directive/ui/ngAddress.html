@@ -1,0 +1,43 @@
+﻿<div>
+    <ng-dialog ng-model="ngOperat">
+        <div class="main-box-body clearfix" style="padding:15px;max-height:450px;overflow:auto;">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" st-table="Service.AddressList">
+                    <thead>
+                        <tr>
+                            <th><span>序号</span></th>
+                            <th><span>省</span></th>
+                            <th><span>市</span></th>
+                            <th><span>区</span></th>
+                            <th><span>收件人</span></th>
+                            <th><span>联系电话</span></th>
+                            <th><span>联系地址</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in Service.AddressList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="ngOperat.fixed(row)">
+                            <td>{{$index+1}}</td>
+                            <td>
+                                {{row.provinceCodeName}}
+                            </td>
+                            <td>
+                                {{row.cityCodeName}}
+                            </td>
+                            <td>
+                                {{row.districtCodeName}}
+                            </td>
+                            <td>
+                                {{row.contact}}
+                            </td>
+                            <td>
+                                {{row.mobile}}
+                            </td>
+                            <td>
+                                {{row.address}}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </ng-dialog>
+</div>

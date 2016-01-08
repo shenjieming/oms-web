@@ -1,0 +1,47 @@
+﻿<div>
+    <ng-dialog ng-model="ngOperat">
+        <div class="row-fluid">
+            <div class="widget-box" style="margin-top:0px;">
+                <div class="widget-content">
+                    <div class="control-group">
+                        <label style="width:50%">
+                            <span class="required">*</span>
+                            品牌名称：<select ng-model="prodLn.medBrandCode">
+                                <option value="">请选择产品线</option>
+                                <option ng-repeat="item in Server.BrandList" value="{{item.id}}">{{item.text}}</option>
+                            </select>
+                        </label>
+                        <label style="width:50%;display:none;">
+                            产品类型：<select ng-model="prodLn.medProdLineType">
+                                <option value="">请选择产品线类型</option>
+                                <option ng-repeat="item in Server.ProductLineTypeList" value="{{item.id}}">{{item.text}}</option>
+                            </select>
+                        </label>
+
+                    </div>
+                    <div class="control-group">
+                        <label style="width:50%">
+                            <span class="required">*</span>
+                            产&nbsp;品&nbsp;线&nbsp;：<select ng-model="prodLn.medProdLnCode">
+                                <option value="">请选择产品线信息</option>
+                                <option ng-repeat="item in Server.ProductLineList" value="{{item.id}}">{{item.text}}</option>
+                            </select>
+                        </label>
+                        <label style="width:50%">
+                            <span style="float:left;line-height:25px;">工具情况：</span>
+                            <input type="checkbox" id="checkbox_c2" class="chkbox" ng-checked="prodLn.isChecked" ng-model="prodLn.isChecked" />
+                            <label for="checkbox_c2" style="float:left"></label>
+                            <span ng-show="prodLn.isChecked" style="line-height: 25px;"> 需要</span>
+                            <span ng-show="!prodLn.isChecked" style="line-height: 25px;">不需要</span>
+                        </label>
+                    </div>
+                    <div class="control-group">
+                        <label style="width:100%;">
+                            备注信息：<input type="text" style="width:78%;" ng-model="prodLn.remark" />
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-dialog>
+</div>

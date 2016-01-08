@@ -1,0 +1,76 @@
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">货币管理列表</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="CurrencyView.showCurrency()">详情</a>
+                </span>
+            </header>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="CurrencyInfo">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>币别代码</span></th>
+                                <th><span>币别简称</span></th>
+                                <th><span>币别全称</span></th> 
+                                <th><span>有效状态</span></th>
+                                <th><span>备注信息</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in CurrencyInfo" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="CurrencyView.showCurrency(row)">
+                                <td>{{$index+1}}</td>
+                                <td>
+                                    {{row.currencyCode}}
+                                </td>
+                                <td>
+                                    {{row.currencyName}}
+                                </td>
+                                <td>
+                                    {{row.currencyFullName}}
+                                </td>
+                                <td>
+                                    {{row.validStatus=="Y"?"有效":"无效"}}
+                                </td>
+                                <td>
+                                    {{row.remark}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+    </div>
+    <ng-dialog ng-model="CurrencyView.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                币别代码： {{CurrencyView.Info.currencyCode}}
+            </div>
+            <div class="col-lg-5">
+                币别简称： {{CurrencyView.Info.currencyName}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                币别全称： {{CurrencyView.Info.currencyFullName}}
+            </div>
+            <div class="col-lg-5">
+                有效状态： {{CurrencyView.Info.validStatus=="Y"?"有效":"无效"}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+               备注信息： {{CurrencyView.Info.remark}}
+            </div>
+        </div>
+    </ng-dialog>
+</div>

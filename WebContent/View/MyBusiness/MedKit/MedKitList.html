@@ -1,0 +1,49 @@
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">套件列表</h2>
+                <span style="float:right;">
+                </span>
+            </header>
+            <div class="main-box-body">
+                <div class="table-responsive list-box">
+                    <table class="table table-bordered table-striped" st-table="RoleInfo">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>产品编码</span></th>
+                                <th><span>产品名称</span></th>
+                                <th><span>物料类型</span></th>
+                                <th><span>产品规格</span></th>
+                                <th><span>产品线编码</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in Material.MaterialList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                                <td>{{$index+1}}</td>
+                                <td>
+                                    {{row.medMIInternalNo}}
+                                </td>
+                                <td>
+                                    {{row.medMIName}}
+                                </td>
+                                <td>
+                                    {{row.categoryByPlatform}}
+                                </td>
+                                <td>
+                                    {{row.specification}}
+                                </td>
+                                <td>
+                                    {{row.medProdLnCode}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+    </div>
+</div>

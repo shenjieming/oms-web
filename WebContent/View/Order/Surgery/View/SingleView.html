@@ -1,0 +1,116 @@
+﻿<div class="row-fluid">
+    <div class="widget-box">
+        <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
+            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+            <h5>基础信息[货主：{{PageData.sOOIOrgCodeName}}]</h5>
+        </div>
+        <div class="widget-content nopadding collapse in" id="BaseInformation">
+            <div class="control-group ">
+                <label>
+                    收 货 人：{{PageData.deliveryContact}}
+                </label>
+                <label>
+                    联系电话：{{PageData.deliveryrMobile}}
+                </label>
+                <label>
+                    配送方式：{{PageData.iniitCarrierTransTypeName}}
+                </label>
+            </div>
+            <div class="control-group ">
+                <label style="width:100%">
+                    收货地址：
+                    {{PageData.deliveryProvinceName}}  {{PageData.deliveryCityName}}  {{PageData.deliveryDistrictName}} {{PageData.deliveryAddress}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="widget-box">
+        <div class="widget-title bg_ly" data-toggle="collapse" href="#SurgeryInformation">
+            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+            <h5>手术信息</h5>
+        </div>
+        <div id="SurgeryInformation" class="widget-content nopadding collapse in">
+            <div class="control-group ">
+                <label>
+                    医院名称：{{PageData.initHPCodeName}}
+                </label>
+                <label>
+                    科室名称：{{PageData.initWardDeptCodeName}}
+                </label>
+                <label>
+                    医生名称：{{PageData.initDTCodeName}}<span style="color:green">[{{PageData.initIsLocalName}}]</span>
+                </label>
+            </div>
+            <div class="control-group">
+                <label style="width:100%;">
+                    医院要求：{{PageData.initHPPreferenceDesc}}
+                </label>
+            </div>
+            <div class="control-group">
+                <label style="width:100%;">
+                    医生要求：{{PageData.initDTOperationPreferenceDesc}}
+                </label>
+            </div>
+            <div class="control-group">
+                <label>
+                    手术时间：{{PageData.initOperationDate}}
+                </label>
+                <label style="width:60%">
+                    诊断信息：{{PageData.initDiseaseInfo}}
+                </label>
+            </div>
+            <div class="control-group ">
+                <label style="width:100%;">
+                    患者描述:{{PageData.initPatientInfo }}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="widget-box">
+        <div class="widget-title bg_ly" data-toggle="collapse" href="#ProductInformation">
+            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+            <h5>产品信息</h5>
+        </div>
+        <div id="ProductInformation" class="widget-content nopadding collapse in">
+            <div class="control-group">
+                <div class="col-lg-2">
+                    <div class="control-group">
+                        <div ng-tree="" ng-setting="ProductlineConfig.tree.setting" ng-data="ProductlineConfig.tree.data" ng-model="ProductlineConfig.tree.obj"></div>
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="control-group">
+                        <label> 品牌名称：{{ProductlineConfig.useLine.medBrandCodeName}}</label>
+                        <label>产品线名称：{{ProductlineConfig.useLine.medProdLnCodeName}}</label>
+                        <label>
+                            <span style="float:left">工具情况：</span>
+                            <span ng-show="ProductlineConfig.useLine.isChecked">需要</span>
+                            <span ng-show="!ProductlineConfig.useLine.isChecked">不需要</span>
+                        </label>
+                    </div>
+                    <div class="control-group">
+                        <label style="width:90%">
+                            备注信息：{{ProductlineConfig.useLine.remark}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="widget-box">
+        <div class="widget-title bg_ly" data-toggle="collapse" href="#AdditionalInformation">
+            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+            <h5>图片信息</h5>
+        </div>
+        <div id="AdditionalInformation" class="widget-content nopadding collapse in">
+            <div class="control-group ">
+                <div ng-img="img" ng-model="PageData.initFile.images"></div>
+            </div>
+            <div class="control-group">
+                <label style="width:100%">
+                    图片说明：{{PageData.initFile.remark}}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

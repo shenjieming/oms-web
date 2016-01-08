@@ -1,0 +1,78 @@
+﻿<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">菜单列表</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="MenuView.showMenuView()">详情</a>
+                </span>
+            </header>
+            <div class="col-lg-3" style=" height:auto; max-height: 480px; overflow-y: auto; ">
+                <div ng-tree="" ng-setting="tree.setting" ng-data="tree.data" ng-model="tree.obj"></div>
+            </div>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="MenuInfo">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>应用名称</span></th>
+                                <th><span>功能层级</span></th>
+                                <th><span>功能名称</span></th>
+                                <th><span>状态</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in MenuInfo" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="MenuView.showMenuView(row)">
+                                <td>{{$index+1}}</td>
+                                <td>
+                                    {{row.appCodeName}}
+                                </td>
+                                <td>
+                                    {{row.functionLevel}}
+                                </td>
+                                <td>
+                                    {{row.functionName}}
+                                </td>
+                                <td>
+                                    {{row.validStatusName}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+    </div>
+
+    <ng-dialog ng-model="MenuView.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                功能简称：  {{MenuView.Info.functionName}}
+            </div>
+            <div class="col-lg-5">
+                功能全称：  {{MenuView.Info.functionFullName}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                功能描述： {{MenuView.Info.functionDesc}}
+            </div>
+            <div class="col-lg-5">
+                功能链接： {{MenuView.Info.functionLink}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                链接类型： {{MenuView.Info.functionLinkType}}
+            </div>
+            <div class="col-lg-5">
+                类型名称： {{MenuView.Info.functionLinkTypeName}}
+            </div>
+        </div>
+    </ng-dialog>
+</div>

@@ -1,0 +1,347 @@
+﻿
+
+input, select, textarea {
+    border: solid 1px #ccc;
+    padding: 5px;
+    border-radius: 4px;
+}
+/*行上边距8像素*/
+.row-mt-8 {
+    margin-top: 8px;
+}
+
+
+.table {
+    margin-bottom: 0px;
+}
+
+/*列表区域*/
+.list-box {
+    min-height: 420px;
+}
+
+.table tbody tr {
+    cursor: pointer;
+}
+
+.table-striped > tbody > tr:hover {
+    background: #1a1d22;
+    color: #fff;
+}
+
+.st-selected td {
+    background: #2c3e50 !important;
+    color: #fff;
+}
+
+.red {
+    color: red !important;
+}
+
+.green {
+    color: #00CC00 !important;
+}
+
+.red, .green {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.tab-striped>tbody>tr:nth-child(odd)>td,
+.tab-striped>tbody>tr:nth-child(odd)>th {
+    background-color: #f9f9f9
+}
+.tab-striped>tbody>tr:nth-child(odd)>td,
+.tab-striped>tbody>tr:nth-child(odd)>th {
+    background-color: #fdfdfe
+}
+.tab-striped>thead>th {
+    background-color: #fdfdfe;
+    border-right: 1px solid #eeeff1
+}
+.tab-striped>thead>th:last-child {
+    border-right: 0
+}
+
+/*控件样式开始*/
+
+/*按钮样式开始*/
+.tools {
+    padding: 5px;
+    background: #fff;
+    line-height: 37px;
+    display: list-item;
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.nav-tabs {
+    background-color: #fff;
+}
+    .nav-tabs > li.active {
+    }
+        .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+            background-color: #34495e;
+            color: #fff;
+            border-bottom: 3px solid #3598dd;
+        }
+
+/*按钮样式结束*/
+
+/*多选控件组*/
+.chkbox {
+    display: none;
+}
+
+    .chkbox + label {
+        background-color: #fafbfa;
+        padding: 9px;
+        border-radius: 50px;
+        display: inline-block;
+        position: relative;
+        margin-right: 8px;
+        -webkit-transition: all 0.1s ease-in;
+        transition: all 0.1s ease-in;
+        width: 50px;
+        height: 26px;
+        margin-bottom: 0px;
+        margin-top: -2px;
+    }
+
+        .chkbox + label:after {
+            content: ' ';
+            position: absolute;
+            top: 0;
+            -webkit-transition: box-shadow 0.1s ease-in;
+            transition: box-shadow 0.1s ease-in;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 100px;
+            box-shadow: inset 0 0 0 0 #eee, 0 0 1px rgba(0,0,0,0.4);
+        }
+
+
+
+        .chkbox + label:before {
+            content: ' ';
+            position: absolute;
+            background: white;
+            top: 1px;
+            left: 0px;
+            z-index: 100;
+            width: 25px;
+            -webkit-transition: all 0.1s ease-in;
+            transition: all 0.1s ease-in;
+            height: 25px;
+            border-radius: 100px;
+            box-shadow: 0 3px 1px rgba(0,0,0,0.05), 0 0px 1px rgba(0,0,0,0.3);
+        }
+
+    .chkbox:active + label:after {
+        box-shadow: inset 0 0 0 20px #eee, 0 0 1px #eee;
+    }
+
+    .chkbox:active + label:before {
+        width: 37px;
+    }
+
+    .chkbox:checked:active + label:before {
+        width: 37px;
+        left: 20px;
+    }
+
+    .chkbox + label:active {
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .chkbox:checked + label:before {
+        content: ' ';
+        position: absolute;
+        left: 26px;
+        border-radius: 100px;
+    }
+
+    .chkbox:checked + label:after {
+        content: ' ';
+        font-size: 1.5em;
+        position: absolute;
+        background: #4cda60;
+        box-shadow: 0 0 1px #4cda60;
+    }
+/*提示样式结束*/
+
+/*提示样式开始*/
+
+/*必输样式*/
+.required {
+    color: red;
+    position: absolute;
+    margin-top: 5px;
+    margin-left: -10px;
+    font-size: 14px;
+}
+/*提示样式结束*/
+
+
+
+/*区域布局开始*/
+.row-fluid {
+    clear: both;
+    margin-bottom: 0px;
+    position: relative;
+}
+
+    .row-fluid .widget-box {
+        border-radius: 4px;
+        margin-top: 8px;
+        background-color: #fff;
+    }
+
+        .row-fluid .widget-box .widget-title {
+            background-color: #34495e;
+            border-bottom: 1px solid #CDCDCD;
+            height: 36px;
+            color: #fff;
+            border-radius: 4px 4px 0px 0px;
+        }
+
+            .row-fluid .widget-box .widget-title span.icon {
+                padding: 9px 10px 7px 11px;
+                float: left;
+                border-right: 1px solid #dadada;
+            }
+
+                .row-fluid .widget-box .widget-title span.icon .icon-chevron-down:before {
+                    content: "\f078";
+                }
+
+            .row-fluid .widget-box .widget-title h5 {
+                color: #fff;
+                float: left;
+                font-size: 12px;
+                font-weight: bold;
+                padding: 12px;
+                line-height: 12px;
+                margin: 0;
+                width: 90%;
+            }
+
+            .row-fluid .widget-box .widget-title .btn {
+                color: #fff;
+                float: right;
+            }
+
+                .row-fluid .widget-box .widget-title .btn:hover {
+                    background: #121418;
+                }
+
+        .row-fluid .widget-box .nopadding {
+            padding: 0 !important;
+        }
+
+        .row-fluid .widget-box .widget-content {
+            border-bottom: 1px solid #cdcdcd;
+            border-radius: 4px;
+        }
+
+            .row-fluid .widget-box .widget-content .control-group {
+                border-top: 1px solid #ffffff;
+                border-bottom: 1px solid #eeeeee;
+                margin-bottom: 0;
+                display: flex;
+            }
+
+                .row-fluid .widget-box .widget-content .control-group > label {
+                    text-align: left;
+                    padding-left: 8%;
+                    width: 30%;
+                    padding-top: 8px;
+                    float: left;
+                }
+.inp-chk {
+    line-height:20px;
+}
+    .inp-chk input {
+        float: left;
+    }
+
+/*区域布局结束*/
+
+/*我的信息开始*/
+.my_Role {
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 5px 12px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #31b0d5;
+    border-color: #269abc;
+}
+
+.my_Operat a {
+    width: 30%;
+    zoom: 1;
+    padding: 5px 0;
+    display: block;
+    color: #fff;
+    text-align: center;
+    background: #34495e;
+    text-decoration: none;
+}
+
+    .my_Operat a:hover {
+        background: #121418;
+    }
+
+.control-group {
+    padding: 5px;
+}
+
+    .control-group .table tbody > tr > td {
+        padding: 3px 8px;
+    }
+/*我的信息结束*/
+
+
+/*按钮调整开始*/
+.ui-widget-content a.btn {
+    color: #fff;
+}
+.btn-primary {
+    background-color: #3598dc;
+    border: 1px solid #3598dd;
+}
+
+.btn-warning {
+    background-image: linear-gradient(to bottom, #FF9933 0,#FF9933 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    background-repeat: repeat-x;
+    border-color: #e38d13;
+}
+
+    .btn-warning:hover {
+        background-image: linear-gradient(to bottom,#FFCC00 0,#FFCC33 100%);
+        border: 1px solid #FFFF66;
+    }
+/*按钮调整结束*/
+
+
+/*区间宽度开始*/
+.box-50 {
+    width: 50%;
+}
+
+.box-80 {
+    width: 80%;
+}
+
+.box-100 {
+    width: 100%;
+}
+/*区间宽度结束*/
+
