@@ -7,7 +7,6 @@
                 <span style="float:right;">
                     <a class="btn btn-primary" ng-click="UserDetail.Add()">新增</a>
                     <a class="btn btn-primary" ng-click="UserDetail.Edit()">编辑</a>
-                    <a class="btn btn-primary">删除</a>
                     <a class="btn btn-primary" ng-click="ViewDetail.View()">详情</a>
                 </span>
             </header>
@@ -27,7 +26,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in UserInfo.UserList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                            <tr ng-repeat="row in UserInfo.UserList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" >
                                 <td>{{$index+1}}</td>
                                 <td><span>{{row.loginName}}</span></td>
                                 <td><span>{{row.userName}}</span></td>

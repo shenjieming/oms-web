@@ -17,11 +17,11 @@ app.controller("UserListController", function ($scope, $state, $local, $Api, $Me
         },
         Edit: function () {
             /// <summary>编辑用户</summary
-            var obj = [];   // 选中用户信息
+            var accId = [];   // 选中用户信息
             if (!$scope.getSelectedRow()) {
                 $MessagService.caveat("请选择一条数据");
             } else {
-                $state.go("app.comp.user.detail", { obj:$scope.getSelectedRow() });
+                $state.go("app.comp.user.detail", { accId: $scope.getSelectedRow() });
             }           
         },
     };
@@ -38,12 +38,10 @@ app.controller("UserListController", function ($scope, $state, $local, $Api, $Me
     }
     $scope.ViewDetail = {
         /// <summary>用户视图操作</summary>
-        View: function () {
+        View: function (row) {
             /// <summary>查看用户详情</summary 
-            var obj = $scope.getSelectedRow();   // 选中用户信息   
-            $state.go("app.comp.user.view", { obj: $scope.getSelectedRow() });
-            console.log(obj)
-            
+            var accId = $scope.getSelectedRow();   // 选中用户信息   
+            $state.go("app.comp.user.view", { accId: accId });           
             }   
     }
     $scope.UserInfo = {

@@ -12,11 +12,13 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
         /// <summary>页面信息</summary>
         Load: function (callback) {
             /// <summary>初始化</summary> 
-            $scope.obj = $stateParams.obj;
-            if ($scope.obj) {               
+            $scope.accId = $stateParams.accId;
+            console.log($scope.accId)
+            if ($scope.accId) {               
                 $scope.PageInfo.GetUserInfo();//用户详细列表
                 $scope.SelectInfo.roleName.getList();//角色列表
-                $scope.PageInfo.GetRoleInfo();
+                $scope.PageInfo.GetRoleInfo();//角色详情
+                $scope.SelectInfo.roleType.getOrgcodeList();//编码类型
             };
             $scope.SelectInfo.orgType.getUserList();//获取当前用户登录信息
             if (!$scope.PageInfo.UserInfo.orgTypeName) {
@@ -24,7 +26,8 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
             };                   
             $scope.SelectInfo.orgType.getList();  //机构类型
             $scope.SelectInfo.userSex.getList();  //用户性别
-            $scope.SelectInfo.userEducation.getList();  //用户学历   
+            $scope.SelectInfo.userEducation.getList();  //用户学历 
+            console.log($scope.PageInfo.UserInfo)
         },
         UserInfo: {
             loginName: "", loginPassword: "", loginMobileNo: "", loginEmail: "",
@@ -37,7 +40,7 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
         verification: function () {
             /// <summary>验证模块</summary>
             var result = true;
-            if (!$scope.PageInfo.UserInfo.loginName || !$scope.PageInfo.UserInfo.wechatID ||
+            if (!$scope.PageInfo.UserInfo.loginName ||
                 !$scope.PageInfo.UserInfo.userName || !$scope.PageInfo.UserInfo.loginPassword ||
                 !$scope.PageInfo.UserInfo.surePassword || !$scope.PageInfo.UserInfo.loginMobileNo ||
                 !$scope.PageInfo.UserInfo.loginEmail || !$scope.PageInfo.UserInfo.userJobDesc
@@ -60,7 +63,7 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
             if ($scope.PageInfo.verification()) {
                 $MessagService.loading("用户信息保存中，请稍等...");
                 $Api.UserService.Save($scope.PageInfo.UserInfo, function (rData) {                   
-                    //self.location = 'index.html#/app/comp/user/list';
+                    self.location = 'index.html#/app/comp/user/list';
                     $MessagService.succ("用户保存成功！");
                 });
             }
@@ -68,17 +71,21 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
         GetUserInfo: function () {
             /// <summary>获取用户信息信息</summary>
             $MessagService.loading("用户信息加载中，请稍等...");
-            $Api.UserService.GetUserInfo({ loginAccountId: $scope.obj }, function (rData) {
+            $Api.UserService.GetUserInfo({ loginAccountId: $scope.accId }, function (rData) {
                 if (!rData.code) {
                     $scope.PageInfo.UserInfo = rData;
                     console.log(rData)
+                    //$scope.PageInfo.UserInfo.roles = [{ roleId:$scope.PageInfo.UserInfo.userId}]
                 }
             })
         },
         GetRoleInfo: function () {
             /// <summary>获取角色列表详情</summary>
             $MessagService.loading("用户信息加载中，请稍等...");
+            console.log($scope.PageInfo.UserInfo)
+            console.log($scope.PageInfo.UserInfo.roles[0].roleId)
             $Api.RoleService.GetRoleDetail({ roleId: $scope.PageInfo.UserInfo.roles[0].roleId }, function (rData) {
+                console.log(rData)
                 if (!rData.code) {
                     $scope.PageInfo.UserInfo.roleName = rData.roleName;
                     console.log(rData)
@@ -94,16 +101,18 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
             dic: new Array(),
             doc: [],     //用户登录机构类型
             result: [],
-            change: function () {
+            change: function (item) {
                 /// <summary>角色类型修改事件</summary>
-                console.log()
                 for (var i = 0; i < $scope.SelectInfo.orgType.result.length; i++) {
                     if ($scope.SelectInfo.orgType.result[i].id == $scope.PageInfo.UserInfo.orgType) {
                         $scope.PageInfo.UserInfo.orgTypeName = $scope.SelectInfo.orgType.result[i].text;
                         $scope.SelectInfo.roleName.getList();
+                        $scope.SelectInfo.roleType.getOrgcodeList()
+                        console.log($scope.PageInfo.UserInfo)
                         return;
                     }
                 }
+          
             },
             getList: function () {
                 /// <summary>获取组织类型</summary>
@@ -118,7 +127,6 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
                             for (var i = 0; i < rData.length; i++) {
                                 if (rData[i].id == $scope.SelectInfo.orgType.doc.orgType) {
                                     $scope.SelectInfo.orgType.result.push(rData[i])
-                                    $scope.PageInfo.UserInfo.orgCode = $scope.SelectInfo.orgType.doc.orgCode;
                                 }
                             }
                             break;
@@ -127,7 +135,6 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
                                 if (rData[i].id == $scope.SelectInfo.orgType.doc.orgType) {
                                     $scope.SelectInfo.orgType.result.push(rData[i])
                                     $scope.SelectInfo.orgType.result.push(rData[i + 1])
-                                    $scope.PageInfo.UserInfo.orgCode = $scope.SelectInfo.orgType.doc.orgCode;
                                 }
                             }
                             break;
@@ -135,7 +142,6 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
                             for (var i = 0; i < rData.length; i++) {
                                 if (rData[i].id == $scope.SelectInfo.orgType.doc.orgType) {
                                     $scope.SelectInfo.orgType.result.push(rData[i])
-                                    $scope.PageInfo.UserInfo.orgCode = $scope.SelectInfo.orgType.doc.orgCode;
                                 }
                             }
                             break;
@@ -145,13 +151,13 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
                                     $scope.SelectInfo.orgType.result.push(rData[0])
                                     $scope.SelectInfo.orgType.result.push(rData[1])
                                     $scope.SelectInfo.orgType.result.push(rData[2])
-                                    $scope.SelectInfo.orgType.result.push(rData[3])
-                                    $scope.SelectInfo.orgType.result.push(rData[4])
-                                    $scope.PageInfo.UserInfo.orgCode = $scope.SelectInfo.orgType.doc.orgCode;
                                 }
                             }
                             break;
                     }
+                    console.log($scope.SelectInfo.orgType.result)
+                    console.log($scope.PageInfo.UserInfo)
+
                 });
             },
             getUserList: function () {
@@ -161,59 +167,93 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
                         //console.log(rData)
                     }
                 })
+            },          
+        },
+        roleType:{
+            dic:[type=[]],
+            result: [],
+            change: function (item) { 
+                for (var i = 0; i < $scope.SelectInfo.roleType.result.length; i++) {
+                    if ($scope.SelectInfo.roleType.result[i].id == $scope.PageInfo.UserInfo.roleType) {
+                        $scope.PageInfo.UserInfo.roleTypeName = $scope.SelectInfo.roleType.result[i].text
+                        $scope.PageInfo.UserInfo.orgCode = $scope.SelectInfo.roleType.result[i].id                  
+                    }
+                }
+                console.log($scope.PageInfo.UserInfo)
             },
+            getOrgcodeList: function () {
+                $Api.UserService.OrgCodeList({}, function (rData) {
+                    if (!rData.code) {
+                        $scope.SelectInfo.roleType.dic = rData;
+                        console.log(rData)
+                        $scope.SelectInfo.roleType.result = new Array();
+                        for (var i = 0; i < $scope.SelectInfo.roleType.dic.length; i++) {
+                            $scope.SelectInfo.roleType.dic[i].type = ($scope.SelectInfo.roleType.dic[i].id.slice(0, 2));
+                            if ($scope.SelectInfo.roleType.dic[i].type == $scope.PageInfo.UserInfo.orgType) {
+                                $scope.SelectInfo.roleType.result.push($scope.SelectInfo.roleType.dic[i])
+                            }
+                        }
+                        console.log($scope.PageInfo.UserInfo.orgType)
+                        console.log($scope.SelectInfo.roleType.result)
+                    }
+                })
+            }
         },
         roleName: {
             //用户角色名称下拉框
             dic: new Array(),
-            change: function () {
+            change: function (item) {
                 /// <summary>角色类型修改事件</summary>
                 for (var i = 0; i < $scope.SelectInfo.roleName.dic.length; i++) {
                     if ($scope.SelectInfo.roleName.dic[i].roleName == $scope.PageInfo.UserInfo.roleName) {
                         $scope.PageInfo.UserInfo.roleName = $scope.SelectInfo.roleName.dic[i].roleName;
-                        $scope.PageInfo.UserInfo.roles = [{roleId: $scope.SelectInfo.roleName.dic[i].roleId}];
+                        $scope.PageInfo.UserInfo.roles = [{ roleId: $scope.SelectInfo.roleName.dic[i].roleId }];
+                        console.log($scope.PageInfo.UserInfo)                      
                         return;
                     }
                 }
             },
             getList: function () {
                 /// <summary>获取用户角色信息</summary>
+                console.log($scope.PageInfo.UserInfo.orgType)
+                console.log($scope.PageInfo.UserInfo)
                 $Api.RoleService.GetRoleList({ orgType: $scope.PageInfo.UserInfo.orgType, validStatus: "Y" }, function (rData) {
                     $scope.SelectInfo.roleName.dic = rData.rows;
-                    console.log(rData.rows)
+                    console.log(rData.rows)                   
                 });
             },
         },
         userSex: {
             //用户性别下拉框
             dic: new Array(),
-            change: function () {
+            change: function (item) {
                 /// <summary>性别修改事件</summary>
+                console.log($scope.PageInfo.UserInfo.userSex)
                 console.log($scope.PageInfo.UserInfo.userSexName)
                 for (var i = 0; i < $scope.SelectInfo.userSex.dic.length; i++) {
-                    if ($scope.SelectInfo.userSex.dic[i].text == $scope.PageInfo.UserInfo.userSexName) {
-                        $scope.PageInfo.UserInfo.userSex = $scope.SelectInfo.userSex.dic[i].id;
-                        console.log($scope.PageInfo.UserInfo.userSex)
+                    if ($scope.SelectInfo.userSex.dic[i].id == $scope.PageInfo.UserInfo.userSex) {
+                        $scope.PageInfo.UserInfo.userSexName = $scope.SelectInfo.userSex.dic[i].text;
                         return;
                     }
                 }
             },
             getList: function () {
                 /// <summary>获取性别信息</summary>
-                $Api.Public.GetDictionary({ dictType:"PRNSEX" }, function (rData) {
-                    $scope.SelectInfo.userSex.dic = rData;
-                });
+                    $Api.Public.GetDictionary({ dictType: "PRNSEX" }, function (rData) {
+                        $scope.SelectInfo.userSex.dic = rData;
+                    });   
             }
         },
         userEducation: {
             //用户学历下拉框
             dic: new Array(),
-            change: function () {
+            change: function (item) {
                 /// <summary>学历修改事件</summary>
+                console.log($scope.PageInfo.UserInfo.userEducation)
                 for (var i = 0; i < $scope.SelectInfo.userEducation.dic.length; i++) {
                     if ($scope.SelectInfo.userEducation.dic[i].id == $scope.PageInfo.UserInfo.userEducation) {
                         $scope.PageInfo.UserInfo.userEducationName = $scope.SelectInfo.userEducation.dic[i].text;   
-                        //console.log($scope.PageInfo.UserInfo.userEducationName)
+                        console.log($scope.PageInfo.UserInfo.userEducationName)
                         return;
                     }
                 }

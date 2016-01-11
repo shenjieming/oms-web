@@ -12,17 +12,28 @@ app.controller("UserViewController", function ($scope, $state, $local, $Api, $Me
     $scope.UserDetail = {
         UserInfo:[],
         Load: function (callback) {
-            $scope.obj = $stateParams.obj;
+            $scope.accId = $stateParams.accId;
             $scope.UserDetail.getUserDetail();
+            $scope.UserDetail.GetRoleInfo()
         },
         getUserDetail: function () {
             /// <summary>获取用户列表详情</summary>
             $MessagService.loading("用户信息加载中，请稍等...");
-            $Api.UserService.GetUserInfo({ loginAccountId: $scope.obj }, function (rData) {
+            $Api.UserService.GetUserInfo({ loginAccountId: $scope.accId }, function (rData) {
                 $scope.UserDetail.UserInfo = rData;
                 console.log(rData)
             })
         },
+        GetRoleInfo: function () {
+            /// <summary>获取角色列表详情</summary>
+            $MessagService.loading("用户信息加载中，请稍等...");
+            $Api.RoleService.GetRoleDetail({ roleId: $scope.UserDetail.UserInfo.roles[0].roleId }, function (rData) {
+                if (!rData.code) {
+                    $scope.UserDetail.UserInfo.roleName = rData.roleName;
+                    //console.log(rData)
+                }
+            })
+        }
     }
     $scope.UserDetail.Load();
 })

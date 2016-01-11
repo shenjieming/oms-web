@@ -71,7 +71,7 @@
             <div class="col-lg-1"></div>
             <div class="col-lg-10">
                 <span style="float:left;"> 群组备注：</span>
-                <textarea style="width:85%;height:60px;" ng-model="RoleDetail.roleInfo.relationDesc" placeholder="请输入角色描述"></textarea>
+                <textarea style="width:85%;height:60px;" ng-model="GroupInfo.GroupList.remark" placeholder="请输入角色描述"></textarea>
             </div>
         </div>
         <div class="main-box-body clearfix">
@@ -95,8 +95,8 @@
                                 {{row.teamName}}
                             </td>
                             <td>
-                                <span style="float:left" ng-click="select.change()">新增</span>
-                                <span style="float:right">删除</span>
+                                <span style="float:left" ng-click="select.addNameList()">新增</span>
+                                <span style="float:right" ng-click="select.deletNameList()">删除</span>
                             </td>
                         </tr>
                     </tbody>

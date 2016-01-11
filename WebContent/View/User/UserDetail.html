@@ -2,8 +2,8 @@
     <div class="tools">
         <h5 style="float:left;">用户信息</h5>
         <span style="float:right;">
-            <a class="btn btn-primary" ng-click="RoleDetail.showRole({})">保存</a>
-            <a class="btn btn-primary" ng-click="goView('app.user.list')">返回</a>
+            <a class="btn btn-primary" ng-click="PageInfo.saveUesr()">保存</a>
+            <a class="btn btn-primary" ng-click="goView('app.comp.user.list')">返回</a>
         </span>
     </div>
     <div class="row-fluid">
@@ -15,31 +15,31 @@
             <div class="widget-content nopadding collapse in" id="BaseInformation">
                 <div class="control-group ">
                     <label>
-                        <span class="required">*</span> 账户名称：<input type="text" placeholder="请输入账户名称" />
+                        <span class="required">*</span> 账户名称：<input type="text" ng-model="PageInfo.UserInfo.loginName" placeholder="请输入账户名称" />
                     </label>
                     <label>
-                        <span class="required">*</span> 微信账户：<input type="text" placeholder="请输入微信账户" />
+                        <span class="required">*</span>手机号码：<input type="text" ng-model="PageInfo.UserInfo.loginMobileNo" placeholder="请输入手机号码" />
                     </label>
                     <label>
-                        <span class="required">*</span>用户姓名：<input type="text" placeholder="请输入用户名" />
-                        <label style=" display:none; width: 100px; height: 120px; position: fixed; margin-left: 30px; background-color:#ccc;text-align:center"><img style="width: 100px;" alt="" src="Content/style/img/samples/scarlet-159.png" /></label>
+                        <span class="required">*</span>用户姓名：<input type="text" ng-model="PageInfo.UserInfo.userName" placeholder="请输入用户姓名" />
                     </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                        <span class="required">*</span> 账户密码：<input type="text" placeholder="请输入账户密码" />
+                        <span class="required">*</span> 账户密码：<input type="password" ng-model="PageInfo.UserInfo.loginPassword" placeholder="请输入账户密码" />
                     </label>
                     <label>
-                        <span class="required">*</span> 确认密码：<input type="text" placeholder="请输入账户密码" />
+                        <span class="required">*</span> 确认密码：<input type="password" ng-model="PageInfo.UserInfo.surePassword" placeholder="请输入账户密码" />
                     </label>
                     <label>
-                        <span class="required">*</span>手机号码：<input type="tel" placeholder="请输入用户名" />
+                        <span class="required"></span> 微信账户：<input type="text" ng-model="PageInfo.UserInfo.WechatId" placeholder="请输入微信账户" />
                     </label>
+
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
                         <span style="float:left">  账户备注：</span>
-                        <textarea class="box-80" placeholder="请输入该账户的备注信息"></textarea>
+                        <textarea class="box-80" ng-model="PageInfo.UserInfo.userRemark" placeholder="请输入该账户的备注信息"></textarea>
                     </label>
                 </div>
             </div>
@@ -52,23 +52,32 @@
             <div id="CompetenceInformation" class="widget-content nopadding collapse in">
                 <div class="control-group ">
                     <label>
-                        机构类型：
-                        <select ng-model="PageInfo.UserInfo.orgType" ng-change="SelectInfo.orgType.change()">
+                        <span class="required">*</span>机构类型：
+                        <select ng-model="PageInfo.UserInfo.orgType" ng-change="SelectInfo.orgType.change(item)">
                             <option value="">请选择机构类型</option>
-                            <option ng-repeat="item in SelectInfo.orgType.dic" value="{{item.id}}">{{item.text}}</option>
+                            <option ng-repeat="item in SelectInfo.orgType.result" ng-selected="item.id==PageInfo.UserInfo.orgType" value="{{item.id}}">{{item.id}}-{{item.text}}</option>
                         </select>
                     </label>
                     <label>
-                        类型名称：<span>{{PageInfo.UserInfo.orgCode}}</span>
+                        类型名称：<span>{{PageInfo.UserInfo.orgTypeName}}</span>
                     </label>
                 </div>
                 <div class="control-group ">
-                    <label style="width:100%;">
-                        用户角色：
-                        <select>
-                            <option>请选择用户角色</option>
+                    <label>
+                        <span class="required">*</span>机构名称：
+                        <select ng-model="PageInfo.UserInfo.roleType" ng-change="SelectInfo.roleType.change(item)">
+                            <option value="">请选择机构名称</option>
+                            <option ng-repeat="item in SelectInfo.roleType.result" ng-selected="item.id==PageInfo.UserInfo.orgCode" value="{{item.id}}">{{item.text}}</option>
                         </select>
                     </label>
+                    <label >
+                        <span class="required">*</span>用户角色：
+                        <select ng-model="PageInfo.UserInfo.roleName" ng-change="SelectInfo.roleName.change(item)">
+                            <option value="">请选择用户角色</option>
+                            <option ng-repeat="item in SelectInfo.roleName.dic" ng-selected="item.roleName==PageInfo.UserInfo.roleName" value="{{item.roleName}}">{{item.roleName}}</option>
+                        </select>
+                    </label>
+
                 </div>
             </div>
         </div>
@@ -80,30 +89,38 @@
             <div id="NewsletterInformation" class="widget-content nopadding collapse in">
                 <div class="control-group ">
                     <label>
-                        用户性别：<select></select>
+                        用户性别：
+                        <select ng-model="PageInfo.UserInfo.userSex" ng-change="SelectInfo.userSex.change(item)">
+                            <option value="">请选择用户性别</option>
+                            <option ng-repeat="item in SelectInfo.userSex.dic" ng-selected="item.id==PageInfo.UserInfo.userSex" value="{{item.id}}">{{item.text}}</option>
+                        </select>
                     </label>
                     <label>
-                        用户学历：<select></select>
+                        用户学历：
+                        <select ng-model="PageInfo.UserInfo.userEducation" ng-change="SelectInfo.userEducation.change(item)">
+                            <option value="">请选择用户学历</option>
+                            <option ng-repeat="item in SelectInfo.userEducation.dic" ng-selected="item.text==PageInfo.UserInfo.userEducationName" value="{{item.id}}">{{item.text}}</option>
+                        </select>
                     </label>
                     <label>
-                        邮箱地址：<input type="tel" placeholder="请输入邮箱地址" />
+                        <span class="required">*</span>邮箱地址：<input type="tel" ng-model="PageInfo.UserInfo.loginEmail" placeholder="请输入邮箱地址" />
                     </label>
                 </div>
                 <div class="control-group ">
                     <label style="width:66%">
-                        身 份 证：<input type="text" class="box-80" placeholder="请输入用户身份证信息" />
+                        身 份 证：<input type="text" class="box-80" ng-model="PageInfo.UserInfo.userIDCard" placeholder="请输入用户身份证信息" />
                     </label>
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        <span style="float:left">  职位描述：</span>
-                        <textarea class="box-80" placeholder="请输入职位描述"></textarea>
+                        <span style="float:left;margin-left:-9px;color:red">*</span>  <span style="float:left">职位描述：</span>
+                        <textarea class="box-80" ng-model="PageInfo.UserInfo.userJobDesc" placeholder="请输入职位描述"></textarea>
                     </label>
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        <span style="float:left">  描述信息：</span>
-                        <textarea class="box-80" placeholder="请输入描述信息"></textarea>
+                       <span style="float:left">描述信息：</span>
+                        <textarea class="box-80" ng-model="PageInfo.UserInfo.userDescription" placeholder="请输入描述信息"></textarea>
                     </label>
                 </div>
 
@@ -112,8 +129,8 @@
     </div>
     <div class="tools">
         <span style="float:right;">
-            <a class="btn btn-primary" ng-click="RoleDetail.showRole({})">保存</a>
-            <a class="btn btn-primary" ng-click="goView('app.user.list')">返回</a>
+            <a class="btn btn-primary" ng-click="PageInfo.saveUesr()">保存</a>
+            <a class="btn btn-primary" ng-click="goView('app.comp.user.list')">返回</a>
         </span>
     </div>
 </div>
