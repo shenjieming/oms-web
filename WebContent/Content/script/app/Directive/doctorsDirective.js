@@ -22,8 +22,10 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                     "确定": function () {
                         var doctData = $local.getSelectedRow($scope.Service.DoctorsList);
                         if (doctData) {
-                            $scope.ngOperat.fixed(doctData);
-                        }  else {
+                            $scope.$apply(function () {
+                                $scope.ngOperat.fixed(doctData);
+                            });
+                        } else {
                             $MessagService.caveat("请选择一条医生信息！");
                         }
                     },

@@ -6,7 +6,7 @@
 /// <reference path="../lib/angular-1.2.20/angular-loader.js" />
 /// <reference path="../lib/Jquery/jquery-1.11.1.min.js" />
 var app = angular.module('omsApp', ["ngRoute", "ui.router", "ngRequire", "ui.bootstrap", "smart-table", "jnDo"]);
-var Timestamp = "1.0";
+var Timestamp = new Date().getTime();
 app.run(function ($rootScope, $state, $local, $Api, $MessagService) {
     /// <summary>系统启动事件</summary>
     $rootScope.BASE_URL = ApiPath.Path;
@@ -62,29 +62,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
              url: "/order",
              template: "<div ui-view></div>",
              controller: "SurgeryController",
-             abstract: true,
-             loadJs: [
-                "Content/script/app/Order/Surgery/JS_Surgery.js",
-                "Content/script/app/Directive/productViewDirective.js",
-                "Content/script/app/Directive/dictionaryDirective.js",
-                "Content/script/app/Directive/areaDirective.js",
-                "Content/script/app/Directive/cargoOwnerDirective.js",
-                "Content/script/app/Directive/doctorsDirective.js",
-                "Content/script/app/Directive/productLineDirective.js",
-                "Content/script/app/Directive/addressDirective.js",
-                "Content/script/app/Directive/orderOperatDriective.js",
-                "Content/script/app/Directive/medKitsDirective.js",
-                "Content/script/app/Directive/materialsDriective.js",
-                "Content/script/app/Order/Surgery/JS_View.js",
-                "Content/script/app/Order/Surgery/View/JS_Original.js",
-                "Content/script/app/Order/Surgery/View/JS_Accurate.js",
-                "Content/script/app/Order/Surgery/View/JS_Library.js",
-                "Content/script/app/Order/Surgery/JS_Additional.js",
-                "Content/script/app/Order/Surgery/JS_Dealwith.js",
-                "Content/script/app/Order/Surgery/JS_AddEvent.js",
-                "Content/script/app/Order/Surgery/JS_Feedback.js"
-             ],
-             resolve: app.resolve
+             abstract: true
          })
         .state("app.stock", {
             /// <summary>备货订单管理</summary>
@@ -361,11 +339,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
            /// <summary>手术下单</summary>
            url: "/single/:sono",
            templateUrl: "View/Order/Surgery/Single.html?data=" + Timestamp,
-           controller: "SingleController",
-           loadJs: [
-               "Content/script/app/Order/Surgery/JS_Single.js"
-           ],
-           resolve: app.resolve
+           controller: "SingleController"
        })
         .state("app.order.view", {
             /// <summary>手术订单视图</summary>
@@ -387,6 +361,10 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
                     templateUrl: "View/Order/Surgery/View/LibraryView.html?data=" + Timestamp,
                     controller: "LibraryController",
                 },
+                "Feedback@app.order.view": {
+                    templateUrl: "View/Order/Surgery/View/FeedbackView.html?data=" + Timestamp,
+                    controller: "FeedbackViewController",
+                },
                 "Event@app.order.view": {
                     templateUrl: "View/Order/Surgery/View/EventView.html?data=" + Timestamp
                 }
@@ -407,7 +385,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
                     templateUrl: "View/Order/Surgery/View/SingleView.html?data=" + Timestamp,
                     controller: "OriginalController"
                 }
-            }, 
+            },
             authenticate: true,
             viewAuth: true
         })

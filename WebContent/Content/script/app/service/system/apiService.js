@@ -24,6 +24,9 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 else if (data.code == "4001") {
                     $MessagService.eorr("用户信息失效，请重新登录！");
                 }
+                else if(data.code=="1"){
+                    $MessagService.eorr(data.msg);
+                }
                 else {
                     $MessagService.eorr("网络异常，请联系管理员！");
                 }

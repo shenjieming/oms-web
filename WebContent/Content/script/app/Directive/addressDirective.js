@@ -22,7 +22,9 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                     "确定": function () {
                         var dataRow = $local.getSelectedRow($scope.Service.AddressList);
                         if (dataRow) {
-                            $scope.ngOperat.fixed(dataRow);
+                            $scope.$apply(function () {
+                                $scope.ngOperat.fixed(dataRow);
+                            });
                         } else {
                             $MessagService.caveat("请选择一条常用地址信息！");
                         }
