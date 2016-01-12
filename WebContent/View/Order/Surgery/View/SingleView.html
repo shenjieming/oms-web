@@ -72,29 +72,7 @@
             <h5>产品信息</h5>
         </div>
         <div id="ProductInformation" class="widget-content nopadding collapse in">
-            <div class="control-group">
-                <div class="col-lg-2">
-                    <div class="control-group">
-                        <div ng-tree="" ng-setting="ProductlineConfig.tree.setting" ng-data="ProductlineConfig.tree.data" ng-model="ProductlineConfig.tree.obj"></div>
-                    </div>
-                </div>
-                <div class="col-lg-10">
-                    <div class="control-group">
-                        <label> 品牌名称：{{ProductlineConfig.useLine.medBrandCodeName}}</label>
-                        <label>产品线名称：{{ProductlineConfig.useLine.medProdLnCodeName}}</label>
-                        <label>
-                            <span style="float:left">工具情况：</span>
-                            <span ng-show="ProductlineConfig.useLine.isChecked">需要</span>
-                            <span ng-show="!ProductlineConfig.useLine.isChecked">不需要</span>
-                        </label>
-                    </div>
-                    <div class="control-group">
-                        <label style="width:90%">
-                            备注信息：{{ProductlineConfig.useLine.remark}}
-                        </label>
-                    </div>
-                </div>
-            </div>
+            <div ng-product-view="singleProductView" ng-model="singleProduc" ng-service="singleProduc.Service" ng-comp="singleProduc.Competence"></div>
         </div>
     </div>
     <div class="widget-box">
@@ -104,7 +82,7 @@
         </div>
         <div id="AdditionalInformation" class="widget-content nopadding collapse in">
             <div class="control-group ">
-                <div ng-img="img" ng-model="PageData.initFile.images"></div>
+                <div ng-img-list="img" ng-model="PageData.initFile.images"></div>
             </div>
             <div class="control-group">
                 <label style="width:100%">

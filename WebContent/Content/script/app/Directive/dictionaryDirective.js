@@ -19,6 +19,9 @@ app.directive("ngDictionary", function ($Api, $MessagService) {
             $scope.Dictionary = new Array();
             $Api.Public.GetDictionary({ dictType: attrs.ngDictionary }, function (data) {
                 $scope.Dictionary = data;
+                if (!$scope.ngModel) {//设置选择项的默认值
+                    $scope.ngModel = data[data.length - 1].id;
+                }
             });
         }
     };

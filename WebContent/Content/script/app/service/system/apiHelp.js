@@ -13,7 +13,7 @@
                 url: $rootScope.BASE_URL + url + reQ,
                 data: param,
                 dataType: 'json',
-                crossDomain: true,
+                crossDomain: false,
                 async:false,
                 headers: {
                     "Accept": "application/json",
@@ -47,7 +47,7 @@
             }
             $.ajax({
                 type: "GET",
-                crossDomain: true,
+                crossDomain: false,
                 url: $rootScope.BASE_URL + url + reQ,
                 dataType: 'json',
                 async:false,

@@ -49,7 +49,7 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                     $.extend($scope.Pagein, {
                         pageIndex: 1,
                         medMIName: $scope.Service.SearchWhere,
-                        medMIInternalNo: $scope.Service.SearchWhere
+                        medMICode: $scope.Service.SearchWhere
                     });
                     $scope.Service.GetList();
                 },

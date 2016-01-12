@@ -11,7 +11,20 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 if (!data.code) {
                     callback(data.info);
                     $MessagService.hide(1000);
-                } else {
+                }
+                else if (data.code == "1001") {
+                    $MessagService.eorr("网络异常！");
+                }
+                else if (data.code == "2001") {
+                    $MessagService.eorr("您没有访问的权限！");
+                }
+                else if (data.code == "3001") {
+                    $MessagService.eorr("必输项没有输入完整！");
+                }
+                else if (data.code == "4001") {
+                    $MessagService.eorr("用户信息失效，请重新登录！");
+                }
+                else {
                     $MessagService.eorr("网络异常，请联系管理员！");
                 }
             });
@@ -43,6 +56,14 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
         },
         UserService: {
             /// <summary>用户服务管理</summary>
+            Save: function (data, callback) {
+                /// <summary>保存用户信息</summary>
+                if (data.loginAccountId) {//存在loginAccountId编辑
+                    service.UserService.ModifyUserAccount(data, callback);
+                } else {//不存在loginAccountId新增角色
+                    service.UserService.AddUser(data, callback);
+                }
+            },
             AddUser: function (data, callback) {
                 /// <summary>添加用户</summary>
                 service.Post(ApiPath.User.userAdd, data, callback);
@@ -67,6 +88,15 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 /// <summary>禁用用户</summary>
                 service.Post(ApiPath.User.userDisable, data, callback);
             },
+            ModifyUserState: function (data, callback) {
+                /// <summary>修改角色的状态</summary>
+                if (data.isEnable) {
+                    service.Post(ApiPath.User.userEnable, data, callback);
+                } else {
+                    service.Post(ApiPath.User.userDisable, data, callback);
+                }
+            },
+
             LockUser: function (data, callback) {
                 /// <summary>锁定用户</summary>
                 service.Post(ApiPath.User.userLock, data, callback);
@@ -74,6 +104,10 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
             UnlockUser: function (data, callback) {
                 /// <summary>解锁用户</summary>
                 service.Post(ApiPath.User.userUnlock, data, callback);
+            },
+            OrgCodeList: function (data, callback) {
+                /// <summary>部门下拉框</summary>
+                service.Post(ApiPath.User.userOrgcode, data, callback);
             }
         },
         RoleService: {
@@ -91,7 +125,7 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 service.Post(ApiPath.Role.roleAdd, data, callback);
             },
             GetRoleList: function (data, callback) {
-                /// <summary>获取角色的列表</summary>
+                /// <summary>获取角色的列表</summary>    
                 service.Post(ApiPath.Role.roleList, data, callback);
             },
             GetRoleDetail: function (data, callback) {
@@ -115,7 +149,7 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 service.Post(ApiPath.Role.roleEnable, data, callback);
             },
             RoleDisbale: function (data, callback) {
-                /// <summary>关系角色</summary>
+                /// <summary>关闭角色</summary>
                 service.Post(ApiPath.Role.roleDetail, data, callback);
             }
         },
@@ -159,6 +193,13 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
         },
         GruopService: {
             /// <summary>分组服务管理</summary>
+            Save: function (data, callback) {
+                if (data.teamCode) {//存在teamCode编辑
+                    service.GruopService.ModifyGroup(data, callback);
+                } else {//不存在teamCode新增角色
+                    service.GruopService.AddGroup(data, callback);
+                }
+            },
             GetGroupList: function (data, callback) {
                 /// <summary>获取分组列表</summary>
                 service.Post(ApiPath.Gruop.DlOdDataShareTeamSearch, data, callback);
@@ -273,6 +314,10 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 FeedBackApply: function (data, callback) {
                     /// <summary>返库申请</summary>
                     service.Post(ApiPath.Surgery.Process.feedBackApply, data, callback);
+                },
+                Back: function (data, callback) {
+                    /// <summary>订单返库</summary>
+                    service.Post(ApiPath.Surgery.Process.back, data, callback);
                 }
             },
             DataSources: {

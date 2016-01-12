@@ -39,7 +39,9 @@ var ApiPath = {
             //事件添加
             addevent: "/v2/common/order/addEvent",
             //返库申请
-            feedBackApply: "/v2/common/order/feedBackApply"
+            feedBackApply: "/v2/common/order/feedBackApply",
+            //订单返库
+            back: "/v2/order/commintReturnWareHouseOrder"
         },
         Approval: {
             /// <summary>订单审批</summary>
@@ -62,13 +64,13 @@ var ApiPath = {
             //查询历史下单记录
             orderList: "/v2/common/order/list",
         }
-        
+
     },
     Organization: {
         /// <summary>组织相关地址</summary>
         //获取货主列表
         cargoOwner: "/v2/order/common/createOrder/oiComboxList"
-       
+
     },
     Hospital: {
         /// <summary>医院相关地址</summary>
@@ -121,7 +123,9 @@ var ApiPath = {
         //锁定用户
         userLock: "/v2/basedataUser/accountLock",
         //解锁用户
-        userUnlock: "/v2/basedataUser/accountUnlock"
+        userUnlock: "/v2/basedataUser/accountUnlock",
+        //部门下拉列表
+        userOrgcode: "/v2/basedataUser/findUserCanCreateUserOrgCode",
     },
     Role: {
         /// <summary>角色地址</summary>

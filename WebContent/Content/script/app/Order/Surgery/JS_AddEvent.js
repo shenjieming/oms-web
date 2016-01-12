@@ -61,6 +61,23 @@ app.controller("AddEventController", function ($scope, $state, $local, $Api, $Me
                     $MessagService.caveat("您上传的不是图片！")
                 }
             });
+        },
+        GetEventMapping: function (eventList, statusCode) {
+            /// <summary>获取附件映射</summary>
+            var result = { images: new Array(), remark: "" }
+            $.each(eventList, function (index, event) {
+                if (event.eventCode == statusCode) {
+                    $.each(event.attachments, function (fileindex, item) {
+                        result.remark = item.attachmentDesc;
+                        var img = { id: item.attachmentId, url: item.attachmentDir }
+                        if (JSON.stringify(result.images).indexOf(JSON.stringify(img)) == -1) {
+                            result.images.push(img);
+                        }
+                    });
+                    return result;
+                }
+            });
+            return result;
         }
     }
 

@@ -124,6 +124,20 @@ angular.module('jnDo', [])
             }
         };
     })
+    .directive("ngImgList", function () {
+        /// <summary>图片展示控件</summary>
+        return {
+            restrict: "EA",
+            templateUrl: pathConfig + "ui/ngImgList.html",
+            scope: {
+                ngModel: '=',
+            },
+            replace: true,
+            link: function ($scope, element, attrs) {
+                initPhotoSwipeFromDOM(element);
+            }
+        };
+    })
     .directive("ngDatatime", function () {
         /// <summary>时间控件</summary>
         return {

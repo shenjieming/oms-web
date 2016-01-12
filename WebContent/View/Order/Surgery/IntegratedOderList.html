@@ -3,8 +3,9 @@
         <div class="main-box clearfix">
             <header class="main-box-header clearfix">
                 <h2 class="pull-left">{{title}}</h2>
+               
                 <span style="float:right;">
-                    <a class="btn btn-primary" ng-click="addSurgery()" ng-show="!competence.approval&&!Competence.back&&!Competence.dealwith&&!Competence.approval"> <i class="fa fa-pencil"></i> 手术下单</a>
+                    <a class="btn btn-primary" ng-click="addSurgery()" ng-show="!competence.approval&&!Competence.back&&!Competence.dealwith&&!Competence.approval&&!Competence.append"> <i class="fa fa-pencil"></i> 手术下单</a>
                     <a class="btn btn-primary" ng-click="editSurgery()" ng-show="competence.modify"> <i class="fa fa-clipboard"></i> 手术修改</a>
                     <a class="btn btn-primary" ng-click="editSurgery()" ng-show="Competence.submit"><i class="fa fa-check"></i>订单提交</a>
                     <a class="btn btn-primary" ng-click="ApprovalSurgery()" ng-show="Competence.approval"><i class="fa fa-eye"></i>订单审批</a>
@@ -15,7 +16,13 @@
                     <a class="btn btn-primary" ng-click="Additional()" ng-show="Competence.append"> <i class="fa fa-shopping-cart"></i>追加配货</a>
                     <a class="btn btn-primary" ng-click="showViewDetail()"><i class="fa fa-align-justify"></i>订单详情</a>
                 </span>
+                <div class="input-group" style="float:right;width:250px;margin-right:10px;">
+                    <input type="text" class="form-control" placeholder="请输入查询条件"
+                           style="padding:8px;" ng-model="Pagein.sONo">
+                    <a class="input-group-addon" href="javascript:void(0)" ng-click="Integrated.GetOrderList()"><i class="fa fa-search"></i></a>
+                </div>
             </header>
+          
             <div class="main-box-body clearfix">
                 <div class="table-responsive list-box">
                     <table class="table table-bordered table-striped" st-table="Integrated.OrderList">
@@ -45,7 +52,7 @@
                                     {{row.dTCodeName?row.dTCodeName:row.initDTCodeName}}
                                 </td>
                                 <td>
-                                    {{row.operationDate}}
+                                    {{row.operationDate?row.operationDate:row.initOperationDate}}
                                 </td>
                                 <td>
                                     {{row.sOCreateByName}}

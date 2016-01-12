@@ -19,8 +19,9 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                 dTCodeName: $scope.PageData.dTCodeName, isLocalName: $scope.PageData.isLocalName,
                 operationDate: $scope.PageData.operationDate, operationDesc: $scope.PageData.patientDiseaseInfo
             })
-
+            $scope.WarehouseConfig.GetList();
             $scope.MaterialsConfig.GetMaterialList($scope.PageData.feedBackProcess);
+            $scope.dictionary.GetUseType();
         }
     });
     /*数据监控End*/
@@ -34,11 +35,28 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
         }
     }
 
+    $scope.dictionary = {
+        /// <summary>字典对象</summary>
+        UseTypeList:new Array(),
+        GetUseType: function () {
+            /// <summary>获取用户使用类型</summary>
+            $Api.Public.GetDictionary({ dictType: "MMIUTP" }, function (rData) {
+                $scope.dictionary.UseTypeList = rData;
+            });
+        },
+        DefaultUseType: function (row) {
+            /// <summary>默认使用类型</summary>
+            if (!row.useType) {
+                row.useType = $scope.dictionary.UseTypeList[0].id;
+            }
+        }
+    }
+
     $scope.FeedBackService = {
         /// <summary>订单处理服务</summary>
         Submit: function () {
             /// <summary>订单处理提交</summary>
-            $Api.SurgeryService.Process.Submit($scope.PageData, function (rData) {
+            $Api.SurgeryService.Process.Back($scope.FeedBack, function (rData) {
                 $scope.goLastPage();
             });
         }
@@ -71,11 +89,22 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
             var result = new Array();
             $.each(mlist, function (index,item) {
                 var flg = true;
-
+                $.each(result, function (mIndex, mItem) {
+                    if (mItem.medMIInternalNo == item.medMIInternalNo && item.lotSerial == mItem.lotSerial) {//同批次物料
+                        $.extend(mItem, {
+                            actQty: mItem.actQty + item.actQty
+                        });
+                        return false;
+                    }
+                });
                 if (flg) {
-                    result.push();
+                    result.push($.extend(item, {
+                        returnWarehouse: item.medMIWarehouse,
+                        useQty:0
+                    }));
                 }
             });
+            $scope.FeedBack.medMaterial = result;
         }
     };
 
@@ -95,7 +124,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
         Upload: function (files) {
             /// <summary>上传事件</summary>
             $.each(files, function (index, item) {
-                if ($scope.FeedBack.attachments.images.length > 5) {
+                if ($scope.FeedBack.attachment.images.length > 5) {
                     $MessagService.caveat("您上传的图片超过了5张。")
                     return false;
                 }
@@ -104,7 +133,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                         /// <summary>文件读取</summary>
                         $Api.Public.UploadFile(data, function (rData) {
                             $scope.$apply(function () {
-                                $scope.FeedBack.attachments.images.push(rData);
+                                $scope.FeedBack.attachment.images.push(rData);
                             });
                         });
                     });
@@ -112,6 +141,23 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                     $MessagService.caveat("您上传的不是图片！")
                 }
             });
+        },
+        GetEventMapping: function (eventList, statusCode) {
+            /// <summary>获取附件映射</summary>
+            var result = { images: new Array(), remark: "" }
+            $.each(eventList, function (index, event) {
+                if (event.eventCode == statusCode) {
+                    $.each(event.attachments, function (fileindex, item) {
+                        result.remark = item.attachmentDesc;
+                        var img = { id: item.attachmentId, url: item.attachmentDir }
+                        if (JSON.stringify(result.images).indexOf(JSON.stringify(img)) == -1) {
+                            result.images.push(img);
+                        }
+                    });
+                    return result;
+                }
+            });
+            return result;
         }
     }
 });

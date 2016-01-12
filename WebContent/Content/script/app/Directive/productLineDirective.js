@@ -22,11 +22,13 @@ app.directive("ngProductline", function ($Api, $MessagService) {
                 title: "选择产品线", width: 650, height: 300, buttons: {
                     "确定": function () {
                         if ($scope.ngOperat.verification() && $scope.ngOperat.repeat()) {
-                            $scope.ngOperat.fixed($scope.prodLn);
-                            $scope.ngOperat.hide();
-                            //数据清空
-                            $scope.prodLn = new Object();
-                            $scope.prodLn.isChecked = true; $scope.prodLn.medProdLnCodeWithTool = "Y";
+                            $scope.$apply(function () {
+                                $scope.ngOperat.fixed($scope.prodLn);
+                                $scope.ngOperat.hide();
+                                //数据清空
+                                $scope.prodLn = new Object();
+                                $scope.prodLn.isChecked = true; $scope.prodLn.medProdLnCodeWithTool = "Y";
+                            });
                         }
                     },
                     "关闭": function () {
@@ -138,10 +140,6 @@ app.directive("ngProductline", function ($Api, $MessagService) {
             $scope.$watch("prodLn.isChecked", function () {
                 /// <summary>是否带工具修改事件</summary>
                 $scope.prodLn.medProdLnCodeWithTool = $scope.prodLn.isChecked ? "Y" : "N";
-            });
-            $scope.$watch("prodLn.medProdLineType", function () {
-                /// <summary>产品线类型修改事件</summary>
-                ///TODO:多级联查询产品线
             });
         }
     }

@@ -41,7 +41,6 @@
                         </tbody>
                     </table>
                 </div>
-                <div ng-pagein="page" ng-model="Pagein"></div>
             </div>
         </div>
     </div>
@@ -62,7 +61,7 @@
                 功能描述： {{MenuView.Info.functionDesc}}
             </div>
             <div class="col-lg-5">
-                功能链接： {{MenuView.Info.functionLink}}
+                功能链接： <button style="font-family:Arial;font-size:5px;" ng-click="goView({{MenuView.Info.functionLink}})">链接页面</button>                                 
             </div>
         </div>
         <div class="row row-mt-8">

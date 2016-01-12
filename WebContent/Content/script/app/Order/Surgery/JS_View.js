@@ -41,6 +41,17 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
         /// <summary>订单审批配置</summary>
         Operat: { fixed: function () { $scope.goLastPage(); } }
     }
+    $scope.EventFilter = function () {
+        /// <summary>图片过滤</summary>
+        $.each($scope.PageData.events, function (eIndex,event) {
+            event.images = new Array();
+            $.each(event.attachments, function (index,att) {
+                event.images.push({ url: att.attachmentDir })
+                event.remark = att.attachmentDesc
+            });
+        });
+    }
+
     /*逻辑对象区域End*/
 
     /*数据监控区域Begion*/
@@ -48,9 +59,32 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
         if ($scope.sono) {
             $MessagService.loading("订单：" + $scope.sono + "数据获取中");
             $scope.PageService.GetDetail();
+            $scope.EventFilter();
         }
     })
 
+
+
+    $scope.file = {
+        /// <summary>附件控制器</summary>
+        GetEventMapping: function (eventList, statusCode) {
+            /// <summary>获取附件映射</summary>
+            var result = { images: new Array(), remark: "" }
+            $.each(eventList, function (index, event) {
+                if (event.eventCode == statusCode) {
+                    $.each(event.attachments, function (fileindex, item) {
+                        result.remark = item.attachmentDesc;
+                        var img = { id: item.attachmentId, url: item.attachmentDir }
+                        if (JSON.stringify(result.images).indexOf(JSON.stringify(img)) == -1) {
+                            result.images.push(img);
+                        }
+                    });
+                    return result;
+                }
+            });
+            return result;
+        }
+    }
     /*数据监控区域End*/
 
     

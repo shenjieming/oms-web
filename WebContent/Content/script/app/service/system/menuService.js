@@ -13,7 +13,7 @@ app.factory("$MenuService", function ($http, $local) {
     service.push({
         name: "手术订单管理", url: "", state: "app.order", icon: "fa-pencil",
         detail: [
-            { name: "出库单查询", url: "#/app/order/delivery", state: "app.order.delivery" },
+            //{ name: "出库单查询", url: "#/app/order/delivery", state: "app.order.delivery" },
             { name: "综合订单查询", url: "#/app/order/complex", state: "app.order.complex" },
             { name: "我的订单", url: "#/app/order/orderlist", state: "app.order.orderlist" },
             { name: "我的待审批", url: "#/app/order/approval", state: "app.order.approval" },

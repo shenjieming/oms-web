@@ -8,7 +8,7 @@
 
         </h5>
         <span style="float:right;">
-            <a class="btn btn-primary" ng-click="EventService.Submit()"><i class="fa fa-check"></i> 提交</a>
+            <a class="btn btn-primary" ng-click="FeedBackService.Submit()"><i class="fa fa-check"></i> 提交</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
@@ -109,7 +109,7 @@
                                     住院病房：<input type="text" ng-model="FeedBack.order.patientRoom" />
                                 </label>
                                 <label>
-                                    病房床号：<input type="text" ng-model="FeedBack.order.patientRoom" />
+                                    病房床号：<input type="text" ng-model="FeedBack.order.patientBedNo" />
                                 </label>
                                 <label>
                                     植入物情况：<label><input type="checkbox" style="top:4px;position:relative;" /> 需要取出</label>
@@ -164,7 +164,19 @@
                                                     <td>{{row.medMICodeName}}</td>
                                                     <td>{{row.categoryByPlatformName}}</td>
                                                     <td>{{row.specification}}</td>
-                                                    <td>{{row.reqQty}}</td>
+                                                    <td>{{row.lotSerial}}</td>
+                                                    <td>{{row.actQty}}</td>
+                                                    <td>
+                                                        <input type="number" ng-change="dictionary.DefaultUseType(row)" style="width:60px;" ng-model="row.useQty" min="0" max="{{row.actQty}}" />
+                                                        <select ng-selected="0" ng-show="row.useQty>0" ng-model="row.useType" ng-options="item.id as item.text for item in dictionary.UseTypeList">
+                                                            <option value="">使用类型</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select ng-model="row.returnWarehouse" ng-change="WarehouseConfig.GetKitInventory(row)" ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
+                                                            <option value="">请选择仓库</option>
+                                                        </select>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -185,15 +197,15 @@
                         </div>
                         <div id="back_File" class="widget-content nopadding collapse in">
                             <div class="control-group ">
-                                <div ng-img="img" ng-model="FeedBack.attachments.images"></div>
-                                <label style="opacity:0.5;width:100%;" ng-show="!FeedBack.attachments.images.length">
+                                <div ng-img-list="img" ng-model="FeedBack.attachment.images"></div>
+                                <label style="opacity:0.5;width:100%;" ng-show="!FeedBack.attachment.images.length">
                                     添加点图片丰富您的订单吧，
                                     最多支持上传5张图片
                                 </label>
                             </div>
                             <div class="control-group">
                                 <label style="width:100%">
-                                    图片说明：<input type="text" style="width:78%;" placeholder="对您的图片说点什么吧..." ng-model="FeedBack.attachments.remark" />
+                                    图片说明：<input type="text" style="width:78%;" placeholder="对您的图片说点什么吧..." ng-model="FeedBack.attachment.remark" />
                                 </label>
                             </div>
                         </div>
@@ -205,7 +217,7 @@
     </div>
     <div class="tools">
         <span style="float:right;">
-            <a class="btn btn-primary" ng-click="EventService.Submit()"><i class="fa fa-check"></i> 提交</a>
+            <a class="btn btn-primary" ng-click="FeedBackService.Submit()"><i class="fa fa-check"></i> 提交</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa  fa-reply"></i> 返回</a>
         </span>
     </div>

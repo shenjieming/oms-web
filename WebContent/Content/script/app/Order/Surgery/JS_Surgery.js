@@ -16,6 +16,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         /// <summary>Description</summary>
         var rowData = $local.getSelectedRow($scope.Integrated.OrderList);
         if (rowData) {
+            $MessagService.loading("页面启动中，请稍等...");
             if (callback) {
                 callback(rowData);
             } else {
@@ -116,11 +117,34 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         GetOrderList: function (param) {
             /// <summary>获取我的订单数据列表</summary>
             $MessagService.loading("订单信息获取中，请稍等...");
+            $scope.Pagein.total = 0;
+            $scope.Integrated.OrderList = new Array();
             var paramData = $.extend($scope.Pagein, param);
             $Api.SurgeryService.DataSources.GetOrderList(paramData, function (rData) {
                 $scope.Pagein.total = rData.total;
                 $scope.Integrated.OrderList = rData.rows;
             });
+        }
+    }
+
+    $scope.file = {
+        /// <summary>附件控制器</summary>
+        GetEventMapping: function (eventList, statusCode) {
+            /// <summary>获取附件映射</summary>
+            var result = { images: new Array(), remark: "" }
+            $.each(eventList, function (index, event) {
+                if (event.eventCode == statusCode) {
+                    $.each(event.attachments, function (fileindex, item) {
+                        result.remark = item.attachmentDesc;
+                        var img = { id: item.attachmentId, url: item.attachmentDir }
+                        if (JSON.stringify(result.images).indexOf(JSON.stringify(img)) == -1) {
+                            result.images.push(img);
+                        }
+                    });
+                    return result;
+                }
+            });
+            return result;
         }
     }
   
