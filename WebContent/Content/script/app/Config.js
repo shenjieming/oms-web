@@ -156,6 +156,14 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
            loadJs: ["Content/script/app/Group/JS_GroupInfo.js"],
            resolve: app.resolve
        })
+       .state("app.comp.group.detail", {
+           /// <summary>群组用户详情</summary>
+           url: "/detail/:teamCodeId",
+           templateUrl: "View/Group/GroupDatail.html?data=" + Timestamp,
+           controller: "GroupDetailController",
+           loadJs: ["Content/script/app/Group/JS_GroupDetail.js"],
+           resolve: app.resolve
+       })
 });
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary>菜单管理配置</summary>
@@ -222,21 +230,21 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         })
         .state("app.comp.user.list", {
             url: "/list",
-            templateUrl: "View/user/UserList.html?data=" + Timestamp,
+            templateUrl: "View/User/UserList.html?data=" + Timestamp,
             controller: "UserListController",
             loadJs: ["Content/script/app/User/JS_UserList.js"],
             resolve: app.resolve
         })
         .state("app.comp.user.detail", {
             url: "/detail/:accId",
-            templateUrl: "View/user/UserDetail.html?data=" + Timestamp,
+            templateUrl: "View/User/UserDetail.html?data=" + Timestamp,
             controller: "UserDetailController",
             loadJs: ["Content/script/app/User/JS_UserDetail.js"],
             resolve: app.resolve
         })
         .state("app.comp.user.view", {
             url: "/view/:accId",
-            templateUrl: "View/user/UserView.html?data=" + Timestamp,
+            templateUrl: "View/User/UserView.html?data=" + Timestamp,
             controller: "UserViewController",
             loadJs: ["Content/script/app/User/JS_UserView.js"],
             resolve: app.resolve

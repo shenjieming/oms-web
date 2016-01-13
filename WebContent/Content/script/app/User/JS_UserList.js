@@ -53,6 +53,7 @@ app.controller("UserListController", function ($scope, $state, $local, $Api, $Me
             $MessagService.loading("用户信息加载中，请稍等...");
             $Api.UserService.GetUserList({}, function (rData) {
                 $scope.UserInfo.UserList = rData.rows;
+                console.log()
             });
         }
     }
@@ -71,8 +72,7 @@ app.controller("UserListController", function ($scope, $state, $local, $Api, $Me
         pageSize: 10,
         pageIndex: 1,
         callbake: function () {
-            $scope.Load();
-           
+            $scope.Load();         
         }
     }
 

@@ -242,7 +242,7 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
                     $Api.Public.GetDictionary({ dictType: "PRNSEX" }, function (rData) {
                         $scope.SelectInfo.userSex.dic = rData;
                     });   
-            }
+            },
         },
         userEducation: {
             //用户学历下拉框
@@ -263,7 +263,7 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
                 $Api.Public.GetDictionary({ dictType: "PRNEDU" }, function (rData) {
                     $scope.SelectInfo.userEducation.dic = rData;
                 });
-            }
+            },
         }
     }
     //显示模块

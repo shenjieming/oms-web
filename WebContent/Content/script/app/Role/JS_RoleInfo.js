@@ -10,15 +10,42 @@
 app.controller("RoleListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>角色管理控制器</summary>
     $scope.RoleInfo = [];
+    $scope.RoleParameters = [];
     $scope.RoleDetail = {
         /// <summary>操作角色详情</summary>
         getRoleList: function () {
             /// <summary>获取角色列表</summary>
             $MessagService.loading("角色获取中，请稍等...");
-            $Api.RoleService.GetRoleList($scope.Pagein, function (roleData) {
+            var paramData = $.extend({ validStatus: "Y", roleName: "", orgType:$scope.RoleParameters.orgType }, $scope.Pagein);
+            console.log(paramData)
+            $Api.RoleService.GetRoleList(paramData, function (roleData) {
                 /// <summary>获取角色信息</summary>
                     $scope.RoleInfo = roleData.rows;
                     $scope.Pagein.total = roleData.total;
+            });
+        },
+        getRoleListFix: function () {
+            /// <summary>获取角色列表</summary>
+            $MessagService.loading("角色获取中，请稍等...");
+            $Api.RoleService.GetRoleList($scope.Pagein, function (roleData) {
+                /// <summary>获取角色信息</summary>
+                $scope.RoleInfo = roleData.rows;
+                $scope.Pagein.total = roleData.total;
+            });
+        },
+        getLoginInformation: function () {
+            $Api.AccountService.CurrentUserInfo({}, function (roleData) {
+                /// <summary>获取角色信息</summary>
+                if (roleData.userInfo.orgType == "PL") {
+                    $scope.RoleParameters.orgType = "";
+                    $scope.RoleParameters.roleName = "";
+                    $scope.RoleDetail.getRoleListFix();
+                } else {
+                    $scope.RoleParameters.orgType = roleData.userInfo.orgType;
+                    $scope.RoleParameters.roleName = roleData.roleInfo[0].roleName
+                    $scope.RoleDetail.getRoleList();
+                }
+
             });
         },
         showRole: function (rowData) {
@@ -150,7 +177,7 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
 
     $scope.Load = function () {
         /// <summary>页面初始化</summary>
-        $scope.RoleDetail.getRoleList();
+        $scope.RoleDetail.getLoginInformation();
     }
     $scope.Load();
 
