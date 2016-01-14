@@ -256,7 +256,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         .state("app.order.complex", {
             /// <summary>综合查询</summary>
             url: "/complex",
-            templateUrl: "View/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
+            templateUrl: "View/Order/Surgery/IntegratedOrderInquiry.html?data=" + Timestamp,
             controller: "IntegratedListController",
             loadJs: ["Content/script/app/Order/Surgery/List/JS_IntegratedList.js"],
             resolve: app.resolve

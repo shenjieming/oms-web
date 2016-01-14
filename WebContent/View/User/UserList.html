@@ -30,8 +30,8 @@
                                 <td>{{$index+1}}</td>
                                 <td><span>{{row.loginName}}</span></td>
                                 <td><span>{{row.userName}}</span></td>
-                                <td><span>{{row.orgType}}</span> </td>
-                                <td><span>{{row.orgTypeName}}</span></td>
+                                <td><span>{{row.orgTypeName}}</span> </td>
+                                <td><span>{{row.orgName}}</span></td>
                                 <td><span>{{row.loginMobileNo}}</span></td>
                                 <td><span>{{row.lockStatusName}}</span></td>
                                 <td><span>{{row.validStatusName}}</span></td>
@@ -39,15 +39,7 @@
                         </tbody>
                     </table>
                 </div>
-                <ul class="pagination pull-right">
-                    <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
-                </ul>
+                <div ng-pagein="page" ng-model="Pagein"></div>
             </div>
         </div>
     </div>

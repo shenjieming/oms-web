@@ -36,7 +36,7 @@
                     </label>
                     <label style="line-height:23px;">
                         <span class="required" style="line-height:10px;">*</span>
-                        联系电话：{{PageData.deliveryrMobile?PageData.deliveryrMobile:"请选择收货地址"}}
+                        联系电话：{{PageData.deliveryrMobile?PageData.deliveryrMobile:"请输入联系电话"}}
                     </label>
                     <label >
                         <span class="required">*</span>配送方式：
@@ -96,7 +96,7 @@
                     </label>
                     <label style="width:60%">
                         <span class="required">*</span>
-                        诊断信息：<input type="text" style=" width:78%" ng-model="PageData.initDiseaseInfo" />
+                        诊断信息：<input type="text" style=" width:78%" ng-model="PageData.initDiseaseInfo" placeholder="请输入患者诊断信息" />
                     </label>
                 </div>
                 <div class="control-group ">

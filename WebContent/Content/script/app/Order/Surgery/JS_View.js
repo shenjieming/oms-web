@@ -248,6 +248,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
     $scope.GetRowGoPage = function (view, callback) {
         /// <summary>Description</summary>
         var rowData = $local.getSelectedRow($scope.Integrated.OrderList);
+        console.log(rowData)
         if (rowData) {
             $MessagService.loading("页面启动中，请稍等...");
             if (callback) {
@@ -353,6 +354,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             $scope.Pagein.total = 0;
             $scope.Integrated.OrderList = new Array();
             var paramData = $.extend($scope.Pagein, param);
+            console.log(paramData)
             $Api.SurgeryService.DataSources.GetOrderList(paramData, function (rData) {
                 $scope.Pagein.total = rData.total;
                 $scope.Integrated.OrderList = rData.rows;
@@ -407,31 +409,60 @@ app.controller("SingleController", function ($scope, $state, $local, $Api, $Mess
         prodLns: new Array(),
         attachments: { images: new Array(), remark: "" }
     }
-
     /*基础对象区域End*/
-
     /*逻辑对象区域Begion*/
     $scope.PageService = {
         /// <summary>页面服务</summary>
+        Verification: function () {
+            var result = true;
+            if (!$scope.PageData.deliveryContact ) {
+                $MessagService.caveat("请选择收货地址")
+                result = false
+            }  else if (!$scope.PageData.iniitCarrierTransType) {
+                $MessagService.caveat("请选择配送方式")
+                result = false
+            } else if (!$scope.PageData.initDTCodeName) {
+                $MessagService.caveat("请选择手术医生信息")
+                result = false
+            }
+            else if (!$scope.PageData.initOperationDate) {
+                $MessagService.caveat("请选择手术时间")
+                result = false
+            } else if (!$scope.PageData.initDiseaseInfo) {
+                $MessagService.caveat("请输入患者诊断信息")
+                result = false
+            }  else if ($scope.PageData.prodLns.length==0) {
+                $MessagService.caveat("请选择产品线")
+                result = false
+            } else if ($scope.PageData.prodLns[0].medMaterias.length==0) {
+                $MessagService.caveat("请添加物料")
+                result = false
+            }
+            return result
+        },
         Save: function () {
             /// <summary>下单保存</summary>
-            $Api.SurgeryService.Save($scope.PageData, function (rData) {
-                /// <summary>保存手术订单</summary>
-                $MessagService.succ("订单保存成功，订单号：" + rData);
-                setTimeout(function () {
-                    $state.go("app.order.draft");
-                }, 500);
-            });
+            if ($scope.PageService.Verification()) {
+                $Api.SurgeryService.Save($scope.PageData, function (rData) {
+                    /// <summary>保存手术订单</summary>
+                    $MessagService.succ("订单保存成功，订单号：" + rData);
+                    setTimeout(function () {
+                        $state.go("app.order.draft");
+                    }, 500);
+                });
+            } 
         },
         Submit: function () {
             /// <summary>提交模糊订单</summary>
-            $Api.SurgeryService.Submit($scope.PageData, function (rData) {
-                /// <summary>提交手术订单</summary>
-                $MessagService.succ("订单" + rData + "提交成功");
-                setTimeout(function () {
-                    $state.go("app.order.orderlist");
-                }, 500);
-            });
+            if ($scope.PageService.Verification()) {
+                $Api.SurgeryService.Submit($scope.PageData, function (rData) {
+                    /// <summary>提交手术订单</summary>
+                    $MessagService.succ("订单" + rData + "提交成功");
+                    setTimeout(function () {
+                        $state.go("app.order.orderlist");
+                    }, 500);
+                });
+            }
         },
         GetDetail: function () {
             /// <summary>获取订单明细</summary>

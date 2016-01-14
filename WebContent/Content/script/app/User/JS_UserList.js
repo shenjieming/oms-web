@@ -51,9 +51,9 @@ app.controller("UserListController", function ($scope, $state, $local, $Api, $Me
         GetUserList: function () {
             /// <summary>获取用户列表信息</summary>
             $MessagService.loading("用户信息加载中，请稍等...");
-            $Api.UserService.GetUserList({}, function (rData) {
+            $Api.UserService.GetUserList($scope.Pagein, function (rData) {
                 $scope.UserInfo.UserList = rData.rows;
-                console.log()
+                $scope.Pagein.total = rData.total;
             });
         }
     }

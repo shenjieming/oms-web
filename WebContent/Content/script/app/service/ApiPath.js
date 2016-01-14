@@ -63,6 +63,8 @@ var ApiPath = {
         DataSources: {
             //查询历史下单记录
             orderList: "/v2/common/order/list",
+            //综合查询列表
+            IntegratedOrderInquiry: "/v2/common/order/queryOrderList",
         }
 
     },

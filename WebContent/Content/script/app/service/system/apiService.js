@@ -93,6 +93,7 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
             },
             ModifyUserState: function (data, callback) {
                 /// <summary>修改角色的状态</summary>
+                console.log(data)
                 if (data.isEnable) {
                     service.Post(ApiPath.User.userEnable, data, callback);
                 } else {
@@ -152,8 +153,8 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 service.Post(ApiPath.Role.roleEnable, data, callback);
             },
             RoleDisbale: function (data, callback) {
-                /// <summary>关闭角色</summary>
-                service.Post(ApiPath.Role.roleDetail, data, callback);
+                /// <summary>禁用角色</summary>
+                service.Post(ApiPath.Role.roleDisbale, data, callback);
             }
         },
         MenuService: {
@@ -334,6 +335,11 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                     /// <summary>获取订单明细</summary>
                     $MessagService.loading("手术订单信息获取中，请稍等...");
                     service.Post(ApiPath.Surgery.detail, data, callback);
+                },
+                GetIntegratedOrderInquiry: function (data, callback) {
+                    /// <summary>综合订单查询列表</summary>
+                    $MessagService.loading("综合订单信息获取中，请稍等...");
+                    service.Post(ApiPath.Surgery.DataSources.IntegratedOrderInquiry, data, callback);
                 }
             }
         },
