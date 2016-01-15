@@ -68,6 +68,50 @@ var ApiPath = {
         }
 
     },
+    Stock: {
+        /// <summary>备货订单信息接口地址</summary>
+        //备货暂存
+        save: "/v2/order/stock/createOrder/save",
+        //备货提交
+        submit: "/v2/order/stock/createOrder/submit",
+        //备货详情
+        detail: "/v2/order/stock/createOrder/detail",
+        Process: {
+            /// <summary>备货订单处理地址</summary>
+            //接受备货订单
+            receive: "/v2/common/order/receive",
+            //暂存备货订单
+            save: "/v2/common/stock/process/save",
+            //提交备货订单
+            submit: "/v2/common/stock/process/submit",
+            //事件添加
+            addevent: "/v2/common/order/addEvent"
+        },
+        Approval: {
+            /// <summary>订单审批</summary>
+            //审批通过
+            checkYes: "/v2/common/order/checkYes",
+            //审批不通过
+            checkNo: "/v2/common/order/checkNo",
+            //订单取消
+            cancel: "/v2/common/order/cancel"
+        },
+        Sign: {
+            /// <summary>订单签收</summary>
+            //订单签收
+            orderSign: "/v2/common/order/orderSign",
+            //配货单签收
+            OBSign: "/v2/common/order/OBSign"
+        },
+        //订单数据源
+        DataSources: {
+            //查询历史下单记录
+            stockList: "/v2/common/order/list",
+            //综合查询列表
+            IntegratedStockInquiry: "/v2/common/order/queryOrderList",
+        }
+        
+    },
     Organization: {
         /// <summary>组织相关地址</summary>
         //获取货主列表

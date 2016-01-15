@@ -152,7 +152,6 @@ angular.module('jnDo', [])
                     format: "Y/m/d H:00:00",
                     onClose: function () {
                         setTimeout(function () {
-                            debugger
                             $scope.$apply(function () { $scope.ngModel = $(element).val(); });
                         }, 500);
                     }

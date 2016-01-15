@@ -1,0 +1,107 @@
+﻿<div class="row" ng-controller="StockDealwithController">
+    <div class="tools">
+        <h5 style="float:left; font-weight:bold; margin-left:8px;">
+            <i class="fa fa-file-archive-o"></i>
+            备货订单
+            <span style="color: #0033FF">[{{sono}}]</span>
+            <span style="color: #FF3300">({{PageData.statusName}})</span>
+        </h5>
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-show="View.Competence.dealwith" ng-click="DealService.Submit()"><i class="fa fa-wrench"></i>提交</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+    <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
+
+    <div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active" href="#Original" data-toggle="tab"><a>原始订单</a></li>
+            <li role="presentation" href="#Dealwith" data-toggle="tab"><a>开始处理</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="Original">
+                <div ui-view="Original"></div>
+            </div>
+            <div class="tab-pane" id="Dealwith">
+                <div class="row-fluid">
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" href="#pro_BaseInformation" style="width:80%">基础信息[货主：{{PageData.sOOIOrgCodeName}}]</h5>
+                            <a class="btn" ng-click="AddressConfig.show()"><i class="fa fa-map-marker"></i>修改地址</a>
+                        </div>
+                        <div class="widget-content nopadding collapse in" id="pro_BaseInformation">
+                            <div class="control-group ">
+                                <label style="line-height:28px;">
+                                    收 货 人：{{PageData.deliveryContact}}
+                                </label>
+                                <label style="line-height:28px;">
+                                    联系电话：{{PageData.deliveryrMobile}}
+                                </label>
+                                <label>
+                                    <span class="required">*</span>配送方式：
+                                    <span ng-dictionary="TRANTP" ng-model="PageData.carrierTransType"></span>
+                                </label>
+                            </div>
+                            <div class="control-group ">
+                                <label style="width:100%">
+                                    <span>  收货地址：</span>
+                                    <span>
+                                        {{PageData.deliveryProvinceName}}
+                                        {{PageData.deliveryCityName}}
+                                        {{PageData.deliveryDistrictName}}
+                                        {{PageData.deliveryAddress}}
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div ng-address="address" ng-model="PageData" ng-operat="AddressConfig"></div>
+                    </div>
+
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 style="width:80%" data-toggle="collapse" href="#pro_ProductInformation">产品信息</h5>
+                            <a href="javascript:void(0)" class="btn" style="display:none;"><i class="fa fa-folder-open"></i>选择模板</a>
+                        </div>
+                        <div id="pro_ProductInformation" class="widget-content nopadding collapse in">
+                            <div ng-product-view="dealProduct" ng-model="PageData" ng-service="ProductService" ng-comp="ProductCompetence"></div>
+                        </div>
+                    </div>
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" style="width:80%" href="#pro_AdditionalInformation">图片信息</h5>
+                            <a class="btn j_file_panel" href="javascript:void(0)">
+                                <i class="fa fa-image"></i>
+                                添加图片
+                                <div ng-file="file" ng-model="file"></div>
+                            </a>
+                        </div>
+                        <div id="pro_AdditionalInformation" class="widget-content nopadding collapse in">
+                            <div class="control-group ">
+                                <div ng-img-list="img" ng-model="PageData.attachments.images"></div>
+                                <label style="opacity:0.5;width:100%;" ng-show="!PageData.attachments.images.length">
+                                    添加点图片丰富您的订单吧，
+                                    最多支持上传5张图片
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label style="width:100%">
+                                    图片说明：<input type="text" style="width:78%;" placeholder="对您的图片说点什么吧..." ng-model="PageData.attachments.remark" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="tools">
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-show="View.Competence.dealwith" ng-click="DealService.Submit()"><i class="fa fa-wrench"></i>提交</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa  fa-reply"></i> 返回</a>
+        </span>
+    </div>
+</div>

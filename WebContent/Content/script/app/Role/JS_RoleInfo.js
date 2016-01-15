@@ -59,7 +59,7 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
                 $scope.RoleDetail.model.show();
             });
         },//操作的角色信息
-        roleInfo: {},
+        roleInfo: {relationDesc:""},
         showEditRole: function () {
             /// <summary>显示编辑行信息</summary>
             var rowData = $scope.getSelectedRow();
@@ -86,24 +86,30 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
             }
             return result;
         },
-        saveRole: function () {
-            /// <summary>保存角色</summary>
-            console.log($scope.RoleDetail.roleInfo)
-            if ($scope.RoleDetail.verification()) {
-                $MessagService.loading("角色保存中，请稍等...");
-                $Api.RoleService.Save($scope.RoleDetail.roleInfo, function (rData) {
-                    $scope.RoleDetail.model.hide();
-                    $scope.RoleDetail.getRoleList();
-                    $MessagService.succ("角色保存成功！")
-                });
-            }
-        },
+            saveRole: function () {
+                /// <summary>保存角色</summary>
+                if ($scope.RoleDetail.roleInfo.relationDesc==null) {
+                    $scope.RoleDetail.roleInfo.relationDesc = "";
+                }
+                console.log($scope.RoleDetail.roleInfo)
+                if ($scope.RoleDetail.verification()) {
+                    $MessagService.loading("角色保存中，请稍等...");
+                    $Api.RoleService.Save($scope.RoleDetail.roleInfo, function (rData) {
+                        $scope.RoleDetail.model.hide();
+                    if ($scope.RoleParameters.userOrgType == "PL") {
+                        $scope.RoleDetail.getRoleListFix();
+                    } else {
+                        $scope.RoleDetail.getRoleList();
+                    }
+                        $MessagService.succ("角色保存成功！")
+                    });
+                }
+            },
         cancel: function () {
             /// <summary>取消</summary>
             $scope.RoleDetail.model.hide();
         }
     };
-
     $scope.RoleView = {
         Info: {},
         showRole: function (row) {

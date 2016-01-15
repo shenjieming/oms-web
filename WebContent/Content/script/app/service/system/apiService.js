@@ -343,6 +343,80 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 }
             }
         },
+        StockService: {
+            /// <summary>备货订单服务</summary>
+            Save: function (data, callback) {
+                /// <summary>手术订单保存</summary>
+                $MessagService.loading("备货订单保存中，请稍等...");
+                service.Post(ApiPath.Stock.save, data, callback);
+            },
+            Submit: function (data, callback) {
+                /// <summary>手术订单提交</summary>
+                $MessagService.loading("备货订单提交中，请稍等...");
+                service.Post(ApiPath.Stock.submit, data, callback);
+            },
+            Approval: function (data, callback) {
+                /// <summary>订单审批</summary>
+                $MessagService.loading("订单审批中，请稍等...");
+                service.Post(ApiPath.Stock.Approval[data.operat], data, callback);
+            },
+            Sign: {
+                /// <summary>订单签收</summary>
+                orderSign: function (data, callback) {
+                    $MessagService.loading("订单签收中，请稍等...");
+                    service.Post(ApiPath.Stock.Sign.orderSign, data, callback);
+                },
+                OBSign: function (data, callback) {
+                    /// <summary>配货单签收</summary>
+                    $MessagService.loading("配货单签收中，请稍等...");
+                    service.Post(ApiPath.Stock.Sign.OBSign, data, callback);
+                }
+            },
+            Process: {
+                /// <summary>备货订单处理操作接口管理</summary>
+                Receive: function (data, callback) {
+                    /// <summary>接受处理备货订单</summary>
+                    $MessagService.loading("订单接受处理中，请稍等...");
+                    service.Post(ApiPath.Stock.Process.receive, data, callback);
+                },
+                Save: function (data, callback) {
+                    /// <summary>备货订单暂存</summary>
+                    $MessagService.loading("处理保存中，请稍等...");
+                    service.Post(ApiPath.Stock.Process.save, data, callback);
+                },
+                Submit: function (data, callback) {
+                    /// <summary>备货订单处理提交</summary>
+                    $MessagService.loading("处理提交中，请稍等...");
+                    service.Post(ApiPath.Stock.Process.submit, data, callback);
+                },
+                AddEvent: function (data, callback) {
+                    /// <summary>添加事件</summary>
+                    service.Post(ApiPath.Stock.Process.addevent, data, callback);
+                },
+                AddEvent: function (data, callback) {
+                    /// <summary>添加事件</summary>
+                    service.Post(ApiPath.Stock.Process.addevent, data, callback);
+                }
+            },
+            DataSources: {
+                /// <summary>备货单数据源</summary>
+                GetStockList: function (data, callback) {
+                    /// <summary>获取综合下单历史记录</summary>
+                    $MessagService.loading("数据列表获取中，请稍等...");
+                    service.Post(ApiPath.Stock.DataSources.stockList, data, callback);
+                },
+                GetDetail: function (data, callback) {
+                    /// <summary>获取订单明细</summary>
+                    $MessagService.loading("备货订单信息获取中，请稍等...");
+                    service.Post(ApiPath.Stock.detail, data, callback);
+                },
+                GetIntegratedStockInquiry: function (data, callback) {
+                    /// <summary>综合订单查询列表</summary>
+                    $MessagService.loading("综合订单信息获取中，请稍等...");
+                    service.Post(ApiPath.Stock.DataSources.IntegratedStockInquiry, data, callback);
+                }
+            }
+        },
         MaterialsService: {
             /// <summary>物料信息服务管理</summary>
             GetAllWareHouse: function (data, callback) {

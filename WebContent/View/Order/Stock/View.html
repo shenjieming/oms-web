@@ -1,0 +1,59 @@
+﻿<div class="row">
+    <div class="tools">
+        <h5 style="float:left; font-weight:bold; margin-left:8px;">
+            <i class="fa fa-file-archive-o"></i>
+            备货订单
+            <span style="color: #0033FF">[{{sono}}]</span>
+            <span style="color: #FF3300">({{PageData.statusName}})</span>
+
+        </h5>
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-show="View.Competence.dealwith"><i class="fa fa-wrench"></i>处理</a>
+            <a class="btn btn-primary" ng-show="View.Competence.approval" ng-click="ApprovalConfig.Operat.show()"><i class="fa fa-eye"></i>审批</a>
+            <a class="btn btn-primary" ng-show="View.Competence.sign" ng-click="SignConfig.Operat.show()"><i class="fa fa-eye"></i>订单签收</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+    <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
+
+    <div>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active" href="#Original" data-toggle="tab"><a>原始订单</a></li>
+            <li role="presentation" href="#Accurate" data-toggle="tab"><a>精确订单</a></li>
+            <li role="presentation" href="#Library" data-toggle="tab"><a>出库单</a></li>
+            <li role="presentation" href="#Event" data-toggle="tab"><a>订单事件</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="Original">
+                <div ui-view="Original"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Accurate">
+                <div ui-view="Accurate"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Library">
+                <div class="row-fluid">
+                    <div ui-view="Library"></div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Event">
+                <div class="row-fluid">
+					<div ui-view="Event"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div ng-order-approval="" ng-model="PageData" ng-operat="ApprovalConfig.Operat"></div>
+    <div ng-sign="" ng-model="PageData" ng-operat="SignConfig.Operat"></div>
+    <div class="tools">
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-show="View.Competence.approval" ng-click="ApprovalConfig.Operat.show()"><i class="fa fa-eye"></i>审批</a>
+            <a class="btn btn-primary" ng-show="View.Competence.sign" ng-click="SignConfig.Operat.show()"><i class="fa fa-eye"></i>订单签收</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa  fa-reply"></i> 返回</a>
+        </span>
+    </div>
+</div>

@@ -1,4 +1,5 @@
-﻿
+﻿/// <reference path="User/JS_Information.js" />
+
 /// <reference path="../lib/angular-1.2.20/angular-route.min.js" />
 /// <reference path="../lib/angular-1.2.20/angular.min.js" />
 /// <reference path="../lib/angular-1.2.20/angular-touch.js" />
@@ -67,8 +68,13 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         .state("app.stock", {
             /// <summary>备货订单管理</summary>
             url: "/stock",
+            template: "<div ui-view></div>",
+            controller: "StockController",
             abstract: true,
-            template: "<div ui-view></div>"
+            loadJs: [
+               "Content/script/app/Order/Stock/JS_View.js"
+            ],
+            resolve: app.resolve
         })
         .state("app.mybusiness", {
             /// <summary>业务信息管理</summary>
@@ -472,42 +478,114 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
        
 });
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
-    /// <summary>备货订单管理</summary>
+    /// <summary>备货订单列表管理</summary>
     $stateProvider
         .state("app.stock.list", {
             /// <summary>备货订单列表</summary>
             url: "/list",
-            template: "<div>备货订单列表</div>"
+            templateUrl: "View/Order/Stock/IntegratedStockList.html?data=" + Timestamp,
+            controller: "MyStockListController",
+            loadJs: ["Content/script/app/Order/Stock/List/JS_Integrated-MyStockList.js"],
+            resolve: app.resolve
         })
         .state("app.stock.draft", {
-            /// <summary>备货单草稿</summary>
+        	/// <summary>草稿订单列表</summary>
             url: "/draft",
-            template: "<div>备货单草稿列表</div>"
+            templateUrl: "View/Order/Stock/IntegratedStockList.html?data=" + Timestamp,
+            controller: "StockMyDraftListController",
+            loadJs: ["Content/script/app/Order/Stock/List/JS_Integrated-MyDraftList.js"],
+            resolve: app.resolve
         })
         .state("app.stock.approval", {
             /// <summary>备货单审批</summary>
             url: "/approval",
-            template: "<div>备货单审批列表</div>"
+            templateUrl: "View/Order/Stock/IntegratedStockList.html?data=" + Timestamp,
+            controller: "StockApprovalListController",
+            loadJs: ["Content/script/app/Order/Stock/List/JS_Integrated-ApprovalList.js"],
+            resolve: app.resolve
         })
         .state("app.stock.deal", {
             /// <summary>备货订单处理</summary>
             url: "/deal",
-            template: "<div>备货单处理列表</div>"
+            templateUrl: "View/Order/Stock/IntegratedStockList.html?data=" + Timestamp,
+            controller: "StockDealWithListController",
+            loadJs: ["Content/script/app/Order/Stock/List/JS_Integrated-DealWithList.js"],
+            resolve: app.resolve
         })
         .state("app.stock.sign", {
             /// <summary>备货订单签收管理</summary>
-            url: "/sign",
-            template: "<div>备货单签收列表</div>"
+        	url: "/sign",
+            templateUrl: "View/Order/Stock/IntegratedStockList.html?data=" + Timestamp,
+            controller: "StockSignListController",
+            loadJs: ["Content/script/app/Order/Stock/List/JS_Integrated-SignList.js"],
+            resolve: app.resolve
         })
         .state("app.stock.complex", {
             /// <summary>备货订单综合查询</summary>
-            url: "/complex",
-            template: "<div>备货订单综合查询</div>"
+        	url: "/complex",
+            templateUrl: "View/Order/Stock/IntegratedStockInquiry.html?data=" + Timestamp,
+            controller: "StockIntegratedListController",
+            loadJs: ["Content/script/app/Order/Stock/List/JS_IntegratedList.js"],
+            resolve: app.resolve
         })
         .state("app.stock.delivery", {
             /// <summary>备货订单出库单查询</summary>
-            url: "/delivery",
-            template: "<div>备货单出库单查询</div>"
+        	url: "/delivery",
+            templateUrl: "View/Order/Stock/IntegratedStockList.html?data=" + Timestamp,
+            resolve: app.resolve
+        })
+});
+app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
+    /// <summary>备货订单管理</summary>
+    $stateProvider
+       .state("app.stock.single", {
+           /// <summary>备货下单</summary>
+           url: "/single/:sono",
+           templateUrl: "View/Order/Stock/Single.html?data=" + Timestamp,
+           controller: "StockSingleController"
+       })
+        .state("app.stock.view", {
+            /// <summary>备货订单视图</summary>
+            url: "/view/:sono",
+            views: {
+            	"": {
+                    templateUrl: "View/Order/Stock/View.html?data=" + Timestamp,
+                    controller: "StockViewController",
+                },
+                "Original@app.stock.view": {
+                    templateUrl: "View/Order/Stock/View/SingleView.html?data=" + Timestamp,
+                    controller: "StockOriginalController",
+                },
+                "Accurate@app.stock.view": {
+                    templateUrl: "View/Order/Stock/View/AccurateView.html?data=" + Timestamp,
+                    controller: "StockAccurateController",
+                },
+                "Library@app.stock.view": {
+                    templateUrl: "View/Order/Stock/View/LibraryView.html?data=" + Timestamp,
+                    controller: "StockLibraryController",
+                },
+                "Event@app.stock.view": {
+                    templateUrl: "View/Order/Stock/View/EventView.html?data=" + Timestamp
+                }
+            },
+            authenticate: true,
+            viewAuth: true
+        })
+        .state("app.stock.dealpage", {
+            /// <summary>备货订单处理</summary>
+            url: "/dealpage/:sono",
+            views: {
+                "": {
+                    templateUrl: "View/Order/Stock/Dealwith.html?data=" + Timestamp,
+                    controller: "StockViewController"
+                },
+                "Original@app.stock.dealpage": {
+                    templateUrl: "View/Order/Stock/View/SingleView.html?data=" + Timestamp,
+                    controller: "StockOriginalController"
+                }
+            },
+            authenticate: true,
+            viewAuth: true
         })
 });
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
@@ -553,7 +631,6 @@ app.resolve = {
         return delay.promise;
     }
 }
-
 app.controller("masterController", function ($scope, $state, $MenuService, $local, $MessagService, $Api, $window) {
     /// <summary>模板信息控制器</summary>
     $scope.fold = false;

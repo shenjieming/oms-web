@@ -5,13 +5,13 @@
                 <div class="widget-content">
                     <div class="control-group">
                         <label style="width:50%">
-                            <span class="required">*</span>
+                            <span class="required" style="margin-top:8px;">*</span>
                             品牌名称：<select ng-model="prodLn.medBrandCode">
                                 <option value="">请选择产品线</option>
                                 <option ng-repeat="item in Server.BrandList" value="{{item.id}}">{{item.text}}</option>
                             </select>
                         </label>
-                        <label style="width:50%;display:none;">
+                        <label style="width: 50%; display: none; margin-top: 8px;">
                             产品类型：<select ng-model="prodLn.medProdLineType">
                                 <option value="">请选择产品线类型</option>
                                 <option ng-repeat="item in Server.ProductLineTypeList" value="{{item.id}}">{{item.text}}</option>
@@ -21,19 +21,13 @@
                     </div>
                     <div class="control-group">
                         <label style="width:50%">
-                            <span class="required">*</span>
-                            产&nbsp;品&nbsp;线&nbsp;：<select ng-model="prodLn.medProdLnCode">
+                            <span class="required"style="margin-top:8px;">*</span>
+                            产&nbsp;品&nbsp;线&nbsp;&nbsp;：<select ng-model="prodLn.medProdLnCode">
                                 <option value="">请选择产品线信息</option>
                                 <option ng-repeat="item in Server.ProductLineList" value="{{item.id}}">{{item.text}}</option>
                             </select>
                         </label>
-                        <label style="width:50%">
-                            <span style="float:left;line-height:25px;">工具情况：</span>
-                            <input type="checkbox" id="checkbox_c2" class="chkbox" ng-checked="prodLn.isChecked" ng-model="prodLn.isChecked" />
-                            <label for="checkbox_c2" style="float:left"></label>
-                            <span ng-show="prodLn.isChecked" style="line-height: 25px;"> 需要</span>
-                            <span ng-show="!prodLn.isChecked" style="line-height: 25px;">不需要</span>
-                        </label>
+
                     </div>
                     <div class="control-group">
                         <label style="width:100%;">

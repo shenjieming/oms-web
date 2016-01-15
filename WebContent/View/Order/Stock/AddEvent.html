@@ -1,0 +1,89 @@
+﻿<div class="row" ng-controller="AddEventController">
+    <div class="tools">
+        <h5 style="float:left; font-weight:bold; margin-left:8px;">
+            <i class="fa fa-file-archive-o"></i>
+            手术订单
+            <span style="color: #0033FF">[{{sono}}]</span>
+            <span style="color: #FF3300">({{PageData.statusName}})</span>
+
+        </h5>
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-click="EventService.Submit()"><i class="fa fa-check"></i> 提交</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+    <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active" href="#Original" data-toggle="tab"><a>原始订单</a></li>
+            <li role="presentation" href="#Accurate" data-toggle="tab"><a>精确订单</a></li>
+            <li role="presentation" href="#Additional" data-toggle="tab"><a>出库单</a></li>
+            <li role="presentation" href="#AddEvent" data-toggle="tab"><a>{{View.Competence.apply?"返库申请":"添加事件"}} </a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="Original">
+                <div ui-view="Original"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Accurate">
+                <div ui-view="Accurate"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Additional">
+                <div class="row-fluid">
+                    <div ui-view="Library"></div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="AddEvent">
+                <div class="row-fluid">
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" style="width:80%" href="#pro_AdditionalInformation">{{View.Competence.sign?"返库信息":"事件信息"}}</h5>
+                            <a class="btn j_file_panel" href="javascript:void(0)">
+                                <i class="fa fa-image"></i>
+                                添加图片
+                                <div ng-file="file" ng-model="file"></div>
+                            </a>
+                        </div>
+                        <div id="pro_AdditionalInformation" class="widget-content nopadding collapse in">
+                            <div class="control-group" ng-show="!View.Competence.apply">
+                                <label>
+                                    事件名称:<select ng-model="Event.eventCode"
+                                                 ng-options="item.id as item.text for item in AddEventService.EventList">
+                                        <option value="">请选择事件信息</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="control-group ">
+                                <label style="width:100%">
+                                    {{View.Competence.apply?"返库":"事件"}}说明:
+                                    <input type="text" style="width:78%;" ng-model="Event.remark" placeholder="请输入本次操作的说明..." />
+                                </label>
+                            </div>
+                            <div class="control-group ">
+                                <div ng-img-list="img" ng-model="Event.attachments.images"></div>
+                                <label style="opacity:0.5;width:100%;" ng-show="!Event.attachments.images.length">
+                                    添加点图片丰富您的订单吧，
+                                    最多支持上传5张图片
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label style="width:100%">
+                                    图片说明：<input type="text" style="width:78%;" placeholder="对您的图片说点什么吧..." ng-model="Event.attachments.remark" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="tools">
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-click="EventService.Submit()"><i class="fa fa-check"></i> 提交</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa  fa-reply"></i> 返回</a>
+        </span>
+    </div>
+</div>

@@ -246,7 +246,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                     $Api.MedKitService.GetKitInventory(paramData, $scope.WarehouseConfig.KitInventory);
                 },
                 GetKitParam: function (kit) {
-                    /// <summary>获取泰安库存条件</summary>
+                    /// <summary>获取套件库存条件</summary>
                     var result = new Array();
                     if (kit) {
                         result.push($scope.WarehouseConfig.StandardizationKitParam(kit));

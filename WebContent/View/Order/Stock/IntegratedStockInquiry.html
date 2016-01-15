@@ -1,0 +1,68 @@
+﻿<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">{{title}}</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="editStock()" ng-show="competence.modify"> <i class="fa fa-clipboard"></i> 手术修改</a>
+                    <a class="btn btn-primary" ng-click="editStock()" ng-show="Competence.submit"><i class="fa fa-check"></i>订单提交</a>
+                    <a class="btn btn-primary" ng-click="ApprovalStock()" ng-show="Competence.approval"><i class="fa fa-eye"></i>订单审批</a>
+                    <a class="btn btn-primary" ng-click="SignStock()" ng-show="Competence.sign"><i class="fa fa-pencil-square-o"></i>订单签收</a>
+                    <a class="btn btn-primary" ng-click="DealStock()" ng-show="Competence.dealwith"><i class="fa fa-wrench"></i>订单处理</a>
+                    <a class="btn btn-primary" ng-click="showViewDetail()"><i class="fa fa-align-justify"></i>订单详情</a>
+                </span>
+                <div class="input-group" style="float:right;width:250px;margin-right:10px;">
+                    <input type="text" class="form-control" placeholder="请输入查询条件"
+                           style="padding:8px;" ng-model="Pagein.sONo">
+                    <a class="input-group-addon" href="javascript:void(0)" ng-click="Load()"><i class="fa fa-search"></i></a>
+                </div>
+            </header>
+
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box">
+                    <table class="table table-bordered table-striped" st-table="Integrated.StockList">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>订单编号</span></th>
+                                <th><span>订单货主</span></th>
+                                <th><span>处理仓库</span></th>
+                                <th><span>下单人</span></th>
+                                <th><span>下单时间</span></th>
+                                <th><span>下单主产品线</span></th>
+                                <th><span>订单状态</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in Integrated.StockList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="showView(row.sONo)">
+                                <td>{{$index+1}}</td>
+                                <td>
+                                    {{row.sONo}}
+                                </td>
+                                <td>
+                                    {{row.sOOIOrgCodeName}}
+                                </td>
+                                <td>
+                                    {{row.sOHandleByOrgCodeName}}
+                                </td>
+                                <td>
+                                    {{row.sOCreateByName}}
+                                </td>
+                                <td>
+                                    {{row.createDate}}
+                                </td>
+                                <td>
+                                    {{row.initMedProdLnCodeName}}
+                                </td>
+                                <td>
+                                    {{row.statusName}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+    </div>
+</div>
