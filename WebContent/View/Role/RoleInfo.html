@@ -7,7 +7,6 @@
                 <span style="float:right;">
                     <a class="btn btn-primary" ng-click="RoleDetail.showRole({})">新增</a>
                     <a class="btn btn-primary" ng-click="RoleDetail.showEditRole()">编辑</a>
-                    <a class="btn btn-primary">删除</a>
                     <a class="btn btn-primary" ng-click="RoleView.showRole()">详情</a>
                 </span>
             </header>
@@ -70,7 +69,7 @@
             <div class="col-lg-5">
                 <span class="required">*</span>  机构类型：<select ng-model="RoleDetail.roleInfo.orgType" ng-change="orgType.change(item)">
                     <option value="">请选择机构类型</option>
-                         <option ng-repeat="item in orgType.dic" ng-selected="item.id==RoleDetail.roleInfo.orgType" value="{{item.id}}">
+                         <option ng-repeat="item in orgType.result" ng-selected="item.id==RoleDetail.roleInfo.orgType" value="{{item.id}}">
                              {{item.id}} -  {{item.text}}
                          </option>
                 </select>

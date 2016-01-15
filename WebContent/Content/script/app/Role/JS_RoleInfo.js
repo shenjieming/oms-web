@@ -16,12 +16,12 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
         getRoleList: function () {
             /// <summary>获取角色列表</summary>
             $MessagService.loading("角色获取中，请稍等...");
-            var paramData = $.extend({ validStatus: "Y", roleName: "", orgType:$scope.RoleParameters.orgType }, $scope.Pagein);
+            var paramData = $.extend({ validStatus: "Y", roleName: "", orgType: $scope.RoleParameters.orgType }, $scope.Pagein);
             console.log(paramData)
             $Api.RoleService.GetRoleList(paramData, function (roleData) {
                 /// <summary>获取角色信息</summary>
-                    $scope.RoleInfo = roleData.rows;
-                    $scope.Pagein.total = roleData.total;
+                $scope.RoleInfo = roleData.rows;
+                $scope.Pagein.total = roleData.total;
             });
         },
         getRoleListFix: function () {
@@ -35,7 +35,9 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
         },
         getLoginInformation: function () {
             $Api.AccountService.CurrentUserInfo({}, function (roleData) {
-                /// <summary>获取角色信息</summary>
+                /// <summary>获取当前登录信息控制角色信息列表</summary>
+                console.log(roleData)
+                $scope.RoleParameters.userOrgType = roleData.userInfo.orgType;
                 if (roleData.userInfo.orgType == "PL") {
                     $scope.RoleParameters.orgType = "";
                     $scope.RoleParameters.roleName = "";
@@ -45,7 +47,6 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
                     $scope.RoleParameters.roleName = roleData.roleInfo[0].roleName
                     $scope.RoleDetail.getRoleList();
                 }
-
             });
         },
         showRole: function (rowData) {
@@ -58,10 +59,10 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
                 $scope.RoleDetail.model.show();
             });
         },//操作的角色信息
-        roleInfo:{},
+        roleInfo: {},
         showEditRole: function () {
             /// <summary>显示编辑行信息</summary>
-            var rowData = $scope.getSelectedRow(); 
+            var rowData = $scope.getSelectedRow();
             if (rowData) {
                 $scope.RoleDetail.showRole(rowData);
                 $scope.RoleDetail.model.show();
@@ -71,15 +72,23 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
         },
         verification: function () {
             /// <summary>验证</summary>
+            console.log($scope.RoleInfo)
             var result = true;
+            for (var i = 0; i < $scope.RoleInfo.length; i++) {
+                if ($scope.RoleInfo[i].roleName == $scope.RoleDetail.roleInfo.roleName) {
+                    $MessagService.caveat("该角色名称已存在,请创建其他角色名称！");
+                    result = false;
+                }
+            }
             if (!$scope.RoleDetail.roleInfo.roleName || !$scope.RoleDetail.roleInfo.roleFullName || !$scope.RoleDetail.roleInfo.orgType) {
                 $MessagService.caveat("数据不完整，请将数据填写完整！");
                 result = false;
-            } 
+            }
             return result;
         },
-        saveRole:function(){
+        saveRole: function () {
             /// <summary>保存角色</summary>
+            console.log($scope.RoleDetail.roleInfo)
             if ($scope.RoleDetail.verification()) {
                 $MessagService.loading("角色保存中，请稍等...");
                 $Api.RoleService.Save($scope.RoleDetail.roleInfo, function (rData) {
@@ -89,7 +98,7 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
                 });
             }
         },
-        cancel:function(){
+        cancel: function () {
             /// <summary>取消</summary>
             $scope.RoleDetail.model.hide();
         }
@@ -124,28 +133,26 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
             $scope.RoleView.model.hide();
         }
     };
-
-    $scope.RoleView.model = { title: "角色详情",width: 500, height: 300, buttons: { "确定": $scope.RoleView.cancel } }
+    $scope.RoleView.model = { title: "角色详情", width: 500, height: 300, buttons: { "确定": $scope.RoleView.cancel } }
     $scope.RoleDetail.model = { title: "角色信息", width: 650, height: 300, buttons: { "保存": $scope.RoleDetail.saveRole, "取消": $scope.RoleDetail.cancel } }
-    
     $scope.getSelectedRow = function () {
         /// <summary>获取选择的行</summary>
-        var result =false;
-        $.each($scope.RoleInfo, function (index,item) {
+        var result = false;
+        $.each($scope.RoleInfo, function (index, item) {
             if (item.isSelected) {
                 result = item
             }
         });
         return result;
     }
-
     $scope.orgType = {
         dic: new Array(),
+        result: [],
         change: function (item) {
             /// <summary>组织类型修改事件</summary>
-            for (var i = 0; i < $scope.orgType.dic.length; i++) {
-                if ($scope.orgType.dic[i].id == $scope.RoleDetail.roleInfo.orgType) {
-                    $scope.RoleDetail.roleInfo.orgTypeName = $scope.orgType.dic[i].text;
+            for (var i = 0; i < $scope.orgType.result.length; i++) {
+                if ($scope.orgType.result[i].id == $scope.RoleDetail.roleInfo.orgType) {
+                    $scope.RoleDetail.roleInfo.orgTypeName = $scope.orgType.result[i].text;
                     return;
                 }
             }
@@ -154,11 +161,46 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
             /// <summary>获取机构类型信息</summary>
             if (!$scope.orgType.dic.length) {
                 $MessagService.loading("数据初始化中，请稍等...");
-                $Api.Public.GetDictionary({ dictType: "ORGTYP",isRole:true }, function (rData) {
-                        $scope.orgType.dic = rData;
-                        if (callback) {
-                            callback();
-                        }
+                $Api.Public.GetDictionary({ dictType: "ORGTYP", isRole: true }, function (rData) {
+                    $scope.orgType.dic = rData;
+                    console.log($scope.RoleParameters.userOrgType)
+                    if (callback) {
+                        callback();
+                    }
+                    switch ($scope.RoleParameters.userOrgType) {
+                        case "DL"://经销商能控制的组织类型
+                            for (var i = 0; i < rData.length; i++) {
+                                if (rData[i].id == $scope.RoleParameters.userOrgType) {
+                                    $scope.orgType.result.push(rData[i])
+                                }
+                            }
+                            break;
+                        case "OI"://货主能控制的组织类型
+                            for (var i = 0; i < rData.length; i++) {
+                                if (rData[i].id == $scope.RoleParameters.userOrgType) {
+                                    $scope.orgType.result.push(rData[i])
+                                }
+                            }
+                            break;
+                        case "WH"://仓库能控制的组织类型
+                            for (var i = 0; i < rData.length; i++) {
+                                if (rData[i].id == $scope.RoleParameters.userOrgType) {
+                                    $scope.orgType.result.push(rData[i])
+                                }
+                            }
+                            break;
+                        case "PL"://平台能控制的组织类型
+                            for (var i = 0; i < rData.length; i++) {
+                                if (rData[i].id == $scope.RoleParameters.userOrgType) {
+                                    $scope.orgType.result.push(rData[0])
+                                    $scope.orgType.result.push(rData[1])
+                                    $scope.orgType.result.push(rData[2])
+                                    $scope.orgType.result.push(rData[3])
+                                    $scope.orgType.result.push(rData[4])
+                                }
+                            }
+                            break;
+                    }
                 });
             } else if (callback) {
                 callback();

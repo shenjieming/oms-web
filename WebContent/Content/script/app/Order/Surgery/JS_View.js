@@ -31,10 +31,13 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
             $Api.SurgeryService.DataSources.GetDetail({ sONo: $scope.sono }, function (rData) { $.extend($scope.PageData, rData); });
         }
     }
-
     $scope.ApprovalConfig = {
         /// <summary>订单审批配置</summary>
-        Operat: { fixed: function () { $scope.goLastPage(); } },
+        Operat: {
+            fixed: function () {
+                $scope.goLastPage();
+            }
+        },
         Model: { sONo: $scope.sono }
     }
     $scope.SignConfig = {
@@ -433,9 +436,6 @@ app.controller("SingleController", function ($scope, $state, $local, $Api, $Mess
                 result = false
             }  else if ($scope.PageData.prodLns.length==0) {
                 $MessagService.caveat("请选择产品线")
-                result = false
-            } else if ($scope.PageData.prodLns[0].medMaterias.length==0) {
-                $MessagService.caveat("请添加物料")
                 result = false
             }
             return result
@@ -908,7 +908,7 @@ app.controller("AddEventController", function ($scope, $state, $local, $Api, $Me
         Upload: function (files) {
             /// <summary>上传事件</summary>
             $.each(files, function (index, item) {
-                if ($scope.PageData.attachments.images.length >= 5) {
+                if ($scope.Event.attachments.images.length >= 5) {
                     $MessagService.caveat("您上传的图片超过了5张。")
                     return false;
                 }
