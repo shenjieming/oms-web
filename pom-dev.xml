@@ -25,6 +25,24 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>gen-webadmin</id>
+						<phase>compile</phase>
+						<configuration>
+							<tasks>
+								<delete file="${project.build.directory}/oms-web/Content/script/app/service/ApiPath.js" />
+								<copy file="${basedir}/build/dev/ApiPath.js" tofile="${project.build.directory}/oms-web/Content/script/app/service/ApiPath.js" />
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>
