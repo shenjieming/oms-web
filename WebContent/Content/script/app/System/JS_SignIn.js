@@ -9,22 +9,33 @@
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
 app.controller("SignInController", function ($scope, $state, $local, $Api, $MessagService) {
-    $scope.SignData = { loginName: "dltest", password: "123456" };
+    $scope.SignData = {};
     $scope.Landed = function () {
         /// <summary>登陆系统</summary>
         if ($scope.verification()) {
             $MessagService.loading("登陆中，请稍等...");
             $Api.AccountService.Login($scope.SignData, function (rObj) {
-                    $MessagService.succ("登陆成功，进入系统中...");
-                    $local.setValue("USER", rObj);
-                    console.log($local.getValue("USER"));
-                    setTimeout(function () {
-                        $scope.$apply(function () {
-                            $state.go('app.home');
-                        });
-                    }, 500)
+                $MessagService.succ("登陆成功，进入系统中...");
+                $local.setValue("USER", rObj);
+                console.log($local.getValue("USER"));
+                setTimeout(function () {
+                    $scope.$apply(function () {
+                        $state.go('app.home');
+                    });
+                }, 500)
+            }, function () {
+
             });
-        } 
+        }
+        $.extend($scope.SignData, { password: "" });//输入完毕，密码清空
+    }
+
+    $scope.keyUp = function (e) {
+        /// <summary>键盘事件</summary>
+        var keycode = window.event ? e.keyCode : e.which;
+        if (keycode == 13) {
+            $scope.Landed();
+        }
     }
     $scope.verification = function () {
         /// <summary>验证</summary>

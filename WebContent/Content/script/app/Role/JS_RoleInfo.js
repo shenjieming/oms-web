@@ -21,6 +21,11 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
             $Api.RoleService.GetRoleList(paramData, function (roleData) {
                 /// <summary>获取角色信息</summary>
                 $scope.RoleInfo = roleData.rows;
+                for (var i = 0; i < $scope.RoleInfo.length; i++) {
+                    if ($scope.RoleInfo[i].validStatus == "Y") {
+                        $scope.RoleInfo[i].isEnable = true;
+                    }
+                }
                 $scope.Pagein.total = roleData.total;
             });
         },
@@ -31,6 +36,11 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
                 /// <summary>获取角色信息</summary>
                 $scope.RoleInfo = roleData.rows;
                 $scope.Pagein.total = roleData.total;
+                for (var i = 0; i < $scope.RoleInfo.length; i++) {
+                    if ($scope.RoleInfo[i].validStatus == "Y") {
+                        $scope.RoleInfo[i].isEnable = true;
+                    }
+                }
             });
         },
         getLoginInformation: function () {
@@ -72,18 +82,16 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
         },
         verification: function () {
             /// <summary>验证</summary>
-            console.log($scope.RoleInfo)
             var result = true;
-            for (var i = 0; i < $scope.RoleInfo.length; i++) {
-                if ($scope.RoleInfo[i].roleName == $scope.RoleDetail.roleInfo.roleName) {
-                    $MessagService.caveat("该角色名称已存在,请创建其他角色名称！");
-                    result = false;
-                }
-            }
             if (!$scope.RoleDetail.roleInfo.roleName || !$scope.RoleDetail.roleInfo.roleFullName || !$scope.RoleDetail.roleInfo.orgType) {
                 $MessagService.caveat("数据不完整，请将数据填写完整！");
                 result = false;
             }
+            for (var i = 0; i < $scope.RoleInfo.length; i++) {
+                if ($scope.RoleInfo[i].roleName == $scope.RoleDetail.roleInfo.roleName) {
+                    $MessagService.caveat("该角色名称已存在,请创建其他角色名称！");
+                }
+            }        
             return result;
         },
             saveRole: function () {
@@ -91,7 +99,7 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
                 if ($scope.RoleDetail.roleInfo.relationDesc==null) {
                     $scope.RoleDetail.roleInfo.relationDesc = "";
                 }
-                console.log($scope.RoleDetail.roleInfo)
+                console.log($scope.RoleDetail.verification())
                 if ($scope.RoleDetail.verification()) {
                     $MessagService.loading("角色保存中，请稍等...");
                     $Api.RoleService.Save($scope.RoleDetail.roleInfo, function (rData) {
@@ -120,6 +128,7 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
                     $scope.RoleView.Info.isEnable = true;
                 }
                 $scope.RoleView.model.show();
+
             } else {
                 $MessagService.caveat("请选择一条查看数据！");
             }
@@ -131,7 +140,7 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
                 $scope.RoleView.model.hide();
                 $MessagService.succ("状态修改成功！");
                 setTimeout(function () {
-                    $scope.RoleDetail.getRoleList();
+                    $scope.Load();
                 }, 1000)
             });
         },
@@ -139,7 +148,7 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
             $scope.RoleView.model.hide();
         }
     };
-    $scope.RoleView.model = { title: "角色详情", width: 500, height: 300, buttons: { "确定": $scope.RoleView.cancel } }
+    $scope.RoleView.model = { title: "角色详情", width: 550, height: 300, buttons: { "确定": $scope.RoleView.cancel } }
     $scope.RoleDetail.model = { title: "角色信息", width: 650, height: 300, buttons: { "保存": $scope.RoleDetail.saveRole, "取消": $scope.RoleDetail.cancel } }
     $scope.getSelectedRow = function () {
         /// <summary>获取选择的行</summary>
@@ -150,6 +159,16 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
             }
         });
         return result;
+    }
+    $scope.RoleStatus = function (row) {
+        /// <summary>角色状态控制</summary>
+        $scope.RoleInfo = row ? row : $scope.getSelectedRow();
+        console.log($scope.RoleInfo)
+        $Api.RoleService.ModifyRoleState($scope.RoleInfo, function (rData) {
+            $MessagService.caveat("角色状态修改成功！")
+            $scope.Load();  
+        })
+
     }
     $scope.orgType = {
         dic: new Array(),

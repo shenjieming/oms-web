@@ -26,14 +26,7 @@ app.controller("IntegratedListController", function ($scope, $state, $local, $Ap
             $scope.Pagein.total = rowdata.total;
             console.log(rowdata)
         });
-          $Api.AccountService.CurrentUserInfo({}, function (rData) {
-                if (!rData.code) {
-                    $scope.Integrated.OrderList.orgType = rData.userInfo.orgType;
-                    if ($scope.Integrated.OrderList.orgType == "OI") {
-                        $(".Oi-hide").hide();
-                    }
-                }
-            })      
+    
     }
     $scope.showViewDetail = function (sono) {
         /// <summary>查看手术订单</summary>
@@ -48,4 +41,10 @@ app.controller("IntegratedListController", function ($scope, $state, $local, $Ap
         }
     }
     $scope.Load();
+
+
+    $scope.ListCompetence = {
+        /// <summary>列表权限</summary>
+        initMedProdLnCodeName: false
+    }
 });

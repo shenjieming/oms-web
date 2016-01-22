@@ -10,7 +10,7 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
     /// <summary>常用地址选择器</summary>
     return {
         restrict: "EA",
-        templateUrl: "Content/script/app/Directive/ui/ngAddress.html",
+        templateUrl: "Content/script/app/Directive/ui/ngAddress.html?data=" + Timestamp,
         scope: {
             ngModel: '=',
             ngOperat: "="
@@ -18,7 +18,7 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
         replace: true,
         link: function ($scope, element, attrs) {
             var modelConfig = {
-                title: "常用地址选择", width: 650, height: 300, buttons: {
+                title: "常用地址选择", width: 750, height: 400, buttons: {
                     "确定": function () {
                         var dataRow = $local.getSelectedRow($scope.Service.AddressList);
                         if (dataRow) {
@@ -40,8 +40,8 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                 AddressList :new Array(),
                 GetAddressList: function () {
                     /// <summary>获取常用地址列表</summary>
-                    $Api.RepresentativeService.GetDelivery({}, function (rData) {
-                        $scope.Service.AddressList = rData.rows;
+                    $Api.RepresentativeService.GetDelivery({ sOCreateBy: $scope.ngModel.sOCreateBy }, function (rData) {
+                        $scope.Service.AddressList = rData;
                     });
                 }
             };

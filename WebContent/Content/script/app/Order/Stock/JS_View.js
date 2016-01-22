@@ -219,17 +219,18 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
         append:false,
     }
 
+    $scope.ListCompetence = {
+        /// <summary>列表权限</summary>
+        sONo: true, initMedProdLnCodeName: true
+    }
+
     /*页面权限End*/
 });
 app.controller("StockSingleController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>备货下单控制器</summary>
     /*基础对象区域Begion*/
     $scope.sono = $stateParams.sono;//获取订单编号
-    $scope.PageData = {
-        wardDeptCode: "", initHPCode: "", initDTCode: "",patientDiseaseInfo:"",
-        prodLns: new Array(),
-        attachments: { images: new Array(), remark: "" }
-    }
+    $scope.PageData = { wardDeptCode: "", initHPCode: "", initDTCode: "", patientDiseaseInfo: "", prodLns: new Array(), attachments: { images: new Array(), remark: "" } }
     //产品服务
     $scope.ProductService = {};
     //产品权限
@@ -300,8 +301,9 @@ app.controller("StockSingleController", function ($scope, $state, $local, $Api, 
         Upload: function (files) {
             /// <summary>上传事件</summary>
             $.each(files, function (index, item) {
-                if ($scope.PageData.attachments.images.length > 5) {
-                    $MessagService.caveat("您上传的图片超过了5张。")
+                console.log($scope.PageData.attachments.images.length)
+                if ($scope.PageData.attachments.images.length >= 5) {
+                    $MessagService.caveat("您上传的图片超过了5张!")
                     return false;
                 }
                 if (item.type.indexOf("image") > -1) {
@@ -360,7 +362,7 @@ app.controller("StockSingleController", function ($scope, $state, $local, $Api, 
             /// <summary>选择地址事件</summary> 
             $.extend($scope.PageData, {
                 deliveryContact: rowInfo.contact, deliveryrMobile: rowInfo.mobile, deliveryProvinceCode: rowInfo.provinceCode, deliveryProvinceName: rowInfo.provinceCodeName, deliveryCityCode: rowInfo.cityCode,
-                deliveryCityName: rowInfo.cityCodeName, deliveryDistrictCode: rowInfo.districtCode, deliveryDistrictName: rowInfo.districtCodeName, deliveryAddress: rowInfo.address
+                deliveryCityName: rowInfo.cityCodeName, deliveryDistrictCode: rowInfo.districtCode, deliveryDistrictName: rowInfo.districtCodeName, deliveryAddress: rowInfo.address, iniitCarrierTransType: rowInfo.carrierTransType
             });
             $scope.AddressConfig.hide();
         }
@@ -377,6 +379,15 @@ app.controller("StockSingleController", function ($scope, $state, $local, $Api, 
             }, 1500);
         }
     })
+    $scope.$watch("PageData.sOOIOrgCode", function () {
+        /// <summary>货主修改的话</summary>
+        if ($scope.PageData.sOOIOrgCode) {
+            if ($scope.PageData.prodLns.length) {
+                $MessagService.caveat("货主发生变化，产品线已重置...");
+            }
+            $scope.PageData.prodLns = new Array();
+        }
+    });
 
 
     /*数据监控区域End*/
@@ -532,6 +543,7 @@ app.controller("StockLibraryController", function ($scope, $state, $local, $Api,
         }
     }
 });
+
 app.controller("StockDealwithController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>订单处理</summary>
 
@@ -558,7 +570,8 @@ app.controller("StockDealwithController", function ($scope, $state, $local, $Api
                 deliveryCityName: rowInfo.cityCodeName,
                 deliveryDistrictCode: rowInfo.districtCode,
                 deliveryDistrictName: rowInfo.districtCodeName,
-                deliveryAddress: rowInfo.address
+                deliveryAddress: rowInfo.address,
+                carrierTransType: rowInfo.carrierTransType
             });
             $scope.AddressConfig.hide();
         }
@@ -629,7 +642,8 @@ app.controller("StockDealwithController", function ($scope, $state, $local, $Api
     $scope.ProductService = {};
     //产品权限
     $scope.ProductCompetence = {
-        tool: false
+        tool: false,
+        instruction:true
     }
 
     /*数据监控Begion*/
@@ -657,7 +671,7 @@ app.controller("StockAdditionalController", function ($scope, $state, $local, $A
         }
     }
     $scope.AddProduct = {
-        Service: {}, Competence: { tool: false }
+        Service: {}, Competence: { tool: false, instruction: true }
     }
 
     /*数据监控Begion*/
@@ -753,5 +767,6 @@ app.controller("StockFeedbackViewController", function ($scope, $state, $local, 
     $scope.$watch("PageData.sONo", function () {
         /// <summary>获取数据信息</summary>
         $scope.FeedBack = $scope.file.GetEventMapping($scope.PageData.events, "0080_0011")
+   
     });
 });

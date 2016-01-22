@@ -21,6 +21,7 @@
                                 <th><span>机构类型</span></th>
                                 <th><span>类型名称</span></th>
                                 <th><span>状态</span></th>
+                                <th><span>状态操作</span></th>
                                 <th><span>关系描述</span></th>
                             </tr>
                         </thead>
@@ -41,6 +42,13 @@
                                 </td>
                                 <td>
                                     {{row.validStatusName}}
+                                </td>
+                                <td>
+                                    <span>
+                                        <input type="checkbox" id="checkbox_c{{$index}}" class="chkbox" ng-change="RoleStatus(row)" ng-checked="RoleInfo[{{$index}}].isEnable" ng-model="RoleInfo.isEnable" /><label for="checkbox_c{{$index}}" style="float:left;"></label>
+                                        <span style="float:left;" ng-show="RoleInfo[{{$index}}].isEnable "> 有效 </span>
+                                        <span style="float:left;" ng-show="!RoleInfo[{{$index}}].isEnable "> 无效 </span>
+                                    </span>
                                 </td>
                                 <td>
                                     {{row.relationDesc}}
@@ -103,15 +111,6 @@
             </div>
             <div class="col-lg-5">
                 机构名称： {{RoleView.Info.orgTypeName}}
-            </div>
-        </div>
-        <div class="row row-mt-8">
-            <div class="col-lg-1"></div>
-            <div class="col-lg-10">
-                <span style="float:left;"> 角色状态：</span>
-                <input type="checkbox" id="checkbox_c2" class="chkbox" ng-change="RoleView.ModifyRoleState()" ng-checked="RoleView.Info.isEnable" ng-model="RoleView.Info.isEnable" /><label for="checkbox_c2" style="float:left;"></label>
-                <span style="float:left;" ng-show="RoleView.Info.isEnable"> 有效 </span>
-                <span style="float:left;" ng-show="!RoleView.Info.isEnable"> 无效 </span>
             </div>
         </div>
         <div class="row row-mt-8">

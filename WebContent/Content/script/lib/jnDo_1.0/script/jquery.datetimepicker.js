@@ -322,7 +322,7 @@
 
 				mounth_picker
 					.find('.xdsoft_month,.xdsoft_year')
-						.on('mousedown.xdsoft',function(event) {
+						.on('mousedown.xdsoft', function (event) {
 							mounth_picker
 								.find('.xdsoft_select')
 									.hide();
@@ -892,7 +892,7 @@
 					});
 
 				timebox
-					.on('click.xdsoft','div',function() {
+					.on('click.xdsoft', 'div', function () {
 						var $this = $(this),
 							currentTime = _xdsoft_datetime.currentTime;
 						if( $this.hasClass('xdsoft_disabled') )

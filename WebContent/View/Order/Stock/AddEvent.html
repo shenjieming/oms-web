@@ -12,6 +12,7 @@
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
+    <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
     <div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
@@ -62,7 +63,7 @@
                                 </label>
                             </div>
                             <div class="control-group ">
-                                <div ng-img-list="img" ng-model="Event.attachments.images"></div>
+                                <div ng-img-list="img" ng-comp="{delImg:true}" ng-model="Event.attachments.images"></div>
                                 <label style="opacity:0.5;width:100%;" ng-show="!Event.attachments.images.length">
                                     添加点图片丰富您的订单吧，
                                     最多支持上传5张图片

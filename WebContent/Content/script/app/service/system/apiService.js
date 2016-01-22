@@ -8,27 +8,29 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
         Post: function (url, param, callback) {
             $ApiHelp.PostApi(url, param, function (data) {
                 /// <summary>请求数据处理</summary>
-                if (!data.code) {
-                    callback(data.info);
-                    $MessagService.hide(1000);
-                }
-                else if (data.code == "1001") {
-                    $MessagService.eorr("网络异常！");
-                }
-                else if (data.code == "2001") {
-                    $MessagService.eorr("您没有访问的权限！");
-                }
-                else if (data.code == "3001") {
-                    $MessagService.eorr("必输项没有输入完整！");
-                }
-                else if (data.code == "4001") {
-                    $MessagService.eorr("用户信息失效，请重新登录！");
-                }
-                else if(data.code=="1"){
-                    $MessagService.eorr(data.msg);
-                }
-                else {
-                    $MessagService.eorr("网络异常，请联系管理员！");
+                switch (data.code.toString()) {
+                    case "1001":
+                        $MessagService.eorr("网络异常！");
+                        break;
+                    case "2001":
+                        $MessagService.eorr("您没有访问的权限！");
+                        break;
+                    case "3001":
+                        $MessagService.eorr("必输项没有输入完整！");
+                        break;
+                    case "4001":
+                        $MessagService.eorr("用户信息失效，请重新登录！");
+                        break;
+                    case "1":
+                        $MessagService.eorr(data.msg);
+                        break;
+                    case "0":
+                        callback(data.info);
+                        $MessagService.hide(1000);
+                        break;
+                    default:
+                        $MessagService.eorr("网络异常，请联系管理员！");
+                        break;
                 }
             });
         },
@@ -92,12 +94,11 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 service.Post(ApiPath.User.userDisable, data, callback);
             },
             ModifyUserState: function (data, callback) {
-                /// <summary>修改角色的状态</summary>
-                console.log(data)
+                /// <summary>修改用户锁定的状态</summary>
                 if (data.isEnable) {
-                    service.Post(ApiPath.User.userEnable, data, callback);
+                    service.Post(ApiPath.User.userLock, data, callback);
                 } else {
-                    service.Post(ApiPath.User.userDisable, data, callback);
+                    service.Post(ApiPath.User.userUnlock, data, callback);
                 }
             },
 
@@ -142,7 +143,8 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
             },
             ModifyRoleState: function (data, callback) {
                 /// <summary>修改角色的状态</summary>
-                if (data.isEnable) {
+                console.log(data.isEnable)
+                if (!data.isEnable) {
                     service.Post(ApiPath.Role.roleEnable, data, callback);
                 } else {
                     service.Post(ApiPath.Role.roleDisbale, data, callback);
@@ -300,7 +302,17 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 Submit: function (data, callback) {
                     /// <summary>手术订单处理提交</summary>
                     $MessagService.loading("处理提交中，请稍等...");
-                    service.Post(ApiPath.Surgery.Process.submit, data, callback);
+                    var verifig = true;
+                    $.each(data.prodLns, function (index,item) {
+                        if (!item.medMaterias.length) {
+                            $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
+                            verifig = false;
+                            return true;
+                        }
+                    });
+                    if (verifig) {
+                        service.Post(ApiPath.Surgery.Process.submit, data, callback);
+                    }
                 },
                 Add: function (data, callback) {
                     /// <summary>配货订单追加提交</summary>
@@ -387,7 +399,17 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 Submit: function (data, callback) {
                     /// <summary>备货订单处理提交</summary>
                     $MessagService.loading("处理提交中，请稍等...");
-                    service.Post(ApiPath.Stock.Process.submit, data, callback);
+                    var verifig = true;
+                    $.each(data.prodLns, function (index, item) {
+                        if (!item.medMaterias.length) {
+                            $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
+                            verifig = false;
+                            return true;
+                        }
+                    });
+                    if (verifig) {
+                        service.Post(ApiPath.Stock.Process.submit, data, callback);
+                    }
                 },
                 AddEvent: function (data, callback) {
                     /// <summary>添加事件</summary>

@@ -66,35 +66,26 @@
                                     <th><span>物料编码</span></th>
                                     <th><span>物料名称</span></th>
                                     <th><span>物料类型</span></th>
-                                    <th><span>物料规格</span></th>
+                                    <th><span>规格</span></th>
                                     <th><span>批次</span></th>
-                                    <th><span>出库数量</span></th>
-                                    <th><span>使用数量</span></th>
+                                    <th><span>使用类型</span></th>
+                                    <th><span>数量</span></th>
                                     <th><span>返库仓库</span></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="row in FeedBack.medMaterial">
+                                <tr ng-repeat="row in PageData.feedBack">
                                     <td>{{$index+1}}</td>
-                                    <td>{{row.medBrandCodeName}}</td>
-                                    <td>{{row.medProdLnCodeName}}</td>
+                                    <td>{{row.medBrandName}}</td>
+                                    <td>{{row.medProdLnName}}</td>
                                     <td>{{row.medMICode}}</td>
-                                    <td>{{row.medMICodeName}}</td>
+                                    <td>{{row.medMIName}}</td>
                                     <td>{{row.categoryByPlatformName}}</td>
                                     <td>{{row.specification}}</td>
                                     <td>{{row.lotSerial}}</td>
-                                    <td>{{row.actQty}}</td>
-                                    <td>
-                                        <input type="number" ng-change="dictionary.DefaultUseType(row)" style="width:60px;" ng-model="row.useQty" min="0" max="{{row.actQty}}" />
-                                        <select ng-selected="0" ng-show="row.useQty>0" ng-model="row.useType" ng-options="item.id as item.text for item in dictionary.UseTypeList">
-                                            <option value="">使用类型</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select ng-model="row.returnWarehouse" ng-change="WarehouseConfig.GetKitInventory(row)" ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
-                                            <option value="">请选择仓库</option>
-                                        </select>
-                                    </td>
+                                    <td>{{row.useTypeName}}</td>
+                                    <td>{{row.useQty}}</td>
+                                    <td>{{row.zoneName}}</td>
                                 </tr>
                             </tbody>
                         </table>

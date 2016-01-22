@@ -25,7 +25,7 @@ input, select, textarea {
 }
 
 .table-striped > tbody > tr:hover {
-    background: #1a1d22;
+    background: #3498db;
     color: #fff;
 }
 
@@ -135,7 +135,7 @@ input, select, textarea {
             background: white;
             top: 1px;
             left: 0px;
-            z-index: 100;
+            z-index: 10;
             width: 25px;
             -webkit-transition: all 0.1s ease-in;
             transition: all 0.1s ease-in;
@@ -260,7 +260,7 @@ input, select, textarea {
 
                 .row-fluid .widget-box .widget-content .control-group > label {
                     text-align: left;
-                    padding-left: 8%;
+                    padding-left: 3%;
                     width: 30%;
                     padding-top: 8px;
                     float: left;
@@ -357,7 +357,7 @@ input, select, textarea {
 .timeline {
     padding: 0;
     margin: 0;
-    margin-left:150px;
+    margin-left: 150px;
 }
 
 .tl-item {
@@ -378,31 +378,31 @@ input, select, textarea {
     display: none;
 }
 
-    .tl-wrap:before,
-    .tl-wrap:after {
-        display: table;
-        content: " ";
-    }
+.tl-wrap:before,
+.tl-wrap:after {
+    display: table;
+    content: " ";
+}
 
-    .tl-wrap:after {
-        clear: both;
-    }
+.tl-wrap:after {
+    clear: both;
+}
 
-    .tl-wrap:before {
-        position: relative;
-        top: 15px;
-        float: left;
-        width: 10px;
-        height: 10px;
-        margin-left: -26px;
-        background: #f1f2f3;
-        border-color: inherit;
-        border-style: solid;
-        border-width: 3px;
-        border-radius: 50%;
-        content: "";
-        box-shadow: 0 0 0 4px #f6f7f8;
-    }
+.tl-wrap:before {
+    position: relative;
+    top: 15px;
+    float: left;
+    width: 10px;
+    height: 10px;
+    margin-left: -26px;
+    background: #f1f2f3;
+    border-color: inherit;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 50%;
+    content: "";
+    box-shadow: 0 0 0 4px #f6f7f8;
+}
 
 .tl-date {
     position: relative;
@@ -532,40 +532,77 @@ input, select, textarea {
 .arrow.pull-top {
     top: 18px;
 }
+
 .arrow.left {
     left: -9px;
     margin-top: -9px;
 }
+
 .b-white {
     border-color: #fff;
 }
+
 .arrow {
     position: absolute;
     z-index: 10;
 }
-.arrow.left:after {
-    top: 1px;
-    border-top-color: transparent;
-    border-right-color: #ccc;
-    border-bottom-color: transparent;
-    border-left-color: transparent;
-    border-left-width: 0;
-}
-.arrow:before, .arrow:after {
-    position: absolute;
-    display: block;
-    width: 0;
-    height: 0;
-    border-color: transparent;
-    border-style: solid;
-    border-width: 9px;
-    content: "";
-}
+
+    .arrow.left:after {
+        top: 1px;
+        border-top-color: transparent;
+        border-right-color: #ccc;
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+        border-left-width: 0;
+    }
+
+    .arrow:before, .arrow:after {
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+        border-width: 9px;
+        content: "";
+    }
 
 .b-light {
     border-color: #f1f2f3;
 }
+
 .b-t {
     border-top: 1px solid #e3e5e7;
 }
 /*Timeline End*/
+
+.home {
+    top: 0px;
+    position: absolute;
+    width: 100%;
+    right: 0px;
+    text-align: center;
+    bottom: 0px;
+    background-size: cover;
+    transition: background-image 1s ease-in-out 0.5s;
+}
+
+    .home.one {
+        background-image: url(../img/home/home-1.jpg);
+    }
+
+    .home.three {
+        background-image: url(../img/home/home-3.jpg);
+    }
+
+    .home.four {
+        background-image: url(../img/home/home-4.jpg);
+    }
+
+    .home.five {
+        background-image: url(../img/home/home-5.jpg);
+    }
+
+    .home.six {
+        background-image: url(../img/home/home-6.jpg);
+    }

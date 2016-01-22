@@ -42,8 +42,8 @@
                                 <td>
                                     <span ng-show="Competence.operat"><input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" /></span>
                                     <span ng-show="!Competence.operat">{{row.reqQty}}</span>
-                                       
-</td>
+
+                                </td>
                                 <td ng-show="Competence.warehouse">
                                     <span ng-show="Competence.operat">
                                         <select ng-model="row.estMedMIWarehouse" ng-change="WarehouseConfig.GetKitInventory(row)" ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
@@ -101,7 +101,7 @@
                     <label style="width:90%">
                         备注信息：{{ProductConfig.useLine.remark}}
                     </label>
-                    <a class="btn btn-warning"style="width:97px;height:35px;" ng-show="Competence.operat" ng-click="MaterialsConfig.operat.show()"><i class="fa fa-link"></i>添加物料</a>
+                    <a class="btn btn-warning" style="width:97px;height:35px;" ng-show="Competence.operat" ng-click="MaterialsConfig.operat.show()"><i class="fa fa-link"></i>添加物料</a>
                 </div>
                 <div class="control-group" ng-show="!ProductConfig.useLine.medMaterias.length">
                     <label style="width: 100%; color: #808080;" ng-show="!Competence.operat">未使用物料</label>
@@ -184,5 +184,10 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="control-group" ng-show="Competence.operat&&Competence.instruction">
+        <label style="width:100%">
+            出库指示：<input style="width:78%" type="text" ng-model="ngModel.wHSpecialNotes" />
+        </label>
     </div>
 </div>

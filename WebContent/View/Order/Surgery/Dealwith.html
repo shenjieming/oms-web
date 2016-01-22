@@ -7,6 +7,7 @@
             <span style="color: #FF3300">({{PageData.statusName}})</span>
         </h5>
         <span style="float:right;">
+            <a class="btn btn-primary" ng-show="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
             <a class="btn btn-primary" ng-show="View.Competence.dealwith" ng-click="DealService.Submit()"><i class="fa fa-wrench"></i>处理</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
@@ -50,7 +51,7 @@
                                         {{PageData.deliveryProvinceName}}
                                         {{PageData.deliveryCityName}}
                                         {{PageData.deliveryDistrictName}}
-                                        {{PageData.deliveryAddress}}
+                                        <input type="text" ng-model="PageData.deliveryAddress" style="width:65%;" /> 
                                     </span>
                                 </label>
                             </div>
@@ -138,7 +139,7 @@
                         </div>
                         <div id="pro_AdditionalInformation" class="widget-content nopadding collapse in">
                             <div class="control-group ">
-                                <div ng-img-list="img" ng-model="PageData.attachments.images"></div>
+                                <div ng-img-list="img" ng-comp="{delImg:true}" ng-model="PageData.attachments.images"></div>
                                 <label style="opacity:0.5;width:100%;" ng-show="!PageData.attachments.images.length">
                                     添加点图片丰富您的订单吧，
                                     最多支持上传5张图片
@@ -158,6 +159,7 @@
     </div>
     <div class="tools">
         <span style="float:right;">
+            <a class="btn btn-primary" ng-show="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
             <a class="btn btn-primary" ng-show="View.Competence.dealwith" ng-click="DealService.Submit()"><i class="fa fa-wrench"></i>处理</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa  fa-reply"></i> 返回</a>
         </span>

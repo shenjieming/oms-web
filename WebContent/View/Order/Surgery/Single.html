@@ -10,6 +10,7 @@
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
+    <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
     <div class="row-fluid">
         <div class="widget-box">
             <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
@@ -61,7 +62,7 @@
             <div class="widget-title bg_ly">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
                 <h5 data-toggle="collapse" style="width:80%" href="#SurgeryInformation">手术信息</h5>
-                <a class="btn" ng-click="HospitalConfig.show()"><i class="fa fa-reddit-square"></i>选择医生</a>
+                <a class="btn" ng-click="HospitalConfig.show()"><i class="fa fa-reddit-square"></i> 选择医生</a>
             </div>
             <div id="SurgeryInformation" class="widget-content nopadding collapse in">
                 <div class="control-group ">
@@ -134,7 +135,7 @@
             </div>
             <div id="AdditionalInformation" class="widget-content nopadding collapse in">
                 <div class="control-group ">
-                    <div ng-img="img" ng-model="PageData.attachments.images"></div>
+                    <div ng-img-list="img" ng-comp="{delImg:true}" ng-model="PageData.attachments.images"></div>
                     <label style="opacity:0.5;width:100%;" ng-show="!PageData.attachments.images.length">
                         添加点图片丰富您的订单吧，
                         最多支持上传5张图片

@@ -11,6 +11,7 @@
                             <th><span>区</span></th>
                             <th><span>收件人</span></th>
                             <th><span>联系电话</span></th>
+                            <th><span>配送方式</span></th>
                             <th><span>联系地址</span></th>
                         </tr>
                     </thead>
@@ -31,6 +32,9 @@
                             </td>
                             <td>
                                 {{row.mobile}}
+                            </td>
+                            <td>
+                                {{row.carrierTransTypeName}}
                             </td>
                             <td>
                                 {{row.address}}

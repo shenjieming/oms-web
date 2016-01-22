@@ -48,4 +48,10 @@ app.controller("StockIntegratedListController", function ($scope, $state, $local
         }
     }
     $scope.Load();
+
+
+    $scope.ListCompetence = {
+        /// <summary>列表权限</summary>
+        initMedProdLnCodeName: false
+    }
 });

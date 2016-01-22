@@ -29,7 +29,7 @@ app.factory("$MenuService", function ($http, $local) {
     service.push({
         name: "备货订单管理", url: "", state: "app.stock", icon: "fa-shopping-cart",
         detail: [
-            { name: "出库单查询", url: "#/app/stock/delivery", state: "app.stock.delivery" },
+            //{ name: "出库单查询", url: "#/app/stock/delivery", state: "app.stock.delivery" },
             { name: "综合订单查询", url: "#/app/stock/complex", state: "app.stock.complex" },
             { name: "我的备货", url: "#/app/stock/list", state: "app.stock.list" },
             { name: "我的待审批", url: "#/app/stock/approval", state: "app.stock.approval" },

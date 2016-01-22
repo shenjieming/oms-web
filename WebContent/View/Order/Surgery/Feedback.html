@@ -197,7 +197,7 @@
                         </div>
                         <div id="back_File" class="widget-content nopadding collapse in">
                             <div class="control-group ">
-                                <div ng-img-list="img" ng-model="FeedBack.attachment.images"></div>
+                                <div ng-img-list="img" ng-comp="{delImg:true}" ng-model="FeedBack.attachment.images"></div>
                                 <label style="opacity:0.5;width:100%;" ng-show="!FeedBack.attachment.images.length">
                                     添加点图片丰富您的订单吧，
                                     最多支持上传5张图片

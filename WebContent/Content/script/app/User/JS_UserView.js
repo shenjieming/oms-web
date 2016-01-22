@@ -9,12 +9,15 @@
 
 app.controller("UserViewController", function ($scope, $state, $local, $Api, $MessagService, $stateParams) {
     /// <summary>用户视图</summary>
+    $scope.Information = [];
     $scope.UserDetail = {
         UserInfo:[],
         Load: function (callback) {
             $scope.accId = $stateParams.accId;
+            console.log($scope.accId)
             $scope.UserDetail.getUserDetail();
-            $scope.UserDetail.GetRoleInfo()
+            //$scope.UserDetail.GetRoleInfo()
+            $scope.UserDetail.getUserInformation();
         },
         getUserDetail: function () {
             /// <summary>获取用户列表详情</summary>
@@ -22,6 +25,15 @@ app.controller("UserViewController", function ($scope, $state, $local, $Api, $Me
             $Api.UserService.GetUserInfo({ loginAccountId: $scope.accId }, function (rData) {
                 $scope.UserDetail.UserInfo = rData;
                 console.log(rData)
+            })
+        },
+        getUserInformation: function () {
+            /// <summary>获取用户当前登录信息</summary>
+            $Api.AccountService.CurrentUserInfo({ loginAccountId: $scope.accId }, function (rData) {
+                if (!rData.code) {
+                    $scope.UserDetail.UserInfo.roleName = rData.roleInfo[0].roleName;
+                    console.log(rData)
+                }
             })
         },
         GetRoleInfo: function () {

@@ -22,7 +22,6 @@ app.directive("ngMedKits", function ($Api, $MessagService, $local) {
                 MedKits: new Array(),
                 GetMedKits: function () {
                     /// <summary>获取套件信息</summary>
-                    console.log($scope.ngCargoModel)
                     $Api.MedKitService.GetMedKitList({ oIOrgCode: $scope.ngCargoModel }, function (rData) {
                         $scope.Service.MedKits = new Array();
                         $.each(rData.rows, function (index, item) {

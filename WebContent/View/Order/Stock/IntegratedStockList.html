@@ -4,7 +4,7 @@
             <header class="main-box-header clearfix">
                 <h2 class="pull-left">{{title}}</h2>
                 <span style="float:right;">
-                    <a class="btn btn-primary" ng-click="addStock()" ng-show="!competence.approval&&!Competence.back&&!Competence.dealwith&&!Competence.approval"> <i class="fa fa-pencil"></i> 备货下单</a>
+                    <a class="btn btn-primary" ng-click="addStock()" ng-show="User.userInfo.orgType=='DL'&&!competence.approval&&!Competence.back&&!Competence.dealwith&&!Competence.approval"> <i class="fa fa-pencil"></i> 备货下单</a>
                     <a class="btn btn-primary" ng-click="editStock()" ng-show="competence.modify"> <i class="fa fa-clipboard"></i> 手术修改</a>
                     <a class="btn btn-primary" ng-click="editStock()" ng-show="Competence.submit"><i class="fa fa-check"></i>订单提交</a>
                     <a class="btn btn-primary" ng-click="ApprovalStock()" ng-show="Competence.approval"><i class="fa fa-eye"></i>订单审批</a>
@@ -24,7 +24,7 @@
                                 <th><span>处理仓库</span></th>
                                 <th><span>下单人</span></th>
                                 <th><span>下单时间</span></th>
-                                <th><span>下单主产品线</span></th>
+                                <th ng-show="ListCompetence.initMedProdLnCodeName"><span>下单主产品线</span></th>
                                 <th><span>订单状态</span></th>
                             </tr>
                         </thead>
@@ -46,11 +46,11 @@
                                 <td>
                                     {{row.createDate}}
                                 </td>
-                                <td>
+                                <td ng-show="ListCompetence.initMedProdLnCodeName">
                                     {{row.initMedProdLnCodeName}}
                                 </td>
                                 <td>
-                                    {{row.statusName}}
+                                    <span ng-class="(row.status=='SOSTS00200'||row.status=='SOSTS00040')?'red':''">{{row.statusName}}</span> 
                                 </td>
                             </tr>
                         </tbody>

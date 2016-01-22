@@ -25,7 +25,10 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                 //修改的物料列表
                 ChangeList: new Array(),
                 //查询条件
-                SearchWhere:"",
+                SearchWhere: "",
+                productLine: false,
+                brandLine: false,
+                all:false,
                 GetList: function () {
                     /// <summary>获取物料列表</summary>
                     $MessagService.loading("物料列表获取中，请稍等...");
@@ -48,15 +51,20 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                     /// <summary>便捷查询物料信息</summary>   
                     $.extend($scope.Pagein, {
                         pageIndex: 1,
+                        productLine: $scope.Service.productLine ? "Y" : "N",//品牌内通用(跨产品线)
+                        brandLine: $scope.Service.brandLine ? "Y" : "N",
+                        all: $scope.Service.all ? "Y" : "N",
                         medMIName: $scope.Service.SearchWhere,
                         medMICode: $scope.Service.SearchWhere
                     });
-                    $scope.Service.GetList();
+
+                    $scope.Pagein.ReLoad();
+                    // $scope.Service.GetList();
                 },
                 GetMaterialListByCategory: function (type) {
                     /// <summary>根据物料类型获取物料</summary>
-                    $.extend($scope.Pagein, { pageIndex: 1, categoryByPlatform: type });
-                    $scope.Service.GetList();
+                    $.extend($scope.Pagein, { categoryByPlatform: type });
+                    $scope.Service.QueryMaterialList();
                 },
                 GetMaterialQty: function (data) {
                     /// <summary>获取物料的数量</summary>

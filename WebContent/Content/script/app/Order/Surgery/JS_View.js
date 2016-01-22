@@ -116,7 +116,6 @@ app.controller("OriginalController", function ($scope, $state, $local, $Api, $Me
     });
 
 });
-
 app.controller("AccurateController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>精确订单</summary>
     $scope.$watch("PageData.sONo", function () {
@@ -158,7 +157,6 @@ app.controller("AccurateController", function ($scope, $state, $local, $Api, $Me
     }
 
 });
-
 app.controller("LibraryController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $route) {
     /// <summary>出库单</summary>
     $scope.$watch("PageData.sONo", function () {
@@ -243,7 +241,6 @@ app.controller("LibraryController", function ($scope, $state, $local, $Api, $Mes
         }
     }
 });
-
 app.controller("SurgeryController", function ($scope, $state, $local, $Api, $MessagService, $stateParams) {
     /// <summary>订单操作控制器</summary>
     var userData = $local.getValue("USER");
@@ -400,6 +397,11 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         append: false,
     }
 
+    $scope.ListCompetence = {
+        /// <summary>列表权限</summary>
+        sONo: true, initMedProdLnCodeName: true
+    }
+
     /*页面权限End*/
 });
 
@@ -542,7 +544,7 @@ app.controller("SingleController", function ($scope, $state, $local, $Api, $Mess
             /// <summary>选择地址事件</summary> 
             $.extend($scope.PageData, {
                 deliveryContact: rowInfo.contact, deliveryrMobile: rowInfo.mobile, deliveryProvinceCode: rowInfo.provinceCode, deliveryProvinceName: rowInfo.provinceCodeName, deliveryCityCode: rowInfo.cityCode,
-                deliveryCityName: rowInfo.cityCodeName, deliveryDistrictCode: rowInfo.districtCode, deliveryDistrictName: rowInfo.districtCodeName, deliveryAddress: rowInfo.address
+                deliveryCityName: rowInfo.cityCodeName, deliveryDistrictCode: rowInfo.districtCode, deliveryDistrictName: rowInfo.districtCodeName, deliveryAddress: rowInfo.address, iniitCarrierTransType: rowInfo.carrierTransType
             });
             $scope.AddressConfig.hide();
         }
@@ -570,6 +572,9 @@ app.controller("SingleController", function ($scope, $state, $local, $Api, $Mess
 
     $scope.$watch("PageData.sOOIOrgCode", function () {
         /// <summary>货主修改的话</summary>
+        if ($scope.PageData.prodLns.length) {
+            $MessagService.caveat("货主发生变化，产品线已重置...")
+        }
         $scope.PageData.prodLns = new Array();
     });
 
@@ -731,7 +736,6 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
         }
     }
 });
-
 app.controller("DealwithController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>订单处理</summary>
 
@@ -741,6 +745,13 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
             /// <summary>订单处理提交</summary>
             $scope.ProductService.Deduplication();//去重
             $Api.SurgeryService.Process.Submit($scope.PageData, function (rData) {
+                $scope.goLastPage();
+            });
+        },
+        Save: function () {
+            /// <summary>订单处理保存</summary>
+            $scope.ProductService.Deduplication();//去重
+            $Api.SurgeryService.Process.Save($scope.PageData, function (rData) {
                 $scope.goLastPage();
             });
         }
@@ -758,7 +769,8 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
                 deliveryCityName: rowInfo.cityCodeName,
                 deliveryDistrictCode: rowInfo.districtCode,
                 deliveryDistrictName: rowInfo.districtCodeName,
-                deliveryAddress: rowInfo.address
+                deliveryAddress: rowInfo.address,
+                carrierTransType: rowInfo.carrierTransType
             });
             $scope.AddressConfig.hide();
         }
@@ -830,15 +842,25 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
     $scope.ProductService = {};
     //产品权限
     $scope.ProductCompetence = {
-        tool: false
+        tool: false, instruction: true
     }
 
     /*数据监控Begion*/
     $scope.$watch("PageData.sONo", function () {
         /// <summary>获取数据信息</summary>
         if ($scope.PageData.sONo) {
-            $.extend($scope.PageData.prodLns, $scope.PageData.initOrderProdlns);
-            $scope.PageData.medKits = new Array();
+            $.extend($scope.PageData, {
+                prodLns: $scope.PageData.orderProdlns,
+                attachments: $scope.file.GetEventMapping($scope.PageData.events, "0020_0001")
+            });
+
+            setTimeout(function () {
+                $scope.$apply(function () {
+                    $.extend($scope.PageData, {
+                        medKits: $scope.PageData.orderKits
+                    });
+                });
+            }, 10);
         }
     });
 
@@ -858,7 +880,7 @@ app.controller("AdditionalController", function ($scope, $state, $local, $Api, $
         }
     }
     $scope.AddProduct = {
-        Service: {}, Competence: { tool: false }
+        Service: {}, Competence: { tool: false, instruction: true }
     }
 
     /*数据监控Begion*/
@@ -953,6 +975,6 @@ app.controller("FeedbackViewController", function ($scope, $state, $local, $Api,
     $scope.FeedBack = { images: new Array(), remark: "" }
     $scope.$watch("PageData.sONo", function () {
         /// <summary>获取数据信息</summary>
-        $scope.FeedBack = $scope.file.GetEventMapping($scope.PageData.events, "0080_0011")
-    });
+        $scope.FeedBack = $scope.file.GetEventMapping($scope.PageData.events, "0080_0011")       
+    })
 });

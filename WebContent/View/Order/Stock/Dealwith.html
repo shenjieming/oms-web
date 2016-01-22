@@ -50,7 +50,7 @@
                                         {{PageData.deliveryProvinceName}}
                                         {{PageData.deliveryCityName}}
                                         {{PageData.deliveryDistrictName}}
-                                        {{PageData.deliveryAddress}}
+                                        <input type="text" ng-model="PageData.deliveryAddress" style="width:50%;" /> 
                                     </span>
                                 </label>
                             </div>
@@ -80,7 +80,7 @@
                         </div>
                         <div id="pro_AdditionalInformation" class="widget-content nopadding collapse in">
                             <div class="control-group ">
-                                <div ng-img-list="img" ng-model="PageData.attachments.images"></div>
+                                <div ng-img-list="img" ng-comp="{delImg:true}" ng-model="PageData.attachments.images"></div>
                                 <label style="opacity:0.5;width:100%;" ng-show="!PageData.attachments.images.length">
                                     添加点图片丰富您的订单吧，
                                     最多支持上传5张图片

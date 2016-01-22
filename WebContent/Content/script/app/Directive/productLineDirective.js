@@ -27,6 +27,7 @@ app.directive("ngProductline", function ($Api, $MessagService) {
                                 $scope.ngOperat.hide();
                                 //数据清空
                                 $scope.prodLn = new Object();
+                                $scope.Server.Brand = null;
                                 $scope.prodLn.isChecked = true; $scope.prodLn.medProdLnCodeWithTool = "Y";
                             });
                         }
@@ -39,15 +40,8 @@ app.directive("ngProductline", function ($Api, $MessagService) {
                     /// <summary>验证用户选择</summary>
                     var result = false;
                     if ($scope.prodLn.medProdLnCode) {
-                        $scope.prodLn.medProdLnName
-                        $.each($scope.Server.BrandList, function (index, item) {
-                            if (item.id == $scope.prodLn.medBrandCode) {
-                                $scope.prodLn.medBrandCodeName = item.text
-                            }
-                        });
                         $.each($scope.Server.ProductLineList, function (index, item) {
-                            if (item.id == $scope.prodLn.medProdLnCode)
-                            {
+                            if (item.id == $scope.prodLn.medProdLnCode) {
                                 $scope.prodLn.medProdLnCodeName = item.text
                             }
                         });
@@ -101,11 +95,13 @@ app.directive("ngProductline", function ($Api, $MessagService) {
                         $scope.Server.ProductLineTypeList = new Array();
                     }
                 },  
-                GetProductLineList: function (code) {
+                GetProductLineList: function () {
                     /// <summary>获取产品线信息</summary>
                     $scope.prodLn.medProdLnCode = "";
-                    if (code) {
-                        $Api.BrandService.GetProductLine({ oIOrgCode: $scope.ngCargoModel, medBrandCode: code }, function (rData) {
+                    if ($scope.Server.Brand) {
+                        $scope.prodLn.medBrandCode = $scope.Server.Brand.id;
+                        $scope.prodLn.medBrandCodeName = $scope.Server.Brand.text;
+                        $Api.BrandService.GetProductLine({ oIOrgCode: $scope.ngCargoModel, medBrandCode: $scope.prodLn.medBrandCode, includeMedProdLn: $scope.Server.Brand.param }, function (rData) {
                             $scope.Server.ProductLineList = rData;
                         });
                     } else {
@@ -133,10 +129,6 @@ app.directive("ngProductline", function ($Api, $MessagService) {
                 $scope.Server.GetProductLineType($scope.ngCargoModel);
             });
 
-            $scope.$watch("prodLn.medBrandCode", function () {
-                /// <summary>选择产品线品牌事件</summary>
-                $scope.Server.GetProductLineList($scope.prodLn.medBrandCode);
-            });
             $scope.$watch("prodLn.isChecked", function () {
                 /// <summary>是否带工具修改事件</summary>
                 $scope.prodLn.medProdLnCodeWithTool = $scope.prodLn.isChecked ? "Y" : "N";

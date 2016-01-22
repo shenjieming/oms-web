@@ -6,6 +6,7 @@
 /// <reference path="../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
+/// <reference path="JS_MaterialList.js" />
 
 app.controller("MaterialController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>经销商物料查询</summary>
@@ -35,7 +36,6 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
                                 nodeList.push(node);
                             }
                             $scope.tree.obj.addNodes(treeNode, nodeList);
-
                         });
                     }
                 },
@@ -49,7 +49,6 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
         },
         obj: new Object()
     }
-
     $scope.Material = {
         //条件
         options:{},
@@ -61,6 +60,7 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
             $Api.MaterialsService.GetMaterialsList(options, function (rData) {
                 $scope.Pagein.total = rData.total;//分页控件获取当前数据请求的总页数
                 $scope.Material.MaterialList = rData.rows;
+                console.log(rData)
             });
         },
         GetCargoOwner: function () {
@@ -68,6 +68,7 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
             ///TODO:后期调整成平台和
             $Api.OrganizationService.GetCargoOwner({}, function (rData) {
                 var treeData = new Array();
+                console.log(rData);
                 for (var i = 0; i < rData.length; i++) {
                     if (i == 0) {
                         $scope.Material.options = { oIOrgCode: rData[i].id };
@@ -77,9 +78,24 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
                 }
                 $scope.tree.data = treeData;;
             })
+        },
+        Detailed: function () {
+            /// <summary>获取物料详细</summary>
+            var opt = $scope.getSelectedRow();
+            $state.go("app.mybusiness.materialDetailed", { opt: opt.medProdLnCode });
         }
     }
-
+    $scope.getSelectedRow = function () {
+        /// <summary>获取选择的行</summary>
+        var result = false;
+        $.each($scope.Material.MaterialList, function (index, item) {
+            /// <summary>如果被选中，则选取选中的行</summary>
+            if (item.isSelected) {
+                result = item
+            }
+        });
+        return result;
+    }
     $scope.Pagein = {
         /// <summary>分页信息</summary>
         pageSize: 10,
@@ -89,6 +105,5 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
         }
     }
     //获取我的货主信息
-    $scope.Material.GetCargoOwner();
-   
+    $scope.Material.GetCargoOwner();  
 });

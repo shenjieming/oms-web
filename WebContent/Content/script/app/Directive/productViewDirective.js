@@ -20,6 +20,16 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
         replace: true,
         link: function ($scope, element, attrs) {
             var userInfo = $local.getValue("USER").userInfo;
+
+            $scope.$watch("ngModel.prodLns.length", function () {
+                /// <summary>产品线发生变化</summary>
+                if ($scope.ngModel.prodLns) {
+                    $scope.ProductConfig.tree.CreateProLineTree();
+                    $scope.ngService.MitDeduplication();
+                }
+            });
+
+
             $scope.rowCollection = new Array();
             $scope.MedKitsConfig = {
                 /// <summary>套件管理配置</summary>
@@ -43,8 +53,9 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                             medKitInternalNo: item.medMIInternalNo, inventory: "",
                         })
                         $.each($scope.ngModel.medKits, function (mKIndex, medKit) {
-                            if (medKit.medKitInternalNo == data.medKitInternalNo && data.estMedMIWarehouse == medKit.estMedMIWarehouse) {
-                                medKit.reqQty += medKit.reqQty;
+                            if (medKit.medKitInternalNo == data.medKitInternalNo
+                                && data.estMedMIWarehouse == medKit.estMedMIWarehouse) {
+                                medKit.reqQty += item.reqQty;
                                 flg = false;
                                 return false;
                             }
@@ -100,7 +111,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                                 name: item.medProdLnCodeName,
                                 pId: item.medBrandCode,
                                 index: index,
-                                medMaterias: item.medMaterias ? item.medMaterias : (item.medMaterialItems ? item.medMaterialItems : new Array()),
+                                medMaterias: item.medMaterias ? item.medMaterias : $scope.ProductConfig.tree.GetDefaultMaterial(item.medMaterialItems),
                                 isChecked: item.medProdLnCodeWithTool == "Y" ? true : false
                             });
                             if (index == $scope.ngModel.prodLns.length) {
@@ -109,6 +120,18 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                             treeData.push(node);
                         });
                         return treeData;
+                    },
+                    GetDefaultMaterial: function (medMaterialItems) {
+                        /// <summary>获取默认的物料信息</summary>
+                        var result = new Array();
+                        if (medMaterialItems) {
+                            $.each(medMaterialItems, function (index, item) {
+                                item.medMIWarehouse = item.medMIWarehouse ? item.medMIWarehouse : userInfo.orgCode
+                            });
+                            result = medMaterialItems;
+                        }
+                        return result;
+
                     },
                     setting: {
                         data: { simpleData: { enable: true, idKey: "id", pIdKey: "pId", rootPId: 0 } },
@@ -279,16 +302,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                 }
             }
 
-            $scope.$watch("ngModel.prodLns.length", function () {
-                /// <summary>产品线发生变化</summary>
-                if ($scope.ngModel.prodLns) {
-                    $scope.ProductConfig.tree.CreateProLineTree();
-                    $scope.ngService.MitDeduplication();
-                }
-            });
-
-
-            $scope.Competence = { warehouse: true, materials: true, kits: true, tool: true, operat: true }
+            $scope.Competence = { warehouse: true, materials: true, kits: true, tool: true, operat: true, instruction: false }
             //权限配置
             $.extend($scope.Competence, $scope.ngComp);
 

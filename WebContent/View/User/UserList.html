@@ -22,11 +22,12 @@
                                 <th><span>组织名称</span></th>
                                 <th><span>手机号码</span></th>
                                 <th><span>锁定状态</span></th>
+                                <th><span>状态操作</span></th>
                                 <th><span>有效状态</span></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in UserInfo.UserList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" >
+                            <tr ng-repeat="row in UserInfo.UserList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
                                 <td>{{$index+1}}</td>
                                 <td><span>{{row.loginName}}</span></td>
                                 <td><span>{{row.userName}}</span></td>
@@ -34,6 +35,13 @@
                                 <td><span>{{row.orgName}}</span></td>
                                 <td><span>{{row.loginMobileNo}}</span></td>
                                 <td><span>{{row.lockStatusName}}</span></td>
+                                <td>
+                                    <span>
+                                        <input type="checkbox" id="checkbox_c{{$index}}" class="chkbox" ng-change="UserStatus(row)" ng-checked="UserInfo.UserList[{{$index}}].isEnable" ng-model="UserInfo.UserList.isEnable" /><label for="checkbox_c{{$index}}" style="float:left;"></label>
+                                        <span style="float:left;" ng-show="UserInfo.UserList[{{$index}}].isEnable "> 非锁定 </span>
+                                        <span style="float:left;" ng-show="!UserInfo.UserList[{{$index}}].isEnable "> 锁定 </span>
+                                    </span>
+                                </td>
                                 <td><span>{{row.validStatusName}}</span></td>
                             </tr>
                         </tbody>

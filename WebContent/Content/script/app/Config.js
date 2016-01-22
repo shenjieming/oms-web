@@ -43,7 +43,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         .state("app.home", {
             url: "/home",
             templateUrl: "View/Home.html?data=" + Timestamp,
-            controller: ""
+            controller: "HomeController"
         })
         .state("app.my", {
             url: "/my",
@@ -262,7 +262,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         .state("app.order.complex", {
             /// <summary>综合查询</summary>
             url: "/complex",
-            templateUrl: "View/Order/Surgery/IntegratedOrderInquiry.html?data=" + Timestamp,
+            templateUrl: "View/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
             controller: "IntegratedListController",
             loadJs: ["Content/script/app/Order/Surgery/List/JS_IntegratedList.js"],
             resolve: app.resolve
@@ -523,7 +523,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         .state("app.stock.complex", {
             /// <summary>备货订单综合查询</summary>
         	url: "/complex",
-            templateUrl: "View/Order/Stock/IntegratedStockInquiry.html?data=" + Timestamp,
+        	templateUrl: "View/Order/Stock/IntegratedStockList.html?data=" + Timestamp,
             controller: "StockIntegratedListController",
             loadJs: ["Content/script/app/Order/Stock/List/JS_IntegratedList.js"],
             resolve: app.resolve
@@ -608,6 +608,15 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             resolve: app.resolve
 
         })
+         .state("app.mybusiness.materialDetailed", {
+              /// <summary>物料管理</summary>
+              url: "/material/:opt",
+              templateUrl: "View/MyBusiness/Material/MaterialDetail.html",
+              controller: "MaterialDetailController",
+              loadJs: ["Content/script/app/MyBusiness/Material/JS_MaterialDetail.js"],
+              resolve: app.resolve
+
+          })
         .state("app.mybusiness.kits", {
             /// <summary>物料套件管理</summary>
             url: "/kits",
@@ -631,6 +640,23 @@ app.resolve = {
         return delay.promise;
     }
 }
+
+app.controller("HomeController", function ($scope, $state, $MenuService, $local, $MessagService, $Api, $window) {
+    /// <summary>首页控制器</summary>
+    var classList = ["one", "three", "four", "five", "six"];
+    $scope.homeClass = classList[0];
+    var index = 0;
+    setInterval(function () {
+        index++;
+        if (index > classList.length - 1) {
+            index = 0
+        }
+        $scope.$apply(function () {
+            $scope.homeClass = classList[index];
+        });
+    },3000);
+});
+
 app.controller("masterController", function ($scope, $state, $MenuService, $local, $MessagService, $Api, $window) {
     /// <summary>模板信息控制器</summary>
     $scope.fold = false;
@@ -645,14 +671,19 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
         return $state.includes(data);//获取菜单路径
     }
     $scope.menuList = $MenuService;//菜单信息列表
-    $scope.goView = function (name) {
+    $scope.goView = function (name, param) {
         /// <summary>前往页面</summary>
-        $state.go(name);
+        $state.go(name, param);
     }
 
     $scope.goLastPage = function () {
         /// <summary>返回上一页</summary>
         $window.history.back();
+    }
+
+    $scope.Comp = function (code) {
+        /// <summary>菜单权限控制</summary>
+        return JSON.stringify($scope.User.functionInfo).indexOf(code) > -1;//判断菜单是否有权限
     }
 });
 

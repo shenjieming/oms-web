@@ -24,10 +24,9 @@
                         组织名称：{{PageInfo.UserInfo.orgName}}
                     </label>
                 </div>
-                <!--暂时固定写-->
                 <div class="control-group ">
                     <label style="width:100%">
-                        所属角色：<span class="my_Role">测试</span>
+                        所属角色：{{Information.roleName}}
                     </label>
                 </div>
                 <div class="control-group my_Operat">
@@ -48,7 +47,7 @@
                 <div class="control-group " style="padding:5px;">
                     <div class="main-box-body clearfix" style="width:100%;">
                         <div class="table-responsive ">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped" st-table="ComAddress">
                                 <thead>
                                     <tr>
                                         <th><span>序号</span></th>
@@ -59,11 +58,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="ng-scope ng-isolate-scope">
+                                    <tr ng-repeat="row in ComAddress" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
                                         <td>{{$index+1}}</td>
-                                        <td>小明</td>
-                                        <td>222222</td>
-                                        <td>上海大渡河路</td>
+                                        <td>{{row.contact}}</td>
+                                        <td>{{row.mobile}}</td>
+                                        <td>{{row.provinceCodeName}}{{row.cityCodeName}}{{row.districtCodeName}}{{row.address}}</td>
                                         <td>
                                             <a class="btn btn-primary">修改</a>
                                             <a class="btn btn-danger">删除</a>
@@ -86,7 +85,7 @@
                 <div class="control-group " style="padding:5px;">
                     <div class="main-box-body clearfix" style="width:100%;">
                         <div class="table-responsive ">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped" st-table="ContacDoctor">
                                 <thead>
                                     <tr>
                                         <th><span>序号</span></th>
@@ -98,15 +97,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="ng-scope ng-isolate-scope">
+                                    <tr ng-repeat="row in ContacDoctor" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
                                         <td>{{$index+1}}</td>
-                                        <td>五八医院</td>
-                                        <td>骨科</td>
-                                        <td>王阳明</td>
-                                        <td>123344</td>
+                                        <td>{{row.hPName}}</td>
+                                        <td>{{row.wardDeptname}}</td>
+                                        <td>{{row.dTName}}</td>
+                                        <td>{{row.dTMobile}}</td>
                                         <td>
                                             <a class="btn btn-primary">
-                                            修改</a>
+                                                修改
+                                            </a>
                                             <a class="btn btn-danger">删除</a>
                                         </td>
                                     </tr>

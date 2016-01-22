@@ -3,8 +3,13 @@
     <div class="widget-content">
         <div class="control-group">
             <ul class="timeline">
-                <li class="tl-header">
-                    <div class="btn btn-warning"><i class="fa fa-codepen"></i> 添加事件</div>
+                <li class="tl-header" ng-show="PageData.events[0].eventCode=='SOSTS00090'">
+                    <div class="btn btn-warning" ng-click="goView('app.order.addevent',{sono:PageData.sONo})">
+                        <i class="fa fa-codepen"></i> 添加事件
+                    </div>
+                </li>
+                <li class="tl-header" ng-show="PageData.events[0].eventCode=='SOSTS00120'||PageData.events[0].eventCode=='SOSTS00200'">
+                    <div class="btn btn-warning"><i class="fa fa-codepen"></i>事件结束</div>
                 </li>
                 <li class="tl-item" ng-repeat="event in PageData.events">
                     <div class="tl-wrap b-info">
@@ -13,8 +18,8 @@
                             <span class="arrow b-white left pull-top"></span>
                             <div class="p b-light">
                                 <span>事件名称：{{event.toCustomerDesc}}</span>     <!--eventCodeName修改为toCustomerDesr-->
-                                <span> &nbsp;操作人：{{event.eventOpByName}} </span> 
-                                <span> &nbsp;联系电话：{{event.eventOpByMobile}} </span> 
+                                <span> &nbsp;操作人：{{event.eventOpByName}} </span>
+                                <span> &nbsp;联系电话：{{event.eventOpByMobile}} </span>
                                 <div ng-img-list="img" ng-model="event.images"></div>
                                 <span ng-show="event.eventReasonDesc">
                                     事件说明：{{event.eventReasonDesc}}

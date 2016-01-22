@@ -15,6 +15,11 @@
             <label></label>
             <a ng-show="(lib.status=='WOSTS00010')&&View.Competence.sign" class="btn btn-warning" ng-click="LivraryConfig.OBSign(lib)"><i class="fa fa-vine"></i>签收</a>
         </div>
+        <div class="control-group">
+            <label style="width:100%">
+                出库指示：{{lib.wHSpecialNotes}} 
+            </label>
+        </div>
         <div class="control-group ">
             <div class="main-box-body clearfix" style="max-height: 450px; overflow: auto; width: 100%;">
                 <div class="table-responsive">

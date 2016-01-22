@@ -3,8 +3,11 @@
     <div class="widget-content">
         <div class="control-group">
             <ul class="timeline">
-                <li class="tl-header">
+                <li class="tl-header" style="display:none;">
                     <div class="btn btn-warning"><i class="fa fa-codepen"></i> 添加事件</div>
+                </li>
+                <li class="tl-header" ng-show="PageData.events[0].eventCode=='SOSTS00120'">
+                    <div class="btn btn-warning"><i class="fa fa-codepen"></i> 事件结束</div>
                 </li>
                 <li class="tl-item" ng-repeat="event in PageData.events">
                     <div class="tl-wrap b-info">

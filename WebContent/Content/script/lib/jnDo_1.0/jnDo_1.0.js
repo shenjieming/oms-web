@@ -128,12 +128,23 @@ angular.module('jnDo', [])
         /// <summary>图片展示控件</summary>
         return {
             restrict: "EA",
-            templateUrl: pathConfig + "ui/ngImgList.html",
+            templateUrl: pathConfig + "ui/ngImgList.html?data=" + Timestamp,
             scope: {
                 ngModel: '=',
+                ngComp:"="//权限
             },
             replace: true,
             link: function ($scope, element, attrs) {
+                $scope.Service = {
+                    Comp: { delImg: false },
+                    Del: function (index) {
+                        /// <summary>删除图片</summary>
+                        $scope.ngModel.splice(index, 1);
+                    }
+                }
+
+                $.extend($scope.Service.Comp, $scope.ngComp);//权限配置
+                
                 initPhotoSwipeFromDOM(element);
             }
         };
@@ -191,6 +202,8 @@ angular.module('jnDo', [])
             replace: true,
             link: function ($scope, element, attrs) {
                 /// <summary>初始化事件</summary>
+
+               
                 var init = function (pageInfo) {
                     $(element).smartpaginator({
                         totalrecords: pageInfo.totalrecords,   //pageCount
@@ -206,8 +219,15 @@ angular.module('jnDo', [])
                                 $scope.ngModel.callbake(newpage, startindex ? startindex : 1, endindex ? endindex : $scope.ngModel.pageSize);
                             }
                         }
+
                     });
 
+                    if ($scope.ngModel) {
+                        $scope.ngModel.ReLoad = function () {
+                            loadData(1);
+                            $scope.ngModel.callbake();
+                        }
+                    }
                 }
                 var loadData = function (index, startindex, endindex) {
                     /// <summary>数据读取</summary>
@@ -217,6 +237,9 @@ angular.module('jnDo', [])
                         index: index
                     });
                 }
+
+             
+               
                 $scope.$watch("ngModel.pageSize", function (newValue, oldValue, $scope) {
                     /// <summary>监控pagesize的变化</summary>
                     loadData(1);

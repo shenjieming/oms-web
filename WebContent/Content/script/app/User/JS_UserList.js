@@ -17,12 +17,12 @@ app.controller("UserListController", function ($scope, $state, $local, $Api, $Me
         },
         Edit: function () {
             /// <summary>编辑用户</summary
-            var accId = [];   // 选中用户信息
+            var accId = $scope.getSelectedRow();   // 选中用户信息
             if (!$scope.getSelectedRow()) {
                 $MessagService.caveat("请选择一条数据");
             } else {
-                $state.go("app.comp.user.detail", { accId: $scope.getSelectedRow() });
-            }           
+                $state.go("app.comp.user.detail", { accId: accId.loginAccountId });
+            }
         },
     };
     $scope.getSelectedRow = function () {
@@ -33,16 +33,15 @@ app.controller("UserListController", function ($scope, $state, $local, $Api, $Me
                 result = item;
             }
         });
-        console.log(result)
-        return result.loginAccountId
+        return result;
     }
     $scope.ViewDetail = {
         /// <summary>用户视图操作</summary>
         View: function (row) {
             /// <summary>查看用户详情</summary 
             var accId = $scope.getSelectedRow();   // 选中用户信息   
-            $state.go("app.comp.user.view", { accId: accId });           
-            }   
+            $state.go("app.comp.user.view", { accId: accId.loginAccountId });
+        }
     }
     $scope.UserInfo = {
         /// <summary>用户信息</summary>
@@ -53,6 +52,11 @@ app.controller("UserListController", function ($scope, $state, $local, $Api, $Me
             $MessagService.loading("用户信息加载中，请稍等...");
             $Api.UserService.GetUserList($scope.Pagein, function (rData) {
                 $scope.UserInfo.UserList = rData.rows;
+                for (var i = 0; i <$scope.UserInfo.UserList.length; i++) {
+                    if ($scope.UserInfo.UserList[i].lockStatusName == "非锁定") {
+                        $scope.UserInfo.UserList[i].isEnable = true;
+                    }
+                }
                 $scope.Pagein.total = rData.total;
             });
         }
@@ -72,17 +76,25 @@ app.controller("UserListController", function ($scope, $state, $local, $Api, $Me
         pageSize: 10,
         pageIndex: 1,
         callbake: function () {
-            $scope.Load();         
+            $scope.Load();
         }
     }
-
+    $scope.UserStatus = function (row) {
+        $scope.UserInfo.UserList = row ? row : $scope.getSelectedRow();
+         console.log($scope.UserInfo.UserList)
+            $Api.UserService.ModifyUserState($scope.UserInfo.UserList, function (rData) {
+                $MessagService.caveat("用户状态修改成功！")
+                $scope.UserInfo.GetUserList();
+            })
+        
+    }
     $scope.Load = function () {
         /// <summary>页面初始化</summary>
         $scope.UserInfo.GetUserList();
     }
     $scope.Load();
 
-    
+
     //选择用户数据类型
- 
+
 })

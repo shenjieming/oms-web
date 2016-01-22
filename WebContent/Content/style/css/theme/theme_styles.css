@@ -822,7 +822,7 @@ h1 small, h2 small, h3 small, h1 .small, h2 .small, h3 .small {
 
 #nav-col {
     padding: 0;
-    z-index: 100;
+    z-index: 10;
     position: absolute;
     background: #2c3e50;
     width: 220px;
@@ -1033,7 +1033,7 @@ h1 small, h2 small, h3 small, h1 .small, h2 .small, h3 .small {
 }
 
 .user-left-box {
-    padding: 20px 15px;
+    padding: 5px 5px 5px 15px;
 }
 
     .user-left-box img {
@@ -1898,7 +1898,6 @@ blockquote, blockquote.pull-right {
 }
 
     .table tbody > tr > td:first-child {
-        font-size: 1.125em;
         font-weight: 300;
     }
 
