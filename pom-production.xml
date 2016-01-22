@@ -5,6 +5,7 @@
   <version>production</version>
   <packaging>war</packaging>
   <build>
+  	<finalName>oms-web</finalName>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
       <plugin>
