@@ -14,11 +14,13 @@
             font-size: 70px;
             font-weight: bold;
             text-shadow: 0 1px 4px rgba(0,0,0,.2);
+            padding-left: 400px;
         }
 
     .login .form {
         margin: 15px auto 0 auto;
         text-align: center;
+        margin-left: 680px;
     }
 
     .login input.username, .login input.password {

@@ -3,8 +3,8 @@
     <header class="navbar header-navbar" ng-include="view.header"></header>
 
     <!--body显示区域-->
-    <div class="container page-wrapper" ng-class="fold?'nav-small':''">
-        <div class="row">
+    <div class="container page-wrapper" ng-class="fold?'nav-small':''" style=" position: absolute; bottom: 0px; height: 100%;">
+        <div class="row" style="height: 100%;">
             <!--侧边导航栏-->
             <div id="nav-col" role="menu" ng-include="view.menu">
             </div>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
 
-                <div ui-view=""></div>
+                <div ui-view="" style="overflow-y: auto; overflow-x: hidden; height: 100%; padding: 0px 10px; width: 100%;"></div>
             </div>
         </div>
         <!--底部显示栏-->

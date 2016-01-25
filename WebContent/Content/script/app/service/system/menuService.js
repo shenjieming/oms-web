@@ -47,17 +47,19 @@ app.factory("$MenuService", function ($http, $local) {
         ]
     });
     service.push({
-        name: "业务数据管理", url: "", state: "app.business", icon: "fa-link", detail: [{
-                name:"功能搭建中..."
-        }]
+        name: "业务数据管理", url: "", state: "app.business", icon: "fa-link", detail: [
+            { name: "物料管理", url: "#/app/business/material", state: "app.business.material" },
+            { name: "套件管理", url: "#/app/business/suite", state: "app.business.suite" },
+            { name: "模板管理", url: "#/app/business/template", state: "app.business.template" }
+        ]
     });
     service.push({
         name: "权限管理", url: "", state: "app.comp", icon: "fa-folder-open",
         detail: [
-            { name: "用户信息", url: "#/app/comp/user/list", state: "app.comp.user.list" },
-            { name: "角色信息", url: "#/app/comp/role/list", state: "app.comp.role.list" },
-            { name: "菜单信息", url: "#/app/comp/menu/list", state: "app.comp.menu.list" },
-            { name: "群组信息", url: "#/app/comp/group/list", state: "app.comp.group.list" }
+            { name: "用户列表", url: "#/app/comp/user/list", state: "app.comp.user.list" },
+            { name: "角色列表", url: "#/app/comp/role/list", state: "app.comp.role.list" },
+            { name: "菜单列表", url: "#/app/comp/menu/list", state: "app.comp.menu.list" },
+            { name: "群组列表", url: "#/app/comp/group/list", state: "app.comp.group.list" }
         ]
     });
     service.push({
