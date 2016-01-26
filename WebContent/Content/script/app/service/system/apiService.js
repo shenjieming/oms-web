@@ -498,6 +498,10 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 /// <summary>获取常用收货地址</summary>
                 service.Post(ApiPath.Representative.delivery, data, callback);
             },
+            GetDefaultAddress: function (data, callback) {
+                /// <summary>获取默认收货地址</summary>
+                service.Post(ApiPath.Representative.defaultaddress,data.callback);
+            },
             AddDelivery: function (data, callback) {
                 /// <summary>添加常用收货地址</summary>
                 service.Post(ApiPath.Representative.addDelivery, data, callback);

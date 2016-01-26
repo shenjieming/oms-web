@@ -142,6 +142,8 @@ var ApiPath = {
         /// <summary>销售代表信息地址</summary>
         //收货地址
         shipping: "/v2/order/common/createOrder/findDefaultReceiveAddress",
+        //默认地址
+        defaultaddress: "/v2/order/common/createOrder/findDefaultReceiveAddressList",
         //常用收货地址
         delivery: "/v2/order/common/createOrder/findReceiveAddressList",
         //添加常用收货地址
