@@ -278,7 +278,7 @@ app.controller("StockSingleController", function ($scope, $state, $local, $Api, 
             $Api.StockService.Submit($scope.PageData, function (rData) {
                 /// <summary>提交备货订单</summary>
                 setTimeout(function () {
-                    $MessagService.succ("订单提交成功");
+                    $MessagService.succ("订单" + rData + "提交成功");
                     $state.go("app.stock.list");
                 }, 500);
             });

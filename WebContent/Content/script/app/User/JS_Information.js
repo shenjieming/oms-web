@@ -14,56 +14,33 @@ app.controller("InformationController", function ($scope, $state, $local, $Api, 
     $scope.ContacDoctor = [];//联系医生
     $scope.PersonalRight = [];//个人功能权限
     $scope.PageInfo = {
-        UserInfo:[],
-        Load: function (callbake) {            
-            $scope.PageInfo.getUserInformation();
-            $scope.userCommonAddress();
-            $scope.userContacDoctor();
-        },
+        UserInfo: [],
+        RoleNameList:[],
         getUserInformation: function () {
             /// <summary>获取用户当前登录信息</summary>
             $Api.AccountService.CurrentUserInfo({}, function (rData) {
+                console.log(rData)
                 if (!rData.code) {
-                    $scope.Information= rData;
+                    $scope.Information = rData;
+                    $scope.MenuInfo = rData.functionInfo;
                     $scope.userInformationDetail();
                     for (var i = 0; i < rData.roleInfo.length; i++) {
-                        $scope.Information.roleName = rData.roleInfo[i].roleName
+                        $scope.PageInfo.RoleNameList.push(rData.roleInfo[i].roleName)
                     }
+                    $scope.Information.roleName = $scope.PageInfo.RoleNameList;
                 }
             })
         },
-    }   
+    }
     $scope.userInformationDetail= function () {
         /// <summary>获取用户信息信息</summary>
         $MessagService.loading("用户信息加载中，请稍等...");
         $Api.UserService.GetUserInfo({ loginAccountId: $scope.Information.userInfo.loginAccountId }, function (rData) {
             if (!rData.code) {
                 $scope.PageInfo.UserInfo = rData;
-                console.log(rData)
             }
         })
     },
-    $scope.userCommonAddress = function () {
-        /// <summary>获取常用地址信息</summary>
-        $MessagService.loading("用户信息加载中，请稍等...");
-        console.log($scope.PageInfo)
-        $Api.RepresentativeService.GetDelivery({}, function (rData) {
-            if (!rData.code) {
-                $scope.ComAddress = [rData.rows[0]];
-            }
-        })
-    },
-    $scope.userContacDoctor = function () {
-        /// <summary>获取联系医生信息</summary>
-        $MessagService.loading("用户信息加载中，请稍等...");
-        $Api.HospitalService.GetDoctors({}, function (rData) {
-            if (!rData.code) {
-                $scope.ContacDoctor = [rData[0]];
-                console.log(rData)
-            }
-        })
-    },
-
     $scope.Jumpcenter = {
         operationOrder: function () {
             $state.go("app.order.single");
@@ -76,5 +53,16 @@ app.controller("InformationController", function ($scope, $state, $local, $Api, 
             $state.go("app.comp.user.view", { accId: $scope.Information.userInfo.loginAccountId });
         },
     }
-    $scope.PageInfo.Load();
+    $scope.Pagein = {
+        pageSize: 5,
+        pageIndex: 1,
+        callbake: function () {
+            $scope.Load();
+        }
+    };
+    $scope.Load = function () {
+        /// <summary>页面初始化</summary>
+        $scope.PageInfo.getUserInformation();
+    }
+    $scope.Load();
 })

@@ -19,7 +19,7 @@ app.factory("$MenuService", function ($http, $local) {
             { name: "我的待审批", url: "#/app/order/approval", state: "app.order.approval" },
             { name: "我的待处理", url: "#/app/order/deal", state: "app.order.deal" },
             { name: "我的待签收", url: "#/app/order/sign", state: "app.order.sign" },
-            { name: "出库单管理", url: "#/app/order/stock", state: "app.order.stock" },
+            { name: "出库单追加", url: "#/app/order/stock", state: "app.order.stock" },
             { name: "返库申请", url: "#/app/order/apply", state: "app.order.apply" },
             { name: "返库处理", url: "#/app/order/back", state: "app.order.back" },
             { name: "返库草稿箱", url: "#/app/order/feedback", state: "app.order.feedback" },

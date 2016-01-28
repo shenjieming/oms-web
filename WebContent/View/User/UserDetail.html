@@ -31,10 +31,6 @@
                     <label>
                         <span class="required">*</span> 确认密码：<input type="password" ng-model="PageInfo.UserInfo.surePassword" placeholder="请输入账户密码" />
                     </label>
-                    <label>
-                        <span class="required"></span> 微信账户：<input type="text" ng-model="PageInfo.UserInfo.WechatId" placeholder="请输入微信账户" />
-                    </label>
-
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
@@ -55,7 +51,7 @@
                         <span class="required">*</span>机构类型：
                         <select ng-model="PageInfo.UserInfo.orgType" ng-change="SelectInfo.orgType.change(item)">
                             <option value="">请选择机构类型</option>
-                            <option ng-repeat="item in SelectInfo.orgType.result" ng-selected="item.id==PageInfo.UserInfo.orgType" value="{{item.id}}">{{item.id}}-{{item.text}}</option>
+                            <option ng-repeat="item in SelectInfo.orgType.dic" ng-selected="item.id==PageInfo.UserInfo.orgType" value="{{item.id}}">{{item.id}}-{{item.text}}</option>
                         </select>
                     </label>
                     <label>
@@ -65,17 +61,17 @@
                 <div class="control-group ">
                     <label>
                         <span class="required">*</span>机构名称：
-                        <select ng-model="PageInfo.UserInfo.roleType" ng-change="SelectInfo.roleType.change(item)">
+                        <select ng-model="PageInfo.UserInfo.roleTypeName" ng-change="SelectInfo.roleType.change(item)">
                             <option value="">请选择机构名称</option>
-                            <option ng-repeat="item in SelectInfo.roleType.result" ng-selected="item.id==PageInfo.UserInfo.orgCode" value="{{item.id}}">{{item.text}}</option>
+                            <option ng-repeat="item in SelectInfo.roleType.dic" ng-selected="item.id==PageInfo.UserInfo.orgCode" value="{{item.id}}">{{item.text}}</option>
                         </select>
                     </label>
                     <label >
-                        <span class="required">*</span>用户角色：
-                        <select ng-model="PageInfo.UserInfo.roleName" ng-change="SelectInfo.roleName.change(item)">
-                            <option value="">请选择用户角色</option>
-                            <option ng-repeat="item in SelectInfo.roleName.dic" ng-selected="item.roleName==PageInfo.UserInfo.roleName" value="{{item.roleName}}">{{item.roleName}}</option>
-                        </select>
+                        <span class="required"style="margin-top:-1px;">*</span>用户角色：{{PageInfo.UserInfo.roleName}}
+                    </label>
+                    <label>
+                        <a class="btn btn-warning" ng-click="RolePage.show()"><i class="fa fa-medkit"></i>新增角色</a>
+                        <a class="btn btn-danger" ng-click="RolePage.deletrole()"><i class="fa fa-scissors"></i>删除角色</a> 
                     </label>
                 </div>
             </div>
@@ -133,3 +129,33 @@
         </span>
     </div>
 </div>
+<ng-dialog ng-model="RolePageView">
+    <div class="main-box-body clearfix">
+        <div class="table-responsive list-box" style="padding: 15px; max-height: 450px; overflow: auto;">
+            <table class="table table-bordered table-striped" st-table="addRoleList">
+                <thead>
+                    <tr>
+                        <th><span>序号</span></th>
+                        <th><span>角色简称</span></th>
+                        <th><span>角色全称</span></th>
+                        <th><span>角色描述</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in addRoleList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" >
+                        <td>{{$index+1}}</td>
+                        <td>
+                            {{row.text}}
+                        </td>
+                        <td>
+                            {{row.text}}
+                        </td>
+                        <td>
+                            {{row.remark}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ng-dialog>

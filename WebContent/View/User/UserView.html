@@ -20,7 +20,7 @@
                         所属组织：{{UserDetail.UserInfo.orgTypeName}}
                     </label>
                     <label>
-                        组织类型：{{UserDetail.UserInfo.roleName}}
+                        角色名称：{{UserDetail.UserInfo.roleName}}
                     </label>
                 </div>
                 <div class="control-group ">
@@ -81,15 +81,33 @@
                 <h5>权限信息</h5>
             </div>
             <div id="CompetenceInformation" class="widget-content nopadding collapse in">
-                <div class="control-group ">
-                    <label>
-                        机构类型：{{UserDetail.UserInfo.orgType}}-{{UserDetail.UserInfo.orgTypeName}}
-                    </label>
-                    <label>
-                        类型名称：{{UserDetail.UserInfo.orgTypeName}}
-                    </label>
-                </div>
+                <table class="table table-bordered table-striped" st-table="UserDetail.MenuInfo">
+                    <thead>
+                        <tr>
+                            <th><span>序号</span></th>
+                            <th><span>功能编码</span></th>
+                            <th><span>功能名称</span></th>
+                            <th><span>功能描述</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in UserDetail.MenuInfo" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                            <td>{{$index+1}}</td>
+                            <td>
+                                {{row.functionID}}
+                            </td>
+                            <td>
+                                {{row.functionName}}
+                            </td>
+                            <td>
+                                {{row.functionAppearanceDesc}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+        </div>
+            <!--<div ng-pagein="page" ng-model="Pagein"></div>-->
         </div>
     <div class="tools">
         <span style="float:right;">

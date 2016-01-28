@@ -6,14 +6,14 @@
                 <span style="float:right;">
                     <a class="btn btn-primary" ng-click="addSurgery()" ng-show="User.userInfo.orgType=='DL'&&!competence.approval&&!Competence.back&&!Competence.dealwith&&!Competence.approval&&!Competence.append"> <i class="fa fa-pencil"></i> 手术下单</a>
                     <a class="btn btn-primary" ng-click="editSurgery()" ng-show="competence.modify"> <i class="fa fa-clipboard"></i> 手术修改</a>
-                    <a class="btn btn-primary" ng-click="editSurgery()" ng-show="Competence.submit"><i class="fa fa-check"></i> 订单提交</a>
-                    <a class="btn btn-primary" ng-click="ApprovalSurgery()" ng-show="Competence.approval"><i class="fa fa-eye"></i> 订单审批</a>
-                    <a class="btn btn-primary" ng-click="SignSurgery()" ng-show="Competence.sign"><i class="fa fa-pencil-square-o"></i> 订单签收</a>
-                    <a class="btn btn-primary" ng-click="DealSurgery()" ng-show="Competence.dealwith"><i class="fa fa-wrench"></i> 订单处理</a>
-                    <a class="btn btn-primary" ng-click="ApplyBack()" ng-show="Competence.apply"><i class="fa fa-steam"></i> 返库申请</a>
-                    <a class="btn btn-primary" ng-click="OrderBack()" ng-show="Competence.back"><i class="fa fa-legal"></i> 返库处理</a>
-                    <a class="btn btn-primary" ng-click="Additional()" ng-show="Competence.append"> <i class="fa fa-shopping-cart"></i> 配货管理</a>
-                    <a class="btn btn-primary" ng-click="showViewDetail()"><i class="fa fa-align-justify"></i> 订单详情</a>
+                    <a class="btn btn-primary" ng-click="editSurgery()" ng-show="Competence.submit"><i class="fa fa-check"></i>订单提交</a>
+                    <a class="btn btn-primary" ng-click="ApprovalSurgery()" ng-show="Competence.approval"><i class="fa fa-eye"></i>订单审批</a>
+                    <a class="btn btn-primary" ng-click="SignSurgery()" ng-show="Competence.sign"><i class="fa fa-pencil-square-o"></i>订单签收</a>
+                    <a class="btn btn-primary" ng-click="DealSurgery()" ng-show="Competence.dealwith"><i class="fa fa-wrench"></i>订单处理</a>
+                    <a class="btn btn-primary" ng-click="ApplyBack()" ng-show="Competence.apply"><i class="fa fa-steam"></i>返库申请</a>
+                    <a class="btn btn-primary" ng-click="OrderBack()" ng-show="Competence.back"><i class="fa fa-legal"></i>返库处理</a>
+                    <a class="btn btn-primary" ng-click="Additional()" ng-show="Competence.append"> <i class="fa fa-shopping-cart"></i>追加配货</a>
+                    <a class="btn btn-primary" ng-click="showViewDetail()"><i class="fa fa-align-justify"></i>订单详情</a>
                 </span>
                 <div class="input-group" style="float:right;width:250px;margin-right:10px;">
                     <input type="text" class="form-control" placeholder="请输入订单号"

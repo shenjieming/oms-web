@@ -11,6 +11,8 @@ app.controller("UserViewController", function ($scope, $state, $local, $Api, $Me
     /// <summary>用户视图</summary>
     $scope.Information = [];
     $scope.UserDetail = {
+        MenuInfo: [],
+        RoleNameList:[],
         UserInfo:[],
         Load: function (callback) {
             $scope.accId = $stateParams.accId;
@@ -31,8 +33,11 @@ app.controller("UserViewController", function ($scope, $state, $local, $Api, $Me
             /// <summary>获取用户当前登录信息</summary>
             $Api.AccountService.CurrentUserInfo({ loginAccountId: $scope.accId }, function (rData) {
                 if (!rData.code) {
-                    $scope.UserDetail.UserInfo.roleName = rData.roleInfo[0].roleName;
-                    console.log(rData)
+                    for (var i = 0; i < rData.roleInfo.length; i++) {
+                        $scope.UserDetail.RoleNameList.push(rData.roleInfo[i].roleName)
+                    }
+                    $scope.UserDetail.UserInfo.roleName = $scope.UserDetail.RoleNameList;
+                    $scope.UserDetail.MenuInfo = rData.functionInfo;
                 }
             })
         },
@@ -46,6 +51,7 @@ app.controller("UserViewController", function ($scope, $state, $local, $Api, $Me
                 }
             })
         }
+        
     }
     $scope.UserDetail.Load();
 })

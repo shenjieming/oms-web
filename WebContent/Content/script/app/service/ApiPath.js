@@ -1,4 +1,4 @@
-﻿
+﻿    
 console.log("接口控制启动");
 var ApiPath = {
     /// <summary>Api访问接口服务</summary>
@@ -40,9 +40,8 @@ var ApiPath = {
             addevent: "/v2/common/order/addEvent",
             //返库申请
             feedBackApply: "/v2/common/order/feedBackApply",
-            //订单返库提交
-            back: "/v2/order/commintReturnWareHouseOrder",
-            backsave: "/v2/order/temporarySaveReturnWareHouseOrder"
+            //订单返库
+            back: "/v2/order/commintReturnWareHouseOrder"
         },
         Approval: {
             /// <summary>订单审批</summary>
@@ -116,8 +115,9 @@ var ApiPath = {
     Organization: {
         /// <summary>组织相关地址</summary>
         //获取货主列表
-        cargoOwner: "/v2/order/common/createOrder/oiComboxList"
-
+        cargoOwner: "/v2/order/common/createOrder/oiComboxList",
+        //货主下拉框（物料选择）
+        ownerListMaterial: "/v2/order/common/oiMedMaterialComboxList"
     },
     Hospital: {
         /// <summary>医院相关地址</summary>
@@ -175,6 +175,12 @@ var ApiPath = {
         userUnlock: "/v2/basedataUser/accountUnlock",
         //部门下拉列表
         userOrgcode: "/v2/basedataUser/findUserCanCreateUserOrgCode",
+        //新增用户组织类型
+        userAddOrgTpye: "/v2/basedataUser/userAddOrgTypeCombox",
+        //新增用户组织名称
+        userAddOrg: "/v2/basedataUser/userAddOrgCombox",
+        //新增用户可选角色
+        userAddRole: "/v2/basedataUser/userAddRoleCombox",
     },
     Role: {
         /// <summary>角色地址</summary>

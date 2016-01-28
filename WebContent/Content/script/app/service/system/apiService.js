@@ -113,7 +113,19 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
             OrgCodeList: function (data, callback) {
                 /// <summary>部门下拉框</summary>
                 service.Post(ApiPath.User.userOrgcode, data, callback);
-            }
+            },
+            userAddOrgTpye: function (data, callback) {
+                /// <summary>//新增用户组织类型</summary>
+                service.Post(ApiPath.User.userAddOrgTpye, data, callback);
+            },
+            userAddOrg: function (data, callback) {
+                /// <summary>//新增用户组织名称</summary>
+                service.Post(ApiPath.User.userAddOrg, data, callback);
+            },
+            userAddRole: function (data, callback) {
+                /// <summary>//新增用户可选角色</summary>
+                service.Post(ApiPath.User.userAddRole, data, callback);
+            },
         },
         RoleService: {
             /// <summary>角色操作服务管理</summary>
@@ -332,12 +344,8 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                     service.Post(ApiPath.Surgery.Process.feedBackApply, data, callback);
                 },
                 Back: function (data, callback) {
-                    /// <summary>订单返库提交</summary>
+                    /// <summary>订单返库</summary>
                     service.Post(ApiPath.Surgery.Process.back, data, callback);
-                },
-                BackSave: function (data, callback) {
-                    /// <summary>订单返库保存</summary>
-                    service.Post(ApiPath.Surgery.Process.backsave, data, callback);
                 }
             },
             DataSources: {
@@ -490,7 +498,11 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
             GetCargoOwner: function (data, callback) {
                 /// <summary>获取货主信息列表</summary>
                 service.Post(ApiPath.Organization.cargoOwner, data, callback);
-            }
+            },
+            GetOwnerList: function (data, callback) {
+                /// <summary>获取货主信息列表（物料）</summary>
+                service.Post(ApiPath.Organization.ownerListMaterial, data, callback);
+            },
         },
         RepresentativeService: {
             /// <summary>销售代表信息服务管理</summary>
@@ -501,10 +513,6 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
             GetDelivery: function (data, callback) {
                 /// <summary>获取常用收货地址</summary>
                 service.Post(ApiPath.Representative.delivery, data, callback);
-            },
-            GetDefaultAddress: function (data, callback) {
-                /// <summary>获取默认收货地址</summary>
-                service.Post(ApiPath.Representative.defaultaddress,data.callback);
             },
             AddDelivery: function (data, callback) {
                 /// <summary>添加常用收货地址</summary>
