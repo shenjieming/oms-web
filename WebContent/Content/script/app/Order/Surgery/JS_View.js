@@ -629,8 +629,15 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
 
     $scope.FeedBackService = {
         /// <summary>订单处理服务</summary>
+    	Save: function () {
+    		/// <summary>反馈单处理保存</summary>
+    		debugger;
+    		$Api.SurgeryService.Process.BackSave($scope.FeedBack, function (rData) {
+    			$scope.goLastPage();
+    		});
+    	},
         Submit: function () {
-            /// <summary>订单处理提交</summary>
+            /// <summary>反馈单处理提交</summary>
             $Api.SurgeryService.Process.Back($scope.FeedBack, function (rData) {
                 $scope.goLastPage();
             });

@@ -13,5 +13,5 @@ app.controller("FeedbackListController", function ($scope, $state, $local, $Api,
     /// <summary>反馈单草稿控制器</summary>
     $scope.title = "反馈处理草稿";
    
-    $scope.Integrated.GetOrderList({ opt: "" });
+    $scope.Integrated.GetOrderList({ opt: "OPER_PROCESSBACK_DRAFT" });
 });
