@@ -602,7 +602,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                 attachment:$scope.file.GetEventMapping($scope.PageData.events, "0080_0001")    
             })
             $scope.WarehouseConfig.GetList();
-            $scope.MaterialsConfig.GetMaterialList($scope.PageData.feedBackProcess);
+            $scope.MaterialsConfig.GetMaterialList($scope.PageData.feedBackProcess,$scope.PageData.feedBack);
             $scope.dictionary.GetUseType();
         }
     });
@@ -672,7 +672,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
 
     $scope.MaterialsConfig = {
         Material: new Array(),
-        GetMaterialList: function (mlist) {
+        GetMaterialList: function (mlist,ulist) {
             /// <summary>获取物料信息</summary>
             var result = new Array();
             $.each(mlist, function (index, item) {
@@ -691,6 +691,15 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                         useQty: 0
                     }));
                 }
+            });
+            $.each(result, function (index, item) {
+            	$.each(ulist, function (uIndex, uItem) {
+            		 if (uItem.medMIInternalNo == item.medMIInternalNo && item.lotSerial == uItem.lotSerial) {//同批次物料
+            			 $.extend(item, {
+            				 useQty:uItem.useQty
+            			 });
+            		 }
+            	});
             });
             $scope.FeedBack.medMaterial = result;
         }
