@@ -584,15 +584,22 @@ app.controller("SingleController", function ($scope, $state, $local, $Api, $Mess
 app.controller("FeedbackController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>反馈订单处理</summary>
     /*数据监控Begion*/
-    $scope.$watch("PageData.sONo", function () {
+	$scope.$watch("PageData.sONo", function () {
         /// <summary>获取数据信息</summary>
-        if ($scope.PageData.sONo) {
-            $.extend($scope.FeedBack.order, {
-                sONo: $scope.PageData.sONo, hPCode: $scope.PageData.hPCode,
+        if ($scope.PageData) {
+            $.extend($scope.FeedBack, {
+            	order:{sONo: $scope.PageData.sONo, hPCode: $scope.PageData.hPCode,
                 hPCodeName: $scope.PageData.hPCodeName, wardDeptCode: $scope.PageData.wardDeptCode,
                 wardDeptCodeName: $scope.PageData.wardDeptCodeName, dTCode: $scope.PageData.dTCode,
                 dTCodeName: $scope.PageData.dTCodeName, isLocalName: $scope.PageData.isLocalName,
-                operationDate: $scope.PageData.operationDate, operationDesc: $scope.PageData.patientDiseaseInfo
+                operationDate: $scope.PageData.operationDate, operationDesc: $scope.PageData.patientDiseaseInfo,
+                patientName:$scope.PageData.patientName,patientSex:$scope.PageData.patientSex,patientAge:$scope.PageData.patientAge,
+                patientEntryDate:$scope.PageData.patientEntryDate,patientHPNo:$scope.PageData.patientHPNo,
+                patientWard:$scope.PageData.patientWard,patientRoom:$scope.PageData.patientRoom,patientBedNo:$scope.PageData.patientBedNo,
+                retrieveEstDate:$scope.PageData.retrieveEstDate,retrieveDesc:$scope.PageData.retrieveDesc
+                },
+                medMaterial:{},
+                attachment:$scope.file.GetEventMapping($scope.PageData.events, "0080_0001")    
             })
             $scope.WarehouseConfig.GetList();
             $scope.MaterialsConfig.GetMaterialList($scope.PageData.feedBackProcess);
@@ -629,8 +636,14 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
 
     $scope.FeedBackService = {
         /// <summary>订单处理服务</summary>
+    	Save: function () {
+    		/// <summary>反馈单暂存</summary>
+    		$Api.SurgeryService.Process.BackSave($scope.FeedBack, function (rData) {
+    			$scope.goLastPage();
+    		});
+    	},
         Submit: function () {
-            /// <summary>订单处理提交</summary>
+            /// <summary>反馈单提交</summary>
             $Api.SurgeryService.Process.Back($scope.FeedBack, function (rData) {
                 $scope.goLastPage();
             });
