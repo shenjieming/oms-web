@@ -1,24 +1,31 @@
-﻿
-<div class="login" style="background-image: url('Content/style/img/bgs/lon.jpg?data=4'); background-size: cover; ">
-    <header style="background-color: rgba(45,45,45,.15); height: 60px; color: #fff; padding: 10px; ">
+﻿<div class="login" style="background-image: url('Content/style/img/bgs/lon.jpg?data=4'); background-size: cover; ">
+    <header style="background-color: rgba(45,45,45,.45); height: 60px; color: #fff; padding: 10px; ">
         <img src=" Content/style/img/home/logo.png" style="height:45px;float:left;" />
+        <span style="float:right;margin-top: 10px;margin-right: 20px">
+            <a style=" color: #fff;" href="http://omsapiv2.med-log.cn:8081/oms-web/">订单管理系统</a><span> | </span>
+            <a style=" color: #fff;" href="#">结算管理系统</a><span> | </span>
+            <a style=" color: #fff;" href="http://wmstest.med-log.cn/SupplyChainAdvantage/Host.aspx">仓库管理系统</a>
+        </span>
     </header>
     <div class="login-container">
-        <h1>迈骆医疗OMS管理系统</h1>
+        <h1 style="margin-left: 20%">易手术管理平台</h1>
 
         <div class="form">
+
             <div>
-                <input type="text" ng-keyup="keyUp($event)" class="username" placeholder="请输入用户名" ng-model="SignData.loginName" />
+                <input type="text" ng-keyup="keyUp($event)" class="username" placeholder="请输入用户名"
+                       ng-model="SignData.loginName" />
             </div>
             <div>
-                <input type="password" ng-keyup="keyUp($event)" class="password" placeholder="请输入密码" ng-model="SignData.password" />
+                <input type="password" ng-keyup="keyUp($event)" class="password" placeholder="请输入密码"
+                       ng-model="SignData.password" />
             </div>
             <button type="submit" ng-click="Landed()">登 陆</button>
         </div>
 
     </div>
-    <footer style="background-color: rgba(45,45,45,.15); height: 40px; color: #fff; padding: 10px; position: absolute; bottom: 0px; width:100%;">
-        <span style="float:left;">友情链接：<a style="color:#fff;" href="http://121.42.141.136/">迈骆官网</a></span>
-         <span style="float: right;"> &copy; 2016 <a href="http://www.med-log.cn/index.php?lang=cn" target="_blank">Medlog</a>. Order Management System.</span> 
+    <footer style="background-color: rgba(45,45,45,0.8); height:50px; color: #fff; padding: 10px; position: absolute; bottom: 0px; width:100%;">
+        <span>友情链接：<a style="color:#fff;" href="http://www.med-log.cn/">迈骆官网</a> | 迈骆医疗版权所有©2015-2016</span>
+
     </footer>
 </div>

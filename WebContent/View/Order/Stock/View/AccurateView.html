@@ -13,7 +13,8 @@
                 <label>
                     联系电话：{{PageData.deliveryrMobile}}
                 </label>
-                <label>配送方式：{{PageData.carrierTransTypeName}}
+                <label>
+                    配送方式：{{PageData.carrierTransTypeName}}
                 </label>
             </div>
             <div class="control-group ">
@@ -33,7 +34,9 @@
     <div class="widget-box">
         <div class="widget-title bg_ly">
             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5 style="width:80%" data-toggle="collapse" href="#pro_ProductInformation">产品信息</h5>
+            <h5 style="width:80%" data-toggle="collapse" href="#pro_ProductInformation">产品信息
+                {{AccurProduct.Competence.ShowInfo}}
+            </h5>
         </div>
         <div id="pro_ProductInformation" class="widget-content nopadding collapse in">
             <div ng-product-view="AccurProduct" ng-model="AccurProduct.data" ng-service="AccurProduct.Service" ng-comp="AccurProduct.Competence"></div>

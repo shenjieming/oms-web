@@ -117,7 +117,9 @@
         <div class="widget-box">
             <div class="widget-title bg_ly">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5 data-toggle="collapse" href="#ProductInformation">产品信息</h5>
+                <h5 data-toggle="collapse" href="#ProductInformation">产品信息
+                    {{ProductCompetence.ShowInfo}}
+                </h5>
             </div>
             <div id="ProductInformation" class="widget-content nopadding collapse in">
                 <div ng-product-view="newProduct" ng-model="PageData" ng-service="ProductService" ng-comp="ProductCompetence"></div>

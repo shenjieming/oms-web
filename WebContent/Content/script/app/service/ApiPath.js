@@ -40,10 +40,8 @@ var ApiPath = {
             addevent: "/v2/common/order/addEvent",
             //返库申请
             feedBackApply: "/v2/common/order/feedBackApply",
-            //反馈单提交
-            back: "/v2/order/commintReturnWareHouseOrder",
-            //反馈单暂存
-            backsave: "/v2/order/temporarySaveReturnWareHouseOrder"
+            //订单返库
+            back: "/v2/order/commintReturnWareHouseOrder"
         },
         Approval: {
             /// <summary>订单审批</summary>

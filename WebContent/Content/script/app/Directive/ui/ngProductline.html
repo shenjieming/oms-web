@@ -10,8 +10,8 @@
                                 <option value="">请选择产品线</option>
                             </select>
                         </label>
-                        <label style="width: 50%; display: none; margin-top: 8px;">
-                            产品类型：<select ng-model="prodLn.medProdLineType">
+                        <label style="width: 50%; margin-top: 8px;">
+                            产品类型：<select ng-model="prodLn.medProdLineType" ng-change="Server.GetProductLineList()">
                                 <option value="">请选择产品线类型</option>
                                 <option ng-repeat="item in Server.ProductLineTypeList" value="{{item.id}}">{{item.text}}</option>
                             </select>

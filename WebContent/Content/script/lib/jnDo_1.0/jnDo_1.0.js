@@ -251,6 +251,26 @@ angular.module('jnDo', [])
             }
         }
     })
+    .directive("ngSlide", function () {
+        /// <summary>动态显示隐藏</summary>
+        return {
+            restrict: 'EA',
+            scope: { ngSlide: '=' }, //模型对象
+            replace: true,
+            link: function ($scope, element, attrs) {
+                $scope.$watch("ngSlide", function () {
+                    if ($scope.ngSlide) {
+                        $(element).slideDown()
+                    }
+                    else {
+                        $(element).slideUp()
+                    }
+                });
+
+
+            }
+        }
+    })
     .service("$MessagService", function () {
         this.model = { ico: "ico_clear", msg: "数据加载中..." };
         this.ico = {

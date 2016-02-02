@@ -101,7 +101,13 @@ app.directive("ngProductline", function ($Api, $MessagService) {
                     if ($scope.Server.Brand) {
                         $scope.prodLn.medBrandCode = $scope.Server.Brand.id;
                         $scope.prodLn.medBrandCodeName = $scope.Server.Brand.text;
-                        $Api.BrandService.GetProductLine({ oIOrgCode: $scope.ngCargoModel, medBrandCode: $scope.prodLn.medBrandCode, includeMedProdLn: $scope.Server.Brand.param }, function (rData) {
+
+                        $Api.BrandService.GetProductLine({
+                            oIOrgCode: $scope.ngCargoModel,
+                            medBrandCode: $scope.prodLn.medBrandCode,
+                            includeMedProdLn: $scope.Server.Brand.param,
+                            medProdLnTypeCode: $scope.prodLn.medProdLineType
+                        }, function (rData) {
                             $scope.Server.ProductLineList = rData;
                         });
                     } else {

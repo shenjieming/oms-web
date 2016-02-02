@@ -19,6 +19,29 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
         },
         replace: true,
         link: function ($scope, element, attrs) {
+            $scope.Statistic = {
+                /// <summary>统计</summary>
+                KitsCount: 0,//套件数
+                KitMCount: 0,//套件使用物料数
+                ProdLnsConunt: 0,//产品线数
+                AllMaterialCount: 0,//总物料数
+                AllImplantCount: 0,//总植入物数
+                AllToolCount: 0,//总工具数
+                ProMaterielCount: 0,//产品线物料数
+                ProImplantCount: 0,//产品线植入物数
+                ProToolCount: 0,//产品线工具数
+                GetShowInfo: function () {
+                    /// <summary>获取显示信息</summary>
+                    $scope.ngComp.ShowInfo = "";
+                    if ($scope.Statistic.KitsCount) {
+                        $scope.ngComp.ShowInfo += " 套件" + $scope.Statistic.KitsCount + "套(" + $scope.Statistic.KitMCount + "件)";
+                    }
+                    if ($scope.Statistic.AllMaterialCount) {
+                        $scope.ngComp.ShowInfo += " 散件" + $scope.Statistic.AllMaterialCount + "件(植入物" + $scope.Statistic.AllImplantCount + "件，工具" + $scope.Statistic.AllToolCount + "件）"
+                    }
+                }
+            }
+
             var userInfo = $local.getValue("USER").userInfo;
 
             $scope.$watch("ngModel.prodLns.length", function () {
@@ -28,6 +51,9 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                     $scope.ngService.MitDeduplication();
                 }
             });
+            $scope.$watch("Statistic", function () {
+                $scope.Statistic.GetShowInfo();
+            })
 
 
             $scope.rowCollection = new Array();
@@ -43,6 +69,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                 DelKit: function (index) {
                     /// <summary>删除套件</summary>
                     $scope.ngModel.medKits.splice(index, 1);
+                    $scope.MedKitsConfig.GetKitCount();
                 },
                 AddNewMedKits: function (lise) {
                     /// <summary>添加新的套件</summary>
@@ -63,7 +90,24 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                         if (flg) {
                             $scope.ngModel.medKits.push(data);
                         }
+                        $scope.MedKitsConfig.GetKitCount();
                     });
+                },
+                GetKitCount: function () {
+                    /// <summary>获取套件数量</summary>
+                    var stat = {
+                        KitsCount: 0,
+                        KitMCount: 0
+                    }
+                    var count = 0;
+
+                    $.each($scope.ngModel.medKits, function (index, item) {
+                        stat.KitsCount += item.reqQty;
+                        stat.KitMCount += (item.reqQty * item.medMaterialItemCouts)
+
+                    });
+                    $scope.Statistic = $.extend($scope.Statistic, stat);
+                    $scope.Statistic.GetShowInfo();
                 },
                 useData: {}
             }
@@ -80,6 +124,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                 deleteLine: function () {
                     /// <summary>删除产品线</summary>
                     $scope.ngModel.prodLns.splice($scope.ProductConfig.useLine.index, 1);
+                    $scope.ProductConfig.GetLineMaterialCount();
                 },
                 ChangeTool: function () {
                     /// <summary>修改是否需要工具</summary>
@@ -88,6 +133,49 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                         $scope.ngModel.prodLns[$scope.ProductConfig.useLine.index].medProdLnCodeWithTool = $scope.ProductConfig.useLine.isChecked ? "Y" : "N";
                     }
                 },
+                GetAllMaterialCount: function () {
+                    /// <summary>获取全部物料的个数</summary>
+                    var stat = {
+                        /// <summary>统计</summary>
+                        AllMaterialCount: 0, AllImplantCount: 0, AllToolCount: 0
+                    }
+                    $.each($scope.ngModel.prodLns, function (index, item) {
+                        $.each(item.medMaterias, function (mIndex,mItem) {
+                            stat.AllMaterialCount += mItem.reqQty;
+                            if (mItem.categoryByPlatform == "IMPLANT") {
+                                stat.AllImplantCount += mItem.reqQty;
+                            } else {
+                                stat.AllToolCount += mItem.reqQty;
+                            }
+                        });
+                    });
+
+                    $.extend($scope.Statistic, stat);
+                    $scope.Statistic.GetShowInfo();
+                },
+                GetLineMaterialCount: function () {
+                    /// <summary>获取当前产品线的物料个数</summary>
+           
+                    var stat = {
+                        ProMaterielCount: 0, ProImplantCount: 0, ProToolCount: 0//产品线工具数
+                    }
+                    if (!$scope.ProductConfig.useLine.medMaterias) {
+                        $scope.ProductConfig.useLine.medMaterias = new Array();
+                    }
+                    $.each($scope.ProductConfig.useLine.medMaterias, function (index, item) {
+                        stat.ProMaterielCount += item.reqQty;
+                        if (item.categoryByPlatform == "IMPLANT") {
+                            stat.ProImplantCount += item.reqQty;
+                        } else {
+                            stat.ProToolCount += item.reqQty;
+                        }
+                    });
+
+
+                    $.extend($scope.Statistic, stat);
+                    
+                    //$scope.ProductConfig.GetAllMaterialCount();
+                },
                 tree: {//树配置
                     CreateProLineTree: function () {
                         /// <summary>创建产品线树</summary>
@@ -95,7 +183,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                         $scope.ProductConfig.tree.data = treeData;
                         $scope.ProductConfig.useLine = $scope.ProductConfig.tree.data[$scope.ProductConfig.tree.data.length - 1];
                         $scope.MaterialsConfig.GetShowMaterial();
-          
+                        $scope.ProductConfig.GetLineMaterialCount();
                     },
                     GetNewDataByProdLns: function () {
                         /// <summary>根据产品线获取新的树信息</summary>
@@ -164,7 +252,9 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                             //$scope.ProductConfig.useLine.medMaterias = data;
                             $scope.ngModel.prodLns[$scope.ProductConfig.useLine.index].medMaterias = $scope.ProductConfig.useLine.medMaterias;
                             $scope.MaterialsConfig.GetShowMaterial();
+                        
                         });
+
                     }
                 },
                 DelMaterial: function (index) {
@@ -172,6 +262,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                     $scope.ProductConfig.useLine.medMaterias.splice(index, 1);
                     $scope.ngModel.prodLns[$scope.ProductConfig.useLine.index].medMaterias = $scope.ProductConfig.useLine.medMaterias;
                     $scope.MaterialsConfig.GetShowMaterial();
+                    $scope.ProductConfig.GetLineMaterialCount();
                 },
                 GetRequtMaterial: function (MaterialsList, oldList) {
                     /// <summary>获取请求的物料</summary>
@@ -212,6 +303,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                             }
                         });
                         $scope.ProductConfig.useLine.medMaterias = result;
+                        $scope.ProductConfig.GetLineMaterialCount();
                     }
                 }
             };
@@ -318,15 +410,13 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                 },
                 LineDeduplication:function(){
                     /// <summary>产品线合并</summary>
-
                     $.each($scope.ngModel.prodLns, function (lineIndex, Line) {//便利产品线
                         var newMaterias = new Array();
                         $.each(Line.medMaterias, function (mIndex, materia) {
                             var flg = true;
                             $.each(newMaterias, function (index, item) {
                                 if (item.medMIInternalNo == materia.medMIInternalNo && item.medMIWarehouse == materia.medMIWarehouse) {
-                                    item.reqQty += materia.reqQty;
-                                    return false;
+                                    item.reqQty += materia.reqQty; return false;
                                 }
                             });
                             if (flg) {
@@ -356,9 +446,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                         });
                     }
                     $scope.ngModel.medKits = data;
-                            
                 }
-
             });
         }
     }

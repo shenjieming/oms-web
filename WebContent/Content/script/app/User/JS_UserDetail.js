@@ -24,9 +24,7 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
             };
             if (!$scope.PageInfo.UserInfo.roleName) {
                 $scope.PageInfo.UserInfo.roleName = "-";
-            }
-
-                 
+            }                 
             $scope.SelectInfo.orgType.getList();  //机构类型
             $scope.SelectInfo.userSex.getList();  //用户性别
             $scope.SelectInfo.userEducation.getList();  //用户学历 
@@ -77,6 +75,10 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
             $Api.UserService.GetUserInfo({ loginAccountId: $scope.accId }, function (rData) {
                 if (!rData.code) {
                     $scope.PageInfo.UserInfo = rData;
+                    for (var i = 0; i < rData.roles.length; i++) {
+                        $scope.RolePage.name.push(rData.roles[i].roleName)
+                    }
+                    $scope.PageInfo.UserInfo.roleName = $scope.RolePage.name;
                     console.log(rData)
                 }
             })
@@ -86,7 +88,6 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
             //var paramData = $.extend({ orgType: $scope.PageInfo.UserInfo.orgType, validStatus: "Y" })
             $Api.UserService.userAddRole({ orgType: $scope.PageInfo.UserInfo.orgType }, function (rData) {
                 $scope.addRoleList = rData;
-                console.log(rData)
             });
         },
     }
@@ -247,21 +248,6 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
             console.log(rData.rows)
         });
     }
-    $scope.RoleList = {
-        show: function () {
-            console.log($scope.PageInfo.UserInfo.roleTypeName)
-            if (!$scope.PageInfo.UserInfo.roleTypeName) {
-                $MessagService.caveat("请选择机构名称！")
-            }
-            $scope.PageInfo.GetRoleList();
-            $scope.RoleList.model.show();
-        },
-        cancel: function () {
-            $scope.RoleList.model.hide();
-        }
-    }
-    $scope.RoleList.model = { title: "角色列表", width: 1000, height: 500, buttons: { "确定": $scope.RoleList.cancel } }
-
     //显示模块
     $scope.PageInfo.Load();
 });

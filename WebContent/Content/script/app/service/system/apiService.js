@@ -344,12 +344,8 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                     service.Post(ApiPath.Surgery.Process.feedBackApply, data, callback);
                 },
                 Back: function (data, callback) {
-                    /// <summary>订单返库处理提交</summary>
+                    /// <summary>订单返库</summary>
                     service.Post(ApiPath.Surgery.Process.back, data, callback);
-                },
-                BackSave: function (data, callback) {
-                    /// <summary>订单返库处理暂存</summary>
-                    service.Post(ApiPath.Surgery.Process.backsave, data, callback);
                 }
             },
             DataSources: {
