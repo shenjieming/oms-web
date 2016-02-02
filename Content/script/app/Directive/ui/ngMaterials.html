@@ -1,0 +1,62 @@
+﻿<div>
+    <ng-dialog ng-model="ngOperat">
+        <div style="display: inline-block; width: 99%; padding: 5px;">
+            <a class="btn btn-primary" ng-click="Service.GetMaterialListByCategory('IMPLANT')"><i class="fa fa-puzzle-piece"></i> 植入物</a>
+            <a class="btn btn-primary" ng-click="Service.GetMaterialListByCategory('TOOL')" style="margin-right:45px;"><i class="fa fa-wrench"></i> 工具</a>
+            <span ng-show="Pagein.categoryByPlatform=='IMPLANT'">植入物信息</span>
+            <span ng-show="Pagein.categoryByPlatform=='TOOL'">
+                工具信息
+                <label class="inp-chk" style="margin-left:45px;"><input type="checkbox" ng-checked="Service.productLine" ng-model="Service.productLine" ng-change="Service.QueryMaterialList()" />产品线通用</label>
+                <label class="inp-chk"><input type="checkbox" ng-checked="Service.brandLine" ng-model="Service.brandLine" ng-change="Service.QueryMaterialList()" />品牌通用</label>
+                <label class="inp-chk"><input type="checkbox" ng-checked="Service.all" ng-model="Service.all" ng-change="Service.QueryMaterialList()" />全局通用</label>
+            </span>
+            <div class="input-group" style="float:right;width:250px;">
+                <input type="text" class="form-control" placeholder="请输入物料编码或物料名称"
+                       style="padding:8px;" ng-model="Service.SearchWhere">
+                <a class="input-group-addon" href="javascript:void(0)" ng-click="Service.QueryMaterialList()"><i class="fa fa-search"></i></a>
+            </div>
+        </div>
+        <div class="main-box clearfix">
+            <div class="table-responsive" style="height:325px;overflow-y:auto">
+                <table class="table table-bordered tab-striped">
+                    <thead>
+                        <tr>
+                            <th><span>序号</span></th>
+                            <th><span>物料编码</span></th>
+                            <th><span>物料名称</span></th>
+                            <th><span>物料类型</span></th>
+                            <th><span>物料规格</span></th>
+                            <th ng-show="Pagein.categoryByPlatform=='TOOL'"><span>通用类型</span></th>
+                            <th><span>需求数量</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in Service.MaterialList">
+                            <td>{{$index+1}}</td>
+                            <td>
+                                {{row.medMICode}}
+                            </td>
+                            <td>
+                                {{row.medMIName}}
+                            </td>
+                            <td>
+                                {{row.categoryByPlatformName}}
+                            </td>
+                            <td>
+                                {{row.specification}}
+                            </td>
+                            <td ng-show="Pagein.categoryByPlatform=='TOOL'">
+                                {{row.applyCommonTypeName}}
+                            </td>
+
+                            <td>
+                                <input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" />{{row.medMIUnitName}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-pagein="page" ng-model="Pagein"></div>
+        </div>
+    </ng-dialog>
+</div>

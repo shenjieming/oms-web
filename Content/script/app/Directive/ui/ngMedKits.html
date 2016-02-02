@@ -1,0 +1,44 @@
+﻿<div>
+    <ng-dialog ng-model="ngOperat">
+        <div class="main-box-body clearfix" style="padding:15px;max-height:450px;overflow:auto;">
+            <div class="table-responsive">
+                <table class="table table-bordered tab-striped">
+                    <thead>
+                        <tr>
+                            <th><span>序号</span></th>
+                            <th><span>套件编码</span></th>
+                            <th><span>套件名称</span></th>
+                            <th><span>套件类型</span></th>
+                            <th><span>仓库名称</span></th>
+                            <th><span>需求数量</span></th>
+                            <th><span>库区</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in Service.MedKits">
+                            <td>{{$index+1}}</td>
+                            <td>
+                                {{row.kitCode}}
+                            </td>
+                            <td>
+                                {{row.kitName}}
+                            </td>
+                            <td>
+                                {{row.kitTypeName}}
+                            </td>
+                            <td>
+                                {{row.whName}}
+                            </td>
+                            <td>
+                                <input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" />
+                            </td>
+                            <td>
+                                {{row.zoneName}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </ng-dialog>
+</div>
