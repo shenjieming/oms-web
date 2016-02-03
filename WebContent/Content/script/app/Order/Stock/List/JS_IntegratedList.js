@@ -21,19 +21,10 @@ app.controller("StockIntegratedListController", function ($scope, $state, $local
         var paramData = $.extend({ soType: "INSTK" }, $scope.Pagein);
         console.log($scope.Pagein)
         $Api.StockService.DataSources.GetIntegratedStockInquiry(paramData, function (rowdata) {
-            /// <summary>获取国家列表信息</summary>
             $scope.Integrated.StockList = rowdata.rows;
             $scope.Pagein.total = rowdata.total;
             console.log(rowdata)
         });
-          $Api.AccountService.CurrentUserInfo({}, function (rData) {
-                if (!rData.code) {
-                    $scope.Integrated.StockList.orgType = rData.userInfo.orgType;
-                    if ($scope.Integrated.StockList.orgType == "OI") {
-                        $(".Oi-hide").hide();
-                    }
-                }
-            })      
     }
     $scope.showViewDetail = function (sono) {
         /// <summary>查看手术订单</summary>
