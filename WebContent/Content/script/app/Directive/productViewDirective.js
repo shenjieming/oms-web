@@ -139,6 +139,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                         /// <summary>统计</summary>
                         AllMaterialCount: 0, AllImplantCount: 0, AllToolCount: 0
                     }
+                    debugger
                     $.each($scope.ngModel.prodLns, function (index, item) {
                         $.each(item.medMaterias, function (mIndex,mItem) {
                             stat.AllMaterialCount += mItem.reqQty;
@@ -174,7 +175,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
 
                     $.extend($scope.Statistic, stat);
                     
-                    //$scope.ProductConfig.GetAllMaterialCount();
+                    $scope.ProductConfig.GetAllMaterialCount();
                 },
                 tree: {//树配置
                     CreateProLineTree: function () {
