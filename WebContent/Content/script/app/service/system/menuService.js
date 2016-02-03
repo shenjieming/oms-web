@@ -69,7 +69,8 @@ app.factory("$MenuService", function ($http, $local) {
             { name: "币种信息", url: "#/app/base/currency", state: "app.basis.currency" },
             { name: "数据字典", url: "#/app/base/dictionary", state: "app.basis.dictionary" },
             { name: "事件编码", url: "#/app/base/event", state: "app.basis.event" },
-            { name: "语言管理", url: "#/app/base/lang", state: "app.basis.lang" }
+            { name: "语言管理", url: "#/app/base/lang", state: "app.basis.lang" },
+            { name: "登录日志", url: "#/app/base/journal", state: "app.basis.journal" },
         ]
     });
     return service;
