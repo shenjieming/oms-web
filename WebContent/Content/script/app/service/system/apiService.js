@@ -35,7 +35,7 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
             });
         },
         Get: $ApiHelp.GetApi,
-        From:$ApiHelp.FromApi,
+        From: $ApiHelp.FromApi,
         AccountService: {
             /// <summary>账户操作服务管理</summary>
             Login: function (data, callback) {
@@ -315,7 +315,7 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                     /// <summary>手术订单处理提交</summary>
                     $MessagService.loading("处理提交中，请稍等...");
                     var verifig = true;
-                    $.each(data.prodLns, function (index,item) {
+                    $.each(data.prodLns, function (index, item) {
                         if (!item.medMaterias.length) {
                             $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
                             verifig = false;
@@ -569,6 +569,135 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 /// <summary>产品线选择</summary>
                 service.Post(ApiPath.Brand.productLine, data, callback);
             }
+        },
+        BusinessData: {
+            /// <summary>业务基础数据接口</summary>  
+            MedManuFacture: {
+                // （物料）厂商
+                GetManufacturerList: function (data, callback) {
+                    /// <summary>获取厂商列表</summary>
+                    service.Post(ApiPath.BusinessData.MedManuFacture.queryMedManufacture, data, callback);
+                },
+                GetAddMedManuFacture: function (data, callback) {
+                    /// <summary>新增厂商列表</summary>
+                    service.Post(ApiPath.BusinessData.MedManuFacture.addMedManuFacture, data, callback);
+                },
+                GetUpdateMedManuFacture: function (data, callback) {
+                    /// <summary>编辑厂商列表</summary>
+                    service.Post(ApiPath.BusinessData.MedManuFacture.updateMedManuFacture, data, callback);
+                },
+                GetDeleteMedManuFacture: function (data, callback) {
+                    /// <summary>删除厂商列表</summary>
+                    service.Post(ApiPath.BusinessData.MedManuFacture.deleteMedManuFacture, data, callback);
+                },
+            },
+            MedBrand: {
+                //(物料)品牌
+                GetQueryAllMedBrand: function (data, callback) {
+                    /// <summary>获取品牌列表</summary>
+                    service.Post(ApiPath.BusinessData.MedBrand.queryAllMedBrand, data, callback);
+                },
+                GetQueryMedBrandDetail: function (data, callback) {
+                    /// <summary>获取品牌详情</summary>
+                    service.Post(ApiPath.BusinessData.MedBrand.queryMedBrandDetail, data, callback);
+                },
+                GetAddMedBrand: function (data, callback) {
+                    /// <summary>添加品牌</summary>
+                    service.Post(ApiPath.BusinessData.MedBrand.addMedBrand, data, callback);
+                },
+                GetDeleteMedBrand: function (data, callback) {
+                    /// <summary>删除品牌</summary>
+                    service.Post(ApiPath.BusinessData.MedBrand.deleteMedBrand, data, callback);
+                },
+                GetUpdateMedBrand: function (data, callback) {
+                    /// <summary>修改品牌</summary>
+                    service.Post(ApiPath.BusinessData.MedBrand.updateMedBrand, data, callback);
+                },
+            },
+            MedMater: {
+                //(物料事件)
+                GetSaveMedMaterialItem: function (data, callback) {
+                    /// <summary>物料添加</summary>
+                    service.Post(ApiPath.BusinessData.MedMater.saveMedMaterialItem, data, callback);
+                },
+                GetDeleteMedMaterialItem: function (data, callback) {
+                    /// <summary>物料删除</summary>
+                    $MessagService.loading("数据获取中，请稍等...");
+                    service.Post(ApiPath.BusinessData.MedMater.deleteMedMaterialItem, data, callback);
+                },
+                GetSearchMedMaterialItemDetail: function (data, callback) {
+                    /// <summary>物料详情</summary>
+                    service.Post(ApiPath.BusinessData.MedMater.searchMedMaterialItemDetail, data, callback);
+                },
+                GetUpdateMedMaterialItem: function (data, callback) {
+                    /// <summary>物料修改</summary>
+                    service.Post(ApiPath.BusinessData.MedMater.updateMedMaterialItem, data, callback);
+                },
+                Save: function (data, callback) {
+                    console.log(data)
+                    if (data.medMaterialItem.medMIInternalNo) {
+                        service.Post(ApiPath.BusinessData.MedMater.updateMedMaterialItem, data, callback);
+                    } else {
+                        service.Post(ApiPath.BusinessData.MedMater.saveMedMaterialItem, data, callback);
+                    }
+                }
+            },
+            MedJournal: {
+                //用户登录日志
+                GetQueryAllPlatForm: function (data, callback) {
+                    /// <summary>获取登录日志列表</summary>
+                    service.Post(ApiPath.BusinessData.MedJournal.queryAllPlatForm, data, callback);
+                },
+                GetUpdatePlatForm: function (data, callback) {
+                    /// <summary>编辑登录日志列表</summary>
+                    service.Post(ApiPath.BusinessData.MedJournal.updatePlatForm, data, callback);
+                }
+            },
+            Warehouse: {
+                //仓库管理
+                GetQueryWareHouse: function (data, callback) {
+                    /// <summary>获取仓库信息</summary>
+                    service.Post(ApiPath.BusinessData.Warehouse.queryWareHouse, data, callback);
+                },
+                GetQueryWareHouseDetail: function (data, callback) {
+                    /// <summary>获取仓库详情</summary>
+                    service.Post(ApiPath.BusinessData.Warehouse.queryWareHouseDetail, data, callback);
+                }
+            },
+            Reservoir: {
+                //库区管理
+                GetQueryWareHouse: function (data, callback) {
+                    /// <summary>获取库区信息</summary>
+                    service.Post(ApiPath.BusinessData.Reservoir.queryAllWhzone, data, callback);
+                },
+            },
+            ManSuite: {
+                //套件管理
+                GetSearchHMedKit: function (data, callback) {
+                    /// <summary>获取库区信息</summary>
+                    service.Post(ApiPath.BusinessData.ManSuite.searchHMedKit, data, callback);
+                },
+                GetSearchHMedKitDetail: function (data, callback) {
+                    /// <summary>获取库区信息</summary>
+                    service.Post(ApiPath.BusinessData.ManSuite.searchHMedKitDetail, data, callback);
+                },
+                GetUpdateHMedKit: function (data, callback) {
+                    /// <summary>获取库区信息</summary>
+                    service.Post(ApiPath.BusinessData.ManSuite.updateHMedKit, data, callback);
+                },
+                GetDeleteHMedKit: function (data, callback) {
+                    /// <summary>获取库区信息</summary>
+                    service.Post(ApiPath.BusinessData.ManSuite.deleteHMedKit, data, callback);
+                },
+                GetInsertHMedKit: function (data, callback) {
+                    /// <summary>获取库区信息</summary>
+                    service.Post(ApiPath.BusinessData.ManSuite.insertHMedKit, data, callback);
+                },
+            },
+            GetBrandList: function (data, callback) {
+                /// <summary>获取厂商编码查询品牌</summary>
+                service.Post(ApiPath.BusinessData.queryBrandByManufacture, data, callback);
+            },
         },
         Public: {
             /// <summary>通用公开接口</summary>

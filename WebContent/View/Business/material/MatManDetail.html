@@ -1,0 +1,280 @@
+﻿
+<div class="row">
+    <div class="tools">
+        <h5 style="float:left;">物料详情</h5>
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-click="save()">保存</a>
+            <a class="btn btn-primary" ng-click="goLastPage()">返回</a>
+        </span>
+    </div>
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#VendorInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>厂商信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="VendorInformation">
+                <div class="control-group ">
+                    <span style="margin-left:85%;">
+                        <a class="btn btn-warning" ng-click="VendorView.show()">
+                            <i class="fa fa-map-marker"></i>
+                            厂商选择
+                        </a>
+                    </span>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        货主名称：{{MatManInfo.medMaterialItem.oIOrgName}}
+                    </label>
+                    <label>
+                        厂家编码：{{MatManInfo.medMnfcOrgCode}}
+                    </label>
+                    <label>
+                        厂家简称：{{MatManInfo.medMaterialItem.mnfcMedMIName}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        品牌名称：{{MatManInfo.medMaterialItem.medMnfcName}}
+                    </label>
+                    <label>
+                        产品线名称：{{MatManInfo.medMaterialItem.medMaterName}}
+                    </label>
+                    <label>
+                        产品线编码：{{MatManInfo.medMaterialItem.medMaterCode }}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#MaterielInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>物料信息</h5>
+            </div>
+            <div id="MaterielInformation" class="widget-content nopadding collapse in">
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span>物料名称：<input type="text" ng-model="MatManInfo.medMaterialItem.medMIName" placeholder="请输入物料名称" />
+                    </label>
+                    <label>
+                        <span class="required">*</span>物料编码：<input type="text" ng-model="MatManInfo.medMaterialItem.medMICode" placeholder="请输入物料编码" />
+                    </label>
+                    <label>
+                        <span class="required">*</span>物料类型：<input type="text" ng-model="MatManInfo.medMaterialItem.Platform" placeholder="请输入物料类型" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span>物料单位：<input type="text" ng-model="MatManInfo.medMaterialItem.medMIUnit" placeholder="请输入物料单位" />
+                    </label>
+                    <label>
+                        <span class="required">*</span>扫瞄编码：<input type="text" ng-model="MatManInfo.medMaterialItem.medMICodeScanned" placeholder="请输入扫瞄编码" />
+                    </label>
+                    <label ng-show="ButtonList.changeisScan">
+                        <span style="float:left;line-height:25px;">扫描情况：</span>
+                        <input type="checkbox" id="checkbox_c2" class="chkbox" ng-checked="MatManInfo.medMaterialItem.isScanSupported" ng-model="MatManInfo.medMaterialItem.isScanSupported" />
+                        <label for="checkbox_c2" style="float:left"></label>
+                        <span ng-show="MatManInfo.medMaterialItem.isScanSupported" style="line-height: 25px;"> 扫描</span>
+                        <span ng-show="!MatManInfo.medMaterialItem.isScanSupported" style="line-height: 25px;">不扫描</span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        合格证联数：<input type="text" ng-model="MatManInfo.medMaterialItem.certMultiQty" placeholder="请输入合格证联数" />
+                    </label>
+                    <label>
+                        物料备注：<input type="text" ng-model="MatManInfo.medMaterialItem.remark" placeholder="请输入物料备注" />
+                    </label>
+                    <label>
+                        应用类型：<input type="text" ng-model="MatManInfo.medMaterialItem.applyCommonType" placeholder="请输入应用类型" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        物料全称：<input type="text" ng-model="MatManInfo.medMaterialItem.medMIFullName" placeholder="请输入物料全称" />
+                    </label>
+                    <label>
+                        英文简称：<input type="text" ng-model="MatManInfo.medMaterialItem.medMINameEN" placeholder="请输入英文简称" />
+                    </label>
+                    <label>
+                        英文全称：<input type="text" ng-model="MatManInfo.medMaterialItem.medMIFullNameEN" placeholder="请输入英文全称" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        自定义一：<input type="text" ng-model="MatManInfo.medMaterialItem.medMIUserDefineClass1" placeholder="请输入自定义一" />
+                    </label>
+                    <label>
+                        自定义二：<input type="text" ng-model="MatManInfo.medMaterialItem.medMIUserDefineClass2" placeholder="请输入自定义二" />
+                    </label>
+                    <label>
+                        自定义三：<input type="text" ng-model="MatManInfo.medMaterialItem.medMIUserDefineClass3" placeholder="请输入自定义三" />
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#ProductInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>产品信息</h5>
+            </div>
+            <div id="ProductInformation" class="widget-content nopadding collapse in">
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span>产品方向：<input type="text" ng-model="MatManInfo.medMaterialItem.direction" placeholder="请输入产品方向" />
+                    </label>
+                    <label>
+                        <span class="required">*</span>注册证号：<input type="text" ng-model="MatManInfo.medMaterialItem.registryNo" placeholder="请输入注册证号" />
+                    </label>
+                    <label ng-show="ButtonList.changeisSendAway">
+                        <span style="float:left;line-height:25px;">产品送消：</span>
+                        <input type="checkbox" id="checkbox_c4" class="chkbox" ng-checked="MatManInfo.medMaterialItem.disinfectionNeeded" ng-model="MatManInfo.medMaterialItem.disinfectionNeeded" />
+                        <label for="checkbox_c4" style="float:left"></label>
+                        <span ng-show="MatManInfo.medMaterialItem.disinfectionNeeded" style="line-height: 25px;"> 需要</span>
+                        <span ng-show="!MatManInfo.medMaterialItem.disinfectionNeeded" style="line-height: 25px;">不需要</span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        型号说明：<input type="text" ng-model="MatManInfo.medMaterialItem.model" placeholder="请输入型号说明" />
+                    </label>
+                    <label>
+                        <span class="required">*</span>产品标准：<input type="text" ng-model="MatManInfo.medMaterialItem.medMaterialItem" placeholder="请输入产品标准" />
+                    </label>
+                    <label ng-show="ButtonList.changeisValidity">
+                        <span style="float:left;line-height:25px;">适用情况：</span>
+                        <input type="checkbox" id="checkbox_c3" class="chkbox" ng-checked="MatManInfo.medMaterialItem.effectiveControl" ng-model="MatManInfo.medMaterialItem.effectiveControl" />
+                        <label for="checkbox_c3" style="float:left"></label>
+                        <span ng-show="MatManInfo.medMaterialItem.effectiveControl" style="line-height: 25px;"> 适用</span>
+                        <span ng-show="!MatManInfo.medMaterialItem.effectiveControl" style="line-height: 25px;">不适用</span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        使用说明：<input type="text" ng-model="MatManInfo.medMaterialItem.useInfo" placeholder="请输入使用说明" />
+                    </label>
+                    <label>
+                       材料说明：<input type="text" ng-model="MatManInfo.medMaterialItem.materials" placeholder="请输入材料说明" />
+                    </label>
+                    <label>
+                        产品规格：<input type="text" ng-model="MatManInfo.medMaterialItem.specification" placeholder="请输入材料说明" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        标准编码1：<input type="text" ng-model="MatManInfo.medMaterialItem.standardCode1" placeholder="请输入标准编码1" />
+                    </label>
+                    <label>
+                        标准编码2：<input type="text" ng-model="MatManInfo.medMaterialItem.standardCode2" placeholder="请输入标准编码2" />
+                    </label>
+                    <label>
+                        标准编码3：<input type="text" ng-model="MatManInfo.medMaterialItem.standardCode3" placeholder="请输入标准编码3" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        编码1来源：<input type="text" ng-model="MatManInfo.medMaterialItem.standardCode1Source" placeholder="请输入编码1来源" />
+                    </label>
+                    <label>
+                        编码2来源：<input type="text" ng-model="MatManInfo.medMaterialItem.standardCode2Source" placeholder="请输入编码1来源" />
+                    </label>
+                    <label>
+                        编码3来源：<input type="text" ng-model="MatManInfo.medMaterialItem.standardCode3Source" placeholder="请输入编码1来源" />
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5 data-toggle="collapse" style="width:80%" href="#AdditionalInformation">图片信息</h5>
+                <a class="btn j_file_panel" href="javascript:void(0)">
+                    <i class="fa fa-image"></i>
+                    添加图片
+                    <div ng-file="file" ng-model="file"></div>
+                </a>
+            </div>
+            <div id="AdditionalInformation" class="widget-content nopadding collapse in">
+                <div class="control-group ">
+                    <div ng-img-list="img" ng-comp="{delImg:true}" ng-model="MatManInfo.attachment.images"></div>
+                    <label style="opacity:0.5;width:100%;" ng-show="!MatManInfo.attachment.images.length">
+                 添加物料图片...
+                    </label>
+                    <label style="width:70%">
+                        <span></span>图片备注：<input type="text" ng-model="MatManInfo.attachment.remark" style="width:80%" placeholder="请输入图片备注" />
+                    </label>
+                    
+                </div>
+                <div class="control-group" ng-show="MatManInfo.attachment.images">
+                    <a class="btn j_file_panel" href="javascript:void(0)">
+                        <i class="fa fa-image"></i>
+                        添加物料详细图片
+                        <div ng-file="filed" ng-model="filed"></div>
+                    </a>
+                </div>
+                <div class="control-group" ng-show="MatManInfo.attachment.images.length">
+                    <div ng-img-list="img" ng-comp="{delImg:true}" ng-model="MatManInfo.attachmentForm.images"></div>
+                    <label style="opacity:0.5;width:100%;" ng-show="!MatManInfo.attachmentForm.images.length">
+                        添加物料详细图片...
+                    </label>
+                </div>
+                <div class="control-group" ng-show="MatManInfo.attachment.images.length">
+                    <label style="width:100%">
+                        物料详细说明：<input type="text" style="width:78%;" placeholder="对您的图片说点什么吧..." ng-model="MatManInfo.attachmentForm.remark" />
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="tools">
+            <span style="float:right;">
+                <a class="btn btn-primary" ng-click="save()">保存</a>
+                <a class="btn btn-primary" ng-click="goLastPage()">返回</a>
+            </span>
+        </div>
+    </div>
+</div>
+<ng-dialog ng-model="VendorPage">
+    <div class="row-fluid">
+        <div class="widget-box" style="margin-top:0px;">
+            <div class="widget-content">
+                <div class="control-group">
+                    <label style="width:50%">
+                        <span class="required" style="margin-top:8px;">*</span>
+                        货主名称：<select ng-model="MatManInfo.medMaterialItem.oIOrgCode" ng-change="SelectList.own.change(item)">
+                            <option value="">请选择货主</option>
+                            <option ng-repeat="item in SelectList.own.dic" ng-selected="item.id==MatManInfo.medMaterialItem.oIOrgCode" value="{{item.id}}">{{item.text}}</option>
+                        </select>
+                    </label>
+                    <label style="width:50%">
+                        <span class="required" style="margin-top:8px;">*</span>
+                        品牌名称：<select ng-model="MatManInfo.medMaterialItem.medMnfcCode" ng-change="SelectList.BrandList.change(item)">
+                            <option value="">请选择品牌</option>
+                            <option ng-repeat="item in SelectList.BrandList.dic" ng-selected="item.id==MatManInfo.medMaterialItem.medMnfcCode" value="{{item.id}}">{{item.text}}</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label style="width:50%">
+                        <span class="required" style="margin-top:8px;">*</span>
+                        厂&nbsp;&nbsp;&nbsp; 商&nbsp;&nbsp;&nbsp;：<select ng-model="MatManInfo.medMnfcOrgCode" ng-change="SelectList.Vendor.change(item)">
+                            <option value="">请选择厂商</option>
+                            <option ng-repeat="item in SelectList.Vendor.dic" value="{{item.medMnfcOrgCode}}">{{item.medMnfcName}}</option>
+                        </select>
+                    </label>
+                    <label style="width:50%">
+                        <span class="required" style="margin-top:8px;">*</span>
+                        产&nbsp;品&nbsp;线 &nbsp;：<select ng-model="MatManInfo.medMaterialItem.medProdLnCode" ng-change="SelectList.productList.change(item)">
+                            <option value="">请选择产品线</option>
+                            <option ng-repeat="item in SelectList.productList.dic" value="{{item.id}}">{{item.text}}</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label style="width:100%;">
+                        备注信息：<input type="text" style="width:78%;" ng-model="prodLn.remark" />
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-dialog>

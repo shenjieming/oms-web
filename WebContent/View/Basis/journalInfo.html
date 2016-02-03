@@ -1,0 +1,38 @@
+﻿<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">登录日志</h2>
+            </header>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="JournalEdit.JournalList">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>账户姓名</span></th>
+                                <th><span>联系号码</span></th>
+                                <th><span>联系邮箱</span></th>
+                                <th><span>创建时间</span></th>
+                                <th><span>更新时间</span></th>
+                                <th><span>状态信息</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in JournalEdit.JournalList " st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                                <td>{{$index+1}}</td>
+                                <td><span>{{row.baseDataLoginAccount.loginName}}</span></td>
+                                <td><span>{{row.baseDataLoginAccount.loginMobileNo}}</span></td>
+                                <td><span>{{row.baseDataLoginAccount.loginEmail}}</span></td>
+                                <td><span>{{row.baseDataLoginAccount.createDate}}</span></td>
+                                <td><span>{{row.baseDataLoginAccount.updateDate}}</span> </td>
+                                <td><span>{{row.baseDataLoginAccount.lockStatus==LOCK?"锁定":"非锁定"}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+    </div>
+</div>
