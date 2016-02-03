@@ -110,9 +110,41 @@
                 <a href="javascript:void(0)" class="btn btn-primary" style="float:right;margin-right:10px;" ng-click="">保存</a>
             </div>
             <div style="width:100%;display:inline-block">
-                医院信息：<select><option>请选择医院名称...</option></select>
-                科室信息：<select><option>请选择科室名称...</option></select>
-                医生名称：<input type="text" />
+
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-5">
+                     医院名称：<select>
+                        <option value="">请选择医院名称...</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-5">
+                        科室名称：<select>
+                        <option value="">请选择科室名称...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row row-mt-8">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-5">
+                        医生名称：<input type="text" placeholder="请输入医生名称..." />
+                    </div>
+                    <div class="col-lg-5">
+                        联系电话：<input type="text" placeholder="请输入医生联系电话..." />
+                    </div>
+                </div>
+                <div class="row row-mt-8">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-10">
+                        本院医生：
+                    </div>
+                </div>
+                <div class="row row-mt-8">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-10">
+                        要求信息：<input type="text" placeholder="请输入医生手术时的要求信息..." />
+                    </div>
+                </div>
             </div>
         </div>
     </ng-dialog>
