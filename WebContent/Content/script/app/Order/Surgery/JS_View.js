@@ -46,13 +46,15 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
     }
     $scope.EventFilter = function () {
         /// <summary>图片过滤</summary>
-        $.each($scope.PageData.events, function (eIndex, event) {
-            event.images = new Array();
-            $.each(event.attachments, function (index, att) {
-                event.images.push({ url: att.attachmentDir })
-                event.remark = att.attachmentDesc
+        if ($scope.PageData.events) {
+            $.each($scope.PageData.events, function (eIndex, event) {
+                event.images = new Array();
+                $.each(event.attachments, function (index, att) {
+                    event.images.push({ url: att.attachmentDir })
+                    event.remark = att.attachmentDesc
+                });
             });
-        });
+        }
     }
 
     /*逻辑对象区域End*/
@@ -913,7 +915,8 @@ app.controller("AddEventController", function ($scope, $state, $local, $Api, $Me
             $.extend($scope.Event, {
                 sONo: $scope.PageData.sONo,
                 eventCode: "", remark: "", PostEvent: $scope.View.Competence.apply ? $Api.SurgeryService.Process.FeedBackApply : $Api.SurgeryService.Process.AddEvent
-            })
+            });
+            $scope.EventService.GetEventCode();
         }
     });
     /*数据监控End*/
@@ -930,7 +933,7 @@ app.controller("AddEventController", function ($scope, $state, $local, $Api, $Me
         GetEventCode: function () {
             /// <summary>获取事件编码</summary>
             $Api.Public.GetEventList({}, function (rData) {
-                $scope.AddEventService.EventList = rData;
+                $scope.EventService.EventList = rData;
             });
         }
     }
