@@ -606,3 +606,14 @@ input, select, textarea {
     .home.six {
         background-image: url(../img/home/home-6.jpg);
     }
+
+    /*兼容问题处理*/
+.dropdown-backdrop {
+    position: initial;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    display: none;
+}
