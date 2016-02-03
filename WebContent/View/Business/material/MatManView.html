@@ -1,0 +1,95 @@
+﻿<div class="row">
+    <div class="tools">
+        <h5 style="float:left;">物料详情</h5>
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-click="goLastPage()">返回</a>
+        </span>
+    </div>
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>厂商信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="BaseInformation">
+                <div class="control-group ">
+                    <label>
+                        货主组织机构：{{UserDetail.UserInfo.loginName}}
+                    </label>
+                    <label>
+                        物料编码：{{UserDetail.UserInfo.orgTypeName}}
+                    </label>
+                    <label>
+                        物料名称：{{UserDetail.UserInfo.roleName}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        分类项1：{{UserDetail.UserInfo.WechatId}}
+                    </label>
+                    <label>
+                        分类项2：{{UserDetail.UserInfo.userRemark}}
+                    </label>
+                    <label>
+                        分类项3：{{UserDetail.UserInfo.validStatus=="Y"?"有效":"无效"}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        物料品牌：{{UserDetail.UserInfo.WechatId}}
+                    </label>
+                    <label>
+                        物料单位：{{UserDetail.UserInfo.WechatId}}
+                    </label>
+                    <label>
+                        物料状态：{{UserDetail.UserInfo.userRemark}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#NewsletterInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>产品信息</h5>
+            </div>
+            <div id="NewsletterInformation" class="widget-content nopadding collapse in">
+                <div class="control-group ">
+                    <label>
+                        扫描编码：{{UserDetail.UserInfo.userName}}
+                    </label>
+                    <label>
+                        产品型号：{{UserDetail.UserInfo.userJobDesc}}
+                    </label>
+                    <label>
+                        产品规格：{{UserDetail.UserInfo.userSexName}}
+                    </label>
+
+                </div>
+                <div class="control-group ">
+                    <label>
+                        产品材料：{{UserDetail.UserInfo.userEducationName}}
+                    </label>
+                    <label>
+                        产品使用：{{UserDetail.UserInfo.loginMobileNo}}
+                    </label>
+                    <label>
+                        产品类型：{{UserDetail.UserInfo.loginEmail}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        产品方向：{{UserDetail.UserInfo.userIDCard}}
+                    </label>
+                    <label>
+                        应用通用性类型：{{UserDetail.UserInfo.userDescription}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="tools">
+            <span style="float:right;">
+                <a class="btn btn-primary" ng-click="goLastPage()">返回</a>
+            </span>
+        </div>
+    </div>
+    </div>

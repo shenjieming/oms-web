@@ -1,0 +1,50 @@
+﻿<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">套件列表</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="SuiteList.Add()">新增</a>
+                    <a class="btn btn-primary" ng-click="SuiteList.Eduit()">编辑</a>
+                    <a class="btn btn-primary" ng-click="SuiteList.Eduit()">详情</a>
+                </span>
+            </header>
+            <div class="col-lg-3" style=" height:auto; min-height: 480px; overflow-y: auto; ">
+                <div ng-tree="" ng-setting="tree.setting" ng-data="tree.data" ng-model="tree.obj"></div>
+            </div>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="SuiteList.info">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>套件名称</span></th>
+                                <th><span>套件编码</span></th>
+                                <th><span>库区名称</span> </th>
+                                <th><span>库区编码</span></th>
+                                <th><span>仓库名称</span></th>
+                                <th><span>仓库编码</span></th>
+                                <th><span>内部编码</span></th>
+                                <th><span>有效状态</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in SuiteList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                                <td>{{$index+1}}</td>
+                                <td><span>{{row.kitName}}</span></td>
+                                <td><span>{{row.kitCode}}</span></td>
+                                <td><span>{{row.zoneName}}</span> </td>
+                                <td><span>{{row.zoneCode}}</span></td>
+                                <td><span>{{row.whName}}</span></td>
+                                <td><span>{{row.whCode}}</span></td>
+                                <td><span>{{row.medKitInternalNo}}</span></td>
+                                <td><span>{{row.validStatus=="Y"?"有效":"无效"}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+    </div>
+</div>

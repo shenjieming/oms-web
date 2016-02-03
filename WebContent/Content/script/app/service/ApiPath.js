@@ -1,4 +1,4 @@
-﻿    
+﻿
 console.log("接口控制启动");
 var ApiPath = {
     /// <summary>Api访问接口服务</summary>
@@ -110,7 +110,7 @@ var ApiPath = {
             //综合查询列表
             IntegratedStockInquiry: "/v2/common/order/queryOrderList",
         }
-        
+
     },
     Organization: {
         /// <summary>组织相关地址</summary>
@@ -281,6 +281,79 @@ var ApiPath = {
         searchHMedKitDetail: "/v2/template/common/searchHMedKitDetail",
         //查询套件粗存
         queryKitInventory: "/v2/wms/queryKitInventory"
+    },
+    BusinessData: {
+        /// <summary>业务数据基础管理</summary>
+        //厂商列表
+        MedManuFacture: {
+            //厂商列表
+            queryMedManufacture: "/v2/bizData/queryAllMedManuFacture",
+            //厂商新增
+            addMedManuFacture: "/v2/bizData/addMedManuFacture",
+            //厂商编辑
+            updateMedManuFacture: "/v2/bizData/updateMedManuFacture",
+            //厂商删除
+            deleteMedManuFacture: "/v2/bizData/deleteMedManuFacture",
+        },
+        //品牌列表
+        MedBrand: {
+            //品牌列表
+            queryAllMedBrand: "/v2/bizData/queryAllMedBrand",
+            //品牌详情
+            queryMedBrandDetail: "/v2/bizData/queryMedBrandDetail",
+            //品牌添加
+            addMedBrand: "/v2/bizData/addMedBrand",
+            //品牌修改
+            updateMedBrand: "/v2/bizData/updateMedBrand",
+            //品牌删除
+            deleteMedBrand: "/v2/bizData/deleteMedBrand",
+        },
+        //物料列表
+        MedMater: {
+            //物料列表
+            searchMedMaterialItem: "/v2/template/common/searchMedMaterialItem",
+            //物料添加
+            saveMedMaterialItem: "/v2/template/common/saveMedMaterialItem",
+            //物料删除
+            deleteMedMaterialItem: "/v2/template/common/deleteMedMaterialItem",
+            //物料详情
+            searchMedMaterialItemDetail: "/v2/template/common/searchMedMaterialItemDetail",
+            //物料修改
+            updateMedMaterialItem: "/v2/template/common/updateMedMaterialItem"
+        },
+        //仓库列表
+        Warehouse: {
+            //获取仓库列表
+            queryWareHouse: "/v2/bizData/queryWareHouse",
+            //获取仓库详情
+            queryWareHouseDetail: "/v2/bizData/queryWareHouseDetail",
+        },
+        //库区
+        Reservoir: {
+            //获取库区列表
+            queryAllWhzone: "/v2/bizData/queryAllWhzone",
+        },
+        //套件管理
+        ManSuite: {
+            //获取套件列表
+            searchHMedKit: "/v2/template/common/searchHMedKit",
+            //获取套件详情
+            searchHMedKitDetail: "/v2/template/common/searchHMedKitDetail",
+            //获取套件修改
+            updateHMedKit: "/v2/template/common/updateHMedKit",
+            //获取套件删除
+            deleteHMedKit: "/v2/template/common/deleteHMedKit",
+            //获取套件添加
+            insertHMedKit: "/v2/template/common/insertHMedKit",
+        },
+        MedJournal: {
+            //平台信息列表
+            queryAllPlatForm: "/v2/bizData/queryAllPlatForm",
+            //平台信息编辑
+            updatePlatForm: "/v2/bizData/updatePlatForm",
+        },
+        /// <summary>获取厂商编码查询品牌</summary>
+        queryBrandByManufacture: "/v2/basebusinessdata/common/queryBrandByManufacture"
     },
     Public: {
         /// <summary>公开通用接口</summary>
