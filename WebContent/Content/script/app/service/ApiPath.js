@@ -16,7 +16,9 @@ var ApiPath = {
         //获取登陆用户信息
         findCurrentUserInfo: "/v2/user/findCurrentUserInfo",
         //登陆日志查询
-        loginAccountLogSearch: "/v2/baseData/loginAccountLogSearch"
+        loginAccountLogSearch: "/v2/baseData/loginAccountLogSearch",
+        //获取指定用户信息
+        findUserInfo: "/v2/user/findUserInfo"
     },
     Surgery: {
         /// <summary>手术订单信息接口地址</summary>

@@ -1,117 +1,118 @@
-﻿<div class="row">
-    <div class="tools">
-        <h5 style="float:left;">用户详情</h5>
-        <span style="float:right;">
-            <a class="btn btn-primary" ng-click="goLastPage()">返回</a>
-        </span>
-    </div>
-    <div class="row-fluid">
-        <div class="widget-box">
-            <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
-                <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5>登录账户</h5>
-            </div>
-            <div class="widget-content nopadding collapse in" id="BaseInformation">
-                <div class="control-group ">
-                    <label>
-                        登录账号：{{UserDetail.UserInfo.loginName}}
-</label>
-<label>
-    所属组织：{{UserDetail.UserInfo.orgTypeName}}
-</label>
-<label>
-    角色名称：{{UserDetail.UserInfo.roleName}}
-</label>
-</div>
-<div class="control-group ">
-    <label>
-        绑定微信：{{UserDetail.UserInfo.WechatId}}
-</label>
-<label>
-    账户备注：{{UserDetail.UserInfo.userRemark}}
-</label>
-<label>
-    是否有效：{{UserDetail.UserInfo.validStatus=="Y"?"有效":"无效"}}
-</label>
-</div>
-</div>
-</div>       
-<div class="widget-box">
-    <div class="widget-title bg_ly" data-toggle="collapse" href="#NewsletterInformation">
-        <span class="icon"><i class="fa icon-chevron-down"></i></span>
-        <h5>个人信息</h5>
-    </div>
-    <div id="NewsletterInformation" class="widget-content nopadding collapse in">
-        <div class="control-group ">
-            <label>
-                用户姓名：{{UserDetail.UserInfo.userName}}
-</label>
-<label>
-    职位描述：{{UserDetail.UserInfo.userJobDesc}}
-</label>
-<label>
-    用户性别：{{UserDetail.UserInfo.userSexName}}
-</label>
-               
-</div>
-<div class="control-group ">
-    <label>
-        用户学历：{{UserDetail.UserInfo.userEducationName}}
-</label>
-<label>
-    手机号码：{{UserDetail.UserInfo.loginMobileNo}}
-</label>
-<label>
-    邮箱地址：{{UserDetail.UserInfo.loginEmail}}
-</label>
-</div>
-<div class="control-group ">
-    <label>
-        身份证：{{UserDetail.UserInfo.userIDCard}}
-</label>
-<label >
-   描述信息：{{UserDetail.UserInfo.userDescription}}
-</label>
-</div>
-</div>
-</div>
-<div class="widget-box">
-    <div class="widget-title bg_ly" data-toggle="collapse" href="#CompetenceInformation">
-        <span class="icon"><i class="fa icon-chevron-down"></i></span>
-        <h5>权限信息</h5>
-    </div>
-    <div id="CompetenceInformation" class="widget-content nopadding collapse in">
-        <table class="table table-bordered table-striped" st-table="UserDetail.MenuInfo">
-            <thead>
-                <tr>
-                    <th><span>序号</span></th>
-                    <th><span>功能编码</span></th>
-                    <th><span>功能名称</span></th>
-                    <th><span>功能描述</span></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="row in UserDetail.MenuInfo" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
-                    <td>{{$index+1}}</td>
-                    <td>
-                        {{row.functionID}}
-                    </td>
-                    <td>
-                        {{row.functionName}}
-                    </td>
-                    <td>
-                        {{row.functionAppearanceDesc}}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-    <!--<div ng-pagein="page" ng-model="Pagein"></div>-->
-</div>
-<div class="tools">
-    <span style="float:right;">
-        <a class="btn btn-primary" ng-click="goLastPage()">返回</a>
-    </span>
-</div>
-</div>
+﻿/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
+/// <reference path="../../lib/angular-1.2.20/angular.min.js" />
+/// <reference path="../../lib/angular-1.2.20/angular-touch.js" />
+/// <reference path="../../lib/angular-1.2.20/angular-sanitize.min.js" />
+/// <reference path="../../lib/angular-1.2.20/angular-loader.js" />
+/// <reference path="../../lib/Jquery/jquery-1.11.1.min.js" />
+/// <reference path="../service/system/localService.js" />
+/// <reference path="../Config.js" />
+
+app.controller("UserViewController", function ($scope, $state, $local, $Api, $MessagService, $stateParams) {
+    $scope.tree = {
+        setting: {
+            callback: {
+                beforeExpand: true,
+                onExpand: function (event, treeId, treeNode) {
+                    /// <summary>tree查询子节点</summary>
+                    if (!treeNode.reNode) {
+                        treeNode.reNode = true;
+                    }
+                },
+                onClick: function (event, treeId, treeNode) {
+                    /// <summary>点击tree后的事件</summary>
+                    console.log(treeNode)
+                    if (treeNode.isParent) {
+                        $scope.UserDetail.option = "";
+                        $scope.UserDetail.parOption = treeNode.id
+                    } else {
+                        $scope.UserDetail.parOption = "";
+                        $scope.UserDetail.option = treeNode.id;
+                    }
+                    $scope.UserDetail.getTreeMenuList();//数据读取
+                },
+            },
+            data: {
+                simpleData: {
+                    enable: true,
+                    idKey: "id",
+                    pIdKey: "pId",
+                }
+            },
+        },
+
+        obj: new Object()
+    }
+
+
+    /// <summary>用户视图</summary>
+    $scope.Information = [];
+    $scope.UserDetail = {
+        MenuInfo: [],
+        RoleNameList: [],
+        UserInfo: [],
+        option: [],
+        parOption:[],
+
+        Load: function (callback) {
+            $scope.accId = $stateParams.accId;
+            console.log($scope.accId)
+            $scope.UserDetail.getUserDetail();
+            $scope.UserDetail.getUserInformation();
+            $scope.UserDetail.GetFindUserInfo();
+        },
+        getUserDetail: function () {
+            /// <summary>获取用户列表详情</summary>
+            $MessagService.loading("用户信息加载中，请稍等...");
+            $Api.UserService.GetUserInfo({ loginAccountId: $scope.accId }, function (rData) {
+                $scope.UserDetail.UserInfo = rData;
+                console.log(rData)
+            })
+        },
+        getUserInformation: function () {
+            /// <summary>获取用户当前登录信息</summary>
+            $Api.AccountService.CurrentUserInfo({ loginAccountId: $scope.accId }, function (rData) {
+                if (!rData.code) {
+                    for (var i = 0; i < rData.roleInfo.length; i++) {
+                        $scope.UserDetail.RoleNameList.push(rData.roleInfo[i].roleName)
+                    }
+                    $scope.UserDetail.UserInfo.roleName = $scope.UserDetail.RoleNameList;                      
+                }
+            })
+        },
+        GetFindUserInfo: function () {
+            /// <summary>获取指定用户信息</summary>
+            $Api.AccountService.GetFindUserInfo({ userID: $scope.UserDetail.UserInfo.userId }, function (rData) {
+                console.log(rData)
+                $scope.UserDetail.MenuInfo = rData.functionInfo;
+                //ztree  树级菜单
+                var treeData = new Array();
+                for (var i = 0; i < rData.functionInfo.length; i++) {
+                treeData.push({ id: rData.functionInfo[i].functionID, pId: rData.functionInfo[i].parentFunctionID, name: rData.functionInfo[i].functionName });                   
+                }
+                $scope.tree.data = treeData;
+            });
+        },
+        getTreeMenuList: function () {
+            /// <summary>获取功能菜单列表</summary>
+            console.log($scope.functionID)
+            $MessagService.loading("菜单列表获取中，请稍等...");
+            var options = $.extend({ functionID: $scope.UserDetail.option, parentFunctionID: $scope.UserDetail.parOption }, {})
+            $Api.MenuService.GetMenuList(options, function (rData) {
+                /// <summary>获取菜单列表</summary>
+                $scope.UserDetail.MenuInfo = rData;
+            });
+        },
+        GetRoleInfo: function () {
+            /// <summary>获取角色列表详情</summary>
+            $MessagService.loading("用户信息加载中，请稍等...");
+            $Api.RoleService.GetRoleDetail({ roleId: $scope.UserDetail.UserInfo.roles[0].roleId }, function (rData) {
+                if (!rData.code) {
+                    $scope.UserDetail.UserInfo.roleName = rData.roleName;
+                    //console.log(rData)
+                }
+            })
+        }
+
+    }
+    $scope.UserDetail.Load();
+})
