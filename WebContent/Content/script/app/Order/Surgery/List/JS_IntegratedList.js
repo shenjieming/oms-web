@@ -21,7 +21,7 @@ app.controller("IntegratedListController", function ($scope, $state, $local, $Ap
         var paramData = $.extend({ soType: "OPER" }, $scope.Pagein);
         console.log($scope.Pagein)
         $Api.SurgeryService.DataSources.GetIntegratedOrderInquiry(paramData, function (rowdata) {
-            /// <summary>获取国家列表信息</summary>
+            /// <summary>获取综合查询信息信息</summary>
             $scope.Integrated.OrderList = rowdata.rows;
             $scope.Pagein.total = rowdata.total;
             console.log(rowdata)

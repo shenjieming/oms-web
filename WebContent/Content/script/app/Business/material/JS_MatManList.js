@@ -21,20 +21,22 @@ app.controller("MatManListController", function ($scope, $state, $local, $Api, $
                         treeNode.Subset(treeNode.options, function (rData) {
                             /// <summary>子集数据查询</summary>
                             var nodeList = new Array();
-                            for (var i = 0; i < rData.length; i++) {
-                                var node = {
-                                    id: rData[i].id, name: rData[i].text
-                                };
-                                if (treeNode.SubsetType == "medBrandCode") {//根据条件参数控制子集的条件参数
-                                    node.SubsetType = "medProdLnCode";
-                                    node.isParent = true;
-                                    node.Subset = $Api.BrandService.GetProductLine;
-                                    node.options = { oIOrgCode: treeNode.options.oIOrgCode, medBrandCode: rData[i].id };
-                                } else {
-                                    node.options = { medProdLnCode: rData[i].id };
-                                }
-                                nodeList.push(node);
-                            }
+                            console.log(rData)
+                                for (var i = 0; i < rData.rows.length; i++) {
+                                    var node = {
+                                        id: rData.rows[i].medMnfcOrgCode, name: rData.rows[i].medMnfcName
+                                    };
+                                    if (treeNode.SubsetType == "medMnfcOrgCode") {//根据条件参数控制子集的条件参数
+                                        node.SubsetType = "medMnfcOrgCode";
+                                        node.isParent = true;
+                                        node.Subset = $Api.BusinessData.GetBrandList;
+       
+                                        node.options = { oIOrgCode: treeNode.options.oIOrgCode, medBrandCode: rData.rows[i].medMnfcOrgCode, includeMedProdLn: "ALL" };
+                                    } else {
+                                        node.options = { medProdLnCode: rData.rows[i].medMnfcOrgCode };
+                                    }
+                                    nodeList.push(node);
+                                }                                                                                                                  
                             $scope.tree.obj.addNodes(treeNode, nodeList);
                         });
                     }
@@ -52,6 +54,7 @@ app.controller("MatManListController", function ($scope, $state, $local, $Api, $
         },
         obj: new Object()
     }
+    $scope.MaterialRouting =[1,2,3,4,5];
     $scope.Material = {
         //条件
         options: {},
@@ -71,7 +74,7 @@ app.controller("MatManListController", function ($scope, $state, $local, $Api, $
                 var treeData = new Array();
                 console.log(rData);
                 for (var i = 0; i < rData.length; i++) {
-                    treeData.push({ id: rData[i].id, name: rData[i].text, isParent: true, options: { oIOrgCode: rData[i].id }, Subset: $Api.BrandService.GetBrandList, SubsetType: "medBrandCode" });
+                    treeData.push({ id: rData[i].id, name: rData[i].text, isParent: true, options: { oIOrgCode: rData[i].id }, Subset: $Api.BusinessData.MedManuFacture.GetManufacturerList, SubsetType: "medMnfcOrgCode" });
                 }
                 $scope.tree.data = treeData;;
             })
@@ -82,16 +85,16 @@ app.controller("MatManListController", function ($scope, $state, $local, $Api, $
             /// <summary>获取物料详细</summary>
             var opt = $scope.getSelectedRow();
             //应传单挑物料编码
-            $state.go("app.business.materialView", { opt: opt.medMIInternalNo });
+            $state.go("app.business.material.materialView", { opt: opt.medMIInternalNo });
         },
         addMaterial: function () {
             /// <summary>物料添加</summary>
-            $state.go("app.business.materialInfo")
+            $state.go("app.business.material.materialInfo")
         },
         Detail: function () {
             /// <summary>物料编辑</summary>
             var MatID = $scope.getSelectedRow();
-            $state.go("app.business.materialInfo", { MatID: MatID.medMIInternalNo })
+            $state.go("app.business.material.materialInfo", { MatID: MatID.medMIInternalNo })
         },
         removal: function () {
             /// <summary>物料删除</summary>

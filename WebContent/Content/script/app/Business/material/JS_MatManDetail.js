@@ -113,7 +113,6 @@ app.controller("MatManDetailController", function ($scope, $state, $local, $Api,
                 for (var i = 0; i < $scope.SelectList.BrandList.dic.length; i++) {
                     if ($scope.SelectList.BrandList.dic[i].id == $scope.MatManInfo.medMaterialItem.medMnfcCode) {
                         $scope.MatManInfo.medMaterialItem.medMnfcName = $scope.SelectList.BrandList.dic[i].text;
-                        console.log(1)
                         $scope.SelectList.productList.GetProductList();
                     }
                 }

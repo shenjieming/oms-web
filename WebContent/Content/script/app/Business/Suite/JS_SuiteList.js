@@ -19,20 +19,25 @@ app.controller("SuiteListController", function ($scope, $state, $local, $Api, $M
                         treeNode.reNode = true;
                         treeNode.Subset(treeNode.options, function (rData) {
                             /// <summary>子集数据查询</summary>
-                            var nodeList = new Array();
-                            console.log(rData)
-                            debugger                        
+                            var nodeList = new Array();                          
                             for (var i = 0; i < rData.rows.length; i++) {
-                                var node = {
-                                    id: rData.rows[i].orgCode, name: rData.rows[i].wHName
-                                };
-                                console.log(treeNode.SubsetType)
+                                if (rData.rows[i].orgCode) {
+                                    var node = {
+                                        id: rData.rows[i].orgCode, name: rData.rows[i].wHName
+                                    };
+                                } else {
+                                    var node = {
+                                        id: rData.rows[i].medMIWarehouse, name: rData.rows[i].whName
+                                    };
+                                }                               
+                                console.log(treeNode)
                                 if (treeNode.SubsetType == "medMIWarehouse") {//根据条件参数控制子集的条件参数
                                     node.SubsetType = "medMIWarehouse";
                                     node.isParent = true;
                                     node.Subset = $Api.BusinessData.Reservoir.GetQueryWareHouse;
-                                    node.options = { oIOrgCode: treeNode.options.oIOrgCode};
-                                } else {
+                                    node.options = { medMIWarehouse: rData.rows[i].orgCode, validStatus: "Y" };
+                                }
+                                 else {
                                     node.options = { oIOrgCode: rData.rows[i].orgCode };
                                 }
                                 nodeList.push(node);
@@ -53,8 +58,6 @@ app.controller("SuiteListController", function ($scope, $state, $local, $Api, $M
         },
         obj: new Object()
     }
-
-
     $scope.SuiteList = {
         options:[],
         info: [],
@@ -77,10 +80,11 @@ app.controller("SuiteListController", function ($scope, $state, $local, $Api, $M
             })
         },
         Add: function () {
-            $state.go("app.business.detail");
+            var Encoding= 
+            $state.go("app.business.suiteView");
         },
         Eduit: function () {
-            $state.go("app.business.detail");
+            $state.go("app.business.suiteView");
         }
     }
     $scope.Pagein = {

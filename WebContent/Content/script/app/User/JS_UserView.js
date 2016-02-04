@@ -1,57 +1,117 @@
-﻿/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
-/// <reference path="../../lib/angular-1.2.20/angular.min.js" />
-/// <reference path="../../lib/angular-1.2.20/angular-touch.js" />
-/// <reference path="../../lib/angular-1.2.20/angular-sanitize.min.js" />
-/// <reference path="../../lib/angular-1.2.20/angular-loader.js" />
-/// <reference path="../../lib/Jquery/jquery-1.11.1.min.js" />
-/// <reference path="../service/system/localService.js" />
-/// <reference path="../Config.js" />
-
-app.controller("UserViewController", function ($scope, $state, $local, $Api, $MessagService, $stateParams) {
-    /// <summary>用户视图</summary>
-    $scope.Information = [];
-    $scope.UserDetail = {
-        MenuInfo: [],
-        RoleNameList:[],
-        UserInfo:[],
-        Load: function (callback) {
-            $scope.accId = $stateParams.accId;
-            console.log($scope.accId)
-            $scope.UserDetail.getUserDetail();
-            //$scope.UserDetail.GetRoleInfo()
-            $scope.UserDetail.getUserInformation();
-        },
-        getUserDetail: function () {
-            /// <summary>获取用户列表详情</summary>
-            $MessagService.loading("用户信息加载中，请稍等...");
-            $Api.UserService.GetUserInfo({ loginAccountId: $scope.accId }, function (rData) {
-                $scope.UserDetail.UserInfo = rData;
-                console.log(rData)
-            })
-        },
-        getUserInformation: function () {
-            /// <summary>获取用户当前登录信息</summary>
-            $Api.AccountService.CurrentUserInfo({ loginAccountId: $scope.accId }, function (rData) {
-                if (!rData.code) {
-                    for (var i = 0; i < rData.roleInfo.length; i++) {
-                        $scope.UserDetail.RoleNameList.push(rData.roleInfo[i].roleName)
-                    }
-                    $scope.UserDetail.UserInfo.roleName = $scope.UserDetail.RoleNameList;
-                    $scope.UserDetail.MenuInfo = rData.functionInfo;
-                }
-            })
-        },
-        GetRoleInfo: function () {
-            /// <summary>获取角色列表详情</summary>
-            $MessagService.loading("用户信息加载中，请稍等...");
-            $Api.RoleService.GetRoleDetail({ roleId: $scope.UserDetail.UserInfo.roles[0].roleId }, function (rData) {
-                if (!rData.code) {
-                    $scope.UserDetail.UserInfo.roleName = rData.roleName;
-                    //console.log(rData)
-                }
-            })
-        }
-        
-    }
-    $scope.UserDetail.Load();
-})
+﻿<div class="row">
+    <div class="tools">
+        <h5 style="float:left;">用户详情</h5>
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-click="goLastPage()">返回</a>
+        </span>
+    </div>
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>登录账户</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="BaseInformation">
+                <div class="control-group ">
+                    <label>
+                        登录账号：{{UserDetail.UserInfo.loginName}}
+</label>
+<label>
+    所属组织：{{UserDetail.UserInfo.orgTypeName}}
+</label>
+<label>
+    角色名称：{{UserDetail.UserInfo.roleName}}
+</label>
+</div>
+<div class="control-group ">
+    <label>
+        绑定微信：{{UserDetail.UserInfo.WechatId}}
+</label>
+<label>
+    账户备注：{{UserDetail.UserInfo.userRemark}}
+</label>
+<label>
+    是否有效：{{UserDetail.UserInfo.validStatus=="Y"?"有效":"无效"}}
+</label>
+</div>
+</div>
+</div>       
+<div class="widget-box">
+    <div class="widget-title bg_ly" data-toggle="collapse" href="#NewsletterInformation">
+        <span class="icon"><i class="fa icon-chevron-down"></i></span>
+        <h5>个人信息</h5>
+    </div>
+    <div id="NewsletterInformation" class="widget-content nopadding collapse in">
+        <div class="control-group ">
+            <label>
+                用户姓名：{{UserDetail.UserInfo.userName}}
+</label>
+<label>
+    职位描述：{{UserDetail.UserInfo.userJobDesc}}
+</label>
+<label>
+    用户性别：{{UserDetail.UserInfo.userSexName}}
+</label>
+               
+</div>
+<div class="control-group ">
+    <label>
+        用户学历：{{UserDetail.UserInfo.userEducationName}}
+</label>
+<label>
+    手机号码：{{UserDetail.UserInfo.loginMobileNo}}
+</label>
+<label>
+    邮箱地址：{{UserDetail.UserInfo.loginEmail}}
+</label>
+</div>
+<div class="control-group ">
+    <label>
+        身份证：{{UserDetail.UserInfo.userIDCard}}
+</label>
+<label >
+   描述信息：{{UserDetail.UserInfo.userDescription}}
+</label>
+</div>
+</div>
+</div>
+<div class="widget-box">
+    <div class="widget-title bg_ly" data-toggle="collapse" href="#CompetenceInformation">
+        <span class="icon"><i class="fa icon-chevron-down"></i></span>
+        <h5>权限信息</h5>
+    </div>
+    <div id="CompetenceInformation" class="widget-content nopadding collapse in">
+        <table class="table table-bordered table-striped" st-table="UserDetail.MenuInfo">
+            <thead>
+                <tr>
+                    <th><span>序号</span></th>
+                    <th><span>功能编码</span></th>
+                    <th><span>功能名称</span></th>
+                    <th><span>功能描述</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in UserDetail.MenuInfo" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                    <td>{{$index+1}}</td>
+                    <td>
+                        {{row.functionID}}
+                    </td>
+                    <td>
+                        {{row.functionName}}
+                    </td>
+                    <td>
+                        {{row.functionAppearanceDesc}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+    <!--<div ng-pagein="page" ng-model="Pagein"></div>-->
+</div>
+<div class="tools">
+    <span style="float:right;">
+        <a class="btn btn-primary" ng-click="goLastPage()">返回</a>
+    </span>
+</div>
+</div>

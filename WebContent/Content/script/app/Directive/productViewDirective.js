@@ -188,6 +188,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                     GetNewDataByProdLns: function () {
                         /// <summary>根据产品线获取新的树信息</summary>
                         var treeData = [{ id: 0, name: "散件", isParent: true, open: true }];
+                        console.log($scope.ngModel.prodLns)
                         $.each($scope.ngModel.prodLns, function (index, item) {
                             var brandNode = { id: item.medBrandCode, name: item.medBrandCodeName, isParent: true, pId: 0, open: true };
                             if (JSON.stringify(treeData).indexOf(JSON.stringify(brandNode)) < 0) {//判断节点是否重复

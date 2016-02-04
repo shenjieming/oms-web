@@ -1,7 +1,7 @@
 ﻿
 <section class="col-left-nano">
     <div class="col-left-nano-content">
-        <div  class="clearfix hidden-sm hidden-xs user-left-box">
+        <div class="clearfix hidden-sm hidden-xs user-left-box">
             <img alt="" src="Content/style/img/samples/scarlet-159.png" style="display:none;" />
             <div class="user-box">
                 <span class="name">
@@ -21,13 +21,13 @@
                         <span>{{menu.name}}</span>
                         <i class="fa fa-chevron-circle-right drop-icon" ng-show="!menu.url"></i>
                     </a>
-                    <a ng-href="{{menu.url}}" href="javascript:scroll(0,0)" target="_self" class="dropdown-toggle" ng-show="!menu.url&&Comp(menu.name)" data-toggle="dropdown">
+                    <a ng-href="{{menu.url}}" href="javascript:scroll(0,0)" target="_self" class="dropdown-toggle" ng-show="!menu.url" data-toggle="dropdown">
                         <i class="fa" ng-class="menu.icon"></i>
                         <span>{{menu.name}}</span>
                         <i class="fa fa-chevron-circle-right drop-icon" ng-show="!menu.url"></i>
                     </a>
                     <ul class="submenu" ng-show="menu.detail.length">
-                        <li ng-repeat="item in menu.detail" ng-show="Comp(item.name)">
+                        <li ng-repeat="item in menu.detail">
                             <a href="javascript:void(0)" target="_self" href="javascript:scroll(0,0)" ng-href="{{item.url}}">{{item.name}}</a>
                         </li>
                     </ul>

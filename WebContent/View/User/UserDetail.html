@@ -41,42 +41,6 @@
             </div>
         </div>
         <div class="widget-box">
-            <div class="widget-title bg_ly" data-toggle="collapse" href="#CompetenceInformation">
-                <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5>权限信息</h5>
-            </div>
-            <div id="CompetenceInformation" class="widget-content nopadding collapse in">
-                <div class="control-group ">
-                    <label>
-                        <span class="required">*</span>机构类型：
-                        <select ng-model="PageInfo.UserInfo.orgType" ng-change="SelectInfo.orgType.change(item)">
-                            <option value="">请选择机构类型</option>
-                            <option ng-repeat="item in SelectInfo.orgType.dic" ng-selected="item.id==PageInfo.UserInfo.orgType" value="{{item.id}}">{{item.id}}-{{item.text}}</option>
-                        </select>
-                    </label>
-                    <label>
-                        类型名称：<span>{{PageInfo.UserInfo.orgTypeName}}</span>
-                    </label>
-                </div>
-                <div class="control-group ">
-                    <label>
-                        <span class="required">*</span>机构名称：
-                        <select ng-model="PageInfo.UserInfo.roleTypeName" ng-change="SelectInfo.roleType.change(item)">
-                            <option value="">请选择机构名称</option>
-                            <option ng-repeat="item in SelectInfo.roleType.dic" ng-selected="item.id==PageInfo.UserInfo.orgCode" value="{{item.id}}">{{item.text}}</option>
-                        </select>
-                    </label>
-                    <label >
-                        <span class="required"style="margin-top:-1px;">*</span>用户角色：{{PageInfo.UserInfo.roleName}}
-                    </label>
-                    <label>
-                        <a class="btn btn-warning" ng-click="RolePage.show()"><i class="fa fa-medkit"></i>新增角色</a>
-                        <a class="btn btn-danger" ng-click="RolePage.deletrole()"><i class="fa fa-scissors"></i>删除角色</a> 
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="widget-box">
             <div class="widget-title bg_ly" data-toggle="collapse" href="#NewsletterInformation">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
                 <h5>个人信息</h5>
@@ -114,11 +78,97 @@
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                       <span style="float:left">描述信息：</span>
+                        <span style="float:left">描述信息：</span>
                         <textarea class="box-80" ng-model="PageInfo.UserInfo.userDescription" placeholder="请输入描述信息"></textarea>
                     </label>
                 </div>
 
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#CompetenceInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>权限信息</h5>
+            </div>
+            <div id="CompetenceInformation" class="widget-content nopadding collapse in">
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span>机构类型：
+                        <select ng-model="PageInfo.UserInfo.orgType" ng-change="SelectInfo.orgType.change(item)">
+                            <option value="">请选择机构类型</option>
+                            <option ng-repeat="item in SelectInfo.orgType.dic" ng-selected="item.id==PageInfo.UserInfo.orgType" value="{{item.id}}">{{item.id}}-{{item.text}}</option>
+                        </select>
+                    </label>
+                    <label>
+                        类型名称：<span>{{PageInfo.UserInfo.orgTypeName}}</span>
+                    </label>
+                    <label>
+                        <span class="required">*</span>机构名称：
+                        <select ng-model="PageInfo.UserInfo.roleTypeName" ng-change="SelectInfo.roleType.change(item)">
+                            <option value="">请选择机构名称</option>
+                            <option ng-repeat="item in SelectInfo.roleType.dic" ng-selected="item.id==PageInfo.UserInfo.orgCode" value="{{item.id}}">{{item.text}}</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        <span class="required" style="margin-top:-1px;">*</span>用户角色：{{PageInfo.UserInfo.roleName}}
+                    </label>
+                    <label>
+                        <a class="btn btn-warning" ng-click="RolePage.show()"><i class="fa fa-medkit"></i>新增角色</a>
+                        <a class="btn btn-danger" ng-click="RolePage.deletrole()"><i class="fa fa-scissors"></i>删除角色</a>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <div class="main-box-body clearfix" style="width: 100%;">
+                        <div class="table-responsive">
+                            <table class="table table-bordered tab-striped" st-table="addRoleList" ng-show="addRoleList">
+                                <thead>
+                                    <tr>
+                                        <th><span>序号</span></th>
+                                        <th><span>角色简称</span></th>
+                                        <th><span>角色全称</span></th>
+                                        <th><span>机构类型</span></th>
+                                        <th><span>类型名称</span></th>
+                                        <th><span>状态</span></th>
+                                        <th><span>关系描述</span></th>
+                                        <th><span>状态操作</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="row in addRoleList">
+                                        <td>{{$index+1}}</td>
+                                        <td>
+                                            {{row.roleName}}
+                                        </td>
+                                        <td>
+                                            {{row.roleFullName}}
+                                        </td>
+                                        <td>
+                                            {{row.orgType}}
+                                        </td>
+                                        <td>
+                                            {{row.orgTypeName}}
+                                        </td>
+                                        <td>
+                                            {{row.validStatusName}}
+                                        </td>
+                                        <td>
+                                            {{row.relationDesc}}
+                                        </td>
+                                        <td>
+                                            <span>
+                                                <input type="checkbox" id="checkbox_c{{$index}}" class="chkbox" ng-checked="RoleInfo[{{$index}}].isEnable" ng-model="RoleInfo.isEnable" /><label for="checkbox_c{{$index}}" style="float:left;"></label>
+                                                <span style="float:left;" ng-show="RoleInfo[{{$index}}].isEnable "> 有效 </span>
+                                                <span style="float:left;" ng-show="!RoleInfo[{{$index}}].isEnable "> 无效 </span>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -138,20 +188,40 @@
                         <th><span>序号</span></th>
                         <th><span>角色简称</span></th>
                         <th><span>角色全称</span></th>
-                        <th><span>角色描述</span></th>
+                        <th><span>机构类型</span></th>
+                        <th><span>类型名称</span></th>
+                        <th><span>状态</span></th>
+                        <th><span>关系描述</span></th>
+                        <th><span>状态操作</span></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="row in addRoleList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" >
+                    <tr ng-repeat="row in addRoleList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
                         <td>{{$index+1}}</td>
                         <td>
-                            {{row.text}}
+                            {{row.roleName}}
                         </td>
                         <td>
-                            {{row.text}}
+                            {{row.roleFullName}}
                         </td>
                         <td>
-                            {{row.remark}}
+                            {{row.orgType}}
+                        </td>
+                        <td>
+                            {{row.orgTypeName}}
+                        </td>
+                        <td>
+                            {{row.validStatusName}}
+                        </td>
+                        <td>
+                            {{row.relationDesc}}
+                        </td>
+                        <td>
+                            <span>
+                                <input type="checkbox" id="checkbox_c{{$index}}" class="chkbox" ng-checked="RoleInfo[{{$index}}].isEnable" ng-model="RoleInfo.isEnable" /><label for="checkbox_c{{$index}}" style="float:left;"></label>
+                                <span style="float:left;" ng-show="RoleInfo[{{$index}}].isEnable "> 有效 </span>
+                                <span style="float:left;" ng-show="!RoleInfo[{{$index}}].isEnable "> 无效 </span>
+                            </span>
                         </td>
                     </tr>
                 </tbody>
