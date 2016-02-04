@@ -25,7 +25,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                         if (doctData) {
                             $scope.$apply(function () {
                                 $scope.ngOperat.fixed(doctData);
-                                $.extend($scope.operat, { isEdit: true, isDetail: false })
+                               
                             });
                         } else {
                             $MessagService.caveat("请选择一条医生信息！");
@@ -37,6 +37,9 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                 },
                 open: function () {
                     $scope.Service.GetDoctors();
+                },
+                close: function () {
+                    $.extend($scope.operat, { isEdit: true, isDetail: false })
                 }
             }
             $scope.operat = {
@@ -70,7 +73,10 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                 DelDoctor: function (data) {
                     /// <summary>删除医生</summary>
                     var param = { userID: userInfo.userId, dTCode: data.dTCode }
-
+                    $Api.HospitalService.DeleteDoctors(param, function () {
+                        /// <summary>删除选择删除的医生</summary>
+                        $scope.Service.GetDoctors();
+                    });
                 }
             };
 

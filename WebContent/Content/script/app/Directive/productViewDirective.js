@@ -174,7 +174,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
 
                     $.extend($scope.Statistic, stat);
                     
-                    //$scope.ProductConfig.GetAllMaterialCount();
+                    $scope.ProductConfig.GetAllMaterialCount();
                 },
                 tree: {//树配置
                     CreateProLineTree: function () {
