@@ -51,6 +51,14 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                     $scope.ngService.MitDeduplication();
                 }
             });
+
+            $scope.$watch("ngModel.isChangeProd", function () {
+                if ($scope.ngModel.isChangeProd) {
+                    $scope.ProductConfig.tree.CreateProLineTree();
+                    $scope.ngService.MitDeduplication();
+                    $scope.ngModel.isChangeProd = false;
+                }
+            });
             $scope.$watch("Statistic", function () {
                 $scope.Statistic.GetShowInfo();
             })
@@ -100,7 +108,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                         KitMCount: 0
                     }
                     var count = 0;
-
                     if ($scope.ngModel.medKits) {
                         $.each($scope.ngModel.medKits, function (index, item) {
                             stat.KitsCount += item.reqQty;

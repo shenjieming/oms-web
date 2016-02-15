@@ -406,7 +406,6 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
 
     /*页面权限End*/
 });
-
 app.controller("SingleController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>手术下单下单控制器</summary>
     /*基础对象区域Begion*/
@@ -582,7 +581,6 @@ app.controller("SingleController", function ($scope, $state, $local, $Api, $Mess
 
     /*数据监控区域End*/
 });
-
 app.controller("FeedbackController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>反馈订单处理</summary>
     /*数据监控Begion*/
@@ -749,7 +747,6 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
 });
 app.controller("DealwithController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>订单处理</summary>
-
     $scope.DealService = {
         /// <summary>订单处理服务</summary>
         Submit: function () {
@@ -849,6 +846,13 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         }
     }
 
+    $scope.TemplateService = {
+        /// <summary>物料模板管理</summary>
+        fixed: function (templateInfo) {
+            /// <summary>确认使用模板</summary>
+        }
+    }
+
     //产品服务
     $scope.ProductService = {};
     //产品权限
@@ -877,7 +881,6 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
 
     /*数据监控End*/
 });
-
 app.controller("AdditionalController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>订单追加</summary>
 
@@ -903,7 +906,6 @@ app.controller("AdditionalController", function ($scope, $state, $local, $Api, $
     /*数据监控End*/
 
 });
-
 app.controller("AddEventController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>订单处理</summary>
     $scope.Event = { eventCode: "", attachments: { remark: "", images: new Array() } }
@@ -981,7 +983,6 @@ app.controller("AddEventController", function ($scope, $state, $local, $Api, $Me
     }
 
 });
-
 app.controller("FeedbackViewController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $route) {
     /// <summary>出库单</summary>
     $scope.FeedBack = { images: new Array(), remark: "" }
