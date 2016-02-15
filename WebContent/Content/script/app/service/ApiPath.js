@@ -9,6 +9,8 @@ var ApiPath = {
         /// <summary>用户地址</summary>
         //Web登陆
         pcLogin: "/v2/login/pcLogin",
+        //登出系统
+        loginOut: "/v2/login/loginOut",
         //获取验证码
         getIdentifyCode: "/v2/login/getIdentifyCode",
         //修改密码

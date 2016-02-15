@@ -42,6 +42,10 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 /// <summary>用户登陆</summary>
                 service.Post(ApiPath.Account.pcLogin, data, callback);
             },
+            LoginOut: function (data, callback) {
+                $MessagService.loading("用户登出中，请稍等...");
+                service.Post(ApiPath.Account.loginOut, data, callback);
+            },
             ModifyPassword: function (data, callback) {
                 /// <summary>修改密码</summary>
                 service.Post(ApiPath.Account.modifypwd, data, callback);

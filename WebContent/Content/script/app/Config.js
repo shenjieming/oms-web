@@ -741,6 +741,14 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
         $window.history.back();
     }
 
+    $scope.SignOut = function () {
+        /// <summary>登出</summary>
+        $Api.AccountService.LoginOut({}, function () {
+            $local.setValue("USER", null);
+            $scope.goView("login");
+        });
+    }
+
     $scope.Comp = function (code) {
         /// <summary>菜单权限控制</summary>
         return JSON.stringify($scope.User.functionInfo).indexOf(code) > -1;//判断菜单是否有权限
