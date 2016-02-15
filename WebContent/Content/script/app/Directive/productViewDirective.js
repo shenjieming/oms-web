@@ -101,11 +101,13 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                     }
                     var count = 0;
 
-                    $.each($scope.ngModel.medKits, function (index, item) {
-                        stat.KitsCount += item.reqQty;
-                        stat.KitMCount += (item.reqQty * item.medMaterialItemCouts)
+                    if ($scope.ngModel.medKits) {
+                        $.each($scope.ngModel.medKits, function (index, item) {
+                            stat.KitsCount += item.reqQty;
+                            stat.KitMCount += (item.reqQty * item.medMaterialItemCouts)
 
-                    });
+                        });
+                    }
                     $scope.Statistic = $.extend($scope.Statistic, stat);
                     $scope.Statistic.GetShowInfo();
                 },
@@ -151,6 +153,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                     });
 
                     $.extend($scope.Statistic, stat);
+                    $scope.MedKitsConfig.GetKitCount();
                     $scope.Statistic.GetShowInfo();
                 },
                 GetLineMaterialCount: function () {
@@ -398,7 +401,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
             //权限配置
             $.extend($scope.Competence, $scope.ngComp);
 
-            if ($scope.Competence.warehouse) {
+            if ($scope.Competence.warehouse && $scope.Competence.operat) {
                 /// <summary>是否启动仓库</summary>
                 $scope.WarehouseConfig.GetList();
             }

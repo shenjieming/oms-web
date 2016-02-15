@@ -27,6 +27,7 @@ angular.module('jnDo', [])
                     });
                 }, time);
             };
+
             $MessagService.show = function (model,isshow) {
                 /// <summary>显示提示信息窗口</summary>
                 $scope.ngModel = model ? model : $scope.ngModel;
