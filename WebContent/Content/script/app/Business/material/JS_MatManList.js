@@ -25,6 +25,7 @@ app.controller("MatManListController", function ($scope, $state, $local, $Api, $
                                 var node = {
                                     id: rData[i].id, name: rData[i].text
                                 };
+                                console.log()
                                 if (treeNode.SubsetType == "medBrandCode") {//根据条件参数控制子集的条件参数
                                     node.SubsetType = "medProdLnCode";
                                     node.isParent = true;

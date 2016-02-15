@@ -57,6 +57,10 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
             GetLoginAccountLog: function (data, callback) {
                 /// <summary>登陆日志查询</summary>
                 service.Post(ApiPath.Account.loginAccountLogSearch, data, callback);
+            },
+            GetFindUserInfo: function (data, callback) {
+                /// <summary>//获取指定用户信息</summary>
+                service.Post(ApiPath.Account.findUserInfo, data, callback);
             }
         },
         UserService: {

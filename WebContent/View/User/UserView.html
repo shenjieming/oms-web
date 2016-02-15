@@ -35,7 +35,7 @@
                     </label>
                 </div>
             </div>
-        </div>       
+        </div>
         <div class="widget-box">
             <div class="widget-title bg_ly" data-toggle="collapse" href="#NewsletterInformation">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
@@ -52,7 +52,7 @@
                     <label>
                         用户性别：{{UserDetail.UserInfo.userSexName}}
                     </label>
-               
+
                 </div>
                 <div class="control-group ">
                     <label>
@@ -69,46 +69,53 @@
                     <label>
                         身份证：{{UserDetail.UserInfo.userIDCard}}
                     </label>
-                    <label >
-                       描述信息：{{UserDetail.UserInfo.userDescription}}
+                    <label>
+                        描述信息：{{UserDetail.UserInfo.userDescription}}
                     </label>
+                </div>
             </div>
         </div>
-    </div>
         <div class="widget-box">
             <div class="widget-title bg_ly" data-toggle="collapse" href="#CompetenceInformation">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
                 <h5>权限信息</h5>
             </div>
-            <div id="CompetenceInformation" class="widget-content nopadding collapse in">
-                <table class="table table-bordered table-striped" st-table="UserDetail.MenuInfo">
-                    <thead>
-                        <tr>
-                            <th><span>序号</span></th>
-                            <th><span>功能编码</span></th>
-                            <th><span>功能名称</span></th>
-                            <th><span>功能描述</span></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="row in UserDetail.MenuInfo" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
-                            <td>{{$index+1}}</td>
-                            <td>
-                                {{row.functionID}}
-                            </td>
-                            <td>
-                                {{row.functionName}}
-                            </td>
-                            <td>
-                                {{row.functionAppearanceDesc}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="col-lg-3" style=" height:auto; max-height: 480px; overflow-y: auto; ">
+                <div ng-tree="" ng-setting="tree.setting" ng-data="tree.data" ng-model="tree.obj"></div>
+            </div>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <div id="CompetenceInformation" class="widget-content nopadding collapse in">
+                        <table class="table table-bordered table-striped" st-table="UserDetail.MenuInfo">
+                            <thead>
+                                <tr>
+                                    <th><span>序号</span></th>
+                                    <th><span>功能编码</span></th>
+                                    <th><span>功能名称</span></th>
+                                    <th><span>功能描述</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="row in UserDetail.MenuInfo" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                                    <td>{{$index+1}}</td>
+                                    <td>
+                                        {{row.functionID}}
+                                    </td>
+                                    <td>
+                                        {{row.functionName}}
+                                    </td>
+                                    <td>
+                                        {{row.functionAppearanceDesc}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-            <!--<div ng-pagein="page" ng-model="Pagein"></div>-->
-        </div>
+        <!--<div ng-pagein="page" ng-model="Pagein"></div>-->
+    </div>
     <div class="tools">
         <span style="float:right;">
             <a class="btn btn-primary" ng-click="goLastPage()">返回</a>

@@ -21,12 +21,17 @@ app.controller("MenuListController", function ($scope, $state, $local, $Api, $Me
                 onClick: function (event, treeId, treeNode) {
                     /// <summary>点击tree后的事件</summary>
                     console.log(treeNode)
-                    console.log($scope.MenuInfo)
-                    for (var i = 0; i < $scope.MenuInfo.length; i++) {
-                        if (treeNode.id == $scope.MenuInfo[i].functionID) {
-                            $scope.functionID = treeNode.id;
+                    if (treeNode.isParent) {
+                        $scope.MenuDetail.option = "";
+                        if (treeNode.level == 0) {
+                            $scope.MenuDetail.parOption = treeNode.level                          
+                        } else {
+                            $scope.MenuDetail.parOption = treeNode.id
                         }
-                    }
+                    } else {
+                        $scope.MenuDetail.parOption = "";
+                        $scope.MenuDetail.option = treeNode.id;
+                    }                  
                     $scope.MenuDetail.getTreeMenuList();//数据读取
                 },
             },
@@ -45,6 +50,8 @@ app.controller("MenuListController", function ($scope, $state, $local, $Api, $Me
     $scope.MenuInfo = {};
     $scope.functionID = {};
     $scope.MenuDetail = {
+        option: [],
+        parOption:[],
         MenuInfo: {},
         getMenuList: function () {
             /// <summary>获取功能菜单列表</summary>
@@ -59,7 +66,8 @@ app.controller("MenuListController", function ($scope, $state, $local, $Api, $Me
             /// <summary>获取功能菜单列表</summary>
             console.log($scope.functionID)
             $MessagService.loading("菜单列表获取中，请稍等...");
-            $Api.MenuService.GetMenuList({ functionID: $scope.functionID }, function (rData) {
+            var options = $.extend({ functionID: $scope.MenuDetail.option, parentFunctionID: $scope.MenuDetail.parOption }, {})
+            $Api.MenuService.GetMenuList(options, function (rData) {
                 /// <summary>获取菜单列表</summary>
                 $scope.MenuInfo = rData;
             });
