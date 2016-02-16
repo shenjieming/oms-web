@@ -98,8 +98,8 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                         if (flg) {
                             $scope.ngModel.medKits.push(data);
                         }
-                        $scope.MedKitsConfig.GetKitCount();
                     });
+                    $scope.MedKitsConfig.GetKitCount();
                 },
                 GetKitCount: function () {
                     /// <summary>获取套件数量</summary>

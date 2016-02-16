@@ -19,6 +19,7 @@ app.directive("ngMaterialsTemplate", function ($Api, $MessagService, $local) {
         replace: true,
         link: function ($scope, element, attrs) {
             //模板选择默认配置
+            var userInfo = $local.getValue("USER").userInfo;
             var modelConfig = {
                 title: "选择物料模板", width: 850, height: 300, buttons: {
                     "确定": function () {
@@ -57,20 +58,75 @@ app.directive("ngMaterialsTemplate", function ($Api, $MessagService, $local) {
                 },
                 DataDealWith: function (Template) {
                     /// <summary>数据处理</summary>
-                    $scope.ngModel.medKits = Template.kitTemplateInfo;
-                    $scope.ngModel.prodLns = new Array();
-                    var newProdLine = new Array();
-                    $.each(Template.freeTemplateInfo, function (index, prodLine) {
-                        newProdLine.push({
+                    debugger
+                    $scope.Service.AddNewMedKits(Template.kitTemplateInfo);
+                    $scope.Service.AddNewProdLine(Template.freeTemplateInfo);
+                  
+                    $scope.ngModel.isChangeProd = true;
+                },
+                AddNewProdLine: function (prodLines) {
+                    /// <summary>添加产品线信息</summary>
+                    $.each(prodLines, function (index, prodLine) {
+                        var flg = true;//标志
+                        var newLine = {
                             medProdLnCode: prodLine.medProdLnCode,
                             medProdLnCodeName: prodLine.medProdLnName,
                             medBrandCode: prodLine.medBrandCode,
                             medBrandCodeName: prodLine.medBrandName,
-                            medMaterias: prodLine.templateMedMaterialItem
-                        })
+                            medMaterias: $scope.Service.GetNewMedMaterias(prodLine.templateMedMaterialItem, false)
+                        };
+                        $.each($scope.ngModel.prodLns, function (i, oldLine) {
+                            if (newLine.medProdLnCode == oldLine.medProdLnCode) {//存在相同的产品线
+                                oldLine.medMaterias = $scope.Service.GetNewMedMaterias(newLine.medMaterias, oldLine.medMaterias);
+                                flg = false;
+                                return true;
+                            }
+                        });
+                        if (flg) {
+                            $scope.ngModel.prodLns.push(newLine);
+                        }
                     });
-                    $scope.ngModel.prodLns = newProdLine;
-                    $scope.ngModel.isChangeProd = true;
+                },
+                GetNewMedMaterias: function (newMs, oldMs) {
+                    /// <summary>获取去重后的物料</summary>
+                    var result = oldMs ? oldMs : new Array();
+                    $.each(newMs, function (index, item) {
+                        var flg = true;
+                        newMs.medMIWarehouse = userInfo.orgCode;//默认仓库填充
+                        $.each(result, function (i, node) {
+                            if (item.medMIInternalNo == node.medMIInternalNo && item.medMIWarehouse == node.medMIWarehouse) {
+                                item.reqQty = (parseInt(item.reqQty) + parseInt(node.reqQty));
+                                flg = false;
+                                return true;
+                            }
+                        });
+
+                        if (flg) {
+                            result.push(item);
+                        }
+                    })
+                    return result;
+                },
+                AddNewMedKits: function (lise) {
+                    /// <summary>添加新的套件</summary>
+                    $.each(lise, function (index, item) {
+                        var flg = true;
+                        var data = $.extend(item, {
+                            estZoneCode: item.zoneCode, estMedMIWarehouse: userInfo.orgCode,
+                            medKitInternalNo: item.medMIInternalNo, inventory: "",
+                        })
+                        $.each($scope.ngModel.medKits, function (mKIndex, medKit) {
+                            if (medKit.medKitInternalNo == data.medKitInternalNo
+                                && data.estMedMIWarehouse == medKit.estMedMIWarehouse) {
+                                medKit.reqQty += item.reqQty;
+                                flg = false;
+                                return false;
+                            }
+                        });
+                        if (flg) {
+                            $scope.ngModel.medKits.push(data);
+                        }
+                    });
                 },
                 fixed: function () {
                     /// <summary>确认选择模板</summary>
