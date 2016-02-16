@@ -22,7 +22,7 @@
                                 <th><span>套件类型</span></th>
                                 <th><span>需求数量</span></th>
                                 <th ng-show="Competence.warehouse"><span>所在仓库</span></th>
-                                <th ng-show="Competence.warehouse"><span><a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory()"><i class="fa fa-cubes"></i> 全部库存</a> </span> </th>
+                                <th ng-show="Competence.warehouse&&Competence.operat"><span><a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory()"><i class="fa fa-cubes"></i> 全部库存</a> </span> </th>
                                 <th><span>库区</span></th>
                                 <th ng-show="Competence.operat"><span>操作</span> </th>
                             </tr>
@@ -54,7 +54,7 @@
                                         {{row.estMedMIWarehouseName}}
                                     </span>
                                 </td>
-                                <td ng-show="Competence.warehouse">
+                                <td ng-show="Competence.warehouse&&Competence.operat">
                                     <a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory(row)">{{row.inventory?row.inventory:"当前库存"}}</a>
                                 </td>
                                 <td>
@@ -135,7 +135,7 @@
                                 <th><span>物料规格</span></th>
                                 <th><span>需求数量</span></th>
                                 <th ng-show="Competence.warehouse"><span>使用仓库</span> </th>
-                                <th ng-show="Competence.warehouse"><span><a href="javascript:void(0)" ng-click="WarehouseConfig.GetMedmaterialInventory()"><i class="fa fa-cubes"></i> 全部库存</a> </span> </th>
+                                <th ng-show="Competence.warehouse&&Competence.operat"><span><a href="javascript:void(0)" ng-click="WarehouseConfig.GetMedmaterialInventory()"><i class="fa fa-cubes"></i> 全部库存</a> </span> </th>
                                 <th ng-show="Competence.operat"><span>操作</span> </th>
                             </tr>
                         </thead>
@@ -170,7 +170,7 @@
                                         {{row.estMedMIWarehouseName}}
                                     </span>
                                 </td>
-                                <td ng-show="Competence.warehouse">
+                                <td ng-show="Competence.warehouse&&Competence.operat">
                                     <a href="javascript:void(0)" ng-click="WarehouseConfig.GetMedmaterialInventory(row)">{{row.inventory?row.inventory:"当前库存"}}</a>
                                 </td>
                                 <td ng-show="Competence.operat">
