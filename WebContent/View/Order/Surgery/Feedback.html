@@ -158,8 +158,8 @@
                                             <tbody>
                                                 <tr ng-repeat="row in FeedBack.medMaterial">
                                                     <td>{{$index+1}}</td>
-                                                    <td>{{row.medBrandCodeName}}</td>
-                                                    <td>{{row.medProdLnCodeName}}</td>
+                                                    <td rowspan="{{row.BrandRowPan}}" ng-show="row.isBrandRowPan">{{row.medBrandCodeName}}</td>
+                                                    <td rowspan="{{row.ProdLineRowPan}}" ng-show="row.isProdLineRowPan">{{row.medProdLnCodeName}}</td>
                                                     <td>{{row.medMICode}}</td>
                                                     <td>{{row.medMICodeName}}</td>
                                                     <td>{{row.categoryByPlatformName}}</td>

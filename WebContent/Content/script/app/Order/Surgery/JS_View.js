@@ -664,7 +664,20 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
             var result = new Array();
             $.each(mlist, function (index, item) {
                 var flg = true;
+                item.BrandRowPan = 1;
+                item.isBrandRowPan = true;
+                item.ProdLineRowPan = 1;
+                item.isProdLineRowPan = true;
                 $.each(result, function (mIndex, mItem) {
+                    if (item.medBrandCode == mItem.medBrandCode && mItem.isBrandRowPan) {
+                        mItem.BrandRowPan++;
+                        item.isBrandRowPan = false;
+                    }
+
+                    if (item.medProdLnCode == mItem.medProdLnCode && mItem.isProdLineRowPan) {
+                        mItem.ProdLineRowPan++;
+                        item.isProdLineRowPan = false;
+                    }
                     if (mItem.medMIInternalNo == item.medMIInternalNo && item.lotSerial == mItem.lotSerial) {//同批次物料
                         $.extend(mItem, {
                             actQty: mItem.actQty + item.actQty

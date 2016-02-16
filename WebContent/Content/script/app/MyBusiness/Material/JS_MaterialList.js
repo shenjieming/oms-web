@@ -29,7 +29,7 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
                                     node.SubsetType = "medProdLnCode";
                                     node.isParent = true;
                                     node.Subset = $Api.BrandService.GetProductLine;
-                                    node.options = { oIOrgCode: treeNode.options.oIOrgCode, medBrandCode: rData[i].id };
+                                    node.options = { oIOrgCode: treeNode.options.oIOrgCode, medBrandCode: rData[i].id, includeMedProdLn: rData[i].param };
                                 } else {
                                     node.options = { medProdLnCode: rData[i].id };
                                 }
