@@ -499,7 +499,27 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
             GetKitInventory: function (data, callback) {
                 /// <summary>查询套件库存</summary>
                 service.Post(ApiPath.MedKit.queryKitInventory, data, callback);
-            }
+            },
+            Save: function (data, callback) {
+                /// <summary>保存套件</summary>
+                if (data.medKitInternalNo) {
+                    this.UpdateHMedKit(data, callback);
+                } else {
+                    this.InsertHMedKit(data, callback);
+                }
+            },
+            UpdateHMedKit: function (data, callback) {
+                /// <summary>更新套件</summary>
+                service.Post(ApiPath.BusinessData.ManSuite.updateHMedKit, data, callback);
+            },
+            DeleteHMedKit: function (data, callback) {
+                /// <summary>删除套件</summary>
+                service.Post(ApiPath.BusinessData.ManSuite.deleteHMedKit, data, callback);
+            },
+            InsertHMedKit: function (data, callback) {
+                /// <summary>新增套件</summary>
+                service.Post(ApiPath.BusinessData.ManSuite.insertHMedKit, data, callback);
+            },
         },
         OrganizationService: {
             /// <summary>组织信息服务管理</summary>
@@ -642,7 +662,6 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                     service.Post(ApiPath.BusinessData.MedMater.updateMedMaterialItem, data, callback);
                 },
                 Save: function (data, callback) {
-                    console.log(data)
                     if (data.medMaterialItem.medMIInternalNo) {
                         service.Post(ApiPath.BusinessData.MedMater.updateMedMaterialItem, data, callback);
                     } else {
@@ -674,32 +693,9 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
             },
             Reservoir: {
                 //库区管理
-                GetQueryWareHouse: function (data, callback) {
+                AueryAllWhzone: function (data, callback) {
                     /// <summary>获取库区信息</summary>
                     service.Post(ApiPath.BusinessData.Reservoir.queryAllWhzone, data, callback);
-                },
-            },
-            ManSuite: {
-                //套件管理
-                GetSearchHMedKit: function (data, callback) {
-                    /// <summary>获取库区信息</summary>
-                    service.Post(ApiPath.BusinessData.ManSuite.searchHMedKit, data, callback);
-                },
-                GetSearchHMedKitDetail: function (data, callback) {
-                    /// <summary>获取库区信息</summary>
-                    service.Post(ApiPath.BusinessData.ManSuite.searchHMedKitDetail, data, callback);
-                },
-                GetUpdateHMedKit: function (data, callback) {
-                    /// <summary>获取库区信息</summary>
-                    service.Post(ApiPath.BusinessData.ManSuite.updateHMedKit, data, callback);
-                },
-                GetDeleteHMedKit: function (data, callback) {
-                    /// <summary>获取库区信息</summary>
-                    service.Post(ApiPath.BusinessData.ManSuite.deleteHMedKit, data, callback);
-                },
-                GetInsertHMedKit: function (data, callback) {
-                    /// <summary>获取库区信息</summary>
-                    service.Post(ApiPath.BusinessData.ManSuite.insertHMedKit, data, callback);
                 },
             },
             GetBrandList: function (data, callback) {

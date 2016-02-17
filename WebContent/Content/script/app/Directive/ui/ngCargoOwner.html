@@ -1,5 +1,6 @@
 ﻿<span>
-    <select ng-model="ngModel" ng-options="item.id as item.text for item in Cargo.List">
-        <option ng-show="!Cargo.List.length" value="">您没有货主信息，请联系您的货主</option>
+    <span ng-show="!Cargo.List.length">您没有货主信息，请联系您的货主</span>
+    <select ng-show="Cargo.List.length" style="min-width:150px;" ng-model="ngModel" ng-options="item.id as item.text for item in Cargo.List">
+        <option value="">请选择货主</option>
     </select>
 </span>
