@@ -20,8 +20,7 @@ app.controller("SuiteListController", function ($scope, $state, $local, $Api, $M
                         treeNode.Subset(treeNode.options, function (rData) {
                             /// <summary>子集数据查询</summary>
                             var nodeList = new Array();
-                            console.log(rData)
-                            debugger                        
+                            console.log(rData)     
                             for (var i = 0; i < rData.rows.length; i++) {
                                 var node = {
                                     id: rData.rows[i].orgCode, name: rData.rows[i].wHName

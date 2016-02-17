@@ -52,13 +52,14 @@ app.directive("ngMaterialsTemplate", function ($Api, $MessagService, $local) {
                     /// <summary>模板选择</summary>
                     $Api.MaterialsService.GetMaterialsTemplateDateil(template, function (rdata) {
                         $scope.Service.DataDealWith(rdata);
-                        $scope.ngMaterialsTemplate.fixed(rdata);
+                        if ($scope.ngMaterialsTemplate.fixed) {
+                            $scope.ngMaterialsTemplate.fixed(rdata);
+                        }
                         $scope.ngMaterialsTemplate.hide();
                     })
                 },
                 DataDealWith: function (Template) {
                     /// <summary>数据处理</summary>
-                    debugger
                     $scope.Service.AddNewMedKits(Template.kitTemplateInfo);
                     $scope.Service.AddNewProdLine(Template.freeTemplateInfo);
                   

@@ -558,6 +558,8 @@ app.controller("StockDealwithController", function ($scope, $state, $local, $Api
         }
     }
 
+    $scope.TemplateService = {}
+
     $scope.AddressConfig = {
         fixed: function (rowInfo) {
             /// <summary>选择地址事件</summary> 
