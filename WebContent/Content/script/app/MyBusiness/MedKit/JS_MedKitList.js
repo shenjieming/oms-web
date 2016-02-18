@@ -49,9 +49,6 @@ app.controller("MedKitListController", function ($scope, $state, $local, $Api, $
         isEdit: function (isshow) {
             /// <summary>是否编辑套件</summary>
             $scope.MedKit.IsView = false;
-            if ($scope.MedKit.WarehouseList.length == 0) {
-                $scope.MedKit.GetWarehouseList();
-            }
             $scope.MedKit.IsEdit = isshow;
         },
         Add: function () {
@@ -64,7 +61,7 @@ app.controller("MedKitListController", function ($scope, $state, $local, $Api, $
             var row = $local.getSelectedRow($scope.MedKit.List);
             if (row) {
                 if (confirm("您确认要删除当前套件吗?")) {
-                    $Api.BusinessData.ManSuite.DeleteHMedKit(row, function () {
+                    $Api.MedKitService.DeleteHMedKit(row, function () {
                         $MessagService.succ("套件删除成功！");
                         $scope.MedKit.GetMedKitList();
                     });
@@ -78,8 +75,18 @@ app.controller("MedKitListController", function ($scope, $state, $local, $Api, $
             var row = $local.getSelectedRow($scope.MedKit.List);
             if (row) {
                 this.GetKitDiteil(row, function (kit) {
-                    $scope.Detail.PageData = kit;
                     $scope.Service.isEdit(true);
+                    $scope.Detail.PageData = kit;
+                    $.extend($scope.Detail.PageData, {
+                        sOOIOrgCode: kit.oIOrgCode,
+                        medMIWarehouse: kit.whCode,
+                       
+                    });
+                    setTimeout(function () {
+                        $scope.Detail.PageData.prodLns = kit.productLine;
+                    });
+                    $scope.Detail.PageData.isChangeProd = true
+
                 });
             } else {
                 $MessagService.caveat("请选择一条编辑的套件信息！");
@@ -98,6 +105,9 @@ app.controller("MedKitListController", function ($scope, $state, $local, $Api, $
             /// <summary>查看套件详情</summary>
             this.GetKitDiteil(row, function (kit) {
                 $scope.view.PageData = kit;
+
+                $scope.view.PageData.prodLns = kit.productLine;
+                $scope.view.PageData.isChangeProd = true;
                 $scope.Service.isView(true);
             });
         },
@@ -123,12 +133,13 @@ app.controller("MedKitListController", function ($scope, $state, $local, $Api, $
             $scope.MedKit.GetMedKitList();
         }
     }
+    $scope.MedKit.GetWarehouseList();
     $scope.MedKit.GetMedKitList();
 
     $scope.view = {
         PageData: {},
         ProductService: {},
-        ProductCompetence: { operat: false, kits: false }
+        ProductCompetence: { operat: false, kits: false, tool: false, warehouse: false }
     }
     $scope.Detail = {
         PageData: {
@@ -142,11 +153,10 @@ app.controller("MedKitListController", function ($scope, $state, $local, $Api, $
             medMIWarehouse: "",
             zoneCode: "",
             relDesc: "",
-            remark: "",
-            prodLns: []
+            remark: ""
         },
         ProductService: {},
-        ProductCompetence: { operat: true, kits: false ,tool:false}
+        ProductCompetence: { operat: true, kits: false, tool: false, warehouse: false }
     }
     $scope.$watch("Detail.PageData.medMIWarehouse", function () {
         $scope.MedKit.GetZoneList()

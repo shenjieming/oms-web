@@ -535,8 +535,12 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
         RepresentativeService: {
             /// <summary>销售代表信息服务管理</summary>
             GetShipping: function (data, callback) {
-                /// <summary>获取收货地址</summary>
+                /// <summary>获取收货地址,该接口没有数据返回</summary>
                 service.Post(ApiPath.Representative.shipping, data, callback);
+            },
+            GetDefaultaddress: function (data, callback) {
+                $MessagService.loading("默认地址获取中，请稍等...");
+                service.Post(ApiPath.Representative.defaultaddress, data, callback);
             },
             GetDelivery: function (data, callback) {
                 /// <summary>获取常用收货地址</summary>

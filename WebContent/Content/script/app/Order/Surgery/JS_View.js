@@ -548,6 +548,17 @@ app.controller("SingleController", function ($scope, $state, $local, $Api, $Mess
                 deliveryCityName: rowInfo.cityCodeName, deliveryDistrictCode: rowInfo.districtCode, deliveryDistrictName: rowInfo.districtCodeName, deliveryAddress: rowInfo.address, iniitCarrierTransType: rowInfo.carrierTransType
             });
             $scope.AddressConfig.hide();
+        },
+        GetDefault: function () {
+            /// <summary>获取默认地址</summary>
+            $Api.RepresentativeService.GetDefaultaddress({}, function (address) {
+                if (address) {
+                    $.extend($scope.PageData, {
+                        deliveryContact: address.contact, deliveryrMobile: address.mobile, deliveryProvinceCode: address.provinceCode, deliveryProvinceName: address.provinceCodeName, deliveryCityCode: address.cityCode,
+                        deliveryCityName: address.cityCodeName, deliveryDistrictCode: address.districtCode, deliveryDistrictName: address.districtCodeName, deliveryAddress: address.address, iniitCarrierTransType: address.carrierTransType
+                    });
+                }
+            });
         }
     };
 
@@ -568,6 +579,8 @@ app.controller("SingleController", function ($scope, $state, $local, $Api, $Mess
             setTimeout(function () {
                 $scope.PageService.GetDetail();
             }, 1000);
+        } else {
+            $scope.AddressConfig.GetDefault();
         }
     })
 
