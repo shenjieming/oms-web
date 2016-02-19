@@ -10,77 +10,76 @@
         <div class="widget-box">
             <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5>群组编辑</h5>
+                <h5>基础信息</h5>
             </div>
             <div class="widget-content nopadding collapse in" id="BaseInformation">
                 <div class="control-group ">
                     <label >
-                        <span class="required">*</span> 群组简称：<input type="text" ng-model="GroupDetail.GroupInfo.teamName" placeholder="请输入群组简称" />
+                        <span class="required">*</span> 群组简称：<input type="text" ng-model="GroupDetail.detail.teamName" placeholder="请输入群组简称" />
                     </label>
                     <label>
-                        <span class="required">*</span>群组全称：<input type="text" ng-model="GroupDetail.GroupInfo.teamFullName" placeholder="请输入群组全称" />
-                    </label>
-                    <label style="padding-left:29.5%">
-                        <a class="btn btn-primary" ng-click="a()">编辑成员</a>
-                    </label>
-                </div>
-                <div class="control-group ">
-                    <label>
-                        <span class="required" style="margin-top:-1px">*</span>群组成员：{{GroupDetail.nameList}}
-                    </label>
-                    <label>
-                        <span class="required" style="margin-top:-1px">*</span> 成员备注：{{GroupDetail.nameDetail}}
+                       群组全称：<input type="text" ng-model="GroupDetail.detail.teamFullName" placeholder="请输入群组全称" />
                     </label>
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        <span style="float:left">  账户备注：</span>
-                        <textarea class="box-80" ng-model="GroupDetail.GroupInfo.remark" placeholder="请输入该群组的备注信息"></textarea>
+                        <span style="float:left">  群组备注：</span>
+                        <textarea class="box-80" ng-model="GroupDetail.detail.remark" placeholder="请输入该群组的备注信息"></textarea>
                     </label>
                 </div>
             </div>
         </div>
         <div class="widget-box">
-            <div class="widget-title bg_ly" data-toggle="collapse" href="#CompetenceInformation">
+            <div class="widget-title bg_ly">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5>群组成员</h5>
+                <h5 data-toggle="collapse" style="width:80%" href="#AddGroupinfo">群组信息</h5>
+                <a class="btn j_file_panel" href="javascript:void(0)" ng-click="GroupUserList.show()">
+                    添加成员
+                </a>
             </div>
-            <div id="CompetenceInformation" class="widget-content nopadding collapse in">
+      
+            <div id="AddGroupinfo" class="widget-content nopadding collapse in">
                 <div class="control-group ">
                 </div>
                 <div class="main-box-body clearfix">
-                    <div class="table-responsive list-box" style="min-height:450px">
-                        <table class="table table-bordered table-striped" st-table="GroupUserList">
+                    <div class="table-responsive list-box" style="min-height:100px">
+                        <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th><span>序号</span></th>
                                     <th><span>成员姓名</span></th>
                                     <th><span>组织类型</span></th>
                                     <th><span>手机号码</span></th>
-                                    <th><span>编辑状态</span></th>
+                                    <th><span>成员备注</span></th>
+                                    <th><span>操作</span> </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="row in GroupUserList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                                <tr ng-repeat="row in GroupDetail.info" ng-model="GroupDetail.info">
                                     <td>{{$index+1}}</td>
                                     <td>
                                         {{row.userName}}
                                     </td>
                                     <td>
-                                        {{row.orgName}}
+                                        {{row.orgTypeName}}
                                     </td>
                                     <td>
-                                        {{row.loginMobileNo}}
+                                        {{row.userMobile}}
                                     </td>
                                     <td>
-                                        <span style="float:left" ng-click="selectNameList.addNameList()">新增</span>
-                                        <span style="float:right" ng-click="selectNameList.deletNameList()">删除</span>
+                                        <label>
+                                            <input type="text" placeholder="请输入成员备注" ng-model="row.teamMemberDesc" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <button type="button" ng-click="GroupUserList.delGroup($index)" class="btn btn-xs btn-danger">
+                                            <i class="fa fa-times"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div ng-pagein="page" ng-model="Pagein"></div>
                 </div>
             </div>
         </div>
@@ -91,7 +90,47 @@
             <a class="btn btn-primary" ng-click="goView('app.comp.group.list')">返回</a>
         </span>
     </div>
+    <ng-dialog ng-model="GroupUserList.model">
+        <div class="main-box-body clearfix">
+            <div class="table-responsive list-box" style="min-height:300px">
+                <table class="table table-bordered table-striped" st-table="GroupUserList.info">
+                    <thead>
+                        <tr>
+                            <th><span>序号</span></th>
+                            <th><span>操作</span></th>
+                            <th><span>成员姓名</span></th>
+                            <th><span>组织类型</span></th>
+                            <th><span>手机号码</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in GroupUserList.info" >
+                            <td>{{$index+1}}</td>
+                            <td>
+                                <span>
+                                    <label style="float:left;">
+                                        <input type="checkbox" ng-change="CallResult(row)" ng-model="row.isClick" />
+                                    </label>
+                                </span>
+                            </td>
+                            <td>
+                                {{row.userName}}
+                            </td>
+                            <td>
+                                {{row.orgName}}
+                            </td>
+                            <td>
+                                {{row.loginMobileNo}}
+                            </td>     
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-pagein="page" ng-model="Pagein"></div>
+        </div>
+    </ng-dialog>
 </div>
+
 
 
 

@@ -1,0 +1,42 @@
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">组织列表</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="DlOrgJump.Add()">新增</a>
+                    <a class="btn btn-primary" ng-click="DlOrgJump.Eduit()">编辑</a>
+                    <a class="btn btn-primary" ng-click="DlOrgJump.View()">详情</a>
+                </span>
+            </header>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="DlOrgList.info">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>经销商名</span></th>
+                                <th><span>机构编码</span> </th>
+                                <th><span>经销描述</span></th>
+                                <th><span>认证状态</span></th>
+                                <th><span>操作状态</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in DlOrgList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                                <td>{{$index+1}}</td>
+                                <td><span>{{row.dLName}}</span></td>
+                                <td><span>{{row.orgCode}}</span></td>
+                                <td><span>{{row.dLDesc}}</span></td>
+                                <td><span>{{row.certStatus=="Y"?"通过":"未通过"}}</span></td>
+                                <td><span>{{row.validStatusName}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -675,7 +675,7 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                     service.Post(ApiPath.BusinessData.Reservoir.queryAllWhzone, data, callback);
                 },
             },
-            ManSuite: {
+            ManSuite:{
                 //套件管理
                 GetSearchHMedKit: function (data, callback) {
                     /// <summary>获取库区信息</summary>
@@ -701,6 +701,194 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
             GetBrandList: function (data, callback) {
                 /// <summary>获取厂商编码查询品牌</summary>
                 service.Post(ApiPath.BusinessData.queryBrandByManufacture, data, callback);
+            },
+        },
+
+
+
+        /////// 业务基础数据
+        ManageDl:{
+            /// 业务数据经销商管理
+            Save: function (data, callback) {
+                /// <summary>保存经销商信息</summary>
+                if (data.orgCode) {//存在orgCode编辑
+                    service.Post(ApiPath.ManageDl.updateDealer, data, callback);
+                } else {//不存在orgCode新增
+                    service.Post(ApiPath.ManageDl.addDealer, data, callback);
+                }
+            },
+            GetqueryAllDealer: function (data, callback) {
+                /// <summary>经销商列表</summary>
+                service.Post(ApiPath.ManageDl.queryAllDealer, data, callback);
+            },
+            GetqueryDealerDetail: function (data, callback) {
+                /// <summary>经销商详情</summary>
+                service.Post(ApiPath.ManageDl.queryDealerDetail, data, callback);
+            },
+            GetupdateDealer: function (data, callback) {
+                /// <summary>经销商修改</summary>
+                service.Post(ApiPath.ManageDl.updateDealer, data, callback);
+            },
+            GetaddDealer: function (data, callback) {
+                /// <summary>经销商新增</summary>
+                service.Post(ApiPath.ManageDl.addDealer, data, callback);
+            },
+        },
+        ManageOIDLRel: {
+            //货主经销商关系
+            GetqueryAllOIDLRel: function (data, callback) {
+                /// <summary>货主经销商关系列表</summary>
+                service.Post(ApiPath.ManageOIDLRel.queryAllOIDLRel, data, callback);
+            },
+            GetdeleteOwnerOfInventory: function (data, callback) {
+                /// <summary>货主经销商关系认证</summary>
+                service.Post(ApiPath.ManageOIDLRel.deleteOwnerOfInventory, data, callback);
+            },
+            GetoidlRelCrtsts: function (data, callback) {
+                /// <summary>货主经销商关系详情</summary>
+                service.Post(ApiPath.ManageOIDLRel.oidlRelCrtsts, data, callback);
+            },
+        },
+        ManageOi:{
+            //货主组织管理
+            Save: function (data, callback) {
+                /// <summary>保存货主组织管理信息</summary>
+                if (data.orgCode) {//存在orgCode编辑
+                    service.Post(ApiPath.ManageOi.updateOwnerOfInventory, data, callback);
+                } else {//不存在orgCode新增
+                    service.Post(ApiPath.ManageOi.addOwnerOfInventory, data, callback);
+                }
+            },
+            GetqueryAllOwnerOfInventory: function (data, callback) {
+                /// <summary>货主列表</summary>
+                service.Post(ApiPath.ManageOi.queryAllOwnerOfInventory, data, callback);
+            },
+            GetqueryOwnerOfInventoryDetail: function (data, callback) {
+                /// <summary>获取货主详情</summary>
+                service.Post(ApiPath.ManageOi.queryOwnerOfInventoryDetail, data, callback);
+            },
+            GetaddOwnerOfInventory: function (data, callback) {
+                /// <summary>货主新增</summary>
+                service.Post(ApiPath.ManageOi.addOwnerOfInventory, data, callback);
+            },
+            GetupdateOwnerOfInventory: function (data, callback) {
+                /// <summary>货主修改</summary>
+                service.Post(ApiPath.ManageOi.updateOwnerOfInventory, data, callback);
+            },
+            GetdeleteOwnerOfInventory: function (data, callback) {
+                /// <summary>货主删除</summary>
+                service.Post(ApiPath.ManageOi.deleteOwnerOfInventory, data, callback);
+            },
+        },
+        ManaHospital: {
+            //医院管理信息
+            GetqueryAllHospital: function (data, callback) {
+                /// <summary>获取医院列表</summary>
+                service.Post(ApiPath.ManaHospital.queryAllHospital, data, callback);
+            },
+            GetaddHospital: function (data, callback) {
+                /// <summary>获取医院新增</summary>
+                service.Post(ApiPath.ManaHospital.addHospital, data, callback);
+            },
+            GetupdateHospital: function (data, callback) {
+                /// <summary>获取医院编辑</summary>
+                service.Post(ApiPath.ManaHospital.updateHospital, data, callback);
+            },
+            GetdeleteHospital: function (data, callback) {
+                /// <summary>获取医院删除</summary>
+                service.Post(ApiPath.ManaHospital.deleteHospital, data, callback);
+            },
+        },
+        ManaDocter: {
+            //医生管理信息
+            GetqueryAllHospital: function (data, callback) {
+                /// <summary>获取医院列表</summary>
+                service.Post(ApiPath.ManaDocter.bizDataDoctorList, data, callback);
+            },
+            GetbizDataDoctorDetail: function (data, callback) {
+                /// <summary>获取医院详细</summary>
+                service.Post(ApiPath.ManaDocter.bizDataDoctorDetail, data, callback);
+            },
+            GetbizDataDoctorAdd: function (data, callback) {
+                /// <summary>获取医院新增</summary>
+                service.Post(ApiPath.ManaDocter.bizDataDoctorAdd, data, callback);
+            },
+            GetbizDataDoctorModify: function (data, callback) {
+                /// <summary>获取医院列表</summary>
+                service.Post(ApiPath.ManaDocter.bizDataDoctorModify, data, callback);
+            },
+            GetbizDataDoctorDisable: function (data, callback) {
+                /// <summary>获取医院列表</summary>
+                service.Post(ApiPath.ManaDocter.bizDataDoctorDisable, data, callback);
+            },
+            GetbizDataDoctorEnable: function (data, callback) {
+                /// <summary>获取医院列表</summary>
+                service.Post(ApiPath.ManaDocter.bizDataDoctorEnable, data, callback);
+            },
+        },
+        ManaEvent: {
+            //经销商事件通知配置
+            GetqueryAllDlsoEventNoTificationCfg: function (data, callback) {
+                /// <summary>经销商事件通知配置列表</summary>
+                service.Post(ApiPath.ManaEvent.queryAllDlsoEventNoTificationCfg, data, callback);
+            },
+            GetaddDlsoEventNoTificationCfg: function (data, callback) {
+                /// <summary>经销商事件通知配置新增</summary>
+                service.Post(ApiPath.ManaEvent.addDlsoEventNoTificationCfg, data, callback);
+            },
+            GetupdateDlsoEventNoTificationCfg: function (data, callback) {
+                /// <summary>经销商事件通知配置修改</summary>
+                service.Post(ApiPath.ManaEvent.updateDlsoEventNoTificationCfg, data, callback);
+            },
+            GetdeleteDlsoEventNoTificationCfg: function (data, callback) {
+                /// <summary>经销商事件通知配置删除</summary>
+                service.Post(ApiPath.ManaEvent.deleteDlsoEventNoTificationCfg, data, callback);
+            },
+        },
+        ManaDepartment: {
+            //科室管理
+            GetbizDataWDList: function (data, callback) {
+                /// <summary>获取科室列表</summary>
+                service.Post(ApiPath.ManaDepartment.bizDataWDList, data, callback);
+            },
+            GetbizDataWDDetail: function (data, callback) {
+                /// <summary>获取科室详情</summary>
+                service.Post(ApiPath.ManaDepartment.bizDataWDDetail, data, callback);
+            },
+            GetbizDataWDAdd: function (data, callback) {
+                /// <summary>科室新增</summary>
+                service.Post(ApiPath.ManaDepartment.bizDataWDAdd, data, callback);
+            },
+            GetbizDataWDModify: function (data, callback) {
+                /// <summary>科室修改</summary>
+                service.Post(ApiPath.ManaDepartment.bizDataWDModify, data, callback);
+            },
+            GetbizDataWDDisable: function (data, callback) {
+                /// <summary>科室禁用</summary>
+                service.Post(ApiPath.ManaDepartment.bizDataWDDisable, data, callback);
+            },
+            GetbizDataWDEnable: function (data, callback) {
+                /// <summary>科室启用</summary>
+                service.Post(ApiPath.ManaDepartment.bizDataWDEnable, data, callback);
+            },
+        },
+        ManaWareHouse: {
+            //仓库管理
+            GetqueryWareHouse: function (data, callback) {
+                /// <summary>科室启用</summary>
+                service.Post(ApiPath.ManaWareHouse.queryWareHouse, data, callback);
+            },
+            GetqueryWareHouseDetail: function (data, callback) {
+                /// <summary>科室启用</summary>
+                service.Post(ApiPath.ManaWareHouse.queryWareHouseDetail, data, callback);
+            },
+            GetaddWareHouse: function (data, callback) {
+                /// <summary>科室启用</summary>
+                service.Post(ApiPath.ManaWareHouse.addWareHouse, data, callback);
+            },
+            GetupdateWareHouse: function (data, callback) {
+                /// <summary>科室启用</summary>
+                service.Post(ApiPath.ManaWareHouse.updateWareHouse, data, callback);
             },
         },
         Public: {

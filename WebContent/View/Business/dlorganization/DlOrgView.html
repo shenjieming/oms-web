@@ -1,0 +1,108 @@
+﻿<div class="row">
+    <div class="tools">
+        <h5 style="float:left;">组织信息</h5>
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-click="DlOrgView.Save()">保存</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#PersonalInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>个人信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="PersonalInformation">
+                <div class="control-group ">
+                    <label>
+                          经销商名：{{DlOrgView.Info.dLName}}
+  
+                    </label>
+                    <label>
+                         经销全称：{{DlOrgView.Info.dLFullName}}
+                    </label>
+                    <label>
+                         经销描述：{{DlOrgView.Info.dLDesc}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        <span style="float:left"> 经销备注：</span>{{DlOrgView.Info.remark}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#RegistrationInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>注册信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="RegistrationInformation">
+                <div class="control-group ">
+                    <label>
+                          注册名称：{{DlOrgView.Info.corpRegCompanyName}}
+                    </label>
+                    <label>
+                         注册编码：{{DlOrgView.Info.corpRegNo}}
+                    </label>
+                    <label>
+                          法人代表：{{DlOrgView.Info.corpRegLegalRep}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                         注册资本：{{DlOrgView.Info.corpRegCapital}}
+                    </label>
+                    <label>
+                          注册币种：{{DlOrgView.Info.corpRegCurrencyCode}}
+                    </label>
+                    <label ng-show="DlOrgView.checkIs">
+                        <span style="float:left;line-height:25px;">认证状态：</span>
+                        <input type="checkbox" id="checkbox_c2" class="chkbox" ng-checked="DlOrgView.Info.certStatus" ng-model="DlOrgView.Info.certStatus" />
+                        <label for="checkbox_c2" style="float:left"></label>
+                        <span ng-show="DlOrgView.Info.certStatus" style="line-height: 25px;"> 已认证</span>
+                        <span ng-show="!DlOrgView.Info.certStatus" style="line-height: 25px;">未认证</span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        <span style="float:left">  经营范围：</span>{{DlOrgView.Info.corpRegBizScope}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#EnterpriseInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>企业信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="EnterpriseInformation">
+                <div class="control-group ">
+                    <label>
+                        国家编码：{{DlOrgView.Info.corpRegCountryCode}}
+                    </label>
+                    <label>
+                        省级编码：{{DlOrgView.Info.corpRegProvinceCode}}
+                    </label>
+                    <label>
+                        市级编码：{{DlOrgView.Info.corpRegCityCode}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        区域编码：{{DlOrgView.Info.corpRegDistrictCode}}
+                    </label>
+                    <label style="width:66.8%">
+                        企业地址：{{DlOrgView.Info.corpRegAddress}}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tools">
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-click="DlOrgView.Save()">保存</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+</div>

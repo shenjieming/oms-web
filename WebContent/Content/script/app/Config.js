@@ -639,54 +639,81 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         })
 });
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
-    /// <summary>业务数据管理</summary>
+    /// <summary>经销商组织管理</summary>
     $stateProvider
-       .state("app.business.material", {
-           /// <summary>物料模板管理</summary>
-           url: "/material",
-           controller: "MatManListController",
-           templateUrl: "View/Business/material/MatManList.html?data=" + Timestamp,
-           loadJs: ["Content/script/app/Business/material/JS_MatManList.js"],
+       .state("app.business.dlorganization", {
+           /// <summary>经销商组织列表</summary>
+           url: "/dlorganization",
+           templateUrl: "View/Business/DlOrg/DlOrgList.html?data=" + Timestamp,
+           controller: "DlOrgListController",
+           loadJs: ["Content/script/app/Business/DlOrg/JS_DlOrgList.js"],
            resolve: app.resolve
        })
-       .state("app.business.materialView", {    
-           /// <summary>物料详情</summary>
-           url: "/materialView/:opt",
-           templateUrl: "View/Business/material/MatManView.html?data=" + Timestamp,
-           controller: "MatManViewController",
-           loadJs: ["Content/script/app/Business/material/JS_MatManView.js"],
+       .state("app.business.dlorganizationEduit", {
+           /// <summary>经销商组织编辑</summary>
+           url: "/dlorganizationEduit/:opt",
+           templateUrl: "View/Business/DlOrg/DlOrgEduit.html?data=" + Timestamp,
+           controller: "DlOrgEduitController",
+           loadJs: ["Content/script/app/Business/DlOrg/JS_DlOrgEduit.js"],
            resolve: app.resolve
        })
-      .state("app.business.material.materialInfo", {
-          /// <summary>物料编辑</summary>
-          url: "/materialInfo/:MatID",
-          templateUrl: "View/Business/material/MatManDetail.html?data=" + Timestamp,
-          controller: "MatManDetailController",
-          loadJs: ["Content/script/app/Business/material/JS_MatManDetail.js"],
-          resolve: app.resolve
-      })
+        .state("app.business.dlorganizationView", {
+            /// <summary>经销商组织详情</summary>
+            url: "/dlorganizationView/:opt",
+            templateUrl: "View/Business/DlOrg/DlOrgView.html?data=" + Timestamp,
+            controller: "DlOrgViewController",
+            loadJs: ["Content/script/app/Business/DlOrg/JS_DlOrgView.js"],
+            resolve: app.resolve
+        })
 });
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
-    /// <summary>套件管理配置</summary>
+    /// <summary>货主组织管理</summary>
     $stateProvider
-       .state("app.business.suite", {
-           /// <summary>套件列表</summary>
-           url: "/suite",
+       .state("app.business.oiorganization", {
+           /// <summary>货主组织列表</summary>
+           url: "/oiorganization",
+           templateUrl: "View/Business/OiOrg/OiOrgList.html?data=" + Timestamp,
+           controller: "SuiteListController",
+           loadJs: ["Content/script/app/Business/OiOrg/JS_OiOrgList.js"],
+           resolve: app.resolve
+       })
+      .state("app.business.oiorganizationEduit", {
+          /// <summary>货主组织编辑</summary>
+          url: "/oiorganizationEduit/:oiopt",
+          templateUrl: "View/Business/OiOrg/OiOrgEduit.html?data=" + Timestamp,
+          controller: "SuiteEduitController",
+          loadJs: ["Content/script/app/Business/OiOrg/JS_OiOrgEduit.js"],
+          resolve: app.resolve
+      })
+       .state("app.business.oiorganizationView", {
+           /// <summary>货主组织详情</summary>
+           url: "/oiorganizationView/:oiopt",
+           templateUrl: "View/Business/OiOrg/OiOrgView.html?data=" + Timestamp,
+           controller: "OiOrgViewController",
+           loadJs: ["Content/script/app/Business/OiOrg/JS_OiOrgView.js"],
+           resolve: app.resolve
+       })
+});
+app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
+    /// <summary>经销商货主关系管理</summary>
+    $stateProvider
+       .state("app.business.relmanagement", {
+           /// <summary>经销商货主关系列表</summary>
+           url: "/relmanagement",
            templateUrl: "View/Business/Suite/SuiteList.html?data=" + Timestamp,
            controller: "SuiteListController",
            loadJs: ["Content/script/app/Business/Suite/JS_SuiteList.js"],
            resolve: app.resolve
        })
-       .state("app.business.suiteView", {
-           /// <summary>套件编辑</summary>
-           url: "/suiteView",
+       .state("app.business.relmanagementView", {
+           /// <summary>经销商货主关系编辑</summary>
+           url: "/relmanagementView",
            templateUrl: "View/Business/Suite/SuiteEduit.html?data=" + Timestamp,
            controller: "SuiteEduitController",
            loadJs: ["Content/script/app/Business/Suite/JS_SuiteEduit.js"],
            resolve: app.resolve
        })
 });
-
 app.resolve = {
     /// <summary>resolve事件处理</summary>
     deps: function ($q) {
@@ -701,7 +728,6 @@ app.resolve = {
         return delay.promise;
     }
 }
-
 app.controller("HomeController", function ($scope, $state, $MenuService, $local, $MessagService, $Api, $window) {
     /// <summary>首页控制器</summary>
     var classList = ["one", "three", "four", "five", "six"];

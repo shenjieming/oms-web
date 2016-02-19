@@ -50,7 +50,10 @@ app.factory("$MenuService", function ($http, $local) {
         name: "业务数据管理", url: "", state: "app.business", icon: "fa-link", detail: [
             { name: "物料管理", url: "#/app/business/material", state: "app.business.material" },
             { name: "套件管理", url: "#/app/business/suite", state: "app.business.suite" },
-            { name: "模板管理", url: "#/app/business/template", state: "app.business.template" }
+            { name: "模板管理", url: "#/app/business/template", state: "app.business.template" },
+            { name: "组织管理（经销）", url: "#/app/business/dlorganization", state: "app.business.dlorganization" },
+            { name: "组织管理（货主）", url: "#/app/business/oiorganization", state: "app.business.oiorganization" },
+            { name: "关系管理", url: "#/app/business/relmanagement", state: "app.business.relmanagement" }
         ]
     });
     service.push({
