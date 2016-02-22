@@ -14,7 +14,7 @@ app.controller("OiOrgViewController", function ($scope, $state, $local, $Api, $M
         GetOiOrgDetail: function () {
             /// <summary>获取货主详情</summary>
             $scope.oiopt = $stateParams.oiopt;
-            $Api.ManageOi.queryOwnerOfInventoryDetail({ orgCode: $scope.oiopt }, function (rData) {
+            $Api.ManageOi.GetqueryOwnerOfInventoryDetail({ orgCode: $scope.oiopt }, function (rData) {
                 $scope.OiOrgView.Info = rData;
                 console.log(rData)
             })

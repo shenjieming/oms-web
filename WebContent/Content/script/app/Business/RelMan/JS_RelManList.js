@@ -17,6 +17,11 @@ app.controller("RelManListController", function ($scope, $state, $local, $Api, $
             $Api.ManageOIDLRel.GetqueryAllOIDLRel(paramData, function (rData) {
                 $scope.RelManList.info = rData.rows;
                 $scope.Pagein.total = rData.total;
+                for (var i = 0; i < $scope.RelManList.info.length; i++) {
+                    if ($scope.RelManList.info.certStatusName=="已认证") {
+                        $scope.RelManList.info.isEnable = true;
+                    }
+                }
                 console.log(rData)
             })
         }

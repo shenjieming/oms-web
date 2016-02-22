@@ -2,7 +2,6 @@
     <div class="tools">
         <h5 style="float:left;">货主信息</h5>
         <span style="float:right;">
-            <a class="btn btn-primary" ng-click="dlPageInfo.Save()">保存</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
@@ -15,29 +14,26 @@
             <div class="widget-content nopadding collapse in" id="PersonalInformation">
                 <div class="control-group ">
                     <label>
-                        <span class="required">*</span>组织类型：
-                        <select ng-model="oiPageInfo.Info.oIType" ng-change="SelectInfo.oiType.change(item)">
-                            <option value="">请选择组织类型</option>
-                            <option ng-repeat="item in SelectInfo.oiType.dic" ng-selected="item.id==oiPageInfo.Info.oIType" value="{{item.id}}">{{item.id}}-{{item.text}}</option>
-                        </select>
+                        组织类型：{{OiOrgView.Info.oITypeName}}
                     </label>
                     <label>
-                        <span class="required">*</span> 货主名称：<input type="text" ng-model="OiOrgView.Info.dLName" placeholder="请输入货主名" />
+                        货主名称：{{OiOrgView.Info.dLName}}
                     </label>
                     <label>
-                        <span class="required">*</span>货主全称：<input type="text" ng-model="OiOrgView.Info.dLFullName" placeholder="请输入货主全称" />
+                        货主全称：{{OiOrgView.Info.dLFullName}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        货主编码：{{OiOrgView.Info.oIShortCode}}
+                    </label>
+                    <label style="width:67%">
+                        货主描述：{{OiOrgView.Info.oIDesc}}
                     </label>
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        <span style="float:left"> 货主描述：</span>
-                        <textarea class="box-80" ng-model="OiOrgView.Info.oIDesc" placeholder="请输入该货主描述"></textarea>
-                    </label>
-                </div>
-                <div class="control-group ">
-                    <label style="width:100%">
-                        <span style="float:left"> 货主备注：</span>
-                        <textarea class="box-80" ng-model="OiOrgView.Info.remark" placeholder="请输入该货主备注信息"></textarea>
+                        货主备注：{{OiOrgView.Info.remark}}
                     </label>
                 </div>
             </div>
@@ -50,38 +46,37 @@
             <div class="widget-content nopadding collapse in" id="RegistrationInformation">
                 <div class="control-group ">
                     <label>
-                        <span class="required">*</span> 注册名称：<input type="text" ng-model="OiOrgView.Info.corpRegCompanyName" placeholder="请输入注册名称" />
+                        注册名称：{{OiOrgView.Info.corpRegCompanyName}}
                     </label>
                     <label>
-                        <span class="required">*</span>注册编码：<input type="text" ng-model="OiOrgView.Info.corpRegNo" placeholder="请输入注册编码" />
+                        注册编码：{{OiOrgView.Info.corpRegNo}}
                     </label>
                     <label>
-                        <span class="required">*</span> 法人代表：<input type="text" ng-model="OiOrgView.Info.corpRegLegalRep" placeholder="请输入法人代表" />
-                    </label>
-                </div>
-                <div class="control-group ">
-                    <label>
-                        <span class="required">*</span>注册资本：<input type="text" ng-model="OiOrgView.Info.corpRegCapital" placeholder="请输入注册资本" />
-                    </label>
-                    <label>
-                        <span class="required">*</span>币种简称：<input type="text" ng-model="OiOrgView.Info.corpRegCurrencyCode" placeholder="请输入币种简称" />
-                    </label>
-                    <label>
-                        <span class="required">*</span>币种全称：<input type="text" ng-model="OiOrgView.Info.corpRegCurrencyCode" placeholder="请输入币种全称" />
+                        法人代表：{{OiOrgView.Info.corpRegLegalRep}}
                     </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                        <span class="required">*</span>注册税号：<input type="text" ng-model="OiOrgView.Info.corpRegTaxNo" placeholder="请输入注册税号" />
+                        注册资本：{{OiOrgView.Info.corpRegCapital}}
                     </label>
                     <label>
-                        <span class="required">*</span>注册状态：<input type="text" ng-model="OiOrgView.Info.validStatusName" placeholder="请输入注册状态" />
+                        币种简称：{{OiOrgView.Info.corpRegCurrencyCode}}
+                    </label>
+                    <label>
+                        币种全称：{{OiOrgView.Info.corpRegCurrencyCode}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        注册税号：{{OiOrgView.Info.corpRegTaxNo}}
+                    </label>
+                    <label>
+                        注册状态：{{OiOrgView.Info.validStatusName}}
                     </label>
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        <span style="float:left">  经营范围：</span>
-                        <textarea class="box-80" ng-model="OiOrgView.Info.corpRegBizScope" placeholder="请输入该货主经营范围"></textarea>
+                        经营范围：{{OiOrgView.Info.corpRegBizScope}}
                     </label>
                 </div>
             </div>
@@ -94,37 +89,23 @@
             <div class="widget-content nopadding collapse in" id="EnterpriseInformation">
                 <div class="control-group ">
                     <label>
-                        国家编码：<input type="text" ng-model="OiOrgView.Info.corpRegCountryCode" placeholder="请输入国家编码" />
+                        国家编码：{{OiOrgView.Info.corpRegCountryCode}}
                     </label>
                     <label>
-                        国家名称：<input type="text" ng-model="OiOrgView.Info.corpRegCountryCodeName" placeholder="请输入国家名称" />
+                        省级编码：{{OiOrgView.Info.corpRegProvinceCode}}
                     </label>
                     <label>
-                        省级编码：<input type="text" ng-model="OiOrgView.Info.corpRegProvinceCode" placeholder="请输入省级编码" />
-                    </label>
-                </div>
-                <div class="control-group ">
-                    <label>
-                        省级名称：<input type="text" ng-model="OiOrgView.Info.corpRegProvinceCodeName" placeholder="请输入省级名称" />
-                    </label>
-                    <label>
-                        市级编码：<input type="text" ng-model="OiOrgView.Info.corpRegCityCode" placeholder="请输入市级编码" />
-                    </label>
-                    <label>
-                        市级名称：<input type="text" ng-model="OiOrgView.Info.corpRegCityCodeName" placeholder="请输入市级名称" />
+                        市级编码：{{OiOrgView.Info.corpRegCityCode}}
                     </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                        区域编码：<input type="text" ng-model="OiOrgView.Info.corpRegDistrictCode" placeholder="请输入区域编码" />
-                    </label>
-                    <label>
-                        区域名称：<input type="text" ng-model="OiOrgView.Info.corpRegDistrictCodeName" placeholder="请输入区域名称" />
+                        区域编码：{{OiOrgView.Info.corpRegDistrictCode}}
                     </label>
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        企业地址：<input type="text" style="width:80%" ng-model="OiOrgView.Info.corpRegAddress" placeholder="请输入该企业地址" />
+                        企业地址：{{OiOrgView.Info.corpRegAddress}}
                     </label>
                 </div>
             </div>
@@ -137,50 +118,83 @@
             <div class="widget-content nopadding collapse in" id="OperateInformation">
                 <div class="control-group ">
                     <label>
-                        国家编码：<input type="text" ng-model="OiOrgView.Info.corpBizCountryCode" placeholder="请输入国家编码" />
+                        国家编码：{{OiOrgView.Info.corpBizCountryCode}}
                     </label>
                     <label>
-                        国家名称：<input type="text" ng-model="OiOrgView.Info.corpBizCountryCodeCodeName" placeholder="请输入国家名称" />
+                        省级编码：{{OiOrgView.Info.corpBizProvinceCode}}
                     </label>
                     <label>
-                        省级编码：<input type="text" ng-model="OiOrgView.Info.corpBizProvinceCode" placeholder="请输入省级编码" />
-                    </label>
-                </div>
-                <div class="control-group ">
-                    <label>
-                        省级名称：<input type="text" ng-model="OiOrgView.Info.corpBizProvinceCodeName" placeholder="请输入省级名称" />
-                    </label>
-                    <label>
-                        市级编码：<input type="text" ng-model="OiOrgView.Info.corpBizCityCode" placeholder="请输入市级编码" />
-                    </label>
-                    <label>
-                        市级名称：<input type="text" ng-model="OiOrgView.Info.corpBizCityCodeName" placeholder="请输入市级名称" />
+                        市级编码：{{OiOrgView.Info.corpBizCityCode}}
                     </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                        区域编码：<input type="text" ng-model="OiOrgView.Info.corpBizDistrictCode" placeholder="请输入区域编码" />
+                        区域编码：{{OiOrgView.Info.corpBizDistrictCode}}
                     </label>
                     <label>
-                        区域名称：<input type="text" ng-model="OiOrgView.Info.corpBizDistrictCodeName" placeholder="请输入区域名称" />
-                    </label>
-                    <label>
-                        邮政编码：<input type="text" ng-model="OiOrgView.Info.corpBizPostcode" placeholder="请输入邮政编码" />
+                        邮政编码：{{OiOrgView.Info.corpBizPostcode}}
                     </label>
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        企业地址：<input type="text" style="width:80%" ng-model="OiOrgView.Info.corpBizAddress" placeholder="请输入该企业地址" />
+                        企业地址：{{OiOrgView.Info.corpBizAddress}}
                     </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#TopContacts">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>联系人信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="TopContacts">
+                <div class="main-box-body clearfix">
+                    <div class="table-responsive list-box" style="min-height:100px">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>序号</span></th>
+                                    <th><span>联系姓名</span></th>
+                                    <th><span>联系手机</span></th>
+                                    <th><span>联系电话</span></th>
+                                    <th><span>联系邮箱</span></th>
+                                    <th><span>联系用途</span></th>
+                                    <th><span>通信工具</span> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="row in GroupDetail.info" ng-model="GroupDetail.info">
+                                    <td>{{$index+1}}</td>
+                                    <td>
+                                        {{row.userName}}
+                                    </td>
+                                    <td>
+                                        {{row.orgTypeName}}
+                                    </td>
+                                    <td>
+                                        {{row.userMobile}}
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入成员备注" ng-model="row.teamMemberDesc" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <button type="button" ng-click="GroupUserList.delGroup($index)" class="btn btn-xs btn-danger">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="tools">
         <span style="float:right;">
-            <a class="btn btn-primary" ng-click="dlPageInfo.Save()">保存</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
 </div>
-

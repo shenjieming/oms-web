@@ -2,7 +2,7 @@
     <div class="tools">
         <h5 style="float:left;">货主信息</h5>
         <span style="float:right;">
-            <a class="btn btn-primary" ng-click="dlPageInfo.Save()">保存</a>
+            <a class="btn btn-primary" ng-click="oiPageInfo.Save()">保存</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
@@ -22,22 +22,25 @@
                         </select>
                     </label>
                     <label>
-                        <span class="required">*</span> 货主名称：<input type="text" ng-model="dlPageInfo.Info.dLName" placeholder="请输入货主名" />
+                        <span class="required">*</span> 货主名称：<input type="text" ng-model="oiPageInfo.Info.dLName" placeholder="请输入货主名" />
                     </label>
                     <label>
-                        <span class="required">*</span>货主全称：<input type="text" ng-model="dlPageInfo.Info.dLFullName" placeholder="请输入货主全称" />
+                        <span class="required">*</span>货主全称：<input type="text" ng-model="oiPageInfo.Info.dLFullName" placeholder="请输入货主全称" />
                     </label>
                 </div>
                 <div class="control-group ">
-                    <label style="width:100%">
+                    <label>
+                        <span class="required">*</span>货主编码：<input type="text" ng-model="oiPageInfo.Info.oIShortCode" placeholder="请输入货主全称" />
+                    </label>
+                    <label style="width:67%">
                         <span style="float:left"> 货主描述：</span>
-                        <textarea class="box-80" ng-model="dlPageInfo.Info.oIDesc" placeholder="请输入该货主描述"></textarea>
+                        <textarea class="box-80" ng-model="oiPageInfo.Info.oIDesc" placeholder="请输入该货主描述"></textarea>
                     </label>
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
                         <span style="float:left"> 货主备注：</span>
-                        <textarea class="box-80" ng-model="dlPageInfo.Info.remark" placeholder="请输入该货主备注信息"></textarea>
+                        <textarea class="box-80" ng-model="oiPageInfo.Info.remark" placeholder="请输入该货主备注信息"></textarea>
                     </label>
                 </div>
             </div>
@@ -50,38 +53,38 @@
             <div class="widget-content nopadding collapse in" id="RegistrationInformation">
                 <div class="control-group ">
                     <label>
-                        <span class="required">*</span> 注册名称：<input type="text" ng-model="dlPageInfo.Info.corpRegCompanyName" placeholder="请输入注册名称" />
+                        <span class="required">*</span> 注册名称：<input type="text" ng-model="oiPageInfo.Info.corpRegCompanyName" placeholder="请输入注册名称" />
                     </label>
                     <label>
-                        <span class="required">*</span>注册编码：<input type="text" ng-model="dlPageInfo.Info.corpRegNo" placeholder="请输入注册编码" />
+                        <span class="required">*</span>注册编码：<input type="text" ng-model="oiPageInfo.Info.corpRegNo" placeholder="请输入注册编码" />
                     </label>
                     <label>
-                        <span class="required">*</span> 法人代表：<input type="text" ng-model="dlPageInfo.Info.corpRegLegalRep" placeholder="请输入法人代表" />
-                    </label>
-                </div>
-                <div class="control-group ">
-                    <label>
-                        <span class="required">*</span>注册资本：<input type="text" ng-model="dlPageInfo.Info.corpRegCapital" placeholder="请输入注册资本" />
-                    </label>
-                    <label>
-                        <span class="required">*</span>币种简称：<input type="text" ng-model="dlPageInfo.Info.corpRegCurrencyCode" placeholder="请输入币种简称" />
-                    </label>
-                    <label>
-                        <span class="required">*</span>币种全称：<input type="text" ng-model="dlPageInfo.Info.corpRegCurrencyCode" placeholder="请输入币种全称" />
+                        <span class="required">*</span> 法人代表：<input type="text" ng-model="oiPageInfo.Info.corpRegLegalRep" placeholder="请输入法人代表" />
                     </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                        <span class="required">*</span>注册税号：<input type="text" ng-model="dlPageInfo.Info.corpRegTaxNo" placeholder="请输入注册税号" />
+                        <span class="required">*</span>注册资本：<input type="text" ng-model="oiPageInfo.Info.corpRegCapital" placeholder="请输入注册资本" />
                     </label>
                     <label>
-                        <span class="required">*</span>注册状态：<input type="text" ng-model="dlPageInfo.Info.validStatusName" placeholder="请输入注册状态" />
+                        <span class="required">*</span>币种简称：<input type="text" ng-model="oiPageInfo.Info.corpRegCurrencyCode" placeholder="请输入币种简称" />
+                    </label>
+                    <label>
+                        <span class="required">*</span>币种全称：<input type="text" ng-model="oiPageInfo.Info.corpRegCurrencyCode" placeholder="请输入币种全称" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span>注册税号：<input type="text" ng-model="oiPageInfo.Info.corpRegTaxNo" placeholder="请输入注册税号" />
+                    </label>
+                    <label>
+                        <span class="required">*</span>注册状态：<input type="text" ng-model="oiPageInfo.Info.validStatusName" placeholder="请输入注册状态" />
                     </label>
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
                         <span style="float:left">  经营范围：</span>
-                        <textarea class="box-80" ng-model="dlPageInfo.Info.corpRegBizScope" placeholder="请输入该货主经营范围"></textarea>
+                        <textarea class="box-80" ng-model="oiPageInfo.Info.corpRegBizScope" placeholder="请输入该货主经营范围"></textarea>
                     </label>
                 </div>
             </div>
@@ -94,37 +97,23 @@
             <div class="widget-content nopadding collapse in" id="EnterpriseInformation">
                 <div class="control-group ">
                     <label>
-                        国家编码：<input type="text" ng-model="dlPageInfo.Info.corpRegCountryCode" placeholder="请输入国家编码" />
+                        国家编码：<input type="text" ng-model="oiPageInfo.Info.corpRegCountryCode" placeholder="请输入国家编码" />
                     </label>
                     <label>
-                        国家名称：<input type="text" ng-model="dlPageInfo.Info.corpRegCountryCodeName" placeholder="请输入国家名称" />
-                    </label>
+                        省级编码：<input type="text" ng-model="oiPageInfo.Info.corpRegProvinceCode" placeholder="请输入省级编码" />
+                    </label>  
                     <label>
-                        省级编码：<input type="text" ng-model="dlPageInfo.Info.corpRegProvinceCode" placeholder="请输入省级编码" />
-                    </label>           
+                        市级编码：<input type="text" ng-model="oiPageInfo.Info.corpRegCityCode" placeholder="请输入市级编码" />
+                    </label>         
                 </div>
                 <div class="control-group ">
                     <label>
-                        省级名称：<input type="text" ng-model="dlPageInfo.Info.corpRegProvinceCodeName" placeholder="请输入省级名称" />
-                    </label>
-                    <label>
-                        市级编码：<input type="text" ng-model="dlPageInfo.Info.corpRegCityCode" placeholder="请输入市级编码" />
-                    </label>
-                    <label>
-                        市级名称：<input type="text" ng-model="dlPageInfo.Info.corpRegCityCodeName" placeholder="请输入市级名称" />
-                    </label>
-                </div>
-                <div class="control-group ">
-                    <label>
-                        区域编码：<input type="text" ng-model="dlPageInfo.Info.corpRegDistrictCode" placeholder="请输入区域编码" />
-                    </label>
-                    <label>
-                        区域名称：<input type="text" ng-model="dlPageInfo.Info.corpRegDistrictCodeName" placeholder="请输入区域名称" />
+                        区域编码：<input type="text" ng-model="oiPageInfo.Info.corpRegDistrictCode" placeholder="请输入区域编码" />
                     </label>
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        企业地址：<input type="text" style="width:80%" ng-model="dlPageInfo.Info.corpRegAddress" placeholder="请输入该企业地址" />
+                        企业地址：<input type="text" style="width:80%" ng-model="oiPageInfo.Info.corpRegAddress" placeholder="请输入该企业地址" />
                     </label>
                 </div>
             </div>
@@ -137,49 +126,164 @@
             <div class="widget-content nopadding collapse in" id="OperateInformation">
                 <div class="control-group ">
                     <label>
-                        国家编码：<input type="text" ng-model="dlPageInfo.Info.corpBizCountryCode" placeholder="请输入国家编码" />
+                        国家编码：<input type="text" ng-model="oiPageInfo.Info.corpBizCountryCode" placeholder="请输入国家编码" />
                     </label>
                     <label>
-                        国家名称：<input type="text" ng-model="dlPageInfo.Info.corpBizCountryCodeCodeName" placeholder="请输入国家名称" />
+                        省级编码：<input type="text" ng-model="oiPageInfo.Info.corpBizProvinceCode" placeholder="请输入省级编码" />
                     </label>
                     <label>
-                        省级编码：<input type="text" ng-model="dlPageInfo.Info.corpBizProvinceCode" placeholder="请输入省级编码" />
-                    </label>
-                </div>
-                <div class="control-group ">
-                    <label>
-                        省级名称：<input type="text" ng-model="dlPageInfo.Info.corpBizProvinceCodeName" placeholder="请输入省级名称" />
-                    </label>
-                    <label>
-                        市级编码：<input type="text" ng-model="dlPageInfo.Info.corpBizCityCode" placeholder="请输入市级编码" />
-                    </label>
-                    <label>
-                        市级名称：<input type="text" ng-model="dlPageInfo.Info.corpBizCityCodeName" placeholder="请输入市级名称" />
+                        市级编码：<input type="text" ng-model="oiPageInfo.Info.corpBizCityCode" placeholder="请输入市级编码" />
                     </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                        区域编码：<input type="text" ng-model="dlPageInfo.Info.corpBizDistrictCode" placeholder="请输入区域编码" />
+                        区域编码：<input type="text" ng-model="oiPageInfo.Info.corpBizDistrictCode" placeholder="请输入区域编码" />
                     </label>
                     <label>
-                        区域名称：<input type="text" ng-model="dlPageInfo.Info.corpBizDistrictCodeName" placeholder="请输入区域名称" />
-                    </label>
-                    <label>
-                        邮政编码：<input type="text" ng-model="dlPageInfo.Info.corpBizPostcode" placeholder="请输入邮政编码" />
+                        邮政编码：<input type="text" ng-model="oiPageInfo.Info.corpBizPostcode" placeholder="请输入邮政编码" />
                     </label>
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        企业地址：<input type="text" style="width:80%" ng-model="dlPageInfo.Info.corpBizAddress" placeholder="请输入该企业地址" />
+                        企业地址：<input type="text" style="width:80%" ng-model="oiPageInfo.Info.corpBizAddress" placeholder="请输入该企业地址" />
                     </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#TopContacts">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>联系人信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="TopContacts">
+                <div class="main-box-body clearfix">
+                    <div style="min-height:100px">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>序号</span></th>
+                                    <th><span>联系姓名</span></th>
+                                    <th><span>联系手机</span></th>
+                                    <th><span>联系电话</span></th>
+                                    <th><span>联系邮箱</span></th>
+                                    <th><span>联系用途</span></th>
+                                    <th><span>通信工具</span> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人1姓名" ng-model="oiPageInfo.Info.contact1Name" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人1手机" ng-model="oiPageInfo.Info.contact1Mobile" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人1电话" ng-model="oiPageInfo.Info.contact1Tel" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人1邮箱" ng-model="oiPageInfo.Info.contact1Email" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人1用途" ng-model="oiPageInfo.Info.contact1Func" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人1通信工具" ng-model="oiPageInfo.Info.contact1PMsgType" />
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人2姓名" ng-model="oiPageInfo.Info.contact2Name" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人2手机" ng-model="oiPageInfo.Info.contact2Mobile" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人2电话" ng-model="oiPageInfo.Info.contact2Tel" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人2邮箱" ng-model="oiPageInfo.Info.contact2Email" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人2用途" ng-model="oiPageInfo.Info.contact2Func" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人2通信工具" ng-model="oiPageInfo.Info.contact2PMsgType" />
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人3姓名" ng-model="oiPageInfo.Info.contact3Name" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人3手机" ng-model="oiPageInfo.Info.contact3Mobile" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人3电话" ng-model="oiPageInfo.Info.contact3Tel" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人3邮箱" ng-model="oiPageInfo.Info.contact3Email" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人3用途" ng-model="oiPageInfo.Info.contact3Func" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人3通信工具" ng-model="oiPageInfo.Info.contact3PMsgType" />
+                                        </label>
+                                    </td>
+                                </tr>                              
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="tools">
         <span style="float:right;">
-            <a class="btn btn-primary" ng-click="dlPageInfo.Save()">保存</a>
+            <a class="btn btn-primary" ng-click="oiPageInfo.Save()">保存</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
 </div>
+
+
+

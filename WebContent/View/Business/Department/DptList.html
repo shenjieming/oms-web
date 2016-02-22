@@ -1,1 +1,50 @@
-﻿测试中...
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">科室列表</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="DepartmentJump.Add()">新增</a>
+                    <a class="btn btn-primary" ng-click="DepartmentJump.Eduit()">编辑</a>
+                    <a class="btn btn-primary" ng-click="DepartmentJump.Delet()">删除</a>
+                    <a class="btn btn-primary" ng-click="DepartmentJump.View()">详情</a>
+                </span>
+            </header>
+            <div class="col-lg-3" style=" height:auto; max-height: 480px; overflow-y: auto; ">
+                <div ng-tree="" ng-setting="tree.setting" ng-data="tree.data" ng-model="tree.obj"></div>
+            </div>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="DepartmentList.info">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>医院名称</span></th>
+                                <th><span>医院编码</span> </th>
+                                <th><span>科室名称</span></th>
+                                <th><span>科室全称</span></th>
+                                <th><span>科室编码</span></th>
+                                <th><span>科室描述</span></th>
+                                <th><span>科室电话</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in DepartmentList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                                <td>{{$index+1}}</td>
+                                <td><span>{{row.hPCodeName}}</span></td>
+                                <td><span>{{row.hPCode}}</span></td>
+                                <td><span>{{row.wardDeptName}}</span></td>
+                                <td><span>{{row.wardDeptFullName}}</span></td>
+                                <td><span>{{row.wardDeptCode}}</span></td>
+                                <td><span>{{row.wardDeptDesc}}</span></td>
+                                <td><span>{{row.wardDeptTel}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -428,6 +428,7 @@ var ApiPath = {
         deleteDlsoEventNoTificationCfg:"/v2/bizData/deleteDlsoEventNoTificationCfg",
     },
     ManaDepartment: {
+
         //科室管理列表
         bizDataWDList:"/v2/bizDataDL/bizDataWDList",
         //科室管理详细
@@ -458,6 +459,10 @@ var ApiPath = {
         //附加上传
         upload:"/v2/upload/biz",
         //事件选择列表
-        event:"/v2/common/order/eventComboxList"
+        event: "/v2/common/order/eventComboxList",
+        //通用-全部医院下拉列表(下拉框)-查询经销商医院关系表
+        hosptailComboxListByDLHPRel: " /v2/hosptailComboxListByDLHPRel",
+        //货主下拉框(下拉框)-物料使用
+        oiMedMaterialComboxList: "/v2/order/common/oiMedMaterialComboxList",
     }
 }

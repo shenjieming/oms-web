@@ -10,13 +10,16 @@
 app.controller("DlOrgEduitController", function ($scope, $state, $local, $Api, $MessagService, $stateParams) {
     /// <summary>经销商新增</summary>
     $scope.dlPageInfo = {
-        Info: {},
+        Info: {certStatus:true},
         Load: function (callback) {
             if ($stateParams.dlopt) {
                 $scope.dlopt = $stateParams.dlopt;
                 $scope.dlPageInfo.GetDlOrgDetail();
                 console.log($scope.dlopt)
             }
+        },
+        checkIs: function () {
+            $scope.dlPageInfo.certStatus = !$scope.dlPageInfo.certStatus;
         },
         GetDlOrgDetail: function () {
             /// <summary>获取经销商详情</summary>

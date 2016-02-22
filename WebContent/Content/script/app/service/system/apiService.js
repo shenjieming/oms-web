@@ -782,6 +782,14 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
         },
         ManaHospital: {
             //医院管理信息
+            Save: function (data, callback) {
+                /// <summary>保存医院信息</summary>
+                if (data.hPCode) {//存在orgCode编辑
+                    service.Post(ApiPath.ManaHospital.updateHospital, data, callback);
+                } else {//不存在orgCode新增
+                    service.Post(ApiPath.ManaHospital.addHospital, data, callback);
+                }
+            },
             GetqueryAllHospital: function (data, callback) {
                 /// <summary>获取医院列表</summary>
                 service.Post(ApiPath.ManaHospital.queryAllHospital, data, callback);
@@ -802,23 +810,23 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
         ManaDocter: {
             //医生管理信息
             GetqueryAllHospital: function (data, callback) {
-                /// <summary>获取医院列表</summary>
+                /// <summary>获取医生列表</summary>
                 service.Post(ApiPath.ManaDocter.bizDataDoctorList, data, callback);
             },
             GetbizDataDoctorDetail: function (data, callback) {
-                /// <summary>获取医院详细</summary>
+                /// <summary>获取医生详细</summary>
                 service.Post(ApiPath.ManaDocter.bizDataDoctorDetail, data, callback);
             },
             GetbizDataDoctorAdd: function (data, callback) {
-                /// <summary>获取医院新增</summary>
+                /// <summary>获取医生新增</summary>
                 service.Post(ApiPath.ManaDocter.bizDataDoctorAdd, data, callback);
             },
             GetbizDataDoctorModify: function (data, callback) {
-                /// <summary>获取医院列表</summary>
+                /// <summary>获取医生修改 </summary>
                 service.Post(ApiPath.ManaDocter.bizDataDoctorModify, data, callback);
             },
             GetbizDataDoctorDisable: function (data, callback) {
-                /// <summary>获取医院列表</summary>
+                /// <summary>获取医生列表</summary>
                 service.Post(ApiPath.ManaDocter.bizDataDoctorDisable, data, callback);
             },
             GetbizDataDoctorEnable: function (data, callback) {
@@ -860,7 +868,7 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 service.Post(ApiPath.ManaDepartment.bizDataWDAdd, data, callback);
             },
             GetbizDataWDModify: function (data, callback) {
-                /// <summary>科室修改</summary>
+                /// <summary>科室管理修改</summary>
                 service.Post(ApiPath.ManaDepartment.bizDataWDModify, data, callback);
             },
             GetbizDataWDDisable: function (data, callback) {
@@ -875,19 +883,19 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
         ManaWareHouse: {
             //仓库管理
             GetqueryWareHouse: function (data, callback) {
-                /// <summary>科室启用</summary>
+                /// <summary>仓库列表</summary>
                 service.Post(ApiPath.ManaWareHouse.queryWareHouse, data, callback);
             },
             GetqueryWareHouseDetail: function (data, callback) {
-                /// <summary>科室启用</summary>
+                /// <summary>仓库详情</summary>
                 service.Post(ApiPath.ManaWareHouse.queryWareHouseDetail, data, callback);
             },
             GetaddWareHouse: function (data, callback) {
-                /// <summary>科室启用</summary>
+                /// <summary>仓库新增</summary>
                 service.Post(ApiPath.ManaWareHouse.addWareHouse, data, callback);
             },
             GetupdateWareHouse: function (data, callback) {
-                /// <summary>科室启用</summary>
+                /// <summary>仓库编辑</summary>
                 service.Post(ApiPath.ManaWareHouse.updateWareHouse, data, callback);
             },
         },
@@ -914,6 +922,16 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 /// <summary>获取事件选择列表</summary>
                 $MessagService.loading("数据获取中，请稍等...");
                 service.Post(ApiPath.Public.event, data, callback);
+            },
+            GetHosptailComboxListByDLHPRel: function (data, callback) {
+                /// <summary>//通用-全部医院下拉列表(下拉框)-查询经销商医院关系表</summary>
+                $MessagService.loading("数据获取中，请稍等...");
+                service.Post(ApiPath.Public.hosptailComboxListByDLHPRel, data, callback);
+            },
+            GetOiMedMaterialComboxList: function (data, callback) {
+                /// <summary>//货主下拉框(下拉框)-物料使用</summary>
+                $MessagService.loading("数据获取中，请稍等...");
+                service.Post(ApiPath.Public.oiMedMaterialComboxList, data, callback);
             }
         }
     };

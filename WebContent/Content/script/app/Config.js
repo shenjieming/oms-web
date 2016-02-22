@@ -722,7 +722,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
        .state("app.business.hplmanagement", {
            /// <summary>医院列表</summary>
            url: "/hplmanagement",
-           templateUrl: "View/Business/Hospital/DlOrgList.html?data=" + Timestamp,
+           templateUrl: "View/Business/Hospital/HplList.html?data=" + Timestamp,
            controller: "HplListController",
            loadJs: ["Content/script/app/Business/Hospital/JS_HplList.js"],
            resolve: app.resolve
@@ -749,7 +749,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     $stateProvider
        .state("app.business.dptmanagement", {
            /// <summary>科室列表</summary>
-           url: "/oiorganization",
+           url: "/dptmanagement",
            templateUrl: "View/Business/Department/DptList.html?data=" + Timestamp,
            controller: "DptListController",
            loadJs: ["Content/script/app/Business/Department/JS_DptList.js"],
@@ -757,7 +757,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
        })
       .state("app.business.dptmanagementEduit", {
           /// <summary>科室编辑</summary>
-          url: "/oiorganizationEduit/:oiopt",
+          url: "/dptmanagementEduit/:oiopt",
           templateUrl: "View/Business/Department/DptEduit.html?data=" + Timestamp,
           controller: "DptEduitController",
           loadJs: ["Content/script/app/Business/Department/JS_DptEduit.js"],
@@ -765,7 +765,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
       })
        .state("app.business.dptmanagementView", {
            /// <summary>科室详情</summary>
-           url: "/oiorganizationView/:oiopt",
+           url: "/dptmanagementView/:oiopt",
            templateUrl: "View/Business/Department/DptView.html?data=" + Timestamp,
            controller: "DptViewController",
            loadJs: ["Content/script/app/Business/Department/JS_DptView.js"],
@@ -777,7 +777,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     $stateProvider
        .state("app.business.dtrmanagement", {
            /// <summary>医生列表</summary>
-           url: "/oiorganization",
+           url: "/dtrmanagement",
            templateUrl: "View/Business/Department/DtrList.html?data=" + Timestamp,
            controller: "DtrListController",
            loadJs: ["Content/script/app/Business/Department/JS_DtrList.js"],
@@ -785,7 +785,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
        })
       .state("app.business.dtrmanagementEduit", {
           /// <summary>医生编辑</summary>
-          url: "/oiorganizationEduit/:oiopt",
+          url: "/dtrmanagementEduit/:oiopt",
           templateUrl: "View/Business/Department/DtrEduit.html?data=" + Timestamp,
           controller: "DtrEduitController",
           loadJs: ["Content/script/app/Business/Department/JS_DtrEduit.js"],
@@ -793,7 +793,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
       })
        .state("app.business.dtrmanagementView", {
            /// <summary>医生详情</summary>
-           url: "/oiorganizationView/:oiopt",
+           url: "/dtrmanagementView/:oiopt",
            templateUrl: "View/Business/Department/DtrView.html?data=" + Timestamp,
            controller: "DtrViewController",
            loadJs: ["Content/script/app/Business/Department/JS_DtrView.js"],
