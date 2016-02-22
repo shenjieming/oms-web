@@ -357,7 +357,11 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             $scope.Integrated.OrderList = new Array();
             var paramData = $.extend($scope.Pagein, param);
             console.log(paramData)
-            $Api.SurgeryService.DataSources.GetOrderList(paramData, function (rData) {
+            var GetList = $Api.SurgeryService.DataSources.GetOrderList;
+            if (!paramData.opt) {
+                GetList = $Api.SurgeryService.DataSources.GetIntegratedOrderInquiry;
+            }
+            GetList(paramData, function (rData) {
                 $scope.Pagein.total = rData.total;
                 $scope.Integrated.OrderList = rData.rows;
             });

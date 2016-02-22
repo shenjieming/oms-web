@@ -11,6 +11,8 @@ app.controller("StockApprovalListController", function ($scope, $state, $local, 
     /// <summary>备货订单审批控制器</summary>
     $scope.title = "待审批订单列表";
 
+    //数据清空
+    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
     $scope.Integrated.GetStockList({ opt: "INSTK_ADUIT_LIST" });
 
     $scope.Competence = {

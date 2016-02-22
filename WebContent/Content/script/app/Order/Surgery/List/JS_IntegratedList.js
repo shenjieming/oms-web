@@ -14,34 +14,15 @@ app.controller("IntegratedListController", function ($scope, $state, $local, $Ap
     $scope.title = "综合订单查询";
     $scope.Competence = {
     };
-    $scope.Integrated.GetOrderList = function () {
-        /// <summary>获取我的订单数据列表</summary>
-        $MessagService.loading("综合订单获取中，请稍等...");
-        $scope.Pagein.total = 0;
-        $scope.Integrated.OrderList = new Array();
-        var paramData = $.extend($scope.Pagein, { soType: "OPER" });
-        $Api.SurgeryService.DataSources.GetIntegratedOrderInquiry(paramData, function (rowdata) {
-            $scope.Integrated.OrderList = rowdata.rows;
-            $scope.Pagein.total = rowdata.total;
-        });
-    }
-
 
     $scope.showViewDetail = function (sono) {
         /// <summary>查看手术订单</summary>
         $local.setValue("ORDERCOMP", {});
         $scope.GetRowGoPage("app.order.view");
     }
-    $scope.Pagein = {
-        pageSize: 10,
-        pageIndex: 1,
-        callbake: function () {
-            $scope.Integrated.GetOrderList();
-        }
-    }
-    $scope.Integrated.GetOrderList();
-
-
+    //条件清空
+    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
+    $scope.Integrated.GetOrderList({ opt: false, soType: "OPER" });
     $scope.ListCompetence = {
         /// <summary>列表权限</summary>
         initMedProdLnCodeName: false
