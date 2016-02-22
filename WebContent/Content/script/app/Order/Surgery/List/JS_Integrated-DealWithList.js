@@ -14,6 +14,8 @@ app.controller("DealWithListController", function ($scope, $state, $local, $Api,
     $scope.Competence = {
         dealwith: true
     };
+    //条件清空
+    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
     $scope.Integrated.GetOrderList({ opt: "OPER_PROCESS_LIST" });
     $scope.showView = function (sono) {
         /// <summary>查看手术订单</summary>

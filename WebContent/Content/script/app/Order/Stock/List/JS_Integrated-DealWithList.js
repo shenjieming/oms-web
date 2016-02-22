@@ -14,6 +14,8 @@ app.controller("StockDealWithListController", function ($scope, $state, $local, 
     $scope.Competence = {
         dealwith: true
     };
+    //数据清空
+    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
     $scope.Integrated.GetStockList({ opt: "INSTK_PROCESS_LIST" });
     $scope.showView = function (sono) {
         /// <summary>查看备货订单</summary>

@@ -13,5 +13,7 @@ app.controller("BackListController", function ($scope, $state, $local, $Api, $Me
     $scope.Competence = {
         back: true
     };
+    //条件清空
+    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
     $scope.Integrated.GetOrderList({ opt: "OPER_PROCESSBACK_LIST" });
 });

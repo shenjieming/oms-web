@@ -12,5 +12,7 @@ app.controller("MyStockListController", function ($scope, $state, $local, $Api, 
     $scope.title = "我的备货";
     $scope.Competence = {
     };
+    //数据清空
+    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
     $scope.Integrated.GetStockList({ opt: "INSTK_MYORDER_LIST" });
 });

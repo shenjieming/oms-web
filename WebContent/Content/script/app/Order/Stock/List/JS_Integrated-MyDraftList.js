@@ -15,6 +15,8 @@ app.controller("StockMyDraftListController", function ($scope, $state, $local, $
         modify: true,
         submit:true
     };
+    //数据清空
+    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
     $scope.showView = function (sono) {
         /// <summary>查看备货订单</summary>
         $state.go("app.stock.single", { sono: sono });
