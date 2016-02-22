@@ -74,16 +74,16 @@ app.controller("DlOrgEduitController", function ($scope, $state, $local, $Api, $
     //"corpRegTaxNo":"企业注册信息--税号", 
     //"corpRegCurrencyCodeName":"币别名称",  
     //"validStatusName":"有效性"， 
-     "corpRegBizScope":"企业注册信息-经营范围",
-    "corpRegCountryCodeName":"企业注册信息---所在国家名称",  
-    "corpRegProvinceCodeName":"企业注册信息--所在省名称",    
-    "corpRegCityCodeName":"企业注册信息--所在市名称",       
-    "corpRegDistrictCodeName":"企业注册信息--所在区名称",
-    "corpRegCountryCode":"企业注册信息--企业所在国家编码",    
-    "corpRegProvinceCode":"企业注册信息--企业所在省",    
-    "corpRegCityCode":"企业注册信息--企业所在市",   
-    "corpRegDistrictCode":"企业注册信息--企业所在区",  
-    "corpRegAddress":"企业注册信息--业地址",           
+    // "corpRegBizScope":"企业注册信息-经营范围",
+    //"corpRegCountryCodeName":"企业注册信息---所在国家名称",  
+    //"corpRegProvinceCodeName":"企业注册信息--所在省名称",    
+    //"corpRegCityCodeName":"企业注册信息--所在市名称",       
+    //"corpRegDistrictCodeName":"企业注册信息--所在区名称",
+    //"corpRegCountryCode":"企业注册信息--企业所在国家编码",    
+    //"corpRegProvinceCode":"企业注册信息--企业所在省",    
+    //"corpRegCityCode":"企业注册信息--企业所在市",   
+    //"corpRegDistrictCode":"企业注册信息--企业所在区",  
+    //"corpRegAddress":"企业注册信息--业地址",           
     "contact1Func":"联系人1用途",      
     "contact1Name":"联系人1名称",   
     "contact1Email"："联系人邮箱",    
@@ -110,19 +110,17 @@ app.controller("DlOrgEduitController", function ($scope, $state, $local, $Api, $
     "Contact2FuncName":"联系人2--用途名称",       
     "contact2PMsgTypeName":"联系人2--即时通讯类型名称",      
     "contact3FuncName":"联系人3--用途"，   
-    "contact3PMsgTypeName":"联系人3--即时通讯类型名称"
-
-           
-    "corpBizCountryCode":"企业经营信息-所在国家",    
-    "corpBizProvinceCode":"企业经营信息-所在省",  
-    "corpBizCityCode":"企业经营信息-所在市",    
-    "corpBizDistrictCode":"企业经营信息-所在区",    
-    "corpBizAddress":"企业经营信息-地址",    
-    "corpBizPostcode":"企业经营信息-邮政编码",  
-    "corpBizCountryCodeName":"企业运营信息--所在国家",   
-    "corpBizProvinceCodeName":"企业运营信息--所在省名称",   
-    "corpBizCityCodeName":"企业运营信息--所在市名称",    
-    "corpBizDistrictCodeName":"企业运营信息--所在区名称",      
-    "createByName":"创建人"，       
-    "updateByName":"修改人"， }
+    "contact3PMsgTypeName":"联系人3--即时通讯类型名称"           
+    //"corpBizCountryCode":"企业经营信息-所在国家",    
+    //"corpBizProvinceCode":"企业经营信息-所在省",  
+    //"corpBizCityCode":"企业经营信息-所在市",    
+    //"corpBizDistrictCode":"企业经营信息-所在区",    
+    //"corpBizAddress":"企业经营信息-地址",    
+    //"corpBizPostcode":"企业经营信息-邮政编码",  
+    //"corpBizCountryCodeName":"企业运营信息--所在国家",   
+    //"corpBizProvinceCodeName":"企业运营信息--所在省名称",   
+    //"corpBizCityCodeName":"企业运营信息--所在市名称",    
+    //"corpBizDistrictCodeName":"企业运营信息--所在区名称",      
+    //"createByName":"创建人"，       
+    //"updateByName":"修改人"， }
 

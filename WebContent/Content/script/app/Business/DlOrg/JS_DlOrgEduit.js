@@ -12,10 +12,10 @@ app.controller("DlOrgEduitController", function ($scope, $state, $local, $Api, $
     $scope.dlPageInfo = {
         Info: {},
         Load: function (callback) {
-            if ($stateParams.opt) {
-                $scope.opt = $stateParams.opt;
+            if ($stateParams.dlopt) {
+                $scope.dlopt = $stateParams.dlopt;
                 $scope.dlPageInfo.GetDlOrgDetail();
-                console.log($scope.opt)
+                console.log($scope.dlopt)
             }
         },
         GetDlOrgDetail: function () {

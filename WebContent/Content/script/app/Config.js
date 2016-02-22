@@ -638,6 +638,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             resolve: app.resolve
         })
 });
+//经销商、货主、关系
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary>经销商组织管理</summary>
     $stateProvider
@@ -673,7 +674,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
            /// <summary>货主组织列表</summary>
            url: "/oiorganization",
            templateUrl: "View/Business/OiOrg/OiOrgList.html?data=" + Timestamp,
-           controller: "SuiteListController",
+           controller: "OiOrgListController",
            loadJs: ["Content/script/app/Business/OiOrg/JS_OiOrgList.js"],
            resolve: app.resolve
        })
@@ -681,7 +682,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
           /// <summary>货主组织编辑</summary>
           url: "/oiorganizationEduit/:oiopt",
           templateUrl: "View/Business/OiOrg/OiOrgEduit.html?data=" + Timestamp,
-          controller: "SuiteEduitController",
+          controller: "OiOrgEduitController",
           loadJs: ["Content/script/app/Business/OiOrg/JS_OiOrgEduit.js"],
           resolve: app.resolve
       })
@@ -700,17 +701,102 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
        .state("app.business.relmanagement", {
            /// <summary>经销商货主关系列表</summary>
            url: "/relmanagement",
-           templateUrl: "View/Business/Suite/SuiteList.html?data=" + Timestamp,
-           controller: "SuiteListController",
-           loadJs: ["Content/script/app/Business/Suite/JS_SuiteList.js"],
+           templateUrl: "View/Business/RelMan/RelManList.html?data=" + Timestamp,
+           controller: "RelManListController",
+           loadJs: ["Content/script/app/Business/RelMan/JS_RelManList.js"],
            resolve: app.resolve
        })
-       .state("app.business.relmanagementView", {
+       .state("app.business.relmanagement.relmanagementView", {
            /// <summary>经销商货主关系编辑</summary>
-           url: "/relmanagementView",
-           templateUrl: "View/Business/Suite/SuiteEduit.html?data=" + Timestamp,
-           controller: "SuiteEduitController",
-           loadJs: ["Content/script/app/Business/Suite/JS_SuiteEduit.js"],
+           url: "/relmanagementView/:relopt",
+           templateUrl: "View/Business/RelMan/RelManView.html?data=" + Timestamp,
+           controller: "RelManViewController",
+           loadJs: ["Content/script/app/Business/RelMan/JS_RelManView.js"],
+           resolve: app.resolve
+       })
+});
+//医院、科室、医生
+app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
+    /// <summary>医院管理</summary>
+    $stateProvider
+       .state("app.business.hplmanagement", {
+           /// <summary>医院列表</summary>
+           url: "/hplmanagement",
+           templateUrl: "View/Business/Hospital/DlOrgList.html?data=" + Timestamp,
+           controller: "HplListController",
+           loadJs: ["Content/script/app/Business/Hospital/JS_HplList.js"],
+           resolve: app.resolve
+       })
+       .state("app.business.hplmanagementEduit", {
+           /// <summary>医院编辑</summary>
+           url: "/hplmanagementEduit/:hplopt",
+           templateUrl: "View/Business/Hospital/HplEduit.html?data=" + Timestamp,
+           controller: "HplEduitController",
+           loadJs: ["Content/script/app/Business/Hospital/JS_HplEduit.js"],
+           resolve: app.resolve
+       })
+        .state("app.business.hplmanagementView", {
+            /// <summary>医院详情</summary>
+            url: "/hplmanagementView/:hplopt",
+            templateUrl: "View/Business/Hospital/HplView.html?data=" + Timestamp,
+            controller: "HplViewController",
+            loadJs: ["Content/script/app/Business/Hospital/JS_HplView.js"],
+            resolve: app.resolve
+        })
+});
+app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
+    /// <summary>科室管理</summary>
+    $stateProvider
+       .state("app.business.dptmanagement", {
+           /// <summary>科室列表</summary>
+           url: "/oiorganization",
+           templateUrl: "View/Business/Department/DptList.html?data=" + Timestamp,
+           controller: "DptListController",
+           loadJs: ["Content/script/app/Business/Department/JS_DptList.js"],
+           resolve: app.resolve
+       })
+      .state("app.business.dptmanagementEduit", {
+          /// <summary>科室编辑</summary>
+          url: "/oiorganizationEduit/:oiopt",
+          templateUrl: "View/Business/Department/DptEduit.html?data=" + Timestamp,
+          controller: "DptEduitController",
+          loadJs: ["Content/script/app/Business/Department/JS_DptEduit.js"],
+          resolve: app.resolve
+      })
+       .state("app.business.dptmanagementView", {
+           /// <summary>科室详情</summary>
+           url: "/oiorganizationView/:oiopt",
+           templateUrl: "View/Business/Department/DptView.html?data=" + Timestamp,
+           controller: "DptViewController",
+           loadJs: ["Content/script/app/Business/Department/JS_DptView.js"],
+           resolve: app.resolve
+       })
+});
+app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
+    /// <summary>医生管理</summary>
+    $stateProvider
+       .state("app.business.dtrmanagement", {
+           /// <summary>医生列表</summary>
+           url: "/oiorganization",
+           templateUrl: "View/Business/Department/DtrList.html?data=" + Timestamp,
+           controller: "DtrListController",
+           loadJs: ["Content/script/app/Business/Department/JS_DtrList.js"],
+           resolve: app.resolve
+       })
+      .state("app.business.dtrmanagementEduit", {
+          /// <summary>医生编辑</summary>
+          url: "/oiorganizationEduit/:oiopt",
+          templateUrl: "View/Business/Department/DtrEduit.html?data=" + Timestamp,
+          controller: "DtrEduitController",
+          loadJs: ["Content/script/app/Business/Department/JS_DtrEduit.js"],
+          resolve: app.resolve
+      })
+       .state("app.business.dtrmanagementView", {
+           /// <summary>医生详情</summary>
+           url: "/oiorganizationView/:oiopt",
+           templateUrl: "View/Business/Department/DtrView.html?data=" + Timestamp,
+           controller: "DtrViewController",
+           loadJs: ["Content/script/app/Business/Department/JS_DtrView.js"],
            resolve: app.resolve
        })
 });

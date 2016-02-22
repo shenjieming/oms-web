@@ -28,13 +28,13 @@ app.controller("DlOrgListController", function ($scope, $state, $local, $Api, $M
         },
         Eduit: function () {
             /// <summary>经销商编辑</summary>
-            var opt = $scope.getSelectedRow()
-            $state.go("app.business.dlorganizationEduit", { opt: opt.orgCode });
+            var dlopt = $scope.getSelectedRow()
+            $state.go("app.business.dlorganizationEduit", { dlopt: dlopt.orgCode });
         },
         View: function () {
             /// <summary>经销商详情</summary>
-            var opt = $scope.getSelectedRow()
-            $state.go("app.business.dlorganizationView", { opt: opt.orgCode });
+            var dlopt = $scope.getSelectedRow()
+            $state.go("app.business.dlorganizationView", { dlopt: dlopt.orgCode });
         },
     }
     $scope.getSelectedRow = function () {

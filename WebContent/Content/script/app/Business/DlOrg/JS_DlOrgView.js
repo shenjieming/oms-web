@@ -12,8 +12,9 @@ app.controller("DlOrgViewController", function ($scope, $state, $local, $Api, $M
     $scope.DlOrgView = {
         Info:[],
         GetDlOrgDetail: function () {
+            $scope.dlopt = $stateParams.dlopt;
             /// <summary>获取经销商详情</summary>
-            $Api.ManageDl.GetqueryDealerDetail({ orgCode: $scope.opt }, function (rData) {
+            $Api.ManageDl.GetqueryDealerDetail({ orgCode: $scope.dlopt }, function (rData) {
                 $scope.DlOrgView.Info = rData;
                 console.log(rData)
             })

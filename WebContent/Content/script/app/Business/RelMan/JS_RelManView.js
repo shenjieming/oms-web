@@ -7,16 +7,15 @@
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
 
-app.controller("OiOrgViewController", function ($scope, $state, $local, $Api, $MessagService, $stateParams) {
-    /// <summary>货主详情</summary>
+app.controller("relmanagementViewController", function ($scope, $state, $local, $Api, $MessagService, $stateParams) {
+    /// <summary>货主经销商详关系详情</summary>
     $scope.OiOrgView = {
         Info: [],
         GetOiOrgDetail: function () {
-            /// <summary>获取货主详情</summary>
-            $scope.oiopt = $stateParams.oiopt;
-            $Api.ManageOi.queryOwnerOfInventoryDetail({ orgCode: $scope.oiopt }, function (rData) {
+            /// <summary>获取货主经销商详关系详情</summary>
+            $scope.relopt = $stateParams.relopt;
+            $Api.ManageOIDLRel.GetoidlRelCrtsts({ orgCode: $scope.opt }, function (rData) {
                 $scope.OiOrgView.Info = rData;
-                console.log(rData)
             })
         },
     }

@@ -118,13 +118,63 @@
                     <label>
                         区域编码：<input type="text" ng-model="dlPageInfo.Info.corpRegDistrictCode" placeholder="请输入区域编码" />
                     </label>
-                    <label style="width:66.8%">
+                    <label>
+                        区域名称：<input type="text" ng-model="dlPageInfo.Info.corpRegDistrictCodeName" placeholder="请输入区域名称" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
                         企业地址：<input type="text" style="width:80%" ng-model="dlPageInfo.Info.corpRegAddress" placeholder="请输入该企业地址" />
                     </label>
                 </div>
             </div>
         </div>
-
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#OperateInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>运营信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="OperateInformation">
+                <div class="control-group ">
+                    <label>
+                        国家编码：<input type="text" ng-model="dlPageInfo.Info.corpBizCountryCode" placeholder="请输入国家编码" />
+                    </label>
+                    <label>
+                        国家名称：<input type="text" ng-model="dlPageInfo.Info.corpBizCountryCodeCodeName" placeholder="请输入国家名称" />
+                    </label>
+                    <label>
+                        省级编码：<input type="text" ng-model="dlPageInfo.Info.corpBizProvinceCode" placeholder="请输入省级编码" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        省级名称：<input type="text" ng-model="dlPageInfo.Info.corpBizProvinceCodeName" placeholder="请输入省级名称" />
+                    </label>
+                    <label>
+                        市级编码：<input type="text" ng-model="dlPageInfo.Info.corpBizCityCode" placeholder="请输入市级编码" />
+                    </label>
+                    <label>
+                        市级名称：<input type="text" ng-model="dlPageInfo.Info.corpBizCityCodeName" placeholder="请输入市级名称" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        区域编码：<input type="text" ng-model="dlPageInfo.Info.corpBizDistrictCode" placeholder="请输入区域编码" />
+                    </label>
+                    <label>
+                        区域名称：<input type="text" ng-model="dlPageInfo.Info.corpBizDistrictCodeName" placeholder="请输入区域名称" />
+                    </label>
+                    <label>
+                        邮政编码：<input type="text" ng-model="dlPageInfo.Info.corpBizPostcode" placeholder="请输入邮政编码" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        企业地址：<input type="text" style="width:80%" ng-model="dlPageInfo.Info.corpBizAddress" placeholder="请输入该企业地址" />
+                    </label>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="tools">
         <span style="float:right;">
