@@ -45,7 +45,9 @@ var ApiPath = {
             //返库申请
             feedBackApply: "/v2/common/order/feedBackApply",
             //订单返库
-            back: "/v2/order/commintReturnWareHouseOrder"
+            back: "/v2/order/commintReturnWareHouseOrder",
+            //反馈单暂存
+            backsave: "/v2/order/temporarySaveReturnWareHouseOrder"
         },
         Approval: {
             /// <summary>订单审批</summary>
@@ -315,7 +317,7 @@ var ApiPath = {
         //物料列表
         MedMater: {
             //物料列表
-            searchMedMaterialItem:"/v2/template/common/searchMedMaterialItem",
+            searchMedMaterialItem: "/v2/template/common/searchMedMaterialItem",
             //物料添加
             saveMedMaterialItem: "/v2/template/common/saveMedMaterialItem",
             //物料删除
@@ -328,141 +330,44 @@ var ApiPath = {
         //仓库列表
         Warehouse: {
             //获取仓库列表
-            queryWareHouse:"/v2/bizData/queryWareHouse",
+            queryWareHouse: "/v2/bizData/queryWareHouse",
             //获取仓库详情
             queryWareHouseDetail: "/v2/bizData/queryWareHouseDetail",
         },
         //库区
         Reservoir: {
             //获取库区列表
-            queryAllWhzone:"/v2/bizData/queryAllWhzone",
+            queryAllWhzone: "/v2/bizData/queryAllWhzone",
         },
         //套件管理
         ManSuite: {
             //获取套件列表
-            searchHMedKit:"/v2/template/common/searchHMedKit",
+            searchHMedKit: "/v2/template/common/searchHMedKit",
             //获取套件详情
             searchHMedKitDetail: "/v2/template/common/searchHMedKitDetail",
             //获取套件修改
-            updateHMedKit:"/v2/template/common/updateHMedKit",
+            updateHMedKit: "/v2/template/common/updateHMedKit",
             //获取套件删除
-            deleteHMedKit:"/v2/template/common/deleteHMedKit",
+            deleteHMedKit: "/v2/template/common/deleteHMedKit",
             //获取套件添加
-            insertHMedKit:"/v2/template/common/insertHMedKit",
+            insertHMedKit: "/v2/template/common/insertHMedKit",
         },
         MedJournal: {
             //平台信息列表
-            queryAllPlatForm:"/v2/bizData/queryAllPlatForm",
+            queryAllPlatForm: "/v2/bizData/queryAllPlatForm",
             //平台信息编辑
-            updatePlatForm:"/v2/bizData/updatePlatForm",
+            updatePlatForm: "/v2/bizData/updatePlatForm",
         },
         /// <summary>获取厂商编码查询品牌</summary>
-        queryBrandByManufacture:"/v2/basebusinessdata/common/queryBrandByManufacture"
-    },
-   
-
-
-/////// 业务基础数据
-    ManageDl:{
-        //经销商列表
-        queryAllDealer:"/v2/bizData/queryAllDealer",
-        //经销商详情
-        queryDealerDetail:"/v2/bizData/queryDealerDetail",
-        //经销商修改
-        updateDealer: "/v2/bizData/updateDealer",
-        //经销商新增
-        addDealer: "/v2/bizData/addDealer",
-    },
-    ManageOIDLRel:{
-        //货主经销商关系列表
-        queryAllOIDLRel:"/v2/bizData/queryAllOIDLRel",
-        //货主经销商关系认证
-        deleteOwnerOfInventory:"/v2/bizData/deleteOwnerOfInventory",
-        //货主经销商关系详情
-        oidlRelCrtsts:"/v2/bizData/oidlRelCrtsts",
-    },
-    ManageOi: {
-        //货主组织管理列表
-        queryAllOwnerOfInventory:"/v2/bizData/queryAllOwnerOfInventory",
-        //货主组织管理详情
-        queryOwnerOfInventoryDetail:"/v2/bizData/queryOwnerOfInventoryDetail",
-        //货主组织管理新增
-        addOwnerOfInventory:"/v2/bizData/addOwnerOfInventory",
-        //货主组织管理修改
-        updateOwnerOfInventory:"/v2/bizData/updateOwnerOfInventory",
-        //货主组织管理删除
-        deleteOwnerOfInventory:"/v2/bizData/deleteOwnerOfInventory",
-    },
-    ManaHospital: {
-        //医院列表
-        queryAllHospital:"/v2/bizData/queryAllHospital",
-        //医院新增
-        addHospital:"/v2/bizData/addHospital",
-        //医院编辑
-        updateHospital:"/v2/bizData/updateHospital",
-        //医院删除
-        deleteHospital:"/v2/bizData/deleteHospital",
-    },
-    ManaDocter: {
-        //医生管理列表
-        bizDataDoctorList:"/v2/bizDataDL/bizDataDoctorList",
-        //医生管理详细
-        bizDataDoctorDetail:"/v2/bizDataDL/bizDataDoctorDetail",
-        //医生管理新增
-        bizDataDoctorAdd:"/v2/bizDataDL/bizDataDoctorAdd",
-        //医生管理修改
-        bizDataDoctorModify:"/v2/bizDataDL/bizDataDoctorModify",
-        //医生管理禁用
-        bizDataDoctorDisable:"/v2/bizDataDL/bizDataDoctorDisable",
-        //医生管理启用
-        bizDataDoctorEnable:"/v2/bizDataDL/bizDataDoctorEnable",
-    },
-    ManaEvent:{
-        //经销商事件通知配置列表
-        queryAllDlsoEventNoTificationCfg:"/v2/bizData/queryAllDlsoEventNoTificationCfg",
-        //经销商事件通知配置新增
-        addDlsoEventNoTificationCfg:"/v2/bizData/addDlsoEventNoTificationCfg",
-        //经销商事件通知配置修改
-        updateDlsoEventNoTificationCfg:"/v2/bizData/updateDlsoEventNoTificationCfg",
-        //经销商事件通知配置删除
-        deleteDlsoEventNoTificationCfg:"/v2/bizData/deleteDlsoEventNoTificationCfg",
-    },
-    ManaDepartment: {
-
-        //科室管理列表
-        bizDataWDList:"/v2/bizDataDL/bizDataWDList",
-        //科室管理详细
-        bizDataWDDetail:"/v2/bizDataDL/bizDataWDDetail",
-        //科室管理新增
-        bizDataWDAdd:"/v2/bizDataDL/bizDataWDAdd",
-        //科室管理修改
-        bizDataWDModify:"/v2/bizDataDL/bizDataWDModify",
-        //科室管理禁用
-        bizDataWDDisable:"/v2/bizDataDL/bizDataWDDisable",
-        //科室管理启用
-        bizDataWDEnable:"/v2/bizDataDL/bizDataWDEnable",
-    },
-    ManaWareHouse: {
-        //仓库列表
-        queryWareHouse:"/v2/bizData/queryWareHouse",
-        //仓库详情
-        queryWareHouseDetail:"/v2/bizData/queryWareHouseDetail",
-        //仓库新增
-        addWareHouse:"/v2/bizData/addWareHouse",
-        //仓库编辑
-        updateWareHouse:"/v2/bizData/updateWareHouse",
+        queryBrandByManufacture: "/v2/basebusinessdata/common/queryBrandByManufacture"
     },
     Public: {
         /// <summary>公开通用接口</summary>
         //数据字典
-        dictionary:"/v2/common/dict/list",
+        dictionary: "/v2/common/dict/list",
         //附加上传
-        upload:"/v2/upload/biz",
+        upload: "/v2/upload/biz",
         //事件选择列表
-        event: "/v2/common/order/eventComboxList",
-        //通用-全部医院下拉列表(下拉框)-查询经销商医院关系表
-        hosptailComboxListByDLHPRel: " /v2/hosptailComboxListByDLHPRel",
-        //货主下拉框(下拉框)-物料使用
-        oiMedMaterialComboxList: "/v2/order/common/oiMedMaterialComboxList",
+        event: "/v2/common/order/eventComboxList"
     }
 }

@@ -14,6 +14,9 @@ app.controller("StockSignListController", function ($scope, $state, $local, $Api
     $scope.Competence = {
         sign: true
     };
+
+    //数据清空
+    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
     $scope.Integrated.GetStockList({ opt: "INSTK_SIGN_LIST" });
 
     $scope.showView = function (sono) {

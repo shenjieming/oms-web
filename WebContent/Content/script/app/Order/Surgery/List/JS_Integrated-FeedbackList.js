@@ -12,6 +12,10 @@
 app.controller("FeedbackListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>反馈单草稿控制器</summary>
     $scope.title = "反馈处理草稿";
-   
-    $scope.Integrated.GetOrderList({ opt: "" });
+    $scope.Competence = {
+        back: true
+    };
+    //条件清空
+    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
+    $scope.Integrated.GetOrderList({ opt: "OPER_PROCESSBACK_DRAFT" });
 });

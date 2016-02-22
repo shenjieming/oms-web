@@ -198,7 +198,11 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
             /// <summary>获取我的订单数据列表</summary>
             $MessagService.loading("备货订单信息获取中，请稍等...");
             var paramData = $.extend($scope.Pagein, param);
-            $Api.StockService.DataSources.GetStockList(paramData, function (rData) {
+            var GetList = $Api.StockService.DataSources.GetStockList;
+            if (!paramData.opt) {
+                GetList = $Api.StockService.DataSources.GetIntegratedStockInquiry;
+            }
+            GetList(paramData, function (rData) {
                 $scope.Pagein.total = rData.total;
                 $scope.Integrated.StockList = rData.rows;
             });

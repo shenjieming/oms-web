@@ -12,5 +12,7 @@ app.controller("MyOrderListController", function ($scope, $state, $local, $Api, 
     $scope.title = "我的订单";
     $scope.Competence = {
     };
+    //条件清空
+    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
     $scope.Integrated.GetOrderList({ opt: "OPER_MYORDER_LIST" });
 });
