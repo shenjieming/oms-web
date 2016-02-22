@@ -31,6 +31,16 @@
                     </span>
                 </div>
                 <div class="control-group ">
+                    <label>
+                        <span class="required">*</span>
+                        <span style="float:left;line-height:32px;">送达要求：</span>
+                        <div class="input-group" style="float:left;width:180px;">
+                            <input type="text" class="form-control" placeholder="请选择送达要求" style="padding:8px;" ng-datatime="" ng-model="PageData.deliveryReqArrivalDate">
+                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </label>
+                </div>
+                <div class="control-group ">
                     <label style="line-height:23px;">
                         <span class="required" style="line-height:10px;">*</span>
                         收 货 人：{{PageData.deliveryContact?PageData.deliveryContact:"请选择收货地址"}}
@@ -39,19 +49,9 @@
                         <span class="required" style="line-height:10px;">*</span>
                         联系电话：{{PageData.deliveryrMobile?PageData.deliveryrMobile:"请选择收货地址"}}
                     </label>
-                </div>
-                <div class="control-group ">
                     <label>
                         <span class="required">*</span>配送方式：
                         <span ng-dictionary="TRANTP" ng-model="PageData.iniitCarrierTransType"></span>
-                    </label>
-                    <label>
-                        <span class="required">*</span>
-                        <span style="float:left;line-height:32px;">送达要求：</span>
-                        <div class="input-group" style="float:left;width:180px;">
-                            <input type="text" class="form-control" placeholder="请选择送达要求" style="padding:8px;" ng-datatime="" ng-model="PageData.deliveryReqArrivalDate">
-                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                        </div>
                     </label>
                 </div>
                 <div class="control-group ">

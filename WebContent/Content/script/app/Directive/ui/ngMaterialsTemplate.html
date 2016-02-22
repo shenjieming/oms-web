@@ -1,0 +1,41 @@
+﻿<div>
+    <ng-dialog ng-model="ngMaterialsTemplate">
+        <div class="main-box-body clearfix" style="padding:15px;max-height:450px;overflow:auto;">
+            <div class="table-responsive">
+                <table class="table table-bordered tab-striped" st-table="Service.List">
+                    <thead>
+                        <tr>
+                            <th><span>序号</span></th>
+                            <th><span>模板名称</span></th>
+                            <th><span>模板全称</span></th>
+                            <th><span>模板类型</span></th>
+                            <th><span>模板描述</span></th>
+                            <th><span>备注</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in Service.List" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="Service.Select(row)">
+                            <td>{{$index+1}}</td>
+                            <td>
+                                {{row.tmplName}}
+                            </td>
+                            <td>
+                                {{row.tmplFullName}}
+                            </td>
+                            <td>
+                                {{row.tmplTypeName}}
+                            </td>
+                            <td>
+                                {{row.tmplDesc}}
+                            </td>
+                            <td>
+                                {{row.remark}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-pagein="page" ng-model="Pagein"></div>
+        </div>
+    </ng-dialog>
+</div>

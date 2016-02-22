@@ -16,16 +16,20 @@ app.controller("StockIntegratedListController", function ($scope, $state, $local
     };
     $scope.Integrated.StockList = [];
     //$scope.Integrated.GetOrderList({ opt: "INSTK_ADUIT_LIST" });
-    $scope.Load = function () {
-        $MessagService.loading("综合订单获取中，请稍等..."); 
-        var paramData = $.extend({ soType: "INSTK" }, $scope.Pagein);
-        console.log($scope.Pagein)
-        $Api.StockService.DataSources.GetIntegratedStockInquiry(paramData, function (rowdata) {
-            $scope.Integrated.StockList = rowdata.rows;
-            $scope.Pagein.total = rowdata.total;
-            console.log(rowdata)
-        });
+
+    $scope.Integrated = {
+        StockList: new Array(),
+        GetStockList: function (param) {
+            /// <summary>获取我的订单数据列表</summary>
+            $MessagService.loading("综合订单获取中，请稍等...");
+            var paramData = $.extend($scope.Pagein, { soType: "INSTK" });
+            $Api.StockService.DataSources.GetIntegratedStockInquiry(paramData, function (rData) {
+                $scope.Pagein.total = rData.total;
+                $scope.Integrated.StockList = rData.rows;
+            });
+        }
     }
+   
     $scope.showViewDetail = function (sono) {
         /// <summary>查看手术订单</summary>
         $local.setValue("ORDERCOMP", {});
@@ -35,10 +39,10 @@ app.controller("StockIntegratedListController", function ($scope, $state, $local
         pageSize: 10,
         pageIndex: 1,
         callbake: function () {
-            $scope.Load();
+            $scope.Integrated.GetStockList();
         }
     }
-    $scope.Load();
+    $scope.Integrated.GetStockList();
 
 
     $scope.ListCompetence = {

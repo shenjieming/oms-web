@@ -12,6 +12,11 @@
                     <a class="btn btn-primary" ng-click="DealStock()" ng-show="Competence.dealwith"><i class="fa fa-wrench"></i>订单处理</a>
                     <a class="btn btn-primary" ng-click="showViewDetail()"><i class="fa fa-align-justify"></i>订单详情</a>
                 </span>
+                <div class="input-group" style="float:right;width:250px;margin-right:10px;">
+                    <input type="text" class="form-control" placeholder="请输入订单号"
+                           style="padding:8px;" ng-model="Pagein.sONo">
+                    <a class="input-group-addon" href="javascript:void(0)" ng-click="Integrated.GetStockList()"><i class="fa fa-search"></i></a>
+                </div>
             </header>
             <div class="main-box-body clearfix">
                 <div class="table-responsive list-box">

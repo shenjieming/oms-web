@@ -12,7 +12,7 @@
         </span>
     </div>
     <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
-
+    <div ng-materials-template="TemplateService" ng-model="PageData"></div>
     <div>
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active" href="#Original" data-toggle="tab"><a>原始订单</a></li>
@@ -64,7 +64,7 @@
                             <h5 style="width:80%" data-toggle="collapse" href="#pro_ProductInformation">产品信息
                                 {{ProductCompetence.ShowInfo}}
                             </h5>
-                            <a href="javascript:void(0)" class="btn" style="display:none;"><i class="fa fa-folder-open"></i>选择模板</a>
+                            <a href="javascript:void(0)" class="btn" ng-click="TemplateService.show()"><i class="fa fa-folder-open"></i>选择模板</a>
                         </div>
                         <div id="pro_ProductInformation" class="widget-content nopadding collapse in">
                             <div ng-product-view="dealProduct" ng-model="PageData" ng-service="ProductService" ng-comp="ProductCompetence"></div>

@@ -406,7 +406,6 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
 
     /*页面权限End*/
 });
-
 app.controller("SingleController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>手术下单下单控制器</summary>
     /*基础对象区域Begion*/
@@ -549,6 +548,17 @@ app.controller("SingleController", function ($scope, $state, $local, $Api, $Mess
                 deliveryCityName: rowInfo.cityCodeName, deliveryDistrictCode: rowInfo.districtCode, deliveryDistrictName: rowInfo.districtCodeName, deliveryAddress: rowInfo.address, iniitCarrierTransType: rowInfo.carrierTransType
             });
             $scope.AddressConfig.hide();
+        },
+        GetDefault: function () {
+            /// <summary>获取默认地址</summary>
+            $Api.RepresentativeService.GetDefaultaddress({}, function (address) {
+                if (address) {
+                    $.extend($scope.PageData, {
+                        deliveryContact: address.contact, deliveryrMobile: address.mobile, deliveryProvinceCode: address.provinceCode, deliveryProvinceName: address.provinceCodeName, deliveryCityCode: address.cityCode,
+                        deliveryCityName: address.cityCodeName, deliveryDistrictCode: address.districtCode, deliveryDistrictName: address.districtCodeName, deliveryAddress: address.address, iniitCarrierTransType: address.carrierTransType
+                    });
+                }
+            });
         }
     };
 
@@ -569,6 +579,8 @@ app.controller("SingleController", function ($scope, $state, $local, $Api, $Mess
             setTimeout(function () {
                 $scope.PageService.GetDetail();
             }, 1000);
+        } else {
+            $scope.AddressConfig.GetDefault();
         }
     })
 
@@ -582,7 +594,6 @@ app.controller("SingleController", function ($scope, $state, $local, $Api, $Mess
 
     /*数据监控区域End*/
 });
-
 app.controller("FeedbackController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>反馈订单处理</summary>
     /*数据监控Begion*/
@@ -666,7 +677,20 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
             var result = new Array();
             $.each(mlist, function (index, item) {
                 var flg = true;
+                item.BrandRowPan = 1;
+                item.isBrandRowPan = true;
+                item.ProdLineRowPan = 1;
+                item.isProdLineRowPan = true;
                 $.each(result, function (mIndex, mItem) {
+                    if (item.medBrandCode == mItem.medBrandCode && mItem.isBrandRowPan) {
+                        mItem.BrandRowPan++;
+                        item.isBrandRowPan = false;
+                    }
+
+                    if (item.medProdLnCode == mItem.medProdLnCode && mItem.isProdLineRowPan) {
+                        mItem.ProdLineRowPan++;
+                        item.isProdLineRowPan = false;
+                    }
                     if (mItem.medMIInternalNo == item.medMIInternalNo && item.lotSerial == mItem.lotSerial) {//同批次物料
                         $.extend(mItem, {
                             actQty: mItem.actQty + item.actQty
@@ -749,7 +773,6 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
 });
 app.controller("DealwithController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>订单处理</summary>
-
     $scope.DealService = {
         /// <summary>订单处理服务</summary>
         Submit: function () {
@@ -849,6 +872,13 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         }
     }
 
+    $scope.TemplateService = {
+        /// <summary>物料模板管理</summary>
+        fixed: function (templateInfo) {
+            /// <summary>确认使用模板</summary>
+        }
+    }
+
     //产品服务
     $scope.ProductService = {};
     //产品权限
@@ -877,7 +907,6 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
 
     /*数据监控End*/
 });
-
 app.controller("AdditionalController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>订单追加</summary>
 
@@ -903,7 +932,6 @@ app.controller("AdditionalController", function ($scope, $state, $local, $Api, $
     /*数据监控End*/
 
 });
-
 app.controller("AddEventController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>订单处理</summary>
     $scope.Event = { eventCode: "", attachments: { remark: "", images: new Array() } }
@@ -981,7 +1009,6 @@ app.controller("AddEventController", function ($scope, $state, $local, $Api, $Me
     }
 
 });
-
 app.controller("FeedbackViewController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $route) {
     /// <summary>出库单</summary>
     $scope.FeedBack = { images: new Array(), remark: "" }

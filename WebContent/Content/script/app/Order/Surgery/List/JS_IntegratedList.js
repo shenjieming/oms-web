@@ -14,20 +14,16 @@ app.controller("IntegratedListController", function ($scope, $state, $local, $Ap
     $scope.title = "综合订单查询";
     $scope.Competence = {
     };
-    $scope.Integrated = {
-        OrderList: new Array(),
-        GetOrderList: function () {
-            /// <summary>获取我的订单数据列表</summary>
-            $MessagService.loading("综合订单获取中，请稍等...");
-            $scope.Pagein.total = 0;
-            $scope.Integrated.OrderList = new Array();
-            var paramData = $.extend($scope.Pagein, { soType: "OPER" });
-            $Api.SurgeryService.DataSources.GetIntegratedOrderInquiry(paramData, function (rowdata) {
-                $scope.Integrated.OrderList = rowdata.rows;
-                $scope.Pagein.total = rowdata.total;
-                console.log(rowdata)
-            });
-        }
+    $scope.Integrated.GetOrderList = function () {
+        /// <summary>获取我的订单数据列表</summary>
+        $MessagService.loading("综合订单获取中，请稍等...");
+        $scope.Pagein.total = 0;
+        $scope.Integrated.OrderList = new Array();
+        var paramData = $.extend($scope.Pagein, { soType: "OPER" });
+        $Api.SurgeryService.DataSources.GetIntegratedOrderInquiry(paramData, function (rowdata) {
+            $scope.Integrated.OrderList = rowdata.rows;
+            $scope.Pagein.total = rowdata.total;
+        });
     }
 
 

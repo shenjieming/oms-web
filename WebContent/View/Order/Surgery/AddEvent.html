@@ -16,15 +16,15 @@
     <div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active" href="#Original" data-toggle="tab"><a>原始订单</a></li>
+            <li role="presentation" href="#Original" data-toggle="tab"><a>原始订单</a></li>
             <li role="presentation" href="#Accurate" data-toggle="tab"><a>精确订单</a></li>
             <li role="presentation" href="#Additional" data-toggle="tab"><a>出库单</a></li>
-            <li role="presentation" href="#AddEvent" data-toggle="tab"><a>{{View.Competence.apply?"返库申请":"添加事件"}} </a></li>
+            <li role="presentation" class="active" href="#AddEvent" data-toggle="tab"><a>{{View.Competence.apply?"返库申请":"添加事件"}} </a></li>
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="Original">
+            <div role="tabpanel" class="tab-pane" id="Original">
                 <div ui-view="Original"></div>
             </div>
             <div role="tabpanel" class="tab-pane" id="Accurate">
@@ -35,7 +35,7 @@
                     <div ui-view="Library"></div>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane" id="AddEvent">
+            <div role="tabpanel" class="tab-pane active" id="AddEvent">
                 <div class="row-fluid">
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
