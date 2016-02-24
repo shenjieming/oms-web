@@ -189,11 +189,13 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                 tree: {//树配置
                     CreateProLineTree: function () {
                         /// <summary>创建产品线树</summary>
-                        var treeData = $scope.ProductConfig.tree.GetNewDataByProdLns();
-                        $scope.ProductConfig.tree.data = treeData;
-                        $scope.ProductConfig.useLine = $scope.ProductConfig.tree.data[$scope.ProductConfig.tree.data.length - 1];
-                        $scope.MaterialsConfig.GetShowMaterial();
-                        $scope.ProductConfig.GetLineMaterialCount();
+                        if ($scope.ngModel.prodLns) {
+                            var treeData = $scope.ProductConfig.tree.GetNewDataByProdLns();
+                            $scope.ProductConfig.tree.data = treeData;
+                            $scope.ProductConfig.useLine = $scope.ProductConfig.tree.data[$scope.ProductConfig.tree.data.length - 1];
+                            $scope.MaterialsConfig.GetShowMaterial();
+                            $scope.ProductConfig.GetLineMaterialCount();
+                        }
                     },
                     GetNewDataByProdLns: function () {
                         /// <summary>根据产品线获取新的树信息</summary>
