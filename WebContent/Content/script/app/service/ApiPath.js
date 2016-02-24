@@ -46,7 +46,9 @@ var ApiPath = {
             //返库申请
             feedBackApply: "/v2/common/order/feedBackApply",
             //订单返库
-            back: "/v2/order/commintReturnWareHouseOrder"
+            back: "/v2/order/commintReturnWareHouseOrder",
+            //反馈单暂存
+            backsave: "/v2/order/temporarySaveReturnWareHouseOrder"
         },
         Approval: {
             /// <summary>订单审批</summary>
@@ -285,10 +287,17 @@ var ApiPath = {
         //套件详细查询
         searchHMedKitDetail: "/v2/template/common/searchHMedKitDetail",
         //查询套件粗存
-        queryKitInventory: "/v2/wms/queryKitInventory"
+        queryKitInventory: "/v2/wms/queryKitInventory",
+        //获取套件修改
+        updateHMedKit: "/v2/template/common/updateHMedKit",
+        //获取套件删除
+        deleteHMedKit: "/v2/template/common/deleteHMedKit",
+        //获取套件添加
+        insertHMedKit: "/v2/template/common/insertHMedKit",
     },
     BusinessData: {
         /// <summary>业务数据基础管理</summary>
+
         //厂商列表
         MedManuFacture: {
             //厂商列表
@@ -337,19 +346,6 @@ var ApiPath = {
         Reservoir: {
             //获取库区列表
             queryAllWhzone: "/v2/bizData/queryAllWhzone",
-        },
-        //套件管理
-        ManSuite: {
-            //获取套件列表
-            searchHMedKit: "/v2/template/common/searchHMedKit",
-            //获取套件详情
-            searchHMedKitDetail: "/v2/template/common/searchHMedKitDetail",
-            //获取套件修改
-            updateHMedKit: "/v2/template/common/updateHMedKit",
-            //获取套件删除
-            deleteHMedKit: "/v2/template/common/deleteHMedKit",
-            //获取套件添加
-            insertHMedKit: "/v2/template/common/insertHMedKit",
         },
         MedJournal: {
             //平台信息列表
