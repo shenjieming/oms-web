@@ -356,9 +356,6 @@ var ApiPath = {
         /// <summary>获取厂商编码查询品牌</summary>
         queryBrandByManufacture: "/v2/basebusinessdata/common/queryBrandByManufacture"
     },
-
-
-
     /////// 业务基础数据
     ManageDl: {
         //经销商列表
