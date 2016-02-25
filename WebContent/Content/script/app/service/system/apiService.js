@@ -510,7 +510,6 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
             },
             Save: function (data, callback) {
                 /// <summary>保存套件</summary>
-                debugger
                 if (data.medKitInternalNo) {
                     this.UpdateHMedKit(data, callback);
                 } else {

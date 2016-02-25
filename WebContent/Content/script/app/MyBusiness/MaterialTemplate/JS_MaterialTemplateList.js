@@ -13,8 +13,8 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
     /// <summary>物料模板控制器</summary>
     $scope.MaterialTemplate = {
         IsView: false,
-        IsEdit:false,
-        List:new Array(),
+        IsEdit: false,
+        List: new Array(),
         GetMaterialTemplateList: function () {
             /// <summary>获取套件列表</summary>
             $Api.MaterialsService.GetMaterialsTemplateList($scope.Pagein, function (rData) {
@@ -47,8 +47,62 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
         View: function () {
             /// <summary>显示</summary>
         },
-        ViewTemplate: function () {
+        ViewTemplate: function (row) {
             /// <summary>Description</summary>
+            this.GetTemplateDetail(row, function (rdata) {
+                $scope.view.PageData = rdata;
+                $scope.view.PageData.medKits = rdata.kitTemplateInfo;
+                $scope.view.PageData.prodLns = rdata.productLine;
+                $scope.Service.IsView(true);
+            });
+            
+        },
+        GetTemplateDetail: function (data,callback) {
+            /// <summary>获取模板明细</summary>
+            $Api.MaterialsService.GetMaterialsTemplateDateil(data,callback)
+        },
+        GetNewProdLine: function (prodLines) {
+            /// <summary>获取产品线信息</summary>
+            $.each(prodLines, function (index, prodLine) {
+                var flg = true;//标志
+                var newLine = {
+                    medProdLnCode: prodLine.medProdLnCode,
+                    medProdLnCodeName: prodLine.medProdLnName,
+                    medBrandCode: prodLine.medBrandCode,
+                    medBrandCodeName: prodLine.medBrandName,
+                    medMaterias: $scope.Service.GetNewMedMaterias(prodLine.templateMedMaterialItem, false)
+                };
+                $.each($scope.ngModel.prodLns, function (i, oldLine) {
+                    if (newLine.medProdLnCode == oldLine.medProdLnCode) {//存在相同的产品线
+                        oldLine.medMaterias = $scope.Service.GetNewMedMaterias(newLine.medMaterias, oldLine.medMaterias);
+                        flg = false;
+                        return true;
+                    }
+                });
+                if (flg) {
+                    $scope.ngModel.prodLns.push(newLine);
+                }
+            });
+        },
+        GetNewMedMaterias: function (newMs, oldMs) {
+            /// <summary>获取去重后的物料</summary>
+            var result = oldMs ? oldMs : new Array();
+            $.each(newMs, function (index, item) {
+                var flg = true;
+                newMs.medMIWarehouse = userInfo.orgCode;//默认仓库填充
+                $.each(result, function (i, node) {
+                    if (item.medMIInternalNo == node.medMIInternalNo && item.medMIWarehouse == node.medMIWarehouse) {
+                        item.reqQty = (parseInt(item.reqQty) + parseInt(node.reqQty));
+                        flg = false;
+                        return true;
+                    }
+                });
+
+                if (flg) {
+                    result.push(item);
+                }
+            })
+            return result;
         }
     }
 
@@ -56,7 +110,7 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
     $scope.view = {
         PageData: {},
         ProductService: {},
-        ProductCompetence: { operat: false, kits: false, tool: false, warehouse: false }
+        ProductCompetence: { operat: false, tool: false }
     }
 
     $scope.Pagein = {

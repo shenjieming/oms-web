@@ -24,7 +24,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in MaterialTemplate.List" ng-dblclick="Service.ViewKit(row)" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                            <tr ng-repeat="row in MaterialTemplate.List" ng-dblclick="Service.ViewTemplate(row)" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
                                 <td>{{$index+1}}</td>
                                 <td>
                                     {{row.tmplName}}
@@ -59,7 +59,7 @@
                 <div class="widget-box">
                     <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
                         <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                        <h5>套件信息</h5>
+                        <h5>模板信息</h5>
                     </div>
                     <div class="widget-content nopadding collapse in" id="BaseInformation">
                         <div class="control-group ">
