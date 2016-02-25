@@ -52,6 +52,7 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
             this.GetTemplateDetail(row, function (rdata) {
                 $scope.view.PageData = rdata;
                 $scope.view.PageData.medKits = rdata.kitTemplateInfo;
+
                 $scope.view.PageData.prodLns = rdata.productLine;
                 $scope.Service.IsView(true);
             });
