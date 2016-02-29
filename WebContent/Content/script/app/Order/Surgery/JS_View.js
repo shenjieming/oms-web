@@ -555,14 +555,14 @@ app.controller("SingleController", function ($scope, $state, $local, $Api, $Mess
         },
         GetDefault: function () {
             /// <summary>获取默认地址</summary>
-            $Api.RepresentativeService.GetDefaultaddress({}, function (address) {
-                if (address) {
-                    $.extend($scope.PageData, {
-                        deliveryContact: address.contact, deliveryrMobile: address.mobile, deliveryProvinceCode: address.provinceCode, deliveryProvinceName: address.provinceCodeName, deliveryCityCode: address.cityCode,
-                        deliveryCityName: address.cityCodeName, deliveryDistrictCode: address.districtCode, deliveryDistrictName: address.districtCodeName, deliveryAddress: address.address, iniitCarrierTransType: address.carrierTransType
-                    });
-                }
-            });
+            //$Api.RepresentativeService.GetDefaultaddress({}, function (address) {
+            //    if (address) {
+            //        $.extend($scope.PageData, {
+            //            deliveryContact: address.contact, deliveryrMobile: address.mobile, deliveryProvinceCode: address.provinceCode, deliveryProvinceName: address.provinceCodeName, deliveryCityCode: address.cityCode,
+            //            deliveryCityName: address.cityCodeName, deliveryDistrictCode: address.districtCode, deliveryDistrictName: address.districtCodeName, deliveryAddress: address.address, iniitCarrierTransType: address.carrierTransType
+            //        });
+            //    }
+            //});
         }
     };
 
@@ -891,7 +891,14 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
     }
 
     $scope.TemplateService = {
-        /// <summary>物料模板管理</summary>
+        /// <summary>物料模板选择</summary>
+        fixed: function (templateInfo) {
+            /// <summary>确认使用模板</summary>
+        }
+    }
+
+    $scope.ImportTemplateService = {
+        /// <summary>物料模板导入</summary>
         fixed: function (templateInfo) {
             /// <summary>确认使用模板</summary>
         }
@@ -925,6 +932,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
 
     /*数据监控End*/
 });
+
 app.controller("AdditionalController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>订单追加</summary>
 
@@ -946,14 +954,12 @@ app.controller("AdditionalController", function ($scope, $state, $local, $Api, $
         /// <summary>获取数据信息</summary>
         $scope.PageData.prodLns = new Array();
     });
-
     /*数据监控End*/
-
 });
+
 app.controller("AddEventController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>订单处理</summary>
     $scope.Event = { eventCode: "", attachments: { remark: "", images: new Array() } }
-
     /*数据监控Begion*/
     $scope.$watch("PageData.sONo", function () {
         /// <summary>获取数据信息</summary>
@@ -966,7 +972,6 @@ app.controller("AddEventController", function ($scope, $state, $local, $Api, $Me
         }
     });
     /*数据监控End*/
-
     $scope.EventService = {
         /// <summary>订单处理服务</summary>
         EventList: new Array(),
@@ -983,7 +988,6 @@ app.controller("AddEventController", function ($scope, $state, $local, $Api, $Me
             });
         }
     }
-
     $scope.file = {
         /// <summary>附件控制器</summary>
         Upload: function (files) {
@@ -1025,7 +1029,6 @@ app.controller("AddEventController", function ($scope, $state, $local, $Api, $Me
             return result;
         }
     }
-
 });
 app.controller("FeedbackViewController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $route) {
     /// <summary>出库单</summary>

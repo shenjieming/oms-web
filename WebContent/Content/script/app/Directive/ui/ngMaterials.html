@@ -1,23 +1,36 @@
 ﻿<div>
     <ng-dialog ng-model="ngOperat">
         <div style="display: inline-block; width: 99%; padding: 5px;">
-            <a class="btn btn-primary" ng-click="Service.GetMaterialListByCategory('IMPLANT')"><i class="fa fa-puzzle-piece"></i> 植入物</a>
-            <a class="btn btn-primary" ng-click="Service.GetMaterialListByCategory('TOOL')" style="margin-right:45px;"><i class="fa fa-wrench"></i> 工具</a>
-            <span ng-show="Pagein.categoryByPlatform=='IMPLANT'">植入物信息</span>
-            <span ng-show="Pagein.categoryByPlatform=='TOOL'">
-                工具信息
+            <div class="btn-group">
+                <button type="button"  class="btn btn-default btn-primary" ng-click="Service.QueryMaterialList()">
+                    {{Pagein.categoryByPlatform=='IMPLANT'?"植入物":"工具"}}
+                </button>
+                <button type="button" class="btn btn-primary dropdown-toggle" style="border-left:1px solid #ccc;"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a ng-click="Service.GetMaterialListByCategory('IMPLANT')"><i class="fa fa-puzzle-piece"></i> 植入物</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a ng-click="Service.GetMaterialListByCategory('TOOL')" style="margin-right:45px;"><i class="fa fa-wrench"></i> 工具</a></li>
+                </ul>
+            </div>
+
+            <span ng-show="Pagein.categoryByPlatform=='IMPLANT'"></span>
+            <span ng-show="Pagein.categoryByPlatform=='TOOL'" class="btn-group">
                 <label class="inp-chk" style="margin-left:45px;"><input type="checkbox" ng-checked="Service.productLine" ng-model="Service.productLine" ng-change="Service.QueryMaterialList()" />产品线通用</label>
                 <label class="inp-chk"><input type="checkbox" ng-checked="Service.brandLine" ng-model="Service.brandLine" ng-change="Service.QueryMaterialList()" />品牌通用</label>
                 <label class="inp-chk"><input type="checkbox" ng-checked="Service.all" ng-model="Service.all" ng-change="Service.QueryMaterialList()" />全局通用</label>
             </span>
             <div class="input-group" style="float:right;width:250px;">
                 <input type="text" class="form-control" placeholder="请输入物料编码或物料名称"
-                       style="padding:8px;" ng-model="Service.SearchWhere">
+                       style="padding:8px;" ng-model="Service.SearchWhere" ng-keyup="Service.UpEnter($event)">
                 <a class="input-group-addon" href="javascript:void(0)" ng-click="Service.QueryMaterialList()"><i class="fa fa-search"></i></a>
             </div>
         </div>
         <div class="main-box clearfix">
-            <div class="table-responsive" style="height:325px;overflow-y:auto">
+            <div class="table-responsive" style="height:480px;max-height:430px;min-height:430px; overflow-y:auto">
                 <table class="table table-bordered tab-striped">
                     <thead>
                         <tr>
@@ -27,11 +40,11 @@
                             <th><span>物料类型</span></th>
                             <th><span>物料规格</span></th>
                             <th ng-show="Pagein.categoryByPlatform=='TOOL'"><span>通用类型</span></th>
-                            <th><span>需求数量</span></th>
+                            <td title="点击后全部物料添加" ng-click="Service.AddAllQty()"><span class="selected"><a style="color: #436EEE" href="javascript:void(0)"><i class="fa fa-check-square"></i>需求数量</a></span> </td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="row in Service.MaterialList">
+                        <tr ng-class="{'selected':row.reqQty>0}" ng-dblclick="Service.AddreqQty(row)" ng-repeat="row in Service.MaterialList">
                             <td>{{$index+1}}</td>
                             <td>
                                 {{row.medMICode}}

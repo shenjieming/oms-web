@@ -14,16 +14,17 @@
     </div>
     <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
     <div ng-materials-template="TemplateService" ng-model="PageData"></div>
+    <div ng-materials-import-template="ImportTemplateService" ng-model="PageData"></div>
     <div>
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active" href="#Original" data-toggle="tab"><a>原始订单</a></li>
-            <li role="presentation" href="#Dealwith" data-toggle="tab"><a>开始处理</a></li>
+            <li role="presentation" class="active" href="#Dealwith" data-toggle="tab"><a>开始处理</a></li>
+            <li role="presentation" href="#Original" data-toggle="tab"><a>原始订单</a></li>
         </ul>
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="Original">
+            <div role="tabpanel" class="tab-pane" id="Original">
                 <div ui-view="Original"></div>
             </div>
-            <div class="tab-pane" id="Dealwith">
+            <div class="tab-pane active" id="Dealwith">
                 <div class="row-fluid">
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
@@ -123,8 +124,24 @@
                             <h5 style="width:80%" data-toggle="collapse" href="#pro_ProductInformation">
                                 产品信息{{ProductCompetence.ShowInfo}}
                             </h5>
-                            <a href="javascript:void(0)" class="btn" ng-click="TemplateService.show()"><i class="fa fa-folder-open"></i>选择模板</a>
-                        </div>
+                            <div class="btn-group">
+                                <a class="btn" ng-click="TemplateService.show()">
+                                    <i class="fa fa-folder-open"></i>选择模板
+                                </a>
+                                <a class="btn" style="border-left:1px solid #ccc;"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li ng-click="ImportTemplateService.show()">
+                                        <a href="javascript:void(0)">
+                                            <i class="fa fa-gears"></i>导入模板
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                         </div>
                         <div id="pro_ProductInformation" class="widget-content nopadding collapse in">
                             <div ng-product-view="dealProduct" ng-model="PageData" ng-service="ProductService" ng-comp="ProductCompetence"></div>
                         </div>

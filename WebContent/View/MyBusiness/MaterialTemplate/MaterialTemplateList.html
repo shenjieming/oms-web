@@ -103,5 +103,54 @@
                 </div>
             </div>
         </div>
+
+        <div ng-slide="MaterialTemplate.IsEdit" style="display:none;">
+            <div class="tools">
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="Service.IsView(false)"><i class="fa  fa-reply"></i> 返回</a>
+                </span>
+            </div>
+            <div class="row-fluid">
+                <div class="widget-box">
+                    <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
+                        <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                        <h5>模板信息</h5>
+                    </div>
+                    <div class="widget-content nopadding collapse in" id="BaseInformation">
+                        <div class="control-group ">
+                            <label style="width:60%" > 
+                            货主信息：<span ng-cargo="cargo" ng-model="Detail.PageData.sOOIOrgCode"></span>
+                            </label>
+                            <label>
+                                模板权限：<span ng-dictionary="SOTACC" ng-model="Detail.PageData.tmplAccessType"></span>
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label>
+                                模板名称：{{view.PageData.kitFullName}}
+                            </label>
+                            <label>
+                                模板全称：{{view.PageData.kitName}}
+                            </label>
+                            <label>
+                                模板类型：<div ng-dictionary="SOTTYP" ng-model="Detail.PageData.tmplType"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-box">
+                    <div class="widget-title bg_ly">
+                        <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                        <h5 data-toggle="collapse" href="#ProductInformation">
+                            物料信息
+                            {{ProductCompetence.ShowInfo}}
+                        </h5>
+                    </div>
+                    <div id="ProductInformation" class="widget-content nopadding collapse in">
+                        <div ng-product-view="newProduct" ng-model="view.PageData" ng-service="view.ProductService" ng-comp="view.ProductCompetence"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

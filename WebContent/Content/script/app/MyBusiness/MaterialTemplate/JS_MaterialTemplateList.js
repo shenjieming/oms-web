@@ -37,6 +37,12 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
         },
         Add: function () {
             /// <summary>添加模板</summary>
+            $scope.Detail.PageData = {
+                tmplAccessType: "PUBLIC",
+                tmplType: "IMPLANTT",
+                medKits: [], prodLns: []
+            };//数据清空
+            $scope.Service.IsEdit(true);
         },
         Edit: function () {
             /// <summary>编辑模板</summary>
@@ -109,11 +115,15 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
 
 
     $scope.view = {
-        PageData: {},
+        PageData: { medKits: [], prodLns: [] },
         ProductService: {},
         ProductCompetence: { operat: false, tool: false }
     }
-
+    $scope.PageData = {
+        PageData: { medKits: [], prodLns: [] },
+        ProductService: {},
+        ProductCompetence: { operat: false, tool: false }
+    }
     $scope.Pagein = {
         /// <summary>分页信息</summary>
         pageSize: 10,

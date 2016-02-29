@@ -258,6 +258,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
             $scope.MaterialsConfig = {
                 Material: new Array(),
                 operat: {
+                    
                     fixed: function (MaterialsList) {
                         /// <summary>确认选择物料</summary>
                         $scope.$apply(function () {
@@ -265,9 +266,8 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                             //$scope.ProductConfig.useLine.medMaterias = data;
                             $scope.ngModel.prodLns[$scope.ProductConfig.useLine.index].medMaterias = $scope.ProductConfig.useLine.medMaterias;
                             $scope.MaterialsConfig.GetShowMaterial();
-                        
-                        });
 
+                        });
                     }
                 },
                 DelMaterial: function (index) {
