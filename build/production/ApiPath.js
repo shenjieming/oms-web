@@ -3,7 +3,7 @@ console.log("接口控制启动");
 var ApiPath = {
     /// <summary>Api访问接口服务</summary>
 	//生产环境
-    Path: "http://omsapiv2.med-log.cn:8081/oms-api",
+    Path: "http://scm.med-log.cn/oms-api",
     Account: {
         /// <summary>用户地址</summary>
         //Web登陆
