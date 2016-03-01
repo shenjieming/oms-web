@@ -100,6 +100,10 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                         }
                     });
                     $scope.MedKitsConfig.GetKitCount();
+                    if ($scope.Competence.warehouse && $scope.Competence.operat) {
+                        /// <summary>是否启动仓库</summary>
+                        $scope.WarehouseConfig.GetKitInventory()
+                    }
                 },
                 GetKitCount: function () {
                     /// <summary>获取套件数量</summary>
@@ -193,7 +197,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                             var treeData = $scope.ProductConfig.tree.GetNewDataByProdLns();
                             $scope.ProductConfig.tree.data = treeData;
                             $scope.ProductConfig.useLine = $scope.ProductConfig.tree.data[$scope.ProductConfig.tree.data.length - 1];
-                            $scope.MaterialsConfig.GetShowMaterial();
+                            $scope.MaterialsConfig.GetShowMaterial('');
                             $scope.ProductConfig.GetLineMaterialCount();
                         }
                     },
@@ -242,7 +246,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                                 if (!treeNode.isParent) {
                                     $scope.$apply(function () {
                                         $scope.ProductConfig.useLine = $scope.ngModel.prodLns[treeNode.index];
-                                        $scope.MaterialsConfig.GetShowMaterial();
+                                        $scope.MaterialsConfig.GetShowMaterial('');
                                         $scope.ProductConfig.tree.LastNode = treeNode;
                                     });
                                 }
@@ -257,6 +261,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
 
             $scope.MaterialsConfig = {
                 Material: new Array(),
+                categoryByPlatform:"",
                 operat: {
                     
                     fixed: function (MaterialsList) {
@@ -265,7 +270,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                             $scope.MaterialsConfig.GetRequtMaterial(MaterialsList, $scope.ProductConfig.useLine.medMaterias);
                             //$scope.ProductConfig.useLine.medMaterias = data;
                             $scope.ngModel.prodLns[$scope.ProductConfig.useLine.index].medMaterias = $scope.ProductConfig.useLine.medMaterias;
-                            $scope.MaterialsConfig.GetShowMaterial();
+                            $scope.MaterialsConfig.GetShowMaterial('');
 
                         });
                     }
@@ -274,7 +279,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                     /// <summary>删除物料</summary>
                     $scope.ProductConfig.useLine.medMaterias.splice(index, 1);
                     $scope.ngModel.prodLns[$scope.ProductConfig.useLine.index].medMaterias = $scope.ProductConfig.useLine.medMaterias;
-                    $scope.MaterialsConfig.GetShowMaterial();
+                    $scope.MaterialsConfig.GetShowMaterial('');
                     $scope.ProductConfig.GetLineMaterialCount();
                 },
                 GetRequtMaterial: function (MaterialsList, oldList) {
@@ -289,6 +294,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                     /// <summary>获取显示的物料</summary>
                     $scope.MaterialsConfig.Material = new Array();
                     $scope.MaterialsConfig.Deduplication();
+                    $scope.MaterialsConfig.categoryByPlatform = type;
                     if ($scope.ProductConfig.useLine.medMaterias) {
                         $.each($scope.ProductConfig.useLine.medMaterias, function (index, item) {
                             if ((!type || type == item.categoryByPlatform) && item.reqQty > 0) {

@@ -133,7 +133,7 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                     $scope.Service.SearchWhere = "";
                     $scope.Service.GetMaterialListByCategory();
                 },
-                title: "物料选择", width: "100%", position:[0],height: "99%", buttons: {
+                title: "物料选择", width: "100%", position:[0],height: "90%", buttons: {
                     "确定": function () {
                         $scope.Service.GetChangeMaterials();
                         var data = $scope.Service.ChangeList;

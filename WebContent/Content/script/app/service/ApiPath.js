@@ -278,7 +278,13 @@ var ApiPath = {
         //模板维护
         searchTemplate: "/v2/template/searchTemplate",
         //查询物料库存
-        MedmaterialItemInventory: "/v2/wms/queryMedmaterialItemInventory"
+        MedmaterialItemInventory: "/v2/wms/queryMedmaterialItemInventory",
+        //添加模板
+        addTemplate: "/v2/template/addTemplate",
+        //修改模板
+        updateTemplate: "/v2/template/updateTemplate",
+        //删除模板
+        deleteTemplate: "/v2/template/deleteTemplate"
     },
     MedKit: {
         /// <summary>我的物料套件</summary>

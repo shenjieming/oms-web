@@ -477,6 +477,27 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 $MessagService.loading("数据列表获取中，请稍等...");
                 service.Post(ApiPath.Materials.searchTemplate, data, callback);
             },
+            SaveTemplate: function (data, callback) {
+                /// <summary>保存物料模板</summary>
+                if (data.tmplSODetailID) {
+                    this.UpdateTemplate(data, callback);
+                } else {
+                    this.AddTemplate(data, callback);
+                }
+            },
+            AddTemplate: function (data, callback) {
+                /// <summary>添加模板</summary>
+                $MessagService.loading("模板添加中，请稍等...");
+                service.Post(ApiPath.Materials.addTemplate, data, callback);
+            },
+            UpdateTemplate: function (data, callback) {
+                $MessagService.loading("模板更新中，请稍等...");
+                service.Post(ApiPath.Materials.updateTemplate, data, callback);
+            },
+            DeleteTemplate: function (data, callback) {
+                $MessagService.loading("模板更新中，请稍等...");
+                service.Post(ApiPath.Materials.deleteTemplate, data, callback);
+            },
             GetMedmaterialInventory: function (data, callback) {
                 /// <summary>获取物料库存</summary>
                 service.Post(ApiPath.Materials.MedmaterialItemInventory, data, callback);

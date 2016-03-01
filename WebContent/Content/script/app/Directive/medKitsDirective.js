@@ -49,7 +49,7 @@ app.directive("ngMedKits", function ($Api, $MessagService, $local) {
                     $scope.Service.SearchWhere = "";
                     $scope.Service.GetMedKits();
                 },
-                title: "套件选择", width: "99%",position:[0], height: "100%", buttons: {
+                title: "套件选择", width: "99%",position:[0], height: "90%", buttons: {
                     "确定": function () {
                         var data = $scope.Service.GetChangeMedKits();
                         if (data.length) {
