@@ -33,7 +33,7 @@
 						<phase>compile</phase>
 						<configuration>
 							<tasks>
-								<copy overwrite="true" file="${basedir}/build/production/ApiPath.js" tofile="${basedir}/WebContent/Content/script/app/service/ApiPath.js" />
+								<copy overwrite="true" file="${basedir}/build/production/ServerConfiguration.js" tofile="${basedir}/WebContent/Content/script/app/ServerConfiguration.js" />
 							</tasks>
 						</configuration>
 						<goals>
