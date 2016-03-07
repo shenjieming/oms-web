@@ -6,7 +6,8 @@
                 <h2 class="pull-left">经销商列表</h2>
                 <span style="float:right;">
                     <a class="btn btn-primary" ng-click="DlOrgJump.Add()">新增</a>
-                    <a class="btn btn-primary" ng-click="DlOrgJump.Eduit()">编辑</a>
+                    <a class="btn btn-primary" ng-click="DlOrgJump.Edit()">编辑</a>
+                    <a class="btn btn-primary" ng-click="DlOrgJump.Delect()">删除</a>
                     <a class="btn btn-primary" ng-click="DlOrgJump.View()">详情</a>
                 </span>
             </header>
@@ -29,7 +30,7 @@
                                 <td><span>{{row.dLName}}</span></td>
                                 <td><span>{{row.orgCode}}</span></td>
                                 <td><span>{{row.dLDesc}}</span></td>
-                                <td><span>{{row.certStatus=="Y"?"通过":"未通过"}}</span></td>
+                                <td><span>{{row.certStatus=="Y"?"认证":"未认证"}}</span></td>
                                 <td><span>{{row.validStatusName}}</span></td>
                             </tr>
                         </tbody>

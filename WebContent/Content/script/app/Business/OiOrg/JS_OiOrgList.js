@@ -42,17 +42,23 @@ app.controller("OiOrgListController", function ($scope, $state, $local, $Api, $M
                 }
             });
             return result;
+        },
+        Detect: function () {
+            var orgCode = $scope.getSelectedRow();
+            $Api.ManageOi.GetdeleteOwnerOfInventory({ orgCode: orgCode.orgCode }, function (rData) {
+                $MessagService.succ("该信息删除成功！")
+                $scope.OiOrgList.GetOiOrgList();
+            })
         }
-
     };
     $scope.UserStatus = function (row) {
         $scope.RelManList.info = row ? row : $scope.RelManList.getSelectedRow();
         console.log($scope.RelManList.info)
+        $scope.RelManList.info.isEnable = !$scope.RelManList.info.isEnable;
         if ($scope.RelManList.info.isEnable) {
-            console.log(1)
-            $scope.RelManList.info.isEnable == "Y";
+            $scope.RelManList.info.certStatus = "Y";
         } else {
-            $scope.RelManList.info.b == "N";
+            $scope.RelManList.info.certStatus = "N";
         }
         console.log($scope.RelManList.info)
         $Api.ManageOIDLRel.GetdeleteOwnerOfInventory($scope.RelManList.info, function (rData) {
@@ -79,15 +85,25 @@ app.controller("OiOrgListController", function ($scope, $state, $local, $Api, $M
             /// <summary>货主新增</summary>
             $state.go("app.business.oiorganizationEduit");
         },
-        Eduit: function () {
+        Edit: function () {
             /// <summary>货主编辑</summary>
             var oiopt = $scope.getSelectedRow()
-            $state.go("app.business.oiorganizationEduit", { oiopt: oiopt.orgCode });
+            if (oiopt) {
+                $state.go("app.business.oiorganizationEduit", { oiopt: oiopt.orgCode });
+            } else {
+                $MessagService.caveat("请选择一条编辑的货主！")
+            }
+       
         },
         View: function () {
             /// <summary>货主详情</summary>
             var oiopt = $scope.getSelectedRow()
-            $state.go("app.business.oiorganizationView", { oiopt: oiopt.orgCode });
+            if (oiopt) {
+                $state.go("app.business.oiorganizationView", { oiopt: oiopt.orgCode });
+            }
+            else {
+                $MessagService.caveat("请选择一条查看的货主！")
+            }
         },
         isEdit: function (isshow) {
             /// <summary>是否编辑套件</summary>

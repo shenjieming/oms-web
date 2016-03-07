@@ -12,8 +12,7 @@ app.controller("DlOrgListController", function ($scope, $state, $local, $Api, $M
         info: [],
         GetDlOrgList: function () {
             /// <summary>获取经销商列表</summary>
-            var paramData = $.extend({ orgCode: $scope.User.userInfo.orgCode }, $scope.Pagein);
-            console.log(paramData)
+            var paramData = $.extend({ }, $scope.Pagein);
             $Api.ManageDl.GetqueryAllDealer(paramData, function (rData) {
                 $scope.DlOrgList.info = rData.rows;
                 $scope.Pagein.total = rData.total;
@@ -26,15 +25,36 @@ app.controller("DlOrgListController", function ($scope, $state, $local, $Api, $M
             /// <summary>经销商新增</summary>
             $state.go("app.business.dlorganizationEduit");
         },
-        Eduit: function () {
+        Edit: function () {
             /// <summary>经销商编辑</summary>
             var dlopt = $scope.getSelectedRow()
-            $state.go("app.business.dlorganizationEduit", { dlopt: dlopt.orgCode });
+            if (dlopt) {
+                $state.go("app.business.dlorganizationEduit", { dlopt: dlopt.orgCode });
+            } else {
+                $MessagService.caveat("请选择一条编辑的经销商");
+            }       
         },
         View: function () {
             /// <summary>经销商详情</summary>
             var dlopt = $scope.getSelectedRow()
-            $state.go("app.business.dlorganizationView", { dlopt: dlopt.orgCode });
+            if (dlopt) {
+                $state.go("app.business.dlorganizationView", { dlopt: dlopt.orgCode });
+            }
+            else {
+                $MessagService.caveat("请选择一条查看的经销商");
+            }
+        },
+        Delect: function () {
+            var dlopt = $scope.getSelectedRow();
+            if (dlopt) {
+                $Api.ManageDl.GetdeleteDealer({ orgCode: dlopt.orgCode }, function (rData) {
+                    $MessagService.succ("该信息删除成功");
+                    $scope.DlOrgList.GetDlOrgList();
+                })
+            } else {
+                $MessagService.caveat("请选择一条删除的经销商");
+            }
+   
         },
     }
     $scope.getSelectedRow = function () {

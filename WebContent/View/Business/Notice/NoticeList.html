@@ -1,0 +1,267 @@
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">事件通知管理列表</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="NoticePageInfo.showAdd({})">新增</a>
+                    <a class="btn btn-primary" ng-click="NoticePageInfo.showEdit()">编辑</a>
+                    <a class="btn btn-primary" ng-click="NoticePageView.showView()">详情</a>
+                    <a class="btn btn-primary" ng-click="NoticeJump.Delet()">删除</a>
+                </span>
+            </header>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="NoticeList.info">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>邮件通知</span></th>
+                                <th><span>短信通知</span> </th>
+                                <th><span>微信通知</span></th>
+                                <th><span>订单人共享</span></th>
+                                <th><span>经销商共享</span></th>
+                                <th><span>订单事件</span></th>
+                                <th><span>经销商名</span></th>
+                                <th><span>备注</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in NoticeList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                                <td>{{$index+1}}</td>
+                                <td><span>{{row.isEmailNotificationOpened=="Y"?"通知":"不通知"}}</span></td>
+                                <td><span>{{row.isSMSNotificationOpened=="Y"?"通知":"不通知"}}</span></td>
+                                <td><span>{{row.isWeChatNotificationOpened=="Y"?"通知":"不通知"}}</span></td>
+                                <td><span>{{row.isApplyToTeam=="Y"?"共享":"不共享"}}</span></td>
+                                <td><span>{{row.isApplyToDLALL=="Y"?"通知":"不共享"}}</span></td>
+                                <td><span>{{row.sOEventCodeName}}</span></td>
+                                <td><span>{{row.dLOrgCodeName}}</span></td>
+                                <td><span>{{row.remark}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+        <!--<div ng-slide="NoticeList.IsEdit" style="display:none;">
+            <div class="tools">
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="NoticeJump.isEdit(false)"><i class="fa  fa-reply"></i> 返回</a>
+                </span>
+            </div>
+            <div class="row-fluid">
+                <div class="widget-box">
+                    <div class="widget-title bg_ly" data-toggle="collapse" href="#dlEventDetail">
+                        <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                        <h5>配置列表</h5>
+                    </div>
+                    <div class="widget-content nopadding collapse in" id="dlEventDetail">
+                        <div class="control-group ">
+                            <label>
+                                <span class="required">*</span>经销商框：
+                                <select ng-model="NoticePageInfo.Info.dLOrgCode" ng-change="SelectInfo.DLlist.change(item)">
+                                    <option value="">请选择经销商</option>
+                                    <option ng-repeat="item in SelectInfo.DLlist.dic" ng-selected="item.orgCode ==NoticePageInfo.Info.dLOrgCode" value="{{item.orgCode}}">{{item.dLName}}</option>
+                                </select>
+                            </label>
+                            <label ng-show="ButtonList.isApplyToTeam">
+                                <span style="float:left;line-height:25px;">订单人共享：</span>
+                                <input type="checkbox" id="checkbox_c2" class="chkbox" ng-checked="NoticePageInfo.Info.isApplyToTeam" ng-model="NoticePageInfo.Info.isApplyToTeam" />
+                                <label for="checkbox_c2" style="float:left"></label>
+                                <span ng-show="NoticePageInfo.Info.isApplyToTeam" style="line-height: 25px;"> 共享</span>
+                                <span ng-show="!NoticePageInfo.Info.isApplyToTeam" style="line-height: 25px;">不共享</span>
+                            </label>
+                            <label ng-show="ButtonList.isApplyToDLALL">
+                                <span style="float:left;line-height:25px;">经销商共享：</span>
+                                <input type="checkbox" id="checkbox_c2" class="chkbox" ng-checked="NoticePageInfo.Info.isApplyToDLALL" ng-model="NoticePageInfo.Info.isApplyToDLALL" />
+                                <label for="checkbox_c2" style="float:left"></label>
+                                <span ng-show="NoticePageInfo.Info.isApplyToDLALL" style="line-height: 25px;"> 共享</span>
+                                <span ng-show="!NoticePageInfo.Info.isApplyToDLALL" style="line-height: 25px;">不共享</span>
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <div class="widget-content nopadding collapse in" id="TopContacts">
+                                <div class="main-box-body clearfix">
+                                    <div style="min-height:100px;margin-left:30px;">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:10%"><span>序号</span></th>
+                                                    <th style="width:30%"><span>类型</span></th>
+                                                    <th style="width:45%"><span>状态</span></th>
+                                                    <th style="width:30%"><span>编码</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>
+                                                        <label>
+                                                            邮件配置
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <label ng-show="ButtonList.isEmailNotificationOpened">
+                                                            <input type="checkbox" id="checkbox_c2" class="chkbox" ng-checked="NoticePageInfo.Info.isEmailNotificationOpened" ng-model="NoticePageInfo.Info.isEmailNotificationOpened" />
+                                                            <label for="checkbox_c2" style="float:left"></label>
+                                                            <span ng-show="NoticePageInfo.Info.isEmailNotificationOpened" style="line-height: 25px;"> 开启</span>
+                                                            <span ng-show="!NoticePageInfo.Info.isEmailNotificationOpened" style="line-height: 25px;">不开启</span>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <span>
+                                                            <select ng-model="row.medMIWarehouse" ng-change="WarehouseConfig.GetMedmaterialInventory(row)" ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
+                                                                <option value="">请选择邮件模板</option>
+                                                            </select>
+                                                        </span>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+    </div>
+
+    <ng-dialog ng-model="NoticePageInfo.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <span class="required">*</span>经销商框：
+                <select ng-model="NoticePageInfo.Info.dLOrgCode" ng-change="SelectInfo.DLlist.change(item)">
+                    <option value="">请选择</option>
+                    <option ng-repeat="item in SelectInfo.DLlist.dic" ng-selected="item.orgCode ==NoticePageInfo.Info.dLOrgCode" value="{{item.orgCode}}">{{item.dLName}}</option>
+                </select>
+            </div>
+            <div class="col-lg-5" ng-show="ButtonList.isEmailopen">
+                <span style="float:left;line-height:25px;">经销商：</span>
+                <input type="checkbox" id="checkbox_c2" class="chkbox" ng-checked="NoticePageInfo.Info.isApplyTeam" ng-model="NoticePageInfo.Info.isApplyTeam" />
+                <label for="checkbox_c2" style="float:left"></label>
+                <span ng-show="NoticePageInfo.Info.isApplyTeam" style="line-height: 25px;"> 共享</span>
+                <span ng-show="!NoticePageInfo.Info.isApplyTeam" style="line-height: 25px;">不共享</span>
+            </div>
+                        
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <span class="required">*</span>订单事件：
+                <select ng-model="NoticePageInfo.Info.sOEventCode" ng-change="SelectInfo.DlEventList.change(item)">
+                    <option value="">请选择</option>
+                    <option ng-repeat="item in SelectInfo.DlEventList.dic" ng-selected="item.id==NoticePageInfo.Info.sOEventCode" value="{{item.id}}">{{item.text}}</option>
+                </select>
+            </div>
+            <div class="col-lg-5" ng-show="ButtonList.isApplyDLAL">
+                <span style="float:left;line-height:25px;">订单人：</span>
+                <input type="checkbox" id="checkbox_c1" class="chkbox" ng-checked="NoticePageInfo.Info.isApplyDLAL" ng-model="NoticePageInfo.Info.isApplyDLAL" />
+                <label for="checkbox_c1" style="float:left"></label>
+                <span ng-show="NoticePageInfo.Info.isApplyDLAL" style="line-height: 25px;"> 共享</span>
+                <span ng-show="!NoticePageInfo.Info.isApplyDLAL" style="line-height: 25px;">不共享</span>
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <span class="required">*</span>邮件模板：
+                <select ng-model="NoticePageInfo.Info.emailNotificationTmplCode" ng-change="SelectInfo.EmailList.change(item)">
+                    <option value="">请选择</option>
+                    <option ng-repeat="item in SelectInfo.EmailList.dic" ng-selected="item.id ==NoticePageInfo.Info.emailNotificationTmplCode" value="{{item.id}}">{{item.text}}</option>
+                </select>
+            </div>
+            <div class="col-lg-5" ng-show="ButtonList.isEmailopen">
+                <span style="float:left;line-height:25px;">邮件通知：</span>
+                <input type="checkbox" id="checkbox_c3" class="chkbox" ng-checked="NoticePageInfo.Info.isEmailopen" ng-model="NoticePageInfo.Info.isEmailopen" />
+                <label for="checkbox_c3" style="float:left"></label>
+                <span ng-show="NoticePageInfo.Info.isEmailopen" style="line-height: 25px;"> 开通</span>
+                <span ng-show="!NoticePageInfo.Info.isEmailopen" style="line-height: 25px;">未开通</span>
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <span class="required">*</span>短信模板：
+                <select ng-model="NoticePageInfo.Info.sMSNotificationTmplCode" ng-change="SelectInfo.SMSList.change(item)">
+                    <option value="">请选择</option>
+                    <option ng-repeat="item in SelectInfo.SMSList.dic" ng-selected="item.id ==NoticePageInfo.Info.sMSNotificationTmplCode" value="{{item.id}}">{{item.text}}</option>
+                </select>
+            </div>
+            <div class="col-lg-5" ng-show="ButtonList.isSMS">
+                <span style="float:left;line-height:25px;">短信通知：</span>
+                <input type="checkbox" id="checkbox_c4" class="chkbox" ng-checked="NoticePageInfo.Info.isSMS" ng-model="NoticePageInfo.Info.isSMS" />
+                <label for="checkbox_c4" style="float:left"></label>
+                <span ng-show="NoticePageInfo.Info.isSMS" style="line-height: 25px;"> 开通</span>
+                <span ng-show="!NoticePageInfo.Info.isSMS" style="line-height: 25px;">未开通</span>
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <span class="required">*</span>微信模板：
+                <select ng-model="NoticePageInfo.Info.weChatNotificationTmplCode" ng-change="SelectInfo.WeChatList.change(item)">
+                    <option value="">请选择</option>
+                    <option ng-repeat="item in SelectInfo.WeChatList.dic" ng-selected="item.id ==NoticePageInfo.Info.weChatNotificationTmplCode" value="{{item.id}}">{{item.text}}</option>
+                </select>
+            </div>
+            <div class="col-lg-5" ng-show="ButtonList.isWeChat">
+                <span style="float:left;line-height:25px;">微信通知：</span>
+                <input type="checkbox" id="checkbox_c5" class="chkbox" ng-checked="NoticePageInfo.Info.isWeChat" ng-model="NoticePageInfo.Info.isWeChat" />
+                <label for="checkbox_c5" style="float:left"></label>
+                <span ng-show="NoticePageInfo.Info.isWeChat" style="line-height: 25px;"> 开通</span>
+                <span ng-show="!NoticePageInfo.Info.isWeChat" style="line-height: 25px;">未开通</span>
+            </div>
+        </div>
+    </ng-dialog>
+    <ng-dialog ng-model="NoticePageView.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                经销商名：  {{NoticePageView.Info.dLOrgCodeName}}
+            </div>
+            <div class="col-lg-5">
+                经销商通知 ：  {{NoticePageView.Info.isApplyToDLALL=="Y"?"共享":"不共享"}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                订单事件： {{NoticePageView.Info.sOEventCodeName}}
+            </div>
+            <div class="col-lg-5">
+                订单组通知 ： {{NoticePageView.Info.isApplyToTeam=="Y"?"共享":"不共享"}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                模板名称： {{NoticePageView.Info.sMSNotificationTmplCodeName}}
+            </div>
+            <div class="col-lg-5">
+                通知状态： {{NoticePageView.Info.isSMSNotificationOpenedName=="Y"?"通知":"不通知"}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                模板名称： {{NoticePageView.Info.weChatNotificationTmplCodeName}}
+            </div>
+            <div class="col-lg-5">
+                通知状态： {{NoticePageView.Info.isWeChatNotificationOpenedName=="Y"?"通知":"不通知"}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                模板名称： {{NoticePageView.Info.emailNotificationTmplCodeName}}
+            </div>
+            <div class="col-lg-5">
+                通知状态： {{NoticePageView.Info.isSMSNotificationOpenedName=="Y"?"通知":"不通知"}}
+            </div>
+        </div>
+    </ng-dialog>
+</div>

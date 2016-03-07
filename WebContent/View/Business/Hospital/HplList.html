@@ -6,7 +6,7 @@
                 <h2 class="pull-left">医院列表</h2>
                 <span style="float:right;">
                     <a class="btn btn-primary" ng-click="HospitalJump.Add()">新增</a>
-                    <a class="btn btn-primary" ng-click="HospitalJump.Eduit()">编辑</a>
+                    <a class="btn btn-primary" ng-click="HospitalJump.Edit()">编辑</a>
                     <a class="btn btn-primary" ng-click="HospitalJump.Delet()">删除</a>
                     <a class="btn btn-primary" ng-click="HospitalJump.View()">详情</a>
                 </span>
@@ -24,6 +24,7 @@
                                 <th><span>医院地址</span></th>
                                 <th><span>医院邮编</span></th>
                                 <th><span>医院总机</span></th>
+                                <th><span>状态</span></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,6 +37,7 @@
                                 <td><span>{{row.hPAddress}}</span></td>
                                 <td><span>{{row.hPPostcode}}</span></td>
                                 <td><span>{{row.hPTel}}</span></td>
+                                <td><span>{{row.validStatus=="Y"?"有效":"无效"}}</span></td>
                             </tr>
                         </tbody>
                     </table>

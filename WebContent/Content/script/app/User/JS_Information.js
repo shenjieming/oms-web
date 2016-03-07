@@ -9,13 +9,47 @@
 
 app.controller("InformationController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>我的信息管理</summary>
+    $scope.tree = {
+        setting: {
+            callback: {
+                beforeExpand: true,
+                onExpand: function (event, treeId, treeNode) {
+                    /// <summary>tree查询子节点</summary>
+                    if (!treeNode.reNode) {
+                        treeNode.reNode = true;
+                    }
+                },
+                onClick: function (event, treeId, treeNode) {
+                    /// <summary>点击tree后的事件</summary>
+                    console.log(treeNode)
+                    if (treeNode.isParent) {
+                        $scope.PageInfo.option = "";
+                        $scope.PageInfo.parOption = treeNode.id
+                    } else {
+                        $scope.PageInfo.parOption = "";
+                        $scope.PageInfo.option = treeNode.id;
+                    }
+                    $scope.PageInfo.getTreeMenuList();//数据读取
+                },
+            },
+            data: {
+                simpleData: {
+                    enable: true,
+                    idKey: "id",
+                    pIdKey: "pId",
+                }
+            },
+        },
+
+        obj: new Object()
+    }
+
+
     $scope.Information = [];//用户信息
-    $scope.ComAddress = [];//常用地址
-    $scope.ContacDoctor = [];//联系医生
-    $scope.PersonalRight = [];//个人功能权限
     $scope.PageInfo = {
         UserInfo: [],
-        RoleNameList:[],
+        RoleNameList: [],
+        option:[],
         getUserInformation: function () {
             /// <summary>获取用户当前登录信息</summary>
             $Api.AccountService.CurrentUserInfo({}, function (rData) {
@@ -31,7 +65,31 @@ app.controller("InformationController", function ($scope, $state, $local, $Api, 
                 }
             })
         },
+        GetFindUserInfo: function () {
+            /// <summary>获取指定用户信息</summary>
+            $Api.AccountService.GetFindUserInfo({ userID: $scope.User.userInfo.userId }, function (rData) {
+                console.log(rData)
+                $scope.MenuInfo = rData.functionInfo;
+                //ztree  树级菜单
+                var treeData = new Array();
+                for (var i = 0; i < rData.functionInfo.length; i++) {
+                    treeData.push({ id: rData.functionInfo[i].functionID, pId: rData.functionInfo[i].parentFunctionID, name: rData.functionInfo[i].functionName });
+                }
+                $scope.tree.data = treeData;
+            });
+        },
+        getTreeMenuList: function () {
+            /// <summary>获取功能菜单列表</summary>
+            console.log($scope.functionID)
+            $MessagService.loading("菜单列表获取中，请稍等...");
+            var options = $.extend({ functionID: $scope.PageInfo.option, parentFunctionID: $scope.PageInfo.parOption }, {})
+            $Api.MenuService.GetMenuList(options, function (rData) {
+                /// <summary>获取菜单列表</summary>
+                $scope.MenuInfo = rData;
+            });
+        },
     }
+
     $scope.userInformationDetail= function () {
         /// <summary>获取用户信息信息</summary>
         $MessagService.loading("用户信息加载中，请稍等...");
@@ -41,18 +99,6 @@ app.controller("InformationController", function ($scope, $state, $local, $Api, 
             }
         })
     },
-    $scope.Jumpcenter = {
-        operationOrder: function () {
-            $state.go("app.order.single");
-        },
-        ReadyOrder:function(){
-            $state.go("app.stock.single");
-        },
-        UesrDetail: function () {
-            var accId = [];
-            $state.go("app.comp.user.view", { accId: $scope.Information.userInfo.loginAccountId });
-        },
-    }
     $scope.Pagein = {
         pageSize: 5,
         pageIndex: 1,
@@ -63,6 +109,7 @@ app.controller("InformationController", function ($scope, $state, $local, $Api, 
     $scope.Load = function () {
         /// <summary>页面初始化</summary>
         $scope.PageInfo.getUserInformation();
+        $scope.PageInfo.GetFindUserInfo();
     }
     $scope.Load();
 })

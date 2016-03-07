@@ -43,7 +43,9 @@ app.factory("$MenuService", function ($http, $local) {
         detail: [
             { name: "我的模板", url: "#/app/mybusiness/materialtemplate", state: "app.mybusiness.materialtemplate" },
             { name: "我的套件", url: "#/app/mybusiness/kits", state: "app.mybusiness.kits" },
-            { name: "我的物料", url: "#/app/mybusiness/material", state: "app.mybusiness.material" }
+            { name: "我的物料", url: "#/app/mybusiness/material", state: "app.mybusiness.material" },
+            { name: "我的地址", url: "#/app/mybusiness/address", state: "app.mybusiness.address" },
+            { name: "我的医生", url: "#/app/mybusiness/doctor", state: "app.mybusiness.doctor" }
         ]
     });
     service.push({
@@ -53,6 +55,13 @@ app.factory("$MenuService", function ($http, $local) {
             { name: "医院管理", url: "#/app/business/hplmanagement", state: "app.business.hplmanagement" },
             { name: "科室管理", url: "#/app/business/dptmanagement", state: "app.business.dptmanagement" },
             { name: "医生管理", url: "#/app/business/dtrmanagement", state: "app.business.dtrmanagement" },
+            { name: "厂商管理", url: "#/app/business/ftymanagement", state: "app.business.ftymanagement" },
+            { name: "仓库管理", url: "#/app/business/whmanagement", state: "app.business.whmanagement" },
+            { name: "品牌管理", url: "#/app/business/brandmanagement", state: "app.business.brandmanagement" },
+            { name: "产品线管理", url: "#/app/business/productlinemanagement", state: "app.business.productlinemanagement" },
+            //{ name: "仓库路由管理", url: "#/app/business/whroutmanagement", state: "app.business.whroutmanagement" },
+            { name: "代理产品管理", url: "#/app/business/productmanagement", state: "app.business.productmanagement" },
+            { name: "事件通知管理", url: "#/app/business/dlmanagementnotice", state: "app.business.dlmanagementnotice" },
         ]
     });
     service.push({

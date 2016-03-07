@@ -1,0 +1,223 @@
+﻿<div class="row">
+    <div class="tools">
+        <h5 style="float:left;">仓库信息</h5>
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-click="whPageInfo.Save()">保存</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#PersonalInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>仓库详情</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="PersonalInformation">
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span> 仓库名称：<input type="text" ng-model="whPageInfo.Info.wHName" placeholder="请输入货主名" />
+                    </label>
+                    <label>
+                     仓库全称：<input type="text" ng-model="whPageInfo.Info.wHFullName" placeholder="请输入仓库全称" />
+                    </label>
+                    <label>
+                        仓库邮编：<input type="text" ng-model="whPageInfo.Info.wHPostcode" placeholder="请输入仓库邮编" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        仓库总机：<input type="text" ng-model="whPageInfo.Info.wHTel" placeholder="请输入仓库总机" />
+                    </label>
+                    <label style="width:67%">
+                        <span style="float:left"> 仓库备注：</span>
+                        <textarea class="box-80" ng-model="whPageInfo.Info.remark" placeholder="请输入该货主描述"></textarea>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label ng-show="whPageInfo.isCheck">
+                        <span style="float:left;line-height:25px;">带订单处理：</span>
+                        <input type="checkbox" id="checkbox_c2" class="chkbox" ng-checked="whPageInfo.Info.iswHWithOrderCenter" ng-model="whPageInfo.Info.iswHWithOrderCenter" />
+                        <label for="checkbox_c2" style="float:left"></label>
+                        <span ng-show="whPageInfo.Info.iswHWithOrderCenter" style="line-height: 25px;"> 处理</span>
+                        <span ng-show="!whPageInfo.Info.iswHWithOrderCenter" style="line-height: 25px;">不处理</span>
+                    </label>
+                    <label style="width:67%">
+                        <span style="float:left"> 仓库描述：</span>
+                        <textarea class="box-80" ng-model="whPageInfo.Info.wHDesc" placeholder="请输入该货主备注信息"></textarea>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#EnterpriseInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>地址信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="EnterpriseInformation">
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span>所在省份：
+                        <select ng-model="whPageInfo.Info.wHProvinceCode" ng-change="SelectInfo.Province.change(item)">
+                            <option value="">请选择所在省份</option>
+                            <option ng-repeat="item in SelectInfo.Province.dic" ng-selected="item.divCode==whPageInfo.Info.wHProvinceCode" value="{{item.divCode}}">{{item.divName}}</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span class="required">*</span>所在市级：
+                        <select ng-model="whPageInfo.Info.wHCityCode" ng-change="SelectInfo.City.change(item)">
+                            <option value="">请选择所在市级</option>
+                            <option ng-repeat="item in SelectInfo.City.dic" ng-selected="item.divCode==whPageInfo.Info.wHCityCode" value="{{item.divCode}}">{{item.divName}}</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span class="required">*</span>所在区县：
+                        <select ng-model="whPageInfo.Info.wHDistrictCode" ng-change="SelectInfo.District.change(item)">
+                            <option value="">请选择所在区县</option>
+                            <option ng-repeat="item in SelectInfo.District.dic" ng-selected="item.divCode==whPageInfo.Info.wHDistrictCode" value="{{item.divCode}}">{{item.divName}}</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        <span class="required">*</span>企业地址：<input type="text" style="width:80%" ng-model="whPageInfo.Info.wHAddress" placeholder="请输入该企业地址" />
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#TopContacts">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>联系人信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="TopContacts">
+                <div class="main-box-body clearfix">
+                    <div style="min-height:100px">
+                        <table class="table table-bordered ">
+                            <thead>
+                                <tr>
+                                    <th><span>序号</span></th>
+                                    <th><span>联系姓名</span></th>
+                                    <th><span>联系手机</span></th>
+                                    <th><span>联系电话</span></th>
+                                    <th><span>联系邮箱</span></th>
+                                    <th><span>联系用途</span></th>
+                                    <th><span>通信工具</span> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人1姓名" ng-model="whPageInfo.Info.contact1Name" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人1手机" ng-model="whPageInfo.Info.contact1Mobile" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人1电话" ng-model="whPageInfo.Info.contact1Tel" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人1邮箱" ng-model="whPageInfo.Info.contact1Email" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人1用途" ng-model="whPageInfo.Info.contact1Func" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人1通信工具" ng-model="whPageInfo.Info.contact1PMsgType" />
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人2姓名" ng-model="whPageInfo.Info.contact2Name" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人2手机" ng-model="whPageInfo.Info.contact2Mobile" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人2电话" ng-model="whPageInfo.Info.contact2Tel" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人2邮箱" ng-model="whPageInfo.Info.contact2Email" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人2用途" ng-model="whPageInfo.Info.contact2Func" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人2通信工具" ng-model="whPageInfo.Info.contact2PMsgType" />
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人3姓名" ng-model="whPageInfo.Info.contact3Name" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人3手机" ng-model="whPageInfo.Info.contact3Mobile" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人3电话" ng-model="whPageInfo.Info.contact3Tel" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人3邮箱" ng-model="whPageInfo.Info.contact3Email" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人3用途" ng-model="whPageInfo.Info.contact3Func" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input type="text" placeholder="请输入联系人3通信工具" ng-model="whPageInfo.Info.contact3PMsgType" />
+                                        </label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tools">
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-click="whPageInfo.Save()">保存</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+</div>
+
+
+
