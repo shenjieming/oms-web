@@ -1,0 +1,51 @@
+﻿<div>
+    <ng-dialog ng-model="ngMaterialsImportTemplate">
+        <div class="row-fluid" style="min-height:450px;max-height:450px;overflow-y:auto;padding-top:-10px;">
+            <div class="widget-box">
+                <div class="widget-title bg_ly">
+                    <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                    <h5 data-toggle="collapse" style="width:80%">模板信息[货主：{{ngModel.sOOIOrgCodeName}}]</h5>
+                </div>
+                <div class="widget-content nopadding collapse in">
+                    <div class="control-group ">
+                        <label>
+                            <span class="required">*</span>模板名称：<input type="text" ng-model="TemplateData.tmplName" />
+                        </label>
+                        <label>
+                            <span class="required">*</span>模板全称：<input type="text" ng-model="TemplateData.tmplFullName" />
+                        </label>
+                        <label>
+                            <span class="required">*</span>模板类型：<span ng-dictionary="SOTTYP" ng-model="TemplateData.tmplType"></span>
+                        </label>
+                    </div>
+                    <div class="control-group ">
+                        <label>
+                            <span class="required">*</span>模板权限：<span ng-dictionary="SOTACC" ng-model="TemplateData.tmplAccessType"></span>
+                        </label>
+                        <label style="width:60%">
+                            模板描述：<input type="text" style="width:78%;" ng-model="TemplateData.tmplDesc" />
+                        </label>
+                    </div>
+                    <div class="control-group ">
+                        <label style="width:100%;">
+                            备注信息
+                            <input type="text" style="width: 78%" ng-model="TemplateData.remark" />
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget-box">
+                <div class="widget-title bg_ly" >
+                    <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                    <h5 style="width:80%" data-toggle="collapse" href="#templateDetailInfo">
+                        产品信息详情预览{{Service.ProductCompetence.ShowInfo}}
+                    </h5>
+                </div>
+                <div class="widget-content nopadding collapse in" id="templateDetailInfo">
+                    <div ng-product-view="dealProduct" ng-model="TemplateData" ng-service="Service.ProductService" ng-comp="Service.ProductCompetence"></div>
+                </div>
+            </div>
+        </div>
+    </ng-dialog>
+</div>

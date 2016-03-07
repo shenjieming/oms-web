@@ -1,6 +1,13 @@
 ﻿<div>
     <ng-dialog ng-model="ngOperat">
-        <div class="main-box-body clearfix" style="padding:15px;max-height:450px;overflow:auto;">
+        <div style="display: inline-block; width: 99%; padding: 5px;">
+            <div class="input-group" style="float:right;width:250px;">
+                <input type="text" class="form-control" placeholder="请输入物料编码或物料名称"
+                       style="padding:8px;" ng-model="Service.SearchWhere">
+                <a class="input-group-addon" href="javascript:void(0)"><i class="fa fa-search"></i></a>
+            </div>
+        </div>
+        <div class="main-box-body clearfix" style="padding:0px 10px;max-height:400px;min-height:400px; overflow:auto;">
             <div class="table-responsive">
                 <table class="table table-bordered tab-striped">
                     <thead>
@@ -15,7 +22,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="row in Service.MedKits">
+                        <tr ng-class="{'selected':row.reqQty>0}" ng-repeat="row in Service.MedKits|filter :Service.SearchWhere" ng-dblclick="Service.AddreqQty(row)">
                             <td>{{$index+1}}</td>
                             <td>
                                 {{row.kitCode}}

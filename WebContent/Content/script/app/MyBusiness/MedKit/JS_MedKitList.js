@@ -27,7 +27,7 @@ app.controller("MedKitListController", function ($scope, $state, $local, $Api, $
             /// <summary>获取库区的列表</summary>
             $scope.MedKit.ZoneList = new Array();
             if ($scope.Detail.PageData.medMIWarehouse) {
-                $Api.BusinessData.Reservoir.AueryAllWhzone({ medMIWarehouse: $scope.Detail.PageData.medMIWarehouse,validStatus:"Y" }, function (rData) {
+                $Api.BusinessData.Reservoir.AueryAllWhzone({ medMIWarehouse: $scope.Detail.PageData.medMIWarehouse, validStatus: "Y" }, function (rData) {
                     $scope.MedKit.ZoneList = rData.rows;
                 });
             }

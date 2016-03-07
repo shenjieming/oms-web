@@ -1,12 +1,9 @@
-﻿
+﻿/// <reference path="../ServerConfiguration.js" />
+
 console.log("接口控制启动");
 var ApiPath = {
     /// <summary>Api访问接口服务</summary>
-    //Path: "http://192.168.0.130:8080/oms-api",
-    //Path: "http://115.28.129.13:8081/oms-api",
-    Path: "http://192.168.1.84:8081/oms-api",
-    //Path: "http://127.0.0.1:8080/oms-api",
-    //Path: "http://omsapiv2.med-log.cn:8081/oms-api",
+    Path: ServerConfiguration.Path,
     Account: {
         /// <summary>用户地址</summary>
         //Web登陆
@@ -20,7 +17,7 @@ var ApiPath = {
         //获取登陆用户信息
         findCurrentUserInfo: "/v2/user/findCurrentUserInfo",
         //登陆日志查询
-        loginAccountLogSearch: "/v2/baseData/loginAccountLogSearcsth",
+        loginAccountLogSearch: "/v2/baseData/loginAccountLogSearch",
         //获取指定用户信息
         findUserInfo: "/v2/user/findUserInfo"
     },
@@ -47,7 +44,9 @@ var ApiPath = {
             //返库申请
             feedBackApply: "/v2/common/order/feedBackApply",
             //订单返库
-            back: "/v2/order/commintReturnWareHouseOrder"
+            back: "/v2/order/commintReturnWareHouseOrder",
+            //反馈单暂存
+            backsave: "/v2/order/temporarySaveReturnWareHouseOrder"
         },
         Approval: {
             /// <summary>订单审批</summary>
@@ -277,7 +276,13 @@ var ApiPath = {
         //模板维护
         searchTemplate: "/v2/template/searchTemplate",
         //查询物料库存
-        MedmaterialItemInventory: "/v2/wms/queryMedmaterialItemInventory"
+        MedmaterialItemInventory: "/v2/wms/queryMedmaterialItemInventory",
+        //添加模板
+        addTemplate: "/v2/template/addTemplate",
+        //修改模板
+        updateTemplate: "/v2/template/updateTemplate",
+        //删除模板
+        deleteTemplate: "/v2/template/deleteTemplate"
     },
     MedKit: {
         /// <summary>我的物料套件</summary>
@@ -286,10 +291,17 @@ var ApiPath = {
         //套件详细查询
         searchHMedKitDetail: "/v2/template/common/searchHMedKitDetail",
         //查询套件粗存
-        queryKitInventory: "/v2/wms/queryKitInventory"
+        queryKitInventory: "/v2/wms/queryKitInventory",
+        //获取套件修改
+        updateHMedKit: "/v2/template/common/updateHMedKit",
+        //获取套件删除
+        deleteHMedKit: "/v2/template/common/deleteHMedKit",
+        //获取套件添加
+        insertHMedKit: "/v2/template/common/insertHMedKit",
     },
     BusinessData: {
         /// <summary>业务数据基础管理</summary>
+
         //厂商列表
         MedManuFacture: {
             //厂商列表
@@ -302,19 +314,20 @@ var ApiPath = {
             deleteMedManuFacture: "/v2/bizData/deleteMedManuFacture",
             //厂商下拉框
             medManuFactureCommboxList: "/v2/bizData/medManuFactureCommboxList",
+
         },
         //品牌列表
         MedBrand: {
             //品牌列表
-            queryAllMedBrand:"/v2/bizData/queryAllMedBrand",
+            queryAllMedBrand: "/v2/bizData/queryAllMedBrand",
             //品牌详情
-            queryMedBrandDetail:"/v2/bizData/queryMedBrandDetail",
+            queryMedBrandDetail: "/v2/bizData/queryMedBrandDetail",
             //品牌添加
-            addMedBrand:"/v2/bizData/addMedBrand",
+            addMedBrand: "/v2/bizData/addMedBrand",
             //品牌修改
-            updateMedBrand:"/v2/bizData/updateMedBrand",
+            updateMedBrand: "/v2/bizData/updateMedBrand",
             //品牌删除
-            deleteMedBrand:"/v2/bizData/deleteMedBrand",
+            deleteMedBrand: "/v2/bizData/deleteMedBrand",
         },
         //物料列表
         MedMater: {
@@ -341,19 +354,6 @@ var ApiPath = {
             //获取库区列表
             queryAllWhzone: "/v2/bizData/queryAllWhzone",
         },
-        //套件管理
-        ManSuite: {
-            //获取套件列表
-            searchHMedKit: "/v2/template/common/searchHMedKit",
-            //获取套件详情
-            searchHMedKitDetail: "/v2/template/common/searchHMedKitDetail",
-            //获取套件修改
-            updateHMedKit: "/v2/template/common/updateHMedKit",
-            //获取套件删除
-            deleteHMedKit: "/v2/template/common/deleteHMedKit",
-            //获取套件添加
-            insertHMedKit: "/v2/template/common/insertHMedKit",
-        },
         MedJournal: {
             //平台信息列表
             queryAllPlatForm: "/v2/bizData/queryAllPlatForm",
@@ -363,9 +363,6 @@ var ApiPath = {
         /// <summary>获取厂商编码查询品牌</summary>
         queryBrandByManufacture: "/v2/basebusinessdata/common/queryBrandByManufacture"
     },
-
-
-
     /////// 业务基础数据
     ManageDl: {
         //经销商列表
@@ -442,14 +439,15 @@ var ApiPath = {
         queryEventCode: "/v2/bizData/queryEventCode",
     },
     ManaDepartment: {
+
         //科室管理列表
         bizDataWDList: "/v2/bizDataDL/bizDataWDList",
         //科室管理详细
-        bizDataWDDetail:"/v2/bizDataDL/bizDataWDDetail",
+        bizDataWDDetail: "/v2/bizDataDL/bizDataWDDetail",
         //科室管理新增
-        bizDataWDAdd:"/v2/bizDataDL/bizDataWDAdd",
+        bizDataWDAdd: "/v2/bizDataDL/bizDataWDAdd",
         //科室管理修改
-        bizDataWDModify:"/v2/bizDataDL/bizDataWDModify",
+        bizDataWDModify: "/v2/bizDataDL/bizDataWDModify",
         //科室管理禁用
         bizDataWDDisable: "/v2/bizDataDL/bizDataWDDisable",
         //科室管理启用
@@ -477,7 +475,7 @@ var ApiPath = {
         //代理产品启用
         bizDataOIDLMedBrandAgentRelEnable: "/v2/bizDataDL/bizDataOIDLMedBrandAgentRelEnable",
     },
-    OrderRout:{
+    OrderRout: {
         //订单仓库路由列表
         queryOdwhCfg: "/v2/bizData/queryOdwhCfg",
         //订单仓库路由新增
@@ -488,13 +486,13 @@ var ApiPath = {
     productLine: {
         //产品线管理
         //产品线列表
-        query:"/v2/bizData/productLine/query",
+        query: "/v2/bizData/productLine/query",
         //产品线新增
-        insert:"/v2/bizData/productLine/insert",
+        insert: "/v2/bizData/productLine/insert",
         //产品线修改
-        update:"/v2/bizData/productLine/update",
+        update: "/v2/bizData/productLine/update",
         //产品线删除
-        delect:"/v2/bizData/productLine/delete",
+        delect: "/v2/bizData/productLine/delete",
     },
     MyAddress: {
         //我的地址列表

@@ -42,6 +42,10 @@ input, select, textarea {
     color: #00CC00 !important;
 }
 
+.selected {
+    color: #436EEE;
+}
+
 .red, .green {
     font-size: 13px;
     font-weight: bold;
@@ -237,10 +241,18 @@ input, select, textarea {
                 color: #fff;
                 float: right;
             }
-
-                .row-fluid .widget-box .widget-title .btn:hover {
-                    background: #121418;
+            .row-fluid .widget-box .widget-title .btn-group {
+                float: right;
+            }
+                .row-fluid .widget-box .widget-title .btn-group .btn {
+                    color: #fff;
+                    float: left;
                 }
+
+                    .row-fluid .widget-box .widget-title .btn:hover,
+                    .row-fluid .widget-box .widget-title .btn-group .btn:hover {
+                        background: #121418;
+                    }
 
         .row-fluid .widget-box .nopadding {
             padding: 0 !important;
@@ -616,4 +628,10 @@ input, select, textarea {
     left: 0;
     z-index: -1;
     display: none;
+}
+
+/*按钮组件*/
+.oms-btn-group .btn.btn-primary {
+    /*按钮组靠左*/
+    border: 1px solid #63B8FF;
 }

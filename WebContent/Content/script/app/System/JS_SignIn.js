@@ -23,9 +23,7 @@ app.controller("SignInController", function ($scope, $state, $local, $Api, $Mess
                         $state.go('app.home');
                     });
                 }, 500)
-            }, function () {
-
-            });
+            }, function () { });
         }
         $.extend($scope.SignData, { password: "" });//输入完毕，密码清空
     }

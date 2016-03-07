@@ -30,7 +30,7 @@
                 </div>
                 <div class="control-group ">
                     <label>
-                        <span class="required">*</span>货主编码(短号)：<input type="text" ng-model="oiPageInfo.Info.oIShortCode" placeholder="请输入货主短编码  " />
+                        <span class="required">*</span>货主简码：<input type="text" ng-model="oiPageInfo.Info.oIShortCode" placeholder="请输入货主短编码  " />
                     </label>
                     <label style="width:67%">
                         <span style="float:left"> 货主描述：</span>
@@ -68,32 +68,6 @@
                 </div>
                 <div class="control-group ">
                     <label>
-                       注册税号：<input type="text" ng-model="oiPageInfo.Info.corpRegTaxNo" placeholder="请输入注册税号" />
-                    </label>
-                    <label>
-                       法人代表：<input type="text" ng-model="oiPageInfo.Info.corpRegLegalRep" placeholder="请输入法人代表" />
-                    </label>
-                    <label>
-                       注册资本：<input type="text" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')"  ng-model="oiPageInfo.Info.corpRegCapital" placeholder="请输入注册资本" />
-                    </label>              
-                </div>
-                <div class="control-group ">
-
-                    <label style="width:67%">
-                        <span style="float:left"> 经营范围：</span>
-                        <textarea class="box-80" ng-model="oiPageInfo.Info.corpRegBizScope" placeholder="请输入该货主经营范围"></textarea>
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="widget-box">
-            <div class="widget-title bg_ly" data-toggle="collapse" href="#EnterpriseInformation">
-                <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5>企业信息</h5>
-            </div>
-            <div class="widget-content nopadding collapse in" id="EnterpriseInformation">
-                <div class="control-group ">
-                    <label>
                         <span class="required">*</span>所在省份：
                         <select ng-model="oiPageInfo.Info.corpRegProvinceCode" ng-change="SelectInfo.Province.change(item)">
                             <option value="">请选择所在省份</option>
@@ -117,10 +91,28 @@
                 </div>
                 <div class="control-group ">
                     <label>
-                       邮政编码：<input type="text" ng-model="oiPageInfo.Info.corpBizPostcode" placeholder="请输入邮政编码" />
+                        邮政编码：<input type="text" ng-model="oiPageInfo.Info.corpBizPostcode" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')" placeholder="请输入邮政编码" />
                     </label>
                     <label style="width:67%">
                         <span class="required">*</span>  企业地址：<input type="text" style="width:80%" ng-model="oiPageInfo.Info.corpRegAddress" placeholder="请输入该企业地址" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                       注册税号：<input type="text" ng-model="oiPageInfo.Info.corpRegTaxNo" placeholder="请输入注册税号" />
+                    </label>
+                    <label>
+                       法人代表：<input type="text" ng-model="oiPageInfo.Info.corpRegLegalRep" placeholder="请输入法人代表" />
+                    </label>
+                    <label>
+                       注册资本：<input type="text" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')"  ng-model="oiPageInfo.Info.corpRegCapital" placeholder="请输入注册资本" />
+                    </label>              
+                </div>
+                <div class="control-group ">
+
+                    <label style="width:67%">
+                        <span style="float:left"> 经营范围：</span>
+                        <textarea class="box-80" ng-model="oiPageInfo.Info.corpRegBizScope" placeholder="请输入该货主经营范围"></textarea>
                     </label>
                 </div>
             </div>

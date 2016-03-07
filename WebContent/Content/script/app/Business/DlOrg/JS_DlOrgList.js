@@ -34,9 +34,10 @@ app.controller("DlOrgListController", function ($scope, $state, $local, $Api, $M
                 $MessagService.caveat("请选择一条编辑的经销商");
             }       
         },
-        View: function () {
+        View: function (row) {
             /// <summary>经销商详情</summary>
-            var dlopt = $scope.getSelectedRow()
+            var dlopt = row ? row : $scope.getSelectedRow();
+            console.log(dlopt)
             if (dlopt) {
                 $state.go("app.business.dlorganizationView", { dlopt: dlopt.orgCode });
             }

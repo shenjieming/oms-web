@@ -161,7 +161,7 @@ angular.module('jnDo', [])
             replace: true,
             link: function ($scope, element, attrs) {
                 var options = $.extend({
-                    format: "Y/m/d H:00:00",
+                    format: "Y-m-d H:00:00",
                     onClose: function () {
                         setTimeout(function () {
                             $scope.$apply(function () { $scope.ngModel = $(element).val(); });

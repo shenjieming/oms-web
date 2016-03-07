@@ -8,7 +8,6 @@
 /// <reference path="../Config.js" />
 
 app.controller("DptListController", function ($scope, $state, $local, $Api, $MessagService) {
-
     /// <summary>科室列表</summary>
     $scope.tree = {
         setting: {

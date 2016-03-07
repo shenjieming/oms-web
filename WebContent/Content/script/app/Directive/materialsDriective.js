@@ -28,7 +28,25 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                 SearchWhere: "",
                 productLine: false,
                 brandLine: false,
-                all:false,
+                all: false,
+                AddreqQty: function (Material) {
+                    /// <summary>添加套件物料</summary>
+                    Material.reqQty++;
+                },
+                AddAllQty: function () {
+                    /// <summary>添加全部的物料数量</summary>
+                    $.each($scope.Service.MaterialList, function (index, material) {
+                        $scope.Service.AddreqQty(material);
+                    })
+
+                },
+                UpEnter: function (e) {
+                    /// <summary>点击回车事件</summary>
+                    var keycode = window.event ? e.keyCode : e.which;
+                    if (keycode == 13) {
+                        $scope.Service.QueryMaterialList();
+                    }
+                },
                 GetList: function () {
                     /// <summary>获取物料列表</summary>
                     $MessagService.loading("物料列表获取中，请稍等...");
@@ -99,7 +117,7 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
 
             $scope.Pagein = {
                 /// <summary>分页信息</summary>
-                pageSize: 5,
+                pageSize: 20,
                 categoryByPlatform: "IMPLANT",
                 pageIndex: 1,
                 callbake: function () {
@@ -108,11 +126,14 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
             }
             var modelConfig = {
                 open: function () {
+                    /// <summary>弹出层打开事件</summary>
+                    //清空冗余数据
                     $scope.Service.ChangeList = new Array();
                     $scope.Service.MaterialList = new Array();
+                    $scope.Service.SearchWhere = "";
                     $scope.Service.GetMaterialListByCategory();
                 },
-                title: "物料选择", width: 950, height: 100, buttons: {
+                title: "物料选择", width: "100%", position:[0],height: "90%", buttons: {
                     "确定": function () {
                         $scope.Service.GetChangeMaterials();
                         var data = $scope.Service.ChangeList;

@@ -19,6 +19,10 @@ app.directive("ngMedKits", function ($Api, $MessagService, $local) {
         replace: true,
         link: function ($scope, element, attrs) {
             $scope.Service = {
+                AddreqQty: function (MedKit) {
+                    /// <summary>添加套件物料</summary>
+                    MedKit.reqQty++;
+                },
                 MedKits: new Array(),
                 GetMedKits: function () {
                     /// <summary>获取套件信息</summary>
@@ -42,9 +46,10 @@ app.directive("ngMedKits", function ($Api, $MessagService, $local) {
             }
             var modelConfig = {
                 open: function () {
+                    $scope.Service.SearchWhere = "";
                     $scope.Service.GetMedKits();
                 },
-                title: "套件选择", width: 650, height: 300, buttons: {
+                title: "套件选择", width: "99%",position:[0], height: "90%", buttons: {
                     "确定": function () {
                         var data = $scope.Service.GetChangeMedKits();
                         if (data.length) {
