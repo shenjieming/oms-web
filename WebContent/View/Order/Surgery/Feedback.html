@@ -16,15 +16,15 @@
     <div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active" href="#Original" data-toggle="tab"><a>原始订单</a></li>
+            <li role="presentation" class="active" href="#Feedback" data-toggle="tab"><a>反馈入库</a></li>
+            <li role="presentation" href="#Original" data-toggle="tab"><a>原始订单</a></li>
             <li role="presentation" href="#Accurate" data-toggle="tab"><a>精确订单</a></li>
             <li role="presentation" href="#Additional" data-toggle="tab"><a>出库单</a></li>
-            <li role="presentation" href="#Feedback" data-toggle="tab"><a>反馈入库</a></li>
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="Original">
+            <div role="tabpanel" class="tab-pane" id="Original">
                 <div ui-view="Original"></div>
             </div>
             <div role="tabpanel" class="tab-pane" id="Accurate">
@@ -35,7 +35,7 @@
                     <div ui-view="Library"></div>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane" id="Feedback">
+            <div role="tabpanel" class="tab-pane active" id="Feedback">
                 <div class="row-fluid">
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
@@ -165,7 +165,9 @@
                                                     <td>{{row.medMICodeName}}</td>
                                                     <td>{{row.categoryByPlatformName}}</td>
                                                     <td>{{row.specification}}</td>
-                                                    <td>{{row.lotSerial}}</td>
+                                                    <td>
+                                                        <input type="text" style="width:60px" ng-model="row.lotSerial" />
+                                                    </td>
                                                     <td>{{row.actQty}}</td>
                                                     <td>
                                                         <input type="number" ng-change="dictionary.DefaultUseType(row)" style="width:60px;" ng-model="row.useQty" min="0" max="{{row.actQty}}" />
