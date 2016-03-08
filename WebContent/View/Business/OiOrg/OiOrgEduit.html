@@ -18,19 +18,19 @@
                         <span class="required">*</span>组织类型：
                         <select ng-model="oiPageInfo.Info.oIType" ng-change="SelectInfo.oiType.change(item)">
                             <option value="">请选择组织类型</option>
-                            <option ng-repeat="item in SelectInfo.oiType.dic" ng-selected="item.id==oiPageInfo.Info.oIType" value="{{item.id}}">{{item.id}}-{{item.text}}</option>
+                            <option ng-repeat="item in SelectInfo.oiType.dic" ng-selected="item.id==oiPageInfo.Info.oIType" value="{{item.id}}">{{item.text}}</option>
                         </select>
                     </label>
                     <label>
-                        <span class="required">*</span> 货主名称：<input type="text" ng-model="oiPageInfo.Info.dLName" placeholder="请输入货主名" />
+                        <span class="required">*</span> 货主名称：<input type="text" ng-model="oiPageInfo.Info.oIName" placeholder="请输入货主名称" />
                     </label>
                     <label>
-                        <span class="required">*</span>货主全称：<input type="text" ng-model="oiPageInfo.Info.dLFullName" placeholder="请输入货主全称" />
+                        货主全称：<input type="text" ng-model="oiPageInfo.Info.oIFullName" placeholder="请输入货主全称" />
                     </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                        <span class="required">*</span>货主编码：<input type="text" ng-model="oiPageInfo.Info.oIShortCode" placeholder="请输入货主全称" />
+                        <span class="required">*</span>货主编码(短号)：<input type="text" ng-model="oiPageInfo.Info.oIShortCode" placeholder="请输入货主短编码  " />
                     </label>
                     <label style="width:67%">
                         <span style="float:left"> 货主描述：</span>
@@ -59,31 +59,28 @@
                         <span class="required">*</span>注册编码：<input type="text" ng-model="oiPageInfo.Info.corpRegNo" placeholder="请输入注册编码" />
                     </label>
                     <label>
-                        <span class="required">*</span> 法人代表：<input type="text" ng-model="oiPageInfo.Info.corpRegLegalRep" placeholder="请输入法人代表" />
+                        <span class="required">*</span>注册币别：
+                        <select ng-model="oiPageInfo.Info.corpRegCurrencyCode" ng-change="SelectInfo.Currency.change(item)">
+                            <option value="">请选择币别</option>
+                            <option ng-repeat="item in SelectInfo.Currency.dic" ng-selected="item.currencyCode==oiPageInfo.Info.corpRegCurrencyCode" value="{{item.currencyCode}}">{{item.currencyName}}</option>
+                        </select>
                     </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                        <span class="required">*</span>注册资本：<input type="text" ng-model="oiPageInfo.Info.corpRegCapital" placeholder="请输入注册资本" />
+                       注册税号：<input type="text" ng-model="oiPageInfo.Info.corpRegTaxNo" placeholder="请输入注册税号" />
                     </label>
                     <label>
-                        <span class="required">*</span>币种简称：<input type="text" ng-model="oiPageInfo.Info.corpRegCurrencyCode" placeholder="请输入币种简称" />
+                       法人代表：<input type="text" ng-model="oiPageInfo.Info.corpRegLegalRep" placeholder="请输入法人代表" />
                     </label>
                     <label>
-                        <span class="required">*</span>币种全称：<input type="text" ng-model="oiPageInfo.Info.corpRegCurrencyCode" placeholder="请输入币种全称" />
-                    </label>
+                       注册资本：<input type="text" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')"  ng-model="oiPageInfo.Info.corpRegCapital" placeholder="请输入注册资本" />
+                    </label>              
                 </div>
                 <div class="control-group ">
-                    <label>
-                        <span class="required">*</span>注册税号：<input type="text" ng-model="oiPageInfo.Info.corpRegTaxNo" placeholder="请输入注册税号" />
-                    </label>
-                    <label>
-                        <span class="required">*</span>注册状态：<input type="text" ng-model="oiPageInfo.Info.validStatusName" placeholder="请输入注册状态" />
-                    </label>
-                </div>
-                <div class="control-group ">
-                    <label style="width:100%">
-                        <span style="float:left">  经营范围：</span>
+
+                    <label style="width:67%">
+                        <span style="float:left"> 经营范围：</span>
                         <textarea class="box-80" ng-model="oiPageInfo.Info.corpRegBizScope" placeholder="请输入该货主经营范围"></textarea>
                     </label>
                 </div>
@@ -97,23 +94,33 @@
             <div class="widget-content nopadding collapse in" id="EnterpriseInformation">
                 <div class="control-group ">
                     <label>
-                        国家编码：<input type="text" ng-model="oiPageInfo.Info.corpRegCountryCode" placeholder="请输入国家编码" />
+                        <span class="required">*</span>所在省份：
+                        <select ng-model="oiPageInfo.Info.corpRegProvinceCode" ng-change="SelectInfo.Province.change(item)">
+                            <option value="">请选择所在省份</option>
+                            <option ng-repeat="item in SelectInfo.Province.dic" ng-selected="item.divCode==oiPageInfo.Info.corpRegProvinceCode" value="{{item.divCode}}">{{item.divName}}</option>
+                        </select>
                     </label>
                     <label>
-                        省级编码：<input type="text" ng-model="oiPageInfo.Info.corpRegProvinceCode" placeholder="请输入省级编码" />
-                    </label>  
+                        <span class="required">*</span>所在市级：
+                        <select ng-model="oiPageInfo.Info.corpRegCityCode" ng-change="SelectInfo.City.change(item)">
+                            <option value="">请选择所在市级</option>
+                            <option ng-repeat="item in SelectInfo.City.dic" ng-selected="item.divCode==oiPageInfo.Info.corpRegCityCode" value="{{item.divCode}}">{{item.divName}}</option>
+                        </select>
+                    </label>
                     <label>
-                        市级编码：<input type="text" ng-model="oiPageInfo.Info.corpRegCityCode" placeholder="请输入市级编码" />
-                    </label>         
+                        <span class="required">*</span>所在区县：
+                        <select ng-model="oiPageInfo.Info.corpRegDistrictCode" ng-change="SelectInfo.District.change(item)">
+                            <option value="">请选择所在区县</option>
+                            <option ng-repeat="item in SelectInfo.District.dic" ng-selected="item.divCode==oiPageInfo.Info.corpRegDistrictCode" value="{{item.divCode}}">{{item.divName}}</option>
+                        </select>
+                    </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                        区域编码：<input type="text" ng-model="oiPageInfo.Info.corpRegDistrictCode" placeholder="请输入区域编码" />
+                       邮政编码：<input type="text" ng-model="oiPageInfo.Info.corpBizPostcode" placeholder="请输入邮政编码" />
                     </label>
-                </div>
-                <div class="control-group ">
-                    <label style="width:100%">
-                        企业地址：<input type="text" style="width:80%" ng-model="oiPageInfo.Info.corpRegAddress" placeholder="请输入该企业地址" />
+                    <label style="width:67%">
+                        <span class="required">*</span>  企业地址：<input type="text" style="width:80%" ng-model="oiPageInfo.Info.corpRegAddress" placeholder="请输入该企业地址" />
                     </label>
                 </div>
             </div>
@@ -126,26 +133,30 @@
             <div class="widget-content nopadding collapse in" id="OperateInformation">
                 <div class="control-group ">
                     <label>
-                        国家编码：<input type="text" ng-model="oiPageInfo.Info.corpBizCountryCode" placeholder="请输入国家编码" />
+                        <span class="required">*</span>所在省份：
+                        <select ng-model="oiPageInfo.Info.corpBizProvinceCode" ng-change="SelectInfo.BizProvince.change(item)">
+                            <option value="">请选择所在省份</option>
+                            <option ng-repeat="item in SelectInfo.Province.dic" ng-selected="item.divCode==oiPageInfo.Info.corpBizProvinceCode" value="{{item.divCode}}">{{item.divName}}</option>
+                        </select>
                     </label>
                     <label>
-                        省级编码：<input type="text" ng-model="oiPageInfo.Info.corpBizProvinceCode" placeholder="请输入省级编码" />
+                        <span class="required">*</span>所在市级：
+                        <select ng-model="oiPageInfo.Info.corpBizCityCode" ng-change="SelectInfo.BizCity.change(item)">
+                            <option value="">请选择所在市级</option>
+                            <option ng-repeat="item in SelectInfo.BizCity.dic" ng-selected="item.divCode==oiPageInfo.Info.corpBizCityCode" value="{{item.divCode}}">{{item.divName}}</option>
+                        </select>
                     </label>
                     <label>
-                        市级编码：<input type="text" ng-model="oiPageInfo.Info.corpBizCityCode" placeholder="请输入市级编码" />
-                    </label>
-                </div>
-                <div class="control-group ">
-                    <label>
-                        区域编码：<input type="text" ng-model="oiPageInfo.Info.corpBizDistrictCode" placeholder="请输入区域编码" />
-                    </label>
-                    <label>
-                        邮政编码：<input type="text" ng-model="oiPageInfo.Info.corpBizPostcode" placeholder="请输入邮政编码" />
+                        <span class="required">*</span>所在区县：
+                        <select ng-model="oiPageInfo.Info.corpBizDistrictCode" ng-change="SelectInfo.BizDistrict.change(item)">
+                            <option value="">请选择所在区县</option>
+                            <option ng-repeat="item in SelectInfo.BizDistrict.dic" ng-selected="item.divCode==oiPageInfo.Info.corpBizDistrictCode" value="{{item.divCode}}">{{item.divName}}</option>
+                        </select>
                     </label>
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        企业地址：<input type="text" style="width:80%" ng-model="oiPageInfo.Info.corpBizAddress" placeholder="请输入该企业地址" />
+                        <span class="required">*</span> 企业地址：<input type="text" style="width:80%" ng-model="oiPageInfo.Info.corpBizAddress" placeholder="请输入该企业地址" />
                     </label>
                 </div>
             </div>
@@ -158,7 +169,7 @@
             <div class="widget-content nopadding collapse in" id="TopContacts">
                 <div class="main-box-body clearfix">
                     <div style="min-height:100px">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered ">
                             <thead>
                                 <tr>
                                     <th><span>序号</span></th>
@@ -269,7 +280,7 @@
                                             <input type="text" placeholder="请输入联系人3通信工具" ng-model="oiPageInfo.Info.contact3PMsgType" />
                                         </label>
                                     </td>
-                                </tr>                              
+                                </tr>
                             </tbody>
                         </table>
                     </div>

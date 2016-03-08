@@ -1,6 +1,6 @@
 ﻿<div class="row">
     <div class="tools">
-        <h5 style="float:left;">组织信息</h5>
+        <h5 style="float:left;">经销商信息</h5>
         <span style="float:right;">
             <a class="btn btn-primary" ng-click="dlPageInfo.Save()">保存</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
@@ -21,7 +21,7 @@
                         <span class="required">*</span>经销全称：<input type="text" ng-model="dlPageInfo.Info.dLFullName" placeholder="请输入经销全称" />
                     </label>
                     <label>
-                        <span class="required">*</span>经销描述：<input type="text" ng-model="dlPageInfo.Info.dLDesc" placeholder="请输入经销描述" />
+                       经销描述：<input type="text" ng-model="dlPageInfo.Info.dLDesc" placeholder="请输入经销描述" />
                     </label>
                 </div>
                 <div class="control-group ">
@@ -43,25 +43,29 @@
                         <span class="required">*</span> 注册名称：<input type="text" ng-model="dlPageInfo.Info.corpRegCompanyName" placeholder="请输入注册名称" />
                     </label>
                     <label>
-                        <span class="required">*</span>注册编码：<input type="text" ng-model="dlPageInfo.Info.corpRegNo" placeholder="请输入注册编码" />
+                        <span class="required">*</span>注册编码：<input type="text" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')"  ng-model="dlPageInfo.Info.corpRegNo" placeholder="请输入注册编码" />
                     </label>
                     <label>
-                        <span class="required">*</span> 法人代表：<input type="text" ng-model="dlPageInfo.Info.corpRegLegalRep" placeholder="请输入法人代表" />
-                    </label>      
+                        <span class="required">*</span>注册币别：
+                        <select ng-model="dlPageInfo.Info.corpRegCurrencyCode" ng-change="SelectInfo.Currency.change(item)">
+                            <option value="">请选择币别</option>
+                            <option ng-repeat="item in SelectInfo.Currency.dic" ng-selected="item.currencyCode==dlPageInfo.Info.corpRegCurrencyCode" value="{{item.currencyCode}}">{{item.currencyName}}</option>
+                        </select>
+                    </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                        <span class="required">*</span>注册资本：<input type="text" ng-model="dlPageInfo.Info.corpRegCapital" placeholder="请输入注册资本" />
-                    </label>
+                        注册资本：<input type="text" ng-model="dlPageInfo.Info.corpRegCapital" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')" placeholder="请输入注册资本" />
+                    </label>   
                     <label>
-                        <span class="required">*</span> 注册币种：<input type="text" ng-model="dlPageInfo.Info.corpRegCurrencyCode" placeholder="请输入注册币种" />
-                    </label>
+                        法人代表：<input type="text" ng-model="dlPageInfo.Info.corpRegLegalRep" placeholder="请输入法人代表" />
+                    </label>   
                     <label ng-show="dlPageInfo.checkIs">
                         <span style="float:left;line-height:25px;">认证状态：</span>
-                        <input type="checkbox" id="checkbox_c2" class="chkbox" ng-checked="dlPageInfo.Info.certStatus" ng-model="dlPageInfo.Info.certStatus" />
+                        <input type="checkbox" id="checkbox_c2" class="chkbox" ng-checked="dlPageInfo.Info.iscertStatus" ng-model="dlPageInfo.Info.iscertStatus" />
                         <label for="checkbox_c2" style="float:left"></label>
-                        <span ng-show="dlPageInfo.Info.certStatus" style="line-height: 25px;"> 已认证</span>
-                        <span ng-show="!dlPageInfo.Info.certStatus" style="line-height: 25px;">未认证</span>
+                        <span ng-show="dlPageInfo.Info.iscertStatus" style="line-height: 25px;">认证</span>
+                        <span ng-show="!dlPageInfo.Info.iscertStatus" style="line-height: 25px;">未认证</span>
                     </label>
                 </div>
                 <div class="control-group ">
@@ -80,21 +84,30 @@
             <div class="widget-content nopadding collapse in" id="EnterpriseInformation">
                 <div class="control-group ">
                     <label>
-                        国家编码：<input type="text" ng-model="dlPageInfo.Info.corpRegCountryCode" placeholder="请输入国家编码" />
+                        <span class="required">*</span>所在省份：
+                        <select ng-model="dlPageInfo.Info.corpRegProvinceCode" ng-change="SelectInfo.Province.change(item)">
+                            <option value="">请选择所在省份</option>
+                            <option ng-repeat="item in SelectInfo.Province.dic" ng-selected="item.divCode==dlPageInfo.Info.corpRegProvinceCode" value="{{item.divCode}}">{{item.divName}}</option>
+                        </select>
                     </label>
                     <label>
-                        省级编码：<input type="text" ng-model="dlPageInfo.Info.corpRegProvinceCode" placeholder="请输入省级编码" />
+                        <span class="required">*</span>所在市级：
+                        <select ng-model="dlPageInfo.Info.corpRegCityCode" ng-change="SelectInfo.City.change(item)">
+                            <option value="">请选择所在市级</option>
+                            <option ng-repeat="item in SelectInfo.City.dic" ng-selected="item.divCode==dlPageInfo.Info.corpRegCityCode" value="{{item.divCode}}">{{item.divName}}</option>
+                        </select>
                     </label>
                     <label>
-                        市级编码：<input type="text" ng-model="dlPageInfo.Info.corpRegCityCode" placeholder="请输入市级编码" />
+                        <span class="required">*</span>所在区县：
+                        <select ng-model="dlPageInfo.Info.corpRegDistrictCode" ng-change="SelectInfo.District.change(item)">
+                            <option value="">请选择所在区县</option>
+                            <option ng-repeat="item in SelectInfo.District.dic" ng-selected="item.divCode==dlPageInfo.Info.corpRegDistrictCode" value="{{item.divCode}}">{{item.divName}}</option>
+                        </select>
                     </label>
                 </div>
                 <div class="control-group ">
-                    <label>
-                        区域编码：<input type="text" ng-model="dlPageInfo.Info.corpRegDistrictCode" placeholder="请输入区域编码" />
-                    </label>
                     <label style="width:66.8%">
-                        企业地址：<input type="text" style="width:80%" ng-model="dlPageInfo.Info.corpRegAddress" placeholder="请输入该企业地址" />
+                        <span class="required">*</span>企业地址：<input type="text" style="width:80%" ng-model="dlPageInfo.Info.corpRegAddress" placeholder="请输入该企业地址" />
                     </label>
                 </div>
             </div>

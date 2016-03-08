@@ -13,10 +13,10 @@ app.controller("HplViewController", function ($scope, $state, $local, $Api, $Mes
         Info: [],
         GetHospitalDetail: function () {
             $scope.hplopt = $stateParams.hplopt;
+            console.log($scope.hplopt)
             /// <summary>获取经销商详情</summary>
             $Api.ManaHospital.GetqueryAllHospital({ hPCode: $scope.hplopt }, function (rData) {
-                $scope.Hospital.Info = rData.rows;
-                console.log($scope.Hospital.Info)
+                $scope.Hospital.Info = rData.rows[0];
             })
         },
     }

@@ -5,10 +5,11 @@
             <header class="main-box-header clearfix">
                 <h2 class="pull-left">货主列表</h2>
                 <span style="float:right;">
-                    <a class="btn btn-primary" ng-click="Service.RelMan()">关管管理</a>
-                    <a class="btn btn-primary" ng-click="Service.Add()">新增货主</a>
-                    <a class="btn btn-primary" ng-click="Service.Eduit()">编辑货主</a>
+                    <a class="btn btn-primary" ng-click="Service.RelMan()">关系管理</a>
+                    <a class="btn btn-primary" ng-click="Service.Add()">货主新增</a>
+                    <a class="btn btn-primary" ng-click="Service.Edit()">货主编辑</a>
                     <a class="btn btn-primary" ng-click="Service.View()">货主详情</a>
+                    <a class="btn btn-primary" ng-click="RelManList.Detect()">货主删除</a>
                 </span>
             </header>
             <div class="main-box-body clearfix">
@@ -39,14 +40,11 @@
                 <div ng-pagein="page" ng-model="Pagein"></div>
             </div>
         </div>
-
-
         <div ng-slide="RelManList.IsEdit" >
             <div class="main-box clearfix">
                 <header class="main-box-header clearfix">
                     <h2 class="pull-left">关系管理列表</h2>
                     <span style="float:right;">
-                        <!--<a class="btn btn-primary" ng-click="Service.View()"><i class="fa  fa-reply"></i> 详情</a>-->
                         <a class="btn btn-primary" ng-click="Service.isEdit(false)"><i class="fa  fa-reply"></i> 返回</a>
                     </span>
                 </header>

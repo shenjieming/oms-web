@@ -15,14 +15,14 @@
             <div class="widget-content nopadding collapse in" id="PersonalInformation">
                 <div class="control-group ">
                     <label>
-                          经销商名：{{DlOrgView.Info.dLName}}
-  
+                        经销商名：{{DlOrgView.Info.dLName}}
+
                     </label>
                     <label>
-                         经销全称：{{DlOrgView.Info.dLFullName}}
+                        经销全称：{{DlOrgView.Info.dLFullName}}
                     </label>
                     <label>
-                         经销描述：{{DlOrgView.Info.dLDesc}}
+                        经销描述：{{DlOrgView.Info.dLDesc}}
                     </label>
                 </div>
                 <div class="control-group ">
@@ -40,28 +40,24 @@
             <div class="widget-content nopadding collapse in" id="RegistrationInformation">
                 <div class="control-group ">
                     <label>
-                          注册名称：{{DlOrgView.Info.corpRegCompanyName}}
+                        注册名称：{{DlOrgView.Info.corpRegCompanyName}}
                     </label>
                     <label>
-                         注册编码：{{DlOrgView.Info.corpRegNo}}
+                        注册编码：{{DlOrgView.Info.corpRegNo}}
                     </label>
                     <label>
-                          法人代表：{{DlOrgView.Info.corpRegLegalRep}}
+                        法人代表：{{DlOrgView.Info.corpRegLegalRep}}
                     </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                         注册资本：{{DlOrgView.Info.corpRegCapital}}
+                        注册资本：{{DlOrgView.Info.corpRegCapital}}
                     </label>
                     <label>
-                          注册币种：{{DlOrgView.Info.corpRegCurrencyCode}}
+                        注册币别：{{DlOrgView.Info.corpRegCurrencyCodeName}}
                     </label>
-                    <label ng-show="DlOrgView.checkIs">
-                        <span style="float:left;line-height:25px;">认证状态：</span>
-                        <input type="checkbox" id="checkbox_c2" class="chkbox" ng-checked="DlOrgView.Info.certStatus" ng-model="DlOrgView.Info.certStatus" />
-                        <label for="checkbox_c2" style="float:left"></label>
-                        <span ng-show="DlOrgView.Info.certStatus" style="line-height: 25px;"> 已认证</span>
-                        <span ng-show="!DlOrgView.Info.certStatus" style="line-height: 25px;">未认证</span>
+                    <label>
+                        认证状态：{{DlOrgView.Info.certStatus=="Y"?"认证":"未认证"}}
                     </label>
                 </div>
                 <div class="control-group ">
@@ -79,20 +75,17 @@
             <div class="widget-content nopadding collapse in" id="EnterpriseInformation">
                 <div class="control-group ">
                     <label>
-                        国家编码：{{DlOrgView.Info.corpRegCountryCode}}
+                        所在省份：{{DlOrgView.Info.corpRegProvinceCodeName}}
                     </label>
                     <label>
-                        省级编码：{{DlOrgView.Info.corpRegProvinceCode}}
+                        所在市级：{{DlOrgView.Info.corpRegCityCodeName}}
                     </label>
                     <label>
-                        市级编码：{{DlOrgView.Info.corpRegCityCode}}
+                        所在区域：{{DlOrgView.Info.corpRegDistrictCodeName}}
                     </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                        区域编码：{{DlOrgView.Info.corpRegDistrictCode}}
-                    </label>
-                    <label style="width:66.8%">
                         企业地址：{{DlOrgView.Info.corpRegAddress}}
                     </label>
                 </div>

@@ -1,0 +1,48 @@
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix" ng-slide="!RelManList.IsEdit">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">仓库列表</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="Service.Add()">新增</a>
+                    <a class="btn btn-primary" ng-click="Service.Edit()">编辑</a>
+                    <a class="btn btn-primary" ng-click="Service.View()">详情</a>
+                </span>
+            </header>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="WareHouseList.info">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>仓库名称</span></th>
+                                <th><span>仓库编码</span> </th>
+                                <th><span>中心名称</span></th>
+                                <th><span>所在省份</span></th>
+                                <th><span>所在市级</span></th>
+                                <th><span>所在区县</span></th>
+                                <th><span>所在地址</span></th>
+                                <th><span>状态</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in WareHouseList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                                <td>{{$index+1}}</td>
+                                <td><span>{{row.wHName}}</span></td>
+                                <td><span>{{row.orgCode}}</span></td>
+                                <td><span>{{row.wHWithOrderCenter}}</span></td>
+                                <td><span>{{row.wHProvinceCode}}</span></td>
+                                <td><span>{{row.wHCityCode}}</span></td>
+                                <td><span>{{row.wHDistrictCode}}</span></td>
+                                <td><span>{{row.wHAddress}}</span></td>
+                                <td><span>{{row.validStatus=="Y"?"有效":"无效"}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>     
+        </div>
+</div>

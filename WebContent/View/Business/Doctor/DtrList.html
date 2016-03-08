@@ -1,1 +1,501 @@
-﻿测试中...
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix" ng-slide="!DoctorList.IsView&&!DoctorList.IsEdit">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">医生列表</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="DoctorJump.Add()" ng-show="server.Add">新增</a>
+                    <a class="btn btn-primary" ng-click="DoctorJump.Edit()" ng-show="server.Edit">编辑</a>   
+                    <a class="btn btn-primary" ng-click="DoctorJump.View()" ng-show="server.View">详情</a>
+                </span>
+            </header>
+            <div class="col-lg-3" style=" height:auto; max-height: 480px; overflow-y: auto; ">
+                <div ng-tree="" ng-setting="tree.setting" ng-data="tree.data" ng-model="tree.obj"></div>
+            </div>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="DoctorList.info">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>医院名称</span></th>
+                                <th><span>科室名称</span> </th>
+                                <th><span>医生姓名</span></th>
+                                <th><span>医生类型</span></th>
+                                <th><span>医生级别</span></th>
+                                <th><span>医生归属</span></th>
+                                <th><span>医生学历</span></th>
+                                <th><span>医生描述</span></th>
+                                <th><span>状态</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in DoctorList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-show="server.List">
+                                <td>{{$index+1}}</td>
+                                <td><span>{{row.hPCodeName}}</span></td>
+                                <td><span>{{row.wardDeptCodeName}}</span></td>
+                                <td><span>{{row.dTName}}</span></td>
+                                <td><span>{{row.dTTypeName}}</span></td>
+                                <td><span>{{row.dTGradeName}}</span></td>
+                                <td><span>{{row.isLocalName}}</span></td>
+                                <td><span>{{row.dTEducationName}}</span></td>
+                                <td><span>{{row.dTDescription}}</span></td>
+                                <td>
+                                    <span>
+                                        <input type="checkbox" id="checkbox_c{{$index}}" class="chkbox" ng-change="DoctorStatus(row)" ng-checked="DoctorList.info[{{$index}}].isEnable" ng-model="DoctorList.info.isEnable" /><label for="checkbox_c{{$index}}" style="float:left;"></label>
+                                        <span style="float:left;" ng-show="DoctorList.info[{{$index}}].isEnable "> 无效 </span>
+                                        <span style="float:left;" ng-show="!DoctorList.info[{{$index}}].isEnable "> 有效 </span>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+        <div ng-slide="DoctorList.IsView" style="display:none;">
+            <div class="tools">
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="DoctorJump.isView(false)"><i class="fa  fa-reply"></i> 返回</a>
+                </span>
+            </div>
+            <div class="row-fluid">
+                <div class="widget-box">
+                    <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
+                        <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                        <h5>医生信息</h5>
+                    </div>
+                    <div class="widget-content nopadding collapse in" id="BaseInformation">
+
+                        <div class="control-group ">
+                            <label>
+                                货主名称：{{DoctorView.Info.dLOrgCodeName}}
+                            </label>
+                            <label>
+                                医院名称：{{DoctorView.Info.hPCodeName}}
+                            </label>
+                            <label>
+                                科室名称：{{DoctorView.Info.wardDeptCodeName}}
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label>
+                                医生姓名：{{DoctorView.Info.dTName}}
+                            </label>
+                            <label>
+                                医生级别：{{DoctorView.Info.dTGradeName}}
+                            </label>
+                            <label>
+                                医生归属：{{DoctorView.Info.isLocal=="LOCAL"?"本院":"非本院"}}
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label>
+                                工作编号：{{DoctorView.Info.dTIDCard}}
+                            </label>
+                            <label>
+                                医生性别：{{DoctorView.Info.dTSexName}}
+                            </label>
+                            <label>
+                                操作状态：{{DoctorView.Info.validStatus=="Y"?"有效":"无效"}}
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label>
+                                医生手机：{{DoctorView.Info.wardDeptTel}}
+                            </label>
+                            <label>
+                                医生学历：{{DoctorView.Info.dTEducationName}}
+                            </label>
+                            <label>
+                                医生电话：{{DoctorView.Info.dTTel}}
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label>
+                                医生邮箱：{{DoctorView.Info.dTEmail}}
+                            </label>
+                            <label>
+                                医生地址：{{DoctorView.Info.dTAddress}}
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label>
+                                医生备注：{{DoctorView.Info.dTRemark}}
+                            </label>
+                            <label>
+                                医生喜好：{{DoctorView.Info.wardDeptFullName}}
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label>
+                                医生描述：{{DoctorView.Info.dTOperationPreferenceDesc}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-box">
+                    <div class="widget-title bg_ly" data-toggle="collapse" href="#TopContacts">
+                        <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                        <h5>联系人信息</h5>
+                    </div>
+                    <div class="widget-content nopadding collapse in" id="TopContacts">
+                        <div class="main-box-body clearfix">
+                            <div class="table-responsive list-box" style="min-height:100px">
+                                <table class="table table-bordered ">
+                                    <thead>
+                                        <tr>
+                                            <th><span>序号</span></th>
+                                            <th><span>联系姓名</span></th>
+                                            <th><span>联系手机</span></th>
+                                            <th><span>联系电话</span></th>
+                                            <th><span>联系邮箱</span></th>
+                                            <th><span>联系用途</span></th>
+                                            <th><span>通信工具</span> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-show="DoctorView.Info.contact1Name">
+                                            <td>1</td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact1Name}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact1Mobile}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact1Tel}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact1Email}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact1Func}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact1PMsgType}}
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="DoctorView.Info.contact2Name">
+                                            <td>2</td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact2Name}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact2Mobile}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact2Tel}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact2Email}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact2Func}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact2PMsgType}}
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="DoctorView.Info.contact3Name">
+                                            <td>3</td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact3Name}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact3Mobile}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact3Tel}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact3Email}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact3Func}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    {{DoctorView.Info.contact3PMsgType}}
+                                                </label>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-slide="DoctorList.IsEdit" style="display:none;">
+            <div class="tools">
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="DoctorJump.Save()"><i class="fa fa-pencil"></i> 保存</a>
+                    <a class="btn btn-primary" ng-click="DoctorJump.isEdit(false)"><i class="fa  fa-reply"></i> 返回</a>
+                </span>
+            </div>
+            <div class="row-fluid">
+                <div class="widget-box">
+                    <div class="widget-title bg_ly" data-toggle="collapse" href="#DepartmentInformation">
+                        <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                        <h5>医生信息</h5>
+                    </div>
+                    <div class="widget-content nopadding collapse in" id="DepartmentInformation">
+                        <div class="control-group ">
+                            <label>
+                                医院名称：{{DoctorDetail.Info.hPCodeName}}
+                            </label>
+                            <label ng-show="!DoctorList.options.wardDeptCode">
+                                <span class="required">*</span>科室名称：
+                                <select ng-model="DoctorDetail.Info.wardDeptCode" ng-change="SelectInfo.Department.change(item)">
+                                    <option value="">请选择科室</option>
+                                    <option ng-repeat="item in SelectInfo.Department.dic" ng-selected="item.id==DoctorDetail.Info.wardDeptCode" value="{{item.id}}">{{item.text}}</option>
+                                </select>
+                            </label>
+                            <label ng-show="DoctorList.options.wardDeptCode">
+                                科室名称：{{DoctorDetail.Info.wardDeptCodeName}}
+                            </label>
+                            <label >
+                                科室编码：{{DoctorDetail.Info.wardDeptCode}}
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label>
+                                <span class="required">*</span>医生姓名：<input type="text" placeholder="请输入医生姓名" ng-model="DoctorDetail.Info.dTName" />
+                            </label>
+                            <label>
+                                <span class="required">*</span>医生级别：
+                                <select ng-model="DoctorDetail.Info.dTGrade" ng-change="SelectInfo.dTGrade.change(item)">
+                                    <option value="">请选择医生级别</option>
+                                    <option ng-repeat="item in SelectInfo.dTGrade.dic" ng-selected="item.id==DoctorDetail.Info.dTGrade" value="{{item.id}}">{{item.text}}</option>
+                                </select>
+                            </label>
+                            <label ng-show="buttonList.isLocal">
+                                <span style="float:left;line-height:25px;">医生归属：</span>
+                                <input type="checkbox" id="checkbox_c999" class="chkbox" ng-checked="DoctorDetail.Info.isLocalCheck" ng-model="DoctorDetail.Info.isLocalCheck" />
+                                <label for="checkbox_c999" style="float:left"></label>
+                                <span ng-show="DoctorDetail.Info.isLocalCheck" style="line-height: 25px;"> 本院</span>
+                                <span ng-show="!DoctorDetail.Info.isLocalCheck" style="line-height: 25px;">非本院</span>
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label>
+                                <span class="required">*</span>工作编号：<input type="text" placeholder="请输入工作编号" ng-model="DoctorDetail.Info.dTIDCard" />
+                            </label>
+                            <label>
+                                <span class="required">*</span>医生性别：
+                                <select ng-model="DoctorDetail.Info.dTSex" ng-change="SelectInfo.dTSex.change(item)">
+                                    <option value="">请选择性别</option>
+                                    <option ng-repeat="item in SelectInfo.dTSex.dic" ng-selected="item.id==DoctorDetail.Info.dTSex" value="{{item.id}}">{{item.text}}</option>
+                                </select>
+                            </label>
+                            <label>
+                                医生备注：<input type="text" placeholder="请输入医生备注" ng-model="DoctorDetail.Info.dTRemark" />
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label>
+                                医生手机：<input type="text" placeholder="请输入医生手机" ng-model="DoctorDetail.Info.wardDeptTel" />
+                            </label>
+                            <label>
+                                <span class="required">*</span>医生学历：
+                                <select ng-model="DoctorDetail.Info.dTEducation" ng-change="SelectInfo.dTEducation.change(item)">
+                                    <option value="">请选择学历</option>
+                                    <option ng-repeat="item in SelectInfo.dTEducation.dic" ng-selected="item.id==DoctorDetail.Info.dTEducation" value="{{item.id}}">{{item.text}}</option>
+                                </select>
+                            </label>
+                            <label>
+                                医生电话：<input type="text" placeholder="请输入医生电话" ng-model="DoctorDetail.Info.dTTel" />
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label>
+                                医生邮箱：<input type="text" placeholder="请输入医生邮箱" ng-model="DoctorDetail.Info.dTEmail" />
+                            </label>
+                            <label style="width:67%">
+                                <span style="float:left">医生地址：</span>
+                                <textarea class="box-80" ng-model="DoctorDetail.Info.dTAddress" placeholder="请输入医生地址"></textarea>
+                            </label>
+                        </div>
+                        <div class="control-group ">
+
+                            <label style="width:67%">
+                                <span style="float:left">医生喜好：</span>
+                                <textarea class="box-80" ng-model="DoctorDetail.Info.dTOperationPreferenceDesc" placeholder="请输入医生喜好"></textarea>
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label style="width:100%">
+                                <span style="float:left">医生描述：</span>
+                                <textarea class="box-80" ng-model="DoctorDetail.Info.wardDeptDesc" placeholder="请输入描述信息"></textarea>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-box">
+                    <div class="widget-title bg_ly" data-toggle="collapse" href="#DocContacts">
+                        <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                        <h5>联系人信息</h5>
+                    </div>
+                    <div class="widget-content nopadding collapse in" id="DocContacts">
+                        <div class="main-box-body clearfix">
+                            <div style="min-height:100px">
+                                <table class="table table-bordered ">
+                                    <thead>
+                                        <tr>
+                                            <th><span>序号</span></th>
+                                            <th><span>联系姓名</span></th>
+                                            <th><span>联系手机</span></th>
+                                            <th><span>联系电话</span></th>
+                                            <th><span>联系邮箱</span></th>
+                                            <th><span>联系用途</span></th>
+                                            <th><span>通信工具</span> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人1姓名" ng-model="DoctorDetail.Info.contact1Name" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人1手机" ng-model="DoctorDetail.Info.contact1Mobile" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人1电话" ng-model="DoctorDetail.Info.contact1Tel" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人1邮箱" ng-model="DoctorDetail.Info.contact1Email" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人1用途" ng-model="DoctorDetail.Info.contact1Func" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人1通信工具" ng-model="DoctorDetail.Info.contact1PMsgType" />
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人2姓名" ng-model="DoctorDetail.Info.contact2Name" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人2手机" ng-model="DoctorDetail.Info.contact2Mobile" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人2电话" ng-model="DoctorDetail.Info.contact2Tel" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人2邮箱" ng-model="DoctorDetail.Info.contact2Email" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人2用途" ng-model="DoctorDetail.Info.contact2Func" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人2通信工具" ng-model="DoctorDetail.Info.contact2PMsgType" />
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人3姓名" ng-model="DoctorDetail.Info.contact3Name" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人3手机" ng-model="DoctorDetail.Info.contact3Mobile" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人3电话" ng-model="DoctorDetail.Info.contact3Tel" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人3邮箱" ng-model="DoctorDetail.Info.contact3Email" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人3用途" ng-model="DoctorDetail.Info.contact3Func" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    <input type="text" placeholder="请输入联系人3通信工具" ng-model="DoctorDetail.Info.contact3PMsgType" />
+                                                </label>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

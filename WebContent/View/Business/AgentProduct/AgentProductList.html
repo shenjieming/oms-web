@@ -1,0 +1,44 @@
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix" ng-slide="!ProductList.IsEdit&&!ProductList.IsView">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">代理产品列表</h2>
+
+            </header>
+            <div class="col-lg-3" style=" height:auto; max-height: 480px; overflow-y: auto; ">
+                <div ng-tree="" ng-setting="tree.setting" ng-data="tree.data" ng-model="tree.obj"></div>
+            </div>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="ProductList.info">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>货主名称</span></th>
+                                <th><span>经销商名称</span></th>
+                                <th><span>品牌名称</span> </th>
+                                <th><span>备注信息</span></th>
+                                <th><span>操作状态</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in ProductList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" >
+                                <td>{{$index+1}}</td>
+                                <td><span>{{row.oIOrgCodeName}}</span></td>
+                                <td><span>{{row.dLOrgCodeName}}</span></td>
+                                <td><span>{{row.medBrandCodeName}}</span></td>
+                                <td><span>{{row.remark}}</span></td>
+                                <<td><span>{{row.validStatusName}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+ 
+            </div>
+  
+        </div>
+        <div ng-pagein="page" ng-model="Pagein"></div>
+    </div>
+
+</div>

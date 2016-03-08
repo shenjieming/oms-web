@@ -638,7 +638,32 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             resolve: app.resolve
         })
 });
-//经销商、货主、关系
+
+
+/// 我的地址、我的医生
+app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
+    $stateProvider
+    .state("app.mybusiness.address", {
+        /// <summary>我的地址</summary>
+        url: "/address",
+        controller: "AddressListController",
+        templateUrl: "View/MyBusiness/Address/AddressList.html?data=" + Timestamp,
+        loadJs: ["Content/script/app/MyBusiness/Address/JS_AddressList.js"],
+        resolve: app.resolve
+    })
+});
+app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
+    $stateProvider
+    .state("app.mybusiness.doctor", {
+        /// <summary>我的医院</summary>
+        url: "/doctor",
+        controller: "DoctorListController",
+        templateUrl: "View/MyBusiness/Doctor/DoctorList.html?data=" + Timestamp,
+        loadJs: ["Content/script/app/MyBusiness/Doctor/JS_DoctorList.js"],
+        resolve: app.resolve
+    })
+});
+//经销商、货主、关系、经销商事件通知
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary>经销商组织管理</summary>
     $stateProvider
@@ -652,7 +677,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
        })
        .state("app.business.dlorganizationEduit", {
            /// <summary>经销商组织编辑</summary>
-           url: "/dlorganizationEduit/:opt",
+           url: "/dlorganizationEduit/:dlopt",
            templateUrl: "View/Business/DlOrg/DlOrgEduit.html?data=" + Timestamp,
            controller: "DlOrgEduitController",
            loadJs: ["Content/script/app/Business/DlOrg/JS_DlOrgEduit.js"],
@@ -660,7 +685,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
        })
         .state("app.business.dlorganizationView", {
             /// <summary>经销商组织详情</summary>
-            url: "/dlorganizationView/:opt",
+            url: "/dlorganizationView/:dlopt",
             templateUrl: "View/Business/DlOrg/DlOrgView.html?data=" + Timestamp,
             controller: "DlOrgViewController",
             loadJs: ["Content/script/app/Business/DlOrg/JS_DlOrgView.js"],
@@ -714,6 +739,34 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
            loadJs: ["Content/script/app/Business/RelMan/JS_RelManView.js"],
            resolve: app.resolve
        })
+});
+app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
+    /// <summary>经销商订单事件通知管理</summary>
+    $stateProvider
+       .state("app.business.dlmanagementnotice", {
+           /// <summary>经销商订单事件通知列表</summary>
+           url: "/dlmanagementnotice",
+           templateUrl: "View/Business/Notice/NoticeList.html?data=" + Timestamp,
+           controller: "NoticeListController",
+           loadJs: ["Content/script/app/Business/Notice/JS_NoticeList.js"],
+           resolve: app.resolve
+       })
+       .state("app.business.dlmanagementnoticeEduit", {
+           /// <summary>经销商订单事件通知编辑</summary>
+           url: "/dlmanagementnoticeEduit/:dlnoticeopt",
+           templateUrl: "View/Business/Notice/NoticeEduit.html?data=" + Timestamp,
+           controller: "NoticeEduitController",
+           loadJs: ["Content/script/app/Business/Notice/JS_NoticeEduit.js"],
+           resolve: app.resolve
+       })
+        .state("app.business.dlmanagementnoticeView", {
+            /// <summary>经销商订单事件通知详情</summary>
+            url: "/dlmanagementnoticeView/:dlnoticeopt",
+            templateUrl: "View/Business/Notice/NoticeView.html?data=" + Timestamp,
+            controller: "NoticeViewController",
+            loadJs: ["Content/script/app/Business/Notice/JS_NoticeView.js"],
+            resolve: app.resolve
+        })
 });
 //医院、科室、医生
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
@@ -778,25 +831,103 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
        .state("app.business.dtrmanagement", {
            /// <summary>医生列表</summary>
            url: "/dtrmanagement",
-           templateUrl: "View/Business/Department/DtrList.html?data=" + Timestamp,
+           templateUrl: "View/Business/Doctor/DtrList.html?data=" + Timestamp,
            controller: "DtrListController",
-           loadJs: ["Content/script/app/Business/Department/JS_DtrList.js"],
+           loadJs: ["Content/script/app/Business/Doctor/JS_DtrList.js"],
            resolve: app.resolve
        })
       .state("app.business.dtrmanagementEduit", {
           /// <summary>医生编辑</summary>
           url: "/dtrmanagementEduit/:oiopt",
-          templateUrl: "View/Business/Department/DtrEduit.html?data=" + Timestamp,
+          templateUrl: "View/Business/Doctor/DtrEduit.html?data=" + Timestamp,
           controller: "DtrEduitController",
-          loadJs: ["Content/script/app/Business/Department/JS_DtrEduit.js"],
+          loadJs: ["Content/script/app/Business/Doctor/JS_DtrEduit.js"],
           resolve: app.resolve
       })
        .state("app.business.dtrmanagementView", {
            /// <summary>医生详情</summary>
            url: "/dtrmanagementView/:oiopt",
-           templateUrl: "View/Business/Department/DtrView.html?data=" + Timestamp,
+           templateUrl: "View/Business/Doctor/DtrView.html?data=" + Timestamp,
            controller: "DtrViewController",
-           loadJs: ["Content/script/app/Business/Department/JS_DtrView.js"],
+           loadJs: ["Content/script/app/Business/Doctor/JS_DtrView.js"],
+           resolve: app.resolve
+       })
+});
+//厂商、仓库、库区管理
+app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
+    /// <summary>厂家管理</summary>
+    $stateProvider
+       .state("app.business.ftymanagement", {
+           /// <summary>厂家列表</summary>
+           url: "/ftymanagement",
+           templateUrl: "View/Business/Facture/FactureList.html?data=" + Timestamp,
+           controller: "FactureListController",
+           loadJs: ["Content/script/app/Business/Facture/JS_FactureList.js"],
+           resolve: app.resolve
+       })
+});
+app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
+    /// <summary>仓库管理</summary>
+    $stateProvider
+       .state("app.business.whmanagement", {
+           /// <summary>仓库列表</summary>
+           url: "/whmanagement",
+           templateUrl: "View/Business/WareHouse/WareHouseList.html?data=" + Timestamp,
+           controller: "WareHouseListController",
+           loadJs: ["Content/script/app/Business/WareHouse/JS_WareHouseList.js"],
+           resolve: app.resolve
+       })
+      .state("app.business.whmanagementEduit", {
+          /// <summary>仓库编辑</summary>
+          url: "/whmanagementEduit/:whopt",
+          templateUrl: "View/Business/WareHouse/WareHouseEduit.html?data=" + Timestamp,
+          controller: "WareHouseEduitController",
+          loadJs: ["Content/script/app/Business/WareHouse/JS_WareHouseEduit.js"],
+          resolve: app.resolve
+      })
+       .state("app.business.whmanagementView", {
+           /// <summary>仓库详情</summary>
+           url: "/whmanagementView/:whopt",
+           templateUrl: "View/Business/WareHouse/WareHouseView.html?data=" + Timestamp,
+           controller: "WareHouseViewController",
+           loadJs: ["Content/script/app/Business/WareHouse/JS_WareHouseView.js"],
+           resolve: app.resolve
+       })
+});
+// 品牌、产品线管理、我的产品
+app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
+    /// <summary品牌管理</summary>
+    $stateProvider
+       .state("app.business.brandmanagement", {
+           /// <summary>品牌列表</summary>
+           url: "/brandmanagement",
+           templateUrl: "View/Business/Brand/BrandList.html?data=" + Timestamp,
+           controller: "BrandListController",
+           loadJs: ["Content/script/app/Business/Brand/JS_BrandList.js"],
+           resolve: app.resolve
+       })
+});
+app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
+    /// <summary>产品线管理</summary>
+    $stateProvider
+       .state("app.business.productlinemanagement", {
+           /// <summary>产品线列表</summary>
+           url: "/productlinemanagement",
+           templateUrl: "View/Business/ProductLine/ProductLineList.html?data=" + Timestamp,
+           controller: "ProductLineController",
+           loadJs: ["Content/script/app/Business/ProductLine/JS_ProductLineList.js"],
+           resolve: app.resolve
+       })
+})
+app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
+    /// <summary>我的产品管理</summary>
+    $stateProvider
+       .state("app.business.productmanagement", {
+           /// <summary>我的产品列表</summary>
+           url: "/productmanagement",
+           templateUrl: "View/Business/AgentProduct/AgentProductList.html?data=" + Timestamp,
+           controller: "ProductListController",
+           loadJs: ["Content/script/app/Business/AgentProduct/JS_AgentProductList.js"],
            resolve: app.resolve
        })
 });

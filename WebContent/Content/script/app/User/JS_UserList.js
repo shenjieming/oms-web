@@ -81,7 +81,7 @@ app.controller("UserListController", function ($scope, $state, $local, $Api, $Me
     }
     $scope.UserStatus = function (row) {
         $scope.UserInfo.UserList = row ? row : $scope.getSelectedRow();
-         console.log($scope.UserInfo.UserList)
+
             $Api.UserService.ModifyUserState($scope.UserInfo.UserList, function (rData) {
                 $MessagService.caveat("用户状态修改成功！")
                 $scope.UserInfo.GetUserList();

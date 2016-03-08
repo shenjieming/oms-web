@@ -16,8 +16,10 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
         getRoleList: function () {
             /// <summary>获取角色列表</summary>
             $MessagService.loading("角色获取中，请稍等...");
-            var paramData = $.extend({ validStatus: "Y", roleName: "", orgType: $scope.RoleParameters.orgType }, $scope.Pagein);
-            console.log(paramData)
+            var paramData = $.extend({ validStatus: "Y", roleName: "", orgType: $scope.User.userInfo.orgType }, $scope.Pagein);
+            if ($scope.User.userInfo.orgType=="PL") {
+                paramData = $scope.Pagein
+            }
             $Api.RoleService.GetRoleList(paramData, function (roleData) {
                 /// <summary>获取角色信息</summary>
                 $scope.RoleInfo = roleData.rows;
@@ -29,45 +31,14 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
                 $scope.Pagein.total = roleData.total;
             });
         },
-        getRoleListFix: function () {
-            /// <summary>获取角色列表</summary>
-            $MessagService.loading("角色获取中，请稍等...");
-            $Api.RoleService.GetRoleList($scope.Pagein, function (roleData) {
-                /// <summary>获取角色信息</summary>
-                $scope.RoleInfo = roleData.rows;
-                $scope.Pagein.total = roleData.total;
-                for (var i = 0; i < $scope.RoleInfo.length; i++) {
-                    if ($scope.RoleInfo[i].validStatus == "Y") {
-                        $scope.RoleInfo[i].isEnable = true;
-                    }
-                }
-            });
-        },
-        getLoginInformation: function () {
-            $Api.AccountService.CurrentUserInfo({}, function (roleData) {
-                /// <summary>获取当前登录信息控制角色信息列表</summary>
-                console.log(roleData)
-                $scope.RoleParameters.userOrgType = roleData.userInfo.orgType;
-                if (roleData.userInfo.orgType == "PL") {
-                    $scope.RoleParameters.orgType = "";
-                    $scope.RoleParameters.roleName = "";
-                    $scope.RoleDetail.getRoleListFix();
-                } else {
-                    $scope.RoleParameters.orgType = roleData.userInfo.orgType;
-                    $scope.RoleParameters.roleName = roleData.roleInfo[0].roleName
-                    $scope.RoleDetail.getRoleList();
-                }
-            });
-        },
         showRole: function (rowData) {
             /// <summary>显示添加角色信息</summary>
             if (!rowData.orgTypeName) {
                 rowData.orgTypeName = "-";
             }
-            $scope.orgType.getList(function () {
-                $scope.RoleDetail.roleInfo = rowData;
-                $scope.RoleDetail.model.show();
-            });
+            $scope.RoleDetail.model.show();
+            $scope.RoleDetail.roleInfo = rowData;
+            $scope.orgType.getList();
         },//操作的角色信息
         roleInfo: {relationDesc:""},
         showEditRole: function () {
@@ -76,6 +47,7 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
             if (rowData) {
                 $scope.RoleDetail.showRole(rowData);
                 $scope.RoleDetail.model.show();
+                $scope.orgType.getList();
             } else {
                 $MessagService.caveat("请选择一条操作数据！");
             }
@@ -103,12 +75,8 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
                 if ($scope.RoleDetail.verification()) {
                     $MessagService.loading("角色保存中，请稍等...");
                     $Api.RoleService.Save($scope.RoleDetail.roleInfo, function (rData) {
-                        $scope.RoleDetail.model.hide();
-                    if ($scope.RoleParameters.userOrgType == "PL") {
-                        $scope.RoleDetail.getRoleListFix();
-                    } else {
+                        $scope.RoleDetail.model.hide();   
                         $scope.RoleDetail.getRoleList();
-                    }
                         $MessagService.succ("角色保存成功！")
                     });
                 }
@@ -172,66 +140,25 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
     }
     $scope.orgType = {
         dic: new Array(),
-        result: [],
         change: function (item) {
             /// <summary>组织类型修改事件</summary>
-            for (var i = 0; i < $scope.orgType.result.length; i++) {
-                if ($scope.orgType.result[i].id == $scope.RoleDetail.roleInfo.orgType) {
-                    $scope.RoleDetail.roleInfo.orgTypeName = $scope.orgType.result[i].text;
+            for (var i = 0; i < $scope.orgType.dic.length; i++) {
+                if ($scope.orgType.dic[i].id == $scope.RoleDetail.roleInfo.orgType) {
+                    $scope.RoleDetail.roleInfo.orgTypeName = $scope.orgType.dic[i].text;
                     return;
+                } else {
+                    $scope.RoleDetail.roleInfo.orgTypeName="-"
                 }
             }
         },
         getList: function (callback) {
-            /// <summary>获取机构类型信息</summary>
-            if (!$scope.orgType.dic.length) {
+            /// <summary>获取机构类型信息</summary>          
                 $MessagService.loading("数据初始化中，请稍等...");
-                $Api.Public.GetDictionary({ dictType: "ORGTYP", isRole: true }, function (rData) {
+                $Api.UserService.userAddOrgTpye({}, function (rData) {
                     $scope.orgType.dic = rData;
-                    console.log($scope.RoleParameters.userOrgType)
-                    if (callback) {
-                        callback();
-                    }
-                    switch ($scope.RoleParameters.userOrgType) {
-                        case "DL"://经销商能控制的组织类型
-                            for (var i = 0; i < rData.length; i++) {
-                                if (rData[i].id == $scope.RoleParameters.userOrgType) {
-                                    $scope.orgType.result.push(rData[i])
-                                }
-                            }
-                            break;
-                        case "OI"://货主能控制的组织类型
-                            for (var i = 0; i < rData.length; i++) {
-                                if (rData[i].id == $scope.RoleParameters.userOrgType) {
-                                    $scope.orgType.result.push(rData[i])
-                                }
-                            }
-                            break;
-                        case "WH"://仓库能控制的组织类型
-                            for (var i = 0; i < rData.length; i++) {
-                                if (rData[i].id == $scope.RoleParameters.userOrgType) {
-                                    $scope.orgType.result.push(rData[i])
-                                }
-                            }
-                            break;
-                        case "PL"://平台能控制的组织类型
-                            for (var i = 0; i < rData.length; i++) {
-                                if (rData[i].id == $scope.RoleParameters.userOrgType) {
-                                    $scope.orgType.result.push(rData[0])
-                                    $scope.orgType.result.push(rData[1])
-                                    $scope.orgType.result.push(rData[2])
-                                    $scope.orgType.result.push(rData[3])
-                                    $scope.orgType.result.push(rData[4])
-                                }
-                            }
-                            break;
-                    }
+                    console.log(rData)
                 });
-            } else if (callback) {
-                callback();
             }
-        }
-
     }
 
     $scope.Pagein = {
@@ -244,7 +171,7 @@ app.controller("RoleListController", function ($scope, $state, $local, $Api, $Me
 
     $scope.Load = function () {
         /// <summary>页面初始化</summary>
-        $scope.RoleDetail.getLoginInformation();
+        $scope.RoleDetail.getRoleList();
     }
     $scope.Load();
 

@@ -17,10 +17,10 @@
                         组织类型：{{OiOrgView.Info.oITypeName}}
                     </label>
                     <label>
-                        货主名称：{{OiOrgView.Info.dLName}}
+                        货主名称：{{OiOrgView.Info.oIName}}
                     </label>
                     <label>
-                        货主全称：{{OiOrgView.Info.dLFullName}}
+                        货主全称：{{OiOrgView.Info.oIFullName}}
                     </label>
                 </div>
                 <div class="control-group ">
@@ -52,26 +52,19 @@
                         注册编码：{{OiOrgView.Info.corpRegNo}}
                     </label>
                     <label>
-                        法人代表：{{OiOrgView.Info.corpRegLegalRep}}
+                        注册币别：{{OiOrgView.Info.corpRegCurrencyCodeName}}
                     </label>
-                </div>
-                <div class="control-group ">
-                    <label>
-                        注册资本：{{OiOrgView.Info.corpRegCapital}}
-                    </label>
-                    <label>
-                        币种简称：{{OiOrgView.Info.corpRegCurrencyCode}}
-                    </label>
-                    <label>
-                        币种全称：{{OiOrgView.Info.corpRegCurrencyCode}}
-                    </label>
+
                 </div>
                 <div class="control-group ">
                     <label>
                         注册税号：{{OiOrgView.Info.corpRegTaxNo}}
                     </label>
                     <label>
-                        注册状态：{{OiOrgView.Info.validStatusName}}
+                        法人代表：{{OiOrgView.Info.corpRegLegalRep}}
+                    </label>
+                    <label>
+                        注册资本：{{OiOrgView.Info.corpRegCapital}}
                     </label>
                 </div>
                 <div class="control-group ">
@@ -89,22 +82,20 @@
             <div class="widget-content nopadding collapse in" id="EnterpriseInformation">
                 <div class="control-group ">
                     <label>
-                        国家编码：{{OiOrgView.Info.corpRegCountryCode}}
+                        所在省份：{{OiOrgView.Info.corpRegProvinceCodeName}}
                     </label>
                     <label>
-                        省级编码：{{OiOrgView.Info.corpRegProvinceCode}}
+                        所在市级：{{OiOrgView.Info.corpRegCityCodeName}}
                     </label>
                     <label>
-                        市级编码：{{OiOrgView.Info.corpRegCityCode}}
+                        所在区县：{{OiOrgView.Info.corpRegDistrictCodeName}}
                     </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                        区域编码：{{OiOrgView.Info.corpRegDistrictCode}}
+                        邮政编码：{{OiOrgView.Info.corpBizPostcode}}
                     </label>
-                </div>
-                <div class="control-group ">
-                    <label style="width:100%">
+                    <label>
                         企业地址：{{OiOrgView.Info.corpRegAddress}}
                     </label>
                 </div>
@@ -118,21 +109,13 @@
             <div class="widget-content nopadding collapse in" id="OperateInformation">
                 <div class="control-group ">
                     <label>
-                        国家编码：{{OiOrgView.Info.corpBizCountryCode}}
+                        所在省份：{{OiOrgView.Info.corpBizProvinceCodeName}}
                     </label>
                     <label>
-                        省级编码：{{OiOrgView.Info.corpBizProvinceCode}}
+                        所在市级：{{OiOrgView.Info.corpBizCityCodeName}}
                     </label>
                     <label>
-                        市级编码：{{OiOrgView.Info.corpBizCityCode}}
-                    </label>
-                </div>
-                <div class="control-group ">
-                    <label>
-                        区域编码：{{OiOrgView.Info.corpBizDistrictCode}}
-                    </label>
-                    <label>
-                        邮政编码：{{OiOrgView.Info.corpBizPostcode}}
+                        所在区县：{{OiOrgView.Info.corpBizDistrictCodeName}}
                     </label>
                 </div>
                 <div class="control-group ">
@@ -163,26 +146,103 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="row in GroupDetail.info" ng-model="GroupDetail.info">
-                                    <td>{{$index+1}}</td>
-                                    <td>
-                                        {{row.userName}}
-                                    </td>
-                                    <td>
-                                        {{row.orgTypeName}}
-                                    </td>
-                                    <td>
-                                        {{row.userMobile}}
-                                    </td>
+                                <tr ng-show="OiOrgView.Info.contact1Name">
+                                    <td>1</td>
                                     <td>
                                         <label>
-                                            <input type="text" placeholder="请输入成员备注" ng-model="row.teamMemberDesc" />
+                                           {{OiOrgView.Info.contact1Name}}
                                         </label>
                                     </td>
                                     <td>
-                                        <button type="button" ng-click="GroupUserList.delGroup($index)" class="btn btn-xs btn-danger">
-                                            <i class="fa fa-times"></i>
-                                        </button>
+                                        <label>
+                                           {{OiOrgView.Info.contact1Mobile}}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                           {{OiOrgView.Info.contact1Tel}}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                           {{OiOrgView.Info.contact1Email}}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                          {{OiOrgView.Info.contact1Func}}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                           {{OiOrgView.Info.contact1PMsgType}}
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr ng-show="OiOrgView.Info.contact2Name">
+                                    <td>2</td>
+                                    <td>
+                                        <label>
+                                           {{OiOrgView.Info.contact2Name}}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                           {{OiOrgView.Info.contact2Mobile}}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                           {{OiOrgView.Info.contact2Tel}}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            {{OiOrgView.Info.contact2Email}}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            {{OiOrgView.Info.contact2Func}}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                           {{OiOrgView.Info.contact2PMsgType}}
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr ng-show="OiOrgView.Info.contact3Name">
+                                    <td>3</td>
+                                    <td>
+                                        <label>
+                                           {{OiOrgView.Info.contact3Name}}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                           {{OiOrgView.Info.contact3Mobile}}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                           {{OiOrgView.Info.contact3Tel}}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                           {{OiOrgView.Info.contact3Email}}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                           {{OiOrgView.Info.contact3Func}}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                           {{OiOrgView.Info.contact3PMsgType}}
+                                        </label>
                                     </td>
                                 </tr>
                             </tbody>
