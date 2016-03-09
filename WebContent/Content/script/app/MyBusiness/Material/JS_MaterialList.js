@@ -8,7 +8,7 @@
 /// <reference path="../Config.js" />
 /// <reference path="JS_MaterialList.js" />
 
-app.controller("MaterialController", function ($scope, $state, $local, $Api, $MessagService) {
+app.controller("MaterialController", function ($scope, $state, $local, $Api, $MessagService, $FileService) {
     /// <summary>经销商物料查询</summary>
     $scope.tree = {
         setting: {
@@ -37,7 +37,7 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
                                         includeMedProdLn: rData[i].param
                                     };
                                 } else {
-                                    node.options = $.extend({ medProdLnCode: rData[i].id, medProdLnCodeName: rData[i].text }, treeNode.options);
+                                    node.options = $.extend({ medProdLnCode: rData[i].id, medProdLnCodeName: rData[i].text, all: "N", brandLine: "N", productLine: "N", isQueryInventory: "N" }, treeNode.options);
                                 }
                                 nodeList.push(node);
                             }
@@ -79,9 +79,15 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
                 medBrandCodeName: $scope.Material.options.medBrandCodeName,
                 medProdLnCodeName: $scope.Material.options.medProdLnCodeName,
                 certMultiQty:4,isScanSupported:"Y",disinfectionNeeded:"Y",effectiveControl:"Y",
-                attachment: { images: new Array(), remark: "" }
+                attachments: { images: new Array(), remark: "" }
             };
             this.IsEdit(true);
+        },
+        Save: function () {
+            /// <summary>物料信息保存</summary>
+            $Api.BusinessData.MedMater.Save($scope.PageData, function () {
+                alert("保存成功！");
+            })
         },
         IsChecked: function (ischeck, model,sd) {
             /// <summary>是否对象点击</summary>
@@ -146,5 +152,31 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
             $scope.Material.GetList();
         }
     }
+
+    
+    $scope.file = {
+        /// <summary>附件控制器</summary>
+        Upload: function (files) {
+            /// <summary>上传事件</summary>
+            $.each(files, function (index, item) {
+                if ($scope.PageData.attachments.images.length >= 5) {
+                    $MessagService.caveat("您上传的图片超过了5张。")
+                    return false;
+                }
+                if (item.type.indexOf("image") > -1) {
+                    $FileService.ReaderFiles(item, function (data) {
+                        /// <summary>文件读取</summary>
+                        $Api.Public.UploadFile(data, function (rData) {
+                            $scope.PageData.attachments.images.push(rData);
+                        });
+                    });
+                } else {
+                    $MessagService.caveat("您上传的不是图片！")
+                }
+
+            });
+        }
+    }
+
     $scope.Service.PageLoad();
 });

@@ -174,7 +174,7 @@
                         </div>
                         <div class="control-group">
                             <label>
-                                第一标准：<select ng-model="PageData.standardCode1Source"><option>请选择第一标准</option></select>
+                                第一标准：<span ng-dictionary="MMISTD" style="width:200px;" ng-model="PageData.standardCode1Source"></span>
                             </label>
                             <label style="width:60%">
                                 标准编码：<input type="text" style="width:78%" placeholder="请输入第一标准产品编码" ng-model="PageData.standardCode1" />
@@ -182,7 +182,7 @@
                         </div>
                         <div class="control-group">
                             <label>
-                                第二标准：<select ng-model="PageData.standardCode2Source"><option>请选择第二标准</option></select>
+                                第二标准：<span ng-dictionary="MMISTD" ng-model="PageData.standardCode2Source"></span>
                             </label>
                             <label style="width:60%">
                                 标准编码：<input type="text" style="width:78%" placeholder="请输入第二标准产品编码" ng-model="PageData.standardCode2" />
@@ -190,7 +190,7 @@
                         </div>
                         <div class="control-group">
                             <label>
-                                第三标准：<select ng-model="PageData.standardCode3Source"><option>请选择第三标准</option></select>
+                                第三标准：<span ng-dictionary="MMISTD" ng-model="PageData.standardCode3Source"></span>
                             </label>
                             <label style="width:60%">
                                 标准编码：<input type="text" style="width:78%" placeholder="请输入第三标准产品编码" ng-model="PageData.standardCode3" />
@@ -242,15 +242,15 @@
                     </div>
                     <div class="widget-content nopadding collapse in">
                         <div class="control-group ">
-                            <div ng-img-list="img" ng-comp="{delImg:true}" ng-model="PageData.attachment.images"></div>
-                            <label style="opacity:0.5;width:100%;" ng-show="!PageData.attachment.images.length">
+                            <div ng-img-list="img" ng-comp="{delImg:true}" ng-model="PageData.attachments.images"></div>
+                            <label style="opacity:0.5;width:100%;" ng-show="!PageData.attachments.images.length">
                                 添加点图片丰富您的订单吧，
                                 最多支持上传5张图片
                             </label>
                         </div>
                         <div class="control-group">
                             <label style="width:100%">
-                                图片说明：<input type="text" style="width:78%;" placeholder="对您的图片说点什么吧..." ng-model="PageData.attachment.remark" />
+                                图片说明：<input type="text" style="width:78%;" placeholder="对您的图片说点什么吧..." ng-model="PageData.attachments.remark" />
                             </label>
                         </div>
                     </div>

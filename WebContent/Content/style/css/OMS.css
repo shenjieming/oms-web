@@ -5,6 +5,9 @@ input, select, textarea {
     padding: 5px;
     border-radius: 4px;
 }
+ label select {
+    max-width:150px;
+}
 
 label > input[type='text'], label select {
     min-width:150px;

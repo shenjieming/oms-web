@@ -695,7 +695,8 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 },
                 Save: function (data, callback) {
                     console.log(data)
-                    if (data.medMaterialItem.medMIInternalNo) {
+                   
+                    if (data.medMIInternalNo) {
                         service.Post(ApiPath.BusinessData.MedMater.updateMedMaterialItem, data, callback);
                     } else {
                         service.Post(ApiPath.BusinessData.MedMater.saveMedMaterialItem, data, callback);
