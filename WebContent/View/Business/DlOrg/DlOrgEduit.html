@@ -2,7 +2,7 @@
     <div class="tools">
         <h5 style="float:left;">经销商信息</h5>
         <span style="float:right;">
-            <a class="btn btn-primary" ng-click="dlPageInfo.Save()">保存</a>
+            <a class="btn btn-primary" ng-click="dlPageInfo.Save()"><i class="fa fa-save"></i> 保存</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
@@ -45,12 +45,12 @@
                         <span class="required">*</span> 注册名称：<input type="text" ng-model="dlPageInfo.Info.corpRegCompanyName" placeholder="请输入注册名称" />
                     </label>
                     <label>
-                        <span class="required">*</span>注册编码：<input type="text" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')" ng-model="dlPageInfo.Info.corpRegNo" placeholder="请输入注册编码" />
+                        <span class="required">*</span>注册编码：<input type="text" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="18" ng-model="dlPageInfo.Info.corpRegNo" placeholder="请输入注册编码" />
                     </label>
                     <label>
                         <span class="required">*</span>注册币别：
-                        <select ng-model="dlPageInfo.Info.corpRegCurrencyCode">
-                            <option ng-repeat="item in SelectInfo.Currency.dic" value="{{item.currencyCode}}">{{item.currencyName}}</option>
+                        <select ng-model="dlPageInfo.Info.corpRegCurrencyCode" style="min-width:140px">
+                            <option ng-repeat="item in SelectInfo.Currency.dic" ng-selected="item.currencyCode==dlPageInfo.Info.corpRegCurrencyCode" value="{{item.currencyCode}}">{{item.currencyName}}</option>
                         </select>
                     </label>
                 </div>
@@ -61,12 +61,13 @@
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        <span class="required">*</span>行政地址：<input type="text" style="width:80%" ng-model="dlPageInfo.Info.corpRegAddress" placeholder="请输入该企业地址" />
+                        <span class="required">*</span>行政地址：{{dlPageInfo.Info.corpRegProvinceCodeName}} {{dlPageInfo.Info.corpRegCityCodeName}} {{dlPageInfo.Info.corpRegDistrictCodeName}}  <input type="text" style="width:60%" ng-model="dlPageInfo.Info.corpRegAddress" placeholder="请输入该企业地址" />
                     </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                        注册资本：<input type="text" ng-model="dlPageInfo.Info.corpRegCapital" ng-change="dlPageInfo.Info.corpRegCapital*10000" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')" placeholder="请输入注册资本" />(万元)
+                        注册资本：<input type="text" ng-model="dlPageInfo.Info.BackPackcorpRegCapital" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="10"
+                                    placeholder=" 请输入注册资本" />(万元)
                     </label>
                     <label>
                         法人代表：<input type="text" ng-model="dlPageInfo.Info.corpRegLegalRep" placeholder="请输入法人代表" />
@@ -89,7 +90,7 @@
     </div>
     <div class="tools">
         <span style="float:right;">
-            <a class="btn btn-primary" ng-click="dlPageInfo.Save()">保存</a>
+            <a class="btn btn-primary" ng-click="dlPageInfo.Save()"><i class="fa fa-save"></i> 保存</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>

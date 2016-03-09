@@ -1,8 +1,7 @@
 ﻿<div class="row">
     <div class="tools">
-        <h5 style="float:left;">组织信息</h5>
+        <h5 style="float:left;">经销商信息</h5>
         <span style="float:right;">
-            <a class="btn btn-primary" ng-click="DlOrgView.Save()">保存</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
@@ -22,7 +21,7 @@
                     </label>
                 </div>
                 <div class="control-group ">
-                    <label>
+                    <label style="width:100%">
                         经销商描述：{{DlOrgView.Info.dLDesc}}
                     </label>
                 </div>
@@ -47,7 +46,7 @@
                         注册编码：{{DlOrgView.Info.corpRegNo}}
                     </label>
                     <label>
-                        法人代表：{{DlOrgView.Info.corpRegLegalRep}}
+                        注册币别：{{DlOrgView.Info.corpRegCurrencyCodeName}}
                     </label>
                 </div>
                 <div class="control-group ">
@@ -57,10 +56,10 @@
                 </div>
                 <div class="control-group ">
                     <label>
-                        注册资本：{{DlOrgView.BackpackcorpRegCapital}}
-                    </label>
+                        法人代表：{{DlOrgView.Info.corpRegLegalRep}}
+                    </label>    
                     <label>
-                        注册币别：{{DlOrgView.Info.corpRegCurrencyCodeName}}
+                        注册资本：{{DlOrgView.BackpackcorpRegCapital}}<span ng-show="!DlOrgView.BackpackcorpRegCapital">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;</span>（万元）
                     </label>
                     <label>
                         认证状态：{{DlOrgView.Info.certStatus=="Y"?"认证":"未认证"}}
@@ -68,7 +67,7 @@
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        <span style="float:left">  经营范围：</span>{{DlOrgView.Info.corpRegBizScope}}
+                        <span style="float:left">经营范围：</span>{{DlOrgView.Info.corpRegBizScope}}
                     </label>
                 </div>
             </div>
@@ -81,7 +80,6 @@
     </div>
     <div class="tools">
         <span style="float:right;">
-            <a class="btn btn-primary" ng-click="DlOrgView.Save()">保存</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>

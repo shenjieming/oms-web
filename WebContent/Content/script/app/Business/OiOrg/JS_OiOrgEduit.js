@@ -1,9 +1,9 @@
-﻿/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
-/// <reference path="../../lib/angular-1.2.20/angular.min.js" />
-/// <reference path="../../lib/angular-1.2.20/angular-touch.js" />
-/// <reference path="../../lib/angular-1.2.20/angular-sanitize.min.js" />
-/// <reference path="../../lib/angular-1.2.20/angular-loader.js" />
-/// <reference path="../../lib/Jquery/jquery-1.11.1.min.js" />
+﻿/// <reference path="../../lib/angular-2.2.20/angular-route.min.js" />
+/// <reference path="../../lib/angular-2.2.20/angular.min.js" />
+/// <reference path="../../lib/angular-2.2.20/angular-touch.js" />
+/// <reference path="../../lib/angular-2.2.20/angular-sanitize.min.js" />
+/// <reference path="../../lib/angular-2.2.20/angular-loader.js" />
+/// <reference path="../../lib/Jquery/jquery-2.22.2.min.js" />
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
 
@@ -12,28 +12,30 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
     $scope.oiPageInfo = {
         Info: { corpRegCountryCodeName: "中国", corpRegCountryCode: "CN", corpBizCountryCode: "CN", corpBizCountryCodeName: "中国" },
         Load: function (callback) {
-            $scope.Server.SelectInfo();
             if ($stateParams.oiopt) {
                 $scope.oiopt = $stateParams.oiopt;
                 $scope.oiPageInfo.GetOiOrgDetail();
-                $scope.SelectInfo.City.getCityList();
-                $scope.SelectInfo.District.getDistrictList();
-                $scope.SelectInfo.BizCity.getBizCityList();
-                $scope.SelectInfo.BizDistrict.getBizDistrictList();
-
             }
+            $scope.Server.SelectInfo();
         },
         GetOiOrgDetail: function () {
             /// <summary>获取货主详情</summary>
             $Api.ManageOi.GetqueryOwnerOfInventoryDetail({ orgCode: $scope.oiopt }, function (rData) {
                 $scope.oiPageInfo.Info = rData;
                 console.log($scope.oiPageInfo.Info)
+                $scope.oiPageInfo.Info.BackPackcorpRegCapital=$scope.oiPageInfo.Info.corpRegCapital/10000
+                $scope.oiPageInfo.Info.deliveryProvinceCode = rData.corpRegProvinceCode;
+                $scope.oiPageInfo.Info.deliveryCityCode = rData.corpRegCityCode;
+                $scope.oiPageInfo.Info.deliveryDistrictCode = rData.corpRegDistrictCode;
+                $scope.oiPageInfo.deliveryProvinceCode = rData.corpBizProvinceCode;
+                $scope.oiPageInfo.deliveryCityCode = rData.corpBizCityCode;
+                $scope.oiPageInfo.deliveryDistrictCode = rData.corpBizDistrictCode;
             })
         },
         verification: function () {
             /// <summary>验证模块</summary>
             var result = true;
-            if (!$scope.oiPageInfo.Info.oITypeName) {
+            if (!$scope.oiPageInfo.Info.oIType) {
                 $MessagService.caveat("请维护该货主组织类型！");
                 result = false;
             }
@@ -56,13 +58,11 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
                 $MessagService.caveat("请维护该货主注册币种！");
                 result = false;
             }
-            else if (!$scope.oiPageInfo.Info.corpRegProvinceCode || !$scope.oiPageInfo.Info.corpRegCityCode || !$scope.oiPageInfo.Info.corpRegDistrictCode
-                || !$scope.oiPageInfo.Info.corpRegAddress) {
+            else if (!$scope.oiPageInfo.Info.deliveryProvinceCode || !$scope.oiPageInfo.Info.deliveryCityCode || !$scope.oiPageInfo.Info.deliveryDistrictCode || !$scope.oiPageInfo.Info.corpRegAddress) {
                 $MessagService.caveat("请维护该货主企业地址！");
                 result = false;
             }
-            else if (!$scope.oiPageInfo.Info.corpBizProvinceCode || !$scope.oiPageInfo.Info.corpBizCityCode || !$scope.oiPageInfo.Info.corpBizDistrictCode
-           || !$scope.oiPageInfo.Info.corpBizAddress) {
+            else if (!$scope.oiPageInfo.deliveryProvinceCode || !$scope.oiPageInfo.deliveryCityCode || !$scope.oiPageInfo.deliveryDistrictCode || !$scope.oiPageInfo.Info.corpBizAddress) {
                 $MessagService.caveat("请维护该货主运营地址！");
                 result = false;
             }
@@ -77,9 +77,16 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
             /// <summary>货主组操作</summary>
             console.log($scope.oiPageInfo.Info)
             if ($scope.oiPageInfo.verification()) {
+                $scope.oiPageInfo.Info.corpRegCapital = $scope.oiPageInfo.Info.BackPackcorpRegCapital * 10000
+                $scope.oiPageInfo.Info.corpRegProvinceCode = $scope.oiPageInfo.Info.deliveryProvinceCode;
+                $scope.oiPageInfo.Info.corpRegCityCode = $scope.oiPageInfo.Info.deliveryCityCode;
+                $scope.oiPageInfo.Info.corpRegDistrictCode = $scope.oiPageInfo.Info.deliveryDistrictCode;
+                $scope.oiPageInfo.Info.corpBizProvinceCode = $scope.oiPageInfo.deliveryProvinceCode;
+                $scope.oiPageInfo.Info.corpBizCityCode = $scope.oiPageInfo.deliveryCityCode;
+                $scope.oiPageInfo.Info.corpBizDistrictCode = $scope.oiPageInfo.deliveryDistrictCode;
                 $Api.ManageOi.Save($scope.oiPageInfo.Info, function (rData) {
                     $MessagService.succ("货主保存成功！");
-                    self.location = 'index.html#/app/business/oiorganization';
+                    $scope.goView('app.business.oiorganization');
                 })
             }
         },
@@ -88,28 +95,20 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
     $scope.Server = {
         SelectInfo: function () {
             $scope.SelectInfo.oiType.getoiTypeList();//货主下拉
-            $scope.SelectInfo.Province.getProvinceList()// 注册省份下拉
-            $scope.SelectInfo.BizProvince.getBizProvinceList()// 运营省份下拉
-            $scope.SelectInfo.Currency.getCurrencyList();
+            $scope.SelectInfo.Currency.getCurrencyList();//币别下拉框
+            $scope.SelectInfo.contact1Func.getcontact1FuncList();//联系人用途
+            $scope.SelectInfo.contact1PMsgType.getcontact1PMsgTypeList(); //通信工具
+            $scope.SelectInfo.contact2Func.getcontact2FuncList();//联系人用途
+            $scope.SelectInfo.contact2PMsgType.getcontact2PMsgTypeList();// 通信工具
+            $scope.SelectInfo.contact3Func.getcontact3FuncList();//联系人用途
+            $scope.SelectInfo.contact3PMsgType.getcontact3PMsgTypeList(); //通信工具
         }
 
     }
-
-
-
     $scope.SelectInfo = {
         oiType: {
             //货主类型下拉框  
             dic: new Array(),
-            change: function (item) {
-                /// <summary>角色类型修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.oiType.dic.length; i++) {
-                    if ($scope.SelectInfo.oiType.dic[i].id == $scope.oiPageInfo.Info.oIType) {
-                        $scope.oiPageInfo.Info.oITypeName = $scope.SelectInfo.oiType.dic[i].text;
-                        return;
-                    }
-                }
-            },
             getoiTypeList: function () {
                 /// <summary>获取货主类型</summary>
                 $Api.Public.GetDictionary({ dictType: "OITYPE" }, function (rData) {
@@ -121,16 +120,8 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
             },
         },
         Currency: {
+            //币别下拉框
             dic: new Array(),
-            change: function (item) {
-                /// <summary>币别类型修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.Currency.dic.length; i++) {
-                    if ($scope.SelectInfo.Currency.dic[i].currencyCode == $scope.oiPageInfo.Info.corpRegCurrencyCode) {
-                        $scope.oiPageInfo.Info.corpRegCurrencyCodeName = $scope.SelectInfo.Currency.dic[i].currencyName;
-                        return;
-                    }
-                }
-            },
             getCurrencyList: function () {
                 /// <summary>获取币别类型</summary>
                 $Api.BasisService.GetCurrencyList({}, function (rData) {
@@ -138,168 +129,75 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
                         $scope.SelectInfo.Currency.dic = rData.rows;
                         console.log(rData)
                     };
+                    if (!$scope.oiPageInfo.Info.corpRegCurrencyCode) {
+                        $scope.oiPageInfo.Info.corpRegCurrencyCode = "CNY";
+                    }
                 });
             },
         },
-////   注册地址开启
-        Province: {
-            //省份类型下拉框  
+        contact1Func: {
             dic: new Array(),
-            change: function (item) {
-                /// <summary>省份列表修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.Province.dic.length; i++) {
-                    if ($scope.SelectInfo.Province.dic[i].divCode == $scope.oiPageInfo.Info.corpRegProvinceCode) {
-                        $scope.oiPageInfo.Info.corpRegProvinceCodeName = $scope.SelectInfo.Province.dic[i].divName;
-                        $scope.oiPageInfo.Info.corpRegCityCode = "";
-                        $scope.oiPageInfo.Info.corpRegDistrictCode = "";
-                        $scope.SelectInfo.City.getCityList()// 市区下拉 
-                        return;
+            getcontact1FuncList: function () {
+                /// <summary>获取第一联系人用途类型</summary>
+                $Api.Public.GetDictionary({ dictType: "CTCFUN" }, function (rData) {
+                    $scope.SelectInfo.contact1Func.dic = rData;
+                    console.log(rData)
+                    if (!$scope.oiPageInfo.Info.contact1Func) {
+                        $scope.oiPageInfo.Info.contact1Func = "DAL"
                     }
-                }
+                })
             },
-            getProvinceList: function () {
-                /// <summary>获取省份列表</summary>
-                $Api.BasisService.GetadmdivisionList({ level: "1" }, function (rData) {
-                        $scope.SelectInfo.Province.dic = rData.rows;
-                });
-            }
         },
-        City: {
-            //城市类型下拉框  
+        contact1PMsgType: {
             dic: new Array(),
-            change: function (item) {
-                /// <summary>省份市区修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.City.dic.length; i++) {
-                    if ($scope.SelectInfo.City.dic[i].divCode == $scope.oiPageInfo.Info.corpRegCityCode) {
-                        $scope.oiPageInfo.Info.corpRegCityCodeName = $scope.SelectInfo.City.dic[i].divName;
-                        $scope.oiPageInfo.Info.corpRegDistrictCode = "";
-                        $scope.SelectInfo.District.getDistrictList()// 市区下拉 
-                        return;
+            getcontact1PMsgTypeList: function () {
+                /// <summary>获取第一联系人通信工具<</summary>
+                $Api.Public.GetDictionary({ dictType: "PMSGTP" }, function (rData) {
+                    $scope.SelectInfo.contact1PMsgType.dic = rData;
+                    console.log(rData)
+                    if (!$scope.oiPageInfo.Info.contact1PMsgType) {
+                        $scope.oiPageInfo.Info.contact1PMsgType = "QQ"
                     }
-                }
+                })
             },
-            getCityList: function () {
-                /// <summary>获取市区列表</summary>
-                if ($scope.oiPageInfo.Info.corpRegProvinceCode) {
-                    var option = { level: "2", parentDivCode: $scope.oiPageInfo.Info.corpRegProvinceCode }
-                    $Api.BasisService.GetadmdivisionList(option, function (rData) {
-                        $scope.SelectInfo.City.dic = rData.rows;
-                        console.log(rData)
-                    });
-                } else {
-                    $scope.SelectInfo.City.dic = new Array();
-                }
-            }
         },
-        District: {
-            //区域类型下拉框  
+        contact2Func: {
             dic: new Array(),
-            change: function (item) {
-                /// <summary>区域列表修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.District.dic.length; i++) {
-                    console.log($scope.oiPageInfo.Info.corpRegDistrictCode)
-                    if ($scope.SelectInfo.District.dic[i].divCode == $scope.oiPageInfo.Info.corpRegDistrictCode) {
-                        $scope.oiPageInfo.Info.corpRegDistrictCodeName = $scope.SelectInfo.District.dic[i].divName;
-                        console.log($scope.oiPageInfo.Info.corpRegDistrictCodeName)
-                        return;
-                    }
-                }
+            getcontact2FuncList: function () {
+                /// <summary>获取第2联系人用途类型</summary>
+                $Api.Public.GetDictionary({ dictType: "CTCFUN" }, function (rData) {
+                    $scope.SelectInfo.contact2Func.dic = rData;
+                })
             },
-            getDistrictList: function () {
-                /// <summary>获取区域列表</summary>
-                if ($scope.oiPageInfo.Info.corpRegCityCode && $scope.oiPageInfo.Info.corpRegProvinceCode) {
-                    var option = { level: "3", parentDivCode: $scope.oiPageInfo.Info.corpRegCityCode }
-                    $Api.BasisService.GetadmdivisionList(option, function (rData) {
-                        $scope.SelectInfo.District.dic = rData.rows;
-                    });
-                } else {
-                    $scope.SelectInfo.District.dic = new Array();
-                }
-            }
         },
-///   注册地址关闭
-///  运营地址开启
-        BizProvince: {
-            //省份类型下拉框  
+        contact2PMsgType: {
             dic: new Array(),
-            change: function (item) {
-                /// <summary>省份列表修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.BizProvince.dic.length; i++) {
-                    if ($scope.SelectInfo.BizProvince.dic[i].divCode == $scope.oiPageInfo.Info.corpBizProvinceCode) {
-                        $scope.oiPageInfo.Info.corpBizProvinceCodeName = $scope.SelectInfo.BizProvince.dic[i].divName;
-                        $scope.oiPageInfo.Info.corpBizCityCode = "";
-                        $scope.oiPageInfo.Info.corpBizDistrictCode = "";
-                        $scope.SelectInfo.BizCity.getBizCityList()// 市区下拉 
-                        return;
-                    }
-                }
+            getcontact2PMsgTypeList: function () {
+                /// <summary>获取第2联系人通信工具<</summary>
+                $Api.Public.GetDictionary({ dictType: "PMSGTP" }, function (rData) {
+                    $scope.SelectInfo.contact2PMsgType.dic = rData;
+                })
             },
-            getBizProvinceList: function () {
-                /// <summary>获取省份列表</summary>
-                $Api.BasisService.GetadmdivisionList({ level: "1" }, function (rData) {
-                    if (!rData.code) {
-                        $scope.SelectInfo.BizProvince.dic = rData.rows;
-                        console.log(rData)
-                    };
-                });
-            }
         },
-        BizCity: {
-            //市区类型下拉框  
+        contact3Func: {
             dic: new Array(),
-            change: function (item) {
-                /// <summary>省份市区修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.BizCity.dic.length; i++) {
-                    if ($scope.SelectInfo.BizCity.dic[i].divCode == $scope.oiPageInfo.Info.corpBizCityCode) {
-                        $scope.oiPageInfo.Info.corpBizCityCodeName = $scope.SelectInfo.BizCity.dic[i].divName;
-                        $scope.oiPageInfo.Info.corpBizDistrictCode = "";
-                        console.log($scope.oiPageInfo.Info.corpBizCityCodeName)
-                        console.log($scope.oiPageInfo.Info.corpBizCityCode)
-                        $scope.SelectInfo.BizDistrict.getBizDistrictList()// 市区下拉 
-                        return;
-                    }
-                }
+            getcontact3FuncList: function () {
+                /// <summary>获取第3联系人用途类型</summary>
+                $Api.Public.GetDictionary({ dictType: "CTCFUN" }, function (rData) {
+                    $scope.SelectInfo.contact3Func.dic = rData;
+                })
             },
-            getBizCityList: function () {
-                /// <summary>获取市区列表</summary>
-                if ($scope.oiPageInfo.Info.corpBizProvinceCode) {
-                    var option = { level: "2", parentDivCode: $scope.oiPageInfo.Info.corpBizProvinceCode }
-                    console.log(option)
-                    $Api.BasisService.GetadmdivisionList(option, function (rData) {
-                        $scope.SelectInfo.BizCity.dic = rData.rows;
-                        console.log(rData)
-                    });
-                } else {
-                    $scope.SelectInfo.BizCity.dic = new Array();
-                }
-            }
         },
-        BizDistrict: {
-            //区域类型下拉框  
+        contact3PMsgType: {
             dic: new Array(),
-            change: function (item) {
-                /// <summary>区域列表修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.BizDistrict.dic.length; i++) {
-                    if ($scope.SelectInfo.BizDistrict.dic[i].divCode == $scope.oiPageInfo.Info.corpBizDistrictCode) {
-                        $scope.oiPageInfo.Info.corpBizDistrictCodeName = $scope.SelectInfo.BizDistrict.dic[i].divName;
-                        return;
-                    }
-                }
+            getcontact3PMsgTypeList: function () {
+                /// <summary>获取第3联系人通信工具<</summary>
+                $Api.Public.GetDictionary({ dictType: "PMSGTP" }, function (rData) {
+                    $scope.SelectInfo.contact3PMsgType.dic = rData;
+                })
             },
-            getBizDistrictList: function () {
-                /// <summary>获取区域列表</summary>
-                if ($scope.oiPageInfo.Info.corpBizCityCode && $scope.oiPageInfo.Info.corpBizProvinceCode) {
-                    var option = { level: "3", parentDivCode: $scope.oiPageInfo.Info.corpBizCityCode }
-                    $Api.BasisService.GetadmdivisionList(option, function (rData) {
-                        $scope.SelectInfo.BizDistrict.dic = rData.rows;
-                        console.log(rData)
-                    });
-                } else {
-                    $scope.SelectInfo.BizDistrict.dic = new Array();
-                }
-            }
         },
-////运营地址关闭
+
     }
     $scope.oiPageInfo.Load();
 })

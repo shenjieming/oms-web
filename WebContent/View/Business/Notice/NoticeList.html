@@ -134,13 +134,13 @@
             <div class="col-lg-1"></div>
             <div class="col-lg-5">
                 <span class="required">*</span>经销商框：
-                <select ng-model="NoticePageInfo.Info.dLOrgCode" ng-change="SelectInfo.DLlist.change(item)">
+                <select ng-model="NoticePageInfo.Info.dLOrgCode" ng-change="SelectInfo.DLlist.change(item)" style="min-width:200px">
                     <option value="">请选择</option>
                     <option ng-repeat="item in SelectInfo.DLlist.dic" ng-selected="item.orgCode ==NoticePageInfo.Info.dLOrgCode" value="{{item.orgCode}}">{{item.dLName}}</option>
                 </select>
             </div>
             <div class="col-lg-5" ng-show="ButtonList.isEmailopen">
-                <span style="float:left;line-height:25px;">经销商：</span>
+                <span style="float:left;line-height:25px;">经&nbsp;销&nbsp;&nbsp;商：</span>
                 <input type="checkbox" id="checkbox_c2" class="chkbox" ng-checked="NoticePageInfo.Info.isApplyTeam" ng-model="NoticePageInfo.Info.isApplyTeam" />
                 <label for="checkbox_c2" style="float:left"></label>
                 <span ng-show="NoticePageInfo.Info.isApplyTeam" style="line-height: 25px;"> 共享</span>
@@ -152,13 +152,13 @@
             <div class="col-lg-1"></div>
             <div class="col-lg-5">
                 <span class="required">*</span>订单事件：
-                <select ng-model="NoticePageInfo.Info.sOEventCode" ng-change="SelectInfo.DlEventList.change(item)">
+                <select ng-model="NoticePageInfo.Info.sOEventCode" ng-change="SelectInfo.DlEventList.change(item)" style="min-width:200px">
                     <option value="">请选择</option>
                     <option ng-repeat="item in SelectInfo.DlEventList.dic" ng-selected="item.id==NoticePageInfo.Info.sOEventCode" value="{{item.id}}">{{item.text}}</option>
                 </select>
             </div>
             <div class="col-lg-5" ng-show="ButtonList.isApplyDLAL">
-                <span style="float:left;line-height:25px;">订单人：</span>
+                <span style="float:left;line-height:25px;">订&nbsp;单&nbsp;&nbsp;人：</span>
                 <input type="checkbox" id="checkbox_c1" class="chkbox" ng-checked="NoticePageInfo.Info.isApplyDLAL" ng-model="NoticePageInfo.Info.isApplyDLAL" />
                 <label for="checkbox_c1" style="float:left"></label>
                 <span ng-show="NoticePageInfo.Info.isApplyDLAL" style="line-height: 25px;"> 共享</span>
@@ -169,7 +169,7 @@
             <div class="col-lg-1"></div>
             <div class="col-lg-5">
                 <span class="required">*</span>邮件模板：
-                <select ng-model="NoticePageInfo.Info.emailNotificationTmplCode" ng-change="SelectInfo.EmailList.change(item)">
+                <select ng-model="NoticePageInfo.Info.emailNotificationTmplCode" ng-change="SelectInfo.EmailList.change(item)" style="min-width:200px">
                     <option value="">请选择</option>
                     <option ng-repeat="item in SelectInfo.EmailList.dic" ng-selected="item.id ==NoticePageInfo.Info.emailNotificationTmplCode" value="{{item.id}}">{{item.text}}</option>
                 </select>
@@ -186,7 +186,7 @@
             <div class="col-lg-1"></div>
             <div class="col-lg-5">
                 <span class="required">*</span>短信模板：
-                <select ng-model="NoticePageInfo.Info.sMSNotificationTmplCode" ng-change="SelectInfo.SMSList.change(item)">
+                <select ng-model="NoticePageInfo.Info.sMSNotificationTmplCode" ng-change="SelectInfo.SMSList.change(item)" style="min-width:200px">
                     <option value="">请选择</option>
                     <option ng-repeat="item in SelectInfo.SMSList.dic" ng-selected="item.id ==NoticePageInfo.Info.sMSNotificationTmplCode" value="{{item.id}}">{{item.text}}</option>
                 </select>
@@ -203,7 +203,7 @@
             <div class="col-lg-1"></div>
             <div class="col-lg-5">
                 <span class="required">*</span>微信模板：
-                <select ng-model="NoticePageInfo.Info.weChatNotificationTmplCode" ng-change="SelectInfo.WeChatList.change(item)">
+                <select ng-model="NoticePageInfo.Info.weChatNotificationTmplCode" ng-change="SelectInfo.WeChatList.change(item)" style="min-width:200px">
                     <option value="">请选择</option>
                     <option ng-repeat="item in SelectInfo.WeChatList.dic" ng-selected="item.id ==NoticePageInfo.Info.weChatNotificationTmplCode" value="{{item.id}}">{{item.text}}</option>
                 </select>

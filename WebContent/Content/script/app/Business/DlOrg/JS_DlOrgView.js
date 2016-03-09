@@ -17,7 +17,7 @@ app.controller("DlOrgViewController", function ($scope, $state, $local, $Api, $M
             $Api.ManageDl.GetqueryDealerDetail({ orgCode: $scope.dlopt }, function (rData) {
                 $scope.DlOrgView.Info = rData;
                 $scope.DlOrgView.BackpackcorpRegCapital =$scope.DlOrgView.Info.corpRegCapital
-                if ($scope.DlOrgView.BackpackcorpRegCapital!=0) {
+                if ($scope.DlOrgView.BackpackcorpRegCapital) {
                     $scope.DlOrgView.BackpackcorpRegCapital = $scope.DlOrgView.BackpackcorpRegCapital / 10000;
                 }
                 console.log(rData)
