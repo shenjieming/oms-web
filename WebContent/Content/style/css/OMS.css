@@ -5,6 +5,10 @@ input, select, textarea {
     padding: 5px;
     border-radius: 4px;
 }
+
+label > input[type='text'], label select {
+    min-width:150px;
+}
 /*行上边距8像素*/
 .row-mt-8 {
     margin-top: 8px;

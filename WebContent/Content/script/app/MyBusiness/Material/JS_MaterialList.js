@@ -29,9 +29,15 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
                                     node.SubsetType = "medProdLnCode";
                                     node.isParent = true;
                                     node.Subset = $Api.BrandService.GetProductLine;
-                                    node.options = { oIOrgCode: treeNode.options.oIOrgCode, medBrandCode: rData[i].id, includeMedProdLn: rData[i].param };
+                                    node.options = {
+                                        oIOrgCode: treeNode.options.oIOrgCode,
+                                        oIOrgCodeName: treeNode.options.oIOrgCodeName,
+                                        medBrandCode: rData[i].id,
+                                        medBrandCodeName: rData[i].text,
+                                        includeMedProdLn: rData[i].param
+                                    };
                                 } else {
-                                    node.options = { medProdLnCode: rData[i].id };
+                                    node.options = $.extend({ medProdLnCode: rData[i].id, medProdLnCodeName: rData[i].text }, treeNode.options);
                                 }
                                 nodeList.push(node);
                             }
@@ -49,9 +55,60 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
         },
         obj: new Object()
     }
+
+    $scope.Service = {
+        /// <summary>物料管理服务</summary>
+        PageLoad: function () {
+            /// <summary>页面数据加载</summary>
+            //获取我的货主信息
+            $scope.Material.GetCargoOwner();
+        },
+        IsEdit: function (isshow) {
+            /// <summary>是否编辑</summary>
+            $scope.Material.IsEdit = isshow;
+        },
+        IsView: function (isshow) {
+            /// <summary>是否编辑</summary>
+            $scope.Material.IsView = isshow;
+        },
+        Add: function () {
+            /// <summary>添加物料</summary>
+            $scope.PageData = {
+                oIOrgCodeName: $scope.Material.options.oIOrgCodeName,
+                oIOrgCode: $scope.Material.options.oIOrgCodeName,
+                medBrandCodeName: $scope.Material.options.medBrandCodeName,
+                medProdLnCodeName: $scope.Material.options.medProdLnCodeName,
+                certMultiQty:4,isScanSupported:"Y",disinfectionNeeded:"Y",effectiveControl:"Y",
+                attachment: { images: new Array(), remark: "" }
+            };
+            this.IsEdit(true);
+        },
+        IsChecked: function (ischeck, model,sd) {
+            /// <summary>是否对象点击</summary>
+            $scope.PageData[model] = ischeck ? "Y" : "N"
+        },
+        QueryMaterialList: function () {
+            /// <summary>查询物料列表</summary>
+            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, medMIName: $scope.Service.SearchWhere, medMICode: $scope.Service.SearchWhere });
+            $scope.Material.GetList();
+        },
+        UpEnter: function (e) {
+            /// <summary>点击回车事件</summary>
+            var keycode = window.event ? e.keyCode : e.which;
+            if (keycode == 13) {
+                $scope.Service.QueryMaterialList();
+            }
+        }
+    }
+
+
+    $scope.PageData = {};
+
     $scope.Material = {
         //条件
-        options:{},
+        options: {},
+        IsView:false,
+        IsEdit: false,
         MaterialList:new Array(),
         GetList: function () {
             /// <summary>获取物料列表</summary>
@@ -71,31 +128,16 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
                 console.log(rData);
                 for (var i = 0; i < rData.length; i++) {
                     if (i == 0) {
-                        $scope.Material.options = { oIOrgCode: rData[i].id };
+                        $scope.Material.options = { oIOrgCode: rData[i].id, oIOrgCodeName: rData[i].text };
                         $scope.Material.GetList();
                     }
-                    treeData.push({ id: rData[i].id, name: rData[i].text, isParent: true, options: { oIOrgCode: rData[i].id }, Subset: $Api.BrandService.GetBrandList, SubsetType: "medBrandCode" });
+                    treeData.push({ id: rData[i].id, name: rData[i].text, isParent: true, options: { oIOrgCode: rData[i].id, oIOrgCodeName: rData[i].text }, Subset: $Api.BrandService.GetBrandList, SubsetType: "medBrandCode" });
                 }
                 $scope.tree.data = treeData;;
             })
-        },
-        Detailed: function () {
-            /// <summary>获取物料详细</summary>
-            var opt = $scope.getSelectedRow();
-            $state.go("app.mybusiness.materialDetailed", { opt: opt.medProdLnCode });
         }
     }
-    $scope.getSelectedRow = function () {
-        /// <summary>获取选择的行</summary>
-        var result = false;
-        $.each($scope.Material.MaterialList, function (index, item) {
-            /// <summary>如果被选中，则选取选中的行</summary>
-            if (item.isSelected) {
-                result = item
-            }
-        });
-        return result;
-    }
+
     $scope.Pagein = {
         /// <summary>分页信息</summary>
         pageSize: 10,
@@ -104,6 +146,5 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
             $scope.Material.GetList();
         }
     }
-    //获取我的货主信息
-    $scope.Material.GetCargoOwner();  
+    $scope.Service.PageLoad();
 });
