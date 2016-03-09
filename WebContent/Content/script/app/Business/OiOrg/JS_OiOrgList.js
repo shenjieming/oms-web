@@ -53,13 +53,8 @@ app.controller("OiOrgListController", function ($scope, $state, $local, $Api, $M
     };
     $scope.UserStatus = function (row) {
         $scope.RelManList.info = row ? row : $scope.RelManList.getSelectedRow();
-        console.log($scope.RelManList.info)
         $scope.RelManList.info.isEnable = !$scope.RelManList.info.isEnable;
-        if ($scope.RelManList.info.isEnable) {
-            $scope.RelManList.info.certStatus = "Y";
-        } else {
-            $scope.RelManList.info.certStatus = "N";
-        }
+        $scope.RelManList.info.certStatus = $scope.RelManList.info.isEnable?"Y":"N"
         console.log($scope.RelManList.info)
         $Api.ManageOIDLRel.GetdeleteOwnerOfInventory($scope.RelManList.info, function (rData) {
             $MessagService.caveat("用户状态修改成功！")
@@ -72,7 +67,7 @@ app.controller("OiOrgListController", function ($scope, $state, $local, $Api, $M
         info: [],
         GetOiOrgList: function () {
             /// <summary>获取货主列表</summary>
-            var paramData = $.extend({ }, $scope.Pagein);
+            var paramData = $.extend({ oIName: $scope.OiOrgList.info.oIName }, $scope.Pagein);
             $Api.ManageOi.GetqueryAllOwnerOfInventory(paramData, function (rData) {
                 $scope.OiOrgList.info = rData.rows;
                 $scope.Pagein.total = rData.total;

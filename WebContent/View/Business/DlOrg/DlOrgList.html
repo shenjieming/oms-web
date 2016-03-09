@@ -10,6 +10,11 @@
                     <a class="btn btn-primary" ng-click="DlOrgJump.Delect()">删除</a>
                     <a class="btn btn-primary" ng-click="DlOrgJump.View()">详情</a>
                 </span>
+                <div class="input-group" style="float:right;width:250px;margin-right:10px;">
+                    <input type="text" class="form-control" placeholder="请输入经销商名称"
+                           style="padding:8px;" ng-model="DlOrgList.info.dLName">
+                    <a class="input-group-addon" href="javascript:void(0)" ng-click="DlOrgList.GetDlOrgList()"><i class="fa fa-search"></i></a>
+                </div>
             </header>
             <div class="main-box-body clearfix">
                 <div class="table-responsive list-box" style="min-height:450px">
@@ -17,18 +22,20 @@
                         <thead>
                             <tr>
                                 <th><span>序号</span></th>
-                                <th><span>经销商名</span></th>
                                 <th><span>机构编码</span> </th>
+                                <th><span>经销商名称</span></th>
+                                <th><span>经销商全称</span></th>
                                 <th><span>经销描述</span></th>
                                 <th><span>认证状态</span></th>
-                                <th><span>操作状态</span></th>
+                                <th><span>有效状态</span></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in DlOrgList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                            <tr ng-repeat="row in DlOrgList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="DlOrgJump.View(row)">
                                 <td>{{$index+1}}</td>
-                                <td><span>{{row.dLName}}</span></td>
                                 <td><span>{{row.orgCode}}</span></td>
+                                <td><span>{{row.dLName}}</span></td>
+                                <td><span>{{row.dLFullName}}</span></td>                                
                                 <td><span>{{row.dLDesc}}</span></td>
                                 <td><span>{{row.certStatus=="Y"?"认证":"未认证"}}</span></td>
                                 <td><span>{{row.validStatusName}}</span></td>
