@@ -1,20 +1,17 @@
 ﻿
-
-
-<div class="row">
+<div ng-slide="Material.IsView">
     <div class="tools">
         <span class="btn-group oms-btn-group" style="float:right;">
-            <a class="btn btn-primary" ng-click="Service.Save()"><i class="fa fa-pencil"></i> 保存</a>
-            <a class="btn btn-primary" ng-click="Service.IsEdit(false)"><i class="fa  fa-reply"></i> 返回</a>
+            <a class="btn btn-primary" ng-click="Service.IsView(false)"><i class="fa  fa-reply"></i> 返回</a>
         </span>
     </div>
     <div class="row-fluid">
         <div class="widget-box">
-            <div class="widget-title bg_ly" data-toggle="collapse" href="#DetailBasicInformation">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#ViewBasicInformation">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
                 <h5>物料信息</h5>
             </div>
-            <div class="widget-content nopadding collapse in" id="DetailBasicInformation">
+            <div class="widget-content nopadding collapse in" id="ViewBasicInformation">
                 <div class="control-group ">
                     <label>
                         货主名称：{{Material.options.oIOrgCodeName}}
@@ -99,95 +96,82 @@
         </div>
 
         <div class="widget-box">
-            <div class="widget-title bg_ly" data-toggle="collapse" href="#DetailCharacteristicInformation">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#ViewCharacteristicInformation">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
                 <h5>物料特性</h5>
             </div>
-            <div class="widget-content nopadding collapse in" id="DetailCharacteristicInformation">
+            <div class="widget-content nopadding collapse in" id="ViewCharacteristicInformation">
                 <div class="control-group ">
                     <label>
-                        合格证联数：<input type="number" style="text-align:right;" ng-model="PageData.certMultiQty" />
+                        合格证联数：{{PageData.certMultiQty}}联
                     </label>
                     <label style="width:60%">
-                        注册证号：<input type="text" style="width:78%" placeholder="请输入物料注册证件号" ng-model="PageData.registryNo" />
+                        注册证号：{{PageData.registryNo}}
                     </label>
                 </div>
                 <div class="control-group">
-                    <label>产品方向：<span ng-dictionary="MIDIRT" ng-model="PageData.direction"></span></label>
+                    <label>产品方向：{{PageData.directionName}}</label>
                     <label>
-                        <span style="float:left;line-height:25px;">消毒情况：</span>
-                        <input type="checkbox" id="checkbox_c2" class="chkbox" ng-change="Service.IsChecked(disinfectionNeededCheck,'disinfectionNeeded')" ng-checked="PageData.disinfectionNeeded=='Y'" ng-model="disinfectionNeededCheck" />
-                        <label for="checkbox_c2" style="float:left"></label>
-                        <span ng-show="PageData.disinfectionNeeded=='Y'" style="line-height: 25px;">需要消毒</span>
-                        <span ng-show="PageData.disinfectionNeeded!='Y'" style="line-height: 25px;">不消毒</span>
+                        消毒情况：{{PageData.disinfectionNeeded=='Y'?'需要消毒':'无菌包装'}}
                     </label>
                     <label>
-                        <span style="float:left;line-height:25px;">有 效 期：</span>
-                        <input type="checkbox" id="checkbox_c3" class="chkbox" ng-change="Service.IsChecked(effectiveControlChecked,'effectiveControl')" ng-checked="PageData.effectiveControl=='Y'" ng-model="effectiveControlChecked" />
-                        <label for="checkbox_c3" style="float:left"></label>
-                        <span ng-show="PageData.effectiveControl=='Y'" style="line-height: 25px;">长期有效</span>
-                        <span ng-show="PageData.effectiveControl!='Y'" style="line-height: 25px;">短期有效</span>
+                        有 效 期：{{PageData.effectiveControl=='Y'?'长期有效':'短期有效'}}
                     </label>
                 </div>
                 <div class="control-group">
                     <label>
-                        第一标准：<span ng-dictionary="MMISTD" style="width:200px;" ng-model="PageData.standardCode1Source"></span>
+                        第一标准：{{PageData.standardCode1SourceName}}
                     </label>
                     <label style="width:60%">
-                        标准编码：<input type="text" style="width:78%" placeholder="请输入第一标准产品编码" ng-model="PageData.standardCode1" />
+                        标准编码：{{PageData.standardCode1}}
                     </label>
                 </div>
                 <div class="control-group">
                     <label>
-                        第二标准：<span ng-dictionary="MMISTD" ng-model="PageData.standardCode2Source"></span>
+                        第二标准：{{PageData.standardCode2SourceName}}
                     </label>
                     <label style="width:60%">
-                        标准编码：<input type="text" style="width:78%" placeholder="请输入第二标准产品编码" ng-model="PageData.standardCode2" />
+                        标准编码：{{PageData.standardCode2}}
                     </label>
                 </div>
                 <div class="control-group">
                     <label>
-                        第三标准：<span ng-dictionary="MMISTD" ng-model="PageData.standardCode3Source"></span>
+                        第三标准：{{PageData.standardCode3SourceName}}
                     </label>
                     <label style="width:60%">
-                        标准编码：<input type="text" style="width:78%" placeholder="请输入第三标准产品编码" ng-model="PageData.standardCode3" />
+                        标准编码：{{PageData.standardCode3}}
                     </label>
                 </div>
                 <div class="control-group">
-                    <label style="width:100%;">材料说明：<input type="text" style="width:78%" placeholder="请输入材料说明" ng-model="PageData.materials" /></label>
+                    <label style="width:100%;">材料说明：{{PageData.materials}}</label>
                 </div>
                 <div class="control-group">
-                    <span class="required">*</span>
-                    <label style="width:100%">使用说明：<input type="text" style="width:78%" placeholder="请输入使用说明" ng-model="PageData.useInfo" /></label>
+                    <label style="width:100%">使用说明：{{PageData.useInfo}}</label>
                 </div>
             </div>
         </div>
 
         <div class="widget-box">
-            <div class="widget-title bg_ly" data-toggle="collapse" href="#DetailManufacturerInfo">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#ViewManufacturerInfo">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
                 <h5>厂商信息</h5>
             </div>
-            <div class="widget-content nopadding collapse in" id="DetailManufacturerInfo">
+            <div class="widget-content nopadding collapse in" id="ViewManufacturerInfo">
                 <div class="control-group ">
                     <label>
-                        <span class="required">*</span>
-                        厂商信息：<select ng-model="PageData.medMnfcOrgCode" ng-options="item.id as item.text for item in Material.MedManuFactureList">
-                            <option value="">请选择厂商信息</option>
-                        </select>
+                        厂商信息：{{PageData.medMnfcOrgCodeName}}
                     </label>
                     <label style="width:60%">
-                        <span class="required">*</span>
-                        物料编码：<input type="text" style="width:78%" placeholder="请输入厂家物料编码" ng-model="PageData.mnfcMedMICode" />
+                        物料编码：{{PageData.mnfcMedMICode}}
                     </label>
                 </div>
                 <div class="control-group">
-                    <label>物料名称：<input type="text" placeholder="请输入厂家物料名称" ng-model="PageData.mnfcMedMIName" /></label>
-                    <label style="width:60%">物料全称：<input type="text" style="width:78%" placeholder="请输入厂家物料全称" ng-model="PageData.mnfcMedMIFullName" /></label>
+                    <label>物料名称：{{PageData.mnfcMedMIName}}</label>
+                    <label style="width:60%">物料全称：{{PageData.mnfcMedMIFullName}}</label>
                 </div>
                 <div class="control-group">
-                    <label>英文名称：<input type="text" placeholder="请输入厂家英文名称" ng-model="PageData.mnfcMedMINameEN" /></label>
-                    <label style="width:60%;">英文全称：<input type="text" style="width:78%;" placeholder="请输入厂家英文全称" ng-model="PageData.mnfcMedMIFullNameEN" /></label>
+                    <label>英文名称：{{PageData.mnfcMedMINameEN}}</label>
+                    <label style="width:60%;">英文全称：{{PageData.mnfcMedMIFullNameEN}}</label>
                 </div>
             </div>
         </div>
@@ -195,24 +179,15 @@
         <div class="widget-box">
             <div class="widget-title bg_ly">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5 data-toggle="collapse" style="width:80%" href="#DetailImageInformation">图片信息</h5>
-                <a class="btn j_file_panel" href="javascript:void(0)">
-                    <i class="fa fa-image"></i>
-                    添加图片
-                    <div ng-file="file" ng-model="file"></div>
-                </a>
+                <h5 data-toggle="collapse" href="#ViewImageInformation">图片信息</h5>
             </div>
-            <div class="widget-content nopadding collapse in" id="DetailImageInformation">
+            <div class="widget-content nopadding collapse in" id="ViewImageInformation">
                 <div class="control-group ">
                     <div ng-img="img" ng-comp="{delImg:true}" ng-model="PageData.attachments.images"></div>
-                    <label style="opacity:0.5;width:100%;" ng-show="!PageData.attachments.images.length">
-                        添加点图片丰富您的订单吧，
-                        最多支持上传5张图片
-                    </label>
                 </div>
                 <div class="control-group">
                     <label style="width:100%">
-                        图片说明：<input type="text" style="width:78%;" placeholder="对您的图片说点什么吧..." ng-model="PageData.attachments.remark" />
+                        图片说明：{{PageData.attachments.remark}}
                     </label>
                 </div>
             </div>
@@ -220,8 +195,7 @@
     </div>
     <div class="tools">
         <span class="btn-group oms-btn-group" style="float:right;">
-            <a class="btn btn-primary" ng-click="Service.Save()"><i class="fa fa-pencil"></i> 保存</a>
-            <a class="btn btn-primary" ng-click="Service.isEdit(false)"><i class="fa  fa-reply"></i> 返回</a>
+            <a class="btn btn-primary" ng-click="Service.isView(false)"><i class="fa  fa-reply"></i> 返回</a>
         </span>
     </div>
 </div>

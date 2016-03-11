@@ -648,8 +648,9 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 },
                 GetMedManuFactureCommboxList: function (data, callback) {
                     /// <summary>//厂商下拉框</summary>
+                    $MessagService.loading("厂商信息获取中，请稍等...");
                     service.Post(ApiPath.BusinessData.MedManuFacture.medManuFactureCommboxList, data, callback);
-                },
+                }
             },
             MedBrand: {
                 //(物料)品牌

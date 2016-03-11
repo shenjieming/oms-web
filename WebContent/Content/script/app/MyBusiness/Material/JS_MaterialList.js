@@ -10,6 +10,7 @@
 
 app.controller("MaterialController", function ($scope, $state, $local, $Api, $MessagService, $FileService) {
     /// <summary>经销商物料查询</summary>
+    $MessagService.loading("页面启动中，请稍等...");
     $scope.tree = {
         setting: {
             callback: {
@@ -63,35 +64,19 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
             //获取我的货主信息
             $scope.Material.GetCargoOwner();
         },
-        IsEdit: function (isshow) {
-            /// <summary>是否编辑</summary>
-            $scope.Material.IsEdit = isshow;
+        ViewDetail: function (isshow) {
+            /// <summary>显示明细</summary>
+            var mater = $local.getSelectedRow($scope.Material.MaterialList);
+            if (mater) {
+                var carriedFun = isshow ? $scope.Service.ShowMaterialDetail : $scope.Service.EditMaterialDetail;
+                carriedFun(carriedFun);
+            } else {
+                $MessagService.caveat("请选择一套物料信息！");
+            }
         },
-        IsView: function (isshow) {
-            /// <summary>是否编辑</summary>
-            $scope.Material.IsView = isshow;
-        },
-        Add: function () {
-            /// <summary>添加物料</summary>
-            $scope.PageData = {
-                oIOrgCodeName: $scope.Material.options.oIOrgCodeName,
-                oIOrgCode: $scope.Material.options.oIOrgCodeName,
-                medBrandCodeName: $scope.Material.options.medBrandCodeName,
-                medProdLnCodeName: $scope.Material.options.medProdLnCodeName,
-                certMultiQty:4,isScanSupported:"Y",disinfectionNeeded:"Y",effectiveControl:"Y",
-                attachments: { images: new Array(), remark: "" }
-            };
-            this.IsEdit(true);
-        },
-        Save: function () {
-            /// <summary>物料信息保存</summary>
-            $Api.BusinessData.MedMater.Save($scope.PageData, function () {
-                alert("保存成功！");
-            })
-        },
-        IsChecked: function (ischeck, model,sd) {
-            /// <summary>是否对象点击</summary>
-            $scope.PageData[model] = ischeck ? "Y" : "N"
+        ShowMaterialDetail: function (row) {
+            /// <summary>显示物料明细信息</summary>
+            $scope.goView("",row);
         },
         QueryMaterialList: function () {
             /// <summary>查询物料列表</summary>
@@ -107,15 +92,12 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
         }
     }
 
-
-    $scope.PageData = {};
-
     $scope.Material = {
         //条件
         options: {},
-        IsView:false,
         IsEdit: false,
-        MaterialList:new Array(),
+        MaterialList: new Array(),
+        MedManuFactureList:new Array(),
         GetList: function () {
             /// <summary>获取物料列表</summary>
             $MessagService.loading("物料列表获取中，请稍等...");
@@ -135,7 +117,7 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
                 for (var i = 0; i < rData.length; i++) {
                     if (i == 0) {
                         $scope.Material.options = { oIOrgCode: rData[i].id, oIOrgCodeName: rData[i].text };
-                        $scope.Material.GetList();
+                       // $scope.Material.GetList();
                     }
                     treeData.push({ id: rData[i].id, name: rData[i].text, isParent: true, options: { oIOrgCode: rData[i].id, oIOrgCodeName: rData[i].text }, Subset: $Api.BrandService.GetBrandList, SubsetType: "medBrandCode" });
                 }
@@ -150,31 +132,6 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
         pageIndex: 1,
         callbake: function () {
             $scope.Material.GetList();
-        }
-    }
-
-    
-    $scope.file = {
-        /// <summary>附件控制器</summary>
-        Upload: function (files) {
-            /// <summary>上传事件</summary>
-            $.each(files, function (index, item) {
-                if ($scope.PageData.attachments.images.length >= 5) {
-                    $MessagService.caveat("您上传的图片超过了5张。")
-                    return false;
-                }
-                if (item.type.indexOf("image") > -1) {
-                    $FileService.ReaderFiles(item, function (data) {
-                        /// <summary>文件读取</summary>
-                        $Api.Public.UploadFile(data, function (rData) {
-                            $scope.PageData.attachments.images.push(rData);
-                        });
-                    });
-                } else {
-                    $MessagService.caveat("您上传的不是图片！")
-                }
-
-            });
         }
     }
 

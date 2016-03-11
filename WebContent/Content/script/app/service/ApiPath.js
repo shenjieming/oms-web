@@ -301,7 +301,6 @@ var ApiPath = {
     },
     BusinessData: {
         /// <summary>业务数据基础管理</summary>
-
         //厂商列表
         MedManuFacture: {
             //厂商列表
@@ -313,8 +312,7 @@ var ApiPath = {
             //厂商删除
             deleteMedManuFacture: "/v2/bizData/deleteMedManuFacture",
             //厂商下拉框
-            medManuFactureCommboxList: "/v2/bizData/medManuFactureCommboxList",
-
+            medManuFactureCommboxList: "/v2/bizData/medManuFactureCommboxList"
         },
         //品牌列表
         MedBrand: {
