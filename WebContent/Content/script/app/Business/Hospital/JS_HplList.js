@@ -26,27 +26,37 @@ app.controller("HplListController", function ($scope, $state, $local, $Api, $Mes
             /// <summary>医院新增</summary>
             $state.go("app.business.hplmanagementEduit");
         },
-        Eduit: function () {
+        Edit: function () {
             /// <summary>医院编辑</summary>
             var hplopt = $scope.getSelectedRow()
-            $state.go("app.business.hplmanagementEduit", { hplopt: hplopt.hPCode });
+            if (hplopt) {
+                $state.go("app.business.hplmanagementEduit", { hplopt: hplopt.hPCode });
+            } else {
+                $MessagService.caveat("请选择一条编辑的医院！")
+            }
         },
         View: function () {
             /// <summary>医院详情</summary>
             var hplopt = $scope.getSelectedRow()
-            $state.go("app.business.hplmanagementView", { oiopt: hplopt.hPCode });
+            if (hplopt) {
+                $state.go("app.business.hplmanagementView", { hplopt: hplopt.hPCode });
+            } else {
+                $MessagService.caveat("请选择一条查看的医院！")
+            }
+
         },
         Delet: function (row) {
             $scope.HospitalList.info = row ? row : $scope.getSelectedRow();
             console.log($scope.HospitalList.info)
             if ($scope.HospitalList.info) {
                 $Api.ManaHospital.GetdeleteHospital($scope.HospitalList.info, function (rData) {
-                    $MessagService.caveat("改医院删除成功!")
-                    $scope.HospitalList.GetHospitalList();
+                    $MessagService.caveat("该医院删除成功!")
+                 
                 })
             } else {
                 $MessagService.caveat("请选择一条数据!")
             }
+            $scope.HospitalList.GetHospitalList();
         }
     }
     $scope.getSelectedRow = function () {

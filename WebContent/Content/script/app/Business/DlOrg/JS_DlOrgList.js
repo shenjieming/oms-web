@@ -12,7 +12,7 @@ app.controller("DlOrgListController", function ($scope, $state, $local, $Api, $M
         info: [],
         GetDlOrgList: function () {
             /// <summary>获取经销商列表</summary>
-            var paramData = $.extend({ orgCode: $scope.User.userInfo.orgCode }, $scope.Pagein);
+            var paramData = $.extend({ dLName: $scope.DlOrgList.info.dLName }, $scope.Pagein);
             console.log(paramData)
             $Api.ManageDl.GetqueryAllDealer(paramData, function (rData) {
                 $scope.DlOrgList.info = rData.rows;
@@ -26,26 +26,37 @@ app.controller("DlOrgListController", function ($scope, $state, $local, $Api, $M
             /// <summary>经销商新增</summary>
             $state.go("app.business.dlorganizationEduit");
         },
-        Eduit: function () {
+        Edit: function () {
             /// <summary>经销商编辑</summary>
-            var dlopt = $scope.getSelectedRow()
-            $state.go("app.business.dlorganizationEduit", { dlopt: dlopt.orgCode });
+            var dlopt = $local.getSelectedRow($scope.DlOrgList.info)
+            if (dlopt) {
+                $state.go("app.business.dlorganizationEduit", { dlopt: dlopt.orgCode });
+            } else {
+                $MessagService.caveat("请选择一条编辑的经销商");
+            }       
         },
-        View: function () {
+        View: function (row) {
             /// <summary>经销商详情</summary>
-            var dlopt = $scope.getSelectedRow()
-            $state.go("app.business.dlorganizationView", { dlopt: dlopt.orgCode });
-        },
-    }
-    $scope.getSelectedRow = function () {
-        /// <summary>获取选择的行</summary>
-        var result = false;
-        $.each($scope.DlOrgList.info, function (index, item) {
-            if (item.isSelected) {
-                result = item;
+            var dlopt = row ? row : $local.getSelectedRow($scope.DlOrgList.info);
+            console.log(dlopt)
+            if (dlopt) {
+                $state.go("app.business.dlorganizationView", { dlopt: dlopt.orgCode });
             }
-        });
-        return result;
+            else {
+                $MessagService.caveat("请选择一条查看的经销商");
+            }
+        },
+        Delect: function () {
+            var dlopt = $local.getSelectedRow($scope.DlOrgList.info);
+            if (dlopt) {
+                $Api.ManageDl.GetdeleteDealer({ orgCode: dlopt.orgCode }, function (rData) {
+                    $MessagService.succ("该信息删除成功");
+                    $scope.DlOrgList.GetDlOrgList();
+                })
+            } else {
+                $MessagService.caveat("请选择一条删除的经销商");
+            }   
+        },
     }
     $scope.Pagein = {
         pageSize: 10,

@@ -5,11 +5,17 @@
             <header class="main-box-header clearfix">
                 <h2 class="pull-left">货主列表</h2>
                 <span style="float:right;">
-                    <a class="btn btn-primary" ng-click="Service.RelMan()">关管管理</a>
-                    <a class="btn btn-primary" ng-click="Service.Add()">新增货主</a>
-                    <a class="btn btn-primary" ng-click="Service.Eduit()">编辑货主</a>
-                    <a class="btn btn-primary" ng-click="Service.View()">货主详情</a>
+                    <a class="btn btn-primary" ng-click="Service.Add()">新增</a>
+                    <a class="btn btn-primary" ng-click="Service.Edit()">编辑</a>
+                    <a class="btn btn-primary" ng-click="Service.View()">详情</a>
+                    <a class="btn btn-primary" ng-click="RelManList.Detect()">删除</a>
+                    <a class="btn btn-primary" ng-click="Service.RelMan()">经销商信息</a>
                 </span>
+                <div class="input-group" style="float:right;width:250px;margin-right:10px;">
+                    <input type="text" class="form-control" placeholder="请输入货主名称"
+                           style="padding:8px;" ng-model="OiOrgList.info.oIName">
+                    <a class="input-group-addon" href="javascript:void(0)" ng-click="OiOrgList.GetOiOrgList()"><i class="fa fa-search"></i></a>
+                </div>
             </header>
             <div class="main-box-body clearfix">
                 <div class="table-responsive list-box" style="min-height:450px">
@@ -17,20 +23,22 @@
                         <thead>
                             <tr>
                                 <th><span>序号</span></th>
-                                <th><span>货主名称</span></th>
-                                <th><span>货主全称</span> </th>
                                 <th><span>货主编码</span></th>
-                                <th><span>机构编码</span></th>
-                                <th><span>操作状态</span></th>
+                                <th><span>货主简码</span> </th>
+                                <th><span>货主名称</span></th>
+                                <th><span>货主全称</span></th>
+                                <th><span>货主类型</span></th>
+                                <th><span>有效状态</span></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="row in OiOrgList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
                                 <td>{{$index+1}}</td>
+                                <td><span>{{row.orgCode}}</span></td>
+                                <td><span>{{row.oIShortCode}}</span></td>
                                 <td><span>{{row.oIName}}</span></td>
                                 <td><span>{{row.oIFullName}}</span></td>
-                                <td><span>{{row.oIShortCode}}</span></td>
-                                <td><span>{{row.orgCode}}</span></td>
+                                <td><span>{{row.oITypeName}}</span></td>
                                 <td><span>{{row.validStausName}}</span></td>
                             </tr>
                         </tbody>
@@ -39,14 +47,11 @@
                 <div ng-pagein="page" ng-model="Pagein"></div>
             </div>
         </div>
-
-
         <div ng-slide="RelManList.IsEdit" >
             <div class="main-box clearfix">
                 <header class="main-box-header clearfix">
-                    <h2 class="pull-left">关系管理列表</h2>
+                    <h2 class="pull-left">货主经销商管理列表</h2>
                     <span style="float:right;">
-                        <!--<a class="btn btn-primary" ng-click="Service.View()"><i class="fa  fa-reply"></i> 详情</a>-->
                         <a class="btn btn-primary" ng-click="Service.isEdit(false)"><i class="fa  fa-reply"></i> 返回</a>
                     </span>
                 </header>

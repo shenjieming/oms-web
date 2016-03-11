@@ -6,6 +6,7 @@
 /// <reference path="../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
+var Dictionary = new Object();
 app.directive("ngDictionary", function ($Api, $MessagService) {
     /// <summary>字典标签</summary>
     return {
@@ -17,12 +18,21 @@ app.directive("ngDictionary", function ($Api, $MessagService) {
         replace: true,
         link: function ($scope, element, attrs) {
             $scope.Dictionary = new Array();
-            $Api.Public.GetDictionary({ dictType: attrs.ngDictionary }, function (data) {
-                $scope.Dictionary = data;
-                if (!$scope.ngModel) {//设置选择项的默认值
-                    $scope.ngModel = data[data.length - 1].id;
-                }
-            });
+
+            if (Dictionary[attrs.ngDictionary]) {
+                $scope.Dictionary = Dictionary[attrs.ngDictionary];
+            }
+            else {
+                $Api.Public.GetDictionary({ dictType: attrs.ngDictionary }, function (data) {
+                    $scope.Dictionary = data;
+                    Dictionary[attrs.ngDictionary] = data;
+                    //if (!$scope.ngModel) {//设置选择项的默认值
+                    //    $scope.ngModel = data[data.length - 1].id;
+                    //}
+                });
+            }
+
+
         }
     };
 });

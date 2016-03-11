@@ -8,8 +8,9 @@
 /// <reference path="../Config.js" />
 /// <reference path="JS_MaterialList.js" />
 
-app.controller("MaterialController", function ($scope, $state, $local, $Api, $MessagService) {
+app.controller("MaterialController", function ($scope, $state, $local, $Api, $MessagService, $FileService) {
     /// <summary>经销商物料查询</summary>
+    $MessagService.loading("页面启动中，请稍等...");
     $scope.tree = {
         setting: {
             callback: {
@@ -29,9 +30,15 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
                                     node.SubsetType = "medProdLnCode";
                                     node.isParent = true;
                                     node.Subset = $Api.BrandService.GetProductLine;
-                                    node.options = { oIOrgCode: treeNode.options.oIOrgCode, medBrandCode: rData[i].id, includeMedProdLn: rData[i].param };
+                                    node.options = {
+                                        oIOrgCode: treeNode.options.oIOrgCode,
+                                        oIOrgCodeName: treeNode.options.oIOrgCodeName,
+                                        medBrandCode: rData[i].id,
+                                        medBrandCodeName: rData[i].text,
+                                        includeMedProdLn: rData[i].param
+                                    };
                                 } else {
-                                    node.options = { medProdLnCode: rData[i].id };
+                                    node.options = $.extend({ medProdLnCode: rData[i].id, medProdLnCodeName: rData[i].text, all: "N", brandLine: "N", productLine: "N", isQueryInventory: "N" }, treeNode.options);
                                 }
                                 nodeList.push(node);
                             }
@@ -49,10 +56,55 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
         },
         obj: new Object()
     }
+
+    $scope.Service = {
+        /// <summary>物料管理服务</summary>
+        PageLoad: function () {
+            /// <summary>页面数据加载</summary>
+            //获取我的货主信息
+            $scope.Material.GetCargoOwner();
+        },
+        Add: function () {
+            /// <summary>添加物料</summary>
+            $scope.Service.EditMaterialDetail($scope.Material.options);
+        },
+        ViewDetail: function (isshow) {
+            /// <summary>显示明细</summary>
+            var mater = $local.getSelectedRow($scope.Material.MaterialList);
+            if (mater) {
+                var carriedFun = isshow ? $scope.Service.ShowMaterialDetail : $scope.Service.EditMaterialDetail;
+                carriedFun(mater);
+            } else {
+                $MessagService.caveat("请选择一套物料信息！");
+            }
+        },
+        ShowMaterialDetail: function (row) {
+            /// <summary>显示物料明细信息</summary>
+            $scope.goView("app.mybusiness.materialview", row);
+        },
+        EditMaterialDetail: function (row) {
+            $scope.goView("app.mybusiness.materialdetail", row);
+        },
+        QueryMaterialList: function () {
+            /// <summary>查询物料列表</summary>
+            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1 });
+            $scope.Material.GetList();
+        },
+        UpEnter: function (e) {
+            /// <summary>点击回车事件</summary>
+            var keycode = window.event ? e.keyCode : e.which;
+            if (keycode == 13) {
+                $scope.Service.QueryMaterialList();
+            }
+        }
+    }
+
     $scope.Material = {
         //条件
-        options:{},
-        MaterialList:new Array(),
+        options: {},
+        IsEdit: false,
+        MaterialList: new Array(),
+        MedManuFactureList:new Array(),
         GetList: function () {
             /// <summary>获取物料列表</summary>
             $MessagService.loading("物料列表获取中，请稍等...");
@@ -71,31 +123,16 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
                 console.log(rData);
                 for (var i = 0; i < rData.length; i++) {
                     if (i == 0) {
-                        $scope.Material.options = { oIOrgCode: rData[i].id };
-                        $scope.Material.GetList();
+                        $scope.Material.options = { oIOrgCode: rData[i].id, oIOrgCodeName: rData[i].text };
+                       // $scope.Material.GetList();
                     }
-                    treeData.push({ id: rData[i].id, name: rData[i].text, isParent: true, options: { oIOrgCode: rData[i].id }, Subset: $Api.BrandService.GetBrandList, SubsetType: "medBrandCode" });
+                    treeData.push({ id: rData[i].id, name: rData[i].text, isParent: true, options: { oIOrgCode: rData[i].id, oIOrgCodeName: rData[i].text }, Subset: $Api.BrandService.GetBrandList, SubsetType: "medBrandCode" });
                 }
                 $scope.tree.data = treeData;;
             })
-        },
-        Detailed: function () {
-            /// <summary>获取物料详细</summary>
-            var opt = $scope.getSelectedRow();
-            $state.go("app.mybusiness.materialDetailed", { opt: opt.medProdLnCode });
         }
     }
-    $scope.getSelectedRow = function () {
-        /// <summary>获取选择的行</summary>
-        var result = false;
-        $.each($scope.Material.MaterialList, function (index, item) {
-            /// <summary>如果被选中，则选取选中的行</summary>
-            if (item.isSelected) {
-                result = item
-            }
-        });
-        return result;
-    }
+
     $scope.Pagein = {
         /// <summary>分页信息</summary>
         pageSize: 10,
@@ -104,6 +141,6 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
             $scope.Material.GetList();
         }
     }
-    //获取我的货主信息
-    $scope.Material.GetCargoOwner();  
+
+    $scope.Service.PageLoad();
 });

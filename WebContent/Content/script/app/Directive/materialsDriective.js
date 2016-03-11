@@ -24,8 +24,6 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                 MaterialList: new Array(),
                 //修改的物料列表
                 ChangeList: new Array(),
-                //查询条件
-                SearchWhere: "",
                 productLine: false,
                 brandLine: false,
                 all: false,
@@ -71,9 +69,7 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                         pageIndex: 1,
                         productLine: $scope.Service.productLine ? "Y" : "N",//品牌内通用(跨产品线)
                         brandLine: $scope.Service.brandLine ? "Y" : "N",
-                        all: $scope.Service.all ? "Y" : "N",
-                        medMIName: $scope.Service.SearchWhere,
-                        medMICode: $scope.Service.SearchWhere
+                        all: $scope.Service.all ? "Y" : "N"
                     });
 
                     $scope.Pagein.ReLoad();
@@ -130,7 +126,7 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                     //清空冗余数据
                     $scope.Service.ChangeList = new Array();
                     $scope.Service.MaterialList = new Array();
-                    $scope.Service.SearchWhere = "";
+                    $scope.Pagein.searchValue = "";
                     $scope.Service.GetMaterialListByCategory();
                 },
                 title: "物料选择", width: "100%", position:[0],height: "90%", buttons: {

@@ -1,0 +1,103 @@
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">我的医生列表</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="DoctorDetailAdd.ShowAdd({})">新增</a>
+                    <a class="btn btn-primary" ng-click="DoctorDetail.ShowEdit()">编辑</a>
+                    <a class="btn btn-primary" ng-click="DoctorDelect()">删除</a>
+                    <a class="btn btn-primary" ng-click="DoctorView.ShowView()">详情</a>
+                </span>
+            </header>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="DoctorList.info">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>我的姓名</span></th>
+                                <th><span>我的医生</span></th>
+                                <th><span>医生编码</span></th>
+                                <th><span>医生描述</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in DoctorList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                                <td>{{$index+1}}</td>
+                                <td><span>{{row.userName}}</span></td>
+                                <td><span>{{row.dTCodeName}}</span></td>
+                                <td><span>{{row.dTCode}}</span></td>
+                                <td><span>{{row.relDesc}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+    </div>
+    <ng-dialog ng-model="DoctorDetail.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                我的姓名：{{DoctorDetail.Info.userName}}
+            </div>
+            <div class="col-lg-5">
+                <span class="required">*</span>  医生姓名：
+                <select ng-model="DoctorDetail.Info.dTCode" ng-change="SelectInfo.dTName.change(item)">
+                    <option value="">请选择医生姓名</option>
+                    <option ng-repeat="item in SelectInfo.dTName.dic" ng-selected="item.dTCode==DoctorDetail.Info.dTCode" value="{{item.dTCode}}"> {{item.dTName}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <span style="float:left;"> 医生描述：</span>
+                <textarea style="width:85%;height:60px;" ng-model="DoctorDetail.Info.relDesc" placeholder="请输入该医生描述"></textarea>
+            </div>
+        </div>
+    </ng-dialog>
+    <ng-dialog ng-model="DoctorDetailAdd.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                我的姓名：{{DoctorDetailAdd.Info.userName}}
+            </div>
+            <div class="col-lg-5">
+                <span class="required">*</span>  医生姓名：<select ng-model="DoctorDetailAdd.Info.dTCode" ng-change="SelectInfo.dTCode.change(item)">
+                    <option value="">请选择医生姓名</option>
+                    <option ng-repeat="item in SelectInfo.dTCode.dic" ng-selected="item.dTName==DoctorDetailAdd.Info.dTCode" value="{{item.dTCode}}">
+                        {{item.dTName}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <span style="float:left;"> 医生描述：</span>
+                <textarea style="width:85%;height:60px;" ng-model="DoctorDetailAdd.Info.relDesc" placeholder="请输入该医生描述"></textarea>
+            </div>
+        </div>
+    </ng-dialog>
+    <ng-dialog ng-model="DoctorView.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                我的姓名：{{DoctorView.Info.userName}}
+            </div>
+            <div class="col-lg-5">
+                医生姓名：{{DoctorView.Info.dTCodeName}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                医生描述：{{DoctorView.Info.relDesc}}
+            </div>
+        </div>
+    </ng-dialog>
+</div>

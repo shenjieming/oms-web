@@ -1,52 +1,65 @@
 ﻿<div class="row">
     <div class="col-lg-12 row-mt-8">
-        <div class="main-box clearfix">
+        <div class="main-box clearfix" >
             <header class="main-box-header clearfix">
                 <h2 class="pull-left">物料管理列表</h2>
+                <span style="float:right;display:none;" class="btn-group oms-btn-group" ng-slide="Material.options.medProdLnCode">
+                    <a class="btn btn-primary" ng-click="Service.Add()"> <i class="fa fa-wrench"></i> 添加</a>
+                    <a class="btn btn-primary" ng-click="Service.ViewDetail(false)"><i class="fa fa-pencil"></i> 修改</a>
+                    <a class="btn btn-danger" style="display:none;" ng-click="Service.Delete()"><i class="fa fa-times"></i> 删除</a>
+                    <a class="btn btn-primary" ng-click="Service.ViewDetail(true)"> <i class="fa fa-align-justify"></i> 详情</a>
+                </span>
+                <span class="input-group" style="float:right;width:250px;margin-right:5px;">
+                    <input type="text" class="form-control" placeholder="请输入物料编码或物料名称"
+                           style="padding:8px;" ng-model="Pagein.searchValue" ng-keyup="Service.UpEnter($event)">
+                    <a class="input-group-addon" href="javascript:void(0)" ng-click="Service.QueryMaterialList()"><i class="fa fa-search"></i></a>
+                </span>
             </header>
-            <div class="col-lg-3" style=" height:auto; max-height: 480px; overflow-y: auto; ">
-                <div ng-tree="" ng-setting="tree.setting" ng-data="tree.data" ng-model="tree.obj"></div>
-            </div>
-            <div class="main-box-body clearfix col-lg-9" style="border-left: 1px solid #ccc;">
-                <div class="table-responsive list-box">
-                    <table class="table table-bordered table-striped" st-table="Material.MaterialList">
-                        <thead>
-                            <tr>
-                                <th><span>序号</span></th>
-                                <th><span>品牌名称</span></th>
-                                <th><span>物料编码</span></th>
-                                <th><span>物料名称</span></th>
-                                <th><span>所属产品线</span></th>
-                                <th><span>扫描编码</span></th>
-                                <th><span>应用通用性</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="row in Material.MaterialList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
-                                <td>{{$index+1}}</td>
-                                <td>
-                                    {{row.medBrandName}}
-                                </td>
-                                <td>
-                                    {{row.medMIInternalNo}}
-                                </td>
-                                <td>
-                                    {{row.medMIName}}
-                                </td>
-                                <td>
-                                    {{row.medProdLnName}}
-                                </td>
-                                <td>
-                                    {{row.medMICodeScanned}}
-                                </td>
-                                <td>
-                                    {{row.applyCommonTypeName}}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div>
+                <div class="col-lg-3" style=" height:auto; max-height: 480px; overflow-y: auto; ">
+                    <div ng-tree="" ng-setting="tree.setting" ng-data="tree.data" ng-model="tree.obj"></div>
                 </div>
-                <div ng-pagein="page" ng-model="Pagein"></div>
+                <div class="main-box-body clearfix col-lg-9" style="border-left: 1px solid #ccc;">
+                    <div class="table-responsive list-box">
+                        <table class="table table-bordered table-striped" st-table="Material.MaterialList">
+                            <thead>
+                                <tr>
+                                    <th><span>序号</span></th>
+                                    <th><span>品牌名称</span></th>
+                                    <th><span>物料编码</span></th>
+                                    <th><span>物料名称</span></th>
+                                    <th><span>规格</span></th>
+                                    <th><span>扫描编码</span></th>
+                                    <th><span>应用通用性</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="row in Material.MaterialList" ng-dblclick="Service.ShowMaterialDetail(row)" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                                    <td><span ng-bind="$index+1"></span> </td>
+                                    <td>
+                                        <span ng-bind="row.medBrandName"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="row.medMICode"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="row.medMIName"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="row.specification"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="row.medMIInternalNo"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="row.applyCommonTypeName"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div ng-pagein="page" ng-model="Pagein"></div>
+                </div>
             </div>
         </div>
     </div>

@@ -16,6 +16,10 @@ app.controller("DlOrgViewController", function ($scope, $state, $local, $Api, $M
             /// <summary>获取经销商详情</summary>
             $Api.ManageDl.GetqueryDealerDetail({ orgCode: $scope.dlopt }, function (rData) {
                 $scope.DlOrgView.Info = rData;
+                $scope.DlOrgView.BackpackcorpRegCapital =$scope.DlOrgView.Info.corpRegCapital
+                if ($scope.DlOrgView.BackpackcorpRegCapital) {
+                    $scope.DlOrgView.BackpackcorpRegCapital = $scope.DlOrgView.BackpackcorpRegCapital / 10000;
+                }
                 console.log(rData)
             })
         },

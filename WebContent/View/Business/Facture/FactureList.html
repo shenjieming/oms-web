@@ -1,0 +1,121 @@
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix" ng-slide="!RelManList.IsEdit">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">厂家列表</h2>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="FactureDetail.ShowAdd({})">新增</a>
+                    <a class="btn btn-primary" ng-click="FactureDetail.ShowEdit()">编辑</a>
+                    <a class="btn btn-primary" ng-click="FactureList.Delet()">删除</a>
+                    <a class="btn btn-primary" ng-click="FactureView.showView()">详情</a>
+                </span>
+            </header>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="FactureList.info">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>厂家名称</span></th>
+                                <th><span>厂家编码</span></th>
+                                <th><span>厂家描述</span></th>
+                                <th><span>厂家备注</span></th>
+                                <th><span>状态</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in FactureList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                                <td>{{$index+1}}</td>
+                                <td><span>{{row.medMnfcName}}</span></td>
+                                <td><span>{{row.medMnfcCode}}</span></td>
+                                <td><span>{{row.medMnfcDesc}}</span></td>
+                                <td><span>{{row.remark}}</span></td>
+                                <td><span>{{row.validStatus=="Y"?"有效":"无效"}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+    </div>
+    <ng-dialog ng-model="FactureDetail.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <span class="required">*</span>厂家名称：<input type="text" ng-model="FactureDetail.Info.medMnfcName" placeholder="请输入厂家名称" />
+            </div>
+            <div class="col-lg-5">
+             厂家全称：<input type="text" ng-model="FactureDetail.Info.medMnfcFullName" placeholder="请输入厂家全称" />
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+               英文名称：<input type="text" ng-model="FactureDetail.Info.medMnfcNameEN" placeholder="请输入英文名称" />
+            </div>
+            <div class="col-lg-5">
+               英文全称：<input type="text" ng-model="FactureDetail.Info.medMnfcFullNameEN" placeholder="请输入英文全称" />
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <span class="required">*</span>厂家编码：<input type="text" ng-model="FactureDetail.Info.medMnfcCode" placeholder="请输入厂家编码" />
+            </div>
+            <div class="col-lg-5">
+                <label ng-show="FactureDetail.checkIs">
+                    <span style="float:left;line-height:25px;">操作状态：</span>
+                    <input type="checkbox" id="checkbox_c2" class="chkbox" ng-checked="FactureDetail.Info.isEnable" ng-model="FactureDetail.Info.isEnable" />
+                    <label for="checkbox_c2" style="float:left"></label>
+                    <span ng-show="FactureDetail.Info.isEnable" style="line-height: 25px;"> 有效</span>
+                    <span ng-show="!FactureDetail.Info.isEnable" style="line-height: 25px;">无效</span>
+                </label>
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <span style="float:left;"> 厂家描述：</span>
+                <textarea style="width:85%;height:60px;" ng-model="FactureDetail.Info.relationDesc" placeholder="请输入厂家描述"></textarea>
+            </div>
+        </div>
+    </ng-dialog>
+    <ng-dialog ng-model="FactureView.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                厂家名称：  {{FactureView.Info.medMnfcName}}
+            </div>
+            <div class="col-lg-5">
+                厂家全称：  {{FactureView.Info.medMnfcFullName}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                英文名称： {{FactureView.Info.medMnfcNameEN}}
+            </div>
+            <div class="col-lg-5">
+                英文全称： {{FactureView.Info.medMnfcFullNameEN}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                厂家编码： {{FactureView.Info.medMnfcCode}}
+            </div>
+            <div class="col-lg-5">
+                操作状态： {{FactureView.Info.validStatus=="Y"?"有效":"无效"}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <span style="float:left;"> 厂家描述：</span>
+                {{FactureView.Info.medMnfcDesc}}
+            </div>
+        </div>
+    </ng-dialog>
+</div>

@@ -301,7 +301,6 @@ var ApiPath = {
     },
     BusinessData: {
         /// <summary>业务数据基础管理</summary>
-
         //厂商列表
         MedManuFacture: {
             //厂商列表
@@ -312,6 +311,8 @@ var ApiPath = {
             updateMedManuFacture: "/v2/bizData/updateMedManuFacture",
             //厂商删除
             deleteMedManuFacture: "/v2/bizData/deleteMedManuFacture",
+            //厂商下拉框
+            medManuFactureCommboxList: "/v2/bizData/medManuFactureCommboxList"
         },
         //品牌列表
         MedBrand: {
@@ -327,7 +328,7 @@ var ApiPath = {
             deleteMedBrand: "/v2/bizData/deleteMedBrand",
         },
         //物料列表
-        MedMater: {
+        MedMaterial: {
             //物料列表
             searchMedMaterialItem: "/v2/template/common/searchMedMaterialItem",
             //物料添加
@@ -370,12 +371,20 @@ var ApiPath = {
         updateDealer: "/v2/bizData/updateDealer",
         //经销商新增
         addDealer: "/v2/bizData/addDealer",
+        //经销商删除
+        deleteDealer: "/v2/bizData/deleteDealer",
+    },
+    DLHostptailRel: {
+        //医院经销商关系列表
+        query: "/v2/bizDataDL/dlhprel/query",
+        //医院经销商关系详情
+        queryDetail: "/v2/bizDataDL/dlhprel/queryDetail",
     },
     ManageOIDLRel: {
         //货主经销商关系列表
         queryAllOIDLRel: "/v2/bizData/queryAllOIDLRel",
         //货主经销商关系认证
-        deleteOwnerOfInventory: "/v2/bizData/deleteOwnerOfInventory",
+        deleteOwnerOfInventory: "/v2/bizData/queryOIDLRelDetail",
         //货主经销商关系详情
         oidlRelCrtsts: "/v2/bizData/oidlRelCrtsts",
     },
@@ -424,6 +433,8 @@ var ApiPath = {
         updateDlsoEventNoTificationCfg: "/v2/bizData/updateDlsoEventNoTificationCfg",
         //经销商事件通知配置删除
         deleteDlsoEventNoTificationCfg: "/v2/bizData/deleteDlsoEventNoTificationCfg",
+        //订单事件下拉框
+        queryEventCode: "/v2/bizData/queryEventCode",
     },
     ManaDepartment: {
 
@@ -450,6 +461,61 @@ var ApiPath = {
         //仓库编辑
         updateWareHouse: "/v2/bizData/updateWareHouse",
     },
+    AgentProduct: {
+        //代理产品列表
+        bizDataOIDLMedBrandAgentRelList: "/v2/bizDataDL/bizDataOIDLMedBrandAgentRelList",
+        //代理产品新增
+        bizDataOIDLMedBrandAgentRelAdd: "/v2/bizDataDL/bizDataOIDLMedBrandAgentRelAdd",
+        //代理产品修改
+        bizDataOIDLMedBrandAgentRelModify: "/v2/bizDataDL/bizDataOIDLMedBrandAgentRelModify",
+        //代理产品禁用
+        bizDataOIDLMedBrandAgentRelDisbale: "/v2/bizDataDL/bizDataOIDLMedBrandAgentRelDisbale",
+        //代理产品启用
+        bizDataOIDLMedBrandAgentRelEnable: "/v2/bizDataDL/bizDataOIDLMedBrandAgentRelEnable",
+    },
+    OrderRout: {
+        //订单仓库路由列表
+        queryOdwhCfg: "/v2/bizData/queryOdwhCfg",
+        //订单仓库路由新增
+        addOdwhCfg: "/v2/bizData/addOdwhCfg",
+        //订单仓库路由修改
+        updateOdwhCfg: "/v2/bizData/updateOdwhCfg",
+    },
+    productLine: {
+        //产品线管理
+        //产品线列表
+        query: "/v2/bizData/productLine/query",
+        //产品线新增
+        insert: "/v2/bizData/productLine/insert",
+        //产品线修改
+        update: "/v2/bizData/productLine/update",
+        //产品线删除
+        delect: "/v2/bizData/productLine/delete",
+    },
+    MyAddress: {
+        //我的地址列表
+        bizDataMyAddressList: "/v2/bizDataDL/bizDataMyAddressList",
+        //地址详情
+        bizDataMyAddressDetail: "/v2/bizDataDL/bizDataMyAddressDetail",
+        //地址新增
+        bizDataMyAddressAdd: "/v2/bizDataDL/bizDataMyAddressAdd",
+        //地址修改
+        bizDataMyAddressModify: "/v2/bizDataDL/bizDataMyAddressModify",
+        //地址删除
+        bizDataMyAddressDelete: "/v2/bizDataDL/bizDataMyAddressDelete",
+    },
+    MyDoctor: {
+        //我的医生列表
+        doctorSalesAgentRelList: "/v2/bizDataDL/doctorSalesAgentRelList",
+        //我的医生详情
+        doctorSalesAgentRelDetail: "/v2/bizDataDL/doctorSalesAgentRelDetail",
+        //我的医生新增
+        doctorSalesAgentRelAdd: "/v2/bizDataDL/doctorSalesAgentRelAdd",
+        //我的医生修改
+        doctorSalesAgentRelModify: "/v2/bizDataDL/doctorSalesAgentRelModify",
+        //我的医生删除
+        doctorSalesAgentRelDelete: "/v2/bizDataDL/doctorSalesAgentRelDelete",
+    },
     Public: {
         /// <summary>公开通用接口</summary>
         //数据字典
@@ -459,7 +525,7 @@ var ApiPath = {
         //事件选择列表
         event: "/v2/common/order/eventComboxList",
         //通用-全部医院下拉列表(下拉框)-查询经销商医院关系表
-        hosptailComboxListByDLHPRel: " /v2/hosptailComboxListByDLHPRel",
+        hosptailComboxListByDLHPRel: "/v2/hosptailComboxListByDLHPRel",
         //货主下拉框(下拉框)-物料使用
         oiMedMaterialComboxList: "/v2/order/common/oiMedMaterialComboxList",
     }

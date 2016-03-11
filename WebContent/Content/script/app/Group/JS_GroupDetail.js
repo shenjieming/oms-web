@@ -109,7 +109,6 @@ app.controller("GroupDetailController", function ($scope, $state, $local, $Api, 
                 $scope.GroupDetail.detail.member = [];
                 //组成员编辑
                 console.log($scope.GroupDetail.detail)
-
                 for (var i = 0; i < $scope.GroupDetail.info.length; i++) {
                     if (!$scope.GroupDetail.info[i].userID) {
                         $scope.GroupDetail.detail.member.push({ userID: $scope.GroupDetail.info[i].userId, teamMemberDesc: $scope.GroupDetail.info[i].teamMemberDesc })

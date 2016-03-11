@@ -14,20 +14,22 @@
             <div class="widget-content nopadding collapse in" id="PersonalInformation">
                 <div class="control-group ">
                     <label>
-                        组织类型：{{OiOrgView.Info.oITypeName}}
+                        货主类型：{{OiOrgView.Info.oITypeName}}
                     </label>
                     <label>
-                        货主名称：{{OiOrgView.Info.dLName}}
+                        货主名称：{{OiOrgView.Info.oIName}}
                     </label>
                     <label>
-                        货主全称：{{OiOrgView.Info.dLFullName}}
+                        货主全称：{{OiOrgView.Info.oIFullName}}
                     </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                        货主编码：{{OiOrgView.Info.oIShortCode}}
+                        货主简码：{{OiOrgView.Info.oIShortCode}}
                     </label>
-                    <label style="width:67%">
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
                         货主描述：{{OiOrgView.Info.oIDesc}}
                     </label>
                 </div>
@@ -52,92 +54,32 @@
                         注册编码：{{OiOrgView.Info.corpRegNo}}
                     </label>
                     <label>
+                        注册币别：{{OiOrgView.Info.corpRegCurrencyCodeName}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    行政地址：{{OiOrgView.Info.corpRegProvinceCodeName}}  {{OiOrgView.Info.corpRegCityCodeName}}  {{OiOrgView.Info.corpRegDistrictCodeName}}  （{{OiOrgView.Info.corpRegAddress}}）
+                </div>
+                <div class="control-group ">
+                    运营地址：{{OiOrgView.Info.corpBizProvinceCodeName}}  {{OiOrgView.Info.corpBizCityCodeName}}  {{OiOrgView.Info.corpBizDistrictCodeName}}  （{{OiOrgView.Info.corpBizAddress}}）
+                </div>
+                <div class="control-group ">
+                    <label>
+                        注册资本：{{OiOrgView.BackpackcorpRegCapital}}<span ng-show="!OiOrgView.BackpackcorpRegCapital">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;</span>（万元）
+                    </label>
+                    <label>
                         法人代表：{{OiOrgView.Info.corpRegLegalRep}}
                     </label>
-                </div>
-                <div class="control-group ">
-                    <label>
-                        注册资本：{{OiOrgView.Info.corpRegCapital}}
-                    </label>
-                    <label>
-                        币种简称：{{OiOrgView.Info.corpRegCurrencyCode}}
-                    </label>
-                    <label>
-                        币种全称：{{OiOrgView.Info.corpRegCurrencyCode}}
-                    </label>
-                </div>
-                <div class="control-group ">
                     <label>
                         注册税号：{{OiOrgView.Info.corpRegTaxNo}}
                     </label>
-                    <label>
-                        注册状态：{{OiOrgView.Info.validStatusName}}
-                    </label>
                 </div>
                 <div class="control-group ">
-                    <label style="width:100%">
-                        经营范围：{{OiOrgView.Info.corpRegBizScope}}
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="widget-box">
-            <div class="widget-title bg_ly" data-toggle="collapse" href="#EnterpriseInformation">
-                <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5>企业信息</h5>
-            </div>
-            <div class="widget-content nopadding collapse in" id="EnterpriseInformation">
-                <div class="control-group ">
-                    <label>
-                        国家编码：{{OiOrgView.Info.corpRegCountryCode}}
-                    </label>
-                    <label>
-                        省级编码：{{OiOrgView.Info.corpRegProvinceCode}}
-                    </label>
-                    <label>
-                        市级编码：{{OiOrgView.Info.corpRegCityCode}}
-                    </label>
-                </div>
-                <div class="control-group ">
-                    <label>
-                        区域编码：{{OiOrgView.Info.corpRegDistrictCode}}
-                    </label>
-                </div>
-                <div class="control-group ">
-                    <label style="width:100%">
-                        企业地址：{{OiOrgView.Info.corpRegAddress}}
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="widget-box">
-            <div class="widget-title bg_ly" data-toggle="collapse" href="#OperateInformation">
-                <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5>运营信息</h5>
-            </div>
-            <div class="widget-content nopadding collapse in" id="OperateInformation">
-                <div class="control-group ">
-                    <label>
-                        国家编码：{{OiOrgView.Info.corpBizCountryCode}}
-                    </label>
-                    <label>
-                        省级编码：{{OiOrgView.Info.corpBizProvinceCode}}
-                    </label>
-                    <label>
-                        市级编码：{{OiOrgView.Info.corpBizCityCode}}
-                    </label>
-                </div>
-                <div class="control-group ">
-                    <label>
-                        区域编码：{{OiOrgView.Info.corpBizDistrictCode}}
-                    </label>
                     <label>
                         邮政编码：{{OiOrgView.Info.corpBizPostcode}}
                     </label>
-                </div>
-                <div class="control-group ">
-                    <label style="width:100%">
-                        企业地址：{{OiOrgView.Info.corpBizAddress}}
+                    <label style="width:67%">
+                        经营范围：{{OiOrgView.Info.corpRegBizScope}}
                     </label>
                 </div>
             </div>
@@ -148,46 +90,80 @@
                 <h5>联系人信息</h5>
             </div>
             <div class="widget-content nopadding collapse in" id="TopContacts">
-                <div class="main-box-body clearfix">
-                    <div class="table-responsive list-box" style="min-height:100px">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th><span>序号</span></th>
-                                    <th><span>联系姓名</span></th>
-                                    <th><span>联系手机</span></th>
-                                    <th><span>联系电话</span></th>
-                                    <th><span>联系邮箱</span></th>
-                                    <th><span>联系用途</span></th>
-                                    <th><span>通信工具</span> </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="row in GroupDetail.info" ng-model="GroupDetail.info">
-                                    <td>{{$index+1}}</td>
-                                    <td>
-                                        {{row.userName}}
-                                    </td>
-                                    <td>
-                                        {{row.orgTypeName}}
-                                    </td>
-                                    <td>
-                                        {{row.userMobile}}
-                                    </td>
-                                    <td>
-                                        <label>
-                                            <input type="text" placeholder="请输入成员备注" ng-model="row.teamMemberDesc" />
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <button type="button" ng-click="GroupUserList.delGroup($index)" class="btn btn-xs btn-danger">
-                                            <i class="fa fa-times"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="control-group ">
+                    <span>&nbsp;&nbsp;第一联系人信息：</span>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        联系姓名：{{OiOrgView.Info.contact1Name}}
+                    </label>
+                    <label>
+                        联系手机：{{OiOrgView.Info.contact1Mobile}}
+                    </label>
+                    <label>
+                        通信工具：{{OiOrgView.Info.contact1PMsgTypeName}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        联系邮箱：{{OiOrgView.Info.contact1Email}}
+                    </label>
+                    <label>
+                        联系电话：{{OiOrgView.Info.contact1Tel}}
+                    </label>
+                    <label>
+                        联系用途：{{OiOrgView.Info.contact1FuncName}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <span>&nbsp;&nbsp;第二联系人信息：</span>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        联系姓名：{{OiOrgView.Info.contact2Name}}
+                    </label>
+                    <label>
+                        联系手机：{{OiOrgView.Info.contact2Mobile}}
+                    </label>
+                    <label>
+                        通信工具：{{OiOrgView.Info.contact2PMsgTypeName}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        联系邮箱：{{OiOrgView.Info.contact2Email}}
+                    </label>
+                    <label>
+                        联系电话：{{OiOrgView.Info.contact2Tel}}
+                    </label>
+                    <label>
+                        联系用途：{{OiOrgView.Info.contact2FuncName}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <span>&nbsp;&nbsp;第三联系人信息：</span>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        联系姓名：{{OiOrgView.Info.contact3Name}}
+                    </label>
+                    <label>
+                        联系手机：{{OiOrgView.Info.contact3Mobile}}
+                    </label>
+                    <label>
+                        通信工具：{{OiOrgView.Info.contact3PMsgTypeName}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        联系邮箱：{{OiOrgView.Info.contact3Email}}
+                    </label>
+                    <label>
+                        联系电话：{{OiOrgView.Info.contact3Tel}}
+                    </label>
+                    <label>
+                        联系用途：{{OiOrgView.Info.contact3FuncName}}
+                    </label>
                 </div>
             </div>
         </div>
