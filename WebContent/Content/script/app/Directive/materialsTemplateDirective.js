@@ -31,6 +31,7 @@ app.directive("ngMaterialsTemplate", function ($Api, $MessagService, $local) {
                 },
                 open: function () {
                     /// <summary>模板选择打开事件</summary>
+                    $scope.Pagein.tmplName = "";
                     $scope.Service.GetMaterialsTemplate();
                 }
             }
@@ -39,7 +40,19 @@ app.directive("ngMaterialsTemplate", function ($Api, $MessagService, $local) {
 
             $scope.Service = {
                 /// <summary>模板选择服务</summary>
-                List:new Array(),
+                List: new Array(),
+                UpEnter: function (e) {
+                    var keycode = window.event ? e.keyCode : e.which;
+                    if (keycode == 13) {
+
+                        $scope.Service.QueryMaterialsTemplateList();
+                    }
+                },
+                QueryMaterialsTemplateList: function () {
+                    /// <summary>查询模板列表</summary>
+                    $scope.Pagein.pageIndex = 1;
+                    $scope.Service.GetMaterialsTemplate();
+                },
                 GetMaterialsTemplate: function () {
                     /// <summary>获取物料模板信息</summary>
                     $scope.Service.List = new Array();

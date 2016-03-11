@@ -1,13 +1,20 @@
 ﻿<div>
     <ng-dialog ng-model="ngMaterialsTemplate">
-        <div class="main-box-body clearfix" style="padding:15px;max-height:450px;overflow:auto;">
-            <div class="table-responsive">
+        <div style="display: inline-block; width: 99%; padding: 5px;">
+            <div class="input-group" style="float:right;width:250px;">
+                <input type="text" class="form-control" placeholder="请输入模板名称"
+                       style="padding:8px;" ng-model="Pagein.tmplName" ng-keyup="Service.UpEnter($event)">
+                <a class="input-group-addon" href="javascript:void(0)" ng-click="Service.QueryMaterialsTemplateList()"><i class="fa fa-search"></i></a>
+            </div>
+        </div>
+
+        <div class="main-box-body clearfix" >
+            <div class="table-responsive" style="max-height:450px;min-height:300px; overflow:auto;">
                 <table class="table table-bordered tab-striped" st-table="Service.List">
                     <thead>
                         <tr>
                             <th><span>序号</span></th>
                             <th><span>模板名称</span></th>
-                            <th><span>模板全称</span></th>
                             <th><span>模板类型</span></th>
                             <th><span>模板描述</span></th>
                             <th><span>备注</span></th>
@@ -18,9 +25,6 @@
                             <td>{{$index+1}}</td>
                             <td>
                                 {{row.tmplName}}
-                            </td>
-                            <td>
-                                {{row.tmplFullName}}
                             </td>
                             <td>
                                 {{row.tmplTypeName}}
