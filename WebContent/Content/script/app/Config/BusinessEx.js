@@ -21,13 +21,22 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             resolve: app.resolve
 
         })
-         .state("app.mybusiness.materialDetail", {
+         .state("app.mybusiness.materialdetail", {
              /// <summary>物料详情</summary>
-             url: "/material/:opt",
+             url: "/material/:medMIInternalNo&:medBrandCode&:medBrandCodeName&:oIOrgCode&:oIOrgCodeName&:medProdLnCode&:medProdLnCodeName",
              cache: false,
              templateUrl: "View/MyBusiness/Material/MaterialDetail.html?data=" + Timestamp,
              controller: "MaterialDetailController",
              loadJs: ["Content/script/app/MyBusiness/Material/JS_MaterialDetail.js"],
+             resolve: app.resolve
+         })
+         .state("app.mybusiness.materialview", {
+             /// <summary>物料详情</summary>
+             url: "/MaterialView/:medMIInternalNo",
+             cache: false,
+             templateUrl: "View/MyBusiness/Material/MaterialView.html?data=" + Timestamp,
+             controller: "MaterialViewController",
+             loadJs: ["Content/script/app/MyBusiness/Material/JS_MaterialView.js"],
              resolve: app.resolve
          })
         .state("app.mybusiness.kits", {

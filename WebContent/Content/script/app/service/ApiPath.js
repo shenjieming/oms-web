@@ -328,7 +328,7 @@ var ApiPath = {
             deleteMedBrand: "/v2/bizData/deleteMedBrand",
         },
         //物料列表
-        MedMater: {
+        MedMaterial: {
             //物料列表
             searchMedMaterialItem: "/v2/template/common/searchMedMaterialItem",
             //物料添加

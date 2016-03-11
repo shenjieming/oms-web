@@ -125,6 +125,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
            resolve: app.resolve
        })
 });
+
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary>菜单管理配置</summary>
     $stateProvider

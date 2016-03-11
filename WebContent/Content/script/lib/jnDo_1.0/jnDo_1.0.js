@@ -115,12 +115,22 @@ angular.module('jnDo', [])
         /// <summary>图片展示控件</summary>
         return {
             restrict: "EA",
-            templateUrl: pathConfig + "ui/ngImg.html",
+            templateUrl: pathConfig + "ui/ngImg.html?data=" + Timestamp,
             scope: {
                 ngModel: '=',
+                ngComp: "="//权限
             },
             replace: true,
             link: function ($scope, element, attrs) {
+                $scope.Service = {
+                    Comp: { delImg: false },
+                    Del: function (index) {
+                        /// <summary>删除图片</summary>
+                        $scope.ngModel.splice(index, 1);
+                    }
+                }
+
+                $.extend($scope.Service.Comp, $scope.ngComp);//权限配置
                 initPhotoSwipeFromDOM(element);
             }
         };

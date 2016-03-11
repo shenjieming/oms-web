@@ -14,6 +14,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         resolve: app.resolve
     })
 });
+
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     $stateProvider
     .state("app.mybusiness.doctor", {
@@ -58,6 +59,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             resolve: app.resolve
         })
 });
+
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary>货主组织管理</summary>
     $stateProvider
@@ -89,6 +91,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
            resolve: app.resolve
        })
 });
+
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary>经销商货主关系管理</summary>
     $stateProvider
@@ -111,6 +114,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
            resolve: app.resolve
        })
 });
+
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary>经销商订单事件通知管理</summary>
     $stateProvider
@@ -174,6 +178,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             resolve: app.resolve
         })
 });
+
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary>科室管理</summary>
     $stateProvider
@@ -205,6 +210,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
            resolve: app.resolve
        })
 });
+
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary>医生管理</summary>
     $stateProvider
@@ -250,6 +256,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
            resolve: app.resolve
        })
 });
+
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary>仓库管理</summary>
     $stateProvider
@@ -295,6 +302,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
            resolve: app.resolve
        })
 });
+
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary>产品线管理</summary>
     $stateProvider
@@ -307,7 +315,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
            loadJs: ["Content/script/app/Business/ProductLine/JS_ProductLineList.js"],
            resolve: app.resolve
        })
-})
+});
+
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary>我的产品管理</summary>
     $stateProvider

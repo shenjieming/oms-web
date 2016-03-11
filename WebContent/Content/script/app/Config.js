@@ -161,7 +161,6 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
     $scope.menuList = $MenuService;//菜单信息列表
     $scope.goView = function (name, param) {
         /// <summary>前往页面</summary>
-        $MessagService.loading("服务器请求中，请稍等...");
         $state.go(name, param);
     }
 

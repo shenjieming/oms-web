@@ -2,11 +2,14 @@
 <div class="htmleaf-container">
     <div class="row">
         <div class="j_imgBox">
-            <a ng-repeat="img in ngModel" ng-href="{{img.url}}"
-               data-size="1600x1067"
-               data-med-size="1024x683">
-                <img ng-src="{{img.url}}" alt="">
-            </a>
+            <div ng-repeat="img in ngModel">
+                <a ng-href="{{img.url}}"
+                   data-size="1600x1067"
+                   data-med-size="1024x683">
+                    <img ng-src="{{img.url}}" alt="">
+                </a>
+                <span href="javascript:void()" ng-show="Service.Comp.delImg" ng-click="Service.Del($index)" class="delbtn"><i class="fa fa-trash-o"></i></span>
+            </div>
         </div>
     </div>
     <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true" style="">

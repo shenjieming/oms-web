@@ -675,32 +675,30 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                     service.Post(ApiPath.BusinessData.MedBrand.updateMedBrand, data, callback);
                 },
             },
-            MedMater: {
+            MedMaterial: {
                 //(物料事件)
-                GetSaveMedMaterialItem: function (data, callback) {
+                SaveMedMaterialItem: function (data, callback) {
                     /// <summary>物料添加</summary>
-                    service.Post(ApiPath.BusinessData.MedMater.saveMedMaterialItem, data, callback);
+                    service.Post(ApiPath.BusinessData.MedMaterial.saveMedMaterialItem, data, callback);
                 },
-                GetDeleteMedMaterialItem: function (data, callback) {
+                DeleteMedMaterialItem: function (data, callback) {
                     /// <summary>物料删除</summary>
                     $MessagService.loading("数据获取中，请稍等...");
-                    service.Post(ApiPath.BusinessData.MedMater.deleteMedMaterialItem, data, callback);
+                    service.Post(ApiPath.BusinessData.MedMaterial.deleteMedMaterialItem, data, callback);
                 },
-                GetSearchMedMaterialItemDetail: function (data, callback) {
+                GetMedMaterialItemDetail: function (data, callback) {
                     /// <summary>物料详情</summary>
-                    service.Post(ApiPath.BusinessData.MedMater.searchMedMaterialItemDetail, data, callback);
+                    service.Post(ApiPath.BusinessData.MedMaterial.searchMedMaterialItemDetail, data, callback);
                 },
-                GetUpdateMedMaterialItem: function (data, callback) {
+                UpdateMedMaterialItem: function (data, callback) {
                     /// <summary>物料修改</summary>
-                    service.Post(ApiPath.BusinessData.MedMater.updateMedMaterialItem, data, callback);
+                    service.Post(ApiPath.BusinessData.MedMaterial.updateMedMaterialItem, data, callback);
                 },
                 Save: function (data, callback) {
-                    console.log(data)
-                   
                     if (data.medMIInternalNo) {
-                        service.Post(ApiPath.BusinessData.MedMater.updateMedMaterialItem, data, callback);
+                        service.Post(ApiPath.BusinessData.MedMaterial.updateMedMaterialItem, data, callback);
                     } else {
-                        service.Post(ApiPath.BusinessData.MedMater.saveMedMaterialItem, data, callback);
+                        service.Post(ApiPath.BusinessData.MedMaterial.saveMedMaterialItem, data, callback);
                     }
                 }
             },
