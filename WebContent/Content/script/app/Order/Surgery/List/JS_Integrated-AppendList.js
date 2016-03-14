@@ -11,7 +11,10 @@ app.controller("AppendListController", function ($scope, $state, $local, $Api, $
     /// <summary>待追加备货单列表</summary>
     $scope.title = "可追加备货单列表";
     //条件清空
-    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
+    $.extend($scope.Pagein, {
+        pageIndex: 1, sONo: "", createDateBegin: "",
+        createDateEnd: "",
+    });
     $scope.Integrated.GetOrderList({ opt: "OPER_CAN_ADD_ORDER_LIST" });
   
     $scope.Competence = {

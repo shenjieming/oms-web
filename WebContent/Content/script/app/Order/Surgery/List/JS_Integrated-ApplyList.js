@@ -16,6 +16,9 @@ app.controller("ApplyListController", function ($scope, $state, $local, $Api, $M
     }
 
     //条件清空
-    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
+    $.extend($scope.Pagein, {
+        pageIndex: 1, sONo: "", createDateBegin: "",
+        createDateEnd: "",
+    });
     $scope.Integrated.GetOrderList({ opt: "OPER_WAITBACK_LIST" });
 });

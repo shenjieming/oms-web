@@ -20,6 +20,9 @@ app.controller("MyDraftListController", function ($scope, $state, $local, $Api, 
         $state.go("app.order.single", { sono: sono });
     }
     //条件清空
-    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
+    $.extend($scope.Pagein, {
+        pageIndex: 1, sONo: "", createDateBegin: "",
+        createDateEnd: "",
+    });
     $scope.Integrated.GetOrderList({ opt: "OPER_MYORDER_DRAFT" });
 });

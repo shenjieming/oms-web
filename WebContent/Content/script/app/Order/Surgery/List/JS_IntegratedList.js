@@ -21,7 +21,10 @@ app.controller("IntegratedListController", function ($scope, $state, $local, $Ap
         $scope.GetRowGoPage("app.order.view");
     }
     //条件清空
-    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
+    $.extend($scope.Pagein, {
+        pageIndex: 1, sONo: "", createDateBegin: "",
+        createDateEnd: "",
+    });
     $scope.Integrated.GetOrderList({ opt: false, soType: "OPER" });
     $scope.ListCompetence = {
         /// <summary>列表权限</summary>
