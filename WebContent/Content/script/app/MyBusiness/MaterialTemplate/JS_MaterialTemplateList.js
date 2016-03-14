@@ -39,10 +39,10 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
         View: function () {
             /// <summary>查看模板详情</summary>
             $local.CarriedSelectedRow($scope.MaterialTemplate.List, function (row) {
-                row.isView = true;
-                $scope.goView("app.mybusiness.materialtemplateview", row);
+                $scope.Service.GoTemplateView(row);
             });
         },
+
         Edit: function () {
             /// <summary>编辑模板</summary>
             $local.CarriedSelectedRow($scope.MaterialTemplate.List, function (row) {
@@ -52,6 +52,11 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
         Add: function () {
             /// <summary>添加模板</summary>
             $scope.Service.GoTemplateDetail({});
+        },
+        GoTemplateView: function (row) {
+            /// <summary>前往模板详细页面</summary>
+            row.isView = true;
+            $scope.goView("app.mybusiness.materialtemplateview", row);
         },
         GoTemplateDetail: function (param) {
             /// <summary>前往模板编辑明细页</summary>
