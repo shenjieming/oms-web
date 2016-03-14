@@ -15,7 +15,10 @@ app.controller("DealWithListController", function ($scope, $state, $local, $Api,
         dealwith: true
     };
     //条件清空
-    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
+    $.extend($scope.Pagein, {
+        pageIndex: 1, sONo: "", createDateBegin: "",
+        createDateEnd: "",
+    });
     $scope.Integrated.GetOrderList({ opt: "OPER_PROCESS_LIST" });
     $scope.showView = function (sono) {
         /// <summary>查看手术订单</summary>
