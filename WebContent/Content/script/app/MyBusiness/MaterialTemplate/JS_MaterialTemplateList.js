@@ -11,6 +11,15 @@
 
 app.controller("MaterialTemplateListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>物料模板控制器</summary>
+    $scope.Pagein = {
+        /// <summary>分页信息</summary>
+        pageSize: 10,
+        pageIndex: 1,
+        callbake: function () {
+            $scope.MaterialTemplate.GetMaterialTemplateList();
+        }
+    }
+
     $scope.MaterialTemplate = {
         IsView: false,
         IsEdit: false,
@@ -27,48 +36,90 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
 
     $scope.Service = {
         /// <summary>服务管理</summary>
-        IsView: function (isshow) {
-            /// <summary>是否显示视图</summary>
-            $scope.MaterialTemplate.IsView = isshow;
-        },
-        IsEdit: function (isshow) {
-            /// <summary>是否显示编辑</summary>
-            $scope.MaterialTemplate.IsEdit = isshow;
-        },
-        Add: function () {
-            /// <summary>添加模板</summary>
-            $scope.Detail.PageData = {
-                tmplAccessType: "PUBLIC",
-                tmplType: "IMPLANTT",
-                medKits: [], prodLns: []
-            };//数据清空
-            $scope.Service.IsEdit(true);
+        View: function () {
+            /// <summary>查看模板详情</summary>
+            $local.CarriedSelectedRow($scope.MaterialTemplate.List, function (row) {
+                row.isView = true;
+                $scope.goView("app.mybusiness.materialtemplateview", row);
+            });
         },
         Edit: function () {
             /// <summary>编辑模板</summary>
-        },
-        Detail: function () {
-            /// <summary>删除模板</summary>
-        },
-        View: function () {
-            /// <summary>显示</summary>
-        },
-        ViewTemplate: function (row) {
-            /// <summary>Description</summary>
-            this.GetTemplateDetail(row, function (rdata) {
-                $scope.view.PageData = rdata;
-                $scope.view.PageData.medKits = rdata.kitTemplateInfo;
-
-                $scope.view.PageData.prodLns = rdata.productLine;
-                $scope.Service.IsView(true);
+            $local.CarriedSelectedRow($scope.MaterialTemplate.List, function (row) {
+                $scope.Service.GoTemplateDetail(row);
             });
-            
         },
-        GetTemplateDetail: function (data,callback) {
+        Add: function () {
+            /// <summary>添加模板</summary>
+            $scope.Service.GoTemplateDetail({});
+        },
+        GoTemplateDetail: function (param) {
+            /// <summary>前往模板编辑明细页</summary>
+            $scope.goView("app.mybusiness.materialtemplatedetail", param);
+        },
+        Delete: function () {
+            /// <summary>删除模板</summary>
+            $local.CarriedSelectedRow($scope.MaterialTemplate.List, function (row) {
+                if (confirm("您确定要删除当前模板吗？")) {
+                    $Api.MaterialsService.DeleteTemplate(row, function (rData) {
+                        $MessagService.caveat("模板删除成功！");
+                        $scope.MaterialTemplate.GetMaterialTemplateList();
+                    });
+                }
+            });
+           
+        },
+        UpEnter: function (e) {
+            var keycode = window.event ? e.keyCode : e.which;
+            if (keycode == 13) {
+                $scope.Service.QueryTemplate();
+            }
+        },
+        QueryTemplate: function () {
+            /// <summary>条件查询模板信息</summary>
+            $scope.Pagein.pageIndex = 1;
+            $scope.MaterialTemplate.GetMaterialTemplateList();
+        }
+    }
+    $scope.MaterialTemplate.GetMaterialTemplateList();
+});
+
+
+app.controller("MaterialTemplateController", function ($scope, $stateParams, $state, $local, $Api, $MessagService) {
+    /// <summary>物料模板控制器</summary>
+    $scope.Detail = {
+        PageData: { medKits: [], prodLns: [] },
+        ProductService: {},
+        ProductCompetence: { operat: true, tool: false, warehouse: false }
+    }
+
+    $scope.Service = {
+        /// <summary>模板服务管理</summary>
+        Save: function () {
+            /// <summary>模板保存</summary>
+            $Api.MaterialsService.SaveTemplate($scope.Detail.PageData, function (rData) {
+                $MessagService.caveat("模板保存成功！");
+                $scope.goLastPage();
+            });
+
+        },
+        GetTemplateDetail: function (data) {
             /// <summary>获取模板明细</summary>
-            $Api.MaterialsService.GetMaterialsTemplateDateil(data,callback)
+            $Api.MaterialsService.GetMaterialsTemplateDateil(data, function (rdata) {
+                $scope.Detail.PageData = $.extend($scope.Detail.PageData, rdata);
+                $scope.Detail.PageData = $.extend($scope.Detail.PageData, {
+                    sOOIOrgCode: rdata.oIOrgCode
+                });
+                setTimeout(function () {
+                    $scope.$apply(function () {
+                        $scope.Detail.isChangeProd = true;
+                        $scope.Service.GetNewProdLine(rdata.freeTemplateInfo, $scope.Detail.PageData.prodLns);
+                        $scope.Detail.PageData.medKits = rdata.kitTemplateInfo;
+                    });
+                }, 100);
+            })
         },
-        GetNewProdLine: function (prodLines) {
+        GetNewProdLine: function (prodLines,data) {
             /// <summary>获取产品线信息</summary>
             $.each(prodLines, function (index, prodLine) {
                 var flg = true;//标志
@@ -79,7 +130,7 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
                     medBrandCodeName: prodLine.medBrandName,
                     medMaterias: $scope.Service.GetNewMedMaterias(prodLine.templateMedMaterialItem, false)
                 };
-                $.each($scope.ngModel.prodLns, function (i, oldLine) {
+                $.each(data, function (i, oldLine) {
                     if (newLine.medProdLnCode == oldLine.medProdLnCode) {//存在相同的产品线
                         oldLine.medMaterias = $scope.Service.GetNewMedMaterias(newLine.medMaterias, oldLine.medMaterias);
                         flg = false;
@@ -87,7 +138,7 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
                     }
                 });
                 if (flg) {
-                    $scope.ngModel.prodLns.push(newLine);
+                    data.push(newLine);
                 }
             });
         },
@@ -96,7 +147,6 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
             var result = oldMs ? oldMs : new Array();
             $.each(newMs, function (index, item) {
                 var flg = true;
-                newMs.medMIWarehouse = userInfo.orgCode;//默认仓库填充
                 $.each(result, function (i, node) {
                     if (item.medMIInternalNo == node.medMIInternalNo && item.medMIWarehouse == node.medMIWarehouse) {
                         item.reqQty = (parseInt(item.reqQty) + parseInt(node.reqQty));
@@ -112,26 +162,11 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
             return result;
         }
     }
-
-
-    $scope.view = {
-        PageData: { medKits: [], prodLns: [] },
-        ProductService: {},
-        ProductCompetence: { operat: false, tool: false }
+    if ($stateParams.tmplSODetailID) {//模板ID非空的话
+        $scope.Service.GetTemplateDetail($stateParams);
     }
-    $scope.PageData = {
-        PageData: { medKits: [], prodLns: [] },
-        ProductService: {},
-        ProductCompetence: { operat: false, tool: false }
-    }
-    $scope.Pagein = {
-        /// <summary>分页信息</summary>
-        pageSize: 10,
-        pageIndex: 1,
-        callbake: function () {
-            $scope.MaterialTemplate.GetMaterialTemplateList();
-        }
+    if ($stateParams.isView) {
+        $scope.Detail.ProductCompetence.operat = false;
     }
 
-    $scope.MaterialTemplate.GetMaterialTemplateList();
 });

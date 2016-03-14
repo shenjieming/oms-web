@@ -124,7 +124,6 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
                 for (var i = 0; i < rData.length; i++) {
                     if (i == 0) {
                         $scope.Material.options = { oIOrgCode: rData[i].id, oIOrgCodeName: rData[i].text };
-                       // $scope.Material.GetList();
                     }
                     treeData.push({ id: rData[i].id, name: rData[i].text, isParent: true, options: { oIOrgCode: rData[i].id, oIOrgCodeName: rData[i].text }, Subset: $Api.BrandService.GetBrandList, SubsetType: "medBrandCode" });
                 }

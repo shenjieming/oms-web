@@ -498,7 +498,7 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 service.Post(ApiPath.Materials.updateTemplate, data, callback);
             },
             DeleteTemplate: function (data, callback) {
-                $MessagService.loading("模板更新中，请稍等...");
+                $MessagService.loading("模板删除中，请稍等...");
                 service.Post(ApiPath.Materials.deleteTemplate, data, callback);
             },
             GetMedmaterialInventory: function (data, callback) {

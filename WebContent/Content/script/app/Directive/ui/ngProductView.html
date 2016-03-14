@@ -28,7 +28,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in ngModel.medKits" ng-class="{'red':row.reqQty>row.inventory}">
+                            <tr ng-repeat="row in ngModel.medKits" ng-class="{'red':(Competence.warehouse&&row.reqQty>row.inventory)}">
                                 <td>{{$index+1}}</td>
                                 <td>
                                     {{row.kitCode}}

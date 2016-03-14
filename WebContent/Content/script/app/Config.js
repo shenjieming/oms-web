@@ -101,7 +101,6 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     $urlRouterProvider.otherwise("/login");
 });
 
-
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary>系统级别管理配置</summary>
     $stateProvider
@@ -161,6 +160,7 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
     $scope.menuList = $MenuService;//菜单信息列表
     $scope.goView = function (name, param) {
         /// <summary>前往页面</summary>
+        $MessagService.loading("页面信息获取中，请稍等...");
         $state.go(name, param);
     }
 
