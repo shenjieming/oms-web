@@ -12,12 +12,17 @@ app.directive("ngCargo", function ($Api, $MessagService) {
         restrict: "EA",
         templateUrl: "Content/script/app/Directive/ui/ngCargoOwner.html?data=" + Timestamp,
         scope: {
-            ngModel: '='
+            ngModel: '=',
+            ngCargo:"=",
         },
         replace: true,
         link: function ($scope, element, attrs) {
             $scope.Cargo = {
                 List: new Array(),
+                ChangeCargo: function () {
+                    /// <summary>修改货主事件</summary>
+                    $scope.ngCargo = $scope.ngModel;
+                },
                 GetCargo: function () {
                     /// <summary>获取货主信息</summary>
                     $MessagService.loading("货主信息获取中，请稍等...");
@@ -30,6 +35,8 @@ app.directive("ngCargo", function ($Api, $MessagService) {
                     });
                 }
             }
+
+
             $scope.Cargo.GetCargo();
 
         }

@@ -11,6 +11,24 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             loadJs: ["Content/script/app/MyBusiness/MaterialTemplate/JS_MaterialTemplateList.js"],
             resolve: app.resolve
         })
+        .state("app.mybusiness.materialtemplatedetail", {
+            /// <summary>物料模板管理</summary>
+            url: "/materialtemplatedetail/:tmplSODetailID",
+            cache: false,
+            controller: "MaterialTemplateController",
+            templateUrl: "View/MyBusiness/MaterialTemplate/MaterialTemplateDetail.html?data=" + Timestamp,
+            loadJs: ["Content/script/app/MyBusiness/MaterialTemplate/JS_MaterialTemplateList.js"],
+            resolve: app.resolve
+        })
+          .state("app.mybusiness.materialtemplateview", {
+              /// <summary>物料模板管理</summary>
+              url: "/materialtemplateview/:tmplSODetailID/:isView",
+              cache: false,
+              controller: "MaterialTemplateController",
+              templateUrl: "View/MyBusiness/MaterialTemplate/MaterialTemplateView.html?data=" + Timestamp,
+              loadJs: ["Content/script/app/MyBusiness/MaterialTemplate/JS_MaterialTemplateList.js"],
+              resolve: app.resolve
+          })
         .state("app.mybusiness.material", {
             /// <summary>物料管理</summary>
             url: "/material",

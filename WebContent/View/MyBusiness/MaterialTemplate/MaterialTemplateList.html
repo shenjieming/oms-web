@@ -9,6 +9,11 @@
                     <a class="btn btn-danger" ng-click="Service.Delete()"><i class="fa fa-times"></i> 删除模板</a>
                     <a class="btn btn-primary" ng-click="Service.View()"> <i class="fa fa-align-justify"></i> 模板详情</a>
                 </span>
+                <div class="input-group" style="float:right;width:250px;margin-right:10px;">
+                    <input type="text" class="form-control" placeholder="请输入模板名称"
+                           style="padding:8px;" ng-model="Pagein.tmplName" ng-keyup="Service.UpEnter($event)">
+                    <a class="input-group-addon" href="javascript:void(0)" ng-click="Service.QueryTemplate()"><i class="fa fa-search"></i></a>
+                </div>
             </header>
             <div class="main-box-body">
                 <div class="table-responsive list-box">
@@ -46,110 +51,6 @@
                     </table>
                 </div>
                 <div ng-pagein="page" ng-model="Pagein"></div>
-            </div>
-        </div>
-
-        <div ng-slide="MaterialTemplate.IsView" style="display:none;">
-            <div class="tools">
-                <span style="float:right;">
-                    <a class="btn btn-primary" ng-click="Service.IsView(false)"><i class="fa  fa-reply"></i> 返回</a>
-                </span>
-            </div>
-            <div class="row-fluid">
-                <div class="widget-box">
-                    <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
-                        <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                        <h5>模板信息</h5>
-                    </div>
-                    <div class="widget-content nopadding collapse in" id="BaseInformation">
-                        <div class="control-group ">
-                            <label style="width:100%;"> 货主信息：{{view.PageData.oIOrgCodeName}}</label>
-                        </div>
-                        <div class="control-group ">
-                            <label>
-                                套件编码：{{view.PageData.kitCode}}
-                            </label>
-                            <label>
-                                套件名称：{{view.PageData.kitFullName}}
-                            </label>
-                            <label>
-                                套件全称：{{view.PageData.kitName}}
-                            </label>
-                        </div>
-                        <div class="control-group ">
-                            <label>
-                                套件类型：{{view.PageData.kitTypeName}}
-                            </label>
-                            <label>
-                                存储仓库：{{view.PageData.whName}}
-                            </label>
-                            <label>
-                                存储库区：{{view.PageData.zoneName}}
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="widget-box">
-                    <div class="widget-title bg_ly">
-                        <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                        <h5 data-toggle="collapse" href="#ProductInformation">
-                            物料信息
-                            {{ProductCompetence.ShowInfo}}
-                        </h5>
-                    </div>
-                    <div id="ProductInformation" class="widget-content nopadding collapse in">
-                        <div ng-product-view="newProduct" ng-model="view.PageData" ng-service="view.ProductService" ng-comp="view.ProductCompetence"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div ng-slide="MaterialTemplate.IsEdit" style="display:none;">
-            <div class="tools">
-                <span style="float:right;">
-                    <a class="btn btn-primary" ng-click="Service.IsView(false)"><i class="fa  fa-reply"></i> 返回</a>
-                </span>
-            </div>
-            <div class="row-fluid">
-                <div class="widget-box">
-                    <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
-                        <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                        <h5>模板信息</h5>
-                    </div>
-                    <div class="widget-content nopadding collapse in" id="BaseInformation">
-                        <div class="control-group ">
-                            <label style="width:60%" > 
-                            货主信息：<span ng-cargo="cargo" ng-model="Detail.PageData.sOOIOrgCode"></span>
-                            </label>
-                            <label>
-                                模板权限：<span ng-dictionary="SOTACC" ng-model="Detail.PageData.tmplAccessType"></span>
-                            </label>
-                        </div>
-                        <div class="control-group ">
-                            <label>
-                                模板名称：{{view.PageData.kitFullName}}
-                            </label>
-                            <label>
-                                模板全称：{{view.PageData.kitName}}
-                            </label>
-                            <label>
-                                模板类型：<span ng-dictionary="SOTTYP" ng-model="Detail.PageData.tmplType"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="widget-box">
-                    <div class="widget-title bg_ly">
-                        <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                        <h5 data-toggle="collapse" href="#ProductInformation">
-                            物料信息
-                            {{ProductCompetence.ShowInfo}}
-                        </h5>
-                    </div>
-                    <div id="ProductInformation" class="widget-content nopadding collapse in">
-                        <div ng-product-view="newProduct" ng-model="view.PageData" ng-service="view.ProductService" ng-comp="view.ProductCompetence"></div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
