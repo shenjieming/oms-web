@@ -29,7 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in MaterialTemplate.List" ng-dblclick="Service.ViewTemplate(row)" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                            <tr ng-repeat="row in MaterialTemplate.List" ng-dblclick="Service.GoTemplateView(row)" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
                                 <td>{{$index+1}}</td>
                                 <td>
                                     {{row.tmplName}}
