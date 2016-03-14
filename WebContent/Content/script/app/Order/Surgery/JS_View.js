@@ -125,6 +125,10 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
 
             $scope.Integrated.QueryOrderList();
         },
+        ClearWhere: function (isReload) {
+            /// <summary>清空条件</summary>
+            $.extend($scope.Pagein, { pageIndex: isReload ? 1 : $scope.Pagein.pageIndex, sONo: "", createDateBegin: "", createDateEnd: "" });
+        },
         Enter: function (e) {
             var keycode = window.event ? e.keyCode : e.which;
             if (keycode == 13) {
