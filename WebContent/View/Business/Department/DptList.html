@@ -5,14 +5,16 @@
             <header class="main-box-header clearfix">
                 <h2 class="pull-left">科室列表</h2>
                 <span style="float:right;">
-                    <a class="btn btn-primary" ng-click="DepartmentJump.Add()" ng-show="server.Add">新增</a>
-                    <a class="btn btn-primary" ng-click="DepartmentJump.Edit()" ng-show="server.Edit">编辑</a>
-                    <a class="btn btn-primary" ng-click="DepartmentJump.View()" ng-show="server.View">详情</a>
+                    <a class="btn btn-primary" ng-click="DepartmentJump.Add()">新增</a>
+                    <a class="btn btn-primary" ng-click="DepartmentJump.Edit()">编辑</a>
+                    <a class="btn btn-primary" ng-click="DepartmentJump.View()">详情</a>
                 </span>
+                <div class="input-group" style="float:right;width:250px;margin-right:10px;">
+                    <input type="text" class="form-control" placeholder="请输入科室编码或名称"
+                           style="padding:8px;" ng-model="Service.SearchDptWhere" ng-keyup="server.UpEnter($event)">
+                    <a class="input-group-addon" href="javascript:void(0)" ng-click="server.QueryOiList()"><i class="fa fa-search"></i></a>
+                </div>
             </header>
-            <div class="col-lg-3" style=" height:auto; max-height: 480px; overflow-y: auto; ">
-                <div ng-tree="" ng-setting="tree.setting" ng-data="tree.data" ng-model="tree.obj"></div>
-            </div>
             <div class="main-box-body clearfix">
                 <div class="table-responsive list-box" style="min-height:450px">
                     <table class="table table-bordered table-striped" st-table="DepartmentList.info">
@@ -30,7 +32,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in DepartmentList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-show="server.List">
+                            <tr ng-repeat="row in DepartmentList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
                                 <td>{{$index+1}}</td>
                                 <td><span>{{row.hPCodeName}}</span></td>
                                 <td><span>{{row.hPCode}}</span></td>
@@ -73,163 +75,89 @@
                                 医院名称：{{DepartmentView.Info.hPCodeName}}
                             </label>
                             <label>
-                                医院编码：{{DepartmentView.Info.hPCode}}
-                            </label>
-                            <label>
-                                操作状态：{{DepartmentView.Info.validStatusName}}
-                            </label>
-                        </div>
-                        <div class="control-group ">
-                            <label>
                                 科室名称：{{DepartmentView.Info.wardDeptName}}
-                            </label>
-                            <label>
-                                科室全称：{{DepartmentView.Info.wardDeptFullName}}
                             </label>
                             <label>
                                 科室电话：{{DepartmentView.Info.wardDeptTel}}
                             </label>
                         </div>
                         <div class="control-group ">
-                            <label>
-                                科室备注：{{DepartmentView.Info.remark}}
+                            <label style="width:100%">
+                                科室全称：{{DepartmentView.Info.wardDeptFullName}}
                             </label>
                         </div>
                         <div class="control-group ">
-                            <label>
+                            <label style="width:100%">
                                 科室描述：{{DepartmentView.Info.wardDeptDesc}}
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label style="width:100%">
+                                科室备注：{{DepartmentView.Info.remark}}
                             </label>
                         </div>
                     </div>
                 </div>
                 <div class="widget-box">
-                    <div class="widget-title bg_ly" data-toggle="collapse" href="#TopContacts">
+                    <div class="widget-title bg_ly" data-toggle="collapse" href="#TopContactsView">
                         <span class="icon"><i class="fa icon-chevron-down"></i></span>
                         <h5>联系人信息</h5>
                     </div>
-                    <div class="widget-content nopadding collapse in" id="TopContacts">
-                        <div class="main-box-body clearfix">
-                            <div class="table-responsive list-box" style="min-height:100px">
-                                <table class="table table-bordered ">
-                                    <thead>
-                                        <tr>
-                                            <th><span>序号</span></th>
-                                            <th><span>联系姓名</span></th>
-                                            <th><span>联系手机</span></th>
-                                            <th><span>联系电话</span></th>
-                                            <th><span>联系邮箱</span></th>
-                                            <th><span>联系用途</span></th>
-                                            <th><span>通信工具</span> </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-show="DepartmentView.Info.contact1Name">
-                                            <td>1</td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact1Name}}
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact1Mobile}}
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact1Tel}}
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact1Email}}
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact1Func}}
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact1PMsgType}}
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr ng-show="DepartmentView.Info.contact2Name">
-                                            <td>2</td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact2Name}}
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact2Mobile}}
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact2Tel}}
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact2Email}}
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact2Func}}
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact2PMsgType}}
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr ng-show="DepartmentView.Info.contact3Name">
-                                            <td>3</td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact3Name}}
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact3Mobile}}
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact3Tel}}
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact3Email}}
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact3Func}}
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    {{DepartmentView.Info.contact3PMsgType}}
-                                                </label>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="widget-content nopadding collapse in" id="TopContactsView">
+                        <div class="control-group ">
+                            <span>&nbsp;&nbsp;第一联系人信息：</span>
+                        </div>
+                        <div class="control-group ">
+                            <label>
+                                联系姓名：{{OiOrgView.Info.contact1Name}}
+                            </label>
+                            <label>
+                                联系手机：{{OiOrgView.Info.contact1Mobile}}
+                            </label>
+                            <label>
+                                通讯工具：{{OiOrgView.Info.contact1PMsgTypeName}}
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label>
+                                联系邮箱：{{OiOrgView.Info.contact1Email}}
+                            </label>
+                            <label>
+                                联系电话：{{OiOrgView.Info.contact1Tel}}
+                            </label>
+                            <label>
+                                联系用途：{{OiOrgView.Info.contact1FuncName}}
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <span>&nbsp;&nbsp;第二联系人信息：</span>
+                        </div>
+                        <div class="control-group ">
+                            <label>
+                                联系姓名：{{OiOrgView.Info.contact2Name}}
+                            </label>
+                            <label>
+                                联系手机：{{OiOrgView.Info.contact2Mobile}}
+                            </label>
+                            <label>
+                                通讯工具：{{OiOrgView.Info.contact2PMsgTypeName}}
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label>
+                                联系邮箱：{{OiOrgView.Info.contact2Email}}
+                            </label>
+                            <label>
+                                联系电话：{{OiOrgView.Info.contact2Tel}}
+                            </label>
+                            <label>
+                                联系用途：{{OiOrgView.Info.contact2FuncName}}
+                            </label>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
         <div ng-slide="DepartmentList.IsEdit" style="display:none;">
             <div class="tools">
                 <span style="float:right;">
@@ -246,40 +174,33 @@
                     <div class="widget-content nopadding collapse in" id="DepartmentInformation">
                         <div class="control-group ">
                             <label>
-                                医院名称：{{DepartmentDetail.Info.hPCodeName}}
-                            </label>
-                            <label>
-                                医院编码：{{DepartmentDetail.Info.hPCode}}
-                            </label>
-                        </div>
-                        <div class="control-group ">
-                            <!--<label ng-show="!DepartmentList.options.wardDeptCode">
-                                <span class="required">*</span>科室名称：
-                                <select ng-model="DepartmentDetail.Info.wardDeptcheckCode" ng-change="SelectInfo.Department.change(item)">
-                                    <option value="">请选择科室</option>
-                                    <option ng-repeat="item in SelectInfo.Department.dic" ng-selected="item.id==DepartmentDetail.Info.wardDeptcheckCode" value="{{item.id}}">{{item.text}}</option>
+                                <span class="required">*</span>医院名称：
+                                <select ng-model="DepartmentDetail.Info.hPCode">
+                                    <option value="">请选择医院名称</option>
+                                    <option ng-repeat="item in SelectInfo.Hosptail.dic" ng-selected="item.id==DepartmentDetail.Info.hPCode" value="{{item.id}}">{{item.text}}</option>
                                 </select>
-                            </label>-->
+                            </label>
                             <label>
                                 <span class="required">*</span>科室名称：<input type="text" placeholder="请输入科室名称" ng-model="DepartmentDetail.Info.wardDeptName" />
                             </label>
                             <label>
-                                科室全称：<input type="text" placeholder="请输入科室全称" ng-model="DepartmentDetail.Info.wardDeptFullName" />
+                                科室电话：<input type="text" placeholder="请输入科室电话" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')" ng-model="DepartmentDetail.Info.wardDeptTel" />
                             </label>
-                            <label>
-                                科室电话：<input type="text" placeholder="请输入科室电话" ng-model="DepartmentDetail.Info.wardDeptTel" />
+                        </div>
+                        <div class="control-group ">
+                            <label style="width:100%">
+                                <span class="required">*</span> 科室全称：<input type="text" style="width:80%" placeholder="请输入科室全称" ng-model="DepartmentDetail.Info.wardDeptFullName" />
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label style="width:100%">
+                                科室描述：<input type="text" style="width:80%" placeholder="请输入描述信息" ng-model="DepartmentDetail.Info.wardDeptDesc" />
                             </label>
                         </div>
                         <div class="control-group ">
                             <label style="width:100%">
                                 <span style="float:left">科室备注：</span>
                                 <textarea class="box-80" ng-model="DepartmentDetail.Info.remark" placeholder="请输入备注信息"></textarea>
-                            </label>
-                        </div>
-                        <div class="control-group ">
-                            <label style="width:100%">
-                                <span style="float:left">科室描述：</span>
-                                <textarea class="box-80" ng-model="DepartmentDetail.Info.wardDeptDesc" placeholder="请输入描述信息"></textarea>
                             </label>
                         </div>
                     </div>
@@ -290,123 +211,71 @@
                         <h5>联系人信息</h5>
                     </div>
                     <div class="widget-content nopadding collapse in" id="TopContacts">
-                        <div class="main-box-body clearfix">
-                            <div style="min-height:100px">
-                                <table class="table table-bordered ">
-                                    <thead>
-                                        <tr>
-                                            <th><span>序号</span></th>
-                                            <th><span>联系姓名</span></th>
-                                            <th><span>联系手机</span></th>
-                                            <th><span>联系电话</span></th>
-                                            <th><span>联系邮箱</span></th>
-                                            <th><span>联系用途</span></th>
-                                            <th><span>通信工具</span> </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人1姓名" ng-model="DepartmentDetail.Info.contact1Name" />
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人1手机" ng-model="DepartmentDetail.Info.contact1Mobile" />
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人1电话" ng-model="DepartmentDetail.Info.contact1Tel" />
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人1邮箱" ng-model="DepartmentDetail.Info.contact1Email" />
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人1用途" ng-model="DepartmentDetail.Info.contact1Func" />
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人1通信工具" ng-model="DepartmentDetail.Info.contact1PMsgType" />
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人2姓名" ng-model="DepartmentDetail.Info.contact2Name" />
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人2手机" ng-model="DepartmentDetail.Info.contact2Mobile" />
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人2电话" ng-model="DepartmentDetail.Info.contact2Tel" />
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人2邮箱" ng-model="DepartmentDetail.Info.contact2Email" />
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人2用途" ng-model="DepartmentDetail.Info.contact2Func" />
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人2通信工具" ng-model="DepartmentDetail.Info.contact2PMsgType" />
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人3姓名" ng-model="DepartmentDetail.Info.contact3Name" />
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人3手机" ng-model="DepartmentDetail.Info.contact3Mobile" />
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人3电话" ng-model="DepartmentDetail.Info.contact3Tel" />
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人3邮箱" ng-model="DepartmentDetail.Info.contact3Email" />
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人3用途" ng-model="DepartmentDetail.Info.contact3Func" />
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <label>
-                                                    <input type="text" placeholder="请输入联系人3通信工具" ng-model="DepartmentDetail.Info.contact3PMsgType" />
-                                                </label>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="control-group ">
+                            <span>&nbsp;&nbsp;第一联系人信息：</span>
+                        </div>
+                        <div class="control-group">
+                            <label>
+                                联系姓名:<input type="text" ng-model="DepartmentDetail.Info.contact1Name" placeholder="请输入第一联系人姓名" />
+                            </label>
+                            <label>
+                                联系手机:<input type="text" ng-model="DepartmentDetail.Info.contact1Mobile" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')" placeholder="请输入第一联系人手机" />
+                            </label>
+                            <label>
+                                通讯工具:
+                                <select ng-model="DepartmentDetail.Info.contact1PMsgType" style="min-width:140px">
+                                    <option value="">请选择通讯工具</option>
+                                    <option ng-repeat="item in SelectInfo.contact1PMsgType.dic" ng-selected="item.id==DepartmentDetail.Info.contact1PMsgType" value="{{item.id}}">{{item.text}}</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="control-group">
+                            <label>
+                                联系邮箱:<input type="text" onkeyup="this.value=this.value.replace(/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/)" ng-model="DepartmentDetail.Info.contact1Email" placeholder="请输入第一联系人邮箱" />
+                            </label>
+                            <label>
+                                联系电话:<input type="text" ng-model="DepartmentDetail.Info.contact1Tel" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')" placeholder="请输入第一联系人电话" />
+                            </label>
+                            <label>
+                                联系用途:
+                                <select ng-model="DepartmentDetail.Info.contact1Func" style="min-width:140px">
+                                    <option value="">请选择联系用途</option>
+                                    <option ng-repeat="item in SelectInfo.contact1Func.dic" ng-selected="item.id==DepartmentDetail.Info.contact1Func" value="{{item.id}}">{{item.text}}</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <span>&nbsp;&nbsp;第二联系人信息：</span>
+                        </div>
+                        <div class="control-group">
+                            <label>
+                                联系姓名:<input type="text" ng-model="DepartmentDetail.Info.contact2Name" placeholder="请输入第二联系人姓名" />
+                            </label>
+                            <label>
+                                联系手机:<input type="text" ng-model="DepartmentDetail.Info.contact2Mobile" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')" placeholder="请输入第二联系人手机" />
+                            </label>
+                            <label>
+                                通讯工具:
+                                <select ng-model="DepartmentDetail.Info.contact2PMsgType" style="min-width:140px">
+                                    <option value="">请选择通讯工具</option>
+                                    <option ng-repeat="item in SelectInfo.contact2PMsgType.dic" ng-selected="item.id==DepartmentDetail.Info.contact2PMsgType" value="{{item.id}}">{{item.text}}</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="control-group">
+                            <label>
+                                联系邮箱:<input type="text" ng-model="DepartmentDetail.Info.contact2Email" onkeyup="this.value=this.value.replace(/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/)" placeholder="请输入第二联系人邮箱" />
+                            </label>
+                            <label>
+                                联系电话:<input type="text" ng-model="DepartmentDetail.Info.contact2Tel" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')" placeholder="请输入第二联系人电话" />
+                            </label>
+                            <label>
+                                联系用途:
+                                <select ng-model="DepartmentDetail.Info.contact2Func" style="min-width:140px">
+                                    <option value="">请选择联系用途</option>
+                                    <option ng-repeat="item in SelectInfo.contact2Func.dic" ng-selected="item.id==DepartmentDetail.Info.contact2Func" value="{{item.id}}">{{item.text}}</option>
+                                </select>
+                            </label>
                         </div>
                     </div>
                 </div>

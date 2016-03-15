@@ -97,11 +97,11 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
             $scope.SelectInfo.oiType.getoiTypeList();//货主下拉
             $scope.SelectInfo.Currency.getCurrencyList();//币别下拉框
             $scope.SelectInfo.contact1Func.getcontact1FuncList();//联系人用途
-            $scope.SelectInfo.contact1PMsgType.getcontact1PMsgTypeList(); //通信工具
+            $scope.SelectInfo.contact1PMsgType.getcontact1PMsgTypeList(); //通讯工具
             $scope.SelectInfo.contact2Func.getcontact2FuncList();//联系人用途
-            $scope.SelectInfo.contact2PMsgType.getcontact2PMsgTypeList();// 通信工具
+            $scope.SelectInfo.contact2PMsgType.getcontact2PMsgTypeList();// 通讯工具
             $scope.SelectInfo.contact3Func.getcontact3FuncList();//联系人用途
-            $scope.SelectInfo.contact3PMsgType.getcontact3PMsgTypeList(); //通信工具
+            $scope.SelectInfo.contact3PMsgType.getcontact3PMsgTypeList(); //通讯工具
         }
 
     }
@@ -151,7 +151,7 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
         contact1PMsgType: {
             dic: new Array(),
             getcontact1PMsgTypeList: function () {
-                /// <summary>获取第一联系人通信工具<</summary>
+                /// <summary>获取第一联系人通讯工具<</summary>
                 $Api.Public.GetDictionary({ dictType: "PMSGTP" }, function (rData) {
                     $scope.SelectInfo.contact1PMsgType.dic = rData;
                     console.log(rData)
@@ -173,7 +173,7 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
         contact2PMsgType: {
             dic: new Array(),
             getcontact2PMsgTypeList: function () {
-                /// <summary>获取第2联系人通信工具<</summary>
+                /// <summary>获取第2联系人通讯工具<</summary>
                 $Api.Public.GetDictionary({ dictType: "PMSGTP" }, function (rData) {
                     $scope.SelectInfo.contact2PMsgType.dic = rData;
                 })
@@ -191,7 +191,7 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
         contact3PMsgType: {
             dic: new Array(),
             getcontact3PMsgTypeList: function () {
-                /// <summary>获取第3联系人通信工具<</summary>
+                /// <summary>获取第3联系人通讯工具<</summary>
                 $Api.Public.GetDictionary({ dictType: "PMSGTP" }, function (rData) {
                     $scope.SelectInfo.contact3PMsgType.dic = rData;
                 })
