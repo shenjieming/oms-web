@@ -118,7 +118,7 @@ app.controller("GroupDetailController", function ($scope, $state, $local, $Api, 
                 }
                 $Api.GruopService.Save($scope.GroupDetail.detail, function (rData) {
                     $MessagService.succ("群组信息保存成功！");
-                    self.location = 'index.html#/app/comp/group/list';
+                    $scope.goView('app.comp.group.list');
                 })
                 console.log($scope.GroupDetail.detail)
             }

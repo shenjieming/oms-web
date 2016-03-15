@@ -50,13 +50,34 @@ app.controller("HplListController", function ($scope, $state, $local, $Api, $Mes
             console.log($scope.HospitalList.info)
             if ($scope.HospitalList.info) {
                 $Api.ManaHospital.GetdeleteHospital($scope.HospitalList.info, function (rData) {
-                    $MessagService.caveat("该医院删除成功!")
-                 
+                    $MessagService.caveat("该医院删除成功!")                 
                 })
             } else {
                 $MessagService.caveat("请选择一条数据!")
             }
+            $scope.HospitalList.GetHospitalList(t);
+        },
+        DepartMentList: function () {
+            var dptopt = $local.getSelectedRow($scope.HospitalList.info)
+            if (dptopt) {
+                $state.go("app.business.dptmanagement", { dptopt: dptopt.hPCode });
+            } else {
+                $MessagService.caveat("请选择一条查看科室的医院！")
+            }
+
+        },
+        QueryDLList: function () {
+            /// <summary>查询医院列表</summary>
+            console.log($scope.HospitalJump.SearchWhere)
+            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, searchValue: $scope.HospitalJump.SearchWhere });
             $scope.HospitalList.GetHospitalList();
+        },
+        UpEnter: function (e) {
+            /// <summary>点击回车事件</summary>
+            var keycode = window.event ? e.keyCode : e.which;
+            if (keycode == 13) {
+                $scope.HospitalJump.QueryDLList();
+            }
         }
     }
     $scope.getSelectedRow = function () {

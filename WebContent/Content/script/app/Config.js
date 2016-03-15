@@ -180,7 +180,8 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
 
     $scope.Comp = function (code) {
         /// <summary>菜单权限控制</summary>
-        return JSON.stringify($scope.User.functionInfo).indexOf(code) > -1;//判断菜单是否有权限
+        //return JSON.stringify($scope.User.functionInfo).indexOf(code) > -1;//判断菜单是否有权限
+        return true;
         //return true;
     }
 });

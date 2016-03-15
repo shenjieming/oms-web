@@ -27,7 +27,7 @@
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        <span style="float:left">经销商备注：</span>{{DlOrgView.Info.remark}}
+                        <span style="float:left">备注信息：</span>{{DlOrgView.Info.remark}}
                     </label>
                 </div>
             </div>
@@ -56,10 +56,10 @@
                 </div>
                 <div class="control-group ">
                     <label>
-                        法人代表：{{DlOrgView.Info.corpRegLegalRep}}
-                    </label>    
-                    <label>
                         注册资本：{{DlOrgView.BackpackcorpRegCapital}}<span ng-show="!DlOrgView.BackpackcorpRegCapital">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;</span>（万元）
+                    </label>
+                    <label>
+                        法人代表：{{DlOrgView.Info.corpRegLegalRep}}
                     </label>
                     <label>
                         认证状态：{{DlOrgView.Info.certStatus=="Y"?"认证":"未认证"}}

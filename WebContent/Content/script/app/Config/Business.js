@@ -179,25 +179,25 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     $stateProvider
        .state("app.business.dptmanagement", {
            /// <summary>科室列表</summary>
-           url: "/dptmanagement",
+           url: "/dptmanagement/:dptopt",
            cache: false,
            templateUrl: "View/Business/Department/DptList.html?data=" + Timestamp,
            controller: "DptListController",
            loadJs: ["Content/script/app/Business/Department/JS_DptList.js"],
            resolve: app.resolve
        })
-      .state("app.business.dptmanagementEduit", {
+      .state("app.business.dptmanagement.dptmanagementEdit", {
           /// <summary>科室编辑</summary>
-          url: "/dptmanagementEduit/:oiopt",
+          url: "/dptmanagementEdit/cc",
           cache: false,
-          templateUrl: "View/Business/Department/DptEduit.html?data=" + Timestamp,
-          controller: "DptEduitController",
-          loadJs: ["Content/script/app/Business/Department/JS_DptEduit.js"],
+          templateUrl: "View/Business/Department/DptEdit.html?data=" + Timestamp,
+          controller: "DptEditController",
+          loadJs: ["Content/script/app/Business/Department/JS_DptEdit.js"],
           resolve: app.resolve
       })
        .state("app.business.dptmanagementView", {
            /// <summary>科室详情</summary>
-           url: "/dptmanagementView/:oiopt",
+           url: "/dptmanagementView/:dptopt",
            cache: false,
            templateUrl: "View/Business/Department/DptView.html?data=" + Timestamp,
            controller: "DptViewController",

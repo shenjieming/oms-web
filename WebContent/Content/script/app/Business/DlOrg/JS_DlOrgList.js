@@ -12,7 +12,7 @@ app.controller("DlOrgListController", function ($scope, $state, $local, $Api, $M
         info: [],
         GetDlOrgList: function () {
             /// <summary>获取经销商列表</summary>
-            var paramData = $.extend({ dLName: $scope.DlOrgList.info.dLName }, $scope.Pagein);
+            var paramData = $.extend({}, $scope.Pagein);
             console.log(paramData)
             $Api.ManageDl.GetqueryAllDealer(paramData, function (rData) {
                 $scope.DlOrgList.info = rData.rows;
@@ -57,6 +57,18 @@ app.controller("DlOrgListController", function ($scope, $state, $local, $Api, $M
                 $MessagService.caveat("请选择一条删除的经销商");
             }   
         },
+        QueryDLList: function () {
+            /// <summary>查询经销商列表</summary>
+            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1,  dLName: $scope.DlOrgJump.SearchWhere });
+            $scope.DlOrgList.GetDlOrgList();
+        },
+        UpEnter: function (e) {
+            /// <summary>点击回车事件</summary>
+            var keycode = window.event ? e.keyCode : e.which;
+            if (keycode == 13) {
+                $scope.DlOrgJump.QueryDLList();
+            }
+        }
     }
     $scope.Pagein = {
         pageSize: 10,

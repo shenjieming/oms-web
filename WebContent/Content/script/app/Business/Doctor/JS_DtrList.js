@@ -9,105 +9,38 @@
 
 app.controller("DtrListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>医生列表</summary>
-    $scope.tree = {
-        setting: {
-            callback: {
-                beforeExpand: true,
-                onExpand: function (event, treeId, treeNode) {
-                    /// <summary>tree查询子节点</summary>
-                    if (!treeNode.reNode) {
-                        treeNode.reNode = true;
-                        treeNode.Subset(treeNode.options, function (rData) {
-                            /// <summary>子集数据查询</summary>
-                            var nodeList = new Array();
-                            for (var i = 0; i < rData.length; i++) {
-                                var node = {
-                                    id: rData[i].id, name: rData[i].text
-                                };
-                                if (treeNode.SubsetType == "oIOrgCode") {//根据条件参数控制子集的条件参数
-                                    node.SubsetType = "hPCode";
-                                    node.isParent = true;
-                                    node.Subset = $Api.HospitalService.GetSections;
-                                    node.options = { hPCode: rData[i].id, hPCodeName: rData[i].text };
-                                } else {
-                                    node.options = { hPCode: treeNode.options.hPCode, wardDeptCode: rData[i].id, hPCodeName: treeNode.options.hPCodeName, wardDeptCodeName: rData[i].text };
-                                }
-                                nodeList.push(node);
-                            }
-                            $scope.tree.obj.addNodes(treeNode, nodeList);
-                        });
-                    }
-                },
-                onClick: function (event, treeId, treeNode) {
-                    /// <summary>点击tree后的事件</summary>
-                    $scope.Pagein.pageIndex = 1;//当前数据分页从第一页开始
-                    if (treeNode.SubsetType != "oIOrgCode") {
-                        $scope.DoctorList.options = treeNode.options;//获取当前节点的条件
-                        $scope.DoctorList.GetZreeDoctorList();//数据读取
-                        $scope.server.Add = true;
-                        $scope.server.Edit = true;
-                        $scope.server.View = true;
-                    } else {
-                        $scope.server.List = false;
-                        $scope.server.Add = false;
-                        $scope.server.Edit = false;
-                        $scope.server.View = false;
-                        $scope.DoctorList.options = [];
-                    }
-                }
-            }
-        },
-        obj: new Object()
-    }
-
-
-
     $scope.DoctorList = {
         Info: [],
         IsView: false,
         IsEdit: false,
-        options: [],
-        GetZreeDoctorList: function () {
+        GetDoctorList: function () {
             /// <summary>获取医生列表</summary>
-            console.log($scope.DoctorList.options)
-            var opt = $.extend($scope.DoctorList.options, $scope.Pagein);
+            var opt = $.extend({validStatus:"Y"}, $scope.Pagein);
             $Api.ManaDocter.GetbizDataDoctorList(opt, function (rData) {
                 $scope.DoctorList.info = rData.rows;
                 $scope.Pagein.total = rData.total;
-                $scope.server.List = true;
                 console.log(rData)
                 for (var i = 0; i < $scope.DoctorList.info.length; i++) {
-                    if ($scope.DoctorList.info[i].validStatusName=="无效") {
+                    if ($scope.DoctorList.info[i].validStatusName == "无效") {
                         $scope.DoctorList.info[i].isEnable = true;
                     }
                 }
             })
         },
-        GetHosptailList: function () {
-            /// <summary>根据医院查询医生</summary>
-            $Api.Public.GetOiMedMaterialComboxList({}, function (rData) {
-                var treeData = new Array();
-                for (var i = 0; i < rData.length; i++) {
-                    treeData.push({ id: rData[i].id, name: rData[i].text, isParent: true, options: { oIOrgCode: rData[i].id }, Subset: $Api.Public.GetHosptailComboxListByDLHPRel, SubsetType: "oIOrgCode" });
-                }
-                $scope.tree.data = treeData;
-            })
-        }
     }
 
     $scope.server = {
         //服务层开启
-        List: true,  // 医生列表开关
         SelectInfo: function () {
             /// <summary>下拉框接口集合</summary>
             $scope.SelectInfo.dTGrade.getdTGradeList();
             $scope.SelectInfo.dTEducation.getdTEducationList();
             $scope.SelectInfo.dTSex.getdTSexList();
-            $scope.SelectInfo.Department.getDepartmentList();
+            $scope.SelectInfo.Hosptail.getHosptailList();
         },
-        Add: false,
-        Edit: false,
-        View: false,
+        SelectButton: function () {
+            $scope.SelectButton.Hosptail.getHosptailList();
+        },
     }
     // 按钮开关启动 
     $scope.DoctorJump = {
@@ -120,6 +53,17 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
             $scope.DoctorList.IsView = false;
             $scope.DoctorList.IsEdit = isshow;
         },
+        Delect: function () {
+            var row = row ? row : $local.getSelectedRow($scope.DoctorList.info)
+            if (row) {
+                $Api.ManaDocter.GetbizDataDoctorDisable({ dTCode: row.dTCode }, function () {
+                    $MessagService.succ("该信息删除成功！");
+                    $scope.DoctorList.GetDoctorList();
+                })
+            } else {
+                $MessagService.caveat("请选择一条删除的医生信息！");
+            }
+        },
         Add: function () {
             /// <summary>添加医生</summary>
             $scope.DoctorDetail.Info = new Object(); // 数据清空
@@ -128,20 +72,10 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
                 $scope.DoctorDetail.Info.isLocalCheck = true;
             } else {
                 $scope.DoctorDetail.Info.isLocalCheck = false;
-            }
-            console.log($scope.DoctorList.options)
-            if ($scope.DoctorList.options.hPCode) {
-                $scope.DoctorJump.isEdit(true);
-                $scope.DoctorDetail.Info.hPCode = $scope.DoctorList.options.hPCode;
-                $scope.DoctorDetail.Info.hPCodeName = $scope.DoctorList.options.hPCodeName;
-                if ($scope.DoctorList.options.wardDeptCode) {
-                    $scope.DoctorDetail.Info.wardDeptCode = $scope.DoctorList.options.wardDeptCode;
-                    $scope.DoctorDetail.Info.wardDeptCodeName = $scope.DoctorList.options.wardDeptCodeName;
-                }
-                $scope.server.SelectInfo();//下拉框开启
-            } else {
-                $MessagService.caveat("请选择一个医院！");
-            }
+            };
+            $scope.DoctorJump.isEdit(true);
+            $scope.server.SelectInfo();
+
         },
         Edit: function () {
             /// <summary>编辑医生</summary>
@@ -157,6 +91,7 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
                         $scope.DoctorDetail.Info.isLocalCheck = false;
                     }
                 })
+                $scope.SelectInfo.Department.getDepartmentList();
             } else {
                 $MessagService.caveat("请选择一条编辑的医生信息！");
             }
@@ -178,6 +113,14 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
             var result = true;
             if (!$scope.DoctorDetail.Info.dTName) {
                 $MessagService.caveat("请维护该医生名称！");
+                result = false;
+            }
+            else if (!$scope.DoctorDetail.Info.hPCode) {
+                $MessagService.caveat("请维护该医生所在医院！");
+                result = false;
+            }
+            else if (!$scope.DoctorDetail.Info.wardDeptCode) {
+                $MessagService.caveat("请维护该医生所在科室！");
                 result = false;
             }
             else if (!$scope.DoctorDetail.Info.dTIDCard) {
@@ -213,9 +156,35 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
             console.log($scope.DoctorDetail.Info)
             $Api.ManaDocter.Save($scope.DoctorDetail.Info, function (rData) {
                 $MessagService.succ("医生保存成功！");
-                $scope.DoctorList.GetZreeDoctorList();
+                $scope.DoctorList.GetDoctorList();
                 $scope.DoctorJump.isEdit(false);
             });
+        },
+        QueryOiList: function () {
+            /// <summary>查询医生列表</summary>
+            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, searchValue: $scope.DoctorJump.SearchWhere });
+            $scope.DoctorList.GetDoctorList();
+
+        },
+        SelectHostptail: function () {
+            /// <summary>医院查询框</summary> 
+            //后期调整 searchValue:""
+            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, hPCode: $scope.DoctorList.hPCode });
+            $scope.DoctorList.wardDeptCode = "";
+            $scope.SelectButton.Department.getDepartmentList();
+            $scope.DoctorList.GetDoctorList();
+        },
+        SelectDepartment: function () {
+            /// <summary>科室查询框</summary>
+            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, wardDeptCode: $scope.DoctorList.wardDeptCode });
+            $scope.DoctorList.GetDoctorList();
+        },
+        UpEnter: function (e) {
+            /// <summary>点击回车事件</summary>
+            var keycode = window.event ? e.keyCode : e.which;
+            if (keycode == 13) {
+                $scope.DoctorJump.QueryOiList();
+            }
         }
     }
     $scope.DoctorDetail = {
@@ -224,42 +193,38 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
     };
     $scope.DoctorView = {
         //医生编辑页面
-        Info:[],
+        Info: [],
     };
-    //// 下拉框开启
-    $scope.SelectInfo = {     
-        Department: {
-            //科室级别
-            dic: [],
-            change: function (item) {
-                /// <summary>科室级别修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.Department.dic.length; i++) {
-                    if ($scope.SelectInfo.Department.dic[i].id == $scope.DoctorDetail.Info.wardDeptCode) {
-                        $scope.DoctorDetail.Info.wardDeptCodeName = $scope.SelectInfo.Department.dic[i].text;
-                        return;
-                    }
-                }
+    $scope.SelectInfo = {
+        Hosptail: {
+            dic: new Array(),
+            change: function () {
+                $scope.DoctorDetail.Info.wardDeptCode = "";
+                $scope.SelectInfo.Department.getDepartmentList();
             },
+            getHosptailList: function () {
+                /// <summary>获取医院列表</summary>
+                $Api.HospitalService.GetHospital({}, function (rData) {
+                    $scope.SelectInfo.Hosptail.dic = rData;
+                    console.log(rData)
+                })
+            }
+        },
+        Department: {
+            dic: [],
             getDepartmentList: function () {
                 /// <summary>获取科室列表</summary>
-                $Api.HospitalService.GetSections({ hPCode: $scope.DoctorDetail.Info.hPCode }, function (rData) {
-                    $scope.SelectInfo.Department.dic = rData;
-                    console.log(rData)
-                });
+                if ($scope.DoctorDetail.Info.hPCode) {
+                    $Api.ManaDepartment.GetbizDataWDList({ hPCode: $scope.DoctorDetail.Info.hPCode }, function (rData) {
+                        $scope.SelectInfo.Department.dic = rData.rows;
+                        console.log(rData)
+                    });
+                }
             }
         },
         dTGrade: {
             //医生级别
             dic: [],
-            change: function (item) {
-                /// <summary>医生级别修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.dTGrade.dic.length; i++) {
-                    if ($scope.SelectInfo.dTGrade.dic[i].id == $scope.DoctorDetail.Info.dTGrade) {
-                        $scope.DoctorDetail.Info.dTGradeName = $scope.SelectInfo.dTGrade.dic[i].text;
-                        return;
-                    }
-                }
-            },
             getdTGradeList: function () {
                 /// <summary>获取医生级别</summary>
                 $Api.Public.GetDictionary({ dictType: "PLDTGD" }, function (rData) {
@@ -270,15 +235,6 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
         dTEducation: {
             //医生学历
             dic: [],
-            change: function (item) {
-                /// <summary>医生学历修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.dTGrade.dic.length; i++) {
-                    if ($scope.SelectInfo.dTGrade.dic[i].id == $scope.DoctorDetail.Info.dTEducation) {
-                        $scope.DoctorDetail.Info.dTEducationName = $scope.SelectInfo.dTGrade.dic[i].text;
-                        return;
-                    }
-                }
-            },
             getdTEducationList: function () {
                 /// <summary>获取医生学历</summary>
                 $Api.Public.GetDictionary({ dictType: "PRNEDU" }, function (rData) {
@@ -289,15 +245,6 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
         dTSex: {
             //医生性别
             dic: [],
-            change: function (item) {
-                /// <summary>医生学历修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.dTSex.dic.length; i++) {
-                    if ($scope.SelectInfo.dTSex.dic[i].id == $scope.DoctorDetail.Info.dTSex) {
-                        $scope.DoctorDetail.Info.dTSexName = $scope.SelectInfo.dTSex.dic[i].text;
-                        return;
-                    }
-                }
-            },
             getdTSexList: function () {
                 /// <summary>获取医生学历</summary>
                 $Api.Public.GetDictionary({ dictType: "PRNSEX" }, function (rData) {
@@ -306,8 +253,6 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
             }
         },
     }
-    //下拉框关闭
-    /// 按钮开关开启：
     $scope.buttonList = {
         isLocal: function () {
             /// <summary>医生归属开关</summary>
@@ -318,17 +263,41 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
             $scope.DoctorDetail.Info.isvalidStatus = !$scope.DoctorDetail.Info.isvalidStatus;
         }
     }
-    //按钮开关关闭
-    //修改医生状态开启
     $scope.DoctorStatus = function (row) {
         $scope.DoctorList.info = row ? row : $scope.getSelectedRow();
         $Api.ManaDocter.SwitchButton($scope.DoctorList.info, function (rData) {
             $MessagService.caveat("科室状态修改成功！")
-            $scope.DoctorList.GetZreeDoctorList();
+            $scope.DoctorList.GetDoctorList();
         })
 
     }
-    //修改医生状态关闭
+
+    $scope.SelectButton = {
+        /// <summary>选择条件框</summary
+        Hosptail: {
+            dic: new Array(),
+            getHosptailList: function () {
+                /// <summary>获取医院列表</summary>
+                $Api.HospitalService.GetHospital({}, function (rData) {
+                    $scope.SelectButton.Hosptail.dic = rData;
+                    console.log(rData)
+                })
+            }
+        },
+        Department: {
+            dic: new Array(),
+            getDepartmentList: function () {
+                /// <summary>获取科室列表</summary>
+                if ($scope.DoctorList.hPCode) {
+                    $Api.ManaDepartment.GetbizDataWDList({ hPCode: $scope.DoctorList.wardDeptCode }, function (rData) {
+                        $scope.SelectButton.Department.dic = rData.rows;
+                        console.log(rData)
+                    })
+                }
+            }
+        }
+    }
+
     $scope.getSelectedRow = function () {
         /// <summary>获取选择的行</summary>
         var result = false;
@@ -348,56 +317,11 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
     }
     $scope.Load = function () {
         /// <summary>页面初始化</summary>
-        $scope.DoctorList.GetHosptailList();
+        $scope.DoctorList.GetDoctorList();
+        $scope.server.SelectButton();
     }
     $scope.Load();
 })
 
 
 
-
-////hPCode 医院编码，必须
- 
-////wardDeptCode 科室编码 必须
- 
-////dTName 医生姓名 必须
- 
-//dTType
- 
-//dTGrade
- 
-//isLocal
- 
-//dTOperationPreferenceDesc
- 
-//dTRealName
- 
-//dTIDCard
- 
-////////////////dTSex
- 
-////////////////dTEducation
- 
-//dTDescription
-//dTRemark
- 
-//dTMobile
- 
-//dTTel
- 
-//dTEmail
- 
-//dTAddress
- 
-////dTPMsgType1
- 
-////dTPMsgNo1
- 
-////dTPMsgDesc1
- 
-////dTPMsgType2
- 
-////dTPMsgNo2
- 
-//dTPMsgDesc2
- 

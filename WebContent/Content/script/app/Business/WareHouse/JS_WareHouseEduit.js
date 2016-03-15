@@ -12,16 +12,14 @@ app.controller("WareHouseEduitController", function ($scope, $state, $local, $Ap
     $scope.whPageInfo = {
         Info: {wHCountryCode:"CN",wHCountryCodeName:"中国",wHWithOrderCenter:"Y"},
         Load: function (callback) {
-            $scope.SelectInfo.Province.getProvinceList();
             if ($stateParams.whopt) {
                 $scope.whopt = $stateParams.whopt;
                 $scope.whPageInfo.GetWherehouseDetail();
-                $scope.SelectInfo.City.getCityList();
-                $scope.SelectInfo.District.getDistrictList();
             }
             if ($scope.whPageInfo.Info.wHWithOrderCenter=="Y") {
                 $scope.whPageInfo.Info.iswHWithOrderCenter = true;
             }
+            $scope.Server.SelectInfo();
         },
         GetWherehouseDetail: function () {
             /// <summary>获取仓库详情</summary>
@@ -33,10 +31,14 @@ app.controller("WareHouseEduitController", function ($scope, $state, $local, $Ap
                 } else {
                     $scope.whPageInfo.Info.iswHWithOrderCenter = false;
                 }
+                $scope.whPageInfo.Info.deliveryProvinceCode = rData.wHProvinceCode;
+                $scope.whPageInfo.Info.deliveryCityCode = rData.wHCityCode;
+                $scope.whPageInfo.Info.deliveryDistrictCode = rData.wHDistrictCode;
             })
         },
         isCheck: function(){
-            $scope.whPageInfo.Info.iswHWithOrderCenter=!$scope.whPageInfo.Info.iswHWithOrderCenter;
+            $scope.whPageInfo.Info.iswHWithOrderCenter = !$scope.whPageInfo.Info.iswHWithOrderCenter;
+            $scope.whPageInfo.Info.iswHWithOrderCenter = $scope.whPageInfo.Info.iswHWithOrderCenter ? "Y" : "N";
         },
         verification: function () {
             /// <summary>验证模块</summary>
@@ -58,99 +60,174 @@ app.controller("WareHouseEduitController", function ($scope, $state, $local, $Ap
         Save: function () {
             /// <summary>仓库组操作</summary>
             if ($scope.whPageInfo.verification()) {
-                if ($scope.whPageInfo.Info.iswHWithOrderCenter) {
-                    $scope.whPageInfo.Info.wHWithOrderCenter = "Y"
-                } else {
-                    $scope.whPageInfo.Info.wHWithOrderCenter = "N"
-                }
+                $scope.whPageInfo.Info.wHProvinceCode = $scope.whPageInfo.Info.deliveryProvinceCode;
+                $scope.whPageInfo.Info.wHCityCode = $scope.whPageInfo.Info.deliveryCityCode;
+                $scope.whPageInfo.Info.wHDistrictCode = $scope.whPageInfo.Info.deliveryDistrictCode;
                 $Api.ManaWareHouse.Save($scope.whPageInfo.Info, function (rData) {
                     $MessagService.succ("仓库保存成功！");
-                    self.location = 'index.html#/app/business/whmanagement';
+                    $scope.goView('app.business.whmanagement');
                 })
             }
         },
     }
 
 
-    $scope.SelectInfo = {
-        Province: {
-            //省份类型下拉框  
-            dic: new Array(),
-            change: function (item) {
-                /// <summary>省份列表修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.Province.dic.length; i++) {
-                    if ($scope.SelectInfo.Province.dic[i].divCode == $scope.whPageInfo.Info.wHProvinceCode) {
-                        $scope.whPageInfo.Info.wHProvinceCodeName = $scope.SelectInfo.Province.dic[i].divName;
-                        $scope.whPageInfo.Info.wHCityCode = "";
-                        $scope.whPageInfo.Info.wHDistrictCode = "";
-                        $scope.SelectInfo.City.getCityList()// 市区下拉 
-                        return;
-                    }
-                }
-            },
-            getProvinceList: function () {
-                /// <summary>获取省份列表</summary>
-                $Api.BasisService.GetadmdivisionList({ level: "1" }, function (rData) {
-                    if (!rData.code) {
-                        $scope.SelectInfo.Province.dic = rData.rows;
-                        console.log(rData)
-                    };
-                });
-            }
-        },
-        City: {
-            //市区类型下拉框  
-            dic: new Array(),
-            change: function (item) {
-                /// <summary>省份市区修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.City.dic.length; i++) {
-                    console.log($scope.whPageInfo.Info.wHCityCode)
-                    if ($scope.SelectInfo.City.dic[i].divCode == $scope.whPageInfo.Info.wHCityCode) {
-                        $scope.whPageInfo.Info.wHCityCodeName = $scope.SelectInfo.City.dic[i].divName;
-                        $scope.whPageInfo.Info.wHDistrictCode = "";
-                        $scope.SelectInfo.District.getDistrictList()// 市区下拉 
-                        return;
-                    }
-                }
-            },
-            getCityList: function () {
-                /// <summary>获取市区列表</summary>
-                if ($scope.whPageInfo.Info.wHProvinceCode) {
-                    var option = { level: "2", parentDivCode: $scope.whPageInfo.Info.wHProvinceCode }
-                    $Api.BasisService.GetadmdivisionList(option, function (rData) {
-                        $scope.SelectInfo.City.dic = rData.rows;
-                        console.log(rData)
-                    });
-                } else {
-                    $scope.SelectInfo.City.dic = new Array();
-                }
-            }
-        },
-        District: {
-            //区域类型下拉框  
-            dic: new Array(),
-            change: function (item) {
-                /// <summary>区域列表修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.District.dic.length; i++) {
-                    if ($scope.SelectInfo.District.dic[i].divCode == $scope.whPageInfo.Info.wHDistrictCode) {
-                        $scope.whPageInfo.Info.wHDistrictCodeName = $scope.SelectInfo.District.dic[i].divName;
-                        return;
-                    }
-                }
-            },
-            getDistrictList: function () {
-                /// <summary>获取区域列表</summary>
-                if ($scope.whPageInfo.Info.wHCityCode && $scope.whPageInfo.Info.wHProvinceCode) {
-                    var option = { level: "3", parentDivCode: $scope.whPageInfo.Info.wHCityCode }
-                    $Api.BasisService.GetadmdivisionList(option, function (rData) {
-                        $scope.SelectInfo.District.dic = rData.rows;
-                        console.log(rData)
-                    });
-                } else {
-                    $scope.SelectInfo.District.dic = new Array();
-                }
-            }
-        },
+    $scope.Server = {
+        SelectInfo: function () {
+            $scope.SelectInfo.contact1Func.getcontact1FuncList();//联系人用途
+            $scope.SelectInfo.contact1PMsgType.getcontact1PMsgTypeList(); //通讯工具
+            $scope.SelectInfo.contact2Func.getcontact2FuncList();//联系人用途
+            $scope.SelectInfo.contact2PMsgType.getcontact2PMsgTypeList();// 通讯工具
+            $scope.SelectInfo.contact3Func.getcontact3FuncList();//联系人用途
+            $scope.SelectInfo.contact3PMsgType.getcontact3PMsgTypeList(); //通讯工具
+        }
     }
+
+    $scope.SelectInfo = {
+        contact1Func: {
+            dic: new Array(),
+            getcontact1FuncList: function () {
+                /// <summary>获取第一联系人用途类型</summary>
+                $Api.Public.GetDictionary({ dictType: "CTCFUN" }, function (rData) {
+                    $scope.SelectInfo.contact1Func.dic = rData;
+                    console.log(rData)
+                    if (!$scope.whPageInfo.Info.contact1Func) {
+                        $scope.whPageInfo.Info.contact1Func = "DAL"
+                    }
+                })
+            },
+        },
+        contact1PMsgType: {
+            dic: new Array(),
+            getcontact1PMsgTypeList: function () {
+                /// <summary>获取第一联系人通讯工具<</summary>
+                $Api.Public.GetDictionary({ dictType: "PMSGTP" }, function (rData) {
+                    $scope.SelectInfo.contact1PMsgType.dic = rData;
+                    console.log(rData)
+                    if (!$scope.whPageInfo.Info.contact1PMsgType) {
+                        $scope.whPageInfo.Info.contact1PMsgType = "QQ"
+                    }
+                })
+            },
+        },
+        contact2Func: {
+            dic: new Array(),
+            getcontact2FuncList: function () {
+                /// <summary>获取第2联系人用途类型</summary>
+                $Api.Public.GetDictionary({ dictType: "CTCFUN" }, function (rData) {
+                    $scope.SelectInfo.contact2Func.dic = rData;
+                })
+            },
+        },
+        contact2PMsgType: {
+            dic: new Array(),
+            getcontact2PMsgTypeList: function () {
+                /// <summary>获取第2联系人通讯工具<</summary>
+                $Api.Public.GetDictionary({ dictType: "PMSGTP" }, function (rData) {
+                    $scope.SelectInfo.contact2PMsgType.dic = rData;
+                })
+            },
+        },
+        contact3Func: {
+            dic: new Array(),
+            getcontact3FuncList: function () {
+                /// <summary>获取第3联系人用途类型</summary>
+                $Api.Public.GetDictionary({ dictType: "CTCFUN" }, function (rData) {
+                    $scope.SelectInfo.contact3Func.dic = rData;
+                })
+            },
+        },
+        contact3PMsgType: {
+            dic: new Array(),
+            getcontact3PMsgTypeList: function () {
+                /// <summary>获取第3联系人通讯工具<</summary>
+                $Api.Public.GetDictionary({ dictType: "PMSGTP" }, function (rData) {
+                    $scope.SelectInfo.contact3PMsgType.dic = rData;
+                })
+            },
+        },
+
+    }
+
+    //$scope.SelectInfo = {
+    //    Province: {
+    //        //省份类型下拉框  
+    //        dic: new Array(),
+    //        change: function (item) {
+    //            /// <summary>省份列表修改事件</summary>
+    //            for (var i = 0; i < $scope.SelectInfo.Province.dic.length; i++) {
+    //                if ($scope.SelectInfo.Province.dic[i].divCode == $scope.whPageInfo.Info.wHProvinceCode) {
+    //                    $scope.whPageInfo.Info.wHProvinceCodeName = $scope.SelectInfo.Province.dic[i].divName;
+    //                    $scope.whPageInfo.Info.wHCityCode = "";
+    //                    $scope.whPageInfo.Info.wHDistrictCode = "";
+    //                    $scope.SelectInfo.City.getCityList()// 市区下拉 
+    //                    return;
+    //                }
+    //            }
+    //        },
+    //        getProvinceList: function () {
+    //            /// <summary>获取省份列表</summary>
+    //            $Api.BasisService.GetadmdivisionList({ level: "1" }, function (rData) {
+    //                if (!rData.code) {
+    //                    $scope.SelectInfo.Province.dic = rData.rows;
+    //                    console.log(rData)
+    //                };
+    //            });
+    //        }
+    //    },
+    //    City: {
+    //        //市区类型下拉框  
+    //        dic: new Array(),
+    //        change: function (item) {
+    //            /// <summary>省份市区修改事件</summary>
+    //            for (var i = 0; i < $scope.SelectInfo.City.dic.length; i++) {
+    //                console.log($scope.whPageInfo.Info.wHCityCode)
+    //                if ($scope.SelectInfo.City.dic[i].divCode == $scope.whPageInfo.Info.wHCityCode) {
+    //                    $scope.whPageInfo.Info.wHCityCodeName = $scope.SelectInfo.City.dic[i].divName;
+    //                    $scope.whPageInfo.Info.wHDistrictCode = "";
+    //                    $scope.SelectInfo.District.getDistrictList()// 市区下拉 
+    //                    return;
+    //                }
+    //            }
+    //        },
+    //        getCityList: function () {
+    //            /// <summary>获取市区列表</summary>
+    //            if ($scope.whPageInfo.Info.wHProvinceCode) {
+    //                var option = { level: "2", parentDivCode: $scope.whPageInfo.Info.wHProvinceCode }
+    //                $Api.BasisService.GetadmdivisionList(option, function (rData) {
+    //                    $scope.SelectInfo.City.dic = rData.rows;
+    //                    console.log(rData)
+    //                });
+    //            } else {
+    //                $scope.SelectInfo.City.dic = new Array();
+    //            }
+    //        }
+    //    },
+    //    District: {
+    //        //区域类型下拉框  
+    //        dic: new Array(),
+    //        change: function (item) {
+    //            /// <summary>区域列表修改事件</summary>
+    //            for (var i = 0; i < $scope.SelectInfo.District.dic.length; i++) {
+    //                if ($scope.SelectInfo.District.dic[i].divCode == $scope.whPageInfo.Info.wHDistrictCode) {
+    //                    $scope.whPageInfo.Info.wHDistrictCodeName = $scope.SelectInfo.District.dic[i].divName;
+    //                    return;
+    //                }
+    //            }
+    //        },
+    //        getDistrictList: function () {
+    //            /// <summary>获取区域列表</summary>
+    //            if ($scope.whPageInfo.Info.wHCityCode && $scope.whPageInfo.Info.wHProvinceCode) {
+    //                var option = { level: "3", parentDivCode: $scope.whPageInfo.Info.wHCityCode }
+    //                $Api.BasisService.GetadmdivisionList(option, function (rData) {
+    //                    $scope.SelectInfo.District.dic = rData.rows;
+    //                    console.log(rData)
+    //                });
+    //            } else {
+    //                $scope.SelectInfo.District.dic = new Array();
+    //            }
+    //        }
+    //    },
+    //}
     $scope.whPageInfo.Load();
 })

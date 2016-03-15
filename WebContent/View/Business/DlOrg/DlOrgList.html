@@ -12,8 +12,8 @@
                 </span>
                 <div class="input-group" style="float:right;width:250px;margin-right:10px;">
                     <input type="text" class="form-control" placeholder="请输入经销商名称"
-                           style="padding:8px;" ng-model="DlOrgList.info.dLName">
-                    <a class="input-group-addon" href="javascript:void(0)" ng-click="DlOrgList.GetDlOrgList()"><i class="fa fa-search"></i></a>
+                           style="padding:8px;" ng-model="DlOrgJump.SearchWhere" ng-keyup="DlOrgJump.UpEnter($event)">
+                    <a class="input-group-addon" href="javascript:void(0)" ng-click="DlOrgJump.QueryDLList()"><i class="fa fa-search"></i></a>
                 </div>
             </header>
             <div class="main-box-body clearfix">
@@ -22,10 +22,10 @@
                         <thead>
                             <tr>
                                 <th><span>序号</span></th>
-                                <th><span>机构编码</span> </th>
+                                <th><span>组织编码</span> </th>
                                 <th><span>经销商名称</span></th>
                                 <th><span>经销商全称</span></th>
-                                <th><span>经销描述</span></th>
+                                <th><span>经销商描述</span></th>
                                 <th><span>认证状态</span></th>
                                 <th><span>有效状态</span></th>
                             </tr>

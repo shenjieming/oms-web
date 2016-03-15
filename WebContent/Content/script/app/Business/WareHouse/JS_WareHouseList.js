@@ -26,7 +26,7 @@ app.controller("WareHouseListController", function ($scope, $state, $local, $Api
         },
         Edit: function () {
             /// <summary>仓库编辑</summary>
-            var whopt = $scope.getSelectedRow()
+            var whopt = $local.getSelectedRow($scope.WareHouseList.info)
             if (whopt) {
                 $state.go("app.business.whmanagementEduit", { whopt: whopt.orgCode });
             } else {
@@ -34,9 +34,9 @@ app.controller("WareHouseListController", function ($scope, $state, $local, $Api
             }
         
         },
-        View: function () {
+        View: function (row) {
             /// <summary>仓库详情</summary>
-            var whopt = $scope.getSelectedRow()
+            var whopt = row ? row : $local.getSelectedRow($scope.WareHouseList.info);
             if (whopt) {
                 $state.go("app.business.whmanagementView", { whopt: whopt.orgCode });
             } else {
@@ -44,16 +44,6 @@ app.controller("WareHouseListController", function ($scope, $state, $local, $Api
             }
         },
     },
-    $scope.getSelectedRow = function () {
-        /// <summary>获取选择的行</summary>
-        var result = false;
-        $.each($scope.WareHouseList.info, function (index, item) {
-            if (item.isSelected) {
-                result = item;
-            }
-        });
-        return result;
-    }
     $scope.Pagein = {
         pageSize: 10,
         pageIndex: 1,

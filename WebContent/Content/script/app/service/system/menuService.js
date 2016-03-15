@@ -53,7 +53,7 @@ app.factory("$MenuService", function ($http, $local) {
             { name: "经销商管理", url: "#/app/business/dlorganization", state: "app.business.dlorganization" },
             { name: "货主管理", url: "#/app/business/oiorganization", state: "app.business.oiorganization" },
             { name: "医院管理", url: "#/app/business/hplmanagement", state: "app.business.hplmanagement" },
-            { name: "科室管理", url: "#/app/business/dptmanagement", state: "app.business.dptmanagement" },
+            //{ name: "科室管理", url: "#/app/business/dptmanagement", state: "app.business.dptmanagement" },
             { name: "医生管理", url: "#/app/business/dtrmanagement", state: "app.business.dtrmanagement" },
             { name: "厂商管理", url: "#/app/business/ftymanagement", state: "app.business.ftymanagement" },
             { name: "仓库管理", url: "#/app/business/whmanagement", state: "app.business.whmanagement" },

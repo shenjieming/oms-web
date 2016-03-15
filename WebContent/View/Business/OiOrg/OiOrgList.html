@@ -8,13 +8,13 @@
                     <a class="btn btn-primary" ng-click="Service.Add()">新增</a>
                     <a class="btn btn-primary" ng-click="Service.Edit()">编辑</a>
                     <a class="btn btn-primary" ng-click="Service.View()">详情</a>
-                    <a class="btn btn-primary" ng-click="RelManList.Detect()">删除</a>
+                    <a class="btn btn-primary" ng-click="Service.Detect()">删除</a>
                     <a class="btn btn-primary" ng-click="Service.RelMan()">经销商信息</a>
                 </span>
                 <div class="input-group" style="float:right;width:250px;margin-right:10px;">
-                    <input type="text" class="form-control" placeholder="请输入货主名称"
-                           style="padding:8px;" ng-model="OiOrgList.info.oIName">
-                    <a class="input-group-addon" href="javascript:void(0)" ng-click="OiOrgList.GetOiOrgList()"><i class="fa fa-search"></i></a>
+                    <input type="text" class="form-control" placeholder="请输入货主名称或货主简码"
+                           style="padding:8px;" ng-model="Service.SearchOiWhere" ng-keyup="Service.UpEnter($event)">
+                    <a class="input-group-addon" href="javascript:void(0)" ng-click="Service.QueryOiList()"><i class="fa fa-search"></i></a>
                 </div>
             </header>
             <div class="main-box-body clearfix">
@@ -32,7 +32,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in OiOrgList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                            <tr ng-repeat="row in OiOrgList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="Service.View(row)">
                                 <td>{{$index+1}}</td>
                                 <td><span>{{row.orgCode}}</span></td>
                                 <td><span>{{row.oIShortCode}}</span></td>
@@ -47,50 +47,54 @@
                 <div ng-pagein="page" ng-model="Pagein"></div>
             </div>
         </div>
-        <div ng-slide="RelManList.IsEdit" >
+        <div ng-slide="RelManList.IsEdit">
             <div class="main-box clearfix">
                 <header class="main-box-header clearfix">
-                    <h2 class="pull-left">货主经销商管理列表</h2>
+                    <h2 class="pull-left">[{{RelManList.relorgCode.oIName}}]关联经销商管理</h2>
                     <span style="float:right;">
-                        <a class="btn btn-primary" ng-click="Service.isEdit(false)"><i class="fa  fa-reply"></i> 返回</a>
+                        <a class="btn btn-primary" ng-click="RelManList.goDlView()">详情</a>
                     </span>
+                    <div class="input-group" style="float:right;width:250px;margin-right:50px;">
+                        <input type="text" class="form-control" placeholder="请输入经销商编码或名称"
+                               style="padding:8px;" ng-model="RelManList.SearchWhere" ng-keyup="RelManList.UpEnter($event)">
+                        <a class="input-group-addon" href="javascript:void(0)" ng-click="RelManList.QueryOiList()"><i class="fa fa-search"></i></a>
+                    </div>
                 </header>
                 <div class="main-box-body clearfix">
                     <div class="table-responsive list-box" style="min-height:450px">
-                        <table class="table table-bordered table-striped" st-table="RelManList.info">
+                        <table class="table table-bordered table-striped" st-table="RelManList.info" >
                             <thead>
                                 <tr>
-                                    <th><span>序号</span></th>
-                                    <th><span>货主名称</span></th>
+                                    <th><span>序号</span></th>                                 
+                                    <th><span>组织编码</span></th>
                                     <th><span>经销商名称</span></th>
-                                    <th><span>经销商编码</span></th>
-                                    <th><span>备货名称</span></th>
-                                    <th><span>交易状态</span></th>
+                                    <th><span>经销商类型</span></th>
+                                    <th><span>是否备货</span></th>
+                                    <th><span>是否可以交易</span></th>
                                     <th><span>认证状态</span></th>
+                                    <th><span>操作</span></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="row in RelManList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
-                                    <td>{{$index+1}}</td>
-                                    <td><span>{{row.oIOrgCodeName}}</span></td>
+                                <tr ng-repeat="row in RelManList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="RelManList.goDlView(row)">
+                                    <td>{{$index+1}}</td>                                  
+                                    <td><a ng-click="RelManList.goDlView(row)"><span>{{row.dLOrgCode}}</span></a></td>
                                     <td><span>{{row.dLName}}</span></td>
-                                    <td><span>{{row.dLDesc}}</span></td>
+                                    <td><span>{{row.dLTypeName}}</span></td>
                                     <td><span>{{row.hasInventoryName}}</span></td>
                                     <td><span>{{row.isDealName}}</span></td>
-                                    <td>
-                                        <span>
-                                            <input type="checkbox" id="checkbox_c{{$index}}" class="chkbox" ng-change="UserStatus(row)" ng-checked="RelManList.info[{{$index}}].isEnable" ng-model="RelManList.info.isEnable" /><label for="checkbox_c{{$index}}" style="float:left;"></label>
-                                            <span style="float:left;" ng-show="RelManList.info[{{$index}}].isEnable "> 已认证 </span>
-                                            <span style="float:left;" ng-show="!RelManList.info[{{$index}}].isEnable "> 未认证 </span>
-                                        </span>
-                                    </td>
+                                    <td><span>{{row.certStatus=="APPRED"?"已绑定":"未绑定"}}</span></td>
+                                    <td><a ng-click="RelManList.Select(row)" ng-change="RelManList.Select(row)" ng-model="row.isClick">{{row.certStatus=="APPRED"?"点击解绑":"点击绑定"}} </a></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div ng-pagein="page" ng-model="Pagein"></div>
+                    <span class="btn-group oms-btn-group" style="float:right;">
+                        <a class="btn btn-primary" ng-click="Service.isEdit(false)"><i class="fa  fa-reply"></i> 返回</a>
+                    </span>
                 </div>
             </div>
         </div>
-        </div>
+    </div>
 </div>

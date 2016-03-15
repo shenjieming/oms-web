@@ -8,24 +8,21 @@
 /// <reference path="../Config.js" />
 
 app.controller("OiOrgListController", function ($scope, $state, $local, $Api, $MessagService) {
+    $scope.relorgCode = [];
     $scope.RelManList = {
         //货主和下属经销商关系绑定
         info:[],
         IsEdit: false,
         GetRelManList:function () {
             /// <summary>获取货主经销商关系列表</summary>
-            var relorgCode =[];
-            relorgCode = $scope.getSelectedRow();
-            if (relorgCode) {
-                var paramData = $.extend({ orgCode: relorgCode.orgCode }, $scope.Pagein);
+            $scope.relorgCode = $local.getSelectedRow($scope.OiOrgList.info)
+            console.log($scope.relorgCode)
+            if ($scope.relorgCode) {
+                var paramData = $.extend({ oIorgCode: $scope.relorgCode.orgCode }, $scope.Pagein);
+                console.log(paramData)
                 $Api.ManageOIDLRel.GetqueryAllOIDLRel(paramData, function (rData) {
                     $scope.RelManList.info = rData.rows;
                     $scope.Pagein.total = rData.total;
-                    for (var i = 0; i < $scope.RelManList.info.length; i++) {
-                        if ($scope.RelManList.info[i].certStatusName == "已认证") {
-                            $scope.RelManList.info[i].isEnable = true;
-                        }
-                    }
                     console.log($scope.RelManList.info)
                 })
             } else {
@@ -33,42 +30,65 @@ app.controller("OiOrgListController", function ($scope, $state, $local, $Api, $M
                 $scope.RelManList.IsEdit = false;
             }
         },
-        getSelectedRow:function () {
-            /// <summary>获取选择的行</summary>
-            var result = false;
-            $.each($scope.RelManList.info, function (index, item) {
-                if (item.isSelected) {
-                    result = item;
+        Delete: function () {
+            /// <summary>删除套件</summary>
+            var row = row ? row : $local.getSelectedRow($scope.RelManList.info)
+            console.log(row)
+            if (row) {
+                if (confirm("您确认要解除该经销商绑定吗?")) {
+                    row.certStatus = "Y" ? "N" : "Y";
+                    console.log(row)
+                    $Api.ManageOIDLRel.GetdeleteOwnerOfInventory(row, function () {
+                        $MessagService.succ("该操作成功！");
+                        $scope.RelManList.GetRelManList();
+                    });
                 }
-            });
-            return result;
+            } else {
+                $MessagService.caveat("请选择一条需要操作的经销商信息！");
+            }
         },
-        Detect: function () {
-            var orgCode = $scope.getSelectedRow();
-            $Api.ManageOi.GetdeleteOwnerOfInventory({ orgCode: orgCode.orgCode }, function (rData) {
-                $MessagService.succ("该信息删除成功！")
-                $scope.OiOrgList.GetOiOrgList();
-            })
+        goDlView: function (row) {
+            var dlopt=row?row :$local.getSelectedRow($scope.RelManList.info)
+            if (dlopt) {
+                $state.go("app.business.dlorganizationView", { dlopt: dlopt.dLOrgCode });
+            } else {
+                $MessagService.caveat("请选择一条查看的经销商数据！")
+            }
+        },
+        Select: function (row) {
+           console.log(row)
+           if (confirm("您确认要操作该经销商绑定关系吗?")) {
+               if (row.certStatus == "APPRED") {
+                   row.certStatus = "N";
+               } else {
+                   row.certStatus = "Y";
+               }
+                    console.log(row)
+                    $Api.ManageOIDLRel.GetdeleteOwnerOfInventory(row, function () {
+                        $MessagService.succ("该操作成功！");
+                        $scope.ManageOIDLRel.GetqueryAllOIDLRel();
+                    });
+                }            
+        },
+        QueryOiList: function () {
+            /// <summary>查询认证列表</summary>
+            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1,  dLName: $scope.RelManList.SearchWhere });
+            $scope.RelManList.GetRelManList();
+        },
+        UpEnter: function (e) {
+            /// <summary>点击回车事件</summary>
+            var keycode = window.event ? e.keyCode : e.which;
+            if (keycode == 13) {
+                $scope.RelManList.QueryOiList();
+            }
         }
     };
-    $scope.UserStatus = function (row) {
-        $scope.RelManList.info = row ? row : $scope.RelManList.getSelectedRow();
-        $scope.RelManList.info.isEnable = !$scope.RelManList.info.isEnable;
-        $scope.RelManList.info.certStatus = $scope.RelManList.info.isEnable?"Y":"N"
-        console.log($scope.RelManList.info)
-        $Api.ManageOIDLRel.GetdeleteOwnerOfInventory($scope.RelManList.info, function (rData) {
-            $MessagService.caveat("用户状态修改成功！")
-            $scope.RelManList.GetRelManList();
-        })
-    }
-
-
     $scope.OiOrgList = {
         info: [],
         GetOiOrgList: function () {
             /// <summary>获取货主列表</summary>
-            var paramData = $.extend({ oIName: $scope.OiOrgList.info.oIName }, $scope.Pagein);
-            $Api.ManageOi.GetqueryAllOwnerOfInventory(paramData, function (rData) {
+            var paramData = $.extend({}, $scope.Pagein);
+            $Api.ManageOi.GetqueryAllOwnerOfInventory( $scope.Pagein, function (rData) {
                 $scope.OiOrgList.info = rData.rows;
                 $scope.Pagein.total = rData.total;
             })
@@ -90,9 +110,9 @@ app.controller("OiOrgListController", function ($scope, $state, $local, $Api, $M
             }
        
         },
-        View: function () {
+        View: function (row) {
             /// <summary>货主详情</summary>
-            var oiopt = $scope.getSelectedRow()
+            var oiopt = row ? row : $local.getSelectedRow($scope.OiOrgList.info);
             if (oiopt) {
                 $state.go("app.business.oiorganizationView", { oiopt: oiopt.orgCode });
             }
@@ -105,8 +125,29 @@ app.controller("OiOrgListController", function ($scope, $state, $local, $Api, $M
             $scope.RelManList.IsEdit = isshow;
         },
         RelMan: function () {
+            //经销商关系
             $scope.Service.isEdit(true);
             $scope.RelManList.GetRelManList();
+        },
+        Detect: function () {
+            //删除货主信息
+            var orgCode = $scope.getSelectedRow();
+            $Api.ManageOi.GetdeleteOwnerOfInventory({ orgCode: orgCode.orgCode }, function (rData) {
+                $MessagService.succ("该货主已删除成功！")
+                $scope.OiOrgList.GetOiOrgList();
+            })
+        },
+        QueryOiList: function () {
+            /// <summary>查询经销商列表</summary>
+            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, oIShortCode: $scope.Service.SearchOiWhere, oIName: $scope.Service.SearchOiWhere });
+            $scope.OiOrgList.GetOiOrgList();
+        },
+        UpEnter: function (e) {
+            /// <summary>点击回车事件</summary>
+            var keycode = window.event ? e.keyCode : e.which;
+            if (keycode == 13) {
+                $scope.Service.QueryOiList();
+            }
         }
     },
     $scope.getSelectedRow = function () {
