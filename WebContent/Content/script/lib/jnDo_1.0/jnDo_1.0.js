@@ -183,6 +183,22 @@ angular.module('jnDo', [])
             }
         };
     })
+    .directive("ngShowData", function () {
+        /// <summary>显示日期控件</summary>
+        return {
+            restrict: 'EA',
+            template: " <label class=\"input-group\" style=\"display: inline-table;width:180px;\">" +
+                                        "<input type=\"text\" class=\"form-control\" placeholder=\"请选择时间\" style=\"padding:8px;\" ng-datatime=\"\" ng-model=\"ngModel\">" +
+                                        "<span class=\"input-group-addon\"><i class=\"fa fa-calendar\"></i></span>" +
+                                    "</div>",
+            scope: { ngShowData: '=', ngModel: '=' }, //模型对象
+            replace: true,
+            link: function ($scope, element, attrs) {
+                /// <summary>初始化事件</summary>
+
+            }
+        }
+    })
     .directive("ngTree", function () {
         /// <summary>多选控件</summary>
         return {
@@ -208,7 +224,8 @@ angular.module('jnDo', [])
         /// <summary>近期控件</summary>
         return {
             restrict: 'EA',
-            template: " <span class=\"input-group\" style=\"line-height:35px;\">" +
+            template: "<span class=\"input-group\" style=\"line-height:35px;\">" +
+                    "<a href=\"javascript:void()\" ng-click=\"Service.GetClickData(false)\">全部</a>  &nbsp;" +
                     "<a href=\"javascript:void()\" ng-click=\"Service.GetClickData(7)\">近一周</a>  &nbsp;" +
                     "<a href=\"javascript:void()\" ng-click=\"Service.GetClickData(30)\">近一个月</a> &nbsp;" +
                     "<a href=\"javascript:void()\" ng-click=\"Service.GetClickData(365)\">近一年</a> &nbsp;" +
@@ -221,16 +238,12 @@ angular.module('jnDo', [])
                 $scope.Service = {
                     GetClickData: function (start) {
                         /// <summary>获取点击的天数</summary>
-                        var data = {
-                            StartDay: $AppHelp.Data.GetDate(start, 0, "start"),
-                            EndDay: $AppHelp.Data.GetDate(0, 0, "end"),
-                        }
-                        if ($scope.ngNeardata) {
-                            $scope.ngNeardata(data)
-                        }
+                        var data = { StartDay: "", EndDay: "" };
+                        //全部的话不需要传递时间参数
+                        if (start) { data = { StartDay: $AppHelp.Data.GetDate(start, 0, "start"), EndDay: $AppHelp.Data.GetDate(0, 0, "end"), } }
+                        if ($scope.ngNeardata) { $scope.ngNeardata(data) }
                     }
                 }
-                
             }
         }
     })
@@ -335,86 +348,86 @@ angular.module('jnDo', [])
         return service;
     })
     .service("$AppHelp", function ($MessagService) {
-    /// <summary>应用程序帮助</summary>
-    var AppHelpService = {
-        ///<summary>应用程序帮助工具类</summary>
-        Tool: {
-            ToBack: function (url) {
-                ///<summary>返回上一页</summary>  
-                if (url) { window.location.href = url; } else { window.location.href = document.referrer; }
-            },
-            GetQueryString: function (name) {
-                ///<summary>获取URL里面的数据</summary>
-                ///<param name="name" type="string">URL数据里面的参数名</param>
-                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); var r = decodeURI(window.location.search.substr(1)).match(reg); if (r != null) { return unescape(r[2]); } return null;
-            },
-            StrToJson: function (str) {
-                ///<summary>将字符串对象转换成json对象</summary>
-                ///<param name="str" type="string">转换的字符串</param>
-                try { return eval("(" + str + ")"); } catch (e) { return null; }
-            },
-            ContrastList: function (obj, toObj) {
-                ///<summary>判断数据是否相同</summary>
-                if (obj && obj.length > 0) { var flg = false; for (var i = 0; i < obj.length; i++) { if (obj[i] == toObj) { flg = true; break; } } return flg; } else { return true; }
-            }
-        },
-        Data: {
-            ///<summary>时间处理</summary>
-            DataToStr: function (data, type) {
-                ///<summary>将时间转换成字符串格式</summary>
-                ///<param name="data" type="data">转换成字符串形式的日期</param>
-                var myYear = data.getFullYear(); var myMonth = data.getMonth(); var myDay = data.getDate(); var myHours = data.getHours();
-                var myMinute = data.getMinutes(); var mySecond = data.getSeconds();
-                //如果月份大于12 ，年加1，月份减12
-                if (myMonth > 12) { myYear++; myMonth = myMonth - 12; }
-                //如果天数大于28并且是2月份的话 如果天大于30的话，4,6,9,11月返回三十,其他时间返回31
-                if (myDay > 28 && myMonth == 1) {
-                    //闰年 天数为29 平年天数为28 
-                    if (((myYear % 4 == 0) && (myYear % 100 != 0)) || (myYear % 400 == 0)) { myDay = 29; } else { myDay = 28; }
-                }
-                else if (myDay > 30) { switch (myMonth) { case 4: case 6: case 9: case 11: myDay = 30; break; default: myDay = 31; break; } }
-                switch (type) {
-                    //返回年和月的形式
-                    case "1": return myYear + "-" + (myMonth + 1); break;
-                        //返回全时间格式，精确到秒
-                    case "2": return myYear + "-" + (myMonth + 1) + "-" + myDay + " " + myHours + ":" + myMinute + ":" + mySecond; break;
-                        //返回全时间格式，精确到小时
-                    case "3": return myYear + "-" + (myMonth + 1) + "-" + myDay + " " + myHours + ":00:00"; break;
-                        //开始时间
-                    case "start": return myYear + "-" + (myMonth + 1) + "-" + myDay + " 00:00:00"; break;
-                        //结束时间
-                    case "end": return myYear + "-" + (myMonth + 1) + "-" + myDay + " 23:59:59"; break;
-                    case "unique": return myYear + "" + (myMonth + 1) + "" + myDay + "" + myHours + "" + myMinute + "" + mySecond; break;
-                        //默认情况
-                    default: return myYear + "-" + (myMonth + 1) + "-" + myDay; break;
+        /// <summary>应用程序帮助</summary>
+        var AppHelpService = {
+            ///<summary>应用程序帮助工具类</summary>
+            Tool: {
+                ToBack: function (url) {
+                    ///<summary>返回上一页</summary>  
+                    if (url) { window.location.href = url; } else { window.location.href = document.referrer; }
+                },
+                GetQueryString: function (name) {
+                    ///<summary>获取URL里面的数据</summary>
+                    ///<param name="name" type="string">URL数据里面的参数名</param>
+                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); var r = decodeURI(window.location.search.substr(1)).match(reg); if (r != null) { return unescape(r[2]); } return null;
+                },
+                StrToJson: function (str) {
+                    ///<summary>将字符串对象转换成json对象</summary>
+                    ///<param name="str" type="string">转换的字符串</param>
+                    try { return eval("(" + str + ")"); } catch (e) { return null; }
+                },
+                ContrastList: function (obj, toObj) {
+                    ///<summary>判断数据是否相同</summary>
+                    if (obj && obj.length > 0) { var flg = false; for (var i = 0; i < obj.length; i++) { if (obj[i] == toObj) { flg = true; break; } } return flg; } else { return true; }
                 }
             },
-            GetDate: function (day, newData, type, Minutes) {
-                ///<summary>获取日期</summary>
-                ///<param name="day" type="int" >差异天数，整数为往前推，负数为往后推</param>
-                ///<param name="newData" type="data">要算的差异天数,空则为当前时间</param>
-                ///<param name="type" type="string">返回的时间string类型</param>
-                ///<param name="Minutes" type="int">差异分钟数，整数为往前推，负数为往后推,空则没有差异时间</param>
-                var myDate = new Date();
-                //如果算差异天使不为空的话，日期对象用差异天数的对象的数值
-                if (newData) { myDate = new Date(Date.parse(newData.replace(/-/g, '/'))); }
-                //如果差异天数是0，并且没有差异分钟数的话
-                if (day == 0 && !Minutes) { return AppHelpService.Data.DataToStr(myDate, type); }
-                else {
-                    //算差异时间标准时
-                    var Difference = day * 1000 * 60 * 60 * 24;
-                    //如果差异分钟数存在
-                    if (Minutes) { Difference = Difference + (Minutes * 1000 * 60); } var data1 = Date.parse(myDate.getFullYear() + "/" + (parseInt(myDate.getMonth()) + 1) + "/" + myDate.getDate() + " " + myDate.getHours() + ":" + myDate.getMinutes() + ":" + myDate.getSeconds()); var dat = new Date(data1 - Difference); return AppHelpService.Data.DataToStr(dat, type);
+            Data: {
+                ///<summary>时间处理</summary>
+                DataToStr: function (data, type) {
+                    ///<summary>将时间转换成字符串格式</summary>
+                    ///<param name="data" type="data">转换成字符串形式的日期</param>
+                    var myYear = data.getFullYear(); var myMonth = data.getMonth(); var myDay = data.getDate(); var myHours = data.getHours();
+                    var myMinute = data.getMinutes(); var mySecond = data.getSeconds();
+                    //如果月份大于12 ，年加1，月份减12
+                    if (myMonth > 12) { myYear++; myMonth = myMonth - 12; }
+                    //如果天数大于28并且是2月份的话 如果天大于30的话，4,6,9,11月返回三十,其他时间返回31
+                    if (myDay > 28 && myMonth == 1) {
+                        //闰年 天数为29 平年天数为28 
+                        if (((myYear % 4 == 0) && (myYear % 100 != 0)) || (myYear % 400 == 0)) { myDay = 29; } else { myDay = 28; }
+                    }
+                    else if (myDay > 30) { switch (myMonth) { case 4: case 6: case 9: case 11: myDay = 30; break; default: myDay = 31; break; } }
+                    switch (type) {
+                        //返回年和月的形式
+                        case "1": return myYear + "-" + (myMonth + 1); break;
+                            //返回全时间格式，精确到秒
+                        case "2": return myYear + "-" + (myMonth + 1) + "-" + myDay + " " + myHours + ":" + myMinute + ":" + mySecond; break;
+                            //返回全时间格式，精确到小时
+                        case "3": return myYear + "-" + (myMonth + 1) + "-" + myDay + " " + myHours + ":00:00"; break;
+                            //开始时间
+                        case "start": return myYear + "-" + (myMonth + 1) + "-" + myDay + " 00:00:00"; break;
+                            //结束时间
+                        case "end": return myYear + "-" + (myMonth + 1) + "-" + myDay + " 23:59:59"; break;
+                        case "unique": return myYear + "" + (myMonth + 1) + "" + myDay + "" + myHours + "" + myMinute + "" + mySecond; break;
+                            //默认情况
+                        default: return myYear + "-" + (myMonth + 1) + "-" + myDay; break;
+                    }
+                },
+                GetDate: function (day, newData, type, Minutes) {
+                    ///<summary>获取日期</summary>
+                    ///<param name="day" type="int" >差异天数，整数为往前推，负数为往后推</param>
+                    ///<param name="newData" type="data">要算的差异天数,空则为当前时间</param>
+                    ///<param name="type" type="string">返回的时间string类型</param>
+                    ///<param name="Minutes" type="int">差异分钟数，整数为往前推，负数为往后推,空则没有差异时间</param>
+                    var myDate = new Date();
+                    //如果算差异天使不为空的话，日期对象用差异天数的对象的数值
+                    if (newData) { myDate = new Date(Date.parse(newData.replace(/-/g, '/'))); }
+                    //如果差异天数是0，并且没有差异分钟数的话
+                    if (day == 0 && !Minutes) { return AppHelpService.Data.DataToStr(myDate, type); }
+                    else {
+                        //算差异时间标准时
+                        var Difference = day * 1000 * 60 * 60 * 24;
+                        //如果差异分钟数存在
+                        if (Minutes) { Difference = Difference + (Minutes * 1000 * 60); } var data1 = Date.parse(myDate.getFullYear() + "/" + (parseInt(myDate.getMonth()) + 1) + "/" + myDate.getDate() + " " + myDate.getHours() + ":" + myDate.getMinutes() + ":" + myDate.getSeconds()); var dat = new Date(data1 - Difference); return AppHelpService.Data.DataToStr(dat, type);
+                    }
+                },
+                GetDifferenceData: function (data1, data2) {
+                    ///<summary>获取时间之间的差异</summary>
+                    ///<param name="data1" type="Datastring">参照时间</param>
+                    ///<param name="data2" type="Datastring">对比时间</param>
+                    if (data2) { var ReferenceTime = Date.parse(data1.replace(/-/g, '/')); var temp = data2 ? data2 : (new Date()).getDate(); var ContrastTime = Date.parse(data2.replace(/-/g, '/')); var newData = ReferenceTime - ContrastTime; return (newData / 60 / 1000); } else { return 0; }
                 }
-            },
-            GetDifferenceData: function (data1, data2) {
-                ///<summary>获取时间之间的差异</summary>
-                ///<param name="data1" type="Datastring">参照时间</param>
-                ///<param name="data2" type="Datastring">对比时间</param>
-                if (data2) { var ReferenceTime = Date.parse(data1.replace(/-/g, '/')); var temp = data2 ? data2 : (new Date()).getDate(); var ContrastTime = Date.parse(data2.replace(/-/g, '/')); var newData = ReferenceTime - ContrastTime; return (newData / 60 / 1000); } else { return 0; }
             }
         }
-    }
 
-    return AppHelpService;
-})
+        return AppHelpService;
+    })

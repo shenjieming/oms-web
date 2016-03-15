@@ -288,13 +288,33 @@ label > input[type='text'], label select {
                 display: flex;
             }
 
-                .row-fluid .widget-box .widget-content .control-group > label {
+                .row-fluid .widget-box .widget-content .control-group > label ,
+                .row-fluid .widget-box .widget-content .control-group > .Vessel{
                     text-align: left;
                     padding-left: 3%;
                     width: 30%;
                     padding-top: 8px;
                     float: left;
                 }
+
+                    .row-fluid .widget-box .widget-content .control-group > label.Others,
+                    .row-fluid .widget-box .widget-content .control-group > .Vessel.Others {
+                        width: 39%;
+                    }
+                    .row-fluid .widget-box .widget-content .control-group > label .Text,
+                    .row-fluid .widget-box .widget-content .control-group > .Vessel .Text {
+                        line-height: 35px;
+                        float: left;
+                    }
+
+                    .row-fluid .widget-box .widget-content .control-group > label .Left,
+                    .row-fluid .widget-box .widget-content .control-group > .Vessel .Left {
+                        float: left;
+                    }
+                     .row-fluid .widget-box .widget-content .control-group > label .Right,
+                    .row-fluid .widget-box .widget-content .control-group > .Vessel .Right {
+                        float: right;
+                    }
 
 .inp-chk {
     line-height: 20px;
