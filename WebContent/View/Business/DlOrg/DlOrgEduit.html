@@ -1,6 +1,6 @@
 ﻿<div class="row">
     <div class="tools">
-        <h5 style="float:left;">经销商信息</h5>
+        <h5 style="float:left;">经销商详情</h5>
         <span style="float:right;">
             <a class="btn btn-primary" ng-click="dlPageInfo.Save()"><i class="fa fa-save"></i> 保存</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
@@ -10,15 +10,15 @@
         <div class="widget-box">
             <div class="widget-title bg_ly" data-toggle="collapse" href="#PersonalInformation">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5>个人信息</h5>
+                <h5>经销商信息</h5>
             </div>
             <div class="widget-content nopadding collapse in" id="PersonalInformation">
                 <div class="control-group ">
                     <label>
                         <span class="required">*</span> 经销商名称：<input type="text" ng-model="dlPageInfo.Info.dLName" placeholder="请输入经销商名" />
                     </label>
-                    <label>
-                        <span class="required">*</span>经销商全称：<input type="text" ng-model="dlPageInfo.Info.dLFullName" placeholder="请输入经销全称" />
+                    <label style="width:60%">
+                        <span class="required">*</span>经销商全称：<input type="text" style="width:84%" ng-model="dlPageInfo.Info.dLFullName" placeholder="请输入经销全称" />
                     </label>
                 </div>
                 <div class="control-group">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        <span style="float:left">经销商备注：</span>
+                        <span style="float:left;margin-right:8px;">备注信息 ：</span>
                         <textarea class="box-80" ng-model="dlPageInfo.Info.remark" placeholder="请输入该经销商备注信息"></textarea>
                     </label>
                 </div>
@@ -45,7 +45,8 @@
                         <span class="required">*</span> 注册名称：<input type="text" ng-model="dlPageInfo.Info.corpRegCompanyName" placeholder="请输入注册名称" />
                     </label>
                     <label>
-                        <span class="required">*</span>注册编码：<input type="text" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="18" ng-model="dlPageInfo.Info.corpRegNo" placeholder="请输入注册编码" />
+                        <span class="required">*</span>注册编码：<input type="text" onkeyup="value=value.replace(/[^\w\.\-\/]/ig,'')" maxlength="18" ng-model="dlPageInfo.Info.corpRegNo
+                                                                   " placeholder="请输入注册编码" />
                     </label>
                     <label>
                         <span class="required">*</span>注册币别：
@@ -56,17 +57,17 @@
                 </div>
                 <div class="control-group ">
                     <label style="width:60%">
-                        <span class="required">*</span>行政区域:<span ng-area="" ng-model="dlPageInfo.Info"></span>
+                        <span class="required">*</span>行政区域：<span ng-area="" ng-model="dlPageInfo.Info"></span>
                     </label>
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        <span class="required">*</span>行政地址：{{dlPageInfo.Info.corpRegProvinceCodeName}} {{dlPageInfo.Info.corpRegCityCodeName}} {{dlPageInfo.Info.corpRegDistrictCodeName}}  <input type="text" style="width:60%" ng-model="dlPageInfo.Info.corpRegAddress" placeholder="请输入该企业地址" />
+                        <span class="required">*</span>行政地址： <input type="text" style="width:80%;margin-left:-6px;" ng-model="dlPageInfo.Info.corpRegAddress" placeholder="请输入该企业地址" />
                     </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                        注册资本：<input type="text" ng-model="dlPageInfo.Info.BackPackcorpRegCapital" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="10"
+                        注册资本：<input type="text" ng-model="dlPageInfo.Info.BackPackcorpRegCapital" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="8"
                                     placeholder=" 请输入注册资本" />(万元)
                     </label>
                     <label>
@@ -82,7 +83,8 @@
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        经营范围：<input type="text" style="width:80%" ng-model="dlPageInfo.Info.corpRegBizScope" placeholder="请输入经营范围" />
+                        <span style="float:left;">经营范围：</span>
+                        <textarea class="box-80" ng-model="dlPageInfo.Info.corpRegBizScope" placeholder="请输入该经销商经营范围"></textarea>
                     </label>
                 </div>
             </div>

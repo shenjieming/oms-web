@@ -1,6 +1,6 @@
 ﻿<div class="row">
     <div class="tools">
-        <h5 style="float:left;">医院操作</h5>
+        <h5 style="float:left;">医院详情</h5>
         <span style="float:right;">
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
@@ -14,56 +14,36 @@
             <div class="widget-content nopadding collapse in" id="PersonalInformation">
                 <div class="control-group ">
                     <label>
-                        医院名称:{{Hospital.Info.hPName}}
+                        医院名称：{{Hospital.Info.hPName}}
                     </label>
                     <label>
-                        医院全称:{{Hospital.Info.hPFullName}}
+                        医院全称：{{Hospital.Info.hPFullName}}
                     </label>
                     <label>
-                        等级编码:{{Hospital.Info.hPLevel}}
-                    </label>
-                </div>
-                <div class="control-group ">
-                    <label>
-                        医院总机:{{Hospital.Info.hPTel}}
-                    </label>
-                    <label>
-                        备&nbsp;&nbsp;注:{{Hospital.Info.remark}}
-                    </label>
-                    <label>
-                        操作状态:{{Hospital.Info.validStatus=="Y"?"有效":"无效"}}
+                        等级编码：{{Hospital.Info.hPLevelName}}
                     </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                        医院邮编:{{Hospital.Info.hPPostcode}}
-                    </label>
-                    <label>
-                        医院描述:{{Hospital.Info.hPDesc}}
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="widget-box">
-            <div class="widget-title bg_ly" data-toggle="collapse" href="#RegistrationInformation">
-                <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5>医院地址</h5>
-            </div>
-            <div class="widget-content nopadding collapse in" id="RegistrationInformation">
-                <div class="control-group ">
-                    <label>
-                        所在省份:{{Hospital.Info.hPProvinceCodeName}}
-                    </label>
-                    <label>
-                        所在市级:{{Hospital.Info.hPCityCodeName}}
-                    </label>
-                    <label>
-                        所在区县:{{Hospital.Info.hPDistrictCodeName}}
+                        行政地址：{{Hospital.Info.hPProvinceCodeName}}  {{Hospital.Info.hPProvinceCodeName}}  {{Hospital.Info.hPProvinceCodeName}}  （{{Hospital.Info.hPAddress}}）
                     </label>
                 </div>
                 <div class="control-group ">
                     <label>
-                        所在地址:{{Hospital.Info.hPAddress}}
+                        医院总机：{{Hospital.Info.hPTel}}
+                    </label>
+                    <label>
+                        医院邮编：{{Hospital.Info.hPPostcode}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        医院描述：{{Hospital.Info.hPDesc}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        备注信息：{{Hospital.Info.remark}}
                     </label>
                 </div>
             </div>

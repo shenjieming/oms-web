@@ -1,8 +1,8 @@
 ﻿<div class="row">
     <div class="tools">
-        <h5 style="float:left;">医院操作</h5>
+        <h5 style="float:left;">医院详情</h5>
         <span style="float:right;">
-            <a class="btn btn-primary" ng-click="HplPageInfo.Save()"> <i class="fa fa-save"></i>保存</a>
+            <a class="btn btn-primary" ng-click="HplPageInfo.Save()"> <i class="fa fa-save"></i> 保存</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
@@ -21,70 +21,48 @@
                         <span class="required">*</span>医院全称：<input type="text" ng-model="HplPageInfo.Info.hPFullName" placeholder="请输入医院全称" />
                     </label>
                     <label>
-                        <span class="required">*</span>等级编码：<input type="text" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')"  ng-model="HplPageInfo.Info.hPLevel" placeholder="请输入医院等级编码" />
+                        <span class="required">*</span>等级编码：
+                        <select ng-model="HplPageInfo.Info.hPLevel" style="min-width:140px">
+                            <option value="">请选择等级编码</option>
+                            <option ng-repeat="item in SelectInfo.Hosptail.dic" ng-selected="item.id==HplPageInfo.Info.hPLevel" value="{{item.id}}">{{item.text}}</option>
+                        </select>
                     </label>
                 </div>
                 <div class="control-group ">
-                    <label>
-                        医院总机：<input type="text" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')" ng-model="HplPageInfo.Info.hPTel" placeholder="请输入医院总机" />
-                    </label>
-                    <label>
-                      备&nbsp;&nbsp;注：<input type="text" ng-model="HplPageInfo.Info.remark" placeholder="请输入备注" />
-                    </label>
-                    <label>
-                        医院邮编：<input type="text" ng-model="HplPageInfo.Info.hPPostcode" placeholder="请输入医院邮编" />
+                    <label style="width:60%">
+                        <span class="required">*</span>医院区域:<span ng-area="" ng-model="HplPageInfo.Info"></span>
                     </label>
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        <span style="float:left"> 医院描述：</span>
-                        <textarea class="box-80" ng-model="HplPageInfo.Info.hPDesc" placeholder="请输入医院描述"></textarea>
+                        <span class="required">*</span>医院地址： <input type="text" style="width:80%" ng-model="HplPageInfo.Info.hPAddress" placeholder="请输入该医院地址" />
                     </label>
                 </div>
-            </div>
-        </div>
-        <div class="widget-box">
-            <div class="widget-title bg_ly" data-toggle="collapse" href="#RegistrationInformation">
-                <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5>医院地址</h5>
-            </div>
-            <div class="widget-content nopadding collapse in" id="RegistrationInformation">
                 <div class="control-group ">
                     <label>
-                        <span class="required">*</span>所在省份：
-                        <select ng-model="HplPageInfo.Info.hPProvinceCode" ng-change="SelectInfo.Province.change(item)">
-                            <option value="">请选择所在省份</option>
-                            <option ng-repeat="item in SelectInfo.Province.dic" ng-selected="item.postcode==HplPageInfo.Info.hPProvinceCode" value="{{item.postcode}}">{{item.divName}}</option>
-                        </select>
+                        医院总机：<input type="text" onkeyup="value=value.replace(/[^0-9-\-]+/,'')" ng-model="HplPageInfo.Info.hPTel" placeholder="请输入医院总机" />
                     </label>
                     <label>
-                        <span class="required">*</span>所在市级：
-                        <select ng-model="HplPageInfo.Info.hPCityCode" ng-change="SelectInfo.City.change(item)">
-                            <option value="">请选择所在市级</option>
-                            <option ng-repeat="item in SelectInfo.City.dic" ng-selected="item.divCode==HplPageInfo.Info.hPCityCode" value="{{item.divCode}}">{{item.divName}}</option>
-                        </select>
-                    </label>
-                    <label>
-                        <span class="required">*</span>所在区县：
-                        <select ng-model="HplPageInfo.Info.hPDistrictCode" ng-change="SelectInfo.District.change(item)">
-                            <option value="">请选择所在区县</option>
-                            <option ng-repeat="item in SelectInfo.District.dic" ng-selected="item.divCode==HplPageInfo.Info.hPDistrictCode" value="{{item.divCode}}">{{item.divName}}</option>
-                        </select>
+                        医院邮编：<input type="text" onkeyup="this.value=this.value.replace(/[^0-9]+/,'')" ng-model="HplPageInfo.Info.hPPostcode" placeholder="请输入医院邮编" />
                     </label>
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        <span style="float:left"> 所在地址：</span>
-                        <textarea class="box-80" ng-model="HplPageInfo.Info.hPAddress" placeholder="请输入所在地址"></textarea>
+                        医院描述：<input type="text" style="width:80%" ng-model="HplPageInfo.Info.hPDesc" placeholder="请输入医院描述" />
                     </label>
-  
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        <span style="float:left">备注信息：</span>
+                        <textarea class="box-80" ng-model="HplPageInfo.Info.remark" placeholder="请输入该医院备注信息"></textarea>
+                    </label>
                 </div>
             </div>
         </div>
     </div>
     <div class="tools">
         <span style="float:right;">
-            <a class="btn btn-primary" ng-click="HplPageInfo.Save()">保存</a>
+            <a class="btn btn-primary" ng-click="HplPageInfo.Save()"><i class="fa fa-save"></i> 保存</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>

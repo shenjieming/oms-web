@@ -16,18 +16,18 @@
                         <thead>
                             <tr>
                                 <th><span>序号</span></th>
-                                <th><span>仓库名称</span></th>
                                 <th><span>仓库编码</span> </th>
-                                <th><span>中心名称</span></th>
-                                <th><span>所在省份</span></th>
-                                <th><span>所在市级</span></th>
-                                <th><span>所在区县</span></th>
-                                <th><span>所在地址</span></th>
-                                <th><span>状态</span></th>
+                                <th><span>仓库名称</span></th>                            
+                                <th><span>仓库是否带订单处理中心</span></th>
+                                <th><span>仓库所在省</span></th>
+                                <th><span>仓库所在市</span></th>
+                                <th><span>仓库所在区</span></th>
+                                <th><span>仓库所在地址</span></th>
+                                <th><span>有效状态</span></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in WareHouseList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                            <tr ng-repeat="row in WareHouseList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="Service.View(row)">
                                 <td>{{$index+1}}</td>
                                 <td><span>{{row.wHName}}</span></td>
                                 <td><span>{{row.orgCode}}</span></td>
@@ -36,7 +36,7 @@
                                 <td><span>{{row.wHCityCode}}</span></td>
                                 <td><span>{{row.wHDistrictCode}}</span></td>
                                 <td><span>{{row.wHAddress}}</span></td>
-                                <td><span>{{row.validStatus=="Y"?"有效":"无效"}}</span></td>
+                                <td><span>{{row.validStatusName}}</span></td>
                             </tr>
                         </tbody>
                     </table>

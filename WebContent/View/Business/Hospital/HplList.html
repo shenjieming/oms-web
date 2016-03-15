@@ -3,13 +3,20 @@
     <div class="col-lg-12 row-mt-8">
         <div class="main-box clearfix">
             <header class="main-box-header clearfix">
+                <div class="col-lg-12" style="border-bottom: 1px; solid"></div>
                 <h2 class="pull-left">医院列表</h2>
                 <span style="float:right;">
                     <a class="btn btn-primary" ng-click="HospitalJump.Add()">新增</a>
                     <a class="btn btn-primary" ng-click="HospitalJump.Edit()">编辑</a>
                     <a class="btn btn-primary" ng-click="HospitalJump.Delet()">删除</a>
                     <a class="btn btn-primary" ng-click="HospitalJump.View()">详情</a>
+                    <a class="btn btn-primary" ng-click="HospitalJump.DepartMentList()">科室信息</a>
                 </span>
+                <div class="input-group" style="float:right;width:250px;margin-right:10px;">
+                    <input type="text" class="form-control" placeholder="请输入医院编码或医院名称"
+                           style="padding:8px;" ng-model="HospitalJump.SearchWhere" ng-keyup="HospitalJump.UpEnter($event)">
+                    <a class="input-group-addon" href="javascript:void(0)" ng-click="HospitalJump.QueryDLList()"><i class="fa fa-search"></i></a>
+                </div>
             </header>
             <div class="main-box-body clearfix">
                 <div class="table-responsive list-box" style="min-height:450px">
@@ -24,7 +31,7 @@
                                 <th><span>医院地址</span></th>
                                 <th><span>医院邮编</span></th>
                                 <th><span>医院总机</span></th>
-                                <th><span>状态</span></th>
+                                <th><span>有效状态</span></th>
                             </tr>
                         </thead>
                         <tbody>

@@ -116,6 +116,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
 
     $scope.Integrated = {
         OrderList: new Array(),
+        IsQuery:false,
         DataQuery: function (data) {
             /// <summary>时间日期查询</summary>
             $scope.Pagein = $.extend($scope.Pagein, {
@@ -124,6 +125,14 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             });
 
             $scope.Integrated.QueryOrderList();
+        },
+        ClearWhere: function (isReload) {
+            /// <summary>清空条件</summary>
+            $scope.Integrated.IsQuery = false;
+            $.extend($scope.Pagein, {
+                pageIndex: isReload ? 1 : $scope.Pagein.pageIndex, sONo: "",
+                createDateBegin: "", createDateEnd: ""
+            });
         },
         Enter: function (e) {
             var keycode = window.event ? e.keyCode : e.which;

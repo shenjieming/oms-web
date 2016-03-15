@@ -1,0 +1,159 @@
+﻿<div class="row">
+    <div class="tools">
+        <h5 style="float:left;">科室详情</h5>
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-click="DepartmentJump.Save()"><i class="fa fa-pencil"></i> 保存</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa  fa-reply"></i> 返回</a>
+        </span>
+    </div>
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#DepartmentInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>科室信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="DepartmentInformation">
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span>医院名称：
+                        <select ng-model="DepartmentDetail.Info.hPCode">
+                            <option value="">请选择医院名称</option>
+                            <option ng-repeat="item in SelectInfo.Hosptail.dic" ng-selected="item.id==DepartmentDetail.Info.hPCode" value="{{item.id}}">{{item.text}}</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span class="required">*</span>科室名称：<input type="text" placeholder="请输入科室名称" ng-model="DepartmentDetail.Info.wardDeptName" />
+                    </label>
+                    <label>
+                        科室电话：<input type="text" placeholder="请输入科室电话" ng-model="DepartmentDetail.Info.wardDeptTel" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        <span class="required">*</span> 科室全称：<input type="text" style="width:80%" placeholder="请输入科室全称" ng-model="DepartmentDetail.Info.wardDeptFullName" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        科室描述：<input type="text" style="width:80%" placeholder="请输入描述信息" ng-model="DepartmentDetail.Info.wardDeptDesc" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        <span style="float:left">科室备注：</span>
+                        <textarea class="box-80" ng-model="DepartmentDetail.Info.remark" placeholder="请输入备注信息"></textarea>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#TopContacts">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>联系人信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="TopContacts">
+                <div class="control-group ">
+                    <span>&nbsp;&nbsp;第一联系人信息：</span>
+                </div>
+                <div class="control-group">
+                    <label>
+                        联系姓名：<input type="text" ng-model="DepartmentDetail.Info.contact1Name" placeholder="请输入第一联系人姓名" />
+                    </label>
+                    <label>
+                        联系手机：<input type="text" ng-model="DepartmentDetail.Info.contact1Mobile" placeholder="请输入第一联系人手机" />
+                    </label>
+                    <label>
+                        通讯工具：
+                        <select ng-model="DepartmentDetail.Info.contact1PMsgType" style="min-width:140px">
+                            <option value="">请选择通讯工具</option>
+                            <option ng-repeat="item in SelectInfo.contact1PMsgType.dic" ng-selected="item.id==DepartmentDetail.Info.contact1PMsgType" value="{{item.id}}">{{item.text}}</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label>
+                        联系邮箱：<input type="text" onkeyup="this.value=this.value.replace(/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/)" ng-model="DepartmentDetail.Info.contact1Email" placeholder="请输入第一联系人邮箱" />
+                    </label>
+                    <label>
+                        联系电话：<input type="text" ng-model="DepartmentDetail.Info.contact1Tel" placeholder="请输入第一联系人电话" />
+                    </label>
+                    <label>
+                        联系用途：
+                        <select ng-model="DepartmentDetail.Info.contact1Func" style="min-width:140px">
+                            <option value="">请选择联系用途</option>
+                            <option ng-repeat="item in SelectInfo.contact1Func.dic" ng-selected="item.id==DepartmentDetail.Info.contact1Func" value="{{item.id}}">{{item.text}}</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <span>&nbsp;&nbsp;第二联系人信息：</span>
+                </div>
+                <div class="control-group">
+                    <label>
+                        联系姓名：<input type="text" ng-model="DepartmentDetail.Info.contact2Name" placeholder="请输入第二联系人姓名" />
+                    </label>
+                    <label>
+                        联系手机：<input type="text" ng-model="DepartmentDetail.Info.contact2Mobile" placeholder="请输入第二联系人手机" />
+                    </label>
+                    <label>
+                        通讯工具：
+                        <select ng-model="DepartmentDetail.Info.contact2PMsgType" style="min-width:140px">
+                            <option value="">请选择通讯工具</option>
+                            <option ng-repeat="item in SelectInfo.contact2PMsgType.dic" ng-selected="item.id==DepartmentDetail.Info.contact2PMsgType" value="{{item.id}}">{{item.text}}</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label>
+                        联系邮箱：<input type="text" ng-model="DepartmentDetail.Info.contact2Email" onkeyup="this.value=this.value.replace(/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/)" placeholder="请输入第二联系人邮箱" />
+                    </label>
+                    <label>
+                        联系电话：<input type="text" ng-model="DepartmentDetail.Info.contact2Tel" placeholder="请输入第二联系人电话" />
+                    </label>
+                    <label>
+                        联系用途：
+                        <select ng-model="DepartmentDetail.Info.contact2Func" style="min-width:140px">
+                            <option value="">请选择联系用途</option>
+                            <option ng-repeat="item in SelectInfo.contact2Func.dic" ng-selected="item.id==DepartmentDetail.Info.contact2Func" value="{{item.id}}">{{item.text}}</option>
+                        </select>
+                    </label>
+
+                </div>
+                <div class="control-group ">
+                    <span>&nbsp;&nbsp;第三联系人信息：</span>
+                </div>
+                <div class="control-group">
+                    <label>
+                        联系姓名：<input type="text" ng-model="DepartmentDetail.Info.contact3Name" placeholder="请输入第三联系人姓名" />
+                    </label>
+                    <label>
+                        联系手机：<input type="text" ng-model="DepartmentDetail.Info.contact3Mobile" placeholder="请输入第三联系人手机" />
+                    </label>
+                    <label>
+                        通讯工具：
+                        <select ng-model="DepartmentDetail.Info.contact3PMsgType" style="min-width:140px">
+                            <option value="">请选择通讯工具</option>
+                            <option ng-repeat="item in SelectInfo.contact3PMsgType.dic" ng-selected="item.id==DepartmentDetail.Info.contact3PMsgType" value="{{item.id}}">{{item.text}}</option>
+                        </select>
+                    </label>
+
+                </div>
+                <div class="control-group">
+                    <label>
+                        联系邮箱：<input type="text" ng-model="DepartmentDetail.Info.contact3Email" onkeyup="this.value=this.value.replace(/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/)" placeholder="请输入第三联系人邮箱" />
+                    </label>
+                    <label>
+                        联系电话：<input type="text" ng-model="DepartmentDetail.Info.contact3Tel" placeholder="请输入第三联系人电话" />
+                    </label>
+                    <label>
+                        联系用途：
+                        <select ng-model="DepartmentDetail.Info.contact3Func" style="min-width:140px">
+                            <option value="">请选择联系用途</option>
+                            <option ng-repeat="item in SelectInfo.contact3Func.dic" ng-selected="item.id==DepartmentDetail.Info.contact3Func" value="{{item.id}}">{{item.text}}</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -125,35 +125,10 @@ app.controller("NoticeListController", function ($scope, $state, $local, $Api, $
         },
         Save: function () {
             /// <summary>经销商事件通知操作</summary>
-            console.log($scope.NoticePageInfo.Info)
-            if (!$scope.NoticePageInfo.Info.isEmailopen) {
-                $scope.NoticePageInfo.Info.isEmailNotificationOpened == "N"
-            } else {
-                $scope.NoticePageInfo.Info.isEmailNotificationOpened == "Y"
-            }
-            if (!$scope.NoticePageInfo.Info.isSMS) {
-                $scope.NoticePageInfo.Info.isSMSNotificationOpened == "N"
-            } else {
-                $scope.NoticePageInfo.Info.isSMSNotificationOpened == "Y"
-            }
-            if (!$scope.NoticePageInfo.Info.isWeChat) {
-                $scope.NoticePageInfo.Info.isWeChatNotificationOpened == "N"
-            } else {
-                $scope.NoticePageInfo.Info.isWeChatNotificationOpened == "Y"
-            }
-            if (!$scope.NoticePageInfo.Info.isApplyTeam) {
-                $scope.NoticePageInfo.Info.isApplyToTeam == "N"
-            } else {
-                $scope.NoticePageInfo.Info.isApplyToTeam == "Y"
-            }
-            if (!$scope.NoticePageInfo.Info.isApplyDLAL) {
-                $scope.NoticePageInfo.Info.isApplyToDLALL == "N"
-            } else {
-                $scope.NoticePageInfo.Info.isApplyToDLALL == "Y"
-            }
+            console.log($scope.NoticePageInfo.Info)          
             $Api.ManaEvent.Save($scope.NoticePageInfo.Info, function (rData) {
                 $MessagService.succ("用户保存成功！");
-                self.location = 'index.html#/app/business/dlmanagementnotice';
+                $scope.goView('app.business.dlmanagementnotice');
             })
         },
         cancel: function () {
@@ -267,22 +242,27 @@ app.controller("NoticeListController", function ($scope, $state, $local, $Api, $
         isApplyTeam: function () {
             /// <summary>经销商订单全共享人</summary>
             $scope.NoticePageInfo.Info.isApplyTeam = !$scope.NoticePageInfo.Info.isApplyTeam;
+            $scope.NoticePageInfo.Info.isApplyToTeam = $scope.NoticePageInfo.Info.isApplyTeam ? "Y" : "N";
         },
         isApplyDLAL: function () {
             /// <summary>订单人所在订单共享组</summary>
             $scope.NoticePageInfo.Info.isApplyDLAL = !$scope.NoticePageInfo.Info.isApplyDLAL;
+            $scope.NoticePageInfo.Info.isApplyToDLALL = $scope.NoticePageInfo.Info.isApplyDLAL ? "Y" : "N";
         },
         isEmailopen: function () {
             /// <summary>邮件通知</summary>
             $scope.NoticePageInfo.Info.isEmailopen = !$scope.NoticePageInfo.Info.isEmailopen;
+            $scope.NoticePageInfo.Info.isEmailNotificationOpened = $scope.NoticePageInfo.Info.isEmailopen ? "Y" : "N";
         },
         isSMS: function () {
             /// <summary>短信通知</summary>
             $scope.NoticePageInfo.Info.isSMS = !$scope.NoticePageInfo.Info.isSMS;
+            $scope.NoticePageInfo.Info.isSMSNotificationOpened = $scope.NoticePageInfo.Info.isSMS ? "Y" : "N";
         },
         isWeChat: function () {
             /// <summary>微信通知</summary>
             $scope.NoticePageInfo.Info.isWeChat = !$scope.NoticePageInfo.Info.isWeChat;
+            $scope.NoticePageInfo.Info.isWeChatNotificationOpened = $scope.NoticePageInfo.Info.isWeChat ? "Y" : "N";
         },
     }
 

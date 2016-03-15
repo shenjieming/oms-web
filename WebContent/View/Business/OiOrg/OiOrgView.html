@@ -1,6 +1,6 @@
 ﻿<div class="row">
     <div class="tools">
-        <h5 style="float:left;">货主信息</h5>
+        <h5 style="float:left;">货主详情</h5>
         <span style="float:right;">
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="control-group ">
                     <label style="width:100%">
-                        货主备注：{{OiOrgView.Info.remark}}
+                        备注信息：{{OiOrgView.Info.remark}}
                     </label>
                 </div>
             </div>
@@ -58,10 +58,14 @@
                     </label>
                 </div>
                 <div class="control-group ">
-                    行政地址：{{OiOrgView.Info.corpRegProvinceCodeName}}  {{OiOrgView.Info.corpRegCityCodeName}}  {{OiOrgView.Info.corpRegDistrictCodeName}}  （{{OiOrgView.Info.corpRegAddress}}）
+                    <label>
+                        行政地址：{{OiOrgView.Info.corpRegProvinceCodeName}}  {{OiOrgView.Info.corpRegCityCodeName}}  {{OiOrgView.Info.corpRegDistrictCodeName}}  （{{OiOrgView.Info.corpRegAddress}}）
+                    </label>
                 </div>
                 <div class="control-group ">
-                    运营地址：{{OiOrgView.Info.corpBizProvinceCodeName}}  {{OiOrgView.Info.corpBizCityCodeName}}  {{OiOrgView.Info.corpBizDistrictCodeName}}  （{{OiOrgView.Info.corpBizAddress}}）
+                    <label>
+                        运营地址：{{OiOrgView.Info.corpBizProvinceCodeName}}  {{OiOrgView.Info.corpBizCityCodeName}}  {{OiOrgView.Info.corpBizDistrictCodeName}}  （{{OiOrgView.Info.corpBizAddress}}）
+                    </label>
                 </div>
                 <div class="control-group ">
                     <label>
@@ -101,7 +105,7 @@
                         联系手机：{{OiOrgView.Info.contact1Mobile}}
                     </label>
                     <label>
-                        通信工具：{{OiOrgView.Info.contact1PMsgTypeName}}
+                        通讯工具：{{OiOrgView.Info.contact1PMsgTypeName}}
                     </label>
                 </div>
                 <div class="control-group ">
@@ -126,7 +130,7 @@
                         联系手机：{{OiOrgView.Info.contact2Mobile}}
                     </label>
                     <label>
-                        通信工具：{{OiOrgView.Info.contact2PMsgTypeName}}
+                        通讯工具：{{OiOrgView.Info.contact2PMsgTypeName}}
                     </label>
                 </div>
                 <div class="control-group ">
@@ -151,7 +155,7 @@
                         联系手机：{{OiOrgView.Info.contact3Mobile}}
                     </label>
                     <label>
-                        通信工具：{{OiOrgView.Info.contact3PMsgTypeName}}
+                        通讯工具：{{OiOrgView.Info.contact3PMsgTypeName}}
                     </label>
                 </div>
                 <div class="control-group ">

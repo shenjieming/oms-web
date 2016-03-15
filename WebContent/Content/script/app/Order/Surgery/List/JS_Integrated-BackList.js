@@ -14,9 +14,6 @@ app.controller("BackListController", function ($scope, $state, $local, $Api, $Me
         back: true
     };
     //条件清空
-    $.extend($scope.Pagein, {
-        pageIndex: 1, sONo: "", createDateBegin: "",
-        createDateEnd: "",
-    });
+    $scope.Integrated.ClearWhere(true);
     $scope.Integrated.GetOrderList({ opt: "OPER_PROCESSBACK_LIST" });
 });
