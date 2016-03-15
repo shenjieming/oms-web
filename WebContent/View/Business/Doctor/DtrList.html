@@ -10,11 +10,11 @@
                     <a class="btn btn-primary" ng-click="DoctorJump.Edit()">编辑</a>
                     <a class="btn btn-primary" ng-click="DoctorJump.View()">详情</a>
                 </span>
-                <div class="input-group" style="float:right;width:250px;margin-right:10px;">
-                    <input type="text" class="form-control" placeholder="请输入医生编码或名称"
+                <!--<div class="input-group" style="float:right;width:250px;margin-right:10px;">
+                    <input type="text" class="form-control" placeholder="请输医生名称"
                            style="padding:8px;" ng-model="DoctorJump.SearchWhere" ng-keyup="DoctorJump.UpEnter($event)">
                     <a class="input-group-addon" href="javascript:void(0)" ng-click="DoctorJump.QueryDLList()"><i class="fa fa-search"></i></a>
-                </div>
+                </div>-->
                 <div class="input-group" style="float: right; margin-right: 10px;">
                     <select ng-change="DoctorJump.SelectDepartment()" ng-model="DoctorList.wardDeptCode">
                         <option value="">请选择科室</option>
@@ -24,7 +24,7 @@
                 <div class="input-group" style="float: right; margin-right: 10px;">
                     <select ng-change="DoctorJump.SelectHostptail()" ng-model="DoctorList.hPCode">
                         <option value="">请选择医院</option>
-                        <option ng-repeat="item in SelectButton.Hosptail.dic" value="{{item.id}}">{{item.text}}</option>
+                        <option ng-repeat="item in SelectButton.Hosptail.dic" value="{{item.hPCode}}">{{item.hPName}}</option>
                     </select>
                 </div>
             </header>
@@ -81,7 +81,7 @@
                                 <span class="required">*</span>医院名称：
                                 <select ng-model="DoctorDetail.Info.hPCode" ng-change="SelectInfo.Hosptail.change()">
                                     <option value="">请选择医院</option>
-                                    <option ng-repeat="item in SelectInfo.Hosptail.dic" ng-selected="item.id==DoctorDetail.Info.hPCode" value="{{item.id}}">{{item.text}}</option>
+                                    <option ng-repeat="item in SelectInfo.Hosptail.dic" ng-selected="item.hPCode==DoctorDetail.Info.hPCode" value="{{item.hPCode}}">{{item.hPName}}</option>
                                 </select>
                             </label>
                             <label>
@@ -132,7 +132,7 @@
                         </div>
                         <div class="control-group ">
                             <label>
-                                医生手机：<input type="text" placeholder="请输入医生手机" ng-model="DoctorDetail.Info.wardDeptTel" />
+                                医生手机：<input type="text" placeholder="请输入医生手机" ng-model="DoctorDetail.Info.dTMobile" />
                             </label>
                             <label>
                                 <span class="required">*</span>医生学历：
@@ -152,7 +152,7 @@
                         </div>
                         <div class="control-group ">
                             <label style="width:100%">
-                                医生描述：<input type="text" style="width:80%" placeholder="请输入描述信息" ng-model="DoctorDetail.Info.wardDeptDesc" />
+                                医生描述：<input type="text" style="width:80%" placeholder="请输入描述信息" ng-model="DoctorDetail.Info.dTDescription" />
                             </label>
                         </div>
                         <div class="control-group ">
@@ -180,14 +180,14 @@
                         </div>
                         <div class="control-group">
                             <label>
-                                <span class="required">*</span>通讯工具：
+                                通讯工具：
                                 <select ng-model="DoctorDetail.Info.DTPMsgType1" style="min-width:140px">
                                     <option value="">请选择通讯工具</option>
-                                    <option ng-repeat="item in SelectInfo.contact1PMsgType.dic" ng-selected="item.id==DoctorDetail.Info.DTPMsgType1" value="{{item.id}}">{{item.text}}</option>
+                                    <option ng-repeat="item in SelectInfo.DTPMsgType1.dic" ng-selected="item.id==DoctorDetail.Info.DTPMsgType1" value="{{item.id}}">{{item.text}}</option>
                                 </select>
                             </label>
                             <label style="width:67%">
-                                <span class="required">*</span>通讯号码：<input type="text" style="width:80%" ng-model="DoctorDetail.Info.DTPMsgNo1" placeholder="请输入第一联系人通讯号码" />
+                                通讯号码：<input type="text" style="width:80%" ng-model="DoctorDetail.Info.DTPMsgNo1" placeholder="请输入第一联系人通讯号码" />
                             </label>
                         </div>
                         <div class="control-group">
@@ -201,13 +201,13 @@
                         <div class="control-group">
                             <label>
                                 通讯工具：
-                                <select ng-model="DoctorDetail.Info.DTPMsgType1" style="min-width:140px">
+                                <select ng-model="DoctorDetail.Info.DTPMsgType2" style="min-width:140px">
                                     <option value="">请选择通讯工具</option>
-                                    <option ng-repeat="item in SelectInfo.contact2PMsgType.dic" ng-selected="item.id==DoctorDetail.Info.DTPMsgType1" value="{{item.id}}">{{item.text}}</option>
+                                    <option ng-repeat="item in SelectInfo.DTPMsgType2.dic" ng-selected="item.id==DoctorDetail.Info.DTPMsgType2" value="{{item.id}}">{{item.text}}</option>
                                 </select>
                             </label>
                             <label style="width:67%">
-                                <span class="required">*</span>通讯号码：<input type="text" style="width:72%" ng-model="DoctorDetail.Info.DTPMsgNo2" placeholder="请输入第二联系人通讯号码" />
+                               通讯号码：<input type="text" style="width:72%" ng-model="DoctorDetail.Info.DTPMsgNo2" placeholder="请输入第二联系人通讯号码" />
                             </label>
                         </div>
                         <div class="control-group">
@@ -268,7 +268,7 @@
                         </div>
                         <div class="control-group ">
                             <label>
-                                医生手机：{{DoctorView.Info.wardDeptTel}}
+                                医生手机：{{DoctorView.Info.dTMobile}}
                             </label>
                             <label>
                                 医生学历：{{DoctorView.Info.dTEducationName}}
@@ -290,12 +290,12 @@
                                 医生备注：{{DoctorView.Info.dTRemark}}
                             </label>
                             <label>
-                                医生喜好：{{DoctorView.Info.wardDeptFullName}}
+                                医生喜好：{{DoctorView.Info.dTOperationPreferenceDesc}}
                             </label>
                         </div>
                         <div class="control-group ">
                             <label>
-                                医生描述：{{DoctorView.Info.dTOperationPreferenceDesc}}
+                                医生描述：{{DoctorView.Info.dTDescription}}
                             </label>
                         </div>
                     </div>

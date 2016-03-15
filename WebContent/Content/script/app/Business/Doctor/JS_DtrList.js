@@ -10,21 +10,16 @@
 app.controller("DtrListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>医生列表</summary>
     $scope.DoctorList = {
-        Info: [],
+        info: [],
         IsView: false,
         IsEdit: false,
         GetDoctorList: function () {
             /// <summary>获取医生列表</summary>
-            var opt = $.extend({validStatus:"Y"}, $scope.Pagein);
+            var opt = $.extend({}, $scope.Pagein);
             $Api.ManaDocter.GetbizDataDoctorList(opt, function (rData) {
+                console.log(rData)
                 $scope.DoctorList.info = rData.rows;
                 $scope.Pagein.total = rData.total;
-                console.log(rData)
-                for (var i = 0; i < $scope.DoctorList.info.length; i++) {
-                    if ($scope.DoctorList.info[i].validStatusName == "无效") {
-                        $scope.DoctorList.info[i].isEnable = true;
-                    }
-                }
             })
         },
     }
@@ -37,6 +32,8 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
             $scope.SelectInfo.dTEducation.getdTEducationList();
             $scope.SelectInfo.dTSex.getdTSexList();
             $scope.SelectInfo.Hosptail.getHosptailList();
+            $scope.SelectInfo.DTPMsgType1.getDTPMsgType1List();
+            $scope.SelectInfo.DTPMsgType2.getDTPMsgType2List();
         },
         SelectButton: function () {
             $scope.SelectButton.Hosptail.getHosptailList();
@@ -162,7 +159,7 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
         },
         QueryOiList: function () {
             /// <summary>查询医生列表</summary>
-            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, searchValue: $scope.DoctorJump.SearchWhere });
+            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, hPCode: $scope.DoctorJump.SearchWhere });
             $scope.DoctorList.GetDoctorList();
 
         },
@@ -204,8 +201,8 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
             },
             getHosptailList: function () {
                 /// <summary>获取医院列表</summary>
-                $Api.HospitalService.GetHospital({}, function (rData) {
-                    $scope.SelectInfo.Hosptail.dic = rData;
+                $Api.ManaHospital.GetqueryAllHospital({}, function (rData) {
+                    $scope.SelectInfo.Hosptail.dic = rData.rows;
                     console.log(rData)
                 })
             }
@@ -252,6 +249,20 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
                 });
             }
         },
+        DTPMsgType1: {
+            getDTPMsgType1List: function () {
+                $Api.Public.GetDictionary({ dictType: "PMSGTP" }, function (rData) {
+                    $scope.SelectInfo.DTPMsgType1.dic = rData;
+                })
+            }
+        },
+        DTPMsgType2: {
+        getDTPMsgType2List: function () {
+            $Api.Public.GetDictionary({ dictType: "PMSGTP" }, function (rData) {
+                $scope.SelectInfo.DTPMsgType2.dic = rData;
+            })
+        }
+    }
     }
     $scope.buttonList = {
         isLocal: function () {
@@ -278,8 +289,8 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
             dic: new Array(),
             getHosptailList: function () {
                 /// <summary>获取医院列表</summary>
-                $Api.HospitalService.GetHospital({}, function (rData) {
-                    $scope.SelectButton.Hosptail.dic = rData;
+                $Api.ManaHospital.GetqueryAllHospital({}, function (rData) {
+                    $scope.SelectButton.Hosptail.dic = rData.rows;
                     console.log(rData)
                 })
             }

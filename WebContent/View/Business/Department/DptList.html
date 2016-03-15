@@ -9,11 +9,11 @@
                     <a class="btn btn-primary" ng-click="DepartmentJump.Edit()">编辑</a>
                     <a class="btn btn-primary" ng-click="DepartmentJump.View()">详情</a>
                 </span>
-                <div class="input-group" style="float:right;width:250px;margin-right:10px;">
-                    <input type="text" class="form-control" placeholder="请输入科室编码或名称"
+                <!--<div class="input-group" style="float:right;width:250px;margin-right:10px;">
+                    <input type="text" class="form-control" placeholder="请输入科室名称"
                            style="padding:8px;" ng-model="Service.SearchDptWhere" ng-keyup="server.UpEnter($event)">
                     <a class="input-group-addon" href="javascript:void(0)" ng-click="server.QueryOiList()"><i class="fa fa-search"></i></a>
-                </div>
+                </div>-->
             </header>
             <div class="main-box-body clearfix">
                 <div class="table-responsive list-box" style="min-height:450px">
@@ -177,7 +177,7 @@
                                 <span class="required">*</span>医院名称：
                                 <select ng-model="DepartmentDetail.Info.hPCode">
                                     <option value="">请选择医院名称</option>
-                                    <option ng-repeat="item in SelectInfo.Hosptail.dic" ng-selected="item.id==DepartmentDetail.Info.hPCode" value="{{item.id}}">{{item.text}}</option>
+                                    <option ng-repeat="item in SelectInfo.Hosptail.dic" ng-selected="item.hPCode==DepartmentDetail.Info.hPCode" value="{{item.hPCode}}">{{item.hPName}}</option>
                                 </select>
                             </label>
                             <label>

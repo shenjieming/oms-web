@@ -72,7 +72,7 @@ app.controller("OiOrgListController", function ($scope, $state, $local, $Api, $M
         },
         QueryOiList: function () {
             /// <summary>查询认证列表</summary>
-            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1,  dLName: $scope.RelManList.SearchWhere });
+            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, dLOrgCode: $scope.RelManList.SearchWhere });
             $scope.RelManList.GetRelManList();
         },
         UpEnter: function (e) {
