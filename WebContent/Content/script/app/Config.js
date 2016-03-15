@@ -150,6 +150,7 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
     $scope.view = { header: "View/MasterPages/header.html?data=" + Timestamp, footer: "View/MasterPages/footer.html?data=" + Timestamp, menu: "View/MasterPages/menu.html?data=" + Timestamp }
     $scope.User = $local.getValue("USER");
     console.log($scope.User);
+    $scope.AppName = ServerConfiguration.TestApp ? "测试环境" : "";
     $scope.AdjustmentFold = function () {
         /// <summary>调整折叠</summary>
         $scope.fold = !$scope.fold;
