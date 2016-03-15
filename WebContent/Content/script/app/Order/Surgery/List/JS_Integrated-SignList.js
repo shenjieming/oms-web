@@ -15,7 +15,7 @@ app.controller("SignListController", function ($scope, $state, $local, $Api, $Me
         sign: true
     };
     //条件清空
-    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
+    $scope.Integrated.ClearWhere(true);
     $scope.Integrated.GetOrderList({ opt: "OPER_SIGN_LIST" });
 
     $scope.showView = function (sono) {

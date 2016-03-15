@@ -19,7 +19,7 @@ app.controller("ApprovalListController", function ($scope, $state, $local, $Api,
 
 
     //条件清空
-    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
+    $scope.Integrated.ClearWhere(true);
     $scope.showView = function (sono) {
         /// <summary>查看手术订单</summary>
         $local.setValue("ORDERCOMP", { approval: true });

@@ -101,7 +101,6 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     $urlRouterProvider.otherwise("/login");
 });
 
-
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary>系统级别管理配置</summary>
     $stateProvider
@@ -161,7 +160,7 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
     $scope.menuList = $MenuService;//菜单信息列表
     $scope.goView = function (name, param) {
         /// <summary>前往页面</summary>
-        $MessagService.loading("服务器请求中，请稍等...");
+        $MessagService.loading("页面信息获取中，请稍等...");
         $state.go(name, param);
     }
 
@@ -180,9 +179,11 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
 
     $scope.Comp = function (code) {
         /// <summary>菜单权限控制</summary>
-        //return JSON.stringify($scope.User.functionInfo).indexOf(code) > -1;//判断菜单是否有权限
-        return true;
-        //return true;
+        if (ServerConfiguration.IsDevelop) {
+            return true;
+        } else {
+            return JSON.stringify($scope.User.functionInfo).indexOf(code) > -1;//判断菜单是否有权限
+        }
     }
 });
 app.controller("employeeController", function ($scope, $state, $MenuService, $local, $MessagService, $Api) {

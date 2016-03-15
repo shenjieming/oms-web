@@ -3,47 +3,39 @@
 /// <reference path="../../lib/angular-1.2.20/angular-touch.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-sanitize.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-loader.js" />
+/// <reference path="../../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
 /// <reference path="JS_MaterialList.js" />
 
-app.controller("MaterialController", function ($scope, $state, $local, $Api, $MessagService, $FileService) {
+app.controller("MaterialDetailController", function ($scope, $stateParams, $state, $local, $Api, $MessagService, $FileService) {
     /// <summary>经销商物料查询</summary>
+    $scope.PageData = { certMultiQty: 4, isScanSupported: "Y", disinfectionNeeded: "Y", effectiveControl: "Y", attachments: { images: new Array(), remark: "" } };
+
     $scope.Service = {
         /// <summary>物料管理服务</summary>
-        Add: function () {
-            /// <summary>添加物料</summary>
-            $scope.PageData = {
-                oIOrgCodeName: $scope.Material.options.oIOrgCodeName,
-                oIOrgCode: $scope.Material.options.oIOrgCode,
-                medBrandCode: $scope.Material.options.medBrandCode,
-                medBrandCodeName: $scope.Material.options.medBrandCodeName,
-                medProdLnCode: $scope.Material.options.medProdLnCode,
-                medProdLnCodeName: $scope.Material.options.medProdLnCodeName,
-                certMultiQty: 4, isScanSupported: "Y", disinfectionNeeded: "Y", effectiveControl: "Y",
-                attachments: { images: new Array(), remark: "" }
-            };
-            this.IsEdit(true);
-        },
-        Save: function () {
-            /// <summary>物料信息保存</summary>
-            $Api.BusinessData.MedMater.Save($scope.PageData, function () {
-                alert("保存成功！");
-            })
+        GetDetail: function () {
+            /// <summary>获取物料明细</summary>
+            $Api.BusinessData.MedMaterial.GetMedMaterialItemDetail($stateParams, function (rData) {
+                $scope.PageData = rData;
+            });
         },
         IsChecked: function (ischeck, model, sd) {
             /// <summary>是否对象点击</summary>
             $scope.PageData[model] = ischeck ? "Y" : "N"
+        },
+        Save: function () {
+            /// <summary>物料信息保存</summary>
+            $Api.BusinessData.MedMaterial.Save($scope.PageData, function () {
+                $MessagService.caveat("物料保存成功！");
+                $scope.goLastPage();
+            })
         }
     }
 
-
-    $scope.PageData = {};
-
     $scope.Material = {
         //条件
-        options: {},
         MedManuFactureList: new Array(),
         GetMedManuFactureList: function () {
             /// <summary>获取厂商列表</summary>
@@ -77,5 +69,12 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
             });
         }
     }
-
+    //判断是编辑状态还是新增状态
+    if ($stateParams.medMIInternalNo) {
+        $scope.Service.GetDetail();
+    } else {
+        $scope.PageData = $.extend($scope.PageData, $stateParams)
+    }
+    //获取厂商列表
+    $scope.Material.GetMedManuFactureList();
 });

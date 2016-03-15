@@ -64,23 +64,30 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
             //获取我的货主信息
             $scope.Material.GetCargoOwner();
         },
+        Add: function () {
+            /// <summary>添加物料</summary>
+            $scope.Service.EditMaterialDetail($scope.Material.options);
+        },
         ViewDetail: function (isshow) {
             /// <summary>显示明细</summary>
             var mater = $local.getSelectedRow($scope.Material.MaterialList);
             if (mater) {
                 var carriedFun = isshow ? $scope.Service.ShowMaterialDetail : $scope.Service.EditMaterialDetail;
-                carriedFun(carriedFun);
+                carriedFun(mater);
             } else {
                 $MessagService.caveat("请选择一套物料信息！");
             }
         },
         ShowMaterialDetail: function (row) {
             /// <summary>显示物料明细信息</summary>
-            $scope.goView("",row);
+            $scope.goView("app.mybusiness.materialview", row);
+        },
+        EditMaterialDetail: function (row) {
+            $scope.goView("app.mybusiness.materialdetail", row);
         },
         QueryMaterialList: function () {
             /// <summary>查询物料列表</summary>
-            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, medMIName: $scope.Service.SearchWhere, medMICode: $scope.Service.SearchWhere });
+            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1 });
             $scope.Material.GetList();
         },
         UpEnter: function (e) {
@@ -117,7 +124,6 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
                 for (var i = 0; i < rData.length; i++) {
                     if (i == 0) {
                         $scope.Material.options = { oIOrgCode: rData[i].id, oIOrgCodeName: rData[i].text };
-                       // $scope.Material.GetList();
                     }
                     treeData.push({ id: rData[i].id, name: rData[i].text, isParent: true, options: { oIOrgCode: rData[i].id, oIOrgCodeName: rData[i].text }, Subset: $Api.BrandService.GetBrandList, SubsetType: "medBrandCode" });
                 }

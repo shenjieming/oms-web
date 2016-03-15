@@ -11,6 +11,24 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             loadJs: ["Content/script/app/MyBusiness/MaterialTemplate/JS_MaterialTemplateList.js"],
             resolve: app.resolve
         })
+        .state("app.mybusiness.materialtemplatedetail", {
+            /// <summary>物料模板管理</summary>
+            url: "/materialtemplatedetail/:tmplSODetailID",
+            cache: false,
+            controller: "MaterialTemplateController",
+            templateUrl: "View/MyBusiness/MaterialTemplate/MaterialTemplateDetail.html?data=" + Timestamp,
+            loadJs: ["Content/script/app/MyBusiness/MaterialTemplate/JS_MaterialTemplateList.js"],
+            resolve: app.resolve
+        })
+          .state("app.mybusiness.materialtemplateview", {
+              /// <summary>物料模板管理</summary>
+              url: "/materialtemplateview/:tmplSODetailID/:isView",
+              cache: false,
+              controller: "MaterialTemplateController",
+              templateUrl: "View/MyBusiness/MaterialTemplate/MaterialTemplateView.html?data=" + Timestamp,
+              loadJs: ["Content/script/app/MyBusiness/MaterialTemplate/JS_MaterialTemplateList.js"],
+              resolve: app.resolve
+          })
         .state("app.mybusiness.material", {
             /// <summary>物料管理</summary>
             url: "/material",
@@ -21,13 +39,22 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             resolve: app.resolve
 
         })
-         .state("app.mybusiness.materialDetail", {
+         .state("app.mybusiness.materialdetail", {
              /// <summary>物料详情</summary>
-             url: "/material/:opt",
+             url: "/material/:medMIInternalNo&:medBrandCode&:medBrandCodeName&:oIOrgCode&:oIOrgCodeName&:medProdLnCode&:medProdLnCodeName",
              cache: false,
              templateUrl: "View/MyBusiness/Material/MaterialDetail.html?data=" + Timestamp,
              controller: "MaterialDetailController",
              loadJs: ["Content/script/app/MyBusiness/Material/JS_MaterialDetail.js"],
+             resolve: app.resolve
+         })
+         .state("app.mybusiness.materialview", {
+             /// <summary>物料详情</summary>
+             url: "/MaterialView/:medMIInternalNo",
+             cache: false,
+             templateUrl: "View/MyBusiness/Material/MaterialView.html?data=" + Timestamp,
+             controller: "MaterialViewController",
+             loadJs: ["Content/script/app/MyBusiness/Material/JS_MaterialView.js"],
              resolve: app.resolve
          })
         .state("app.mybusiness.kits", {

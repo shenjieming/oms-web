@@ -16,6 +16,6 @@ app.controller("FeedbackListController", function ($scope, $state, $local, $Api,
         back: true
     };
     //条件清空
-    $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
+    $scope.Integrated.ClearWhere(true);
     $scope.Integrated.GetOrderList({ opt: "OPER_PROCESSBACK_DRAFT" });
 });
