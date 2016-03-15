@@ -10,7 +10,6 @@
 /// <reference path="../Config.js" />
 app.controller("SignInController", function ($scope, $state, $local, $Api, $MessagService) {
     $scope.SignData = {};
-    $scope.AppName = ServerConfiguration.TestApp ? "测试环境" : "";
     $scope.Landed = function () {
         /// <summary>登陆系统</summary>
         if ($scope.verification()) {
