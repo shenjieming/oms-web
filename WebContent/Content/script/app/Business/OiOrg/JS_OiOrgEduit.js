@@ -73,7 +73,7 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
             }
             return result;
         },
-        Save: function () {
+        Save: function () {     
             /// <summary>货主组操作</summary>
             console.log($scope.oiPageInfo.Info)
             if ($scope.oiPageInfo.verification()) {

@@ -41,7 +41,7 @@ app.controller("DptListController", function ($scope, $state, $local, $Api, $Mes
         },
         QueryOiList: function () {
             /// <summary>查询货主列表</summary>
-            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, wardDeptCode: $scope.Service.SearchDptWhere, wardDeptName: $scope.Service.SearchDptWhere });
+            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1,  wardDeptName: $scope.Service.SearchDptWhere });
             $scope.DepartmentList.GetDepartmentList()
         },
         UpEnter: function (e) {
@@ -55,7 +55,7 @@ app.controller("DptListController", function ($scope, $state, $local, $Api, $Mes
     //按钮服务关闭
     ////  科室编辑页面启动！
     $scope.DepartmentDetail = {
-        Info: { hPCodeName: "", hPCode: "" },
+        Info: { hPCodeName: "", hPCode: "",contact2Func:"",contact2PMsgType:"",contact1Func:"",contact2PMsgType:"" },
         checkIs: function () {
             $scope.DepartmentDetail.isvalidStatus = !$scope.DepartmentDetail.isvalidStatus
         }
@@ -152,24 +152,12 @@ app.controller("DptListController", function ($scope, $state, $local, $Api, $Mes
 
     ///按钮关闭
     $scope.SelectInfo = {
-        Department: {
-            dic: [],
-            change: function (item) {
-                /// <summary>科室类型修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.Department.dic.length; i++) {
-                    if ($scope.SelectInfo.Department.dic[i].id == $scope.DepartmentDetail.Info.wardDeptCode) {
-                        $scope.DepartmentDetail.Info.wardDeptCodeName = $scope.SelectInfo.Department.dic[i].text;
-                        console.log($scope.DepartmentDetail.Info.wardDeptCodeName)
-                        return;
-                    }
-                }
-            },
-        },
         Hosptail: {
             getHosptailList: function () {
                 /// <summary>获取医院类型</summary>
-                $Api.HospitalService.GetHospital({}, function (rData) {
-                    $scope.SelectInfo.Hosptail.dic = rData;
+                $Api.ManaHospital.GetqueryAllHospital({}, function (rData) {
+                    $scope.SelectInfo.Hosptail.dic = rData.rows;
+                    console.log(rData)
                 })
             }
         },
