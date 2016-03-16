@@ -806,187 +806,194 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 },
             },
         },
-          
-          
-            ManaDocter: {
-                //医生管理信息
-                Save: function (data, callback) {
-                    /// <summary>保存医生信息</summary>
-                    if (data.dTCode) {
-                        service.Post(ApiPath.ManaDocter.bizDataDoctorModify, data, callback);
-                    } else {
-                        service.Post(ApiPath.ManaDocter.bizDataDoctorAdd, data, callback);
-                    }
-                },
-                SwitchButton: function (data, callback) {
-                    /// <summary>医生启用禁用开关</summary>
-                    if (data.isEnable) {
-                        service.Post(ApiPath.ManaDocter.bizDataDoctorEnable, data, callback);
-                    } else {
-                        service.Post(ApiPath.ManaDocter.bizDataDoctorDisable, data, callback);
-                    }
-                },
-                GetbizDataDoctorList: function (data, callback) {
-                    /// <summary>获取医生列表</summary>
-                    service.Post(ApiPath.ManaDocter.bizDataDoctorList, data, callback);
-                },
-                GetbizDataDoctorDetail: function (data, callback) {
-                    /// <summary>获取医生详细</summary>
-                    service.Post(ApiPath.ManaDocter.bizDataDoctorDetail, data, callback);
-                },
-                GetbizDataDoctorAdd: function (data, callback) {
-                    /// <summary>获取医生新增</summary>
-                    service.Post(ApiPath.ManaDocter.bizDataDoctorAdd, data, callback);
-                },
-                GetbizDataDoctorModify: function (data, callback) {
-                    /// <summary>获取医生修改 </summary>
-                    service.Post(ApiPath.ManaDocter.bizDataDoctorModify, data, callback);
-                },
-                GetbizDataDoctorDisable: function (data, callback) {
-                    /// <summary>禁用医生列表</summary>
-                    service.Post(ApiPath.ManaDocter.bizDataDoctorDisable, data, callback);
-                },
-                GetbizDataDoctorEnable: function (data, callback) {
-                    /// <summary>启用医院列表</summary>
-                    service.Post(ApiPath.ManaDocter.bizDataDoctorEnable, data, callback);
-                },
-            },
-           
-            ManaDepartment: {
-                //科室管理
-                Save: function (data, callback) {
-                    /// <summary>保存科室信息</summary>
-                    console.log(data)
-                    if (data.wardDeptCode) {
-                        service.Post(ApiPath.ManaDepartment.bizDataWDModify, data, callback);
-                    } else {
-                        service.Post(ApiPath.ManaDepartment.bizDataWDAdd, data, callback);
-                    }
-                },
-                SwitchButton: function (data, callback) {
-                    /// <summary>科室启用禁用开关</summary>
-                    if (data.isEnable) {
-                        service.Post(ApiPath.ManaDepartment.bizDataWDEnable, data, callback);
-                    } else {
-                        service.Post(ApiPath.ManaDepartment.bizDataWDDisable, data, callback);
-                    }
-                },
-                GetbizDataWDList: function (data, callback) {
-                    /// <summary>获取科室列表</summary>
-                    service.Post(ApiPath.ManaDepartment.bizDataWDList, data, callback);
-                },
-                GetbizDataWDDetail: function (data, callback) {
-                    /// <summary>获取科室详情</summary>
-                    service.Post(ApiPath.ManaDepartment.bizDataWDDetail, data, callback);
-                },
-                GetbizDataWDAdd: function (data, callback) {
-                    /// <summary>科室新增</summary>
-                    service.Post(ApiPath.ManaDepartment.bizDataWDAdd, data, callback);
-                },
-                GetbizDataWDModify: function (data, callback) {
-                    /// <summary>科室管理修改</summary>
-                    service.Post(ApiPath.ManaDepartment.bizDataWDModify, data, callback);
-                },
-                GetbizDataWDDisable: function (data, callback) {
-                    /// <summary>科室禁用</summary>
-                    service.Post(ApiPath.ManaDepartment.bizDataWDDisable, data, callback);
-                },
-                GetbizDataWDEnable: function (data, callback) {
-                    /// <summary>科室启用</summary>
-                    service.Post(ApiPath.ManaDepartment.bizDataWDEnable, data, callback);
-                },
-            },
-        
-            ProductLine: {
-                //产品线管理
-                Getquery: function (data, callback) {
-                    /// <summary>产品线列表</summary>
-                    service.Post(ApiPath.productLine.query, data, callback);
-                },
-                Getinsert: function (data, callback) {
-                    /// <summary>产品线新增</summary>
-                    service.Post(ApiPath.productLine.insert, data, callback);
-                },
-                Getupdate: function (data, callback) {
-                    /// <summary>产品线修改</summary>
-                    service.Post(ApiPath.productLine.update, data, callback);
-                },
-                Getdelect: function (data, callback) {
-                    /// <summary>产品线删除</summary>
-                    service.Post(ApiPath.productLine.delect, data, callback);
-                },
-            },
-            MyAddress: {
-                //我的地址
-                Save: function (data, callback) {
-                    /// <summary>保存我的地址信息</summary>
-                    if (data.lineNo) {
-                        service.Post(ApiPath.MyAddress.bizDataMyAddressModify, data, callback);
-                    } else {
-                        service.Post(ApiPath.MyAddress.bizDataMyAddressAdd, data, callback);
-                    }
-                },
-                GetbizDataMyAddressList: function (data, callback) {
-                    /// <summary>我的地址列表</summary>
-                    service.Post(ApiPath.MyAddress.bizDataMyAddressList, data, callback);
-                },
-                GetbizDataMyAddressDetail: function (data, callback) {
-                    /// <summary>我的地址详情</summary>
-                    service.Post(ApiPath.MyAddress.bizDataMyAddressDetail, data, callback);
-                },
-                GetbizDataMyAddressAdd: function (data, callback) {
-                    /// <summary>我的地址新增</summary>
-                    service.Post(ApiPath.MyAddress.bizDataMyAddressAdd, data, callback);
-                },
-                GetbizDataMyAddressModify: function (data, callback) {
-                    /// <summary>我的地址修改</summary>
-                    service.Post(ApiPath.MyAddress.bizDataMyAddressModify, data, callback);
-                },
-                GetbizDataMyAddressDelete: function (data, callback) {
-                    /// <summary>我的地址删除</summary>
-                    service.Post(ApiPath.MyAddress.bizDataMyAddressDelete, data, callback);
-                },
-            },
-            MyDoctor: {
-                //我的医生
-                GetdoctorSalesAgentRelList: function (data, callback) {
-                    /// <summary>我的医生列表</summary>
-                    service.Post(ApiPath.MyDoctor.doctorSalesAgentRelList, data, callback);
-                },
-                GetdoctorSalesAgentRelDetail: function (data, callback) {
-                    /// <summary>我的医生详情</summary>
-                    service.Post(ApiPath.MyDoctor.doctorSalesAgentRelDetail, data, callback);
-                },
-                GetdoctorSalesAgentRelAdd: function (data, callback) {
-                    /// <summary>我的医生新增</summary>
-                    service.Post(ApiPath.MyDoctor.doctorSalesAgentRelAdd, data, callback);
-                },
-                GetdoctorSalesAgentRelModify: function (data, callback) {
-                    /// <summary>我的医生修改</summary>
-                    service.Post(ApiPath.MyDoctor.doctorSalesAgentRelModify, data, callback);
-                },
-                GetdoctorSalesAgentRelDelete: function (data, callback) {
-                    /// <summary>我的医生删除</summary>
-                    service.Post(ApiPath.MyDoctor.doctorSalesAgentRelDelete, data, callback);
-                },
-            },
-            
-            OrderRout: {
-                /// 订单路由管理
-                GetqueryOdwhCfg: function (data, callback) {
-                    /// <summary>订单路由列表</summary>
-                    service.Post(ApiPath.OrderRout.queryOdwhCfg, data, callback);
-                },
-                GetaddOdwhCfg: function (data, callback) {
-                    /// <summary>订单路由新增</summary>
-                    service.Post(ApiPath.OrderRout.addOdwhCfg, data, callback);
-                },
-                GetupdateOdwhCfg: function (data, callback) {
-                    /// <summary>订单路由修改</summary>
-                    service.Post(ApiPath.OrderRout.updateOdwhCfg, data, callback);
-                }
 
-            
+
+        ManaDocter: {
+            //医生管理信息
+            Save: function (data, callback) {
+                /// <summary>保存医生信息</summary>
+                if (data.dTCode) {
+                    service.Post(ApiPath.ManaDocter.bizDataDoctorModify, data, callback);
+                } else {
+                    service.Post(ApiPath.ManaDocter.bizDataDoctorAdd, data, callback);
+                }
+            },
+            SwitchButton: function (data, callback) {
+                /// <summary>医生启用禁用开关</summary>
+                if (data.isEnable) {
+                    service.Post(ApiPath.ManaDocter.bizDataDoctorEnable, data, callback);
+                } else {
+                    service.Post(ApiPath.ManaDocter.bizDataDoctorDisable, data, callback);
+                }
+            },
+            GetbizDataDoctorList: function (data, callback) {
+                /// <summary>获取医生列表</summary>
+                service.Post(ApiPath.ManaDocter.bizDataDoctorList, data, callback);
+            },
+            GetbizDataDoctorDetail: function (data, callback) {
+                /// <summary>获取医生详细</summary>
+                service.Post(ApiPath.ManaDocter.bizDataDoctorDetail, data, callback);
+            },
+            GetbizDataDoctorAdd: function (data, callback) {
+                /// <summary>获取医生新增</summary>
+                service.Post(ApiPath.ManaDocter.bizDataDoctorAdd, data, callback);
+            },
+            GetbizDataDoctorModify: function (data, callback) {
+                /// <summary>获取医生修改 </summary>
+                service.Post(ApiPath.ManaDocter.bizDataDoctorModify, data, callback);
+            },
+            GetbizDataDoctorDisable: function (data, callback) {
+                /// <summary>禁用医生列表</summary>
+                service.Post(ApiPath.ManaDocter.bizDataDoctorDisable, data, callback);
+            },
+            GetbizDataDoctorEnable: function (data, callback) {
+                /// <summary>启用医院列表</summary>
+                service.Post(ApiPath.ManaDocter.bizDataDoctorEnable, data, callback);
+            },
+        },
+
+        ManaDepartment: {
+            //科室管理
+            Save: function (data, callback) {
+                /// <summary>保存科室信息</summary>
+                console.log(data)
+                if (data.wardDeptCode) {
+                    service.Post(ApiPath.ManaDepartment.bizDataWDModify, data, callback);
+                } else {
+                    service.Post(ApiPath.ManaDepartment.bizDataWDAdd, data, callback);
+                }
+            },
+            SwitchButton: function (data, callback) {
+                /// <summary>科室启用禁用开关</summary>
+                if (data.isEnable) {
+                    service.Post(ApiPath.ManaDepartment.bizDataWDEnable, data, callback);
+                } else {
+                    service.Post(ApiPath.ManaDepartment.bizDataWDDisable, data, callback);
+                }
+            },
+            GetbizDataWDList: function (data, callback) {
+                /// <summary>获取科室列表</summary>
+                service.Post(ApiPath.ManaDepartment.bizDataWDList, data, callback);
+            },
+            GetbizDataWDDetail: function (data, callback) {
+                /// <summary>获取科室详情</summary>
+                service.Post(ApiPath.ManaDepartment.bizDataWDDetail, data, callback);
+            },
+            GetbizDataWDAdd: function (data, callback) {
+                /// <summary>科室新增</summary>
+                service.Post(ApiPath.ManaDepartment.bizDataWDAdd, data, callback);
+            },
+            GetbizDataWDModify: function (data, callback) {
+                /// <summary>科室管理修改</summary>
+                service.Post(ApiPath.ManaDepartment.bizDataWDModify, data, callback);
+            },
+            GetbizDataWDDisable: function (data, callback) {
+                /// <summary>科室禁用</summary>
+                service.Post(ApiPath.ManaDepartment.bizDataWDDisable, data, callback);
+            },
+            GetbizDataWDEnable: function (data, callback) {
+                /// <summary>科室启用</summary>
+                service.Post(ApiPath.ManaDepartment.bizDataWDEnable, data, callback);
+            },
+        },
+
+        ProductLine: {
+            //产品线管理
+            Getquery: function (data, callback) {
+                /// <summary>产品线列表</summary>
+                service.Post(ApiPath.productLine.query, data, callback);
+            },
+            Getinsert: function (data, callback) {
+                /// <summary>产品线新增</summary>
+                service.Post(ApiPath.productLine.insert, data, callback);
+            },
+            Getupdate: function (data, callback) {
+                /// <summary>产品线修改</summary>
+                service.Post(ApiPath.productLine.update, data, callback);
+            },
+            Getdelect: function (data, callback) {
+                /// <summary>产品线删除</summary>
+                service.Post(ApiPath.productLine.delect, data, callback);
+            },
+        },
+        MyAddress: {
+            //我的地址
+            Save: function (data, callback) {
+                /// <summary>保存我的地址信息</summary>
+                if (data.lineNo) {
+                    service.Post(ApiPath.MyAddress.bizDataMyAddressModify, data, callback);
+                } else {
+                    service.Post(ApiPath.MyAddress.bizDataMyAddressAdd, data, callback);
+                }
+            },
+            GetbizDataMyAddressList: function (data, callback) {
+                /// <summary>我的地址列表</summary>
+                service.Post(ApiPath.MyAddress.bizDataMyAddressList, data, callback);
+            },
+            GetbizDataMyAddressDetail: function (data, callback) {
+                /// <summary>我的地址详情</summary>
+                service.Post(ApiPath.MyAddress.bizDataMyAddressDetail, data, callback);
+            },
+            GetbizDataMyAddressAdd: function (data, callback) {
+                /// <summary>我的地址新增</summary>
+                service.Post(ApiPath.MyAddress.bizDataMyAddressAdd, data, callback);
+            },
+            GetbizDataMyAddressModify: function (data, callback) {
+                /// <summary>我的地址修改</summary>
+                service.Post(ApiPath.MyAddress.bizDataMyAddressModify, data, callback);
+            },
+            GetbizDataMyAddressDelete: function (data, callback) {
+                /// <summary>我的地址删除</summary>
+                service.Post(ApiPath.MyAddress.bizDataMyAddressDelete, data, callback);
+            },
+        },
+        MyDoctor: {
+            //我的医生
+            GetdoctorSalesAgentRelList: function (data, callback) {
+                /// <summary>我的医生列表</summary>
+                service.Post(ApiPath.MyDoctor.doctorSalesAgentRelList, data, callback);
+            },
+            GetdoctorSalesAgentRelDetail: function (data, callback) {
+                /// <summary>我的医生详情</summary>
+                service.Post(ApiPath.MyDoctor.doctorSalesAgentRelDetail, data, callback);
+            },
+            GetdoctorSalesAgentRelAdd: function (data, callback) {
+                /// <summary>我的医生新增</summary>
+                service.Post(ApiPath.MyDoctor.doctorSalesAgentRelAdd, data, callback);
+            },
+            GetdoctorSalesAgentRelModify: function (data, callback) {
+                /// <summary>我的医生修改</summary>
+                service.Post(ApiPath.MyDoctor.doctorSalesAgentRelModify, data, callback);
+            },
+            GetdoctorSalesAgentRelDelete: function (data, callback) {
+                /// <summary>我的医生删除</summary>
+                service.Post(ApiPath.MyDoctor.doctorSalesAgentRelDelete, data, callback);
+            },
+        },
+
+        OrderRout: {
+            /// 订单路由管理
+            GetqueryOdwhCfg: function (data, callback) {
+                /// <summary>订单路由列表</summary>
+                service.Post(ApiPath.OrderRout.queryOdwhCfg, data, callback);
+            },
+            GetaddOdwhCfg: function (data, callback) {
+                /// <summary>订单路由新增</summary>
+                service.Post(ApiPath.OrderRout.addOdwhCfg, data, callback);
+            },
+            GetupdateOdwhCfg: function (data, callback) {
+                /// <summary>订单路由修改</summary>
+                service.Post(ApiPath.OrderRout.updateOdwhCfg, data, callback);
+            },
+
+            GetfindDLByOIOrgCodeCombox: function (data, callback) {
+                /// <summary>获取所有货主</summary>
+                service.Post(ApiPath.OrderRout.findDLByOIOrgCodeCombox, data, callback);
+            },
+            GetfindAllWareHouse: function (data, callback) {
+                /// <summary>获取所有仓库</summary>
+                service.Post(ApiPath.OrderRout.findAllWareHouse, data, callback);
+            }
 
         },
         AgentProduct: {
@@ -1177,6 +1184,6 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
             }
         }
     };
-    
+
     return service;
 });

@@ -109,9 +109,9 @@ app.controller("DptListController", function ($scope, $state, $local, $Api, $Mes
                 $MessagService.caveat("请选择一条编辑的科室信息！");
             }
         },
-        View: function () {
+        View: function (row) {
             /// <summary>点击科室详情</summary>
-            var row = $local.getSelectedRow($scope.DepartmentList.info);
+            var row =row?row: $local.getSelectedRow($scope.DepartmentList.info);
             if (row) {
                 $scope.DepartmentJump.isView(true);
                 $Api.ManaDepartment.GetbizDataWDDetail({ wardDeptCode: row.wardDeptCode }, function (rData) {

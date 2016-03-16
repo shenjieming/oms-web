@@ -59,7 +59,7 @@ app.factory("$MenuService", function ($http, $local) {
             { name: "仓库管理", url: "#/app/business/whmanagement", state: "app.business.whmanagement" },
             { name: "品牌管理", url: "#/app/business/brandmanagement", state: "app.business.brandmanagement" },
             { name: "产品线管理", url: "#/app/business/productlinemanagement", state: "app.business.productlinemanagement" },
-            //{ name: "仓库路由管理", url: "#/app/business/whroutmanagement", state: "app.business.whroutmanagement" },
+            { name: "订单仓库路由管理", url: "#/app/business/orderroutingmanagement", state: "app.business.orderroutingmanagement" },
             { name: "代理产品管理", url: "#/app/business/productmanagement", state: "app.business.productmanagement" },
             { name: "事件通知管理", url: "#/app/business/dlmanagementnotice", state: "app.business.dlmanagementnotice" },
         ]

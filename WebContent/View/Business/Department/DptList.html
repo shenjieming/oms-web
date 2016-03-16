@@ -32,7 +32,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in DepartmentList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                            <tr ng-repeat="row in DepartmentList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="DepartmentJump.View(row)">
                                 <td>{{$index+1}}</td>
                                 <td><span>{{row.hPCodeName}}</span></td>
                                 <td><span>{{row.hPCode}}</span></td>

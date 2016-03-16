@@ -36,14 +36,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in HospitalList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                            <tr ng-repeat="row in HospitalList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="HospitalJump.View(row)">
                                 <td>{{$index+1}}</td>
                                 <td><span>{{row.hPCode}}</span></td>
-                                <td><span>{{row.hPName}}</span></td> 
-                                <td><span>{{row.hPFullName}}</span></td>              
-                                <td><span>{{row.hPProvinceCodeName}}</span></td>  
-                                <td><span>{{row.hPCityCodeName}}</span></td>  
-                                <td><span>{{row.hPDistrictCodeName}}</span></td>                          
+                                <td><span>{{row.hPName}}</span></td>
+                                <td><span>{{row.hPFullName}}</span></td>
+                                <td><span>{{row.hPProvinceCodeName}}</span></td>
+                                <td><span>{{row.hPCityCodeName}}</span></td>
+                                <td><span>{{row.hPDistrictCodeName}}</span></td>
                                 <td><span>{{row.hPAddress}}</span></td>
                                 <td><span>{{row.remark}}</span></td>
                                 <td><span>{{row.validStatusName}}</span></td>

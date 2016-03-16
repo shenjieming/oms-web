@@ -45,7 +45,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in DoctorList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                            <tr ng-repeat="row in DoctorList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="DoctorJump.View(row)">
                                 <td>{{$index+1}}</td>
                                 <td><span>{{row.hPCodeName}}</span></td>
                                 <td><span>{{row.wardDeptCodeName}}</span></td>
@@ -54,7 +54,7 @@
                                 <td><span>{{row.dTGradeName}}</span></td>
                                 <td><span>{{row.isLocalName}}</span></td>
                                 <td><span>{{row.dTEducationName}}</span></td>
-                                <td><span>{{row.dTDescription}}</span></td>                              
+                                <td><span>{{row.dTDescription}}</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -235,13 +235,13 @@
 
                         <div class="control-group ">
                             <label>
-                                货主名称：{{DoctorView.Info.dLOrgCodeName}}
-                            </label>
-                            <label>
                                 医院名称：{{DoctorView.Info.hPCodeName}}
                             </label>
                             <label>
                                 科室名称：{{DoctorView.Info.wardDeptCodeName}}
+                            </label>
+                            <label>
+                                科室编码：{{DoctorView.Info.wardDeptCodeName}}
                             </label>
                         </div>
                         <div class="control-group ">
@@ -263,7 +263,7 @@
                                 医生性别：{{DoctorView.Info.dTSexName}}
                             </label>
                             <label>
-                                操作状态：{{DoctorView.Info.validStatus=="Y"?"有效":"无效"}}
+                                医生邮箱：{{DoctorView.Info.dTEmail}}
                             </label>
                         </div>
                         <div class="control-group ">
@@ -278,26 +278,26 @@
                             </label>
                         </div>
                         <div class="control-group ">
-                            <label>
-                                医生邮箱：{{DoctorView.Info.dTEmail}}
-                            </label>
-                            <label>
+                            <label style="width:100%">
                                 医生地址：{{DoctorView.Info.dTAddress}}
                             </label>
                         </div>
                         <div class="control-group ">
-                            <label>
-                                医生备注：{{DoctorView.Info.dTRemark}}
+                            <label style="width:100%">
+                                医生描述：{{DoctorView.Info.dTRemark}}
                             </label>
-                            <label>
+                        </div>
+                        <div class="control-group ">
+                            <label style="width:100%">
                                 医生喜好：{{DoctorView.Info.dTOperationPreferenceDesc}}
                             </label>
                         </div>
                         <div class="control-group ">
-                            <label>
-                                医生描述：{{DoctorView.Info.dTDescription}}
+                            <label style="width:100%">
+                                医生备注：{{DoctorView.Info.dTRemark}}
                             </label>
                         </div>
+                  
                     </div>
                 </div>
                 <div class="widget-box">

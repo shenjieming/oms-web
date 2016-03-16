@@ -93,9 +93,9 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
                 $MessagService.caveat("请选择一条编辑的医生信息！");
             }
         },
-        View: function () {
+        View: function (row) {
             /// <summary>点击医生详情</summary>
-            var row = $local.getSelectedRow($scope.DoctorList.info);
+            var row =row?row: $local.getSelectedRow($scope.DoctorList.info);
             if (row) {
                 $scope.DoctorJump.isView(true);
                 $Api.ManaDocter.GetbizDataDoctorDetail(row, function (rData) {

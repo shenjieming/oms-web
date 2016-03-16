@@ -480,6 +480,10 @@ var ApiPath = {
         addOdwhCfg: "/v2/bizData/addOdwhCfg",
         //订单仓库路由修改
         updateOdwhCfg: "/v2/bizData/updateOdwhCfg",
+        // 获取所有货主
+        findDLByOIOrgCodeCombox: "/v2/bizData/findDLByOIOrgCodeCombox",
+        //获取所有仓库
+        findAllWareHouse: "/v2/order/common/findAllWareHouse",
     },
     productLine: {
         //产品线管理
