@@ -29,7 +29,9 @@ app.controller("MaterialDetailController", function ($scope, $stateParams, $stat
             /// <summary>物料信息保存</summary>
             $Api.BusinessData.MedMaterial.Save($scope.PageData, function () {
                 $MessagService.caveat("物料保存成功！");
-                $scope.goLastPage();
+                setTimeout(function () {
+                    $scope.goLastPage();
+                },500);
             })
         }
     }
