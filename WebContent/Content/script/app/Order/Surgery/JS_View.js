@@ -443,12 +443,13 @@ app.controller("LibraryController", function ($scope, $state, $local, $Api, $Mes
         }
     }
 });
-app.controller("SingleController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
+app.controller("SingleController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService,$AppHelp) {
     /// <summary>手术下单下单控制器</summary>
     /*基础对象区域Begion*/
     $scope.sono = $stateParams.sono;//获取订单编号
     $scope.PageData = {
         wardDeptCode: "", initHPCode: "", initDTCode: "", patientDiseaseInfo: "",
+        initOperationDate: $AppHelp.Data.GetDate(-1, null, "start"),
         prodLns: new Array(),
         attachments: { images: new Array(), remark: "" }
     }

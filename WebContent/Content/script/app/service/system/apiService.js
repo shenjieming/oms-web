@@ -695,6 +695,7 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                     service.Post(ApiPath.BusinessData.MedMaterial.updateMedMaterialItem, data, callback);
                 },
                 Save: function (data, callback) {
+                    $MessagService.loading("数据保存中，请稍等...");
                     if (data.medMIInternalNo) {
                         service.Post(ApiPath.BusinessData.MedMaterial.updateMedMaterialItem, data, callback);
                     } else {
