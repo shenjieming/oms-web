@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cn.med-log.oms</groupId>
 	<artifactId>oms-web</artifactId>
-	<version>dev</version>
+	<version>test</version>
 	<packaging>war</packaging>
 	<build>
 		<finalName>oms-web</finalName>
@@ -33,7 +33,7 @@
 						<phase>compile</phase>
 						<configuration>
 							<tasks>
-								<copy overwrite="true" file="${basedir}/build/dev/ServerConfiguration.js" tofile="${basedir}/WebContent/Content/script/app/ServerConfiguration.js" />
+								<copy overwrite="true" file="${basedir}/build/test/ServerConfiguration.js" tofile="${basedir}/WebContent/Content/script/app/ServerConfiguration.js" />
 							</tasks>
 						</configuration>
 						<goals>
