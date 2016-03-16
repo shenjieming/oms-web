@@ -2,17 +2,21 @@
 <div class="widget-box" ng-repeat="lib in PageData.outBounds">
     <div class="widget-title bg_ly">
         <span class="icon"><i class="fa icon-chevron-down"></i></span>
-        <h5 style="width:80%" data-toggle="collapse" href="#{{lib.wONo}}">出库单号：{{lib.wONo}}</h5>
+        <h5 style="width:80%" data-toggle="collapse" href="#{{lib.wONo}}">出库单号：<span ng-bind="lib.wONo"></span>
+            <span ng-bind="lib.ShowInfo"></span>
+        </h5>
     </div>
     <div class="widget-content nopadding collapse in" id="{{lib.wONo}}">
         <div class="control-group ">
             <label>
-                订单状态：<span class="red">{{lib.statusName}}</span>
+                订单状态：<span class="red" ng-bind="lib.statusName"></span>
             </label>
             <label>
-                出库仓库：{{lib.medMIWarehouseName}}
+                出库仓库：<span ng-bind="lib.medMIWarehouseName"></span>
             </label>
-            <label></label>
+            <label>
+                下单时间：<span ng-bind="lib.createDate?lib.createDate:'-'"></span>
+            </label>
             <a ng-show="(lib.status=='WOSTS00010')&&View.Competence.sign" class="btn btn-warning" ng-click="LivraryConfig.OBSign(lib)"><i class="fa fa-vine"></i>签收</a>
         </div>
         <div class="control-group" ng-show="lib.wHSpecialNotes">

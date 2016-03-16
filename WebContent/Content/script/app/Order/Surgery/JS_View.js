@@ -388,9 +388,30 @@ app.controller("LibraryController", function ($scope, $state, $local, $Api, $Mes
             /// <summary>出库单分析</summary>
             if ($scope.PageData.outBounds) {
                 $.each($scope.PageData.outBounds, function (item, Bounds) {
-                    $.extend(Bounds, { Material: $scope.LibraryService.MaterialAnalysis(Bounds) })
+                    var Material = $scope.LibraryService.MaterialAnalysis(Bounds);
+                    $.extend(Bounds, { Material: Material, ShowInfo: $scope.LibraryService.GetShowInfo(Material) })
                 });
             }
+        },
+        GetShowInfo: function (list) {
+            /// <summary>获取显示的出库单分析信息</summary>
+            var result = "";
+            var stat = {
+                /// <summary>统计</summary>
+                AllMaterialCount: 0, AllImplantCount: 0, AllToolCount: 0
+            }
+            $.each(list, function (index, mItem) {
+                stat.AllMaterialCount += mItem.reqQty;
+                if (mItem.categoryByPlatform == "IMPLANT") {
+                    stat.AllImplantCount += mItem.reqQty;
+                } else {
+                    stat.AllToolCount += mItem.reqQty;
+                }
+
+            });
+            result = " 物料" + stat.AllMaterialCount + "件(植入物" + stat.AllImplantCount + "件，工具" + stat.AllToolCount + "件）"
+
+            return result;
         },
         MaterialAnalysis: function (Bounds) {
             /// <summary>物料分析</summary>
