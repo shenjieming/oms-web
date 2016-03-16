@@ -58,6 +58,13 @@ app.directive("ngArea", function ($Api, $MessagService) {
                             }
                         });
                     } else { $scope.AreaController.Township = new Array(); }
+                },
+                NewModel: function () {
+                    /// <summary>新的模型对象的处理</summary>
+                    Original.IsNewModel = true;
+                    $scope.AreaController.GetProvince();
+                    $scope.AreaController.GetCity($scope.ngModel.deliveryProvinceCode);
+                    $scope.AreaController.GetTownship($scope.ngModel.deliveryCityCode);
                 }
             }
 
@@ -65,13 +72,16 @@ app.directive("ngArea", function ($Api, $MessagService) {
                 /// <summary>监控整体对象的变化</summary>
                 //当满足所有的数据都是被第三方修改时
                 if ($scope.ngModel.deliveryProvinceCode && $scope.ngModel.deliveryCityCode && $scope.ngModel.deliveryDistrictCode) {
-                    Original.IsNewModel = true;
-                    $scope.AreaController.GetProvince();
-                    $scope.AreaController.GetCity($scope.ngModel.deliveryProvinceCode);
-                    $scope.AreaController.GetTownship($scope.ngModel.deliveryCityCode);
-               
+                    $scope.AreaController.NewModel();
                 }
             });
+
+            $scope.$watch("ngModel.newNgArea", function () {
+                if ($scope.ngModel.newNgArea) {
+                    $scope.AreaController.NewModel();
+                    $scope.ngModel.newNgArea = false;
+                }
+            })
 
             $scope.$watch("ngModel.deliveryProvinceCode", function () {
                 /// <summary>省修改事件</summary>

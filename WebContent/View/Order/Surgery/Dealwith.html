@@ -46,15 +46,13 @@
                                 </label>
                             </div>
                             <div class="control-group ">
-                                <label style="width:100%">
+                                <span class="Vessel" style="width:100%">
                                     <span>  收货地址：</span>
                                     <span>
-                                        {{PageData.deliveryProvinceName}}
-                                        {{PageData.deliveryCityName}}
-                                        {{PageData.deliveryDistrictName}}
-                                        <input type="text" ng-model="PageData.deliveryAddress" style="width:65%;" />
+                                        <span ng-area="" ng-model="PageData"></span>
+                                        <input type="text" ng-model="PageData.deliveryAddress" style="width:65%;border:0;border-bottom:1px solid #ccc;" />
                                     </span>
-                                </label>
+                                </span>
                             </div>
                         </div>
                         <div ng-address="address" ng-model="PageData" ng-operat="AddressConfig"></div>

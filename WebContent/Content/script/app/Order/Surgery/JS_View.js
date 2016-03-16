@@ -856,7 +856,8 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
                 deliveryDistrictCode: rowInfo.districtCode,
                 deliveryDistrictName: rowInfo.districtCodeName,
                 deliveryAddress: rowInfo.address,
-                carrierTransType: rowInfo.carrierTransType
+                carrierTransType: rowInfo.carrierTransType,
+                newNgArea: true
             });
             $scope.AddressConfig.hide();
         }

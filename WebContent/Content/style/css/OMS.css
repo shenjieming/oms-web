@@ -13,15 +13,18 @@ html, .ng-scope {
 
 input, select, textarea {
     border: solid 1px #ccc;
+    /*border: 0px;
+    border-bottom: 1px solid #ccc;*/
     padding: 5px;
     border-radius: 4px;
 }
- label select {
-    max-width:150px;
+
+label select {
+    max-width: 150px;
 }
 
 label > input[type='text'], label select {
-    min-width:150px;
+    min-width: 150px;
 }
 /*行上边距8像素*/
 .row-mt-8 {
@@ -259,9 +262,11 @@ label > input[type='text'], label select {
                 color: #fff;
                 float: right;
             }
+
             .row-fluid .widget-box .widget-title .btn-group {
                 float: right;
             }
+
                 .row-fluid .widget-box .widget-title .btn-group .btn {
                     color: #fff;
                     float: left;
@@ -288,8 +293,8 @@ label > input[type='text'], label select {
                 display: flex;
             }
 
-                .row-fluid .widget-box .widget-content .control-group > label ,
-                .row-fluid .widget-box .widget-content .control-group > .Vessel{
+                .row-fluid .widget-box .widget-content .control-group > label,
+                .row-fluid .widget-box .widget-content .control-group > .Vessel {
                     text-align: left;
                     padding-left: 3%;
                     width: 30%;
@@ -301,6 +306,7 @@ label > input[type='text'], label select {
                     .row-fluid .widget-box .widget-content .control-group > .Vessel.Others {
                         width: 39%;
                     }
+
                     .row-fluid .widget-box .widget-content .control-group > label .Text,
                     .row-fluid .widget-box .widget-content .control-group > .Vessel .Text {
                         line-height: 35px;
@@ -311,7 +317,8 @@ label > input[type='text'], label select {
                     .row-fluid .widget-box .widget-content .control-group > .Vessel .Left {
                         float: left;
                     }
-                     .row-fluid .widget-box .widget-content .control-group > label .Right,
+
+                    .row-fluid .widget-box .widget-content .control-group > label .Right,
                     .row-fluid .widget-box .widget-content .control-group > .Vessel .Right {
                         float: right;
                     }
@@ -657,7 +664,7 @@ label > input[type='text'], label select {
         background-image: url(../img/home/home-6.jpg);
     }
 
-    /*兼容问题处理*/
+/*兼容问题处理*/
 .dropdown-backdrop {
     position: initial;
     top: 0;
@@ -694,10 +701,9 @@ label > input[type='text'], label select {
         color: #fff;
     }
 
- .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover 
- {
-    background: #2980b9;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #2980b9), color-stop(100%, #2980b9));
-    background: -webkit-linear-gradient(top, #2980b9 0%, #2980b9 100%);
-    background: linear-gradient(to bottom, #2980b9 0%, #2980b9 100%);
-}
+    .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover {
+        background: #2980b9;
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #2980b9), color-stop(100%, #2980b9));
+        background: -webkit-linear-gradient(top, #2980b9 0%, #2980b9 100%);
+        background: linear-gradient(to bottom, #2980b9 0%, #2980b9 100%);
+    }
