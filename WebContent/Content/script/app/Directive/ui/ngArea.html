@@ -1,14 +1,11 @@
 ﻿<span>
-    <select ng-model="ngModel.deliveryProvinceCode">
+    <select ng-model="ngModel.deliveryProvinceCode" ng-options="item.divCode as item.divName for item in AreaController.Province">
         <option value="">省</option>
-        <option ng-repeat="item in AreaController.Province" value="{{item.divCode}}">{{item.divName}}</option>
     </select>
-    <select ng-model="ngModel.deliveryCityCode">
+    <select ng-model="ngModel.deliveryCityCode" ng-options="item.divCode as item.divName for item in AreaController.City">
         <option value="">市</option>
-        <option ng-repeat="item in AreaController.City" value="{{item.divCode}}">{{item.divName}}</option>
     </select>
-    <select ng-model="ngModel.deliveryDistrictCode">
+    <select ng-model="ngModel.deliveryDistrictCode" ng-options="item.divCode as item.divName for item in AreaController.Township">
         <option value="">区</option>
-        <option ng-repeat="item in AreaController.Township" value="{{item.divCode}}">{{item.divName}}</option>
     </select>
 </span>
