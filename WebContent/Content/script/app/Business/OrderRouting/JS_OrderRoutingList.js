@@ -8,7 +8,7 @@
 /// <reference path="../Config.js" />
 
 app.controller("OrderRoutingListController", function ($scope, $state, $local, $Api, $MessagService) {
-    /// <summary>产品线列表</summary>
+    /// <summary>订单仓库路由</summary>
     $scope.tree = {
         setting: {
             callback: {
@@ -42,8 +42,8 @@ app.controller("OrderRoutingListController", function ($scope, $state, $local, $
                 onClick: function (event, treeId, treeNode) {
                     /// <summary>点击tree后的事件</summary>
                     $scope.Pagein.pageIndex = 1;//当前数据分页从第一页开始
-                    $scope.ProLine.options = treeNode.options;//获取当前节点的条件
-                    $scope.ProLine.GetZreeProLine();//数据读取
+                    $scope.OrderRouting.options = treeNode.options;//获取当前节点的条件
+                    $scope.OrderRouting.GetZreeOrderRouting();//数据读取
                     $scope.Server.Add = true;
                     $scope.Server.Delect = true;            
                     $scope.Server.Edit = true;
@@ -55,26 +55,26 @@ app.controller("OrderRoutingListController", function ($scope, $state, $local, $
     }
 
 
-    $scope.ProLine = {
+    $scope.OrderRouting = {
         info: [],
         options: [],
-        GetZreeProLine: function () {
+        GetZreeOrderRouting: function () {
             /// <summary>获取产品线列表</summary>
-            var opt = $.extend($scope.ProLine.options, $scope.Pagein);
+            var opt = $.extend($scope.OrderRouting.options, $scope.Pagein);
             console.log(opt)
             $Api.ProductLine.Getquery(opt, function (rData) {
-                $scope.ProLine.info = rData.rows;
+                $scope.OrderRouting.info = rData.rows;
                 $scope.Pagein.total = rData.total;
                 console.log(rData)
             })
         },
-        GetCargoOwner: function () {
+        GetWareHouseList: function () {
             /// <summary>获取我的货主信息</summary>
-            $Api.OrganizationService.GetCargoOwner({}, function (rData) {
+            $Api.MaterialsService.GetAllWareHouse({}, function (rData) {
                 var treeData = new Array();
                 console.log(rData);
                 for (var i = 0; i < rData.length; i++) {
-                    treeData.push({ id: rData[i].id, name: rData[i].text, isParent: true, options: { oIOrgCode: rData[i].id }, Subset: $Api.BrandService.GetBrandList, SubsetType: "medBrandCode" });
+                    treeData.push({ id: rData[i].id, name: rData[i].text, isParent: true, options: { oIOrgCode: rData[i].id }, Subset: $Api.OrderRout.GetBrandList, SubsetType: "oIOrgCode" });
                 }
                 $scope.tree.data = treeData;;
             })
@@ -84,7 +84,7 @@ app.controller("OrderRoutingListController", function ($scope, $state, $local, $
     $scope.getSelectedRow = function () {
         /// <summary>获取选择的行</summary>
         var result = false;
-        $.each($scope.ProLine.info, function (index, item) {
+        $.each($scope.OrderRouting.info, function (index, item) {
             if (item.isSelected) {
                 result = item;
             }
@@ -103,7 +103,7 @@ app.controller("OrderRoutingListController", function ($scope, $state, $local, $
     }
     $scope.Load = function () {
         /// <summary>页面初始化</summary>
-        $scope.ProLine.GetCargoOwner();
+      
     }
     $scope.Load();
 })

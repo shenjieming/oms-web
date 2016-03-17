@@ -987,12 +987,12 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
             },
 
             GetfindDLByOIOrgCodeCombox: function (data, callback) {
-                /// <summary>获取所有货主</summary>
+                /// <summary>获取获取货主下的经销商</summary>
                 service.Post(ApiPath.OrderRout.findDLByOIOrgCodeCombox, data, callback);
             },
-            GetfindAllWareHouse: function (data, callback) {
-                /// <summary>获取所有仓库</summary>
-                service.Post(ApiPath.OrderRout.findAllWareHouse, data, callback);
+            GetfindOICombox: function (data, callback) {
+                /// <summary>获取所有货主</summary>
+                service.Post(ApiPath.OrderRout.findOICombox, data, callback);
             }
 
         },
