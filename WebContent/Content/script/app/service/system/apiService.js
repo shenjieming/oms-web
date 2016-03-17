@@ -727,6 +727,10 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
             },
             Reservoir: {
                 //库区管理
+                AueryAllWhzone: function (data, callback) {
+                    /// <summary>获取库区信息</summary>
+                    service.Post(ApiPath.BusinessData.Reservoir.queryAllWhzone, data, callback);
+                },
                 GetSearchHMedKitDetail: function (data, callback) {
                     /// <summary>获取库区信息</summary>
                     /// <summary>套件详情</summary>
