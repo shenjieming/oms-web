@@ -7,10 +7,10 @@
             <span style="color: #FF3300">({{PageData.statusName}})</span>
 
         </h5>
-        <span style="float:right;">
-            <a class="btn btn-primary" ng-show="View.Competence.dealwith"><i class="fa fa-wrench"></i>处理</a>
-            <a class="btn btn-primary" ng-show="View.Competence.approval" ng-click="ApprovalConfig.Operat.show()"><i class="fa fa-eye"></i>审批</a>
-            <a class="btn btn-primary" ng-show="View.Competence.sign" ng-click="SignConfig.Operat.show()"><i class="fa fa-eye"></i>订单签收</a>
+        <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith"><i class="fa fa-wrench"></i>处理</a>
+            <a class="btn btn-primary" ng-if="View.Competence.approval" ng-click="ApprovalConfig.Operat.show()"><i class="fa fa-eye"></i>审批</a>
+            <a class="btn btn-primary" ng-if="View.Competence.sign" ng-click="SignConfig.Operat.show()"><i class="fa fa-eye"></i>订单签收</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
@@ -54,10 +54,11 @@
     <div ng-order-approval="" ng-model="PageData" ng-operat="ApprovalConfig.Operat"></div>
     <div ng-sign="" ng-model="PageData" ng-operat="SignConfig.Operat"></div>
     <div class="tools">
-        <span style="float:right;">
-            <a class="btn btn-primary" ng-show="View.Competence.approval" ng-click="ApprovalConfig.Operat.show()"><i class="fa fa-eye"></i>审批</a>
-            <a class="btn btn-primary" ng-show="View.Competence.sign" ng-click="SignConfig.Operat.show()"><i class="fa fa-eye"></i>订单签收</a>
-            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa  fa-reply"></i> 返回</a>
+        <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith"><i class="fa fa-wrench"></i>处理</a>
+            <a class="btn btn-primary" ng-if="View.Competence.approval" ng-click="ApprovalConfig.Operat.show()"><i class="fa fa-eye"></i>审批</a>
+            <a class="btn btn-primary" ng-if="View.Competence.sign" ng-click="SignConfig.Operat.show()"><i class="fa fa-eye"></i>订单签收</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
 </div>
