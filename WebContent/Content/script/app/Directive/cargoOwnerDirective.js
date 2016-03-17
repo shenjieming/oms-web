@@ -31,6 +31,7 @@ app.directive("ngCargo", function ($Api, $MessagService) {
                         $scope.Cargo.List = rData;
                         if (!$scope.ngModel && $scope.Cargo.List[0]) {
                             $scope.ngModel = $scope.Cargo.List[0].id;
+                            $scope.ngCargo = $scope.Cargo.List[0].id;
                         }
                     });
                 }
