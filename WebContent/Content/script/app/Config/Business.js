@@ -288,7 +288,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
            resolve: app.resolve
        })
 });
-// 品牌、产品线管理、我的产品
+// 品牌、产品线管理、我的产品、仓库订单路由配置
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary品牌管理</summary>
     $stateProvider
@@ -327,6 +327,19 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
            templateUrl: "View/Business/AgentProduct/AgentProductList.html?data=" + Timestamp,
            controller: "ProductListController",
            loadJs: ["Content/script/app/Business/AgentProduct/JS_AgentProductList.js"],
+           resolve: app.resolve
+       })
+});
+app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
+    /// <summary>仓库订单路由配置</summary>
+    $stateProvider
+       .state("app.business.orderroutingmanagement", {
+           /// <summary>仓库订单路由配置列表</summary>
+           url: "/orderroutingmanagement",
+           cache: false,
+           templateUrl: "View/Business/OrderRouting/OrderRoutingList.html?data=" + Timestamp,
+           controller: "OrderRoutingListController",
+           loadJs: ["Content/script/app/Business/OrderRouting/JS_OrderRoutingList.js"],
            resolve: app.resolve
        })
 });

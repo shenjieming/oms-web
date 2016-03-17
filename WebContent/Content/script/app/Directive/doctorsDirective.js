@@ -39,7 +39,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                     $scope.Service.GetDoctors();
                 },
                 close: function () {
-                    $.extend($scope.operat, { isEdit: true, isDetail: false })
+                    $.extend($scope.operat, { isEdit: false, isDetail: false })
                 }
             }
             $scope.operat = {
@@ -56,6 +56,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                 ShowDetail: function () {
                     /// <summary>显示明细</summary>
                     $scope.operat.isDetail = true;
+                    $scope.Service.GetDoctors();
                 }
                 
             }
@@ -68,6 +69,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                     /// <summary>获取常用医生</summary>
                     $Api.HospitalService.GetDoctors($scope.ngModel, function (rData) {
                         $scope.Service.DoctorsList = rData;
+                        console.log(rData)
                     });
                 },
                 DelDoctor: function (data) {
@@ -77,9 +79,16 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                         /// <summary>删除选择删除的医生</summary>
                         $scope.Service.GetDoctors();
                     });
-                }
+                },
+                GetDoctorsDetail: function () {
+                    /// <summary>获取常用医生</summary>
+                    console.log($scope.ngModel)
+                    $Api.HospitalService.ModifyDoctors($scope.ngModel, function (rData) {
+                        console.log(rData)
+                        $scope.Service.DoctorsList = rData;                      
+                    });
+                },
             };
-
         }
     }
 });

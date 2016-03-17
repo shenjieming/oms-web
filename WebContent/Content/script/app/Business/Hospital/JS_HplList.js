@@ -35,9 +35,9 @@ app.controller("HplListController", function ($scope, $state, $local, $Api, $Mes
                 $MessagService.caveat("请选择一条编辑的医院！")
             }
         },
-        View: function () {
+        View: function (row) {
             /// <summary>医院详情</summary>
-            var hplopt = $scope.getSelectedRow()
+            var hplopt = row? row:$scope.getSelectedRow()
             if (hplopt) {
                 $state.go("app.business.hplmanagementView", { hplopt: hplopt.hPCode });
             } else {

@@ -21,18 +21,9 @@ app.controller("MenuListController", function ($scope, $state, $local, $Api, $Me
                 onClick: function (event, treeId, treeNode) {
                     /// <summary>点击tree后的事件</summary>
                     console.log(treeNode)
-                    if (treeNode.isParent) {
-                        $scope.MenuDetail.option = "";
-                        if (treeNode.level == 0) {
-                            $scope.MenuDetail.parOption = treeNode.level                          
-                        } else {
-                            $scope.MenuDetail.parOption = treeNode.id
-                        }
-                    } else {
-                        $scope.MenuDetail.parOption = "";
-                        $scope.MenuDetail.option = treeNode.id;
-                    }                  
+                    $scope.MenuDetail.parOption = treeNode.id;
                     $scope.MenuDetail.getTreeMenuList();//数据读取
+                    $scope.MenuDetail.getMenuDetail();
                 },
             },
             data: {
@@ -50,8 +41,7 @@ app.controller("MenuListController", function ($scope, $state, $local, $Api, $Me
     $scope.MenuInfo = {};
     $scope.functionID = {};
     $scope.MenuDetail = {
-        option: [],
-        parOption:[],
+        parOption: [],
         MenuInfo: {},
         getMenuList: function () {
             /// <summary>获取功能菜单列表</summary>
@@ -66,17 +56,18 @@ app.controller("MenuListController", function ($scope, $state, $local, $Api, $Me
             /// <summary>获取功能菜单列表</summary>
             console.log($scope.functionID)
             $MessagService.loading("菜单列表获取中，请稍等...");
-            var options = $.extend({ functionID: $scope.MenuDetail.option, parentFunctionID: $scope.MenuDetail.parOption }, {})
+            var options = $.extend({ parentFunctionID: $scope.MenuDetail.parOption }, {})
             $Api.MenuService.GetMenuList(options, function (rData) {
                 /// <summary>获取菜单列表</summary>
                 $scope.MenuInfo = rData;
+                console.log(rData)
             });
         },
         getMenuDetail: function () {
             /// <summary>获取功能菜单详细</summary>
-            $Api.MenuService.GetMenuDetail({ functionID: $scope.MenuView.Info.functionID }, function (rData) {
+            $Api.MenuService.GetMenuDetail({ functionID: $scope.MenuDetail.parOption }, function (rData) {
                 /// <summary>获取菜单列表</summary>
-                $scope.MenuView.Info = rData;
+                console.log(rData)
             });
         },
         getMenuZtree: function () {
@@ -86,52 +77,23 @@ app.controller("MenuListController", function ($scope, $state, $local, $Api, $Me
                 var treeData = new Array();
                 $scope.MenuDetail.getMenuList();//数据读取
                 for (var i = 0; i < rData.length; i++) {
-                    if (rData[i].functionLevel != 2) {
-                        treeData.push({ id: rData[i].functionID, pId: rData[i].parentFunctionID, name: rData[i].functionName, isParent: true });
-                    } else {
-                        treeData.push({ id: rData[i].functionID, pId: rData[i].parentFunctionID, name: rData[i].functionName });
+                    if (rData[i].parentFunctionID == 1) {
+                        treeData.push({
+                            id: rData[i].functionID, pid: rData[i].parentFunctionID, pId: rData[i].parentFunctionID, name: rData[i].functionName, isParent:
+    true
+                        });
+                    } else if (rData[i].parentFunctionID != 0) {
+                        treeData.push({
+                            id: rData[i].functionID, pid: rData[i].parentFunctionID, pId: rData[i].parentFunctionID, name: rData
+    [i].functionName, isParent: false
+                        });
                     }
                 }
                 $scope.tree.data = treeData;
             })
         }
-
     }
     //菜单详情
-    $scope.getSelectedRow = function () {
-        /// <summary>获取选择的行</summary>
-        var result = false;
-        $.each($scope.MenuInfo, function (index, item) {
-            if (item.isSelected) {
-                result = item
-            }
-        });
-        console.log(result)
-        return result;
-    }
-    $scope.MenuView = {
-
-        Info: {},
-        showMenuView: function (row) {
-            $scope.MenuView.Info = row ? row : $scope.getSelectedRow();
-            $scope.MenuDetail.getMenuDetail();
-            /// <summary>获取选中的行</summary>
-            if ($scope.MenuView.Info) {
-                /// <summary>y=有效</summary>
-                console.log($scope.MenuView.Info)
-                $scope.MenuView.model.show();
-            } else {
-                $MessagService.caveat("请选择一条查看数据！");
-            }
-        },
-        cancel: function () {
-            /// <summary>取消</summary>
-            $scope.MenuView.model.hide();
-        }
-
-    }
-    $scope.MenuView.model = { title: "菜单详情", width: 600, height: 300, buttons: { "确定": $scope.MenuView.cancel } }
-
     $scope.Pagein = {
         pageSize: 10,
         pageIndex: 1,
