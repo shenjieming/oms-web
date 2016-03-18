@@ -108,19 +108,26 @@ app.directive("ngObSign", function ($Api, $MessagService, $local) {
     };
 });
 
-//app.directive("ngOrderApply", function ($Api, $MessagService, $local) {
-//    /// <summary>订单返库申请</summary>
-//    return {
-//        restrict: "EA",
-//        templateUrl: "Content/script/app/Directive/ui/ngCargoOwner.html",
-//        scope: {
-//            ngModel: '='
-//        },
-//        replace: true,
-//        link: function ($scope, element, attrs) {
-//        }
-//    };
-//});
+app.directive("ngSummary", function ($Api, $MessagService, $local) {
+    /// <summary>订单返库申请</summary>
+    return {
+        restrict: "EA",
+        template: " <div class=\"ProgressBar control-group\">"+
+            "<span class=\"event\" ng-class=\"Class\"></span>" +
+        "</div>",
+        scope: {
+            ngModel: '='
+        },
+        replace: true,
+        link: function ($scope, element, attrs) {
+            $scope.$watch("ngModel", function () {
+                if ($scope.ngModel) {
+                    $scope.Class = $scope.ngModel.length > 0 ? $scope.ngModel[0].toCustomerSummaryDesc : "Order";
+                }
+            })
+        }
+    };
+});
 
 //app.directive("ngOrderBack", function ($Api, $MessagService, $local) {
 //    /// <summary>订单返库</summary>
