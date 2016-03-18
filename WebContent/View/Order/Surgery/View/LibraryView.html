@@ -15,7 +15,7 @@
                 出库仓库：<span ng-bind="lib.medMIWarehouseName"></span>
             </label>
             <label>
-                下单时间：<span ng-bind="lib.createDate?lib.createDate:'-'"></span>
+                创建时间：<span ng-bind="lib.createDate?lib.createDate:'-'"></span>
             </label>
             <a ng-show="(lib.status=='WOSTS00010')&&View.Competence.sign" class="btn btn-warning" ng-click="LivraryConfig.OBSign(lib)"><i class="fa fa-vine"></i>签收</a>
         </div>

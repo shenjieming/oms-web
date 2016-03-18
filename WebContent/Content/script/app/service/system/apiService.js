@@ -554,6 +554,13 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
         },
         RepresentativeService: {
             /// <summary>销售代表信息服务管理</summary>
+            SaveAddress: function (data, callback) {
+                if (data.lineNo) {
+                    service.Post(ApiPath.Representative.modifyDelivery, data, callback);
+                } else {
+                    service.Post(ApiPath.Representative.addDelivery, data, callback);
+                }
+            },
             GetShipping: function (data, callback) {
                 /// <summary>获取收货地址</summary>
                 service.Post(ApiPath.Representative.shipping, data, callback);
@@ -577,6 +584,14 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
         },
         HospitalService: {
             /// <summary>医院信息管理服务</summary>
+            SaveDoctor: function (data, callback) {
+                /// <summary>保存常用医生</summary>
+                if (data.dTCode) {
+                    service.Post(ApiPath.Hospital.modifyDoctors, data, callback);                  
+                } else {
+                    service.Post(ApiPath.Hospital.addDoctors, data, callback);
+                }
+            },
             GetHospital: function (data, callback) {
                 /// <summary>获取医院信息列表</summary>
                 $MessagService.loading("医院信息获取中，请稍等...");
