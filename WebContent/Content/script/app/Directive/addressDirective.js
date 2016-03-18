@@ -17,6 +17,7 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
         },
         replace: true,
         link: function ($scope, element, attrs) {
+            var userInfo = $local.getValue("USER").userInfo;
             var modelConfig = {
                 title: "常用地址选择", width: 750, height: 400, buttons: {
                     "确定": function () {
@@ -32,20 +33,160 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                     "关闭": function () {
                         $scope.ngOperat.hide();
                     }
+                },
+                open: function () {
+                    $.extend($scope.operat, { isEdit: true, isDetail: false })
+                    $scope.Service.GetAddressList();
                 }
             };
-
+            $scope.operat = {
+                isEdit: true,//是否显示编辑信息
+                isDetail: false,//是否显示明细信息
+                ChangeEdit: function (row) {
+                    /// <summary>修改地址列表状态</summary>
+                    $scope.operat.isEdit = !$scope.operat.isEdit;
+                    $scope.operat.isDetail = !$scope.operat.isDetail;
+                    $scope.Service.AddressList = row;
+                    console.log($scope.Service.AddressList)
+                    $scope.Service.GetAddressDetail();
+                },
+                ChangeDetail: function () {
+                    /// <summary>新增地址列表信息</summary>
+                    $scope.operat.isDetail = !$scope.operat.isDetail;
+                    $scope.operat.isEdit = !$scope.operat.isEdit;
+                    $scope.SelectInfo.Province.getProvinceList();
+                    $scope.Service.AddressDetail = new Object();
+                    $scope.SelectInfo.carrierTransType.getcarrierTransTypeList();
+                },
+                List: function () {
+                    /// <summary>我的地址列表返回</summary>
+                    $scope.operat.isDetail = !$scope.operat.isDetail;
+                    $scope.operat.isEdit = !$scope.operat.isEdit;
+                    $scope.Service.GetAddressList();
+                },
+                verification: function () {
+                    var result = true;
+                    if (!$scope.Service.AddressDetail.contact) {
+                        result = false;
+                        $MessagService.caveat("请维护该联系人姓名！");
+                    }
+                    else if (!$scope.Service.AddressDetail.mobile) {
+                        result = false;
+                        $MessagService.caveat("请维护该联系人号码！");
+                    }
+                    else if (!$scope.Service.AddressDetail.provinceCode || !$scope.Service.AddressDetail.cityCode || !$scope.Service.AddressDetail.districtCode || !$scope.Service.AddressDetail.address) {
+                        result = false;
+                        $MessagService.caveat("请维护该联系人地址！");
+                    }
+                    return result;
+                },
+                Save: function () {
+                    console.log($scope.Service.AddressDetail)
+                    $Api.RepresentativeService.SaveAddress($scope.Service.AddressDetail, function (rData) {
+                        $MessagService.succ("该信息保存成功！");
+                        $scope.operat.isDetail = !$scope.operat.isDetail;
+                        $scope.operat.isEdit = !$scope.operat.isEdit;
+                        $scope.Service.GetAddressList();
+                    })
+                },
+            }
             $scope.ngOperat = $.extend(modelConfig, $scope.ngOperat);
             $scope.Service = {
-                AddressList :new Array(),
+                AddressList: new Array(),
+                AddressDetail: new Object(),
                 GetAddressList: function () {
                     /// <summary>获取常用地址列表</summary>
                     $Api.RepresentativeService.GetDelivery({ sOCreateBy: $scope.ngModel.sOCreateBy }, function (rData) {
                         $scope.Service.AddressList = rData;
                     });
-                }
+                },
+                GetAddressDetail: function () {
+                    /// <summary>获取常用地址详情</summary>
+                    var parm = { lineNo: $scope.Service.AddressList.lineNo, userID: userInfo.userId }
+                    $Api.MyAddress.GetbizDataMyAddressDetail(parm, function (rData) {
+                        $scope.Service.AddressDetail = rData;
+                        $scope.SelectInfo.Province.getProvinceList();
+                        $scope.SelectInfo.City.getCityList();
+                        $scope.SelectInfo.District.getDistrictList();
+                        $scope.SelectInfo.carrierTransType.getcarrierTransTypeList();
+                    })
+                },
+                DelAddress: function (data) {
+                    /// <summary>删除地址列表</summary>
+                    console.log(data)
+                    var param = { lineNo: data.lineNo }
+                    $Api.RepresentativeService.DeleteDelivery(param, function () {
+                        /// <summary>删除选择删除的地址列表</summary>
+                        $scope.Service.GetAddressList();
+                    });
+                },
             };
             $scope.Service.GetAddressList();
+            $scope.SelectInfo = {
+                Province: {
+                    //省份类型下拉框  
+                    dic: new Array(),
+                    change: function () {
+                        /// <summary>省份列表修改事件</summary>       
+                        $scope.Service.AddressDetail.cityCode = "";
+                        $scope.Service.AddressDetail.districtCode = "";
+                        $scope.SelectInfo.City.getCityList()// 市区下拉                         
+                    },
+                    getProvinceList: function () {
+                        /// <summary>获取省份列表</summary>
+                        $Api.BasisService.GetadmdivisionList({ level: "1" }, function (rData) {
+                            $scope.SelectInfo.Province.dic = rData.rows;
+                            console.log(rData)
+                        });
+                    }
+                },
+                City: {
+                    //市区类型下拉框  
+                    dic: new Array(),
+                    change: function () {
+                        /// <summary>省份市区修改事件</summary>                 
+                        $scope.Service.AddressDetail.districtCode = "";
+                        $scope.SelectInfo.District.getDistrictList()// 市区下拉 
+                    },
+                    getCityList: function () {
+                        /// <summary>获取市区列表</summary>
+                        if ($scope.Service.AddressDetail.provinceCode) {
+                            var option = { level: "2", parentDivCode: $scope.Service.AddressDetail.provinceCode }
+                            $Api.BasisService.GetadmdivisionList(option, function (rData) {
+                                $scope.SelectInfo.City.dic = rData.rows;
+                                console.log(rData)
+                            });
+                        } else {
+                            $scope.SelectInfo.City.dic = new Array();
+                        }
+                    }
+                },
+                District: {
+                    //区域类型下拉框  
+                    dic: new Array(),
+                    getDistrictList: function () {
+                        /// <summary>获取区域列表</summary>
+                        if ($scope.Service.AddressDetail.cityCode && $scope.Service.AddressDetail.provinceCode) {
+                            var option = { level: "3", parentDivCode: $scope.Service.AddressDetail.cityCode }
+                            $Api.BasisService.GetadmdivisionList(option, function (rData) {
+                                $scope.SelectInfo.District.dic = rData.rows;
+                                console.log(rData)
+                            });
+                        } else {
+                            $scope.SelectInfo.District.dic = new Array();
+                        }
+                    }
+                },
+                carrierTransType:{
+                    dic: new Array(),
+                    getcarrierTransTypeList: function () {
+                        $Api.Public.GetDictionary({ dictType: "TRANTP" }, function (rData) {
+                            $scope.SelectInfo.carrierTransType.dic = rData;
+                            console.log(rData)
+                        })
+                    }
+                }
+            }
         }
     }
 });
