@@ -42,20 +42,38 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
             $scope.operat = {
                 isEdit: true,//是否显示编辑信息
                 isDetail: false,//是否显示明细信息
-                ChangeEdit: function (row) {
+                ChangeEdit: function () {
                     /// <summary>修改地址列表状态</summary>
-                    $scope.operat.isEdit = !$scope.operat.isEdit;
-                    $scope.operat.isDetail = !$scope.operat.isDetail;
-                    $scope.Service.AddressList = row;
-                    console.log($scope.Service.AddressList)
-                    $scope.Service.GetAddressDetail();
+                    var address = $local.getSelectedRow($scope.Service.AddressList)
+                    if (address) {
+                        $scope.operat.isEdit = false;
+                        $scope.operat.isDetail = true
+                        var parm = $.extend({ userID: userInfo.userId }, address)
+                        console.log(parm)
+                        $Api.MyAddress.GetbizDataMyAddressDetail(parm, function (rData) {
+                            $scope.Service.AddressDetail = rData;
+                            $scope.SelectInfo.Province.getProvinceList();
+                            $scope.SelectInfo.City.getCityList();
+                            $scope.SelectInfo.District.getDistrictList();
+                            $scope.SelectInfo.carrierTransType.getcarrierTransTypeList();
+                            $(".ui-dialog-buttonset").hide();
+                        })
+                    } else {
+                        $MessagService.caveat("请选择编辑的信息！");
+                    }
                 },
                 ChangeDetail: function () {
                     /// <summary>新增地址列表信息</summary>
-                    $scope.operat.isDetail = !$scope.operat.isDetail;
-                    $scope.operat.isEdit = !$scope.operat.isEdit;
+                    $scope.operat.isDetail = true;
+                    $scope.operat.isEdit = false;
                     $scope.SelectInfo.Province.getProvinceList();
                     $scope.Service.AddressDetail = new Object();
+                    if (!$scope.Service.AddressDetail.provinceCode) {
+                        $scope.SelectInfo.City.dic = new Array();
+                        $scope.SelectInfo.District.dic = new Array();
+                    }
+                    
+                    $(".ui-dialog-buttonset").hide();
                     $scope.SelectInfo.carrierTransType.getcarrierTransTypeList();
                 },
                 List: function () {
@@ -63,6 +81,7 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                     $scope.operat.isDetail = !$scope.operat.isDetail;
                     $scope.operat.isEdit = !$scope.operat.isEdit;
                     $scope.Service.GetAddressList();
+                    $(".ui-dialog-buttonset").show();
                 },
                 verification: function () {
                     var result = true;
@@ -80,14 +99,19 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                     }
                     return result;
                 },
+              
                 Save: function () {
                     console.log($scope.Service.AddressDetail)
-                    $Api.RepresentativeService.SaveAddress($scope.Service.AddressDetail, function (rData) {
-                        $MessagService.succ("该信息保存成功！");
-                        $scope.operat.isDetail = !$scope.operat.isDetail;
-                        $scope.operat.isEdit = !$scope.operat.isEdit;
-                        $scope.Service.GetAddressList();
-                    })
+                    if ($scope.operat.verification()) {
+                        $Api.RepresentativeService.SaveAddress($scope.Service.AddressDetail, function (rData) {
+                            $MessagService.succ("该信息保存成功！");
+                            $scope.operat.isDetail = !$scope.operat.isDetail;
+                            $scope.operat.isEdit = !$scope.operat.isEdit;
+                            $scope.Service.GetAddressList();
+                            $(".ui-dialog-buttonset").show();
+                            $scope.Service.AddressDetail = [];
+                        })
+                    }            
                 },
             }
             $scope.ngOperat = $.extend(modelConfig, $scope.ngOperat);
@@ -99,17 +123,6 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                     $Api.RepresentativeService.GetDelivery({ sOCreateBy: $scope.ngModel.sOCreateBy }, function (rData) {
                         $scope.Service.AddressList = rData;
                     });
-                },
-                GetAddressDetail: function () {
-                    /// <summary>获取常用地址详情</summary>
-                    var parm = { lineNo: $scope.Service.AddressList.lineNo, userID: userInfo.userId }
-                    $Api.MyAddress.GetbizDataMyAddressDetail(parm, function (rData) {
-                        $scope.Service.AddressDetail = rData;
-                        $scope.SelectInfo.Province.getProvinceList();
-                        $scope.SelectInfo.City.getCityList();
-                        $scope.SelectInfo.District.getDistrictList();
-                        $scope.SelectInfo.carrierTransType.getcarrierTransTypeList();
-                    })
                 },
                 DelAddress: function (data) {
                     /// <summary>删除地址列表</summary>
@@ -177,7 +190,7 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                         }
                     }
                 },
-                carrierTransType:{
+                carrierTransType: {
                     dic: new Array(),
                     getcarrierTransTypeList: function () {
                         $Api.Public.GetDictionary({ dictType: "TRANTP" }, function (rData) {
