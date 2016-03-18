@@ -587,7 +587,7 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
             SaveDoctor: function (data, callback) {
                 /// <summary>保存常用医生</summary>
                 if (data.dTCode) {
-                    service.Post(ApiPath.Hospital.modifyDoctors, data, callback);                  
+                    service.Post(ApiPath.ManaDocter.bizDataDoctorModify, data, callback);
                 } else {
                     service.Post(ApiPath.Hospital.addDoctors, data, callback);
                 }
