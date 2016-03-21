@@ -3,42 +3,22 @@
 /// <reference path="../ApiPath.js" />
 /// <reference path="../../Config.js" />
 /// <summary>外部接口调用服务</summary>
-app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
+var OMSApiService = angular.module('OMSApiService', []);
+
+OMSApiService.service("$Api", function ($http, $local, $AjaxHelp, $MessagService) {
+    var userData = $local.getValue("USER");
+    var apiHelp = new $AjaxHelp(ServerConfiguration.OMSPath, userData);
+
     var service = {
         Post: function (url, param, callback) {
-            $ApiHelp.PostApi(url, param, function (data) {
-                /// <summary>请求数据处理</summary>
-                switch (data.code.toString()) {
-                    case "1001":
-                        $MessagService.eorr("网络异常！");
-                        break;
-                    case "2001":
-                        $MessagService.eorr("您没有访问的权限！");
-                        break;
-                    case "3001":
-                        $MessagService.eorr("必输项没有输入完整！");
-                        break;
-                    case "4001":
-                        $MessagService.eorr("用户信息失效，请重新登录！");
-                        break;
-                    case "5001":
-                        $MessagService.eorr("输入信息已存在,请重新输入！");
-                        break;
-                    case "1":
-                        $MessagService.eorr(data.msg);
-                        break;
-                    case "0":
-                        callback(data.info);
-                        $MessagService.hide(1000);
-                        break;
-                    default:
-                        $MessagService.eorr("网络异常，请联系管理员！");
-                        break;
-                }
-            });
+            apiHelp.PostApi(url, param, callback)
         },
-        Get: $ApiHelp.GetApi,
-        From: $ApiHelp.FromApi,
+        Get: function (url, param, callback) {
+            apiHelp.GetApi(url, param, callback)
+        },
+        From: function (url, param, callback) {
+            apiHelp.FromApi(url, param, callback)
+        },
         AccountService: {
             /// <summary>账户操作服务管理</summary>
             Login: function (data, callback) {

@@ -6,11 +6,10 @@
 /// <reference path="../lib/angular-1.2.20/angular-sanitize.min.js" />
 /// <reference path="../lib/angular-1.2.20/angular-loader.js" />
 /// <reference path="../lib/Jquery/jquery-1.11.1.min.js" />
-var app = angular.module('omsApp', ["ngRoute", "ui.router", "ngRequire", "ui.bootstrap", "smart-table", "jnDo"]);
+var app = angular.module('omsApp', ["ngRoute", "ui.router", "ngRequire", "ui.bootstrap", "smart-table", "jnDo", "AjaxService", "OMSApiService"]);
 var Timestamp = new Date().getTime();
 app.run(function ($rootScope, $state, $local, $Api, $MessagService) {
     /// <summary>系统启动事件</summary>
-    $rootScope.BASE_URL = ApiPath.Path;
     $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams, errorType) {
         /// <summary>页面开始进入</summary>
         ///TODO:用户有效性验证
