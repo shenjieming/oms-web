@@ -14,28 +14,28 @@ app.factory("$MenuService", function ($http, $local) {
         name: "手术订单管理", url: "", state: "app.order", icon: "fa-pencil",
         detail: [
             //{ name: "出库单查询", url: "#/app/order/delivery", state: "app.order.delivery" },
-            { name: "综合订单查询", url: "#/app/order/complex", state: "app.order.complex" },
-            { name: "我的订单", url: "#/app/order/orderlist", state: "app.order.orderlist" },
-            { name: "我的待审批", url: "#/app/order/approval", state: "app.order.approval" },
-            { name: "我的待处理", url: "#/app/order/deal", state: "app.order.deal" },
-            { name: "我的待签收", url: "#/app/order/sign", state: "app.order.sign" },
-            { name: "出库单追加", url: "#/app/order/stock", state: "app.order.stock" },
-            { name: "返库申请", url: "#/app/order/apply", state: "app.order.apply" },
-            { name: "返库处理", url: "#/app/order/back", state: "app.order.back" },
-            { name: "返库草稿箱", url: "#/app/order/feedback", state: "app.order.feedback" },
-            { name: "订单草稿箱", url: "#/app/order/draft", state: "app.order.draft" }
+            { name: "综合订单查询", url: "#/app/oms/order/complex", state: "app.oms.order.complex" },
+            { name: "我的订单", url: "#/app/oms/order/orderlist", state: "app.oms.order.orderlist" },
+            { name: "我的待审批", url: "#/app/oms/order/approval", state: "app.oms.order.approval" },
+            { name: "我的待处理", url: "#/app/oms/order/deal", state: "app.oms.order.deal" },
+            { name: "我的待签收", url: "#/app/oms/order/sign", state: "app.oms.order.sign" },
+            { name: "出库单追加", url: "#/app/oms/order/stock", state: "app.oms.order.stock" },
+            { name: "返库申请", url: "#/app/oms/order/apply", state: "app.oms.order.apply" },
+            { name: "返库处理", url: "#/app/oms/order/back", state: "app.oms.order.back" },
+            { name: "返库草稿箱", url: "#/app/oms/order/feedback", state: "app.oms.order.feedback" },
+            { name: "订单草稿箱", url: "#/app/oms/order/draft", state: "app.oms.order.draft" }
         ]
     });
     service.push({
         name: "备货订单管理", url: "", state: "app.stock", icon: "fa-shopping-cart",
         detail: [
             //{ name: "出库单查询", url: "#/app/stock/delivery", state: "app.stock.delivery" },
-            { name: "综合订单查询", url: "#/app/stock/complex", state: "app.stock.complex" },
-            { name: "我的备货", url: "#/app/stock/list", state: "app.stock.list" },
-            { name: "我的待审批", url: "#/app/stock/approval", state: "app.stock.approval" },
-            { name: "我的待处理", url: "#/app/stock/deal", state: "app.stock.deal" },
-            { name: "我的待签收", url: "#/app/stock/sign", state: "app.stock.sign" },
-            { name: "备货草稿箱", url: "#/app/stock/draft", state: "app.stock.draft" }
+            { name: "综合订单查询", url: "#/app/oms/stock/complex", state: "app.stock.complex" },
+            { name: "我的备货", url: "#/app/soms/tock/list", state: "app.stock.list" },
+            { name: "我的待审批", url: "#/app/oms/stock/approval", state: "app.stock.approval" },
+            { name: "我的待处理", url: "#/app/oms/stock/deal", state: "app.stock.deal" },
+            { name: "我的待签收", url: "#/app/oms/stock/sign", state: "app.stock.sign" },
+            { name: "备货草稿箱", url: "#/app/oms/stock/draft", state: "app.stock.draft" }
         ]
     });
     service.push({

@@ -7,7 +7,8 @@
 /// <reference path="../lib/angular-1.2.20/angular-loader.js" />
 /// <reference path="../lib/Jquery/jquery-1.11.1.min.js" />
 
-var app = angular.module('omsApp', ["ngRoute", "ui.router", "ngRequire", "ui.bootstrap", "smart-table", "jnDo", "AjaxService", "OMSApiService"]);
+var app = angular.module('ESurgeryApp', ["ngRoute", "ui.router", "ngRequire", "ui.bootstrap", "smart-table",
+    "OmsApp", "jnDo", "AjaxService", "OMSApiService"]);
 var Timestamp = new Date().getTime();
 app.run(function ($rootScope, $state, $local, $Api, $MessagService) {
     /// <summary>系统启动事件</summary>
@@ -29,7 +30,6 @@ app.run(function ($rootScope, $state, $local, $Api, $MessagService) {
 })
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary>页面配置信息</summary>
-
     $stateProvider
         .state("app", {
             abstract: true,
@@ -40,9 +40,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
                     controller: "masterController"
                 }
             },
-            loadJs: [
-                "Content/script/app/OmsApp/Directive/productViewDirective.js"
-            ],
+            loadJs: [ "Content/script/app/OmsApp/Directive/productViewDirective.js"   ],
             resolve: app.resolve
         })
         .state("app.home", {
@@ -65,26 +63,6 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
              abstract: true,
              template: "<div ui-view></div>"
          })
-         .state("app.order", {
-             /// <summary>手术订单信息管理</summary>
-             url: "/order",
-             cache: false,
-             template: "<div ui-view></div>",
-             controller: "SurgeryController",
-             abstract: true
-         })
-        .state("app.stock", {
-            /// <summary>备货订单管理</summary>
-            url: "/stock",
-            cache: false,
-            template: "<div ui-view></div>",
-            controller: "StockController",
-            abstract: true,
-            loadJs: [
-               "Content/script/app/OmsApp/Order/Stock/JS_View.js"
-            ],
-            resolve: app.resolve
-        })
         .state("app.mybusiness", {
             /// <summary>我的业务信息管理</summary>
             url: "/mybusiness",
@@ -95,29 +73,24 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             url: "/business",
             template: "<div ui-view></div>"
         })
+        .state("app.sys", {
+            url: "/sys",
+            template: "<div ui-view></div>"
+        })
+        .state("app.sys.info", {
+            url: "/info",
+            cache: false,
+            templateUrl: "View/System/CurrentUserInfo.html?data=" + Timestamp
+        })
         .state("login", {
             url: "/login",
             cache: false,
             templateUrl: "View/System/SignIn.html",
             controller: "SignInController",
-            loadJs: ["Content/script/app/System/JS_SignIn.js"],
+            loadJs: ["Content/script/app/ProgramApp/System/JS_SignIn.js"],
             resolve: app.resolve
         });
     $urlRouterProvider.otherwise("/login");
-});
-
-app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
-    /// <summary>系统级别管理配置</summary>
-    $stateProvider
-       .state("app.sys", {
-           url: "/sys",
-           template: "<div ui-view></div>"
-       })
-       .state("app.sys.info", {
-           url: "/info",
-           cache: false,
-           templateUrl: "View/System/CurrentUserInfo.html?data=" + Timestamp
-       })
 });
 
 app.resolve = {

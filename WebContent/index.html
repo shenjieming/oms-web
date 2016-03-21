@@ -15,7 +15,7 @@
     <link href="Content/style/css/OMS.css?ver=1.201" rel="stylesheet" />
     <title>迈骆医疗物流管理平台</title>
 </head>
-<body ng-app="omsApp">
+<body ng-app="ESurgeryApp">
     <div ui-view=""></div>
     <ng-box ng-model="msgBox"></ng-box>
     <script src="Content/script/lib/angular-1.2.20/angular.min.js?ver=1.201"></script>
@@ -31,9 +31,11 @@
     <script src="Content/script/lib/jnDo_1.0/script/jnDo.Src.min.js?ver=1.201"></script>
     <script src="Content/script/lib/jnDo_1.0/script/jquery.datetimepicker.js?ver=1.201"></script>
     <script src="Content/script/lib/jnDo_1.0/jnDo_1.0.js?ver=1.201"></script>
+
+
     <script src="Content/script/app/ServerConfiguration.js?ver=1.201"></script>
-    <script src="Content/script/app/service/ApiPath.js?ver=1.201"></script>
     <script src="Content/script/app/Config.js?ver=1.201"></script>
+
     <script src="Content/script/app/Config/Business.js?ver=1.201"></script>
     <script src="Content/script/app/Config/BusinessEx.js?ver=1.201"></script>
     <script src="Content/script/app/Config/Basis.js?ver=1.201"></script>
@@ -45,7 +47,11 @@
     <script src="Content/script/app/service/system/apiHelp.js?ver=1.201"></script>
     <script src="Content/script/app/service/system/menuService.js?ver=1.201"></script>
 
+    <script src="Content/script/app/OmsApp/ApiPath.js"></script>
+    <script src="Content/script/app/OmsApp/Config.js"></script>
     <script src="Content/script/app/OmsApp/Service/ApiService.js?ver=1.201"></script>
+    <script src="Content/script/app/OmsApp/Service/Factory/ApiFactory.js?ver=1.201"></script>
+
     <script src="Content/script/app/OmsApp/Directive/materialsTemplateDirective.js?ver=1.201"></script>
     <script src="Content/script/app/OmsApp/Directive/materialsImportTemplateDirective.js?ver=1.201"></script>
     <script src="Content/script/app/OmsApp/Directive/dictionaryDirective.js?ver=1.201"></script>

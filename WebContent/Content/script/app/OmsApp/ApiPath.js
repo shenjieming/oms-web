@@ -3,7 +3,6 @@
 console.log("接口控制启动");
 var ApiPath = {
     /// <summary>Api访问接口服务</summary>
-    Path: ServerConfiguration.Path,
     Account: {
         /// <summary>用户地址</summary>
         //Web登陆
