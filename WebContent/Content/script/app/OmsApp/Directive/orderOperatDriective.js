@@ -10,7 +10,7 @@ app.directive("ngOrderApproval", function ($Api, $MessagService, $local) {
     /// <summary>订单审批</summary>
     return {
         restrict: "EA",
-        templateUrl: "Content/script/app/Directive/ui/order/ngApproval.html?data=" + Timestamp,
+        templateUrl: "Content/script/app/OmsApp/Directive/ui/order/ngApproval.html?data=" + Timestamp,
         scope: {
             ngModel: '=',
             ngOperat:"="

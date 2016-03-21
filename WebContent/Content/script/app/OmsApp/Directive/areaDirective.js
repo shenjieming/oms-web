@@ -10,7 +10,7 @@ app.directive("ngArea", function ($Api, $MessagService) {
     /// <summary>地区级联管理标签</summary>
     return {
         restrict: "EA",
-        templateUrl: "Content/script/app/Directive/ui/ngArea.html?data=" + Timestamp,
+        templateUrl: "Content/script/app/OmsApp/Directive/ui/ngArea.html?data=" + Timestamp,
         scope: {
             ngModel: '=',
             ngData: "="

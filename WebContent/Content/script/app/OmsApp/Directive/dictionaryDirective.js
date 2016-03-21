@@ -11,7 +11,7 @@ app.directive("ngDictionary", function ($Api, $MessagService) {
     /// <summary>字典标签</summary>
     return {
         restrict: "EA",
-        templateUrl: "Content/script/app/Directive/ui/ngDictionary.html?data=" + Timestamp,
+        templateUrl: "Content/script/app/OmsApp/Directive/ui/ngDictionary.html?data=" + Timestamp,
         scope: {
             ngModel: '='
         },

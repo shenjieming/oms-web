@@ -6,6 +6,7 @@
 /// <reference path="../lib/angular-1.2.20/angular-sanitize.min.js" />
 /// <reference path="../lib/angular-1.2.20/angular-loader.js" />
 /// <reference path="../lib/Jquery/jquery-1.11.1.min.js" />
+
 var app = angular.module('omsApp', ["ngRoute", "ui.router", "ngRequire", "ui.bootstrap", "smart-table", "jnDo", "AjaxService", "OMSApiService"]);
 var Timestamp = new Date().getTime();
 app.run(function ($rootScope, $state, $local, $Api, $MessagService) {
@@ -28,6 +29,7 @@ app.run(function ($rootScope, $state, $local, $Api, $MessagService) {
 })
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary>页面配置信息</summary>
+
     $stateProvider
         .state("app", {
             abstract: true,
@@ -75,7 +77,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             controller: "StockController",
             abstract: true,
             loadJs: [
-               "Content/script/app/Order/Stock/JS_View.js"
+               "Content/script/app/OmsApp/Order/Stock/JS_View.js"
             ],
             resolve: app.resolve
         })

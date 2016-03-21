@@ -11,7 +11,7 @@ app.directive("ngMaterialsTemplate", function ($Api, $MessagService, $local) {
     /// <summary>货主标签</summary>
     return {
         restrict: "EA",
-        templateUrl: "Content/script/app/Directive/ui/ngMaterialsTemplate.html?data=" + Timestamp,
+        templateUrl: "Content/script/app/OmsApp/Directive/ui/ngMaterialsTemplate.html?data=" + Timestamp,
         scope: {
             ngMaterialsTemplate:"=",
             ngModel: "="

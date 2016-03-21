@@ -8,7 +8,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             cache: false,
             templateUrl: "View/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
             controller: "IntegratedListController",
-            loadJs: ["Content/script/app/Order/Surgery/List/JS_IntegratedList.js"],
+            loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_IntegratedList.js"],
             resolve: app.resolve
         })
         .state("app.order.orderlist", {
@@ -17,7 +17,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             cache: false,
             templateUrl: "View/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
             controller: "MyOrderListController",
-            loadJs: ["Content/script/app/Order/Surgery/List/JS_Integrated-MyOrderList.js"],
+            loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-MyOrderList.js"],
             resolve: app.resolve
         })
         .state("app.order.draft", {
@@ -26,7 +26,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             cache: false,
             templateUrl: "View/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
             controller: "MyDraftListController",
-            loadJs: ["Content/script/app/Order/Surgery/List/JS_Integrated-MyDraftList.js"],
+            loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-MyDraftList.js"],
             resolve: app.resolve
         })
         .state("app.order.approval", {
@@ -35,7 +35,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             cache: false,
             templateUrl: "View/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
             controller: "ApprovalListController",
-            loadJs: ["Content/script/app/Order/Surgery/List/JS_Integrated-ApprovalList.js"],
+            loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-ApprovalList.js"],
             resolve: app.resolve
         })
         .state("app.order.deal", {
@@ -44,7 +44,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             cache: false,
             templateUrl: "View/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
             controller: "DealWithListController",
-            loadJs: ["Content/script/app/Order/Surgery/List/JS_Integrated-DealWithList.js"],
+            loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-DealWithList.js"],
             resolve: app.resolve
         })
         .state("app.order.stock", {
@@ -53,7 +53,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             cache: false,
             templateUrl: "View/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
             controller: "AppendListController",
-            loadJs: ["Content/script/app/Order/Surgery/List/JS_Integrated-AppendList.js"],
+            loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-AppendList.js"],
             resolve: app.resolve
         })
         .state("app.order.sign", {
@@ -62,7 +62,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             cache: false,
             templateUrl: "View/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
             controller: "SignListController",
-            loadJs: ["Content/script/app/Order/Surgery/List/JS_Integrated-SignList.js"],
+            loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-SignList.js"],
             resolve: app.resolve
         })
         .state("app.order.apply", {
@@ -71,7 +71,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             cache: false,
             templateUrl: "View/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
             controller: "ApplyListController",
-            loadJs: ["Content/script/app/Order/Surgery/List/JS_Integrated-ApplyList.js"],
+            loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-ApplyList.js"],
             resolve: app.resolve
         })
         .state("app.order.back", {
@@ -80,7 +80,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             cache: false,
             templateUrl: "View/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
             controller: "BackListController",
-            loadJs: ["Content/script/app/Order/Surgery/List/JS_Integrated-BackList.js"],
+            loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-BackList.js"],
             resolve: app.resolve
         })
         .state("app.order.feedback", {
@@ -89,7 +89,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             cache: false,
             templateUrl: "View/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
             controller: "FeedbackListController",
-            loadJs: ["Content/script/app/Order/Surgery/List/JS_Integrated-FeedbackList.js"],
+            loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-FeedbackList.js"],
             resolve: app.resolve
         })
         .state("app.order.delivery", {

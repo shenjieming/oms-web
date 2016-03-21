@@ -10,7 +10,7 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
     /// <summary>物料选择组件</summary>
     return {
         restrict: "EA",
-        templateUrl: "Content/script/app/Directive/ui/ngMaterials.html?data=" + Timestamp,
+        templateUrl: "Content/script/app/OmsApp/Directive/ui/ngMaterials.html?data=" + Timestamp,
         scope: {
             ngModel: '=',
             ngLine: "=",

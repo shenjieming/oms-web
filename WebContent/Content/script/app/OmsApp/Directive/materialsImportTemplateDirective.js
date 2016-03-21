@@ -10,7 +10,7 @@ app.directive("ngMaterialsImportTemplate", function ($Api, $MessagService, $loca
     /// <summary>物料模板导出</summary>  
     return {
         restrict: "EA",
-        templateUrl: "Content/script/app/Directive/ui/ngMaterialsImportTemplate.html?data=" + Timestamp,
+        templateUrl: "Content/script/app/OmsApp/Directive/ui/ngMaterialsImportTemplate.html?data=" + Timestamp,
         scope: {
             ngModel: '=',
             ngMaterialsImportTemplate: "=",

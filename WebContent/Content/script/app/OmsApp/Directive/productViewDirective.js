@@ -10,7 +10,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
     /// <summary>产品信息</summary>
     return {
         restrict: "EA",
-        templateUrl: "Content/script/app/Directive/ui/ngProductView.html?data=" + Timestamp,
+        templateUrl: "Content/script/app/OmsApp/Directive/ui/ngProductView.html?data=" + Timestamp,
         scope: {
             ngModel: '=',//映射对象
             ngOperat: "=",//操作对象

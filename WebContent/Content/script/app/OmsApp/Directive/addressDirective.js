@@ -10,7 +10,7 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
     /// <summary>常用地址选择器</summary>
     return {
         restrict: "EA",
-        templateUrl: "Content/script/app/Directive/ui/ngAddress.html?data=" + Timestamp,
+        templateUrl: "Content/script/app/OmsApp/Directive/ui/ngAddress.html?data=" + Timestamp,
         scope: {
             ngModel: '=',
             ngOperat: "="

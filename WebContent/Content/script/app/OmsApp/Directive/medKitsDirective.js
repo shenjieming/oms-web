@@ -10,7 +10,7 @@ app.directive("ngMedKits", function ($Api, $MessagService, $local) {
     /// <summary>套件选择标签</summary>  
     return {
         restrict: "EA",
-        templateUrl: "Content/script/app/Directive/ui/ngMedKits.html?data=" + Timestamp,
+        templateUrl: "Content/script/app/OmsApp/Directive/ui/ngMedKits.html?data=" + Timestamp,
         scope: {
             ngModel: '=',
             ngOperat: "=",

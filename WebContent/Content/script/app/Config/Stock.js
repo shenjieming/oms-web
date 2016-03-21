@@ -8,7 +8,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             cache: false,
             templateUrl: "View/Order/Stock/IntegratedStockList.html?data=" + Timestamp,
             controller: "MyStockListController",
-            loadJs: ["Content/script/app/Order/Stock/List/JS_Integrated-MyStockList.js"],
+            loadJs: ["Content/script/app/OmsApp/Order/Stock/List/JS_Integrated-MyStockList.js"],
             resolve: app.resolve
         })
         .state("app.stock.draft", {
@@ -17,7 +17,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             cache: false,
             templateUrl: "View/Order/Stock/IntegratedStockList.html?data=" + Timestamp,
             controller: "StockMyDraftListController",
-            loadJs: ["Content/script/app/Order/Stock/List/JS_Integrated-MyDraftList.js"],
+            loadJs: ["Content/script/app/OmsApp/Order/Stock/List/JS_Integrated-MyDraftList.js"],
             resolve: app.resolve
         })
         .state("app.stock.approval", {
@@ -26,7 +26,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             cache: false,
             templateUrl: "View/Order/Stock/IntegratedStockList.html?data=" + Timestamp,
             controller: "StockApprovalListController",
-            loadJs: ["Content/script/app/Order/Stock/List/JS_Integrated-ApprovalList.js"],
+            loadJs: ["Content/script/app/OmsApp/Order/Stock/List/JS_Integrated-ApprovalList.js"],
             resolve: app.resolve
         })
         .state("app.stock.deal", {
@@ -35,7 +35,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             cache: false,
             templateUrl: "View/Order/Stock/IntegratedStockList.html?data=" + Timestamp,
             controller: "StockDealWithListController",
-            loadJs: ["Content/script/app/Order/Stock/List/JS_Integrated-DealWithList.js"],
+            loadJs: ["Content/script/app/OmsApp/Order/Stock/List/JS_Integrated-DealWithList.js"],
             resolve: app.resolve
         })
         .state("app.stock.sign", {
@@ -44,7 +44,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             cache: false,
             templateUrl: "View/Order/Stock/IntegratedStockList.html?data=" + Timestamp,
             controller: "StockSignListController",
-            loadJs: ["Content/script/app/Order/Stock/List/JS_Integrated-SignList.js"],
+            loadJs: ["Content/script/app/OmsApp/Order/Stock/List/JS_Integrated-SignList.js"],
             resolve: app.resolve
         })
         .state("app.stock.complex", {
@@ -53,7 +53,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             cache: false,
             templateUrl: "View/Order/Stock/IntegratedStockList.html?data=" + Timestamp,
             controller: "StockIntegratedListController",
-            loadJs: ["Content/script/app/Order/Stock/List/JS_IntegratedList.js"],
+            loadJs: ["Content/script/app/OmsApp/Order/Stock/List/JS_IntegratedList.js"],
             resolve: app.resolve
         })
         .state("app.stock.delivery", {
