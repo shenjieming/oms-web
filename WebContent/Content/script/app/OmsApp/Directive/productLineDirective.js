@@ -6,7 +6,7 @@
 /// <reference path="../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
-app.directive("ngProductline", function ($Api, $MessagService) {
+OmsApp.directive("ngProductline", function ($Api, $MessagService) {
     /// <summary>产品线选择</summary>
     return {
         restrict: "EA",

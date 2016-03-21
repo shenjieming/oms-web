@@ -6,7 +6,7 @@
 /// <reference path="../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
-app.directive("ngMaterials", function ($Api, $MessagService, $local) {
+OmsApp.directive("ngMaterials", function ($Api, $MessagService, $local) {
     /// <summary>物料选择组件</summary>
     return {
         restrict: "EA",

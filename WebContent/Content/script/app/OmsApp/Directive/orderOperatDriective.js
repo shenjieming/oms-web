@@ -6,7 +6,7 @@
 /// <reference path="../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
-app.directive("ngOrderApproval", function ($Api, $MessagService, $local) {
+OmsApp.directive("ngOrderApproval", function ($Api, $MessagService, $local) {
     /// <summary>订单审批</summary>
     return {
         restrict: "EA",
@@ -40,7 +40,7 @@ app.directive("ngOrderApproval", function ($Api, $MessagService, $local) {
     };
 });
 
-app.directive("ngSign", function ($Api, $MessagService, $local) {
+OmsApp.directive("ngSign", function ($Api, $MessagService, $local) {
     /// <summary>订单签收</summary>
     return {
         restrict: "EA",
@@ -75,7 +75,7 @@ app.directive("ngSign", function ($Api, $MessagService, $local) {
     };
 });
 
-app.directive("ngObSign", function ($Api, $MessagService, $local) {
+OmsApp.directive("ngObSign", function ($Api, $MessagService, $local) {
     /// <summary>订单签收</summary>
     return {
         restrict: "EA",
@@ -108,7 +108,7 @@ app.directive("ngObSign", function ($Api, $MessagService, $local) {
     };
 });
 
-app.directive("ngSummary", function ($Api, $MessagService, $local) {
+OmsApp.directive("ngSummary", function ($Api, $MessagService, $local) {
     /// <summary>订单返库申请</summary>
     return {
         restrict: "EA",

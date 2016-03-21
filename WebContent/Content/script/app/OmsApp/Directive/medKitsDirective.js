@@ -6,7 +6,7 @@
 /// <reference path="../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
-app.directive("ngMedKits", function ($Api, $MessagService, $local) {
+OmsApp.directive("ngMedKits", function ($Api, $MessagService, $local) {
     /// <summary>套件选择标签</summary>  
     return {
         restrict: "EA",

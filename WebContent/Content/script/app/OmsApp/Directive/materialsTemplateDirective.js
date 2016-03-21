@@ -7,7 +7,7 @@
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
 
-app.directive("ngMaterialsTemplate", function ($Api, $MessagService, $local) {
+OmsApp.directive("ngMaterialsTemplate", function ($Api, $MessagService, $local) {
     /// <summary>货主标签</summary>
     return {
         restrict: "EA",

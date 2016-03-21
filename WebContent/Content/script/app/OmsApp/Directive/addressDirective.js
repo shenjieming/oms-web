@@ -6,7 +6,7 @@
 /// <reference path="../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
-app.directive("ngAddress", function ($Api, $MessagService, $local) {
+OmsApp.directive("ngAddress", function ($Api, $MessagService, $local) {
     /// <summary>常用地址选择器</summary>
     return {
         restrict: "EA",

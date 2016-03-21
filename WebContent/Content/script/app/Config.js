@@ -6,10 +6,10 @@
 /// <reference path="../lib/angular-1.2.20/angular-sanitize.min.js" />
 /// <reference path="../lib/angular-1.2.20/angular-loader.js" />
 /// <reference path="../lib/Jquery/jquery-1.11.1.min.js" />
-
-var app = angular.module('ESurgeryApp', ["ngRoute", "ui.router", "ngRequire", "ui.bootstrap", "smart-table",
-    "OmsApp", "jnDo", "AjaxService", "OMSApiService"]);
 var Timestamp = new Date().getTime();
+var app = angular.module('ESurgeryApp', ["ngRoute", "ui.router", "ngRequire", "ui.bootstrap", "smart-table",
+    "OmsApp", "BaseApp", "jnDo", "AjaxService", "OMSApiService"]);
+
 app.run(function ($rootScope, $state, $local, $Api, $MessagService) {
     /// <summary>系统启动事件</summary>
     $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams, errorType) {
@@ -56,22 +56,6 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
             controller: "InformationController",
             loadJs: ["Content/script/app/User/JS_Information.js"],
             resolve: app.resolve
-        })
-         .state("app.comp", {
-             /// <summary>权限信息管理</summary>
-             url: "/comp",
-             abstract: true,
-             template: "<div ui-view></div>"
-         })
-        .state("app.mybusiness", {
-            /// <summary>我的业务信息管理</summary>
-            url: "/mybusiness",
-            template: "<div ui-view></div>"
-        })
-        .state("app.business", {
-            /// <summary>业务信息管理</summary>
-            url: "/business",
-            template: "<div ui-view></div>"
         })
         .state("app.sys", {
             url: "/sys",

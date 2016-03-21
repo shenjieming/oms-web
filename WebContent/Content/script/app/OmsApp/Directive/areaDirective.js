@@ -6,7 +6,7 @@
 /// <reference path="../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
-app.directive("ngArea", function ($Api, $MessagService) {
+OmsApp.directive("ngArea", function ($Api, $MessagService) {
     /// <summary>地区级联管理标签</summary>
     return {
         restrict: "EA",
