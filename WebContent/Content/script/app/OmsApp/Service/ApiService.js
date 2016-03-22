@@ -6,7 +6,7 @@
 var OMSApiService = angular.module('OMSApiService', []);
 
 OMSApiService
-    .service("$Api", function ( $AccountService, $UserService, $RoleService, $MenuService,
+    .service("$Api", function ($AccountService, $UserService, $RoleService, $MenuApiService,
         $BindService, $GruopService, $BasisService, $SurgeryService, $StockService, $MaterialsService, $MedKitService,
         $OrganizationService, $RepresentativeService, $HospitalService, $BrandService, $BusinessData, $ManageDl, $ManaDocter,
         $ManaDepartment, $ProductLine, $MyAddress, $MyDoctor, $OrderRout, $AgentProduct, $ManaEvent, $ManageOi, $ManaHospital,
@@ -15,7 +15,7 @@ OMSApiService
             AccountService: $AccountService,
             UserService: $UserService,
             RoleService: $RoleService,
-            MenuService: $MenuService,
+            MenuService: $MenuApiService,
             BindService: $BindService,
             GruopService: $GruopService,
             BasisService: $BasisService,

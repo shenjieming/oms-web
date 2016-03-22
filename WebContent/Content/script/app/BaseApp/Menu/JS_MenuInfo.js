@@ -47,6 +47,7 @@ app.controller("MenuListController", function ($scope, $state, $local, $Api, $Me
             /// <summary>获取功能菜单列表</summary>
             $MessagService.loading("菜单列表获取中，请稍等...");
             //var options = $.extend({});//条件合并
+            debugger
             $Api.MenuService.GetMenuList({}, function (rData) {
                 /// <summary>获取菜单列表</summary>
                 $scope.MenuInfo = rData;

@@ -149,7 +149,7 @@
             }
         };
     })
-    .factory("$MenuService", function ($MessagService, $ApiService) {
+    .factory("$MenuApiService", function ($MessagService, $ApiService) {
         /// <summary>菜单服务管理</summary>
         return {
             GetMenuList: function (data, callback) {
