@@ -313,7 +313,7 @@ OmsApp
                 /// <summary>备货订单签收管理</summary>
                 url: "/sign",
                 cache: false,
-                templateUrl: "View/OMS/rder/Stock/IntegratedStockList.html?data=" + Timestamp,
+                templateUrl: "View/OMS/Order/Stock/IntegratedStockList.html?data=" + Timestamp,
                 controller: "StockSignListController",
                 loadJs: ["Content/script/app/OmsApp/Order/Stock/List/JS_Integrated-SignList.js"],
                 resolve: app.resolve
@@ -359,7 +359,7 @@ OmsApp
                         controller: "StockOriginalController",
                     },
                     "Accurate@app.oms.stock.view": {
-                        templateUrl: "View/Order/Stock/View/AccurateView.html?data=" + Timestamp,
+                        templateUrl: "View/OMS/Order/Stock/View/AccurateView.html?data=" + Timestamp,
                         controller: "StockAccurateController",
                     },
                     "Library@app.oms.stock.view": {
@@ -414,12 +414,12 @@ OmsApp
             name: "备货订单管理", url: "", state: "app.stock", icon: "fa-shopping-cart",
             detail: [
                 //{ name: "出库单查询", url: "#/app/stock/delivery", state: "app.stock.delivery" },
-                { name: "综合订单查询", url: "#/app/oms/stock/complex", state: "app.stock.complex" },
-                { name: "我的备货", url: "#/app/soms/tock/list", state: "app.stock.list" },
-                { name: "我的待审批", url: "#/app/oms/stock/approval", state: "app.stock.approval" },
-                { name: "我的待处理", url: "#/app/oms/stock/deal", state: "app.stock.deal" },
-                { name: "我的待签收", url: "#/app/oms/stock/sign", state: "app.stock.sign" },
-                { name: "备货草稿箱", url: "#/app/oms/stock/draft", state: "app.stock.draft" }
+                { name: "综合订单查询", url: "#/app/oms/stock/complex", state: "app.oms.stock.complex" },
+                { name: "我的备货", url: "#/app/oms/stock/list", state: "app.oms.stock.list" },
+                { name: "我的待审批", url: "#/app/oms/stock/approval", state: "app.oms.stock.approval" },
+                { name: "我的待处理", url: "#/app/oms/stock/deal", state: "app.oms.stock.deal" },
+                { name: "我的待签收", url: "#/app/oms/stock/sign", state: "app.oms.stock.sign" },
+                { name: "备货草稿箱", url: "#/app/oms/stock/draft", state: "app.oms.stock.draft" }
             ]
         });
         return service;

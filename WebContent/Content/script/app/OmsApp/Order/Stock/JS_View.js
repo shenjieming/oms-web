@@ -110,34 +110,34 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
         $scope.ProcessingOrders = function (sono) {
             /// <summary>处理订单</summary>
             $local.setValue("ORDERCOMP", { dealwith: true });
-            $state.go("app.stock.dealpage", { sono: sono });
+            $state.go("app.oms.stock.dealpage", { sono: sono });
         }
 
         $scope.Additional = function () {
             /// <summary>追加出库单</summary>
-            $scope.GetRowGoPage("app.order.additional");
+            $scope.GetRowGoPage("app.oms.order.additional");
         }
 
         $scope.addStock = function () {
             /// <summary>添加备货下单</summary>
-            $state.go("app.stock.single");
+            $state.go("app.oms.stock.single", { sono: "" });
         }
 
         $scope.editStock = function (sono) {
             /// <summary>编辑手术订单</summary>
-            $scope.GetRowGoPage("app.stock.single");
+            $scope.GetRowGoPage("app.oms.stock.single");
         }
 
         $scope.ApprovalStock = function (sono) {
             /// <summary>审批手术订单</summary>
             $local.setValue("ORDERCOMP", { approval: true });
-            $scope.GetRowGoPage("app.stock.view");
+            $scope.GetRowGoPage("app.oms.stock.view");
         }
 
         $scope.SignStock = function (sono) {
             /// <summary>签收备货订单</summary>
             $local.setValue("ORDERCOMP", { sign: true });
-            $scope.GetRowGoPage("app.stock.view");
+            $scope.GetRowGoPage("app.oms.stock.view");
         }
 
         $scope.DealStock = function () {
@@ -161,24 +161,24 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
         $scope.ApplyBack = function (sono) {
             /// <summary>申请返库</summary>
             $local.setValue("ORDERCOMP", { apply: true });
-            $scope.GetRowGoPage("app.order.addevent");
+            $scope.GetRowGoPage("app.oms.order.addevent");
         }
 
         $scope.OrderBack = function (sono) {
             /// <summary>订单返库处理</summary>
             $local.setValue("ORDERCOMP", {});
-            $scope.GetRowGoPage("app.order.fback");
+            $scope.GetRowGoPage("app.oms.order.fback");
         }
 
         $scope.showViewDetail = function (sono) {
             /// <summary>查看备货订单</summary>
             $local.setValue("ORDERCOMP", {});
-            $scope.GetRowGoPage("app.stock.view");
+            $scope.GetRowGoPage("app.oms.stock.view");
         }
         $scope.showView = function (sono) {
             /// <summary>查看备货订单</summary>
             $local.setValue("ORDERCOMP", {});
-            $state.go("app.stock.view", { sono: sono });
+            $state.go("app.oms.stock.view", { sono: sono });
         }
 
         /*页面操作End*/
@@ -274,7 +274,7 @@ app.controller("StockSingleController", function ($scope, $state, $local, $Api, 
                     /// <summary>保存备货订单</summary>
                     setTimeout(function () {
                         $MessagService.succ("订单保存成功，订单号：" + rData);
-                        $state.go("app.stock.draft");
+                        $state.go("app.oms.stock.draft");
                     }, 500);
                 });
             },
@@ -284,7 +284,7 @@ app.controller("StockSingleController", function ($scope, $state, $local, $Api, 
                     /// <summary>提交备货订单</summary>
                     setTimeout(function () {
                         $MessagService.succ("订单" + rData + "提交成功");
-                        $state.go("app.stock.list");
+                        $state.go("app.oms.stock.list");
                     }, 500);
                 });
             },
