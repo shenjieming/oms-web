@@ -39,9 +39,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
                     templateUrl: "View/layout.html?data=" + Timestamp,
                     controller: "masterController"
                 }
-            },
-            loadJs: [ "Content/script/app/OmsApp/Directive/productViewDirective.js"   ],
-            resolve: app.resolve
+            }
         })
         .state("app.home", {
             url: "/home",

@@ -6,6 +6,7 @@
 /// <reference path="../../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../../service/system/localService.js" />
 /// <reference path="../../Config.js" />
+
 OmsApp
     .controller("SurgeryController", function ($scope, $state, $local, $Api, $MessagService, $stateParams) {
         /// <summary>订单操作控制器</summary>

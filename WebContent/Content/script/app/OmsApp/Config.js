@@ -12,10 +12,13 @@
              .state("app.oms.order", {
                  /// <summary>手术订单信息管理</summary>
                  url: "/order",
-                 cache: false,
                  template: "<div ui-view></div>",
                  controller: "SurgeryController",
-                 abstract: true
+                 abstract: true,
+                 loadJs: [
+                    "Content/script/app/OmsApp/Directive/productViewDirective.js" 
+                 ],
+                 resolve: app.resolve,
              })
             .state("app.oms.stock", {
                 /// <summary>备货订单管理</summary>
@@ -38,97 +41,75 @@
                 url: "/complex",
                 cache: false,
                 templateUrl: "View/OMS/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
-                controller: "IntegratedListController",
-                loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_IntegratedList.js"],
-                resolve: app.resolve
+                controller: "IntegratedListController"
             })
             .state("app.oms.order.orderlist", {
                 /// <summary>我的手术订单列表</summary>
                 url: "/orderlist",
                 cache: false,
                 templateUrl: "View/OMS/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
-                controller: "MyOrderListController",
-                loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-MyOrderList.js"],
-                resolve: app.resolve
+                controller: "MyOrderListController"
             })
             .state("app.oms.order.draft", {
                 /// <summary>草稿订单列表</summary>
                 url: "/draft",
                 cache: false,
                 templateUrl: "View/OMS/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
-                controller: "MyDraftListController",
-                loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-MyDraftList.js"],
-                resolve: app.resolve
+                controller: "MyDraftListController"
             })
             .state("app.oms.order.approval", {
                 /// <summary>手术订单审批列表</summary>
                 url: "/approval",
                 cache: false,
                 templateUrl: "View/OMS/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
-                controller: "ApprovalListController",
-                loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-ApprovalList.js"],
-                resolve: app.resolve
+                controller: "ApprovalListController"
             })
             .state("app.oms.order.deal", {
                 /// <summary>订单处理列表</summary>
                 url: "/deal",
                 cache: false,
                 templateUrl: "View/OMS/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
-                controller: "DealWithListController",
-                loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-DealWithList.js"],
-                resolve: app.resolve
+                controller: "DealWithListController"
             })
             .state("app.oms.order.stock", {
                 /// <summary>追加备货信息</summary>
                 url: "/stock",
                 cache: false,
                 templateUrl: "View/OMS/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
-                controller: "AppendListController",
-                loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-AppendList.js"],
-                resolve: app.resolve
+                controller: "AppendListController"
             })
             .state("app.oms.order.sign", {
                 /// <summary>签收单信息</summary>
                 url: "/sign",
                 cache: false,
                 templateUrl: "View/OMS/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
-                controller: "SignListController",
-                loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-SignList.js"],
-                resolve: app.resolve
+                controller: "SignListController"
             })
             .state("app.oms.order.apply", {
                 /// <summary>返库申请</summary>
                 url: "/apply",
                 cache: false,
                 templateUrl: "View/OMS/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
-                controller: "ApplyListController",
-                loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-ApplyList.js"],
-                resolve: app.resolve
+                controller: "ApplyListController"
             })
             .state("app.oms.order.back", {
                 /// <summary>返库处理</summary>
                 url: "/back",
                 cache: false,
                 templateUrl: "View/OMS/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
-                controller: "BackListController",
-                loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-BackList.js"],
-                resolve: app.resolve
+                controller: "BackListController"
             })
             .state("app.oms.order.feedback", {
                 /// <summary>反馈单草稿</summary>
                 url: "/feedback",
                 cache: false,
                 templateUrl: "View/OMS/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
-                controller: "FeedbackListController",
-                loadJs: ["Content/script/app/OmsApp/Order/Surgery/List/JS_Integrated-FeedbackList.js"],
-                resolve: app.resolve
+                controller: "FeedbackListController"
             })
             .state("app.oms.order.delivery", {
                 /// <summary>出库单查询</summary>
                 url: "/delivery",
-                cache: false,
-                templateUrl: "View/OMS/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
-                resolve: app.resolve
+                cache: false
             });
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
