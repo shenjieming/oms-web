@@ -118,6 +118,7 @@ app.controller("MaterialTemplateController", function ($scope, $stateParams, $st
                 setTimeout(function () {
                     $scope.$apply(function () {
                         $scope.Detail.isChangeProd = true;
+                        debugger
                         $scope.Service.GetNewProdLine(rdata.freeTemplateInfo, $scope.Detail.PageData.prodLns);
                         $scope.Detail.PageData.medKits = rdata.kitTemplateInfo;
                     });
@@ -153,8 +154,8 @@ app.controller("MaterialTemplateController", function ($scope, $stateParams, $st
             $.each(newMs, function (index, item) {
                 var flg = true;
                 $.each(result, function (i, node) {
-                    if (item.medMIInternalNo == node.medMIInternalNo && item.medMIWarehouse == node.medMIWarehouse) {
-                        item.reqQty = (parseInt(item.reqQty) + parseInt(node.reqQty));
+                    if (item.medMIInternalNo == node.medMIInternalNo) {
+                        node.reqQty = (parseInt(item.reqQty) + parseInt(node.reqQty));
                         flg = false;
                         return true;
                     }
