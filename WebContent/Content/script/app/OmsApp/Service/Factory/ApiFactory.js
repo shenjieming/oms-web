@@ -1194,7 +1194,7 @@
             UploadFile: function (data, callback) {
                 /// <summary>上传附件</summary>
                 $MessagService.loading("附件上传中，请稍等...");
-                service.From(ApiPath.Public.upload, data, function (rData) {
+                $ApiService.FromApi(ApiPath.Public.upload, data, function (rData) {
                     if (!rData.code) {
                         callback(rData.info);
                         $MessagService.hide(1000);

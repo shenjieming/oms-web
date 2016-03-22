@@ -44,7 +44,7 @@ OmsApp.directive("ngSign", function ($Api, $MessagService, $local) {
     /// <summary>订单签收</summary>
     return {
         restrict: "EA",
-        templateUrl: "Content/script/app/Directive/ui/order/ngSign.html",
+        templateUrl: "Content/script/app/OmsApp/Directive/ui/order/ngSign.html",
         scope: {
             ngModel: '=',
             ngOperat:"="
@@ -79,7 +79,7 @@ OmsApp.directive("ngObSign", function ($Api, $MessagService, $local) {
     /// <summary>订单签收</summary>
     return {
         restrict: "EA",
-        templateUrl: "Content/script/app/Directive/ui/order/ngSign.html",
+        templateUrl: "Content/script/app/OmsApp/Directive/ui/order/ngSign.html",
         scope: {
             ngModel: '=',
             ngOperat: "="

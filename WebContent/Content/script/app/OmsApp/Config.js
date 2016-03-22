@@ -1,4 +1,5 @@
-﻿var OmsApp = angular.module('OmsApp', ["OmsAppController"]);
+﻿
+var OmsApp = angular.module('OmsApp', ["OmsAppController"]);
 OmsApp
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         /// <summary>页面配置信息</summary>
@@ -8,11 +9,7 @@ OmsApp
                  url: "/oms",
                  cache: false,
                  template: "<div ui-view></div>",
-                 abstract: true,
-                 loadJs: [
-                  "Content/script/app/OmsApp/Order/Stock/JS_View.js"
-                 ],
-                 resolve: app.resolve
+                 abstract: true
              })
              .state("app.oms.order", {
                  /// <summary>手术订单信息管理</summary>
@@ -136,23 +133,23 @@ OmsApp
                         templateUrl: "View/OMS/Order/Surgery/View.html?data=" + Timestamp,
                         controller: "OrderViewController",
                     },
-                    "Original@app.order.view": {
+                    "Original@app.oms.order.view": {
                         templateUrl: "View/OMS/Order/Surgery/View/SingleView.html?data=" + Timestamp,
                         controller: "OriginalController",
                     },
-                    "Accurate@app.order.view": {
+                    "Accurate@app.oms.order.view": {
                         templateUrl: "View/OMS/Order/Surgery/View/AccurateView.html?data=" + Timestamp,
                         controller: "AccurateController",
                     },
-                    "Library@app.order.view": {
+                    "Library@app.oms.order.view": {
                         templateUrl: "View/OMS/Order/Surgery/View/LibraryView.html?data=" + Timestamp,
                         controller: "LibraryController",
                     },
-                    "Feedback@app.order.view": {
+                    "Feedback@app.oms.order.view": {
                         templateUrl: "View/OMS/Order/Surgery/View/FeedbackView.html?data=" + Timestamp,
                         controller: "FeedbackViewController",
                     },
-                    "Event@app.order.view": {
+                    "Event@app.oms.order.view": {
                         templateUrl: "View/OMS/Order/Surgery/View/EventView.html?data=" + Timestamp
                     }
                 },
@@ -169,7 +166,7 @@ OmsApp
                         templateUrl: "View/OMS/Order/Surgery/Dealwith.html?data=" + Timestamp,
                         controller: "OrderViewController"
                     },
-                    "Original@app.order.dealpage": {
+                    "Original@app.oms.order.dealpage": {
                         templateUrl: "View/OMS/Order/Surgery/View/SingleView.html?data=" + Timestamp,
                         controller: "OriginalController"
                     }
@@ -186,15 +183,15 @@ OmsApp
                         templateUrl: "View/OMS/Order/Surgery/Additional.html?data=" + Timestamp,
                         controller: "OrderViewController"
                     },
-                    "Original@app.order.additional": {
+                    "Original@app.oms.order.additional": {
                         templateUrl: "View/OMS/Order/Surgery/View/SingleView.html?data=" + Timestamp,
                         controller: "OriginalController"
                     },
-                    "Accurate@app.order.additional": {
+                    "Accurate@app.oms.order.additional": {
                         templateUrl: "View/OMS/Order/Surgery/View/AccurateView.html?data=" + Timestamp,
                         controller: "AccurateController",
                     },
-                    "Library@app.order.additional": {
+                    "Library@app.oms.order.additional": {
                         templateUrl: "View/OMS/Order/Surgery/View/LibraryView.html?data=" + Timestamp,
                         controller: "LibraryController",
                     }
@@ -211,15 +208,15 @@ OmsApp
                         templateUrl: "View/OMS/Order/Surgery/AddEvent.html?data=" + Timestamp,
                         controller: "OrderViewController"
                     },
-                    "Original@app.order.addevent": {
+                    "Original@app.oms.order.addevent": {
                         templateUrl: "View/OMS/Order/Surgery/View/SingleView.html?data=" + Timestamp,
                         controller: "OriginalController"
                     },
-                    "Accurate@app.order.addevent": {
+                    "Accurate@app.oms.order.addevent": {
                         templateUrl: "View/OMS/Order/Surgery/View/AccurateView.html?data=" + Timestamp,
                         controller: "AccurateController",
                     },
-                    "Library@app.order.addevent": {
+                    "Library@app.oms.order.addevent": {
                         templateUrl: "View/OMS/Order/Surgery/View/LibraryView.html?data=" + Timestamp,
                         controller: "LibraryController",
                     }
@@ -236,15 +233,15 @@ OmsApp
                         templateUrl: "View/OMS/Order/Surgery/Feedback.html?data=" + Timestamp,
                         controller: "OrderViewController"
                     },
-                    "Original@app.order.fback": {
+                    "Original@app.oms.order.fback": {
                         templateUrl: "View/OMS/Order/Surgery/View/SingleView.html?data=" + Timestamp,
                         controller: "OriginalController"
                     },
-                    "Accurate@app.order.fback": {
+                    "Accurate@app.oms.order.fback": {
                         templateUrl: "View/OMS/Order/Surgery/View/AccurateView.html?data=" + Timestamp,
                         controller: "AccurateController",
                     },
-                    "Library@app.order.fback": {
+                    "Library@app.oms.order.fback": {
                         templateUrl: "View/OMS/Order/Surgery/View/LibraryView.html?data=" + Timestamp,
                         controller: "LibraryController"
                     }
@@ -338,19 +335,19 @@ OmsApp
                         templateUrl: "View/OMS/Order/Stock/View.html?data=" + Timestamp,
                         controller: "StockViewController",
                     },
-                    "Original@app.stock.view": {
+                    "Original@app.oms.stock.view": {
                         templateUrl: "View/OMS/Order/Stock/View/SingleView.html?data=" + Timestamp,
                         controller: "StockOriginalController",
                     },
-                    "Accurate@app.stock.view": {
+                    "Accurate@app.oms.stock.view": {
                         templateUrl: "View/Order/Stock/View/AccurateView.html?data=" + Timestamp,
                         controller: "StockAccurateController",
                     },
-                    "Library@app.stock.view": {
+                    "Library@app.oms.stock.view": {
                         templateUrl: "View/OMS/Order/Stock/View/LibraryView.html?data=" + Timestamp,
                         controller: "StockLibraryController",
                     },
-                    "Event@app.stock.view": {
+                    "Event@app.oms.stock.view": {
                         templateUrl: "View/OMS/Order/Stock/View/EventView.html?data=" + Timestamp
                     }
                 },
@@ -366,7 +363,7 @@ OmsApp
                         templateUrl: "View/OMS/Order/Stock/Dealwith.html?data=" + Timestamp,
                         controller: "StockViewController"
                     },
-                    "Original@app.stock.dealpage": {
+                    "Original@app.oms.stock.dealpage": {
                         templateUrl: "View/OMS/Order/Stock/View/SingleView.html?data=" + Timestamp,
                         controller: "StockOriginalController"
                     }

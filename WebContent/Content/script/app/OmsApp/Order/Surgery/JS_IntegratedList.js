@@ -41,7 +41,7 @@ var OmsAppController = angular.module('OmsAppController', [])
 
         $scope.addSurgery = function () {
             /// <summary>添加手术下单</summary>
-            $state.go("app.oms.order.single", { sono: 0 });
+            $state.go("app.oms.order.single", { sono: false });
         }
 
         $scope.editSurgery = function (sono) {

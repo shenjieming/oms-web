@@ -109,7 +109,7 @@ OmsApp.directive("ngMaterialsTemplate", function ($Api, $MessagService, $local) 
                         newMs.medMIWarehouse = userInfo.orgCode;//默认仓库填充
                         $.each(result, function (i, node) {
                             if (item.medMIInternalNo == node.medMIInternalNo && item.medMIWarehouse == node.medMIWarehouse) {
-                                item.reqQty = (parseInt(item.reqQty) + parseInt(node.reqQty));
+                                node.reqQty = (parseInt(item.reqQty) + parseInt(node.reqQty));
                                 flg = false;
                                 return true;
                             }

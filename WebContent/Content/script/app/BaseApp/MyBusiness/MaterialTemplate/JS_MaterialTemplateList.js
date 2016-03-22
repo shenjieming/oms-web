@@ -154,7 +154,7 @@ app.controller("MaterialTemplateController", function ($scope, $stateParams, $st
                 var flg = true;
                 $.each(result, function (i, node) {
                     if (item.medMIInternalNo == node.medMIInternalNo && item.medMIWarehouse == node.medMIWarehouse) {
-                        item.reqQty = (parseInt(item.reqQty) + parseInt(node.reqQty));
+                        node.reqQty = (parseInt(item.reqQty) + parseInt(node.reqQty));
                         flg = false;
                         return true;
                     }
