@@ -32,8 +32,7 @@ OmsApp
                  controller: "SurgeryController",
                  abstract: true,
                  loadJs: [
-                    "Content/script/app/OmsApp/Order/Surgery/JS_IntegratedList.js",
-                    "Content/script/app/OmsApp/Order/Surgery/JS_View.js"
+                    "Content/script/app/OmsApp/Order/Surgery/JS_IntegratedList.js"
                  ],
                  resolve: app.resolve
              })

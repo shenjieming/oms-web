@@ -1196,7 +1196,7 @@
                 $MessagService.loading("附件上传中，请稍等...");
                 $ApiService.FromApi(ApiPath.Public.upload, data, function (rData) {
                     if (!rData.code) {
-                        callback(rData.info);
+                        callback(rData);
                         $MessagService.hide(1000);
                     } else {
                         $MessagService.eorr("网络异常，请联系管理员！");
