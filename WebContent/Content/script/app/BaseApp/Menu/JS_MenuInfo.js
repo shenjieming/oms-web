@@ -77,17 +77,12 @@ app.controller("MenuListController", function ($scope, $state, $local, $Api, $Me
                 var treeData = new Array();
                 $scope.MenuDetail.getMenuList();//数据读取
                 for (var i = 0; i < rData.length; i++) {
-                    if (rData[i].parentFunctionID == 1) {
-                        treeData.push({
-                            id: rData[i].functionID, pid: rData[i].parentFunctionID, pId: rData[i].parentFunctionID, name: rData[i].functionName, isParent:
-    true
-                        });
-                    } else if (rData[i].parentFunctionID != 0) {
-                        treeData.push({
-                            id: rData[i].functionID, pid: rData[i].parentFunctionID, pId: rData[i].parentFunctionID, name: rData
-    [i].functionName, isParent: false
-                        });
-                    }
+                    var item = rData[i];
+                    treeData.push({
+                        id: item.functionID,                        pid: item.parentFunctionID,                        pId: item.parentFunctionID,                        name: item.functionName,
+                        isParent: (item.parentFunctionID == 1)
+                    });
+
                 }
                 $scope.tree.data = treeData;
             })

@@ -24,13 +24,13 @@ app.controller("HplListController", function ($scope, $state, $local, $Api, $Mes
     $scope.HospitalJump = {
         Add: function () {
             /// <summary>医院新增</summary>
-            $state.go("app.business.hplmanagementEduit");
+            $state.go("app.base.business.hplmanagementEduit");
         },
         Edit: function () {
             /// <summary>医院编辑</summary>
             var hplopt = $scope.getSelectedRow()
             if (hplopt) {
-                $state.go("app.business.hplmanagementEduit", { hplopt: hplopt.hPCode });
+                $state.go("app.base.business.hplmanagementEduit", { hplopt: hplopt.hPCode });
             } else {
                 $MessagService.caveat("请选择一条编辑的医院！")
             }
@@ -39,7 +39,7 @@ app.controller("HplListController", function ($scope, $state, $local, $Api, $Mes
             /// <summary>医院详情</summary>
             var hplopt = row? row:$scope.getSelectedRow()
             if (hplopt) {
-                $state.go("app.business.hplmanagementView", { hplopt: hplopt.hPCode });
+                $state.go("app.base.business.hplmanagementView", { hplopt: hplopt.hPCode });
             } else {
                 $MessagService.caveat("请选择一条查看的医院！")
             }
@@ -60,7 +60,7 @@ app.controller("HplListController", function ($scope, $state, $local, $Api, $Mes
         DepartMentList: function () {
             var dptopt = $local.getSelectedRow($scope.HospitalList.info)
             if (dptopt) {
-                $state.go("app.business.dptmanagement", { dptopt: dptopt.hPCode });
+                $state.go("app.base.business.dptmanagement", { dptopt: dptopt.hPCode });
             } else {
                 $MessagService.caveat("请选择一条查看科室的医院！")
             }

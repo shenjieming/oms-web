@@ -80,10 +80,10 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
         },
         ShowMaterialDetail: function (row) {
             /// <summary>显示物料明细信息</summary>
-            $scope.goView("app.mybusiness.materialview", row);
+            $scope.goView("app.base.mybusiness.materialview", row);
         },
         EditMaterialDetail: function (row) {
-            $scope.goView("app.mybusiness.materialdetail", row);
+            $scope.goView("app.base.mybusiness.materialdetail", row);
         },
         QueryMaterialList: function () {
             /// <summary>查询物料列表</summary>

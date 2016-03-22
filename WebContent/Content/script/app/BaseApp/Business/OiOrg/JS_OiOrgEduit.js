@@ -86,7 +86,7 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
                 $scope.oiPageInfo.Info.corpBizDistrictCode = $scope.oiPageInfo.deliveryDistrictCode;
                 $Api.ManageOi.Save($scope.oiPageInfo.Info, function (rData) {
                     $MessagService.succ("货主保存成功！");
-                    $scope.goView('app.business.oiorganization');
+                    $scope.goView('app.base.business.oiorganization');
                 })
             }
         },

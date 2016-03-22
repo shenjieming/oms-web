@@ -56,11 +56,11 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
         GoTemplateView: function (row) {
             /// <summary>前往模板详细页面</summary>
             row.isView = true;
-            $scope.goView("app.mybusiness.materialtemplateview", row);
+            $scope.goView("app.base.mybusiness.materialtemplateview", row);
         },
         GoTemplateDetail: function (param) {
             /// <summary>前往模板编辑明细页</summary>
-            $scope.goView("app.mybusiness.materialtemplatedetail", param);
+            $scope.goView("app.base.mybusiness.materialtemplatedetail", param);
         },
         Delete: function () {
             /// <summary>删除模板</summary>

@@ -65,7 +65,7 @@ app.controller("WareHouseEduitController", function ($scope, $state, $local, $Ap
                 $scope.whPageInfo.Info.wHDistrictCode = $scope.whPageInfo.Info.deliveryDistrictCode;
                 $Api.ManaWareHouse.Save($scope.whPageInfo.Info, function (rData) {
                     $MessagService.succ("仓库保存成功！");
-                    $scope.goView('app.business.whmanagement');
+                    $scope.goView('app.base.business.whmanagement');
                 })
             }
         },

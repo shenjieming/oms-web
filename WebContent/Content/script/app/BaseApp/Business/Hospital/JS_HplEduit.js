@@ -61,7 +61,7 @@ app.controller("HplEduitController", function ($scope, $state, $local, $Api, $Me
                 console.log($scope.HplPageInfo.Info)
                 $Api.ManaHospital.Save($scope.HplPageInfo.Info, function (rData) {
                     $MessagService.succ("医院保存成功！");
-                    $scope.goView('app.business.hplmanagement')
+                    $scope.goView('app.base.business.hplmanagement')
                 })
             }
         },

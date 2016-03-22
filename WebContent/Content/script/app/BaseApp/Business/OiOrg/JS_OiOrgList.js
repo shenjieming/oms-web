@@ -50,7 +50,7 @@ app.controller("OiOrgListController", function ($scope, $state, $local, $Api, $M
         goDlView: function (row) {
             var dlopt=row?row :$local.getSelectedRow($scope.RelManList.info)
             if (dlopt) {
-                $state.go("app.business.dlorganizationView", { dlopt: dlopt.dLOrgCode });
+                $state.go("app.base.business.dlorganizationView", { dlopt: dlopt.dLOrgCode });
             } else {
                 $MessagService.caveat("请选择一条查看的经销商数据！")
             }
@@ -98,13 +98,13 @@ app.controller("OiOrgListController", function ($scope, $state, $local, $Api, $M
 
         Add: function () {
             /// <summary>货主新增</summary>
-            $state.go("app.business.oiorganizationEduit");
+            $state.go("app.base.business.oiorganizationEduit", { oiopt: "" });
         },
         Edit: function () {
             /// <summary>货主编辑</summary>
             var oiopt = $scope.getSelectedRow()
             if (oiopt) {
-                $state.go("app.business.oiorganizationEduit", { oiopt: oiopt.orgCode });
+                $state.go("app.base.business.oiorganizationEduit", { oiopt: oiopt.orgCode });
             } else {
                 $MessagService.caveat("请选择一条编辑的货主！")
             }
@@ -114,7 +114,7 @@ app.controller("OiOrgListController", function ($scope, $state, $local, $Api, $M
             /// <summary>货主详情</summary>
             var oiopt = row ? row : $local.getSelectedRow($scope.OiOrgList.info);
             if (oiopt) {
-                $state.go("app.business.oiorganizationView", { oiopt: oiopt.orgCode });
+                $state.go("app.base.business.oiorganizationView", { oiopt: oiopt.orgCode });
             }
             else {
                 $MessagService.caveat("请选择一条查看的货主！")

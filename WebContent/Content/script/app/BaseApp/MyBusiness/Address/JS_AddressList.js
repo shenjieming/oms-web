@@ -36,7 +36,7 @@ app.controller("AddressListController", function ($scope, $state, $local, $Api, 
     }
 
     $scope.AddressDetail = {
-        Info: {countryCode:"CN",countryCodeName:"中国"},
+        Info: { countryCode: "CN", countryCodeName: "中国" },
         ShowAdd: function (row) {
             $scope.AddressDetail.model.show();
             $scope.AddressDetail.Info = row;
@@ -68,7 +68,7 @@ app.controller("AddressListController", function ($scope, $state, $local, $Api, 
                     $scope.AddressDetail.Info.checkisDefaultPerAddressType = false;
                 }
 
-          
+
             } else {
                 $MessagService.caveat("请选择一条编辑的地址信息！")
             }
@@ -76,7 +76,7 @@ app.controller("AddressListController", function ($scope, $state, $local, $Api, 
         verification: function () {
             /// <summary>验证模块</summary>
             var result = true;
-            if (!$scope.AddressDetail.Info.provinceCode || !$scope.AddressDetail.Info.cityCode||!$scope.AddressDetail.Info.districtCode) {
+            if (!$scope.AddressDetail.Info.provinceCode || !$scope.AddressDetail.Info.cityCode || !$scope.AddressDetail.Info.districtCode) {
                 $MessagService.caveat("请维护地址信息！");
                 result = false;
             }
@@ -142,7 +142,7 @@ app.controller("AddressListController", function ($scope, $state, $local, $Api, 
             $scope.SelectInfo.District.getDistrictList();
             $scope.SelectInfo.CarrierTransType.getCarrierTransTypeList();
             $scope.SelectInfo.AddressType.getAddressTypeList();
-            
+
         }
     }
     /// 下拉框开启
@@ -165,8 +165,8 @@ app.controller("AddressListController", function ($scope, $state, $local, $Api, 
             getProvinceList: function () {
                 /// <summary>获取省份列表</summary>
                 $Api.BasisService.GetadmdivisionList({ level: "1" }, function (rData) {
-                        $scope.SelectInfo.Province.dic = rData.rows;
-                       console.log(rData)
+                    $scope.SelectInfo.Province.dic = rData.rows;
+                    console.log(rData)
                 });
             }
         },
@@ -262,15 +262,15 @@ app.controller("AddressListController", function ($scope, $state, $local, $Api, 
 
     }
     $scope.Pagein = {
-    pageSize: 10,
-    pageIndex: 1,
-    callbake: function () {
-        $scope.Load();
+        pageSize: 10,
+        pageIndex: 1,
+        callbake: function () {
+            $scope.Load();
+        }
     }
-}
     $scope.Load = function () {
         /// <summary>页面初始化</summary>
         $scope.AddressList.GetAddressList();
     }
-$scope.Load();
+    $scope.Load();
 })

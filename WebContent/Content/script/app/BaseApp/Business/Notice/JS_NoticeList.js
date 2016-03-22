@@ -128,7 +128,7 @@ app.controller("NoticeListController", function ($scope, $state, $local, $Api, $
             console.log($scope.NoticePageInfo.Info)          
             $Api.ManaEvent.Save($scope.NoticePageInfo.Info, function (rData) {
                 $MessagService.succ("用户保存成功！");
-                $scope.goView('app.business.dlmanagementnotice');
+                $scope.goView('app.base.business.dlmanagementnotice');
             })
         },
         cancel: function () {

@@ -232,13 +232,13 @@ app.controller("GroupListController", function ($scope, $state, $local, $Api, $M
     $scope.GroupDetailPage = {
         //新增
         add: function () {
-            $state.go("app.comp.group.detail");
+            $state.go("app.base.comp.group.detail");
         },
         //编辑
         eduit: function () {
             var teamCodeId = $scope.getSelectedRow();
             if (teamCodeId) {
-                $state.go("app.comp.group.detail", { teamCodeId: teamCodeId.teamCode });
+                $state.go("app.base.comp.group.detail", { teamCodeId: teamCodeId.teamCode });
             } else {
                 $MessagService.caveat("请选择一条成员数据！")
             }
