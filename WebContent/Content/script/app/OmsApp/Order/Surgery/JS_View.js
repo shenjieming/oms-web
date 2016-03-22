@@ -6,7 +6,7 @@
 /// <reference path="../../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../../service/system/localService.js" />
 /// <reference path="../../Config.js" />
-OmsApp
+OmsAppController
     .controller("OrderViewController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>手术下单下单控制器</summary>
     /*基础对象区域Begion*/

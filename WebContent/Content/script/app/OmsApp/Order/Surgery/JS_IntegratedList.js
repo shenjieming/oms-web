@@ -7,7 +7,7 @@
 /// <reference path="../../service/system/localService.js" />
 /// <reference path="../../Config.js" />
 
-OmsApp
+var OmsAppController = angular.module('OmsAppController', [])
     .controller("SurgeryController", function ($scope, $state, $local, $Api, $MessagService, $stateParams) {
         /// <summary>订单操作控制器</summary>
         var userData = $local.getValue("USER");
@@ -41,7 +41,7 @@ OmsApp
 
         $scope.addSurgery = function () {
             /// <summary>添加手术下单</summary>
-            $state.go("app.oms.order.single");
+            $state.go("app.oms.order.single", { sono: 0 });
         }
 
         $scope.editSurgery = function (sono) {

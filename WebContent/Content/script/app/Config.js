@@ -27,6 +27,8 @@ app.run(function ($rootScope, $state, $local, $Api, $MessagService) {
             }
         }
     });
+
+
 })
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     /// <summary>页面配置信息</summary>

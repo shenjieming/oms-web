@@ -1,4 +1,5 @@
-﻿var OmsApp = angular.module('OmsApp', [])
+﻿var OmsApp = angular.module('OmsApp', ["OmsAppController"]);
+OmsApp
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         /// <summary>页面配置信息</summary>
         $stateProvider
@@ -7,18 +8,18 @@
                  url: "/oms",
                  cache: false,
                  template: "<div ui-view></div>",
-                 abstract: true
+                 abstract: true,
+                 loadJs: [
+                  "Content/script/app/OmsApp/Order/Stock/JS_View.js"
+                 ],
+                 resolve: app.resolve
              })
              .state("app.oms.order", {
                  /// <summary>手术订单信息管理</summary>
                  url: "/order",
                  template: "<div ui-view></div>",
                  controller: "SurgeryController",
-                 abstract: true,
-                 loadJs: [
-                    "Content/script/app/OmsApp/Directive/productViewDirective.js" 
-                 ],
-                 resolve: app.resolve,
+                 abstract: true
              })
             .state("app.oms.stock", {
                 /// <summary>备货订单管理</summary>
@@ -41,7 +42,11 @@
                 url: "/complex",
                 cache: false,
                 templateUrl: "View/OMS/Order/Surgery/IntegratedOderList.html?data=" + Timestamp,
-                controller: "IntegratedListController"
+                controller: "IntegratedListController",
+                loadJs: [
+                  "Content/script/app/OmsApp/Order/Surgery/JS_IntegratedList.js"
+                ],
+                resolve: app.resolve,
             })
             .state("app.oms.order.orderlist", {
                 /// <summary>我的手术订单列表</summary>
