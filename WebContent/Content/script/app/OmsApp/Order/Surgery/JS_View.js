@@ -6,8 +6,8 @@
 /// <reference path="../../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../../service/system/localService.js" />
 /// <reference path="../../Config.js" />
-OmsAppController
-    .controller("OrderViewController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
+
+app.controller("OrderViewController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>手术下单下单控制器</summary>
     /*基础对象区域Begion*/
     $scope.sono = $stateParams.sono;//获取订单编号
@@ -95,7 +95,7 @@ OmsAppController
 
 
     })
-    .controller("OriginalController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
+app.controller("OriginalController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
         /// <summary>原始订单控制器</summary>
         $scope.singleProduc = {
             Service: {},
@@ -119,7 +119,7 @@ OmsAppController
         });
 
     })
-    .controller("AccurateController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
+app.controller("AccurateController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
         /// <summary>精确订单</summary>
         $scope.$watch("PageData.sONo", function () {
             /// <summary>获取数据信息</summary>
@@ -160,7 +160,7 @@ OmsAppController
         }
 
     })
-    .controller("LibraryController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $route) {
+app.controller("LibraryController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $route) {
         /// <summary>出库单</summary>
         $scope.$watch("PageData.sONo", function () {
             /// <summary>获取数据信息</summary>
@@ -265,8 +265,8 @@ OmsAppController
             }
         }
     })
-    .controller("SingleController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $AppHelp) {
-        /// <summary>手术下单下单控制器</summary>
+app.controller("SingleController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $AppHelp) {
+    /// <summary>手术下单下单控制器</summary>
         /*基础对象区域Begion*/
         $scope.sono = $stateParams.sono;//获取订单编号
         $scope.PageData = {
@@ -454,7 +454,7 @@ OmsAppController
 
         /*数据监控区域End*/
     })
-    .controller("FeedbackController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
+app.controller("FeedbackController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
         /// <summary>反馈订单处理</summary>
         /*数据监控Begion*/
         $scope.$watch("PageData.sONo", function () {
@@ -645,7 +645,7 @@ OmsAppController
             }
         }
     })
-    .controller("DealwithController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
+app.controller("DealwithController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
         /// <summary>订单处理</summary>
         $scope.DealService = {
             /// <summary>订单处理服务</summary>
@@ -789,7 +789,7 @@ OmsAppController
 
         /*数据监控End*/
     })
-    .controller("AdditionalController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
+app.controller("AdditionalController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
         /// <summary>订单追加</summary>
 
         $scope.AdditionalServiice = {
@@ -812,7 +812,7 @@ OmsAppController
         });
         /*数据监控End*/
     })
-    .controller("AddEventController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
+app.controller("AddEventController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
         /// <summary>订单处理</summary>
         $scope.Event = { eventCode: "", attachments: { remark: "", images: new Array() } }
         /*数据监控Begion*/
@@ -885,7 +885,7 @@ OmsAppController
             }
         }
     })
-    .controller("FeedbackViewController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $route) {
+app.controller("FeedbackViewController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $route) {
         /// <summary>出库单</summary>
         $scope.FeedBack = { images: new Array(), remark: "" }
         $scope.$watch("PageData.sONo", function () {

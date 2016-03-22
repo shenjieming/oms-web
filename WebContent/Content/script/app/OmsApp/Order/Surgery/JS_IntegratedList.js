@@ -7,8 +7,8 @@
 /// <reference path="../../service/system/localService.js" />
 /// <reference path="../../Config.js" />
 
-var OmsAppController = angular.module('OmsAppController', [])
-    .controller("SurgeryController", function ($scope, $state, $local, $Api, $MessagService, $stateParams) {
+
+app.controller("SurgeryController", function ($scope, $state, $local, $Api, $MessagService, $stateParams) {
         /// <summary>订单操作控制器</summary>
         var userData = $local.getValue("USER");
         /*页面操作Begion*/
@@ -41,7 +41,7 @@ var OmsAppController = angular.module('OmsAppController', [])
 
         $scope.addSurgery = function () {
             /// <summary>添加手术下单</summary>
-            $state.go("app.oms.order.single", { sono: false });
+            $state.go("app.oms.order.single", { sono: "" });
         }
 
         $scope.editSurgery = function (sono) {
@@ -206,7 +206,7 @@ var OmsAppController = angular.module('OmsAppController', [])
 
         /*页面权限End*/
     })
-    .controller("IntegratedListController", function ($scope, $state, $local, $Api, $MessagService) {
+app.controller("IntegratedListController", function ($scope, $state, $local, $Api, $MessagService) {
         /// <summary>综合订单查询列表</summary>
         $scope.title = "综合订单查询";
         $scope.Competence = {
@@ -225,7 +225,7 @@ var OmsAppController = angular.module('OmsAppController', [])
             initMedProdLnCodeName: false
         }
     })
-    .controller("AppendListController", function ($scope, $state, $local, $Api, $MessagService) {
+app.controller("AppendListController", function ($scope, $state, $local, $Api, $MessagService) {
         /// <summary>待追加备货单列表</summary>
         $scope.title = "可追加备货单列表";
         //条件清空
@@ -234,7 +234,7 @@ var OmsAppController = angular.module('OmsAppController', [])
         $scope.Integrated.ClearWhere(true);
         $scope.Competence = {  append: true  };
     })
-    .controller("ApplyListController", function ($scope, $state, $local, $Api, $MessagService) {
+app.controller("ApplyListController", function ($scope, $state, $local, $Api, $MessagService) {
         /// <summary>订单返库申请控制器</summary>
         $scope.title = "待返库申请列表";
 
@@ -244,7 +244,7 @@ var OmsAppController = angular.module('OmsAppController', [])
         $scope.Integrated.ClearWhere(true);
         $scope.Integrated.GetOrderList({ opt: "OPER_WAITBACK_LIST" });
     })
-    .controller("ApprovalListController", function ($scope, $state, $local, $Api, $MessagService) {
+app.controller("ApprovalListController", function ($scope, $state, $local, $Api, $MessagService) {
         /// <summary>手术订单审批控制器</summary>
         $scope.title = "待审批订单列表";
 
@@ -260,7 +260,7 @@ var OmsAppController = angular.module('OmsAppController', [])
             $state.go("app.order.view", { sono: sono });
         }
     })
-    .controller("BackListController", function ($scope, $state, $local, $Api, $MessagService) {
+app.controller("BackListController", function ($scope, $state, $local, $Api, $MessagService) {
         /// <summary>返库处理控制器</summary>
         $scope.title = "待返库处理列表";
         $scope.Competence = {
@@ -270,7 +270,7 @@ var OmsAppController = angular.module('OmsAppController', [])
         $scope.Integrated.ClearWhere(true);
         $scope.Integrated.GetOrderList({ opt: "OPER_PROCESSBACK_LIST" });
     })
-    .controller("DealWithListController", function ($scope, $state, $local, $Api, $MessagService) {
+app.controller("DealWithListController", function ($scope, $state, $local, $Api, $MessagService) {
         /// <summary>订单处理控制器</summary>
         $scope.title = "待订单处理列表";
 
@@ -287,7 +287,7 @@ var OmsAppController = angular.module('OmsAppController', [])
         }
 
     })
-    .controller("FeedbackListController", function ($scope, $state, $local, $Api, $MessagService) {
+app.controller("FeedbackListController", function ($scope, $state, $local, $Api, $MessagService) {
         /// <summary>反馈单草稿控制器</summary>
         $scope.title = "反馈处理草稿";
         $scope.Competence = {
@@ -297,7 +297,7 @@ var OmsAppController = angular.module('OmsAppController', [])
         $scope.Integrated.ClearWhere(true);
         $scope.Integrated.GetOrderList({ opt: "OPER_PROCESSBACK_DRAFT" });
     })
-    .controller("MyDraftListController", function ($scope, $state, $local, $Api, $MessagService) {
+app.controller("MyDraftListController", function ($scope, $state, $local, $Api, $MessagService) {
         /// <summary>订单草稿数据控制器</summary>
         $scope.title = "我的订单草稿";
 
@@ -313,7 +313,7 @@ var OmsAppController = angular.module('OmsAppController', [])
         $scope.Integrated.ClearWhere(true);
         $scope.Integrated.GetOrderList({ opt: "OPER_MYORDER_DRAFT" });
     })
-    .controller("MyOrderListController", function ($scope, $state, $local, $Api, $MessagService) {
+app.controller("MyOrderListController", function ($scope, $state, $local, $Api, $MessagService) {
         /// <summary>我的订单控制器</summary>
         $scope.title = "我的订单";
         $scope.Competence = {
@@ -322,7 +322,7 @@ var OmsAppController = angular.module('OmsAppController', [])
         $scope.Integrated.ClearWhere(true);
         $scope.Integrated.GetOrderList({ opt: "OPER_MYORDER_LIST" });
     })
-    .controller("SignListController", function ($scope, $state, $local, $Api, $MessagService) {
+app.controller("SignListController", function ($scope, $state, $local, $Api, $MessagService) {
         /// <summary>签收订单管理控制器</summary>
         $scope.title = "待签收订单列表";
 

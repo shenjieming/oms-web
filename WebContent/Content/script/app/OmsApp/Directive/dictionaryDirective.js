@@ -7,7 +7,7 @@
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
 var Dictionary = new Object();
-OmsApp.directive("ngDictionary", function ($Api, $MessagService) {
+app.directive("ngDictionary", function ($Api, $MessagService) {
     /// <summary>字典标签</summary>
     return {
         restrict: "EA",

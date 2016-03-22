@@ -1,5 +1,5 @@
 ﻿
-var OmsApp = angular.module('OmsApp', ["OmsAppController"]);
+var OmsApp = angular.module('OmsApp', []);
 OmsApp
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         /// <summary>页面配置信息</summary>
@@ -9,14 +9,33 @@ OmsApp
                  url: "/oms",
                  cache: false,
                  template: "<div ui-view></div>",
-                 abstract: true
+                 abstract: true,
+                 loadJs: [
+                     "Content/script/app/OmsApp/Directive/materialsTemplateDirective.js",
+                     "Content/script/app/OmsApp/Directive/materialsImportTemplateDirective.js",
+                     "Content/script/app/OmsApp/Directive/areaDirective.js",
+                     "Content/script/app/OmsApp/Directive/cargoOwnerDirective.js",
+                     "Content/script/app/OmsApp/Directive/doctorsDirective.js",
+                     "Content/script/app/OmsApp/Directive/productLineDirective.js",
+                     "Content/script/app/OmsApp/Directive/productViewDirective.js",
+                     "Content/script/app/OmsApp/Directive/addressDirective.js",
+                     "Content/script/app/OmsApp/Directive/orderOperatDriective.js",
+                     "Content/script/app/OmsApp/Directive/medKitsDirective.js",
+                     "Content/script/app/OmsApp/Directive/materialsDriective.js"
+                 ],
+                 resolve: app.resolve
              })
              .state("app.oms.order", {
                  /// <summary>手术订单信息管理</summary>
                  url: "/order",
                  template: "<div ui-view></div>",
                  controller: "SurgeryController",
-                 abstract: true
+                 abstract: true,
+                 loadJs: [
+                    "Content/script/app/OmsApp/Order/Surgery/JS_IntegratedList.js",
+                    "Content/script/app/OmsApp/Order/Surgery/JS_View.js"
+                 ],
+                 resolve: app.resolve
              })
             .state("app.oms.stock", {
                 /// <summary>备货订单管理</summary>

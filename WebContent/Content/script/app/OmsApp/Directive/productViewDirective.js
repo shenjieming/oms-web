@@ -6,7 +6,7 @@
 /// <reference path="../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
-OmsApp.directive("ngProductView", function ($Api, $MessagService, $local) {
+app.directive("ngProductView", function ($Api, $MessagService, $local) {
     /// <summary>产品信息</summary>
     return {
         restrict: "EA",
