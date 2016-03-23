@@ -137,6 +137,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                 deleteLine: function () {
                     /// <summary>删除产品线</summary>
                     $scope.ngModel.prodLns.splice($scope.ProductConfig.useLine.index, 1);
+                    
                     $scope.ProductConfig.GetLineMaterialCount();
                 },
                 ChangeTool: function () {
@@ -219,9 +220,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                                 medMaterias: item.medMaterias ? item.medMaterias : $scope.ProductConfig.tree.GetDefaultMaterial(item.medMaterialItems),
                                 isChecked: item.medProdLnCodeWithTool == "Y" ? true : false
                             });
-                            if (index == $scope.ngModel.prodLns.length) {
-
-                            }
                             treeData.push(node);
                         });
                         return treeData;
@@ -301,6 +299,10 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                                 $scope.MaterialsConfig.Material.push(item);
                             }
                         });
+                    }
+                    if ($scope.Competence.warehouse && $scope.Competence.operat && $scope.MaterialsConfig.Material.length > 0) {
+                        /// <summary>是否启动仓库</summary>
+                        $scope.WarehouseConfig.GetMedmaterialInventory()
                     }
                 },
                 Deduplication: function () {
