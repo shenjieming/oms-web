@@ -139,7 +139,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in MaterialsConfig.Material">
+                            <tr ng-repeat="row in MaterialsConfig.Material" ng-class="{'red':(Competence.warehouse&&row.reqQty>row.inventory)}">
                                 <td>{{$index+1}}</td>
                                 <td>
                                     {{row.medMICode}}
