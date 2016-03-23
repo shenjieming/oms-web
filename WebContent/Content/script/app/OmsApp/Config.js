@@ -11,9 +11,9 @@ OmsApp
                  template: "<div ui-view></div>",
                  abstract: true,
                  loadJs: [
-                     "Content/script/app/OmsApp/Directive/areaDirective.js",
                      "Content/script/app/OmsApp/Directive/materialsTemplateDirective.js",
                      "Content/script/app/OmsApp/Directive/materialsImportTemplateDirective.js",
+                     "Content/script/app/OmsApp/Directive/areaDirective.js",
                      "Content/script/app/OmsApp/Directive/cargoOwnerDirective.js",
                      "Content/script/app/OmsApp/Directive/doctorsDirective.js",
                      "Content/script/app/OmsApp/Directive/productLineDirective.js",
