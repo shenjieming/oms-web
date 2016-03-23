@@ -1,0 +1,298 @@
+﻿<div class="row" ng-controller="FeedbackController">
+    <div class="tools">
+        <h5 style="float:left; font-weight:bold; margin-left:8px;">
+            <i class="fa fa-file-archive-o"></i>
+            手术订单
+            <span style="color: #0033FF">[{{sono}}]</span>
+            <span style="color: #FF3300">({{PageData.statusName}})</span>
+
+        </h5>
+        <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-click="FeedBackService.Save()"><i class="fa fa-save"></i> 保存</a>
+            <a class="btn btn-primary" ng-click="FeedBackService.Submit()"><i class="fa fa-check"></i> 提交</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+
+    <div ng-materials="" ng-model="FeedBack.notInDetail" ng-operat="MaterialsConfig.operat"></div>
+
+    <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active" href="#Feedback" data-toggle="tab"><a>反馈入库</a></li>
+            <li role="presentation" href="#Original" data-toggle="tab"><a>原始订单</a></li>
+            <li role="presentation" href="#Accurate" data-toggle="tab"><a>精确订单</a></li>
+            <li role="presentation" href="#Additional" data-toggle="tab"><a>出库单</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane" id="Original">
+                <div ui-view="Original"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Accurate">
+                <div ui-view="Accurate"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Additional">
+                <div class="row-fluid">
+                    <div ui-view="Library"></div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane active" id="Feedback">
+                <div class="row-fluid">
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" style="width:80%" href="#back_surgery">手术信息</h5>
+                            <a class="btn" ng-click="HospitalConfig.show()"><i class="fa fa-reddit-square"></i>修改医生</a>
+                        </div>
+                        <div id="back_surgery" class="widget-content nopadding collapse in">
+                            <div class="control-group ">
+                                <label>
+                                    医院名称：{{FeedBack.order.hPCodeName}}
+                                </label>
+                                <label>
+                                    科室名称：{{FeedBack.order.wardDeptCodeName}}
+                                </label>
+                                <label>
+                                    医生名称：{{FeedBack.order.dTCodeName}}<span style="color:green">[{{FeedBack.order.isLocalName}}]</span>
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label>
+                                    <span style="float:left;line-height:32px;">手术时间：</span>
+                                    <div class="input-group" style="float:left;width:180px;">
+                                        <input type="text" class="form-control" placeholder="请选择手术时间"
+                                               style="padding:8px;" ng-datatime="" ng-model="FeedBack.order.operationDate">
+                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </label>
+                                <label style="width:60%">
+                                    诊断信息：<input type="text" style=" width:78%" ng-model="FeedBack.order.operationDesc" />
+                                </label>
+                            </div>
+                            <div ng-doctors="" ng-model="PageData" ng-operat="HospitalConfig"></div>
+                        </div>
+                    </div>
+
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" href="#back_surgery">患者信息</h5>
+                        </div>
+                        <div id="back_surgery" class="widget-content nopadding collapse in">
+                            <div class="control-group">
+                                <label>
+                                    患者名称：<input type="text" ng-model="FeedBack.order.patientName" />
+                                </label>
+                                <label>
+                                    患者性别：<span ng-dictionary="PRNSEX" ng-model="FeedBack.order.patientSex"></span>
+                                </label>
+                                <label>
+                                    患者年龄：<input type="number" ng-model="FeedBack.order.patientAge" />
+                                </label>
+                            </div>
+                            <div class="control-group ">
+                                <label>
+                                    <span style="float:left;line-height:32px;">入院时间：</span>
+                                    <div class="input-group" style="float:left;width:180px;">
+                                        <input type="text" class="form-control" placeholder="请选择入院时间"
+                                               style="padding:8px;" ng-datatime="" ng-model="FeedBack.order.patientEntryDate">
+                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </label>
+                                <label>
+                                    住院病号：<input type="text" ng-model="FeedBack.order.patientHPNo" />
+                                </label>
+                                <label>
+                                    住院病区：<input type="text" ng-model="FeedBack.order.patientWard" />
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label>
+                                    住院病房：<input type="text" ng-model="FeedBack.order.patientRoom" />
+                                </label>
+                                <label>
+                                    病房床号：<input type="text" ng-model="FeedBack.order.patientBedNo" />
+                                </label>
+                                <label>
+                                    植入物情况：<label><input type="checkbox" style="top:4px;position:relative;" /> 需要取出</label>
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label>
+                                    <span style="float:left;line-height:32px;">取出日期：</span>
+                                    <div class="input-group" style="float:left;width:180px;">
+                                        <input type="text" class="form-control" placeholder="请选择取出日期"
+                                               style="padding:8px;" ng-datatime="" ng-model="FeedBack.order.retrieveEstDate">
+                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </label>
+                                <label style="width:60%">
+                                    取出描述：<input type="text" style=" width:78%" ng-model="FeedBack.order.retrieveDesc" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" href="#back_Materials">物料返库信息</h5>
+                        </div>
+                        <div class="widget-content nopadding collapse in" id="back_Materials">
+                            <div class="control-group ">
+                                <div class="main-box-body clearfix" style="width:100%;">
+                                    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                                        <table class="table table-bordered tab-striped fixed" style="width:1600px;">
+                                            <thead>
+                                                <tr>
+                                                    <th class="No"><span>序号</span></th>
+                                                    <th><span>品牌名称</span></th>
+                                                    <th><span>产品线</span></th>
+                                                    <th><span>物料编码</span></th>
+                                                    <th><span>物料类型</span></th>
+                                                    <th><span>批次</span></th>
+                                                    <th><span>出库数量</span></th>
+                                                    <th><span>使用数量</span></th>
+                                                    <th><span>使用类型</span></th>
+                                                    <th><span>返库仓库</span></th>
+                                                    <th style="width:450px;"><span>物料名称</span></th>
+                                                    <th style="width:300px;"><span>物料规格</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="row in FeedBack.medMaterial">
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{row.medBrandCodeName}}</td>
+                                                    <td>{{row.medProdLnCodeName}}</td>
+                                                    <td>{{row.medMICode}}</td>
+                                                    <td>{{row.categoryByPlatformName}}</td>
+                                                    <td>
+                                                        <input type="text" style="width:60px" ng-model="row.lotSerial" />
+                                                    </td>
+                                                    <td>{{row.actQty}}</td>
+                                                    <td>
+                                                        <input type="number" ng-change="dictionary.DefaultUseType(row)" style="width:60px;" ng-model="row.useQty" min="0" max="{{row.actQty}}" />
+
+                                                    </td>
+                                                    <td>
+                                                        <select ng-selected="0" ng-model="row.useType" ng-options="item.id as item.text for item in dictionary.UseTypeList">
+                                                            <option value="">请选择使用类型</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select ng-model="row.returnWarehouse" ng-change="WarehouseConfig.GetKitInventory(row)" ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
+                                                            <option value="">请选择仓库</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>{{row.medMICodeName}}</td>
+                                                    <td>{{row.specification}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" href="#back_notInMaterials" style="width:80%">辅助物料信息</h5>
+                            <a class="btn" href="javascript:void(0)"><i class="fa fa-image"></i> 添加物料</a>
+                        </div>
+                        <div class="widget-content nopadding collapse in" id="back_notInMaterials">
+                            <div class="control-group ">
+                                <div class="main-box-body clearfix" style="width:100%;" ng-if="FeedBack.notInDetail.length>0">
+                                    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                                        <table class="table table-bordered tab-striped fixed" style="width:1600px;">
+                                            <thead>
+                                                <tr>
+                                                    <th class="No"><span>序号</span></th>
+                                                    <th><span>品牌名称</span></th>
+                                                    <th><span>产品线</span></th>
+                                                    <th><span>物料编码</span></th>
+                                                    <th><span>物料类型</span></th>
+                                                    <th><span>批次</span></th>
+                                                    <th><span>使用数量</span></th>
+                                                    <th><span>使用类型</span></th>
+                                                    <th><span>返库仓库</span></th>
+                                                    <th style="width:450px;"><span>物料名称</span></th>
+                                                    <th style="width:300px;"><span>物料规格</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="row in FeedBack.notInDetail">
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{row.medBrandCodeName}}</td>
+                                                    <td>{{row.medProdLnCodeName}}</td>
+                                                    <td>{{row.medMICode}}</td>
+                                                    <td>{{row.categoryByPlatformName}}</td>
+                                                    <td>
+                                                        <input type="text" style="width:60px" ng-model="row.lotSerial" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" ng-change="dictionary.DefaultUseType(row)" style="width:60px;" ng-model="row.useQty" min="0" max="{{row.actQty}}" />
+
+                                                    </td>
+                                                    <td>
+                                                        <select ng-selected="0" ng-model="row.useType" ng-options="item.id as item.text for item in dictionary.UseTypeList">
+                                                            <option value="">请选择使用类型</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select ng-model="row.returnWarehouse" ng-change="WarehouseConfig.GetKitInventory(row)" ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
+                                                            <option value="">请选择仓库</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>{{row.medMICodeName}}</td>
+                                                    <td>{{row.specification}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <label style="opacity:0.5;width:100%;" ng-if="!FeedBack.notInDetail">
+                                    您可以添加非订单内的物料...
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" style="width:80%" href="#back_File">图片信息</h5>
+                            <a class="btn j_file_panel" href="javascript:void(0)">
+                                <i class="fa fa-image"></i>
+                                添加图片
+                                <div ng-file="file" ng-model="file"></div>
+                            </a>
+                        </div>
+                        <div id="back_File" class="widget-content nopadding collapse in">
+                            <div class="control-group ">
+                                <div ng-img-list="img" ng-comp="{delImg:true}" ng-model="FeedBack.attachment.images"></div>
+                                <label style="opacity:0.5;width:100%;" ng-show="!FeedBack.attachment.images.length">
+                                    添加点图片丰富您的订单吧，
+                                    最多支持上传5张图片
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label style="width:100%">
+                                    图片说明：<input type="text" style="width:78%;" placeholder="对您的图片说点什么吧..." ng-model="FeedBack.attachment.remark" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="tools">
+        <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-click="FeedBackService.Save()"><i class="fa fa-save"></i> 保存</a>
+            <a class="btn btn-primary" ng-click="FeedBackService.Submit()"><i class="fa fa-check"></i> 提交</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa  fa-reply"></i> 返回</a>
+        </span>
+    </div>
+</div>

@@ -1,0 +1,108 @@
+﻿<div>
+    <ng-dialog ng-model="ngOperat">
+        
+        <div ng-slide="operat.isEdit">
+            <div style="width:100%; padding-right:20px;">
+                <a href="javascript:void(0)" class="btn btn-primary" style="float:right;" ng-click="operat.ChangeEdit()" ng-if="operat.Button">编辑</a>
+                <a href="javascript:void(0)" class="btn btn-primary" style="float:right;margin-right:10px;" ng-click="operat.ChangeDetail()" ng-if="operat.Button">添加</a>
+            </div>
+            <div class="main-box-body clearfix" style="padding:15px;max-height:450px;overflow:auto;display:inline-block;width:100%">
+                <div class="table-responsive" style=" margin-top:-10px;">
+                    <table class="table table-bordered table-striped" st-table="Service.DoctorsList">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>医院编码</span></th>
+                                <th><span>医院名称</span></th>
+                                <th><span>科室编码</span></th>
+                                <th><span>科室名称</span></th>
+                                <th><span>医生编码</span></th>
+                                <th><span>医生名称</span></th>
+                                <th><span>医生属性</span></th>
+                                <th><span>操作</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in Service.DoctorsList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="ngOperat.fixed(row)">
+                                <td>{{$index+1}}</td>
+                                <td>
+                                    {{row.hPCode}}
+                                </td>
+                                <td title="{{row.hPPreferenceDesc}}">
+                                    {{row.hPName}}
+                                </td>
+                                <td>
+                                    {{row.wardDeptCode}}
+                                </td>
+                                <td>
+                                    {{row.wardDeptname}}
+                                </td>
+                                <td>
+                                    {{row.dTCode}}
+                                </td>
+                                <td title="{{row.dTOperationPreferenceDesc}}">
+                                    {{row.dTName}}
+                                </td>
+                                <td>
+                                    {{row.isLocalName}}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-xs btn-danger" ng-click="Service.DelDoctor(row)"><i class="fa fa-times"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div ng-slide="operat.isDetail">
+            <div style="width:100%; padding-right:20px;">
+                <a href="javascript:void(0)" class="btn btn-primary" style="float:right;" ng-click="operat.List()">返回</a>
+                <a href="javascript:void(0)" class="btn btn-primary" style="float:right;margin-right:10px;" ng-click="operat.Save()">保存</a>
+            </div>
+            <div style="width:100%;display:inline-block">
+
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-5">
+                        <span class="required">*</span> 医院名称：<select ng-model="Service.DoctorsDetail.hPCode" ng-change="SelectInfo.Doctor.change()">
+                            <option value="">请选择医院名称...</option>
+                            <option ng-repeat="item in SelectInfo.Doctor.dic" ng-selected="item.id==Service.DoctorsDetail.hPCode" value="{{item.id}}">{{item.text}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-5">
+                        <span class="required">*</span>   科室名称：<select ng-model="Service.DoctorsDetail.wardDeptCode">
+                            <option value="">请选择科室名称...</option>
+                                 <option ng-repeat="item in SelectInfo.Department.dic" ng-selected="item.id==Service.DoctorsDetail.wardDeptCode" value="{{item.id}}">{{item.text}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row row-mt-8">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-5">
+                        <span class="required">*</span> 医生名称：<input type="text" ng-model="Service.DoctorsDetail.dTName" placeholder="请输入医生名称..." />
+                    </div>
+                    <div class="col-lg-5">
+                        联系电话：<input type="text" ng-model="Service.DoctorsDetail.dTMobile" placeholder="请输入医生联系电话..." />
+                    </div>
+                </div>
+                <div class="row row-mt-8">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-10" ng-show="Service.isLocalCheck">
+                        <span style="float:left;line-height:25px;">医生归属：</span>
+                        <input type="checkbox" id="checkbox_c999" class="chkbox" ng-checked="Service.DoctorsDetail.isLocalCheck" ng-model="Service.DoctorsDetail.isLocalCheck" />
+                        <label for="checkbox_c999" style="float:left"></label>
+                        <span ng-show="Service.DoctorsDetail.isLocalCheck" style="line-height: 25px;"> 本院</span>
+                        <span ng-show="!Service.DoctorsDetail.isLocalCheck" style="line-height: 25px;">非本院</span>
+                    </div>
+                </div>
+                <div class="row row-mt-8">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-10">
+                        要求信息：<input type="text" ng-model="Service.DoctorsDetail.dTOperationPreferenceDesc" placeholder="请输入医生手术时的要求信息..." style="width:75%;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-dialog>
+</div>

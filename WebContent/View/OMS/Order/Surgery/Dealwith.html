@@ -1,0 +1,185 @@
+﻿<div class="row" ng-controller="DealwithController">
+    <div class="tools">
+        <h5 style="float:left; font-weight:bold; margin-left:8px;">
+            <i class="fa fa-file-archive-o"></i>
+            手术订单
+            <span style="color: #0033FF">[{{sono}}]</span>
+            <span style="color: #FF3300">({{PageData.statusName}})</span>
+        </h5>
+        <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Cancel()" style="background-color:#fc6154"><i class="fa fa-undo"></i>取消</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Submit()"><i class="fa fa-wrench"></i>处理</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+    <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
+    <div ng-materials-template="TemplateService" ng-model="PageData"></div>
+    <div ng-materials-import-template="ImportTemplateService" ng-model="PageData"></div>
+    <div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active" href="#Dealwith" data-toggle="tab"><a>开始处理</a></li>
+            <li role="presentation" href="#Original" data-toggle="tab"><a>原始订单</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane" id="Original">
+                <div ui-view="Original"></div>
+            </div>
+            <div class="tab-pane active" id="Dealwith">
+                <div class="row-fluid">
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" href="#pro_BaseInformation" style="width:80%">基础信息[货主：{{PageData.sOOIOrgCodeName}}]</h5>
+                            <a class="btn" ng-click="AddressConfig.show()"><i class="fa fa-map-marker"></i>修改地址</a>
+                        </div>
+                        <div class="widget-content nopadding collapse in" id="pro_BaseInformation">
+                            <div class="control-group ">
+                                <label style="line-height:28px;">
+                                    收 货 人：{{PageData.deliveryContact}}
+                                </label>
+                                <label style="line-height:28px;">
+                                    联系电话：{{PageData.deliveryrMobile}}
+                                </label>
+                                <label>
+                                    <span class="required">*</span>配送方式：
+                                    <span ng-dictionary="TRANTP" ng-model="PageData.carrierTransType"></span>
+                                </label>
+                            </div>
+                            <div class="control-group ">
+                                <table class="Vessel" style="width:100%">
+                                    <tr>
+                                        <td style="padding-left:2.2%;"><span>  收货地址：</span></td>
+                                        <td style="padding:0px;"><span ng-area="" ng-model="PageData"></span></td>
+                                        <td style="width:50%;padding:0px;"><input type="text" ng-model="PageData.deliveryAddress" style="width:99%;border:0;border-bottom:1px solid #ccc;" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div ng-address="address" ng-model="PageData" ng-operat="AddressConfig"></div>
+                    </div>
+
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" style="width:80%" href="#pro_SurgeryInformation">手术信息</h5>
+                            <a class="btn" ng-click="HospitalConfig.show()"><i class="fa fa-reddit-square"></i>修改医生</a>
+                        </div>
+                        <div id="pro_SurgeryInformation" class="widget-content nopadding collapse in">
+                            <div class="control-group ">
+                                <label>
+                                    医院名称：{{PageData.hPCodeName}}
+                                </label>
+                                <label>
+                                    科室名称：{{PageData.wardDeptCodeName}}
+                                </label>
+                                <label>
+                                    医生名称：{{PageData.dTCodeName}}<span style="color:green">[{{PageData.isLocalName}}]</span>
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label style="width:100%;">
+                                    医院要求：{{PageData.hPPreferenceDesc}}
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label style="width:100%;">
+                                    医生要求：{{PageData.dTOperationPreferenceDesc}}
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label>
+                                    <span class="required">*</span>
+                                    <span style="float:left;line-height:32px;">手术时间：</span>
+                                    <div class="input-group" style="float:left;width:180px;">
+                                        <input type="text" class="form-control" placeholder="请选择手术时间"
+                                               style="padding:8px;" ng-datatime="" ng-model="PageData.operationDate">
+                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </label>
+                                <label style="width:60%">
+                                    <span class="required">*</span>
+                                    诊断信息：<input type="text" style=" width:78%" ng-model="PageData.patientDiseaseInfo" />
+                                </label>
+                            </div>
+                            <div class="control-group ">
+                                <label style="width:100%;">
+                                    患者描述:
+                                    <input type="text" style="width: 78%" ng-model="PageData.patientRemark" />
+                                </label>
+                            </div>
+                            <div class="control-group " style="display:none;">
+                                <label style="width:100%">
+                                    备注信息：<input style="width:78%" type="text" />
+                                </label>
+                            </div>
+                            <div ng-doctors="" ng-model="PageData" ng-operat="HospitalConfig"></div>
+                        </div>
+                    </div>
+
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 style="width:80%" data-toggle="collapse" href="#pro_ProductInformation">
+                                产品信息{{ProductCompetence.ShowInfo}}
+                            </h5>
+                            <div class="btn-group">
+                                <a class="btn" ng-click="TemplateService.show()">
+                                    <i class="fa fa-folder-open"></i>选择模板
+                                </a>
+                                <a class="btn" style="border-left:1px solid #ccc;"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li ng-click="ImportTemplateService.show()">
+                                        <a href="javascript:void(0)">
+                                            <i class="fa fa-gears"></i>另存为模板
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="pro_ProductInformation" class="widget-content nopadding collapse in">
+                            <div ng-product-view="dealProduct" ng-model="PageData" ng-service="ProductService" ng-comp="ProductCompetence"></div>
+                        </div>
+                    </div>
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" style="width:80%" href="#pro_AdditionalInformation">图片信息</h5>
+                            <a class="btn j_file_panel" href="javascript:void(0)">
+                                <i class="fa fa-image"></i>
+                                添加图片
+                                <div ng-file="file" ng-model="file"></div>
+                            </a>
+                        </div>
+                        <div id="pro_AdditionalInformation" class="widget-content nopadding collapse in">
+                            <div class="control-group ">
+                                <div ng-img-list="img" ng-comp="{delImg:true}" ng-model="PageData.attachments.images"></div>
+                                <label style="opacity:0.5;width:100%;" ng-show="!PageData.attachments.images.length">
+                                    添加点图片丰富您的订单吧，
+                                    最多支持上传5张图片
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label style="width:100%">
+                                    图片说明：<input type="text" style="width:78%;" placeholder="对您的图片说点什么吧..." ng-model="PageData.attachments.remark" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="tools">
+        <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Submit()"><i class="fa fa-wrench"></i>处理</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa  fa-reply"></i> 返回</a>
+        </span>
+    </div>
+</div>
