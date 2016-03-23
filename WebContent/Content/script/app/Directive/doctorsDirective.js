@@ -37,11 +37,18 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                 open: function () {
                     $.extend($scope.operat, { isEdit: true, isDetail: false })
                     $scope.Service.GetDoctors();
+                    $(".ui-dialog-buttonset").show();
+                    console.log(userInfo)
+                    if (userInfo.orgType != "DL") {
+                        $scope.operat.Button = false;
+                    }
+                   
                 },
             }
             $scope.operat = {
                 isEdit: true,//是否显示编辑信息
-                isDetail:false,//是否显示明细信息
+                isDetail: false,//是否显示明细信息
+                Button:true,//菜单按钮
                 ChangeEdit: function () {
                     /// <summary>修改医生状态</summary>
                     var doctoropt = $local.getSelectedRow($scope.Service.DoctorsList)
@@ -110,7 +117,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                 },
                 Save: function () {
                     if ($scope.operat.verification()) {
-                        $scope.Service.DoctorsDetail.isLocal = $scope.Service.DoctorsDetail.isLocalCheck ? "LOCAL" : "UNLOCAL"
+                        $scope.Service.DoctorsDetail.isLocal = $scope.Service.DoctorsDetail.isLocalCheck ? "LOCAL" : "NOTLOCAL"
                         console.log($scope.Service.DoctorsDetail)
                         $Api.HospitalService.SaveDoctor($scope.Service.DoctorsDetail, function (rData) {
                             $MessagService.succ("该信息保存成功！");

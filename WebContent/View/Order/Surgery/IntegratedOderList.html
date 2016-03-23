@@ -24,6 +24,48 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="Inquire" class="widget-content nopadding collapse in" style="border:0px;">
+                            <div class="control-group ">
+                                <div class="Vessel Others">
+                                   订单编号：<input type="text" ng-model="Pagein.Select.sONo" placeholder="请输入订单编号" ng-keyup="Integrated.Enter($event)" ng-click="Integrated.QueryOrderList()" />
+                                </div>
+                                <div class="Vessel Others">
+                                   货&nbsp;&nbsp;主：                                    
+                                    <select ng-model="Pagein.Select.oIOrgCode">
+                                        <option value="">请选择货主类型...</option>
+                                        <option ng-repeat="item in SelectInfo.OIorg.dic" value="{{item.id}}">{{item.text}}</option>
+                                    </select>
+                                </div>
+                                <div class="Vessel Others">
+                                   订单状态：
+                                    <select ng-model="Pagein.Select.status">
+                                        <option value="">请选择订单状态...</option>
+                                        <option ng-repeat="item in SelectInfo.Status.dic" value="{{item.id}}">{{item.text}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="Inquire" class="widget-content nopadding collapse in" style="border:0px;">
+                            <div class="control-group ">
+                                    <div class="Vessel Others">
+                                    医&nbsp;&nbsp;院：
+                                        <select ng-model="Pagein.Select.hPCode" ng-change="SelectInfo.Hosptail.change()">
+                                            <option value="">请选择医院...</option>
+                                            <option ng-repeat="item in SelectInfo.Hosptail.dic" value="{{item.hPCode}}">{{item.hPName}}</option>
+                                        </select>                                
+                                </div>                           
+                                <div class="Vessel Others">
+                                    医&nbsp;&nbsp;生：
+                                    <select ng-model="Pagein.Select.dTCode">
+                                        <option value="">请选择医生...</option>
+                                        <option ng-repeat="item in SelectInfo.Doctor.dic" value="{{item.dTCode}}">{{item.dTName}}</option>
+                                    </select>
+                            
+                                </div>  
+                                <div class="Vessel Others">
+                                </div>                              
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

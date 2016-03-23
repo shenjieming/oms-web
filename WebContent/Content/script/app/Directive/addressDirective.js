@@ -37,11 +37,16 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                 open: function () {
                     $.extend($scope.operat, { isEdit: true, isDetail: false })
                     $scope.Service.GetAddressList();
+                    $(".ui-dialog-buttonset").show();
+                    if (userInfo.orgType != "DL") {
+                        $scope.operat.Button = false;
+                    }
                 }
             };
             $scope.operat = {
                 isEdit: true,//是否显示编辑信息
                 isDetail: false,//是否显示明细信息
+                Button:true,
                 ChangeEdit: function () {
                     /// <summary>修改地址列表状态</summary>
                     var address = $local.getSelectedRow($scope.Service.AddressList)
@@ -143,6 +148,7 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                         /// <summary>省份列表修改事件</summary>       
                         $scope.Service.AddressDetail.cityCode = "";
                         $scope.Service.AddressDetail.districtCode = "";
+                        $scope.SelectInfo.District.dic = new Array();
                         $scope.SelectInfo.City.getCityList()// 市区下拉                         
                     },
                     getProvinceList: function () {
@@ -179,6 +185,8 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                     dic: new Array(),
                     getDistrictList: function () {
                         /// <summary>获取区域列表</summary>
+                        console.log($scope.Service.AddressDetail.cityCode)
+                        console.log($scope.Service.AddressDetail.provinceCode)
                         if ($scope.Service.AddressDetail.cityCode && $scope.Service.AddressDetail.provinceCode) {
                             var option = { level: "3", parentDivCode: $scope.Service.AddressDetail.cityCode }
                             $Api.BasisService.GetadmdivisionList(option, function (rData) {

@@ -294,6 +294,10 @@ app.service("$Api", function ($http, $local, $ApiHelp, $MessagService) {
                 $MessagService.loading("订单审批中，请稍等...");
                 service.Post(ApiPath.Surgery.Approval[data.operat], data, callback);
             },
+            Cancel: function (data, callback) {
+                $MessagService.loading("订单取消中，请稍等...");
+                service.Post(ApiPath.Surgery.Approval.cancel, data, callback);
+            },
             Sign: {
                 /// <summary>订单签收</summary>
                 orderSign: function (data, callback) {

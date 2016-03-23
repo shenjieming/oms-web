@@ -26,7 +26,6 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             $MessagService.caveat("请选择一条订单数据！");
         }
     }
-
     $scope.ProcessingOrders = function (sono) {
         /// <summary>处理订单</summary>
         $local.setValue("ORDERCOMP", { dealwith: true });
@@ -76,7 +75,6 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             }
         });
     }
-
     $scope.ApplyBack = function (sono) {
         /// <summary>申请返库</summary>
         $local.setValue("ORDERCOMP", { apply: true });
@@ -105,6 +103,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
     /*页面列表Begion*/
     $scope.Pagein = {
         /// <summary>分页配置信息对象</summary>
+        Select:new Array(),
         pageSize: 10,
         createDateBegin: "",
         createDateEnd: "",
@@ -113,7 +112,73 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             $scope.Integrated.GetOrderList();
         }
     }
-
+    $scope.SelectInfo = {
+        OIorg: {
+            dic: new Array(),
+            GetOIorgList: function () {
+                /// <summary>货主下拉框</summary>
+                $Api.OrganizationService.GetCargoOwner({}, function (rData) {
+                    $scope.SelectInfo.OIorg.dic = rData;
+                    console.log(rData)
+                })
+            }
+        },
+        Hosptail: {
+            dic: new Array(),
+            change: function () {
+                $scope.SelectInfo.Doctor.dic = new Array();
+                $scope.SelectInfo.Doctor.GetDoctorList();
+                $scope.Pagein.Select.dTCode = "";
+            },
+            GetHosptailList: function () {
+                /// <summary>医院下拉框</summary>
+                console.log($scope.Integrated.OrderList)
+                $Api.ManaHospital.GetqueryAllHospital({}, function (rData) {
+                    $scope.SelectInfo.Hosptail.dic = rData.rows;
+                    console.log(rData)
+                })
+            }
+        },
+        Doctor: {
+            dic: new Array(),
+            GetDoctorList: function () {
+                /// <summary>医生下拉框</summary>
+                $Api.ManaDocter.GetbizDataDoctorList({}, function (rData) {
+                    $scope.SelectInfo.Doctor.dic = rData.rows;
+                    console.log(rData)
+                })
+            }
+        },
+        Status: {
+            dic: new Array(),
+            GetStatusList: function () {
+                /// <summary>医生下拉框</summary>
+                $Api.Public.GetDictionary({ dictType: "VLDSTS" }, function (rData) {
+                    $scope.SelectInfo.Status.dic = rData;
+                    console.log(rData)
+                })
+            }
+        }
+    }
+    $scope.ButtonList = function () {
+        $scope.SelectInfo.OIorg.GetOIorgList();
+        $scope.SelectInfo.Hosptail.GetHosptailList();
+        $scope.SelectInfo.Doctor.GetDoctorList();
+        $scope.SelectInfo.Status.GetStatusList();
+    }
+  
+    // 查询条件
+    //sONo
+    //createDateBegin
+    //createDateEnd
+    //status
+    //hPCode
+    //dTCode
+    //oIOrgCode
+    //soType
+    //sOCreateByOrgCode
+    //patientName
+    //sOCreateBy  
     $scope.Integrated = {
         OrderList: new Array(),
         IsQuery:false,
@@ -143,6 +208,9 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         QueryOrderList: function () {
             /// <summary>查询</summary>
             $scope.Pagein.pageIndex = 1;
+            if ($scope.Pagein.createDateBegin == "" && $scope.Pagein.createDateEnd=="") {
+                $scope.Pagein.createDateBegin = $scope.Pagein.createDateEnd = null;
+            }
             $scope.Integrated.GetOrderList();
         },
         GetOrderList: function (param) {
@@ -150,7 +218,8 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             $MessagService.loading("订单信息获取中，请稍等...");
             $scope.Pagein.total = 0;
             $scope.Integrated.OrderList = new Array();
-            var paramData = $.extend($scope.Pagein, param);
+            console.log($scope.Pagein.Select.sONo)
+            var paramData = $.extend($scope.Pagein, { sONo: $scope.Pagein.Select.sONo, hPCode: $scope.Pagein.Select.hPCode, dTCode: $scope.Pagein.Select.hPCode, status: $scope.Pagein.Select.hPCode, oIOrgCode: $scope.Pagein.Select.oIOrgCode });
             console.log(paramData)
             var GetList = $Api.SurgeryService.DataSources.GetOrderList;
             if (!paramData.opt) {
@@ -202,7 +271,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         /// <summary>列表权限</summary>
         sONo: true, initMedProdLnCodeName: true
     }
-
+    $scope.ButtonList();
     /*页面权限End*/
 });
 
@@ -861,6 +930,14 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
             $Api.SurgeryService.Process.Save($scope.PageData, function (rData) {
                 $scope.goLastPage();
             });
+        },
+        Cancel: function () {
+            if (confirm("您确认要取消当前订单吗?")) {
+                $Api.SurgeryService.Cancel($scope.PageData, function (rData) {
+                    $MessagService.succ("订单取消成功！");
+                    $scope.goLastPage();
+                });
+            }
         }
     }
 
