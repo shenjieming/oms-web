@@ -366,9 +366,44 @@ label > input[type='text'], label select {
     padding: 5px;
 }
 
+    /*固定宽度的表格*/
+    .control-group .table.fixed {
+    }
+    .control-group .table tbody > tr > th {
+        width:90px;
+    }
+        .control-group .table tbody > tr > th.No {
+            width: 60px;
+        }
     .control-group .table tbody > tr > td {
         padding: 3px 8px;
     }
+        .control-group .table tbody > tr > td ul.tab-detail {
+            float:left;
+            list-style:none;
+            width:100%;
+        }
+            .control-group .table tbody > tr > td ul.tab-detail li {
+                float: left;
+                padding:5px;
+            }
+                .control-group .table tbody > tr > td ul.tab-detail li.all {
+                    width: 100%;
+                }
+                 .control-group .table tbody > tr > td ul.tab-detail li.third
+                 {
+                     width:30%;
+                 }
+                   .control-group .table tbody > tr > td ul.tab-detail li.fourth {
+                       width:39%;
+                }
+                .control-group .table tbody > tr > td ul.tab-detail li.sixth {
+                       width:60%;
+                }
+                .control-group .table tbody > tr > td ul.tab-detail li.seventh {
+                    width: 69%;
+                }
+
 /*我的信息结束*/
 
 

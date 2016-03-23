@@ -313,6 +313,16 @@
                             return true;
                         }
                     });
+                    $.each(data.medKits, function (index,item) {
+                        /// <summary>检测套件是否满足库存条件</summary>
+                        if (item.reqQty > item.inventory) {
+                            if (!confirm("存在不满足库存数量的套件，请问是否继续提交？")) {
+                                verifig = false;
+                            }
+                            return false;
+                        }
+                    })
+
                     if (verifig) {
                         $ApiService.PostApi(ApiPath.Surgery.Process.submit, data, callback);
                     }
