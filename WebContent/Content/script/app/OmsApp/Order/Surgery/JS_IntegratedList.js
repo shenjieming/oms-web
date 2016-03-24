@@ -200,17 +200,12 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
 
             $scope.Integrated.QueryOrderList();
         },
-        QueryCancel: function () {
-            $scope.Integrated.IsQuery = !$scope.Integrated.IsQuery;
-            $scope.Pagein.createDateBegin = $scope.Pagein.createDateEnd = null;
-            $scope.Pagein.hPCode = $scope.Pagein.sONo = $scope.Pagein.dTCode = $scope.Pagein.oIOrgCode = $scope.Pagein.status = "";
-        },
         ClearWhere: function (isReload) {
             /// <summary>清空条件</summary>
             $scope.Integrated.IsQuery = false;
             $.extend($scope.Pagein, {
                 pageIndex: isReload ? 1 : $scope.Pagein.pageIndex, sONo: "",
-                createDateBegin: "", createDateEnd: ""
+                createDateBegin:null, createDateEnd:null,status:"",oIOrgCode:"",dTCode:"",hPCode:""
             });
         },
         Enter: function (e) {
@@ -223,7 +218,8 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             /// <summary>查询</summary>
             $scope.Pagein.pageIndex = 1;
             if ($scope.Pagein.createDateBegin == "" && $scope.Pagein.createDateEnd == "") {
-                $scope.Pagein.createDateBegin = $scope.Pagein.createDateEnd = null;
+                $scope.Pagein.createDateBegin = null;
+                $scope.Pagein.createDateEnd = null;
             }
             console.log($scope.Pagein)
             $scope.Integrated.GetOrderList();
