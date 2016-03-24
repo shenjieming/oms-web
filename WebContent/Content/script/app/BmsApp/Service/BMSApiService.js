@@ -4,4 +4,6 @@
 /// <reference path="../../Config.js" />
 
 var BMSApiService = angular.module('BMSApiService', []);
-BMSApiService.service()
+BMSApiService.service("$BMSApi", function () {
+
+})

@@ -10,18 +10,18 @@
 var AjaxService = angular.module('AjaxService', []);
 
 AjaxService.factory("$AjaxHelp", function ($http, $rootScope, $local, $MessagService, $state) {
-    var apiHelp = function (apipath, user) {
+    var apiHelp = function (apipath) {
         var privateObjects = {
             /// <summary>私有对象</summary>
             //用户信息
-            User: user,
             //访问地址信息
             ApiPath: apipath,
             //请求头信息
             headers: { "Accept": "application/json", "Content-Type": "application/json" },
             GetQueryUrl: function (url) {
+                var userData = $local.getValue("USER");
                 /// <summary>获取请求的URL</summary>
-                var reQ = "?token="; if (privateObjects.User) { reQ += privateObjects.User.token; } return privateObjects.ApiPath + url + reQ;
+                var reQ = "?token="; if (userData) { reQ += userData.token; } return privateObjects.ApiPath + url + reQ;
             },
             Exception: function (data, callback) {
                 /// <summary>请求异常处理</summary>
