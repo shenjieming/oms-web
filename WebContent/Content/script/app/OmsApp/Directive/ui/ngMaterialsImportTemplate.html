@@ -4,7 +4,7 @@
             <div class="widget-box">
                 <div class="widget-title bg_ly">
                     <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                    <h5 data-toggle="collapse" style="width:80%">模板信息[货主：{{ngModel.sOOIOrgCodeName}}]</h5>
+                    <h5 data-toggle="collapse" style="width:80%">模板信息[货主：<span ng-bind="ngModel.sOOIOrgCodeName"></span> ]</h5>
                 </div>
                 <div class="widget-content nopadding collapse in">
                     <div class="control-group ">
@@ -39,7 +39,7 @@
                 <div class="widget-title bg_ly" >
                     <span class="icon"><i class="fa icon-chevron-down"></i></span>
                     <h5 style="width:80%" data-toggle="collapse" href="#templateDetailInfo">
-                        产品信息详情预览{{Service.ProductCompetence.ShowInfo}}
+                        产品信息详情预览<span ng-bind="Service.ProductCompetence.ShowInfo"></span>
                     </h5>
                 </div>
                 <div class="widget-content nopadding collapse in" id="templateDetailInfo">

@@ -105,7 +105,7 @@
                                 <th><span>手术时间</span></th>
                                 <th><span>下单人</span></th>
                                 <th><span>下单时间</span></th>
-                                <th ng-show="ListCompetence.initMedProdLnCodeName"><span>下单产品线</span></th>
+                                <th ng-if="ListCompetence.initMedProdLnCodeName"><span>下单产品线</span></th>
                                 <th><span>订单状态</span></th>
                             </tr>
                         </thead>
@@ -113,28 +113,30 @@
                             <tr ng-repeat="row in Integrated.OrderList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="showView(row.sONo)">
                                 <td>{{$index+1}}</td>
                                 <td>
-                                    {{row.sONo}}
+                                    <span ng-bind="row.sONo"></span>
                                 </td>
                                 <td>
-                                    {{row.hPCodeName?row.hPCodeName:row.initHPCodeName}}
+                                    <span ng-bind="row.hPCodeName?row.hPCodeName:row.initHPCodeName"></span>
                                 </td>
                                 <td>
-                                    {{row.dTCodeName?row.dTCodeName:row.initDTCodeName}}
+                                    <span ng-bind="row.dTCodeName?row.dTCodeName:row.initDTCodeName"></span>
                                 </td>
                                 <td>
-                                    {{row.operationDate?row.operationDate:row.initOperationDate}}
+                                    <span ng-bind="row.operationDate?row.operationDate:row.initOperationDate"></span>
                                 </td>
                                 <td>
-                                    {{row.sOCreateByName}}
+                                    <span ng-bind="row.sOCreateByName"></span>
                                 </td>
                                 <td>
-                                    {{row.createDate}}
+                                    <span ng-bind="row.createDate"></span>
                                 </td>
-                                <td ng-show="ListCompetence.initMedProdLnCodeName">
-                                    {{row.initMedProdLnCodeName}}
+                                <td ng-if="ListCompetence.initMedProdLnCodeName">
+                                    <span ng-bind="row.initMedProdLnCodeName"></span>
                                 </td>
                                 <td>
-                                    <span ng-class="(row.status=='SOSTS00200'||row.status=='SOSTS00040')?'red':''">{{row.statusName}}</span>
+                                    <span ng-class="(row.status=='SOSTS00200'||row.status=='SOSTS00040')?'red':''">
+                                        <span ng-bind="row.statusName"></span>
+                                    </span>
                                 </td>
                             </tr>
                         </tbody>

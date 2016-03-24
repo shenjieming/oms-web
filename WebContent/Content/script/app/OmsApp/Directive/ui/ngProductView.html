@@ -31,17 +31,17 @@
                             <tr ng-repeat="row in ngModel.medKits" ng-class="{'red':(Competence.warehouse&&row.reqQty>row.inventory)}">
                                 <td>{{$index+1}}</td>
                                 <td>
-                                    {{row.kitCode}}
+                                    <span ng-bind="row.kitCode"></span>
                                 </td>
                                 <td>
-                                    {{row.kitName}}
+                                    <span ng-bind="row.kitName"></span>
                                 </td>
                                 <td>
-                                    {{row.kitTypeName}}
+                                    <span ng-bind="row.kitTypeName"></span>
                                 </td>
                                 <td>
                                     <span ng-show="Competence.operat"><input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" ng-change="MedKitsConfig.GetKitCount()" /></span>
-                                    <span ng-show="!Competence.operat">{{row.reqQty}}</span>
+                                    <span ng-show="!Competence.operat" ng-bind="row.kitTypeName"></span>
 
                                 </td>
                                 <td ng-show="Competence.warehouse">
@@ -50,15 +50,13 @@
                                             <option value="">请选择仓库</option>
                                         </select>
                                     </span>
-                                    <span ng-show="!Competence.operat">
-                                        {{row.estMedMIWarehouseName}}
-                                    </span>
+                                    <span ng-show="!Competence.operat" ng-bind="row.estMedMIWarehouseName"> </span>
                                 </td>
                                 <td ng-show="Competence.warehouse&&Competence.operat">
                                     <a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory(row)">{{row.inventory?row.inventory:"当前库存"}}</a>
                                 </td>
                                 <td>
-                                    {{row.zoneName}}
+                                    <span ng-bind="row.zoneName"></span>
                                 </td>
                                 <td ng-show="Competence.operat">
                                     <button type="button" ng-click="MedKitsConfig.DelKit($index)" class="btn btn-xs btn-danger">
@@ -85,8 +83,8 @@
             </div>
             <div class="col-lg-9" ng-show="ngModel.prodLns.length">
                 <div class="control-group">
-                    <label> 品牌名称：{{ProductConfig.useLine.medBrandCodeName}}</label>
-                    <label style="width:32%;">产品线名称：{{ProductConfig.useLine.medProdLnCodeName}}</label>
+                    <label> 品牌名称：<span ng-bind="ProductConfig.useLine.medBrandCodeName"></span></label>
+                    <label style="width:32%;">产品线名称：<span ng-bind="ProductConfig.useLine.medProdLnCodeName"></span></label>
                     <label ng-show="Competence.tool">
                         <span style="float:left">工具情况：</span>
                         <input type="checkbox" id="checkbox" class="chkbox" ng-change="ProductConfig.ChangeTool()"
@@ -98,7 +96,7 @@
                 </div>
                 <div class="control-group">
                     <label style="width:90%">
-                        备注信息：{{ProductConfig.useLine.remark}}
+                        备注信息：<span ng-bind="ProductConfig.useLine.remark"></span>
                     </label>
                     <a class="btn btn-warning" style="width:97px;height:35px;" ng-show="Competence.operat" ng-click="MaterialsConfig.operat.show()"><i class="fa fa-link"></i>添加物料</a>
                 </div>
@@ -142,22 +140,22 @@
                             <tr ng-repeat="row in MaterialsConfig.Material" ng-class="{'red':(Competence.warehouse&&row.reqQty>row.inventory)}">
                                 <td>{{$index+1}}</td>
                                 <td>
-                                    {{row.medMICode}}
+                                    <span ng-bind="row.medMICode"></span>
                                 </td>
                                 <td>
-                                    {{row.medMIName?row.medMIName:row.medMICodeName}}
+                                    <span ng-bind="row.medMIName?row.medMIName:row.medMICodeName"></span>
                                 </td>
                                 <td>
-                                    {{row.categoryByPlatformName}}
+                                    <span ng-bind="row.categoryByPlatformName"></span>
                                 </td>
                                 <td>
-                                    {{row.specification}}
+                                    <span ng-bind="row.specification"></span>
                                 </td>
                                 <td ng-show="Competence.operat">
                                     <input type="number" value="0" ng-change="ProductConfig.GetLineMaterialCount()" ng-model="row.reqQty" style="width:60px" min="0" />{{row.medMIUnitName}}
                                 </td>
                                 <td ng-show="!Competence.operat">
-                                    {{row.reqQty}}{{row.medMIUnitName}}
+                                    <span ng-bind="row.reqQty"></span><span ng-bind="row.medMIUnitName"></span>
                                 </td>
                                 <td ng-show="Competence.warehouse">
                                     <span ng-show="Competence.operat">
@@ -165,9 +163,7 @@
                                             <option value="">请选择仓库</option>
                                         </select>
                                     </span>
-                                    <span ng-show="!Competence.operat">
-                                        {{row.estMedMIWarehouseName}}
-                                    </span>
+                                    <span ng-show="!Competence.operat" ng-bind="row.estMedMIWarehouseName"> </span>
                                 </td>
                                 <td ng-show="Competence.warehouse&&Competence.operat">
                                     <a href="javascript:void(0)" ng-click="WarehouseConfig.GetMedmaterialInventory(row)">{{row.inventory?row.inventory:"当前库存"}}</a>

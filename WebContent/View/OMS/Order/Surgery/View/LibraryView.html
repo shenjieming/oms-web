@@ -21,7 +21,7 @@
         </div>
         <div class="control-group" ng-show="lib.wHSpecialNotes">
             <label style="width:100%">
-                出库指示：{{lib.wHSpecialNotes}}
+                出库指示：<span ng-bind="lib.wHSpecialNotes"></span>
             </label>
         </div>
         <div class="control-group ">
@@ -43,13 +43,13 @@
                         <tbody>
                             <tr ng-repeat="row in lib.Material">
                                 <td>{{$index+1}}</td>
-                                <td>{{row.medBrandCodeName}}</td>
-                                <td>{{row.medProdLnCodeName}}</td>
-                                <td>{{row.medMICode}}</td>
-                                <td>{{row.medMICodeName}}</td>
-                                <td>{{row.categoryByPlatformName}}</td>
-                                <td>{{row.specification}}</td>
-                                <td>{{row.reqQty}}</td>
+                                <td><span ng-bind="row.medBrandCodeName"></span></td>
+                                <td><span ng-bind="row.medProdLnCodeName"></span></td>
+                                <td><span ng-bind="row.medMICode"></span></td>
+                                <td><span ng-bind="row.medMICodeName"></span></td>
+                                <td><span ng-bind="row.categoryByPlatformName"></span></td>
+                                <td><span ng-bind="row.specification"></span></td>
+                                <td><span ng-bind="row.reqQty"></span></td>
                             </tr>
                         </tbody>
                     </table>

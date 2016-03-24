@@ -2,7 +2,7 @@
     <div class="tools">
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
-            手术订单  <span ng-show="sono" style="color: #0033FF">[{{sono}}]</span>
+            手术订单  <span ng-show="sono" style="color: #0033FF">[<span ng-bind="sono"></span>]</span>
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
             <a class="btn btn-primary" ng-click="PageService.Save()"><i class="fa fa-save"></i> 保存</a>
@@ -48,10 +48,10 @@
                     <label style="width:100%">
                         <span>  收货地址：</span>
                         <span>
-                            {{PageData.deliveryProvinceName}}
-                            {{PageData.deliveryCityName}}
-                            {{PageData.deliveryDistrictName}}
-                            {{PageData.deliveryAddress}}
+                            <span ng-bind="PageData.deliveryProvinceName"></span>
+                            <span ng-bind="PageData.deliveryCityName"></span>
+                            <span ng-bind="PageData.deliveryDistrictName"></span>
+                            <span ng-bind="PageData.deliveryAddress"></span>
                         </span>
                     </label>
                 </div>
@@ -73,17 +73,18 @@
                         科室名称：{{PageData.initWardDeptCode?PageData.initWardDeptCodeName:"未选择"}}
                     </label>
                     <label>
-                        医生名称：{{PageData.initDTCode?PageData.initDTCodeName:"未选择"}}<span style="color:green" ng-show="PageData.initDTCode">[{{PageData.initIsLocalName}}]</span>
+                        医生名称：{{PageData.initDTCode?PageData.initDTCodeName:"未选择"}}
+                        <span style="color:green" ng-show="PageData.initDTCode">[<span ng-bind="PageData.initIsLocalName"></span> ]</span>
                     </label>
                 </div>
                 <div class="control-group">
                     <label style="width:100%;">
-                        医院要求：{{PageData.initHPPreferenceDesc}}
+                        医院要求：<span ng-bind="PageData.initHPPreferenceDesc"></span>
                     </label>
                 </div>
                 <div class="control-group">
                     <label style="width:100%;">
-                        医生要求：{{PageData.initDTOperationPreferenceDesc}}
+                        医生要求：<span ng-bind="PageData.initDTOperationPreferenceDesc"></span>
                     </label>
                 </div>
                 <div class="control-group">
@@ -115,7 +116,7 @@
             <div class="widget-title bg_ly">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
                 <h5 data-toggle="collapse" href="#ProductInformation">产品信息
-                    {{ProductCompetence.ShowInfo}}
+                    <span ng-bind="ProductCompetence.ShowInfo"></span>
                 </h5>
             </div>
             <div id="ProductInformation" class="widget-content nopadding collapse in">

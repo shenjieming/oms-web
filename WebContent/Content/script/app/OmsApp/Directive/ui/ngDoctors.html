@@ -26,25 +26,25 @@
                             <tr ng-repeat="row in Service.DoctorsList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="ngOperat.fixed(row)">
                                 <td>{{$index+1}}</td>
                                 <td>
-                                    {{row.hPCode}}
+                                    <span ng-bind="row.hPCode"></span>
                                 </td>
                                 <td title="{{row.hPPreferenceDesc}}">
-                                    {{row.hPName}}
+                                    <span ng-bind="row.hPName"></span>
                                 </td>
                                 <td>
-                                    {{row.wardDeptCode}}
+                                    <span ng-bind="row.wardDeptCode"></span>
                                 </td>
                                 <td>
-                                    {{row.wardDeptname}}
+                                    <span ng-bind="row.wardDeptname"></span>
                                 </td>
                                 <td>
-                                    {{row.dTCode}}
+                                    <span ng-bind="row.dTCode"></span>
                                 </td>
                                 <td title="{{row.dTOperationPreferenceDesc}}">
-                                    {{row.dTName}}
+                                    <span ng-bind="row.dTName"></span>
                                 </td>
                                 <td>
-                                    {{row.isLocalName}}
+                                    <span ng-bind="row.isLocalName"></span>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-xs btn-danger" ng-click="Service.DelDoctor(row)"><i class="fa fa-times"></i></button>
