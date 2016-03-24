@@ -25,22 +25,22 @@
                         <tr ng-class="{'selected':row.reqQty>0}" ng-repeat="row in Service.MedKits|filter :Service.SearchWhere" ng-dblclick="Service.AddreqQty(row)">
                             <td>{{$index+1}}</td>
                             <td>
-                                {{row.kitCode}}
+                                <span ng-bind="row.kitCode"></span>
                             </td>
                             <td>
-                                {{row.kitName}}
+                                <span ng-bind="row.kitName"></span>
                             </td>
                             <td>
-                                {{row.kitTypeName}}
+                                <span ng-bind="row.kitTypeName"></span>
                             </td>
                             <td>
-                                {{row.whName}}
+                                <span ng-bind="row.whName"></span>
                             </td>
                             <td>
                                 <input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" />
                             </td>
                             <td>
-                                {{row.zoneName}}
+                                <span ng-bind="row.zoneName"></span>
                             </td>
                         </tr>
                     </tbody>

@@ -2,24 +2,27 @@
     <div class="widget-box">
         <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5>基础信息[货主：{{PageData.sOOIOrgCodeName}}]</h5>
+            <h5>基础信息[货主：<span ng-bind="PageData.sOOIOrgCodeName"></span>]</h5>
         </div>
         <div class="widget-content nopadding collapse in" id="BaseInformation">
             <div class="control-group ">
                 <label>
-                    收 货 人：{{PageData.deliveryContact}}
+                    收 货 人：<span ng-bind="PageData.deliveryContact"></span>
                 </label>
                 <label>
-                    联系电话：{{PageData.deliveryrMobile}}
+                    联系电话：<span ng-bind="PageData.deliveryrMobile"></span>
                 </label>
                 <label>
-                    配送方式：{{PageData.iniitCarrierTransTypeName}}
+                    配送方式：<span ng-bind="PageData.iniitCarrierTransTypeName"></span>
                 </label>
             </div>
             <div class="control-group ">
                 <label style="width:100%">
                     收货地址：
-                    {{PageData.deliveryProvinceName}}  {{PageData.deliveryCityName}}  {{PageData.deliveryDistrictName}} {{PageData.deliveryAddress}}
+                    <span ng-bind="PageData.deliveryProvinceName"></span> 
+                    <span ng-bind="PageData.deliveryCityName"></span> 
+                    <span ng-bind="PageData.deliveryDistrictName"></span>
+                    <span ng-bind="PageData.deliveryAddress"></span>
                 </label>
             </div>
         </div>
@@ -32,36 +35,36 @@
         <div id="SurgeryInformation" class="widget-content nopadding collapse in">
             <div class="control-group ">
                 <label>
-                    医院名称：{{PageData.initHPCodeName}}
+                    医院名称：<span ng-bind="PageData.initHPCodeName"></span>
                 </label>
                 <label>
-                    科室名称：{{PageData.initWardDeptCodeName}}
+                    科室名称：<span ng-bind="PageData.initWardDeptCodeName"></span>
                 </label>
                 <label>
-                    医生名称：{{PageData.initDTCodeName}}<span style="color:green">[{{PageData.initIsLocalName}}]</span>
+                    医生名称：<span ng-bind="PageData.initDTCodeName"></span><span style="color:green">[<span ng-bind="PageData.initIsLocalName"></span>]</span>
                 </label>
             </div>
             <div class="control-group">
                 <label style="width:100%;">
-                    医院要求：{{PageData.initHPPreferenceDesc}}
+                    医院要求：<span ng-bind="PageData.initHPPreferenceDesc"></span>
                 </label>
             </div>
             <div class="control-group">
                 <label style="width:100%;">
-                    医生要求：{{PageData.initDTOperationPreferenceDesc}}
+                    医生要求：<span ng-bind="PageData.initDTOperationPreferenceDesc"></span>
                 </label>
             </div>
             <div class="control-group">
                 <label>
-                    手术时间：{{PageData.initOperationDate}}
+                    手术时间：<span ng-bind="PageData.initOperationDate"></span>
                 </label>
                 <label style="width:60%">
-                    诊断信息：{{PageData.initDiseaseInfo}}
+                    诊断信息：<span ng-bind="PageData.initDiseaseInfo"></span>
                 </label>
             </div>
             <div class="control-group ">
                 <label style="width:100%;">
-                    患者描述:{{PageData.initPatientInfo }}
+                    患者描述:<span ng-bind="PageData.initPatientInfo"></span>
                 </label>
             </div>
         </div>
@@ -69,8 +72,8 @@
     <div class="widget-box">
         <div class="widget-title bg_ly" data-toggle="collapse" href="#ProductInformation">
             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5>产品信息
-                {{singleProduc.Competence.ShowInfo}}
+            <h5>
+                产品信息<span ng-bind="singleProduc.Competence.ShowInfo"></span>
             </h5>
         </div>
         <div id="ProductInformation" class="widget-content nopadding collapse in">
@@ -88,7 +91,7 @@
             </div>
             <div class="control-group">
                 <label style="width:100%">
-                    图片说明：{{PageData.initFile.remark}}
+                    图片说明：<span ng-bind="PageData.initFile.remark"></span>
                 </label>
             </div>
         </div>
