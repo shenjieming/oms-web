@@ -24,16 +24,16 @@
                         <tr ng-repeat="row in Service.List" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="Service.Select(row)">
                             <td>{{$index+1}}</td>
                             <td>
-                                {{row.tmplName}}
+                                <span ng-bind="row.tmplName"></span>
                             </td>
                             <td>
-                                {{row.tmplTypeName}}
+                                <span ng-bind="row.tmplTypeName"></span>
                             </td>
                             <td>
-                                {{row.tmplDesc}}
+                                <span ng-bind="row.tmplDesc"></span>
                             </td>
                             <td>
-                                {{row.remark}}
+                                <span ng-bing="row.remark"></span>
                             </td>
                         </tr>
                     </tbody>

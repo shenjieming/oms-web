@@ -37,23 +37,23 @@
                         <tr ng-class="{'selected':row.reqQty>0}" ng-dblclick="Service.AddreqQty(row)" ng-repeat="row in Service.MaterialList">
                             <td>{{$index+1}}</td>
                             <td>
-                                {{row.medMICode}}
+                                <span ng-bind="row.medMICode"></span>
                             </td>
                             <td>
-                                {{row.medMIName}}
+                                <span ng-bind="row.medMIName"></span>
                             </td>
                             <td>
-                                {{row.categoryByPlatformName}}
+                                <span ng-bind="row.categoryByPlatformName"></span>
                             </td>
                             <td>
-                                {{row.specification}}
+                                <span ng-bind="row.specification"></span>
                             </td>
                             <td ng-show="Pagein.categoryByPlatform=='TOOL'">
-                                {{row.applyCommonTypeName}}
+                                <span ng-bind="row.applyCommonTypeName"></span>
                             </td>
 
                             <td>
-                                <input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" />{{row.medMIUnitName}}
+                                <input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" /> <span ng-bind="row.medMIUnitName"></span>
                             </td>
                         </tr>
                     </tbody>

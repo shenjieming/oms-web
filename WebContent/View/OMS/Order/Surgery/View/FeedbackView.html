@@ -7,32 +7,32 @@
         <div id="back_surgery" class="widget-content nopadding collapse in">
             <div class="control-group">
                 <label>
-                    患者名称：{{PageData.patientName}}
+                    患者名称：<span ng-bind="PageData.patientName"></span>
                 </label>
                 <label>
-                    患者性别：{{PageData.patientSexName}}
+                    患者性别：<span ng-bind="PageData.patientSexName"></span>
                 </label>
                 <label>
-                    患者年龄：{{PageData.patientAge}}
+                    患者年龄：<span ng-bind="PageData.patientAge"></span>
                 </label>
             </div>
             <div class="control-group ">
                 <label>
-                    入院时间：{{PageData.patientEntryDate}}
+                    入院时间：<span ng-bind="PageData.patientEntryDate"></span>
                 </label>
                 <label>
-                    住院病号：{{PageData.patientHPNo}}
+                    住院病号：<span ng-bind="PageData.patientHPNo"></span>
                 </label>
                 <label>
-                    住院病区：{{PageData.patientWard}}
+                    住院病区：<span ng-bind="PageData.patientWard"></span>
                 </label>
             </div>
             <div class="control-group">
                 <label>
-                    住院病房：{{PageData.patientRoom}}
+                    住院病房：<span ng-bind="PageData.patientRoom"></span>
                 </label>
                 <label>
-                    病房床号：{{PageData.patientBedNo}}
+                    病房床号：<span ng-bind="PageData.patientBedNo"></span>
                 </label>
                 <label>
                     植入物情况：{{PageData.retrieveIsNeeded=="Y"?"":"不"}}需要取出
@@ -40,10 +40,10 @@
             </div>
             <div class="control-group">
                 <label>
-                    取出日期：{{PageData.retrieveEstDate}}
+                    取出日期：<span ng-bind="PageData.retrieveEstDate"></span>
                 </label>
                 <label style="width:60%">
-                    取出描述：{{PageData.retrieveDesc}}
+                    取出描述：<span ng-bind="PageData.retrieveDesc"></span>
                 </label>
             </div>
         </div>
@@ -76,16 +76,16 @@
                             <tbody>
                                 <tr ng-repeat="row in PageData.feedBack">
                                     <td>{{$index+1}}</td>
-                                    <td>{{row.medBrandName}}</td>
-                                    <td>{{row.medProdLnName}}</td>
-                                    <td>{{row.medMICode}}</td>
-                                    <td>{{row.medMIName}}</td>
-                                    <td>{{row.categoryByPlatformName}}</td>
-                                    <td>{{row.specification}}</td>
-                                    <td>{{row.lotSerial}}</td>
-                                    <td>{{row.useTypeName}}</td>
-                                    <td>{{row.useQty}}</td>
-                                    <td>{{row.zoneName}}</td>
+                                    <td><span ng-bind="row.medBrandName"></span></td>
+                                    <td><span ng-bind="row.medProdLnName"></span> </td>
+                                    <td><span ng-bind="row.medMICode"></span></td>
+                                    <td><span ng-bind="row.medMIName"></span></td>
+                                    <td><span ng-bind="row.categoryByPlatformName"></span></td>
+                                    <td><span ng-bind="row.specification"></span></td>
+                                    <td><span ng-bind="row.lotSerial"></span></td>
+                                    <td><span ng-bind="row.useTypeName"></span></td>
+                                    <td><span ng-bind="row.useQty"></span></td>
+                                    <td><span ng-bind="row.zoneName"></span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -105,7 +105,7 @@
             </div>
             <div class="control-group">
                 <label style="width:100%">
-                    图片说明：{{FeedBack.remark}}
+                    图片说明：<span ng-bind="FeedBack.remark"></span>
                 </label>
             </div>
         </div>

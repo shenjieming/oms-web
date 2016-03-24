@@ -25,25 +25,25 @@
                             <tr ng-repeat="row in Service.AddressList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="ngOperat.fixed(row)">
                                 <td>{{$index+1}}</td>
                                 <td>
-                                    {{row.provinceCodeName}}
+                                    <span ng-bind="row.provinceCodeName"></span>
                                 </td>
                                 <td>
-                                    {{row.cityCodeName}}
+                                    <span ng-bind="row.cityCodeName"></span>
                                 </td>
                                 <td>
-                                    {{row.districtCodeName}}
+                                    <span ng-bind="row.districtCodeName"></span>
                                 </td>
                                 <td>
-                                    {{row.contact}}
+                                    <span ng-bind="row.contact"></span>
                                 </td>
                                 <td>
-                                    {{row.mobile}}
+                                    <span ng-bind="row.mobile"></span>
                                 </td>
                                 <td>
-                                    {{row.carrierTransTypeName}}
+                                    <span ng-bind="row.carrierTransTypeName"></span>
                                 </td>
                                 <td>
-                                    {{row.address}}
+                                    <span ng-bind="row.address"></span>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-xs btn-danger" ng-click="Service.DelAddress(row)"><i class="fa fa-times"></i></button>
