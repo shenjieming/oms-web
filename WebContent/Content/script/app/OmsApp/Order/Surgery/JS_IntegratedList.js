@@ -326,11 +326,11 @@ app.controller("IntegratedListController", function ($scope, $state, $local, $Ap
             $scope.ListCompetence.dTCodeName=true;
             $scope.ListCompetence.patientName = true;
         }
-        if (UserJurisdiction.userInfo.orgType == "OI") {
+       else if (UserJurisdiction.userInfo.orgType == "OI") {
             $scope.ListCompetence.sOHandleByOrgCodeName = true;
             $scope.ListCompetence.sOCreateByOrgCodeName = true;
         }
-        if (UserJurisdiction.userInfo.orgType == "DL") {
+       else if (UserJurisdiction.userInfo.orgType == "DL") {
             $scope.ListCompetence.hPCodeName = true;
             $scope.ListCompetence.dTCodeName = true;
             $scope.ListCompetence.initMedProdLnCodeName = true;
