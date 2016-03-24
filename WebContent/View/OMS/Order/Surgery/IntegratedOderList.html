@@ -100,10 +100,14 @@
                             <tr>
                                 <th><span>序号</span></th>
                                 <th><span>订单编号</span></th>
-                                <th><span>订单医院</span></th>
-                                <th><span>订单医生</span></th>
+                                <th ng-if="ListCompetence.sOHandleByOrgCodeName"><span>订单仓库</span></th>
+                                <th ng-if="ListCompetence.sOOIOrgCodeName"><span>货主</span></th>
+                                <th ng-if="ListCompetence.sOCreateByOrgCodeName"><span>经销商</span></th>
+                                <th><span>订单医院</span></th>  
+                                <th ng-if="ListCompetence.dTCodeName"><span>医生</span></th>                                       
                                 <th><span>手术时间</span></th>
                                 <th><span>下单人</span></th>
+                                <th ng-show="ListCompetence.patientName"><span>患者</span></th>
                                 <th><span>下单时间</span></th>
                                 <th ng-show="ListCompetence.initMedProdLnCodeName"><span>下单产品线</span></th>
                                 <th><span>订单状态</span></th>
@@ -115,11 +119,20 @@
                                 <td>
                                     {{row.sONo}}
                                 </td>
+                                <td ng-if="ListCompetence.sOHandleByOrgCodeName">
+                                    {{row.sOHandleByOrgCodeName}}
+                                </td>
+                                <td ng-if="ListCompetence.sOOIOrgCodeName">
+                                    {{row.sOOIOrgCodeName}}
+                                </td>
+                                <td ng-if="ListCompetence.sOCreateByOrgCodeName">
+                                    {{row.sOCreateByOrgCodeName}}
+                                </td>
                                 <td>
                                     {{row.hPCodeName?row.hPCodeName:row.initHPCodeName}}
                                 </td>
-                                <td>
-                                    {{row.dTCodeName?row.dTCodeName:row.initDTCodeName}}
+                                <td ng-if="ListCompetence.dTCodeName">
+                                    {{row.dTCodeName}}
                                 </td>
                                 <td>
                                     {{row.operationDate?row.operationDate:row.initOperationDate}}
@@ -127,10 +140,13 @@
                                 <td>
                                     {{row.sOCreateByName}}
                                 </td>
+                                <td ng-if="ListCompetence.patientName">
+                                    {{row.patientName}}
+                                </td>
                                 <td>
                                     {{row.createDate}}
                                 </td>
-                                <td ng-show="ListCompetence.initMedProdLnCodeName">
+                                <td ng-if="ListCompetence.initMedProdLnCodeName">
                                     {{row.initMedProdLnCodeName}}
                                 </td>
                                 <td>

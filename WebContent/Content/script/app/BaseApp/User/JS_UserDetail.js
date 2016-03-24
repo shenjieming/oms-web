@@ -68,7 +68,7 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
                 $scope.PageInfo.UserInfo.roles = $scope.addRoleList.dic
                 $MessagService.loading("用户信息保存中，请稍等...");
                 $Api.UserService.Save($scope.PageInfo.UserInfo, function (rData) {
-                    $scope.goView('app.comp.user.list');
+                    $scope.goView('app.base.comp.user.list');
                     $MessagService.succ("用户保存成功！");
                 });
             }
