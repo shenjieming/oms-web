@@ -545,19 +545,6 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
 
         $scope.MaterialsConfig = {
             Material: new Array(),
-            operat: {
-
-                fixed: function (MaterialsList) {
-                    /// <summary>确认选择物料</summary>
-                    $scope.$apply(function () {
-                        $scope.MaterialsConfig.GetRequtMaterial(MaterialsList, $scope.ProductConfig.useLine.medMaterias);
-                        //$scope.ProductConfig.useLine.medMaterias = data;
-                        $scope.ngModel.prodLns[$scope.ProductConfig.useLine.index].medMaterias = $scope.ProductConfig.useLine.medMaterias;
-                        $scope.MaterialsConfig.GetShowMaterial('');
-
-                    });
-                }
-            },
             GetMaterialList: function (mlist, ulist) {
                 /// <summary>获取物料信息</summary>
                 var result = new Array();
