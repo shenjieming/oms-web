@@ -344,7 +344,7 @@ app.controller("ApprovalListController", function ($scope, $state, $local, $Api,
     $scope.showView = function (sono) {
         /// <summary>查看手术订单</summary>
         $local.setValue("ORDERCOMP", { approval: true });
-        $state.go("app.order.view", { sono: sono });
+        $state.go("app.oms.order.view", { sono: sono });
     }
 })
 app.controller("BackListController", function ($scope, $state, $local, $Api, $MessagService) {
