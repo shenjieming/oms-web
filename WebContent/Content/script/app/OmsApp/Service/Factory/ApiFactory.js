@@ -276,7 +276,7 @@
             },
             Cancel: function (data, callback) {
                 $MessagService.loading("订单取消中，请稍等...");
-                service.Post(ApiPath.Surgery.Approval.cancel, data, callback);
+                $ApiService.PostApi(ApiPath.Surgery.Approval.cancel, data, callback);
             },
             Sign: {
                 /// <summary>订单签收</summary>
