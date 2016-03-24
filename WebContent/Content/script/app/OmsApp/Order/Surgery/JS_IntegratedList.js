@@ -114,7 +114,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         sONo: "",
         dTCode: "",
         oIOrgCode: "",
-        status:"",
+        status: "",
         pageIndex: 1,
         callbake: function () {
             $scope.Integrated.GetOrderList();
@@ -200,10 +200,10 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
 
             $scope.Integrated.QueryOrderList();
         },
-        QueryCancel:function(){
-            $scope.Integrated.IsQuery=!$scope.Integrated.IsQuery;
-            $scope.Pagein.createDateBegin=$scope.Pagein.createDateEnd=null;
-            $scope.Pagein.hPCode= $scope.Pagein.sONo= $scope.Pagein.dTCode= $scope.Pagein.oIOrgCode= $scope.Pagein.status
+        QueryCancel: function () {
+            $scope.Integrated.IsQuery = !$scope.Integrated.IsQuery;
+            $scope.Pagein.createDateBegin = $scope.Pagein.createDateEnd = null;
+            $scope.Pagein.hPCode = $scope.Pagein.sONo = $scope.Pagein.dTCode = $scope.Pagein.oIOrgCode = $scope.Pagein.status = "";
         },
         ClearWhere: function (isReload) {
             /// <summary>清空条件</summary>
@@ -222,7 +222,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         QueryOrderList: function () {
             /// <summary>查询</summary>
             $scope.Pagein.pageIndex = 1;
-            if ($scope.Pagein.createDateBegin == "" && $scope.Pagein.createDateEnd=="") {
+            if ($scope.Pagein.createDateBegin == "" && $scope.Pagein.createDateEnd == "") {
                 $scope.Pagein.createDateBegin = $scope.Pagein.createDateEnd = null;
             }
             console.log($scope.Pagein)
@@ -233,11 +233,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             $MessagService.loading("订单信息获取中，请稍等...");
             $scope.Pagein.total = 0;
             $scope.Integrated.OrderList = new Array();
-            var paramData = $.extend($scope.Pagein, {
-                sONo:$scope.Pagein.sONo, oIOrgCode:$scope.Pagein.oIOrgCode,
-                status:$scope.Pagein.status, hPCode:$scope.Pagein.hPCode,
-                dTCode:$scope.Pagein.dTCode
-            });
+            var paramData = $.extend($scope.Pagein, param);
             var GetList = $Api.SurgeryService.DataSources.GetOrderList;
             if (!paramData.opt) {
                 GetList = $Api.SurgeryService.DataSources.GetIntegratedOrderInquiry;
@@ -309,8 +305,38 @@ app.controller("IntegratedListController", function ($scope, $state, $local, $Ap
     $scope.Integrated.GetOrderList({ opt: false, soType: "OPER" });
     $scope.ListCompetence = {
         /// <summary>列表权限</summary>
-        initMedProdLnCodeName: false
+        initMedProdLnCodeName: false,
+        dTCodeName: false,//
+        sOOIOrgCodeName: false,//货主名称
+        sOCreateByOrgCodeName: false, //经销商
+        hPCodeName: false,  //订单医院
+        sOHandleByOrgCodeName: false, //仓库
+        patientName: false,  //患者
+
     }
+    console.log($scope.User)
+    var UserJurisdiction = $scope.User;
+    $scope.jurisdiction = function () {
+        /// <summary>不同用户列表控制</summary>
+        console.log(UserJurisdiction)
+        if (UserJurisdiction.userInfo.orgType == "WH") {
+            $scope.ListCompetence.sOOIOrgCodeName = true;
+            $scope.ListCompetence.sOCreateByOrgCodeName = true;
+            $scope.ListCompetence.hPCodeName=true;
+            $scope.ListCompetence.dTCodeName=true;
+            $scope.ListCompetence.patientName = true;
+        }
+       else if (UserJurisdiction.userInfo.orgType == "OI") {
+            $scope.ListCompetence.sOHandleByOrgCodeName = true;
+            $scope.ListCompetence.sOCreateByOrgCodeName = true;
+        }
+       else if (UserJurisdiction.userInfo.orgType == "DL") {
+            $scope.ListCompetence.hPCodeName = true;
+            $scope.ListCompetence.dTCodeName = true;
+            $scope.ListCompetence.initMedProdLnCodeName = true;
+        }
+    }
+    $scope.jurisdiction();
 })
 app.controller("AppendListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>待追加备货单列表</summary>

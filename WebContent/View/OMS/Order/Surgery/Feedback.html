@@ -3,8 +3,8 @@
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
             手术订单
-            <span style="color: #0033FF">[<span ng-bind="sono"></span>]</span>
-            <span style="color: #FF3300">(<span ng-bind="PageData.statusName"></span>)</span>
+            <span style="color: #0033FF">[{{sono}}]</span>
+            <span style="color: #FF3300">({{PageData.statusName}})</span>
 
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
@@ -46,14 +46,13 @@
                         <div id="back_surgery" class="widget-content nopadding collapse in">
                             <div class="control-group ">
                                 <label>
-                                    医院名称：<span ng-bind="FeedBack.order.hPCodeName"></span>
+                                    医院名称：{{FeedBack.order.hPCodeName}}
                                 </label>
                                 <label>
-                                    科室名称：<span ng-bind="FeedBack.order.wardDeptCodeName"></span>
+                                    科室名称：{{FeedBack.order.wardDeptCodeName}}
                                 </label>
                                 <label>
-                                    医生名称：<span ng-bind="FeedBack.order.dTCodeName"></span>
-                                     <span style="color:green">[<span ng-bind="FeedBack.order.isLocalName"></span>]</span>
+                                    医生名称：{{FeedBack.order.dTCodeName}}<span style="color:green">[{{FeedBack.order.isLocalName}}]</span>
                                 </label>
                             </div>
                             <div class="control-group">
@@ -139,43 +138,41 @@
                         </div>
                         <div class="widget-content nopadding collapse in" id="back_Materials">
                             <div class="control-group ">
-                                <div class="main-box-body clearfix" style="width:100%;">
-                                    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
-                                        <table class="table table-bordered tab-striped fixed" style="width:1600px;">
+                                <div class="main-box-body clearfix" style="width: 100%;">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered tab-striped">
                                             <thead>
                                                 <tr>
-                                                    <th class="No"><span>序号</span></th>
+                                                    <th><span>序号</span></th>
                                                     <th><span>品牌名称</span></th>
                                                     <th><span>产品线</span></th>
                                                     <th><span>物料编码</span></th>
+                                                    <th><span>物料名称</span></th>
                                                     <th><span>物料类型</span></th>
+                                                    <th><span>物料规格</span></th>
                                                     <th><span>批次</span></th>
                                                     <th><span>出库数量</span></th>
                                                     <th><span>使用数量</span></th>
-                                                    <th><span>使用类型</span></th>
                                                     <th><span>返库仓库</span></th>
-                                                    <th style="width:450px;"><span>物料名称</span></th>
-                                                    <th style="width:300px;"><span>物料规格</span></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr ng-repeat="row in FeedBack.medMaterial">
                                                     <td>{{$index+1}}</td>
-                                                    <td><span ng-bind="row.medBrandCodeName"></span></td>
-                                                    <td><span ng-bind="row.medProdLnCodeName"></span></td>
-                                                    <td><span ng-bind="row.medMICode"></span></td>
-                                                    <td><span ng-bind="row.categoryByPlatformName"></span></td>
+                                                    <td rowspan="{{row.BrandRowPan}}" ng-show="row.isBrandRowPan">{{row.medBrandCodeName}}</td>
+                                                    <td rowspan="{{row.ProdLineRowPan}}" ng-show="row.isProdLineRowPan">{{row.medProdLnCodeName}}</td>
+                                                    <td>{{row.medMICode}}</td>
+                                                    <td>{{row.medMICodeName}}</td>
+                                                    <td>{{row.categoryByPlatformName}}</td>
+                                                    <td>{{row.specification}}</td>
                                                     <td>
                                                         <input type="text" style="width:60px" ng-model="row.lotSerial" />
                                                     </td>
-                                                    <td><span ng-bind="row.actQty"></span></td>
+                                                    <td>{{row.actQty}}</td>
                                                     <td>
                                                         <input type="number" ng-change="dictionary.DefaultUseType(row)" style="width:60px;" ng-model="row.useQty" min="0" max="{{row.actQty}}" />
-
-                                                    </td>
-                                                    <td>
-                                                        <select ng-selected="0" ng-model="row.useType" ng-options="item.id as item.text for item in dictionary.UseTypeList">
-                                                            <option value="">请选择使用类型</option>
+                                                        <select ng-selected="0" ng-show="row.useQty>0" ng-model="row.useType" ng-options="item.id as item.text for item in dictionary.UseTypeList">
+                                                            <option value="">使用类型</option>
                                                         </select>
                                                     </td>
                                                     <td>
@@ -183,8 +180,6 @@
                                                             <option value="">请选择仓库</option>
                                                         </select>
                                                     </td>
-                                                    <td><span ng-bind="row.medMICodeName"></span></td>
-                                                    <td><span ng-bind="row.specification"></span></td>
                                                 </tr>
                                             </tbody>
                                         </table>

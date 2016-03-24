@@ -100,20 +100,33 @@
                             <tr>
                                 <th><span>序号</span></th>
                                 <th><span>订单编号</span></th>
-                                <th><span>订单医院</span></th>
-                                <th><span>订单医生</span></th>
+                                <th ng-if="ListCompetence.sOHandleByOrgCodeName"><span>订单仓库</span></th>
+                                <th ng-if="ListCompetence.sOOIOrgCodeName"><span>货主</span></th>
+                                <th ng-if="ListCompetence.sOCreateByOrgCodeName"><span>经销商</span></th>
+                                <th><span>订单医院</span></th>  
+                                <th><span>医生</span></th>                                       
                                 <th><span>手术时间</span></th>
                                 <th><span>下单人</span></th>
+                                <th ng-show="ListCompetence.patientName"><span>患者</span></th>
                                 <th><span>下单时间</span></th>
-                                <th ng-if="ListCompetence.initMedProdLnCodeName"><span>下单产品线</span></th>
+                                <th ng-show="ListCompetence.initMedProdLnCodeName"><span>下单产品线</span></th>
                                 <th><span>订单状态</span></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody>                            
                             <tr ng-repeat="row in Integrated.OrderList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="showView(row.sONo)">
                                 <td>{{$index+1}}</td>
                                 <td>
                                     <span ng-bind="row.sONo"></span>
+                                </td>
+                                <td ng-if="ListCompetence.sOHandleByOrgCodeName">
+                                    {{row.sOHandleByOrgCodeName}}
+                                </td>
+                                <td ng-if="ListCompetence.sOOIOrgCodeName">
+                                    {{row.sOOIOrgCodeName}}
+                                </td>
+                                <td ng-if="ListCompetence.sOCreateByOrgCodeName">
+                                    {{row.sOCreateByOrgCodeName}}
                                 </td>
                                 <td>
                                     <span ng-bind="row.hPCodeName?row.hPCodeName:row.initHPCodeName"></span>
@@ -126,6 +139,9 @@
                                 </td>
                                 <td>
                                     <span ng-bind="row.sOCreateByName"></span>
+                                </td>
+                                <td ng-if="ListCompetence.patientName">
+                                    {{row.patientName}}
                                 </td>
                                 <td>
                                     <span ng-bind="row.createDate"></span>
