@@ -20,5 +20,6 @@ app.factory("$MenuService", function ($OMSMenuService, $BaseMenuService) {
     if (BaseMenu&&ServerConfiguration.StartBMS) {
         $.each(BaseMenu, function (inxex, menu) { service.push(menu) });
     }
+    console.log(service)
     return service;
 });
