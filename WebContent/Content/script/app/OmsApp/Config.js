@@ -9,21 +9,7 @@ OmsApp
                  url: "/oms",
                  cache: false,
                  template: "<div ui-view></div>",
-                 abstract: true,
-                 loadJs: [
-                     "Content/script/app/OmsApp/Directive/materialsTemplateDirective.js",
-                     "Content/script/app/OmsApp/Directive/materialsImportTemplateDirective.js",
-                     "Content/script/app/OmsApp/Directive/areaDirective.js",
-                     "Content/script/app/OmsApp/Directive/cargoOwnerDirective.js",
-                     "Content/script/app/OmsApp/Directive/doctorsDirective.js",
-                     "Content/script/app/OmsApp/Directive/productLineDirective.js",
-                     "Content/script/app/OmsApp/Directive/productViewDirective.js",
-                     "Content/script/app/OmsApp/Directive/addressDirective.js",
-                     "Content/script/app/OmsApp/Directive/orderOperatDriective.js",
-                     "Content/script/app/OmsApp/Directive/medKitsDirective.js",
-                     "Content/script/app/OmsApp/Directive/materialsDriective.js"
-                 ],
-                 resolve: app.resolve
+                 abstract: true
              })
              .state("app.oms.order", {
                  /// <summary>手术订单信息管理</summary>
