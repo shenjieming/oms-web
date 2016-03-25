@@ -19,7 +19,7 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
         link: function ($scope, element, attrs) {
             var userInfo = $local.getValue("USER").userInfo;
             var modelConfig = {
-                title: "常用地址选择", width: 750, height: 400, buttons: {
+                title: "收货地址选择", width: 750, height: 400, buttons: {
                     "确定": function () {
                         var dataRow = $local.getSelectedRow($scope.Service.AddressList);
                         if (dataRow) {
@@ -133,10 +133,12 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                     /// <summary>删除地址列表</summary>
                     console.log(data)
                     var param = { lineNo: data.lineNo }
-                    $Api.RepresentativeService.DeleteDelivery(param, function () {
-                        /// <summary>删除选择删除的地址列表</summary>
-                        $scope.Service.GetAddressList();
-                    });
+                    if (confirm("您确认要删除该地址吗?")) {
+                        $Api.RepresentativeService.DeleteDelivery(param, function () {
+                            /// <summary>删除选择删除的地址列表</summary>
+                            $scope.Service.GetAddressList();
+                        });
+                    }
                 },
             };
             $scope.Service.GetAddressList();
