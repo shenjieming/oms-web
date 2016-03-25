@@ -19,7 +19,7 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
         link: function ($scope, element, attrs) {
             var userInfo = $local.getValue("USER").userInfo;
             var modelConfig = {
-                title: "常用地址选择", width: 750, height: 400, buttons: {
+                title: "收货地址选择", width: 750, height: 400, buttons: {
                     "确定": function () {
                         var dataRow = $local.getSelectedRow($scope.Service.AddressList);
                         if (dataRow) {
