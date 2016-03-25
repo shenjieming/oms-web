@@ -1,5 +1,5 @@
 ﻿
-var OmsApp = angular.module('OmsApp', []);
+var OmsApp = angular.module('OmsApp', ["OMSApiService"]);
 OmsApp
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         /// <summary>页面配置信息</summary>

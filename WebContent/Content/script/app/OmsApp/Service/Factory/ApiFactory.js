@@ -1,5 +1,5 @@
 ﻿OMSApiService
-    .service("$ApiService", function ($local, $AjaxHelp) {
+    .factory("$ApiService", function ($local, $AjaxHelp) {
         /// <summary>OMSApi请求服务配置</summary>
         var apiHelp = new $AjaxHelp(ServerConfiguration.OMSPath);
         return apiHelp;
