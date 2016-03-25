@@ -7,8 +7,9 @@
 /// <reference path="../lib/angular-1.2.20/angular-loader.js" />
 /// <reference path="../lib/Jquery/jquery-1.11.1.min.js" />
 var Timestamp = new Date().getTime();
-var app = angular.module('ESurgeryApp', ["ngRoute", "ui.router", "ngRequire", "ui.bootstrap", "smart-table",
-    "OmsApp", "BaseApp", "jnDo", "AjaxService", "OMSApiService"]);
+var app = angular.module('ESurgeryApp', ["ngRoute", "ui.router", "ngRequire", "ui.bootstrap",
+    "smart-table", "jnDo", "AjaxService",
+    "OmsApp", "BaseApp", "BmsApp"]);
 
 app.run(function ($rootScope, $state, $local, $Api, $MessagService) {
     /// <summary>系统启动事件</summary>
