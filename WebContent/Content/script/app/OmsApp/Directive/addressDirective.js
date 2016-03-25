@@ -133,10 +133,12 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                     /// <summary>删除地址列表</summary>
                     console.log(data)
                     var param = { lineNo: data.lineNo }
-                    $Api.RepresentativeService.DeleteDelivery(param, function () {
-                        /// <summary>删除选择删除的地址列表</summary>
-                        $scope.Service.GetAddressList();
-                    });
+                    if (confirm("您确认要删除该地址吗?")) {
+                        $Api.RepresentativeService.DeleteDelivery(param, function () {
+                            /// <summary>删除选择删除的地址列表</summary>
+                            $scope.Service.GetAddressList();
+                        });
+                    }
                 },
             };
             $scope.Service.GetAddressList();
