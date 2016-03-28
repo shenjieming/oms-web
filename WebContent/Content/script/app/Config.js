@@ -26,6 +26,12 @@ app.run(function ($rootScope, $state, $local, $Api, $MessagService) {
                 console.log(toState.name);
                 $state.go("login");
             }
+        } else {
+            //若是登陆页面的话，并且存在用户信息的话，直接进入登陆页面
+            var data = $local.getValue("USER");
+            if (data) {
+                $state.go("app.home");
+            }
         }
     });
 
