@@ -22,32 +22,32 @@ BMSApiService.factory("$PublicInfoFactory", function ($BMSApiFactory, $MessagSer
     return {
         GetPendingList: function (data, callback) {
             /// <summary>获取待计费订单列表</summary>
-            $BMSApiFactory.loading("待计费列表获取中，请稍等...");
+            $MessagService.loading("待计费列表获取中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.PublicInfo.pendinglist, data, callback);
         },
         GetPendingDetail: function (data, callback) {
             /// <summary>获取待计费订单的详细信息</summary>
-            $BMSApiFactory.loading("待计费详情获取中，请稍等...");
+            $MessagService.loading("待计费详情获取中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.PublicInfo.pendingdetail, data, callback);
         },
         GetBillList: function (data, callback) {
             /// <summary>获取计费订单列表信息</summary>
-            $BMSApiFactory.loading("计费单列表获取中，请稍等...");
+            $MessagService.loading("计费单列表获取中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.PublicInfo.billlist, data, callback);
         },
         GetBillDetail: function (data, callback) {
             /// <summary>获取计费订单的详细信息</summary>
-            $BMSApiFactory.loading("计费单详情获取中，请稍等...");
+            $MessagService.loading("计费单详情获取中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.PublicInfo.billdetail, data, callback);
         },
         GetReconciliationList: function (data, callback) {
             /// <summary>获取对账单列表信息</summary>
-            $BMSApiFactory.loading("对账单列表获取中，请稍等...");
+            $MessagService.loading("对账单列表获取中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.PublicInfo.reconciliationlist, data, callback);
         },
         GetReconciliationDetail: function (data, callback) {
             /// <summary>获取对账单明细信息</summary>
-            $BMSApiFactory.loading("对账单明细获取中，请稍等...");
+            $MessagService.loading("对账单明细获取中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.PublicInfo.reconciliationdetail, data, callback);
         }
     }
@@ -57,32 +57,32 @@ BMSApiService.factory("$BillFactory", function ($BMSApiFactory, $MessagService) 
     return {
         Submit: function (data, callback) {
             /// <summary>提交计费单</summary>
-            $BMSApiFactory.loading("计费单提交中，请稍等...");
+            $MessagService.loading("计费单提交中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.BillManage.doFee, data, callback);
         },
         Modify: function (data, callback) {
             /// <summary>计费单修改</summary>
-            $BMSApiFactory.loading("计费单修改中，请稍等...");
+            $MessagService.loading("计费单修改中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.BillManage.modify, data, callback);
         },
         Check: function (data, callback) {
             /// <summary>计费单审批</summary>
-            $BMSApiFactory.loading("计费单审批中，请稍等...");
+            $MessagService.loading("计费单审批中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.BillManage.check, data, callback);
         },
         AntiCheck: function (data, callback) {
             /// <summary>计费单反审核</summary>
-            $BMSApiFactory.loading("计费单取消审核中，请稍等...");
+            $MessagService.loading("计费单取消审核中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.BillManage.check, data, callback);
         },
         Disable: function (data, callback) {
             /// <summary>计费单作废</summary>
-            $BMSApiFactory.loading("计费单作废中，请稍等...");
+            $MessagService.loading("计费单作废中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.BillManage.disable, data, callback);
         },
         Print: function (data, callback){
             /// <summary>计费单打印</summary>
-            $BMSApiFactory.loading("计费单打印中，请稍等...");
+            $MessagService.loading("计费单打印中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.BillManage.print, data, callback);
         }
     }
@@ -92,47 +92,47 @@ BMSApiService.factory("$ReconciliationFactory", function ($BMSApiFactory, $Messa
     return {
         Submit: function (data, callback) {
             /// <summary>提交对账单</summary>
-            $BMSApiFactory.loading("对账单提交中，请稍等...");
+            $MessagService.loading("对账单提交中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.ReconciliationManage.doSoa, data, callback);
         },
         Print: function (data, callback) {
             /// <summary>打印对账单</summary>
-            $BMSApiFactory.loading("对账单提交中，请稍等...");
+            $MessagService.loading("对账单提交中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.ReconciliationManage.print, data, callback);
         },
         Modify: function (data, callback) {
             /// <summary>修改对账单</summary>
-            $BMSApiFactory.loading("对账单修改中，请稍等...");
+            $MessagService.loading("对账单修改中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.ReconciliationManage.Modify, data, callback);
         },
         FndAdd: function (data, callback) {
             /// <summary>Description</summary>
-            $BMSApiFactory.loading("对账单添加中，请稍等...");
+            $MessagService.loading("对账单添加中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.ReconciliationManage.FNDAdd, data, callback);
         },
         FndModify: function (data, callback) {
             /// <summary>对账单修改</summary>
-            $BMSApiFactory.loading("对账单修改中，请稍等...");
+            $MessagService.loading("对账单修改中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.ReconciliationManage.FNDModify, data, callback);
         },
         FndDelete: function (data, callback) {
             /// <summary>对账单删除</summary>
-            $BMSApiFactory.loading("对账单删除中，请稍等...");
+            $MessagService.loading("对账单删除中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.ReconciliationManage.FNDDelete, data, callback);
         },
         Check: function (data, callback) {
             /// <summary>对账单审批</summary>
-            $BMSApiFactory.loading("对账单审批，请稍等...");
+            $MessagService.loading("对账单审批，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.ReconciliationManage.check, data, callback);
         },
         AntiCheck: function (data, callback) {
             /// <summary>对账单反审批</summary>
-            $BMSApiFactory.loading("对账单取消审核中，请稍等...");
+            $MessagService.loading("对账单取消审核中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.ReconciliationManage.antiCheck, data, callback);
         },
         Disabale: function (data, callback) {
             /// <summary>对账单作废</summary>
-            $BMSApiFactory.loading("对账单作废中，请稍等...");
+            $MessagService.loading("对账单作废中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.ReconciliationManage.disabale, data, callback);
         }
     };

@@ -9,7 +9,9 @@ BmsApp
                  url: "/bms",
                  cache: false,
                  template: "<div ui-view></div>",
-                 abstract: true
+                 abstract: true,
+                 loadJs: ["Content/script/app/BmsApp/BillController/JS_BillListController.js"],
+                 resolve: app.resolve
              })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
@@ -18,7 +20,6 @@ BmsApp
             .state("app.bms.bill", {
                 /// <summary>计费管理信息</summary>
                 url: "/bill",
-                cache: false,
                 template: "<div ui-view></div>",
                 abstract: true,
                 controller: "BillController"
@@ -27,49 +28,49 @@ BmsApp
                 /// <summary>计费单综合查询</summary>
                 url: "/complex",
                 cache: false,
-                templateUrl: "View/BMS/Bill/View/BillList.html" + Timestamp,
+                templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp,
                 controller: "BillComplexListController"
             })
             .state("app.bms.bill.list", {
                 /// <summary>我的计费单列表</summary>
                 url: "/list",
                 cache: false,
-                templateUrl: "View/BMS/Bill/View/BillList.html" + Timestamp,
+                templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp,
                 controller: "BillListController"
             })
             .state("app.bms.bill.pendlist", {
                 /// <summary>待计费订单列表</summary>
                 url: "/pendlist",
                 cache: false,
-                templateUrl: "View/BMS/Bill/View/BillList.html" + Timestamp,
+                templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp,
                 controller: "BillPendListController"
             })
             .state("app.bms.bill.already", {
                 /// <summary>已计费计费单列表</summary>
                 url: "/alreadylist",
                 cache: false,
-                templateUrl: "View/BMS/Bill/View/BillList.html" + Timestamp,
+                templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp,
                 controller: "BillAlreadyListController"
             })
             .state("app.bms.bill.approval", {
                 /// <summary>待审批计费单列表</summary>
                 url: "/approvallist",
                 cache: false,
-                templateUrl: "View/BMS/Bill/View/BillList.html" + Timestamp,
+                templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp,
                 controller: "BillApprovalListController"
             })
             .state("app.bms.bill.approveded", {
                 /// <summary>已审批计费单列表</summary>
                 url: "/approvaledlist",
                 cache: false,
-                templateUrl: "View/BMS/Bill/View/BillList.html" + Timestamp,
+                templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp,
                 controller: "BillApprovaledListController"
             })
             .state("app.bms.bill.posting", {
                 /// <summary>计费单已对账列表</summary>
                 url: "/postinglist",
                 cache: false,
-                templateUrl: "View/BMS/Bill/View/BillList.html" + Timestamp,
+                templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp,
                 controller: "BillPostingListController"
             })
     })
@@ -80,14 +81,14 @@ BmsApp
                 /// <summary>订单计费管理</summary>
                 url: "/detail/:hOFNNo",
                 cache: false,
-                templateUrl: "View/BMS/Bill/Operat/BillDetail.html" + Timestamp,
+                templateUrl: "View/BMS/Bill/Operat/BillDetail.html?data=" + Timestamp,
                 controller: "BillDetailController"
             })
             .state("app.bms.bill.view", {
                 /// <summary>计费单视图管理</summary>
                 url: "/view/:hOFNNo",
                 cache: false,
-                templateUrl: "View/BMS/Bill/View/BillView.html" + Timestamp,
+                templateUrl: "View/BMS/Bill/View/BillView.html?data=" + Timestamp,
                 controller: "BillViewController"
             })
     })
@@ -176,6 +177,19 @@ BmsApp
                 abstract: true
             })
     })
-    .service("$BmsMenuService", function () {
+    .factory("$BmsMenuService", function () {
         /// <summary>BMS系统菜单服务</summary>
+        var service = new Array();
+        service.push({
+            name: "订单计费管理", url: "", state: "app.bms.bill", icon: "fa-laptop",
+            detail: [
+                { name: "综合计费单查询", url: "#/app/bms/bill/complex", state: "app.bms.bill.complex" },
+                { name: "我的计费单", url: "#/app/bms/bill/list", state: "app.bms.bill.list" },
+                { name: "待审批计费", url: "#/app/bms/bill/approval", state: "app.bms.bill.approval" },
+                { name: "已审批计费", url: "#/app/bms/bill/approveded", state: "app.bms.bill.approveded" },
+                { name: "已对账计费", url: "#/app/bms/bill/posting", state: "app.bms.bill.posting" }
+            ]
+        });
+
+        return service;
     })

@@ -569,37 +569,37 @@
             })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
-    /// <summary>用户信息管理配置</summary>
-    $stateProvider
-        .state("app.base.comp.user", {
-            url: "/user",
-            template: "<div ui-view></div>"
-        })
-        .state("app.base.comp.user.list", {
-            url: "/list",
-            cache: false,
-            templateUrl: "View/Base/User/UserList.html?data=" + Timestamp,
-            controller: "UserListController",
-            loadJs: ["Content/script/app/BaseApp/User/JS_UserList.js"],
-            resolve: app.resolve
-        })
-        .state("app.base.comp.user.detail", {
-            url: "/detail/:accId",
-            cache: false,
-            templateUrl: "View/Base/User/UserDetail.html?data=" + Timestamp,
-            controller: "UserDetailController",
-            loadJs: ["Content/script/app/BaseApp/User/JS_UserDetail.js"],
-            resolve: app.resolve
-        })
-        .state("app.base.comp.user.view", {
-            url: "/view/:accId",
-            cache: false,
-            templateUrl: "View/Base/User/UserView.html?data=" + Timestamp,
-            controller: "UserViewController",
-            loadJs: ["Content/script/app/BaseApp/User/JS_UserView.js"],
-            resolve: app.resolve
-        })
-})
+        /// <summary>用户信息管理配置</summary>
+        $stateProvider
+            .state("app.base.comp.user", {
+                url: "/user",
+                template: "<div ui-view></div>"
+            })
+            .state("app.base.comp.user.list", {
+                url: "/list",
+                cache: false,
+                templateUrl: "View/Base/User/UserList.html?data=" + Timestamp,
+                controller: "UserListController",
+                loadJs: ["Content/script/app/BaseApp/User/JS_UserList.js"],
+                resolve: app.resolve
+            })
+            .state("app.base.comp.user.detail", {
+                url: "/detail/:accId",
+                cache: false,
+                templateUrl: "View/Base/User/UserDetail.html?data=" + Timestamp,
+                controller: "UserDetailController",
+                loadJs: ["Content/script/app/BaseApp/User/JS_UserDetail.js"],
+                resolve: app.resolve
+            })
+            .state("app.base.comp.user.view", {
+                url: "/view/:accId",
+                cache: false,
+                templateUrl: "View/Base/User/UserView.html?data=" + Timestamp,
+                controller: "UserViewController",
+                loadJs: ["Content/script/app/BaseApp/User/JS_UserView.js"],
+                resolve: app.resolve
+            })
+    })
     .factory("$BaseMenuService", function () {
         /// <summary>OMS菜单服务</summary>
         var service = new Array();

@@ -9,7 +9,7 @@
 var Timestamp = new Date().getTime();
 var app = angular.module('ESurgeryApp', ["ngRoute", "ui.router", "ngRequire", "ui.bootstrap",
     "smart-table", "jnDo", "AjaxService",
-    "OmsApp", "BaseApp"]);
+    "OmsApp", "BaseApp", "BmsApp"]);
 
 app.run(function ($rootScope, $state, $local, $Api, $MessagService) {
     /// <summary>系统启动事件</summary>
