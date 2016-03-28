@@ -393,7 +393,7 @@ app.controller("IntegratedListController", function ($scope, $state, $local, $Ap
     }
     //条件清空
     $scope.Integrated.ClearWhere(true);
-    $scope.Integrated.GetOrderList({ opt: false, soType: "OPER" }); 
+    $scope.Integrated.GetOrderList({ opt: false, soType: "OPER" });
     $scope.ListCompetence = {
         /// <summary>列表权限</summary>
         initMedProdLnCodeName: false,

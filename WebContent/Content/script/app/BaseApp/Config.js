@@ -569,43 +569,43 @@
             })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
-    /// <summary>用户信息管理配置</summary>
-    $stateProvider
-        .state("app.base.comp.user", {
-            url: "/user",
-            template: "<div ui-view></div>"
-        })
-        .state("app.base.comp.user.list", {
-            url: "/list",
-            cache: false,
-            templateUrl: "View/Base/User/UserList.html?data=" + Timestamp,
-            controller: "UserListController",
-            loadJs: ["Content/script/app/BaseApp/User/JS_UserList.js"],
-            resolve: app.resolve
-        })
-        .state("app.base.comp.user.detail", {
-            url: "/detail/:accId",
-            cache: false,
-            templateUrl: "View/Base/User/UserDetail.html?data=" + Timestamp,
-            controller: "UserDetailController",
-            loadJs: ["Content/script/app/BaseApp/User/JS_UserDetail.js"],
-            resolve: app.resolve
-        })
-        .state("app.base.comp.user.view", {
-            url: "/view/:accId",
-            cache: false,
-            templateUrl: "View/Base/User/UserView.html?data=" + Timestamp,
-            controller: "UserViewController",
-            loadJs: ["Content/script/app/BaseApp/User/JS_UserView.js"],
-            resolve: app.resolve
-        })
-})
+        /// <summary>用户信息管理配置</summary>
+        $stateProvider
+            .state("app.base.comp.user", {
+                url: "/user",
+                template: "<div ui-view></div>"
+            })
+            .state("app.base.comp.user.list", {
+                url: "/list",
+                cache: false,
+                templateUrl: "View/Base/User/UserList.html?data=" + Timestamp,
+                controller: "UserListController",
+                loadJs: ["Content/script/app/BaseApp/User/JS_UserList.js"],
+                resolve: app.resolve
+            })
+            .state("app.base.comp.user.detail", {
+                url: "/detail/:accId",
+                cache: false,
+                templateUrl: "View/Base/User/UserDetail.html?data=" + Timestamp,
+                controller: "UserDetailController",
+                loadJs: ["Content/script/app/BaseApp/User/JS_UserDetail.js"],
+                resolve: app.resolve
+            })
+            .state("app.base.comp.user.view", {
+                url: "/view/:accId",
+                cache: false,
+                templateUrl: "View/Base/User/UserView.html?data=" + Timestamp,
+                controller: "UserViewController",
+                loadJs: ["Content/script/app/BaseApp/User/JS_UserView.js"],
+                resolve: app.resolve
+            })
+    })
     .factory("$BaseMenuService", function () {
         /// <summary>OMS菜单服务</summary>
         var service = new Array();
 
         service.push({
-            name: "我的业务数据", url: "", state: "app.base.mybusiness", icon: "fa-drupal",
+            name: "我的业务数据", url: "", state: "app.base.mybusiness", icon: "fa-drupal", order: 4,
             detail: [
                 { name: "我的模板", url: "#/app/base/mybusiness/materialtemplate", state: "app.base.mybusiness.materialtemplate" },
                 { name: "我的套件", url: "#/app/base/mybusiness/kits", state: "app.base.mybusiness.kits" },
@@ -615,7 +615,8 @@
             ]
         });
         service.push({
-            name: "业务数据管理", url: "", state: "app.base.business", icon: "fa-link", detail: [
+            name: "业务数据管理", url: "", state: "app.base.business", icon: "fa-link", order: 5,
+            detail: [
                 { name: "经销商管理", url: "#/app/base/business/dlorganization", state: "app.base.business.dlorganization" },
                 { name: "货主管理", url: "#/app/base/business/oiorganization", state: "app.base.business.oiorganization" },
                 { name: "医院管理", url: "#/app/base/business/hplmanagement", state: "app.base.business.hplmanagement" },
@@ -631,7 +632,7 @@
             ]
         });
         service.push({
-            name: "权限管理", url: "", state: "app.base.comp", icon: "fa-folder-open",
+            name: "权限管理", url: "", state: "app.base.comp", icon: "fa-folder-open", order: 6,
             detail: [
                 { name: "用户列表", url: "#/app/base/comp/user/list", state: "app.base.comp.user.list" },
                 { name: "角色列表", url: "#/app/base/comp/role/list", state: "app.base.comp.role.list" },
@@ -640,7 +641,8 @@
             ]
         });
         service.push({
-            name: "基础信息", url: "", state: "app.base.basis", icon: "fa-desktop", detail: [
+            name: "基础信息", url: "", state: "app.base.basis", icon: "fa-desktop", order: 7,
+            detail: [
                 { name: "国家信息", url: "#/app/base/basis/country", state: "app.base.basis.country" },
                 { name: "行政区域", url: "#/app/base/basis/admd", state: "app.base.basis.admd" },
                 { name: "币种信息", url: "#/app/base/basis/currency", state: "app.base.basis.currency" },

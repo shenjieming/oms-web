@@ -665,10 +665,11 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         },
         Cancel: function () {
             if (confirm("您确认要取消当前订单吗?")) {
-                $Api.SurgeryService.Cancel($scope.PageData, function (rData) {
-                    $MessagService.succ("订单取消成功！");
-                    $scope.goLastPage();
-                });
+                //调用取消接口，因不满足前置条件，无法回退，保持原状就行
+                 $Api.SurgeryService.Cancel($scope.PageData, function (rData) {
+                     $MessagService.succ("订单取消成功！");
+                     $scope.goLastPage();
+                 });
             }
         }
     }
