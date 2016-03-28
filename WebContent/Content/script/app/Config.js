@@ -30,6 +30,7 @@ app.run(function ($rootScope, $state, $local, $Api, $MessagService) {
             //若是登陆页面的话，并且存在用户信息的话，直接进入登陆页面
             var data = $local.getValue("USER");
             if (data) {
+                event.preventDefault();
                 $state.go("app.home");
             }
         }
