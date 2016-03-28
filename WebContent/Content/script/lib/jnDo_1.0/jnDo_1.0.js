@@ -173,9 +173,10 @@ angular.module('jnDo', [])
                 var options = $.extend({
                     format: "Y-m-d H:00:00",
                     onClose: function () {
+                        $scope.ngModel = $(element).val();
                         setTimeout(function () {
                             $scope.$apply(function () { $scope.ngModel = $(element).val(); });
-                        }, 500);
+                        });
                     }
                 }, $scope.ngDatatime);
                 $(element).datetimepicker(options);

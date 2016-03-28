@@ -183,8 +183,8 @@ app.controller("employeeController", function ($scope, $state, $MenuService, $lo
             return result;
         },
         dialog: {
-            title: $scope.User.userInfo.userName + "修改密码", width: 500,
-            buttons: {
+                title: $scope.User.userInfo.userName + "修改密码", width: 500,
+                buttons: {
                 "保存": function () {
                     /// <summary>保存修改的密码</summary>
                     $MessagService.loading("服务器请求中，请稍等...");
