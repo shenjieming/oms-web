@@ -155,56 +155,36 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
 
     $scope.SignOut = function () {
         /// <summary>登出</summary>
-        $Api.AccountService.LoginOut({}, function () {
-            $local.setValue("USER", null);
-            $scope.goView("login");
-        });
+        var LoginOut = function () { $local.setValue("USER", null); $scope.goView("login"); }; try { $Api.AccountService.LoginOut({}, LoginOut); } catch (e) { LoginOut(); }
     }
 
     $scope.Comp = function (code) {
         /// <summary>菜单权限控制</summary>
-        if (ServerConfiguration.IsDevelop) {
-            return true;
-        } else {
-            return JSON.stringify($scope.User.functionInfo).indexOf(code) > -1;//判断菜单是否有权限
-        }
+        //判断菜单是否有权限
+        if (ServerConfiguration.IsDevelop) { return true; } else { return JSON.stringify($scope.User.functionInfo).indexOf(code) > -1; }
     }
 });
 app.controller("employeeController", function ($scope, $state, $MenuService, $local, $MessagService, $Api) {
     /// <summary>个人信息控制器</summary>
     $scope.msgBox = {};
+
+
     $scope.modifyPwd = {
         pwsInfo: {},
         show: function () {
             /// <summary>显示修改密码的信息</summary>
-            $scope.modifyPwd.pwsInfo = { oldPassword: "", newPassword: "", verifyPassword: "" };
-            $scope.modifyPwd.dialog.show()
+            $scope.modifyPwd.pwsInfo = { oldPassword: "", newPassword: "", verifyPassword: "" };  $scope.modifyPwd.dialog.show()
         },
         verify: function () {
             /// <summary>验证密码的有效性</summary>
-            var result = true;
-            if (!$scope.modifyPwd.pwsInfo.oldPassword || !$scope.modifyPwd.pwsInfo.newPassword || !$scope.modifyPwd.pwsInfo.verifyPassword) {
-                result = false;
-            } else if (($scope.modifyPwd.pwsInfo.oldPassword == $scope.modifyPwd.pwsInfo.newPassword) || ($scope.modifyPwd.pwsInfo.verifyPassword != $scope.modifyPwd.pwsInfo.newPassword)) {
-                result = false;
-            }
-            return result;
+            var result = true; if (!$scope.modifyPwd.pwsInfo.oldPassword || !$scope.modifyPwd.pwsInfo.newPassword || !$scope.modifyPwd.pwsInfo.verifyPassword) { result = false; } else if (($scope.modifyPwd.pwsInfo.oldPassword == $scope.modifyPwd.pwsInfo.newPassword) || ($scope.modifyPwd.pwsInfo.verifyPassword != $scope.modifyPwd.pwsInfo.newPassword)) { result = false; } return result;
         },
         dialog: {
             title: $scope.User.userInfo.userName + "修改密码", width: 500,
             buttons: {
                 "保存": function () {
                     /// <summary>保存修改的密码</summary>
-                    $MessagService.loading("服务器请求中，请稍等...");
-                    if ($scope.modifyPwd.verify()) {
-                        $Api.AccountService.ModifyPassword($scope.modifyPwd.pwsInfo, function (rData) {
-                            $MessagService.caveat("密码修改成功！");
-                            $scope.modifyPwd.dialog.hide();
-                        });
-                    } else {
-                        $MessagService.eorr("验证无效，请重新输入！");
-                    }
-
+                    $MessagService.loading("服务器请求中，请稍等..."); if ($scope.modifyPwd.verify()) { $Api.AccountService.ModifyPassword($scope.modifyPwd.pwsInfo, function (rData) { $MessagService.caveat("密码修改成功！"); $scope.modifyPwd.dialog.hide(); }); } else { $MessagService.eorr("验证无效，请重新输入！"); }
                 }, "取消": function () { $scope.modifyPwd.dialog.hide(); }
             }
         }

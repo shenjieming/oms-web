@@ -193,24 +193,22 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         IsQuery: false,
         DataQuery: function (data) {
             /// <summary>时间日期查询</summary>
-            $scope.Pagein = $.extend($scope.Pagein, {
-                createDateBegin: data.StartDay,
-                createDateEnd: data.EndDay,
-            });
-
+            $scope.Pagein = $.extend($scope.Pagein, { createDateBegin: data.StartDay, createDateEnd: data.EndDay });
             $scope.Integrated.QueryOrderList();
         },
         QueryCancel: function () {
-            $scope.Integrated.IsQuery = !$scope.Integrated.IsQuery;
-            $scope.Pagein.createDateBegin = $scope.Pagein.createDateEnd = null;
-            $scope.Pagein.hPCode = $scope.Pagein.sONo = $scope.Pagein.dTCode = $scope.Pagein.oIOrgCode = $scope.Pagein.status = "";
+            /// <summary>数据清空</summary>
+            $scope.Integrated.IsQuery = false;
+            $scope.Integrated.IsQuery = false;
+            $.extend($scope.Pagein, { sONo: null, hPCode: null, dTCode: null, oIOrgCode: null, status: null, createDateBegin: null, createDateEnd: null });
+            $scope.Integrated.QueryOrderList();
         },
         ClearWhere: function (isReload) {
             /// <summary>清空条件</summary>
             $scope.Integrated.IsQuery = false;
             $.extend($scope.Pagein, {
-                pageIndex: isReload ? 1 : $scope.Pagein.pageIndex, sONo: "",
-                createDateBegin: "", createDateEnd: ""
+                pageIndex: isReload ? 1 : $scope.Pagein.pageIndex, sONo: null,
+                createDateBegin: null, createDateEnd: null
             });
         },
         Enter: function (e) {
@@ -222,9 +220,6 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         QueryOrderList: function () {
             /// <summary>查询</summary>
             $scope.Pagein.pageIndex = 1;
-            if ($scope.Pagein.createDateBegin == "" && $scope.Pagein.createDateEnd == "") {
-                $scope.Pagein.createDateBegin = $scope.Pagein.createDateEnd = null;
-            }
             console.log($scope.Pagein)
             $scope.Integrated.GetOrderList();
         },
@@ -243,7 +238,6 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
                 $scope.Integrated.OrderList = rData.rows;
                 console.log($scope.Integrated.OrderList)
             });
-            $scope.Pagein.createDateBegin = $scope.Pagein.createDateEnd = "";
         }
     }
     $scope.ButtonList();

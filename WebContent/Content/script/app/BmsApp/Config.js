@@ -20,7 +20,8 @@ BmsApp
                 url: "/bill",
                 cache: false,
                 template: "<div ui-view></div>",
-                abstract: true
+                abstract: true,
+                controller: "BillController"
             })
             .state("app.bms.bill.complex", {
                 /// <summary>计费单综合查询</summary>
@@ -77,7 +78,7 @@ BmsApp
         $stateProvider
             .state("app.bms.bill.detail", {
                 /// <summary>订单计费管理</summary>
-                url: "/detail",
+                url: "/detail/:hOFNNo",
                 cache: false,
                 templateUrl: "" + Timestamp,
                 controller: "BillDetailController"

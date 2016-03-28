@@ -1,4 +1,5 @@
-﻿OMSApiService
+﻿/// <reference path="../../ApiPath.js" />
+OMSApiService
     .factory("$ApiService", function ($local, $AjaxHelp) {
         /// <summary>OMSApi请求服务配置</summary>
         var apiHelp = new $AjaxHelp(ServerConfiguration.OMSPath);
@@ -10,6 +11,10 @@
             Login: function (data, callback) {
                 /// <summary>用户登陆</summary>
                 $ApiService.PostApi(ApiPath.Account.pcLogin, data, callback);
+            },
+            LoginOut: function (data, callback) {
+                /// <summary>用户登出</summary>
+                $ApiService.PostApi(ApiPath.Account.loginOut, data, callback);
             },
             ModifyPassword: function (data, callback) {
                 /// <summary>修改密码</summary>
