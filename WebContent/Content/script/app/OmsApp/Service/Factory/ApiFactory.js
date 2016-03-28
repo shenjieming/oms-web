@@ -262,6 +262,10 @@ OMSApiService
     .factory("$SurgeryService", function ($MessagService, $ApiService) {
         /// <summary>手术订单服务</summary>
         return {
+            findOrderStatus: function (data, callback) {
+                /// <summary>获取订单状态</summary>
+                $ApiService.PostApi(ApiPath.Surgery.findOrderStatus, data, callback);
+            },
             Save: function (data, callback) {
                 /// <summary>手术订单保存</summary>
                 $MessagService.loading("手术订单保存中，请稍等...");

@@ -1,6 +1,7 @@
 ﻿<div class="row">
     <div class="col-lg-12 row-mt-8">
         <div class="main-box clearfix">
+
             <div role="tabpanel" class="tab-pane active" ng-slide="Integrated.IsQuery" style="display:none;">
                 <div class="row-fluid">
                     <div class="widget-box" style="margin-top:0px;border:0px;">
@@ -68,7 +69,7 @@
                                         <option ng-repeat="item in SelectInfo.Warehouse.dic" value="{{item.orgCode}}">{{item.wHName}}</option>
                                     </select>
                                 </div>
-                                
+
                                 <div class="Vessel Others" ng-if="HighSelectList.WdCode">
                                     科&nbsp;&nbsp;室：
                                     <select ng-model="Pagein.wardDeptCode" ng-change="SelectInfo.wardDeptCode.change()" style="min-width:180px;margin-left:-8px;">
