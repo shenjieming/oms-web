@@ -380,7 +380,7 @@ OmsApp
         /// <summary>OMS菜单服务</summary>
         var service = new Array();
         service.push({
-            name: "手术订单管理", url: "", state: "app.oms.order", icon: "fa-pencil",
+            name: "手术订单管理", url: "", state: "app.oms.order", icon: "fa-pencil", order: 1,
             detail: [
                 //{ name: "出库单查询", url: "#/app/order/delivery", state: "app.order.delivery" },
                 { name: "综合订单查询", url: "#/app/oms/order/complex", state: "app.oms.order.complex" },
@@ -396,7 +396,7 @@ OmsApp
             ]
         });
         service.push({
-            name: "备货订单管理", url: "", state: "app.oms.stock", icon: "fa-shopping-cart",
+            name: "备货订单管理", url: "", state: "app.oms.stock", icon: "fa-shopping-cart", order: 2,
             detail: [
                 //{ name: "出库单查询", url: "#/app/stock/delivery", state: "app.stock.delivery" },
                 { name: "综合订单查询", url: "#/app/oms/stock/complex", state: "app.oms.stock.complex" },

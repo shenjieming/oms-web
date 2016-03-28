@@ -181,7 +181,7 @@ BmsApp
         /// <summary>BMS系统菜单服务</summary>
         var service = new Array();
         service.push({
-            name: "订单计费管理", url: "", state: "app.bms.bill", icon: "fa-laptop",
+            name: "订单计费管理", url: "", state: "app.bms.bill", icon: "fa-laptop", order: 3,
             detail: [
                 { name: "综合计费单查询", url: "#/app/bms/bill/complex", state: "app.bms.bill.complex" },
                 { name: "我的计费单", url: "#/app/bms/bill/list", state: "app.bms.bill.list" },
