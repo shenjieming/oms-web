@@ -265,16 +265,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
     /*页面列表End*/
 
     /*页面权限Begion*/
-    $scope.Competence = {
-        modify: false,
-        submit: false,
-        approval: false,
-        sign: false,
-        dealwith: false,
-        apply: false,
-        back: false,
-        append: false,
-    }
+    $scope.Competence = { modify: false, submit: false, approval: false, sign: false, dealwith: false, apply: false, back: false, append: false }
 
     $scope.ListCompetence = {
         /// <summary>列表权限</summary>

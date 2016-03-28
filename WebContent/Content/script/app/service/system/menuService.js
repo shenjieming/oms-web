@@ -5,7 +5,7 @@
 /// <reference path="../../ServerConfiguration.js" />
 /// <reference path="../../Config.js" />
 /// <summary>外部接口调用服务</summary>
-app.factory("$MenuService", function ($OMSMenuService, $BaseMenuService) {
+app.factory("$MenuService", function ($OMSMenuService, $BaseMenuService, $BmsMenuService) {
     /// <summary>菜单服务</summary>
     var service = new Array();
     service.push({
@@ -17,9 +17,15 @@ app.factory("$MenuService", function ($OMSMenuService, $BaseMenuService) {
     }
 
     var BaseMenu = $BaseMenuService;
-    if (BaseMenu&&ServerConfiguration.StartBMS) {
+    if (BaseMenu) {
         $.each(BaseMenu, function (inxex, menu) { service.push(menu) });
     }
+
+    var BmsMenu = $BmsMenuService;
+    if (BmsMenu && ServerConfiguration.StartBMS) {
+        $.each(BmsMenu, function (inxex, menu) { service.push(menu) });
+    }
+
     console.log(service)
     return service;
 });

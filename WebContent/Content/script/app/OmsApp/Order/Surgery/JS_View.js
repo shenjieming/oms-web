@@ -62,7 +62,6 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
 
     /*数据监控区域Begion*/
     $scope.$watch("sono", function () {
-        debugger
         if ($scope.sono) {
             $MessagService.loading("订单：" + $scope.sono + "数据获取中");
             $scope.PageService.GetDetail();
