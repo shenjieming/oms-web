@@ -1,8 +1,7 @@
 OMSApiService
     .factory("$ApiService", function ($local, $AjaxHelp) {
         /// <summary>OMSApi请求服务配置</summary>
-        var apiHelp = new $AjaxHelp(ServerConfiguration.OMSPath);
-        return apiHelp;
+        var apiHelp = new $AjaxHelp(ServerConfiguration.OMSPath); return apiHelp;
     })
     .factory("$AccountService", function ($MessagService, $ApiService) {
         /// <summary>账户操作服务管理</summary>

@@ -6,15 +6,7 @@ BmsApp
         $stateProvider
              .state("app.bms", {
                  /// <summary>票据管理模板</summary>
-                 url: "/bms",
-                 cache: false,
-                 template: "<div ui-view></div>",
-                 abstract: true,
-                 loadJs: [
-                     "Content/script/app/BmsApp/BillController/JS_BillListController.js",
-                     "Content/script/app/BmsApp/BillController/JS_BillOperatController.js"
-                 ],
-                 resolve: app.resolve
+                 url: "/bms", cache: false, template: "<div ui-view></div>", abstract: true, resolve: app.resolve, loadJs: ["Content/script/app/BmsApp/BillController/JS_BillListController.js"]
              })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
@@ -22,59 +14,35 @@ BmsApp
         $stateProvider
             .state("app.bms.bill", {
                 /// <summary>计费管理信息</summary>
-                url: "/bill",
-                template: "<div ui-view></div>",
-                abstract: true,
-                controller: "BillController"
+                url: "/bill", template: "<div ui-view></div>", abstract: true, controller: "BillController",
             })
             .state("app.bms.bill.complex", {
                 /// <summary>计费单综合查询</summary>
-                url: "/complex",
-                cache: false,
-                templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp,
-                controller: "BillComplexListController"
+                url: "/complex", cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillComplexListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_BillComplex.js"], resolve: app.resolve
             })
             .state("app.bms.bill.list", {
                 /// <summary>我的计费单列表</summary>
-                url: "/list",
-                cache: false,
-                templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp,
-                controller: "BillListController"
+                url: "/list", cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_MyBill.js"], resolve: app.resolve
             })
             .state("app.bms.bill.pendlist", {
                 /// <summary>待计费订单列表</summary>
-                url: "/pendlist",
-                cache: false,
-                templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp,
-                controller: "BillPendListController"
+                url: "/pendlist", cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillPendListController"
             })
             .state("app.bms.bill.already", {
                 /// <summary>已计费计费单列表</summary>
-                url: "/alreadylist",
-                cache: false,
-                templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp,
-                controller: "BillAlreadyListController"
+                url: "/alreadylist", cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillAlreadyListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_BillAlready.js"], resolve: app.resolve
             })
             .state("app.bms.bill.approval", {
                 /// <summary>待审批计费单列表</summary>
-                url: "/approvallist",
-                cache: false,
-                templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp,
-                controller: "BillApprovalListController"
+                url: "/approvallist", cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillApprovalListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_BillApproval.js"], resolve: app.resolve
             })
             .state("app.bms.bill.approveded", {
                 /// <summary>已审批计费单列表</summary>
-                url: "/approvaledlist",
-                cache: false,
-                templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp,
-                controller: "BillApprovaledListController"
+                url: "/approvaledlist", cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillApprovaledListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_BillApprovaled.js"], resolve: app.resolve
             })
             .state("app.bms.bill.posting", {
                 /// <summary>计费单已对账列表</summary>
-                url: "/postinglist",
-                cache: false,
-                templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp,
-                controller: "BillPostingListController"
+                url: "/postinglist", cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillPostingListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_BillPosting.js"], resolve: app.resolve
             })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
@@ -82,17 +50,11 @@ BmsApp
         $stateProvider
             .state("app.bms.bill.detail", {
                 /// <summary>订单计费管理</summary>
-                url: "/detail/:hOFNNo",
-                cache: false,
-                templateUrl: "View/BMS/Bill/Operat/BillDetail.html?data=" + Timestamp,
-                controller: "BillDetailController"
+                url: "/detail/:hOFNNo", cache: false, templateUrl: "View/BMS/Bill/Operat/BillDetail.html?data=" + Timestamp, controller: "BillDetailController", loadJs: ["Content/script/app/BmsApp/BillController/OperatController/JS_BillDetail.js"], resolve: app.resolve
             })
             .state("app.bms.bill.view", {
                 /// <summary>计费单视图管理</summary>
-                url: "/view/:hOFNNo",
-                cache: false,
-                templateUrl: "View/BMS/Bill/View/BillView.html?data=" + Timestamp,
-                controller: "BillViewController"
+                url: "/view/:hOFNNo", cache: false, templateUrl: "View/BMS/Bill/View/BillView.html?data=" + Timestamp, controller: "BillViewController", loadJs: ["Content/script/app/BmsApp/BillController/OperatController/JS_BillView.js"], resolve: app.resolve
             })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {

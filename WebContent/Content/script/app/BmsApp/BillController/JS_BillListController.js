@@ -57,46 +57,5 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
     $scope.Pagein = { pageSize: 10, createDateBegin: null, createDateEnd: null, pageIndex: 1, callbake: function () { $scope.Integrated.GetBillList(); } }
 });
 
-app.controller("BillComplexListController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
-    /// <summary>计费单综合管理</summary>
-    console.log("计费管理-综合订单运行");
-    $scope.title = "计费综合管理";
-    $scope.Integrated.GetBillList({ opt: "COMPLEX_FEENOTE" }, true);
-});
-
-app.controller("BillListController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
-    /// <summary>我的计费单管理</summary>
-    console.log("计费管理-我的计费单运行");
-    $scope.title = "我的计费单";
-    $scope.Integrated.GetBillList({ opt: "MY_FEENOTE" }, true);
-});
-
-app.controller("BillAlreadyListController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
-    /// <summary>已计费列表管理</summary>
-    console.log("计费管理-预计计费订单管理");
-    $scope.title = "已计费订单";
-    $scope.Integrated.GetBillList({ opt: "HAS_FEENOTE" }, true);
-});
-
-app.controller("BillApprovalListController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
-    /// <summary>待审批计费列表管理</summary>
-    console.log("计费管理-待审批计费管理");
-    $scope.title = "待审批计费单";
-    $scope.Integrated.GetBillList({ opt: "WAIT_CHECK_FEENOTE" }, true);
-});
-
-app.controller("BillApprovaledListController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
-    /// <summary>已审批计费列表</summary>
-    console.log("计费管理-待对账计费单管理");
-    $scope.title = "待对账计费单";
-    $scope.Integrated.GetBillList({ opt: "WAIT_CHECK_FEENOTE" }, true);
-});
-
-app.controller("BillPostingListController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
-    /// <summary>已对账计费单列表管理</summary>
-    console.log("计费管理-已对账计费管理");
-    $scope.title = "已对账计费单";
-    $scope.Integrated.GetBillList({ opt: "HAS_SOA_FEENOTE" }, true);
-});
 
 
