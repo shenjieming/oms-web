@@ -1,4 +1,4 @@
-/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
+﻿/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-touch.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-sanitize.min.js" />
@@ -93,6 +93,7 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
         GETWhzoneEditView:function(){
             var whzone = $scope.getSelectedRow();
             if(whzone){
+                $scope.SelectInfo.Whouse.getWhoseList();
                 $scope.WhzoneEdit.model.show();
                 ///<summary>选中的库区详情<summary>
                 $Api.WhZone.GETWhzoneView({medMIWarehouse:whzone.medMIWarehouse,zoneCode:whzone.zoneCode},function(rData){

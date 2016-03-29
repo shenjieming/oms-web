@@ -1,2 +1,8 @@
 /target/
 /oms-web.v12.suo
+/oms-web.sln
+/pom-dev.xml
+/pom-production.xml
+/pom-test.xml
+/pom.xml
+/build/
