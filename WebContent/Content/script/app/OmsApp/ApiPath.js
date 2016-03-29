@@ -56,6 +56,8 @@ var ApiPath = {
             //订单取消
             cancel: "/v2/common/order/cancel"
         },
+        //订单状态
+        findOrderStatus:"/v2/common/order/findOrderStatus", 
         Sign: {
             /// <summary>订单签收</summary>
             //订单签收
@@ -349,7 +351,13 @@ var ApiPath = {
         //库区
         Reservoir: {
             //获取库区列表
-            queryAllWhzone: "/v2/bizData/queryAllWhzone",
+            queryAllWhzone: "/v2/bizData/whzone/queryAllWhzone",
+            //库区编辑
+            whZoneEduit:"/v2/bizData/whzone/update",
+            //库区新增
+            whZoneAdd:"/v2/bizData/whzone/insert",
+            //库区删除
+            whZoneDelete:"/v2/bizData/whzone/delete",
         },
         MedJournal: {
             //平台信息列表

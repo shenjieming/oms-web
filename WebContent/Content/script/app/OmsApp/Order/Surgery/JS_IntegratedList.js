@@ -114,6 +114,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         sONo: "",
         dTCode: "",
         oIOrgCode: "",
+        wardDeptCode:"",
         status: "",
         pageIndex: 1,
         callbake: function () {
@@ -131,12 +132,37 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
                 })
             }
         },
+        DLorg:{
+            dic: new Array(),
+            GetDLorgList: function () {
+                /// <summary>获取经销商列表</summary>
+                $Api.ManageDl.GetqueryAllDealer({}, function (rData) {
+                    $scope.SelectInfo.DLorg.dic = rData.rows;
+                    console.log(rData)
+                })
+            }
+        },
+        WareHouse: {
+            dic: new Array(),
+            GetWareHouseList: function () {
+                /// <summary>获取仓库下拉框</summary>
+                $Api.ManaWareHouse.GetqueryWareHouse({}, function (rData) {
+                    $scope.SelectInfo.WareHouse.dic = rData.rows;
+                    console.log(rData)
+                })
+            }
+        },
         Hosptail: {
             dic: new Array(),
             change: function () {
+                /// <summary>医院科室医生级联控制</summary>
                 $scope.SelectInfo.Doctor.dic = new Array();
                 $scope.SelectInfo.Doctor.GetDoctorList();
                 $scope.Pagein.dTCode = "";
+                $scope.SelectInfo.wardDeptCode.dic = new Array();
+                $scope.SelectInfo.wardDeptCode.GetwardDeptCodeList();
+                $scope.Pagein.wardDeptCode="";
+
             },
             GetHosptailList: function () {
                 /// <summary>医院下拉框</summary>
@@ -147,34 +173,52 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
                 })
             }
         },
+        wardDeptCode: {
+            dic: new Array(),
+            change: function () {
+                $scope.SelectInfo.Doctor.dic = new Array();
+                $scope.SelectInfo.Doctor.GetDoctorList();
+                $scope.Pagein.dTCode = "";
+            },
+            GetwardDeptCodeList: function () {
+                /// <summary>科室下拉框</summary>
+                $Api.ManaDepartment.GetbizDataWDList({ hPCode: $scope.Pagein.hPCode }, function (rData) {
+                    $scope.SelectInfo.wardDeptCode.dic = rData.rows;
+                    console.log(rData)
+                })
+            }
+        },
         Doctor: {
             dic: new Array(),
             GetDoctorList: function () {
                 /// <summary>医生下拉框</summary>
-                $Api.ManaDocter.GetbizDataDoctorList({}, function (rData) {
+                $Api.ManaDocter.GetbizDataDoctorList({ hPCode: $scope.Pagein.hPCode, wardDeptCode: $scope.Pagein.wardDeptCode }, function (rData) {
                     $scope.SelectInfo.Doctor.dic = rData.rows;
-                    console.log(rData)
                 })
             }
         },
         Status: {
             dic: new Array(),
             GetStatusList: function () {
-                /// <summary>医生下拉框</summary>
-                $Api.Public.GetDictionary({ dictType: "VLDSTS" }, function (rData) {
+                /// <summary>订单状态下拉框</summary>
+                $Api.SurgeryService.findOrderStatus({}, function (rData) {
                     $scope.SelectInfo.Status.dic = rData;
                     console.log(rData)
                 })
             }
-        }
-    }
-    $scope.ButtonList = function () {
-        $scope.SelectInfo.OIorg.GetOIorgList();
-        $scope.SelectInfo.Hosptail.GetHosptailList();
-        $scope.SelectInfo.Doctor.GetDoctorList();
-        $scope.SelectInfo.Status.GetStatusList();
-    }
+        },
+        Warehouse: {
+            dic: new Array(),
+            GetWarehouseList: function () {
+                /// <summary>仓库下拉框</summary>
+                $Api.ManaWareHouse.GetqueryWareHouse({}, function (rData) {
+                    $scope.SelectInfo.Warehouse.dic = rData.rows;
+                    console.log(rData)
+                })
+            }
+        },
 
+    }
     // 查询条件
     //sONo
     //createDateBegin
@@ -193,22 +237,20 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         IsQuery: false,
         DataQuery: function (data) {
             /// <summary>时间日期查询</summary>
-            $scope.Pagein = $.extend($scope.Pagein, { createDateBegin: data.StartDay, createDateEnd: data.EndDay });
-            $scope.Integrated.QueryOrderList();
-        },
-        QueryCancel: function () {
-            /// <summary>数据清空</summary>
-            $scope.Integrated.IsQuery = false;
-            $scope.Integrated.IsQuery = false;
-            $.extend($scope.Pagein, { sONo: null, hPCode: null, dTCode: null, oIOrgCode: null, status: null, createDateBegin: null, createDateEnd: null });
+            $scope.Pagein = $.extend($scope.Pagein, {
+                createDateBegin: data.StartDay,
+                createDateEnd: data.EndDay,
+            });
+
             $scope.Integrated.QueryOrderList();
         },
         ClearWhere: function (isReload) {
             /// <summary>清空条件</summary>
             $scope.Integrated.IsQuery = false;
             $.extend($scope.Pagein, {
-                pageIndex: isReload ? 1 : $scope.Pagein.pageIndex, sONo: null,
-                createDateBegin: null, createDateEnd: null
+                pageIndex: isReload ? 1 : $scope.Pagein.pageIndex, sONo: "",
+                createDateBegin: null, createDateEnd: null, status: "", oIOrgCode: "", dTCode: "", hPCode: "", patientName: "",
+                sOCreateByOrgCode:"",sOCreateByName:"",sOHandleByOrgCode:""
             });
         },
         Enter: function (e) {
@@ -220,6 +262,10 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         QueryOrderList: function () {
             /// <summary>查询</summary>
             $scope.Pagein.pageIndex = 1;
+            if ($scope.Pagein.createDateBegin == "" && $scope.Pagein.createDateEnd == "") {
+                $scope.Pagein.createDateBegin = null;
+                $scope.Pagein.createDateEnd = null;
+            }
             console.log($scope.Pagein)
             $scope.Integrated.GetOrderList();
         },
@@ -240,7 +286,58 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             });
         }
     }
-    $scope.ButtonList();
+
+    var HighSelect = $scope.User;
+    $scope.ButtonList = function () {
+        /// <summary>根据不同用户显示不同高级条件查询框</summary>
+        if (HighSelect.userInfo.orgType == "DL") {
+            $scope.SelectInfo.OIorg.GetOIorgList();
+            $scope.SelectInfo.wardDeptCode.GetwardDeptCodeList();
+            $scope.SelectInfo.Doctor.GetDoctorList();
+
+        } else if (HighSelect.userInfo.orgType == "OI") {
+            $scope.SelectInfo.Warehouse.GetWarehouseList();
+            $scope.SelectInfo.DLorg.GetDLorgList();
+        } else if (HighSelect.userInfo.orgType == "WH") {
+            $scope.SelectInfo.OIorg.GetOIorgList();
+            $scope.SelectInfo.Doctor.GetDoctorList();
+            $scope.SelectInfo.DLorg.GetDLorgList();
+        }
+        $scope.SelectInfo.Hosptail.GetHosptailList();
+        $scope.SelectInfo.Status.GetStatusList();  
+    }
+    $scope.HighSelectList = {
+        // 根据用户显示对象条件查询框
+        OiOrg: false,
+        HpCode: false,
+        WdCode: false,
+        DtCode: false,
+        patientName: false,
+        Warehouse: false,
+        Singler: false,
+        DlCode:false,
+    }
+    $scope.compServer = function () {  
+        /// <summary>菜单列表、高级查询 权限控制</summary>
+        $scope.ButtonList();
+        if (HighSelect.userInfo.orgType =="DL") {
+            $scope.HighSelectList.OiOrg = true;
+            $scope.HighSelectList.WdCode = true;
+            $scope.HighSelectList.DtCode = true;
+       
+        } else if (HighSelect.userInfo.orgType=="OI") {
+            $scope.HighSelectList.Warehouse = true;       
+            $scope.HighSelectList.DlCode = true;
+            $scope.HighSelectList.Singler = true;
+        } else if (HighSelect.userInfo.orgType=="WH") {
+            $scope.HighSelectList.OiOrg = true;        
+            $scope.HighSelectList.DtCode = true;
+            $scope.HighSelectList.DlCode = true;
+            $scope.HighSelectList.patientName = true;
+        }
+    }
+        
+    $scope.compServer();
     $scope.file = {
         /// <summary>附件控制器</summary>
         GetEventMapping: function (eventList, statusCode) {
@@ -265,7 +362,16 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
     /*页面列表End*/
 
     /*页面权限Begion*/
-    $scope.Competence = { modify: false, submit: false, approval: false, sign: false, dealwith: false, apply: false, back: false, append: false }
+    $scope.Competence = {
+        modify: false,
+        submit: false,
+        approval: false,
+        sign: false,
+        dealwith: false,
+        apply: false,
+        back: false,
+        append: false,
+    }
 
     $scope.ListCompetence = {
         /// <summary>列表权限</summary>
@@ -299,11 +405,9 @@ app.controller("IntegratedListController", function ($scope, $state, $local, $Ap
         patientName: false,  //患者
 
     }
-    console.log($scope.User)
     var UserJurisdiction = $scope.User;
     $scope.jurisdiction = function () {
         /// <summary>不同用户列表控制</summary>
-        console.log(UserJurisdiction)
         if (UserJurisdiction.userInfo.orgType == "WH") {
             $scope.ListCompetence.sOOIOrgCodeName = true;
             $scope.ListCompetence.sOCreateByOrgCodeName = true;
@@ -311,11 +415,11 @@ app.controller("IntegratedListController", function ($scope, $state, $local, $Ap
             $scope.ListCompetence.dTCodeName=true;
             $scope.ListCompetence.patientName = true;
         }
-       else if (UserJurisdiction.userInfo.orgType == "OI") {
+        if (UserJurisdiction.userInfo.orgType == "OI") {
             $scope.ListCompetence.sOHandleByOrgCodeName = true;
             $scope.ListCompetence.sOCreateByOrgCodeName = true;
         }
-       else if (UserJurisdiction.userInfo.orgType == "DL") {
+        if (UserJurisdiction.userInfo.orgType == "DL") {
             $scope.ListCompetence.hPCodeName = true;
             $scope.ListCompetence.dTCodeName = true;
             $scope.ListCompetence.initMedProdLnCodeName = true;

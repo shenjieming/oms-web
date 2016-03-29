@@ -10,7 +10,7 @@ OMSApiService
         $BindService, $GruopService, $BasisService, $SurgeryService, $StockService, $MaterialsService, $MedKitService,
         $OrganizationService, $RepresentativeService, $HospitalService, $BrandService, $BusinessData, $ManageDl, $ManaDocter,
         $ManaDepartment, $ProductLine, $MyAddress, $MyDoctor, $OrderRout, $AgentProduct, $ManaEvent, $ManageOi, $ManaHospital,
-        $ManaWareHouse, $ManageOIDLRel, $PublicService) {
+        $ManaWareHouse, $ManageOIDLRel, $PublicService,$WhZoneService) {
         return {
             AccountService: $AccountService,
             UserService: $UserService,
@@ -41,6 +41,7 @@ OMSApiService
             ManaHospital: $ManaHospital,
             ManaWareHouse: $ManaWareHouse,
             ManageOIDLRel: $ManageOIDLRel,
+            WhZone:$WhZoneService,
             Public: $PublicService
         }
     });

@@ -187,8 +187,8 @@ app.controller("employeeController", function ($scope, $state, $MenuService, $lo
             var result = true; if (!$scope.modifyPwd.pwsInfo.oldPassword || !$scope.modifyPwd.pwsInfo.newPassword || !$scope.modifyPwd.pwsInfo.verifyPassword) { result = false; } else if (($scope.modifyPwd.pwsInfo.oldPassword == $scope.modifyPwd.pwsInfo.newPassword) || ($scope.modifyPwd.pwsInfo.verifyPassword != $scope.modifyPwd.pwsInfo.newPassword)) { result = false; } return result;
         },
         dialog: {
-            title: $scope.User.userInfo.userName + "修改密码", width: 500,
-            buttons: {
+                title: $scope.User.userInfo.userName + "修改密码", width: 500,
+                buttons: {
                 "保存": function () {
                     /// <summary>保存修改的密码</summary>
                     $MessagService.loading("服务器请求中，请稍等..."); if ($scope.modifyPwd.verify()) { $Api.AccountService.ModifyPassword($scope.modifyPwd.pwsInfo, function (rData) { $MessagService.caveat("密码修改成功！"); $scope.modifyPwd.dialog.hide(); }); } else { $MessagService.eorr("验证无效，请重新输入！"); }
