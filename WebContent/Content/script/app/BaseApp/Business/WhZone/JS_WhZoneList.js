@@ -21,15 +21,18 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
         DeleteWhzone: function (row) {
             $scope.WhZoneList.info = row ? row : $scope.getSelectedRow();
             if ($scope.WhZoneList.info) {
-                $Api.WhZone.DeleteWhzone($scope.WhZoneList.info, function (rData) {
-                    $MessagService.succ("删除库区成功");
-                    $scope.WhZoneList.GetWhZoneList();
-                })
+                if(confirm("您确认要删除当前库区吗？")) {
+                    $Api.WhZone.DeleteWhzone($scope.WhZoneList.info, function (rData) {
+                        $MessagService.succ("删除库区成功");
+                        $scope.WhZoneList.GetWhZoneList();
+                    })
+                }
             } else {
                 $MessagService.caveat("请选择一条库区信息");
                 $scope.WhZoneList.GetWhZoneList();
             }
         }
+
     },
     $scope.WhzoneView={
         info:[],
