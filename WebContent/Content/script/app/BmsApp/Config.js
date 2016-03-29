@@ -10,7 +10,10 @@ BmsApp
                  cache: false,
                  template: "<div ui-view></div>",
                  abstract: true,
-                 loadJs: ["Content/script/app/BmsApp/BillController/JS_BillListController.js"],
+                 loadJs: [
+                     "Content/script/app/BmsApp/BillController/JS_BillListController.js",
+                     "Content/script/app/BmsApp/BillController/JS_BillOperatController.js"
+                 ],
                  resolve: app.resolve
              })
     })

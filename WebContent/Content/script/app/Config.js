@@ -99,6 +99,13 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
     $urlRouterProvider.otherwise("/login");
 });
 
+//app.resolve = {
+//    deps: ["$ocLazyLoad", function (a) {
+
+//        return a.load(this.self.loadJs)
+//    }]
+//}
+
 app.resolve = {
     /// <summary>resolve事件处理</summary>
     deps: function ($q) {
@@ -106,7 +113,7 @@ app.resolve = {
         var delay = $q.defer();
         var jsList = this.self.loadJs;
         for (var i = 0; i < jsList.length; i++) {
-            $.getScript(jsList[i] + "?data=" + Timestamp, function () {
+            $.getScript(jsList[i], function () {
                 delay.resolve();
             });
         }

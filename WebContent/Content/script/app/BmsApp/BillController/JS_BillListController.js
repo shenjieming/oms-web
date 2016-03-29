@@ -6,7 +6,6 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
     /// <summary>计费单管理</summary>
     console.log("计费管理主程序运行");
     $scope.title = "";
-
     $scope.Integrated = {
         //计费单列表
         BillList: new Array(),
@@ -40,9 +39,17 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
             /// <summary>修改计费单</summary>
             this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.detail", { hOFNNo: row.hOFNNo }); });
         },
+        ApprovalBill: function () {
+            /// <summary>审批订单</summary>
+            this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.view", { hOFNNo: row.hOFNNo }); });
+        },
+        ViewBillByRow: function (row) {
+            /// <summary>根据选中的行</summary>
+            $scope.goView("app.bms.bill.view", { hOFNNo: row.hOFNNo });
+        },
         ViewBill: function () {
             /// <summary>查看订单详情</summary>
-            this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.view", { hOFNNo: row.hOFNNo }); });
+            this.GoPageBySedRow(this.ViewBillByRow);
         }
     }
 
