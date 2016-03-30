@@ -197,7 +197,7 @@
         })
         .state("app.base.mybusiness.doctoredit", {
             /// <summary>我的医生编辑</summary>
-            url: "/doctoredit/:dTCode",
+            url: "/doctoredit/:docopt",
             cache: false,
             controller: "DoctorEditController",
             templateUrl: "View/Base/MyBusiness/Doctor/DoctorEdit.html?data=" + Timestamp,
@@ -206,7 +206,7 @@
         })
         .state("app.base.mybusiness.doctorview", {
             /// <summary>我的医生详情</summary>
-            url: "/doctorview/:dTCode",
+            url: "/doctorview/:docopt",
             cache: false,
             controller: "DoctorViewController",
             templateUrl: "View/Base/MyBusiness/Doctor/DoctorView.html?data=" + Timestamp,

@@ -1,5 +1,4 @@
-﻿/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
-/// <reference path="../../lib/angular-1.2.20/angular.min.js" />
+﻿/// <reference path="../../lib/angular-1.2.20/angular.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-touch.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-sanitize.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-loader.js" />
@@ -12,12 +11,9 @@ app.controller("DoctorListController", function ($scope, $state, $local, $Api, $
         info: [],
         GetDoctorList: function () {
             /// <summary>获取我的医生列表</summary>
-            var paramData = $.extend({}, $scope.Pagein);
-            console.log(paramData)
-            $Api.HospitalService.GetDoctors(paramData, function (rData) {
-                $scope.DoctorList.info = rData;
+            $Api.HospitalService.GetDoctors($scope.Pagein, function (rData) {
+                $scope.DoctorList.info = rData.rows;
                 $scope.Pagein.total = rData.total;
-                console.log(rData)
             })
         },
     } 
@@ -30,25 +26,26 @@ app.controller("DoctorListController", function ($scope, $state, $local, $Api, $
                 $scope.DoctorList.GetDoctorList();
             });
         } else {
-            $MessagService.cavet("请选择一条删除的数据！")
+            $MessagService.caveat("请选择一条删除的数据！")
         }
     }
     $scope.DoctorJump = {
-        Add: function () {
-            $state.go("app.base.mybusiness.doctoredit", { oiopt: "" });
+        Add:function () {
+            $scope.goView("app.base.mybusiness.doctoredit", { docopt: "" });
         },
-        Edit: function () {
+        Edit:function () {
             var docopt = $local.getSelectedRow($scope.DoctorList.info)
+            console.log(docopt)
             if (docopt) {
-                $scope.go("app.base.mybusiness.doctoredit", { dTCode: docopt.dTCode })
+                $scope.goView("app.base.mybusiness.doctoredit", { docopt: docopt.dTCode })
             } else {
-              $scope.$MessagService("请选择一条需要编辑的信息")
+                $MessagService.caveat("请选择一条需要编辑的信息")
             }      
         },
         View: function () {
             var docopt = $local.getSelectedRow($scope.DoctorList.info)
             if (docopt) {
-                $scope.go("app.base.mybusiness.doctoredit", { dTCode: docopt.dTCode })
+                $scope.goView("app.base.mybusiness.doctoredit", { docopt: docopt.dTCode })
             } else {
                 $scope.$MessagService("请选择一条需要编辑的信息")
             }

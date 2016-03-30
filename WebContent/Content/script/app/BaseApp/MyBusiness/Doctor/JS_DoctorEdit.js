@@ -13,34 +13,61 @@ app.controller("DoctorEditController", function ($scope, $state, $local, $Api, $
         verification: function () {
             /// <summary>验证模块</summary>
             var result = true;
-            if (!$scope.DoctorPage.info.hPName) {
+            if (!$scope.DoctorPage.info.hPCode) {
                 $MessagService.caveat("请维护该医院名称！");
                 result = false;
             }
-            else if (!$scope.DoctorPage.info.hPFullName) {
-                $MessagService.caveat("请维护该医院全称！");
+            else if (!$scope.DoctorPage.info.wardDeptCode) {
+                $MessagService.caveat("请维护该科室名称！");
                 result = false;
             }
-            else if (!$scope.DoctorPage.info.hPLevel) {
-                $MessagService.caveat("请维护该医院等级编码！");
+            else if (!$scope.DoctorPage.info.dTType) {
+                $MessagService.caveat("请维护该医生类型！");
+                result = false;
+            }
+            else if (!$scope.DoctorPage.info.dTGrade) {
+                $MessagService.caveat("请维护该医生级别！");
+                result = false;
+            }
+            else if (!$scope.DoctorPage.info.dTSex) {
+                $MessagService.caveat("请维护该医生性别！");
+                result = false;
+            }
+            else if (!$scope.DoctorPage.info.dTEducation) {
+                $MessagService.caveat("请维护该医院学历！");
                 result = false;
             }
             return result;
         },
         Save: function () {
-            $Api.RepresentativeService.SaveAddress($scope.Service.AddressDetail, function (rData) {
-
+            if ($scope.DoctorPage.verification()) {
+                $scope.DoctorPage.info.isDefaultDoctorPerUser = $scope.DoctorPage.info.CheckIsDefaultDoctorPerUser ? "Y" : "N";
+                $scope.DoctorPage.info.isLocal = $scope.DoctorPage.info.CheckIsLocal ? "LOCAL" : "NOTLOCAL";
+                $Api.HospitalService.SaveDoctor($scope.DoctorPage.info, function (rData) {
+                    $scope.goView('app.base.mybusiness.doctor');
+                    $MessagService.succ("该信息保存成功！");
+                })
+            }  
+        },
+        GetDoctorDetail: function () {
+            $Api.ManaDocter.GetbizDataDoctorDetail({ dTCode: $scope.DoctorPage.info.dTCode }, function (rData) {
+                $scope.DoctorPage.info = rData;
+                $scope.DoctorPage.info.isDefaultDoctorPerUser = "Y" ? $scope.DoctorPage.info.isDefaultDoctorPerUser = true : $scope.DoctorPage.info.isDefaultDoctorPerUser=false;
+                $scope.DoctorPage.info.isLocal = "LOCAL" ? $scope.DoctorPage.info.CheckIsLocal=true : $scope.DoctorPage.info.CheckIsLocal=false
+                console.log($scope.DoctorPage.info.isDefaultDoctorPerUser)
+                console.log($scope.DoctorPage.info.CheckIsLocal)
             })
         }
-
     }
     $scope.ButtonService = {
         //选择按钮
         IsDefaultDoctorPerUser: function () {
-            $scope.DoctorPage.info.CheckIsDefaultDoctorPerUser = !$scope.DoctorPage.info.CheckIsDefaultDoctorPerUser
+            /// <summary>是否默认</summary>
+            $scope.DoctorPage.info.CheckIsDefaultDoctorPerUser = !$scope.DoctorPage.info.CheckIsDefaultDoctorPerUser;           
         },
         IsLocal: function () {
-            $scope.DoctorPage.info.CheckIsLocal = !$scope.ButtonService.CheckIsLocal
+            /// <summary>是否本院医生</summary>
+            $scope.DoctorPage.info.CheckIsLocal = !$scope.ButtonService.CheckIsLocal;      
         }
     }
     $scope.SelectInfo = {
@@ -72,13 +99,14 @@ app.controller("DoctorEditController", function ($scope, $state, $local, $Api, $
             }
         }
     }
-    $scope.SelectInfo.Hosptail.getHosptailList();
+    
+    $scope.Load = function () {
+        if ($stateParams.docopt) {
+            $scope.DoctorPage.info.dTCode = $stateParams.docopt;
+            $scope.DoctorPage.GetDoctorDetail();
+            $scope.SelectInfo.Department.getDepartmentList();
+        }
+        $scope.SelectInfo.Hosptail.getHosptailList();
+    }
+    $scope.Load();
 })
-
-
-////保存
-//$Api.HospitalService.SaveDoctor
-////修改
-//$Api.ManaDocter.GetbizDataDoctorDetail
-//app.base.mybusiness.doctoredit
-//app.base.mybusiness.doctorview  dTCode
