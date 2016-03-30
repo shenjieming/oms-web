@@ -74,9 +74,9 @@ app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         .state("app.my", {
             url: "/my",
             cache: false,
-            templateUrl: "View/User/Information.html?data=" + Timestamp,
+            templateUrl: "View/Base/User/Information.html?data=" + Timestamp,
             controller: "InformationController",
-            loadJs: ["Content/script/app/User/JS_Information.js"],
+            loadJs: ["Content/script/app/BaseApp/User/JS_Information.js"],
             resolve: app.resolve
         })
         .state("app.sys", {

@@ -14,8 +14,8 @@ app.controller("AddressListController", function ($scope, $state, $local, $Api, 
             /// <summary>获取我的地址列表</summary>
             var paramData = $.extend({}, $scope.Pagein);
             console.log(paramData)
-            $Api.MyAddress.GetbizDataMyAddressList(paramData, function (rData) {
-                $scope.AddressList.info = rData.rows;
+            $Api.RepresentativeService.GetDelivery(paramData, function (rData) {
+                $scope.AddressList.info = rData;
                 $scope.Pagein.total = rData.total;
                 console.log(rData)
             })
@@ -102,7 +102,7 @@ app.controller("AddressListController", function ($scope, $state, $local, $Api, 
                 } else {
                     $scope.AddressDetail.Info.isDefaultPerAddressType = "N";
                 }
-                $Api.MyAddress.Save($scope.AddressDetail.Info, function (rData) {
+                $Api.RepresentativeService.SaveAddress($scope.AddressDetail.Info, function (rData) {
                     $MessagService.succ("该信息保存成功！");
                     $scope.AddressList.GetAddressList();
                 })

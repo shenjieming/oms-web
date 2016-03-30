@@ -89,6 +89,7 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                     $(".ui-dialog-buttonset").show();
                 },
                 verification: function () {
+                    /// <summary>验证</summary>
                     var result = true;
                     if (!$scope.Service.AddressDetail.contact) {
                         result = false;
@@ -106,7 +107,7 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                 },
               
                 Save: function () {
-                    console.log($scope.Service.AddressDetail)
+                    /// <summary>保存用户信息</summary>
                     if ($scope.operat.verification()) {
                         $Api.RepresentativeService.SaveAddress($scope.Service.AddressDetail, function (rData) {
                             $MessagService.succ("该信息保存成功！");
@@ -203,6 +204,7 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                 carrierTransType: {
                     dic: new Array(),
                     getcarrierTransTypeList: function () {
+                        /// <summary>运输方式</summary>
                         $Api.Public.GetDictionary({ dictType: "TRANTP" }, function (rData) {
                             $scope.SelectInfo.carrierTransType.dic = rData;
                             console.log(rData)

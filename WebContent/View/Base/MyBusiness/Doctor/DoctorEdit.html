@@ -1,0 +1,173 @@
+﻿<div class="row">
+    <div class="tools">
+        <h5 style="float:left;">医生详情</h5>
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-click="oiPageInfo.Save()"><i class="fa fa-save"></i> 保存</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#PersonalInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>常用信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="PersonalInformation">
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span>医院名称：
+                        <select ng-model="DoctorPage.info.hPCode" ng-change="SelectInfo.Hosptail.change()">
+                            <option value="">请选择医院名称</option>
+                            <option ng-repeat="item in SelectInfo.Hosptail.dic" ng-selected="item.hPCode==DoctorPage.info.hPCode" value="{{item.hPCode}}">{{item.hPName}}</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span class="required">*</span>科室名称&nbsp;：
+                        <select ng-model="DoctorPage.info.wardDeptCode">
+                            <option value="">请选择科室名称</option>
+                            <option ng-repeat="item in SelectInfo.Department.dic" ng-selected="item.wardDeptCode==DoctorPage.info.wardDeptCode" value="{{item.wardDeptCode}}">{{item.wardDeptName}}</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span style="float:left;line-height:25px;">医生归属：</span>
+                        <input type="checkbox" id="checkbox_c999" class="chkbox" ng-checked="DoctorPage.info.CheckIsLocal" ng-model="DoctorPage.info.CheckIsLocal" />
+                        <label for="checkbox_c999" style="float:left"></label>
+                        <span ng-show="DoctorPage.info.CheckIsLocal" style="line-height: 25px;"> 本院医生</span>
+                        <span ng-show="!DoctorPage.info.CheckIsLocal" style="line-height: 25px;">非本院医生</span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span>医生名称：<input type="text" ng-model="DoctorPage.info.oIShortCode" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2" placeholder="请输入医生短编码" />
+                    </label>
+                    <label>
+                        <span class="required">*</span>医生手机号：<input type="text" ng-model="DoctorPage.info.oIShortCode" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="2" placeholder="请输入医生短编码" />
+                    </label>
+                    <label>
+                        <span style="float:left;line-height:25px;">设为默认：</span>
+                        <input type="checkbox" id="checkbox_c998" class="chkbox" ng-checked="DoctorPage.info.CheckIsDefaultDoctorPerUser" ng-model="DoctorPage.info.CheckIsDefaultDoctorPerUser" />
+                        <label for="checkbox_c998" style="float:left"></label>
+                        <span ng-show="DoctorPage.info.CheckIsDefaultDoctorPerUser" style="line-height: 25px;"> 默认医生</span>
+                        <span ng-show="!DoctorPage.info.CheckIsDefaultDoctorPerUser" style="line-height: 25px;">非默认医生</span>
+                    </label>
+                </div>                                              
+                <div class="control-group ">
+                    <label style="width:100%">
+                        <span class="required"></span>关系描述：<input type="text" style="width:80%" ng-model="DoctorPage.info.relDesc" placeholder="请输入医生关系描述" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        <span style="float:left">医生喜好：</span>
+                        <textarea class="box-80" ng-model="DoctorPage.info.dTOperationPreferenceDesc" placeholder="请输入该医生喜好"></textarea>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#RegistrationInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>个人信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="RegistrationInformation">
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span>医生类型：
+                        <span ng-dictionary="PLDTTP" ng-model="DoctorPage.info.dTType"></span>
+                    </label>
+                    <label>
+                        <span class="required">*</span>医生级别：
+                        <span ng-dictionary="PLDTGD" ng-model="DoctorPage.info.dTGrade"></span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        <span class="required">*</span>身份证号：<input type="text" style="width:80%" ng-model="DoctorPage.info.dTIDCard" placeholder="请输入该医生身份证号码" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span>医生性别：
+                        <span ng-dictionary="PRNSEX" ng-model="DoctorPage.info.dTSex"></span>
+                    </label>
+                    <label>
+                        <span class="required">*</span>医生学历：
+                        <span ng-dictionary="PRNEDU" ng-model="DoctorPage.info.dTEducation"></span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        <span class="required">*</span>医生描述：<input type="text" style="width:80%" ng-model="DoctorPage.info.dTDescription" placeholder="请输入该医生描述信息" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        <span style="float:left">医生备注：</span>
+                        <textarea class="box-80" ng-model="DoctorPage.info.dTRemark" placeholder="请输入该医生备注信息"></textarea>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#TopContacts">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>联系信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="TopContacts">
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span>联系电话：<input type="text" ng-model="DoctorPage.info.dTTel" placeholder="请输入该医生联系电话" />
+                    </label>
+                    <label>
+                        <span class="required">*</span>电子邮箱：<input type="text" onkeyup="this.value=this.value.replace(/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/)" ng-model="DoctorPage.info.dTEmail" placeholder="请输入该医生电子邮箱" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span>联系地址：<input type="text" ng-model="DoctorPage.info.dTAddress" placeholder="请输入该医生联系地址" />
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <span>&nbsp;&nbsp;第一联系人信息：</span>
+                </div>
+                <div class="control-group">
+                    <label>
+                        <span class="required">*</span>通讯工具：
+                        <span ng-dictionary="MMICTG" ng-model="DoctorPage.info.DTPMsgType1"></span>
+                    </label>
+                    <label>
+                       通讯号码：<input type="text" ng-model="DoctorPage.info.dTPMsgNo1" placeholder="请输入该联系人通讯号码" />
+                    </label>
+                    <label>
+                        通讯描述：<input type="text" ng-model="DoctorPage.info.dTPMsgDesc1" placeholder="请输入该联系人通讯描述" />
+                    </label>
+                </div>
+                
+                <div class="control-group ">
+                    <span>&nbsp;&nbsp;第二联系人信息：</span>
+                </div>
+                <div class="control-group">
+                    <label>
+                        <span class="required">*</span>通讯工具：
+                        <span ng-dictionary="MMICTG" ng-model="DoctorPage.info.DTPMsgType2"></span>
+                    </label>
+                    <label>
+                        通讯号码：<input type="text" ng-model="DoctorPage.info.dTPMsgNo2" placeholder="请输入该联系人通讯号码" />
+                    </label>
+                    <label>
+                        通讯描述：<input type="text" ng-model="DoctorPage.info.dTPMsgDesc2" placeholder="请输入该联系人通讯描述" />
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tools">
+        <span style="float:right;">
+            <a class="btn btn-primary" ng-click="oiPageInfo.Save()">保存</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+</div>
+
+
+

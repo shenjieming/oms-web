@@ -187,12 +187,30 @@
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         $stateProvider
         .state("app.base.mybusiness.doctor", {
-            /// <summary>我的医院</summary>
+            /// <summary>我的医生列表</summary>
             url: "/doctor",
             cache: false,
             controller: "DoctorListController",
             templateUrl: "View/Base/MyBusiness/Doctor/DoctorList.html?data=" + Timestamp,
             loadJs: ["Content/script/app/BaseApp/MyBusiness/Doctor/JS_DoctorList.js"],
+            resolve: app.resolve
+        })
+        .state("app.base.mybusiness.doctoredit", {
+            /// <summary>我的医生编辑</summary>
+            url: "/doctoredit/:dTCode",
+            cache: false,
+            controller: "DoctorEditController",
+            templateUrl: "View/Base/MyBusiness/Doctor/DoctorEdit.html?data=" + Timestamp,
+            loadJs: ["Content/script/app/BaseApp/MyBusiness/Doctor/JS_DoctorEdit.js"],
+            resolve: app.resolve
+        })
+        .state("app.base.mybusiness.doctorview", {
+            /// <summary>我的医生详情</summary>
+            url: "/doctorview/:dTCode",
+            cache: false,
+            controller: "DoctorViewController",
+            templateUrl: "View/Base/MyBusiness/Doctor/DoctorView.html?data=" + Timestamp,
+            loadJs: ["Content/script/app/BaseApp/MyBusiness/Doctor/JS_DoctorView.js"],
             resolve: app.resolve
         })
     })
@@ -475,17 +493,17 @@
            })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
-    /// <summary>我的产品管理</summary>
-    $stateProvider
-       .state("app.base.business.productmanagement", {
-           /// <summary>我的产品列表</summary>
-           url: "/productmanagement",
-           cache: false,
-           templateUrl: "View/Base/Business/AgentProduct/AgentProductList.html?data=" + Timestamp,
-           controller: "ProductListController",
-           loadJs: ["Content/script/app/BaseApp/Business/AgentProduct/JS_AgentProductList.js"],
-           resolve: app.resolve
-       })
+        /// <summary>我的产品管理</summary>
+        $stateProvider
+           .state("app.base.business.productmanagement", {
+               /// <summary>我的产品列表</summary>
+               url: "/productmanagement",
+               cache: false,
+               templateUrl: "View/Base/Business/AgentProduct/AgentProductList.html?data=" + Timestamp,
+               controller: "ProductListController",
+               loadJs: ["Content/script/app/BaseApp/Business/AgentProduct/JS_AgentProductList.js"],
+               resolve: app.resolve
+           })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         /// <summary>仓库订单路由配置</summary>
