@@ -1,10 +1,65 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
-</head>
-<body>
+﻿<div class="row" ng-controller="BillDetailController">
+    <div class="tools">
+        <h5 style="float:left; font-weight:bold; margin-left:8px;">
+            <i class="fa fa-file-archive-o"></i>
+            计费单管理
+        </h5>
+        <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-click=""><i class="fa fa-save"></i> 提交</a>
+            <a class="btn btn-primary" ng-click=""><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+    <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
+    <div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active" href="#Bill" data-toggle="tab"><a>开始计费</a></li>
+            <li role="presentation" href="#Order" data-toggle="tab"><a>订单详情</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="Bill">
+                <div class="row-fluid">
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" href="#pro_OrderBaseInfo" style="width:80%">订单信息[货主：<span ng-bind="PageData.sOOIOrgCodeName"></span>]</h5>
+                        </div>
+                        <div class="widget-content nopadding collapse in" id="pro_OrderBaseInfo">
+                            <div class="control-group ">
+                                <div class="Vessel">
+                                    订单编号：<span ng-bind=""></span>
+                                </div>
+                                <div class="Vessel">
+                                    下单时间：<span ng-bind=""></span>
+                                </div>
+                                <div class="Vessel">
+                                    订单状态：<span ng-bind=""></span>
+                                </div>
+                            </div>
+                            <div class="control-group ">
+                                <div class="Vessel All">
+                                    收货信息：
+                                    <span ng-bind=""></span>
+                                    <span ng-bind=""></span>
+                                    <span ng-bind=""></span>
+                                    <span ng-bind=""></span>
+                                    <a href="javascript:void(0)"><span ng-bind=""></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-</body>
-</html>
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" href="#pro_OrderBaseInfo" style="width:80%">手术信息</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Order">
+                <div ui-view="Accurate"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
