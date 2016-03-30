@@ -307,6 +307,11 @@ label > input[type='text'], label select {
                         width: 39%;
                     }
 
+                    .row-fluid .widget-box .widget-content .control-group > label.All,
+                    .row-fluid .widget-box .widget-content .control-group > .Vessel.All {
+                        width: 100%;
+                    }
+
                     .row-fluid .widget-box .widget-content .control-group > label .Text,
                     .row-fluid .widget-box .widget-content .control-group > .Vessel .Text {
                         line-height: 35px;

@@ -1,7 +1,7 @@
 ﻿
 app.controller("PendingBillListController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
     /// <summary>计费单管理</summary>
-    console.log("计费管理主程序运行");
+    console.log("计费管理-待计费订单管理");
     $scope.title = "";
     $scope.Integrated = {
         //计费单列表
