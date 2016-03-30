@@ -73,7 +73,7 @@ BMSApiService.factory("$BillFactory", function ($BMSApiFactory, $MessagService) 
         AntiCheck: function (data, callback) {
             /// <summary>计费单反审核</summary>
             $MessagService.loading("计费单取消审核中，请稍等...");
-            $BMSApiFactory.PostApi(BMSPath.BillManage.check, data, callback);
+            $BMSApiFactory.PostApi(BMSPath.BillManage.antiCheck, data, callback);
         },
         Disable: function (data, callback) {
             /// <summary>计费单作废</summary>

@@ -5,11 +5,8 @@
                 <h2 class="pull-left">{{title}}</h2>
                 <span class="btn-group oms-btn-group" style="float:right;">
                     <a class="btn btn-primary" ng-click="PageControl.AddNewBill()"> <i class="fa fa-pencil"></i> 订单计费</a>
-                    <a class="btn btn-primary" ng-click="PageControl.ModifyBill()"> <i class="fa fa-clipboard"></i> 调整计费</a>
-                    <a class="btn btn-primary" ng-click="PageControl.ApprovalBill()"><i class="fa fa-eye"></i> 审批计费</a>
-                    <a class="btn btn-primary" ng-click="PageControl.ViewBill()"><i class="fa fa-align-justify"></i> 计费详情</a>
                 </span>
-                <div class="input-group" style="float:right;width:250px;margin-right:10px;">
+                <div ng-if="false" class="input-group" style="float:right;width:250px;margin-right:10px;">
                     <input type="text" class="form-control" placeholder="请输入计费单号或订单号"
                            style="padding:8px;" ng-model="Pagein.sONo">
                     <a class="input-group-addon" href="javascript:void(0)"><i class="fa fa-search"></i></a>
@@ -18,35 +15,31 @@
 
             <div class="main-box-body clearfix">
                 <div class="table-responsive list-box">
-                    <table class="table table-bordered table-striped" st-table="Integrated.BillList">
+                    <table class="table table-bordered table-striped" st-table="Integrated.OrderList">
                         <thead>
                             <tr>
                                 <th><span>序号</span></th>
-                                <th><span>计费单编号</span></th>
-                                <th><span>医院计费编号</span></th>
                                 <th><span>订单编号</span></th>
                                 <th><span>经销商</span></th>
                                 <th><span>下单医院</span></th>
                                 <th><span>手术医生</span></th>
                                 <th><span>手术时间</span></th>
-                                <th><span>计费人</span></th>
+                                <th><span>下单人</span></th>
+                                <th><span>订单状态</span></th>
                                 <th><span>计费状态</span></th>
-                                <th><span>对账情况</span></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in Integrated.BillList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="PageControl.ViewBillByRow(row)">
+                            <tr ng-repeat="row in Integrated.OrderList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="PageControl.AddNewBillByRow(row)">
                                 <td>{{$index+1}}</td>
-                                <td><span ng-bind="row.hOFNNo"></span></td>
-                                <td><span ng-bind="row.hOFNHospitalNo?hOFNHospitalNo:'-'"></span></td>
                                 <td><span ng-bind="row.sONo"></span></td>
-                                <td><span ng-bind="row.dTCodeName"></span></td>
+                                <td><span ng-bind="row.sOHandleByName"></span></td>
                                 <td><span ng-bind="row.hPCodeName"></span></td>
                                 <td><span ng-bind="row.dTCodeName"></span></td>
                                 <td><span ng-bind="row.operationDate"></span></td>
-                                <td><span ng-bind="row.createByName"></span></td>
+                                <td><span ng-bind="row.sOCreateByName"></span></td>
                                 <td><span ng-bind="row.statusName"></span></td>
-                                <td><span ng-bind="row.recordInHSOAName"></span></td>
+                                <td><span ng-bind="row.hPOPFeeNoteIsRecorded=='Y'?'已计费':'未计费'"></span></td>
                             </tr>
                         </tbody>
                     </table>

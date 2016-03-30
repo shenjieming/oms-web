@@ -466,6 +466,19 @@
                resolve: app.resolve
            })
     })
+//库区管理
+    .config(function($stateProvider,$urlRouterProvider,$requireProvider){
+    $stateProvider
+        .state("app.base.business.whzone",{
+            //<summary>库区列表<summary>
+            url:"/whzone",
+            cache:false,
+            templateUrl:"View/Base/Business/WhZone/WhZoneList.html?data="+Timestamp,
+            controller:"WhZoneListController",
+            loadJs:["Content/script/app/BaseApp/Business/WhZone/JS_WhZoneList.js"],
+            resolve:app.resolve
+        })
+})
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         /// <summary品牌管理</summary>
         $stateProvider
@@ -647,6 +660,7 @@
                 { name: "订单仓库路由管理", url: "#/app/base/business/orderroutingmanagement", state: "app.base.business.orderroutingmanagement" },
                 { name: "代理产品管理", url: "#/app/base/business/productmanagement", state: "app.base.business.productmanagement" },
                 { name: "事件通知管理", url: "#/app/base/business/dlmanagementnotice", state: "app.base.business.dlmanagementnotice" },
+                { name: "库区管理", url: "#/app/base/business/whzone", state: "app.base.business.whzone" },
             ]
         });
         service.push({

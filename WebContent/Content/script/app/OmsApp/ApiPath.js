@@ -352,6 +352,12 @@ var ApiPath = {
         Reservoir: {
             //获取库区列表
             queryAllWhzone: "/v2/bizData/whzone/queryAllWhzone",
+            //库区编辑
+            whZoneEduit:"/v2/bizData/whzone/update",
+            //库区新增
+            whZoneAdd:"/v2/bizData/whzone/insert",
+            //库区删除
+            whZoneDelete:"/v2/bizData/whzone/delete",
         },
         MedJournal: {
             //平台信息列表
