@@ -54,7 +54,18 @@ BmsApp
         $stateProvider
             .state("app.bms.bill.detail", {
                 /// <summary>订单计费管理</summary>
-                url: "/detail/:hOFNNo/:sONo", cache: false, templateUrl: "View/BMS/Bill/Operat/BillDetail.html?data=" + Timestamp, controller: "BillDetailController", loadJs: ["Content/script/app/BmsApp/BillController/OperatController/JS_BillDetail.js"], resolve: app.resolve
+                url: "/detail/:hOFNNo/:sONo", cache: false,
+                views: {
+                    "": {
+                        templateUrl: "View/BMS/Bill/Operat/BillDetail.html?data=" + Timestamp,
+                        controller: "BillInfoController",
+                    },
+                    "Accurate@app.bms.bill.detail": {
+                        templateUrl: "View/OMS/Order/Surgery/View/AccurateView.html?data=" + Timestamp,
+                        controller: "AccurateController",
+                    }
+                },
+                loadJs: ["Content/script/app/BmsApp/BillController/OperatController/JS_BillDetail.js"], resolve: app.resolve
             })
             .state("app.bms.bill.view", {
                 /// <summary>计费单视图管理</summary>

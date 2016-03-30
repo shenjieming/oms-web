@@ -95,7 +95,7 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
 
 
 })
-app.controller("OriginalController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
+app.controller("OriginalController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $OMSSpecially) {
     /// <summary>原始订单控制器</summary>
     $scope.singleProduc = {
         Service: {},
@@ -106,10 +106,10 @@ app.controller("OriginalController", function ($scope, $state, $local, $Api, $Me
         /// <summary>获取数据信息</summary>
         if ($scope.PageData.sONo) {
             $.extend($scope.PageData, {
-                initFile: $scope.file.GetEventMapping($scope.PageData.events, "0001_0011")
+                initFile: $OMSSpecially.File.GetEventMapping($scope.PageData.events, "0001_0011")
             });
             if (!$scope.PageData.initFile.images.length) {
-                $scope.PageData.initFile = $scope.file.GetEventMapping($scope.PageData.events, "0001_0001")
+                $scope.PageData.initFile = $OMSSpecially.File.GetEventMapping($scope.PageData.events, "0001_0001")
             }
 
             $.extend($scope.singleProduc, {
@@ -119,13 +119,13 @@ app.controller("OriginalController", function ($scope, $state, $local, $Api, $Me
     });
 
 })
-app.controller("AccurateController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
+app.controller("AccurateController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $OMSSpecially) {
     /// <summary>精确订单</summary>
     $scope.$watch("PageData.sONo", function () {
         /// <summary>获取数据信息</summary>
         if ($scope.PageData.sONo) {
             $.extend($scope.PageData, {
-                orderFile: $scope.file.GetEventMapping($scope.PageData.events, "0020_0011")
+                orderFile: $OMSSpecially.File.GetEventMapping($scope.PageData.events, "0020_0011")
             });
 
             setTimeout(function () {
@@ -265,7 +265,7 @@ app.controller("LibraryController", function ($scope, $state, $local, $Api, $Mes
         }
     }
 })
-app.controller("SingleController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $AppHelp) {
+app.controller("SingleController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $AppHelp, $OMSSpecially) {
     /// <summary>手术下单下单控制器</summary>
     /*基础对象区域Begion*/
     $scope.sono = $stateParams.sono;//获取订单编号
@@ -333,7 +333,7 @@ app.controller("SingleController", function ($scope, $state, $local, $Api, $Mess
                 $.extend($scope.PageData, rData);
                 $.extend($scope.PageData, {
                     prodLns: rData.initOrderProdlns,
-                    attachments: $scope.file.GetEventMapping(rData.events, "0001_0001")
+                    attachments: $OMSSpecially.File.GetEventMapping(rData.events, "0001_0001")
                 });
             });
         }

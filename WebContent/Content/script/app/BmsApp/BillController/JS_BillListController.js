@@ -56,6 +56,24 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
     /// <summary>分页配置信息对象</summary>
     $scope.Pagein = { pageSize: 10, createDateBegin: null, createDateEnd: null, pageIndex: 1, callbake: function () { $scope.Integrated.GetBillList(); } }
 });
+app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
+    /// <summary>计费单详情</summary>
+    console.log("计费单管理-计费单详情管理");
+    $scope.PageData = {};
 
+    $scope.QueryService = {
+        /// <summary>查询服务</summary>
+        GetOlderInfo: function () {
+            /// <summary>获取订单明细</summary>
+            $BMSApi.PublicInfoService.GetPendingDetail($stateParams, function (orderInfo) {
+                $.extend($scope.PageData, orderInfo);
+            })
+        }
+    }
+
+    if ($stateParams.sONo) {
+        $scope.QueryService.GetOlderInfo();
+    }
+});
 
 
