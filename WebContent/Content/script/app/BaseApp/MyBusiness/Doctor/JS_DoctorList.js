@@ -45,7 +45,7 @@ app.controller("DoctorListController", function ($scope, $state, $local, $Api, $
         View: function () {
             var docopt = $local.getSelectedRow($scope.DoctorList.info)
             if (docopt) {
-                $scope.goView("app.base.mybusiness.doctoredit", { docopt: docopt.dTCode })
+                $scope.goView("app.base.mybusiness.doctorview", { docopt: docopt.dTCode })
             } else {
                 $scope.$MessagService("请选择一条需要编辑的信息")
             }

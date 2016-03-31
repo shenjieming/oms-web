@@ -4,7 +4,7 @@
         <div class="main-box clearfix">
             <header class="main-box-header clearfix">
                 <h2 class="pull-left">我的地址列表</h2>
-                <span style="float:right;">
+                <span class="btn-group oms-btn-group" style="float:right;">
                     <a class="btn btn-primary" ng-click="AddressDetail.ShowAdd({})">新增</a>
                     <a class="btn btn-primary" ng-click="AddressDetail.ShowEdit()">编辑</a>
                     <a class="btn btn-primary" ng-click="AddressView.ShowView()">详情</a>
@@ -98,7 +98,7 @@
                     <option ng-repeat="item in SelectInfo.District.dic" ng-selected="item.divCode==AddressDetail.Info.districtCode" value="{{item.divCode}}">{{item.divName}}</option>
                 </select>
             </div>
-            <div class="col-lg-5" ng-show="AddressList.checkIs">
+            <div class="col-lg-5">
                 <span style="float:left;line-height:25px;">地址默认：</span>
                 <input type="checkbox" id="checkbox_c4" class="chkbox" ng-checked="AddressDetail.Info.checkisDefaultPerAddressType" ng-model="AddressDetail.Info.checkisDefaultPerAddressType" />
                 <label for="checkbox_c4" style="float:left"></label>

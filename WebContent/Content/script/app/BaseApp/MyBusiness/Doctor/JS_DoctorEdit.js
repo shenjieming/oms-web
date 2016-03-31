@@ -54,8 +54,6 @@ app.controller("DoctorEditController", function ($scope, $state, $local, $Api, $
                 $scope.DoctorPage.info = rData;
                 $scope.DoctorPage.info.isDefaultDoctorPerUser = "Y" ? $scope.DoctorPage.info.isDefaultDoctorPerUser = true : $scope.DoctorPage.info.isDefaultDoctorPerUser=false;
                 $scope.DoctorPage.info.isLocal = "LOCAL" ? $scope.DoctorPage.info.CheckIsLocal=true : $scope.DoctorPage.info.CheckIsLocal=false
-                console.log($scope.DoctorPage.info.isDefaultDoctorPerUser)
-                console.log($scope.DoctorPage.info.CheckIsLocal)
             })
         }
     }
@@ -83,8 +81,7 @@ app.controller("DoctorEditController", function ($scope, $state, $local, $Api, $
             getHosptailList: function () {
                 /// <summary>获取医院</summary>
                 $Api.ManaHospital.GetqueryAllHospital({}, function (rData) {
-                    $scope.SelectInfo.Hosptail.dic = rData.rows
-                    console.log(rData)
+                    $scope.SelectInfo.Hosptail.dic = rData.rows         
                 })
             }
         },
@@ -93,8 +90,7 @@ app.controller("DoctorEditController", function ($scope, $state, $local, $Api, $
             getDepartmentList: function () {
                 /// <summary>获取科室</summary>
                 $Api.ManaDepartment.GetbizDataWDList({ hPCode: $scope.DoctorPage.info.hPCode }, function (rData) {
-                    $scope.SelectInfo.Department.dic = rData.rows;
-                    console.log(rData)
+                    $scope.SelectInfo.Department.dic = rData.rows;          
                 })
             }
         }

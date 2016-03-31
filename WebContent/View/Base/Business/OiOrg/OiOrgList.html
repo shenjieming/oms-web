@@ -4,7 +4,7 @@
         <div class="main-box clearfix" ng-slide="!RelManList.IsEdit">
             <header class="main-box-header clearfix">
                 <h2 class="pull-left">货主列表</h2>
-                <span style="float:right;">
+                <span class="btn-group oms-btn-group" style="float:right;">
                     <a class="btn btn-primary" ng-click="Service.Add()">新增</a>
                     <a class="btn btn-primary" ng-click="Service.Edit()">编辑</a>
                     <a class="btn btn-primary" ng-click="Service.View()">详情</a>
@@ -51,8 +51,9 @@
             <div class="main-box clearfix">
                 <header class="main-box-header clearfix">
                     <h2 class="pull-left">[{{relorgCode.oIName}}]关联经销商管理</h2>
-                    <span style="float:right;">
+                    <span class="btn-group oms-btn-group" style="float:right;">
                         <a class="btn btn-primary" ng-click="RelManList.goDlView()">详情</a>
+                        <a class="btn btn-primary" ng-click="Service.isEdit(false)"><i class="fa  fa-reply"></i> 返回</a>
                     </span>
                     <!--<div class="input-group" style="float:right;width:250px;margin-right:50px;">
                         <input type="text" class="form-control" placeholder="请输入经销商编码"
@@ -91,6 +92,7 @@
                     </div>
                     <div ng-pagein="page" ng-model="Pagein"></div>
                     <span class="btn-group oms-btn-group" style="float:right;">
+                        <a class="btn btn-primary" ng-click="RelManList.goDlView()">详情</a>
                         <a class="btn btn-primary" ng-click="Service.isEdit(false)"><i class="fa  fa-reply"></i> 返回</a>
                     </span>
                 </div>
