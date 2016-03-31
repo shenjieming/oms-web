@@ -82,6 +82,7 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                     }
                 },
                 carrierTransType: {
+                    //运输方式
                     dic: new Array(),
                     getcarrierTransTypeList: function () {
                         $Api.Public.GetDictionary({ dictType: "TRANTP" }, function (rData) {
