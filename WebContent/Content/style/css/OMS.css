@@ -321,12 +321,13 @@ input[type='number'] {
                     .row-fluid .widget-box .widget-content .control-group > .Vessel.All {
                         width: 100%;
                     }
-                    .row-fluid .widget-box .widget-content .control-group > label.All .Input,
-                       .row-fluid .widget-box .widget-content .control-group > Vessel.All .Input,
-                    .row-fluid .widget-box .widget-content .control-group > label.Second .Input,
-                    .row-fluid .widget-box .widget-content .control-group > .Vessel.Second .Input{
-                        width: 78%;
-                    }
+
+                        .row-fluid .widget-box .widget-content .control-group > label.All .Input,
+                        .row-fluid .widget-box .widget-content .control-group > .Vessel.All .Input,
+                        .row-fluid .widget-box .widget-content .control-group > label.Second .Input,
+                        .row-fluid .widget-box .widget-content .control-group > .Vessel.Second .Input {
+                            width: 78%;
+                        }
 
                     .row-fluid .widget-box .widget-content .control-group > label .Text,
                     .row-fluid .widget-box .widget-content .control-group > .Vessel .Text {

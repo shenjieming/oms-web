@@ -13,6 +13,14 @@ app.controller("BillDetailController", function ($scope, $state, $local, $BMSApi
         }
     }
 
+    $scope.Service = {
+        /// <summary>计费管理服务</summary>
+        Submit: function () {
+            /// <summary>计费单提交</summary>
+
+        }
+    }
+
 });
 
 

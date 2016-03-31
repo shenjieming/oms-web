@@ -5,8 +5,8 @@
             计费单管理
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
-            <a class="btn btn-primary" ng-click=""><i class="fa fa-save"></i> 提交</a>
-            <a class="btn btn-primary" ng-click=""><i class="fa fa-reply"></i> 返回</a>
+            <a class="btn btn-primary" ng-click="Service.Submit()"><i class="fa fa-save"></i> 提交</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
     <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
@@ -82,14 +82,14 @@
                             </div>
                             <div class="control-group">
                                 <div class="Vessel">
-                                    签字医生：<input type="text" placeholder="请输入签字医生姓名"  />
+                                    签字医生：<input type="text" placeholder="请输入签字医生姓名" />
                                 </div>
                                 <div class="Vessel">
-                                   洗手护士：<input type="text" placeholder="请输入洗手护士姓名" />
+                                    洗手护士：<input type="text" placeholder="请输入洗手护士姓名" />
                                 </div>
-                               <div class="Vessel">
-                                   手术护士：<input type="text" placeholder="请输入手术护士姓名" />
-                               </div>
+                                <div class="Vessel">
+                                    手术护士：<input type="text" placeholder="请输入手术护士姓名" />
+                                </div>
                             </div>
                             <div class="control-group">
                                 <div class="Vessel All">
@@ -108,13 +108,13 @@
                         <div id="PatientInfo" class="widget-content nopadding collapse in">
                             <div class="control-group">
                                 <div class="Vessel">
-                                   患者姓名：<input type="text" placeholder="请输入患者姓名" />
+                                    患者姓名：<input type="text" placeholder="请输入患者姓名" />
                                 </div>
                                 <div class="Vessel">
                                     患者年龄：<input type="number" style="width:80px;" value="40" />
                                 </div>
                                 <div class="Vessel">
-                                   患者性别：<span ng-dictionary="PRNSEX" ng-model="BillData.patientSex"></span>
+                                    患者性别：<span ng-dictionary="PRNSEX" ng-model="BillData.patientSex"></span>
                                 </div>
                             </div>
 
@@ -138,10 +138,36 @@
                                     住院病区：<input type="text" placeholder="请输入患者住院病区" />
                                 </div>
                             </div>
+                            <div class="control-group">
+                                <div class="Vessel">
+                                    住院病房：<input type="text" placeholder="请输入患者病房信息" />
+                                </div>
+                                <div class="Vessel">
+                                    患者病床：<input type="text" placeholder="请输入患者病床信息" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel All" >
+                                    备注信息：<input type="text" class="Input" placeholder="写一些其他相关信息" />
+                                </div>
+                            </div>
                         </div>
                     </div>
 
+                   <div class="widget-box">
+                       <div class="widget-title bg_ly">
+                           <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                           <h5 data-toggle="collapse" style="width:80%;" href="#MaterialsInfo">物资信息</h5>
+                           <a class="btn" href="javascritp:void(0)"><i class="fa fa-folder-open"></i>选择物资</a>
+                       </div>
+                       <div id="MaterialsInfo">
+                           <div ng-bms-materials="" ng-model=""></div>
 
+                           <table >
+
+                           </table>
+                       </div>
+                   </div>
 
                 </div>
             </div>
@@ -150,5 +176,11 @@
             </div>
 
         </div>
+    </div>
+    <div class="tools">
+        <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-click="Service.Submit()"><i class="fa fa-save"></i> 提交</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
     </div>
 </div>
