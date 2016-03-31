@@ -6,52 +6,72 @@
 /// <reference path="../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
-app.directive("ngBmsMaterials", function ($Api, $MessagService, $local) {
+app.directive("ngBmsMaterials", function ($BMSApi, $MessagService, $local) {
     /// <summary>BMS物资选择</summary>  
     return {
         restrict: "EA",
-        templateUrl: "Content/script/app/BaseApp/Directive/ui/ngBmsMaterials.html?data=" + Timestamp,
+        templateUrl: "Content/script/app/BmsApp/Directive/ui/ngBmsMaterials.html?data=" + Timestamp,
         scope: {
-            ngModel: '=',
-            ngOperat: "=",
+            ngBmsMaterials: "=",
         },
         replace: true,
         link: function ($scope, element, attrs) {
             $scope.Service = {
-                MedKits: new Array(),
-                GetMedKits: function () {
-                    /// <summary>获取套件信息</summary>
-                    $Api.MedKitService.GetMedKitList({ oIOrgCode: $scope.ngCargoModel }, function (rData) {
-                        $scope.Service.MedKits = new Array();
-                        $.each(rData.rows, function (index, item) {
-                            $scope.Service.MedKits.push($.extend(item, { reqQty: 0 }));
-                        });
+                /// <summary>物资选择服务</summary>
+                MaterialList: new Array(),
+                //修改的物料列表
+                ChangeList: new Array(),
+                GetMaterialList: function () {
+                    /// <summary>获取物资列表</summary>
+                    $scope.Service.GetChangeMaterials();
+
+                    $BMSApi.BMSBaseService.GetMaterialList($scope.Pagein, function (queryData) {
+                        $scope.Service.MaterialList = queryData.rows;
+                        $scope.Pagein.total = queryData.total;
                     });
                 },
-                GetChangeMedKits: function () {
-                    /// <summary>获取修改数据的套件信息</summary>
-                    var result = new Array();
-                    $.each($scope.Service.MedKits, function (index, item) {
-                        if (item.reqQty > 0) {
-                            result.push(item);
-                        }
-                    })
-                    return result;
+                GetChangeMaterials: function () {
+                    /// <summary>获取修改的物资信息</summary>
+
+                },
+                UpEnter: function (e) {
+                    /// <summary>点击回车事件</summary>
+                    var keycode = window.event ? e.keyCode : e.which;
+                    if (keycode == 13) {
+                        $scope.Pagein.ReLoad();
+                    }
                 }
             }
+
+            $scope.Pagein = {
+                /// <summary>分页信息</summary>
+                pageSize: 20,
+                pageIndex: 1,
+                callbake: function () {
+                    $scope.Service.GetMaterialList();
+                }
+            }
+
+
+
             var modelConfig = {
                 open: function () {
-                    $scope.Service.SearchWhere = "";
-                    $scope.Service.GetMedKits();
+                    /// <summary>弹出层打开事件</summary>
+                    //清空冗余数据
+                    $scope.Service.ChangeList = new Array();
+                    $scope.Service.MaterialList = new Array();
+                    $scope.Pagein.searchValue = "";
+                    $scope.Pagein.ReLoad();
                 },
-                title: "套件选择", width: "99%", position: [0], height: "90%", buttons: {
+                title: "物资选择", width: "100%", position: [0], height: "90%", buttons: {
                     "确定": function () {
-                        var data = $scope.Service.GetChangeMedKits();
+                        $scope.Service.GetChangeMaterials();
+                        var data = $scope.Service.ChangeList;
                         if (data.length) {
                             $scope.ngOperat.fixed(data);
                             $scope.ngOperat.hide();
                         } else {
-                            $MessagService.caveat("请至少添加一份套件...")
+                            $MessagService.caveat("请至少添加一件物资...")
                         }
                     },
                     "关闭": function () {
@@ -59,7 +79,7 @@ app.directive("ngBmsMaterials", function ($Api, $MessagService, $local) {
                     }
                 }
             }
-            $.extend($scope.ngOperat, modelConfig);
+            $.extend($scope.ngBmsMaterials, modelConfig);
         }
     }
 });

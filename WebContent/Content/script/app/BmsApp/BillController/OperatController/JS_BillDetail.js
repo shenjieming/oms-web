@@ -10,6 +10,12 @@ app.controller("BillDetailController", function ($scope, $state, $local, $BMSApi
             fixed: function (doc) {
                 /// <summary>选择医生事件</summary>
             }
+        },
+        MateriaConfig: {
+            /// <summary>物资配置</summary>
+            fixed: function () {
+
+            }
         }
     }
 
