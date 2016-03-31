@@ -11,10 +11,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
     return {
         restrict: "EA",
         templateUrl: "Content/script/app/OmsApp/Directive/ui/ngDoctors.html?data=" + Timestamp,
-        scope: {
-            ngModel: '=',
-            ngOperat: "="
-        },
+        scope: { ngModel: '=', ngOperat: "=" },
         replace: true,
         link: function ($scope, element, attrs) {
             var userInfo = $local.getValue("USER").userInfo;
@@ -23,22 +20,15 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                     "确定": function () {
                         var doctData = $local.getSelectedRow($scope.Service.DoctorsList);
                         if (doctData) {
-                            $scope.$apply(function () {
-                                $scope.ngOperat.fixed(doctData);
-                            });
-                        } else {
-                            $MessagService.caveat("请选择一条医生信息！");
-                        }
+                            $scope.$apply(function () { $scope.ngOperat.fixed(doctData); });
+                        } else { $MessagService.caveat("请选择一条医生信息！"); }
                     },
-                    "关闭": function () {
-                        $scope.ngOperat.hide();
-                    }
+                    "关闭": function () {   $scope.ngOperat.hide();   }
                 },
                 open: function () {
                     $.extend($scope.operat, { isEdit: true, isDetail: false })
                     $scope.Service.GetDoctors();
                     $(".ui-dialog-buttonset").show();
-                    console.log(userInfo)
                     if (userInfo.orgType != "DL") {
                         $scope.operat.Button = false;
                     }
@@ -76,14 +66,10 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                     $scope.operat.isEdit = !$scope.operat.isEdit;
                     $scope.Service.DoctorsDetail = new Object;
                     $(".ui-dialog-buttonset").hide();
-                    if (!$scope.Service.DoctorsDetail.hPCode) {
-                        $scope.SelectInfo.Department.dic = new Array();
-                    }
-                    console.log($scope.Service.DoctorsDetail)
-                    console.log($scope.SelectInfo.Department.dic)
+                    if (!$scope.Service.DoctorsDetail.hPCode) { $scope.SelectInfo.Department.dic = new Array(); }
                     $scope.Service.DoctorsDetail.isLocalCheck = true;
                     $scope.SelectInfo.Doctor.getDoctorList();
-                  
+
                 },
                 ListView: function () {
                     /// <summary>我的医生列表隐藏</summary>
@@ -100,20 +86,8 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                     $(".ui-dialog-buttonset").show();
                 },
                 verification: function () {
-                    var result = true;
-                    if (!$scope.Service.DoctorsDetail.hPCode) {
-                        result = false;
-                        $MessagService.caveat("请维护该医生所在医院！");
-                    }
-                    else if (!$scope.Service.DoctorsDetail.wardDeptCode) {
-                        result = false;
-                        $MessagService.caveat("请维护该医生所在科室！");
-                    }
-                    else if (!$scope.Service.DoctorsDetail.dTName) {
-                        result = false;
-                        $MessagService.caveat("请维护该医生姓名！");
-                    }
-                    return result;
+                    /// <summary>医生添加验证</summary>
+                    var result = true; if (!$scope.Service.DoctorsDetail.hPCode) { result = false; $MessagService.caveat("请选择该医生所在医院！"); } else if (!$scope.Service.DoctorsDetail.wardDeptCode) { result = false; $MessagService.caveat("请选择该医生所在科室！"); } else if (!$scope.Service.DoctorsDetail.dTName) { result = false; $MessagService.caveat("请选择该医生姓名！"); } return result;
                 },
                 Save: function () {
                     if ($scope.operat.verification()) {
@@ -149,19 +123,18 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                 GetDoctors: function () {
                     /// <summary>获取常用医生</summary>
                     console.log($scope.ngModel)
-                    $Api.HospitalService.GetDoctors($scope.ngModel, function (rData) {
-                        $scope.Service.DoctorsList = rData;
-                        console.log(rData)
-                    });
+                    $Api.HospitalService.GetDoctors($scope.ngModel, function (rData) { $scope.Service.DoctorsList = rData.rows; });
                 },
                 DelDoctor: function (data) {
                     /// <summary>删除医生</summary>
-                    var param = { userID: userInfo.userId, dTCode: data.dTCode }
-                    $Api.HospitalService.DeleteDoctors(param, function () {
-                        /// <summary>删除选择删除的医生</summary>
-                        $scope.Service.GetDoctors();
-                    });
-                },
+                    if (confirm("您确认要删除该医生吗？")) {
+                        var param = { userID: userInfo.userId, dTCode: data.dTCode }
+                        $Api.HospitalService.DeleteDoctors(param, function () {
+                            /// <summary>删除选择删除的医生</summary>
+                            $scope.Service.GetDoctors();
+                        });
+                    }
+                }
             };
             $scope.SelectInfo = {
                 Doctor: {

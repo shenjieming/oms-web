@@ -26,6 +26,11 @@ label select {
 label > input[type='text'], label select {
     min-width: 150px;
 }
+
+input[type='number'] {
+    text-align:right;
+}
+
 /*行上边距8像素*/
 .row-mt-8 {
     margin-top: 8px;
@@ -307,10 +312,22 @@ label > input[type='text'], label select {
                         width: 39%;
                     }
 
+                    .row-fluid .widget-box .widget-content .control-group > label.Second,
+                    .row-fluid .widget-box .widget-content .control-group > .Vessel.Second {
+                        width: 59%;
+                    }
+
                     .row-fluid .widget-box .widget-content .control-group > label.All,
                     .row-fluid .widget-box .widget-content .control-group > .Vessel.All {
                         width: 100%;
                     }
+
+                        .row-fluid .widget-box .widget-content .control-group > label.All .Input,
+                        .row-fluid .widget-box .widget-content .control-group > .Vessel.All .Input,
+                        .row-fluid .widget-box .widget-content .control-group > label.Second .Input,
+                        .row-fluid .widget-box .widget-content .control-group > .Vessel.Second .Input {
+                            width: 78%;
+                        }
 
                     .row-fluid .widget-box .widget-content .control-group > label .Text,
                     .row-fluid .widget-box .widget-content .control-group > .Vessel .Text {
