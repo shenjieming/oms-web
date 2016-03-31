@@ -4,11 +4,11 @@
         <div class="main-box clearfix">
             <header class="main-box-header clearfix">
                 <h2 class="pull-left">我的医生列表</h2>
-                <span class="btn-group oms-btn-group" style="float:right;">
-                    <a class="btn btn-primary" ng-click="DoctorJump.Add({})">新增</a>
-                    <a class="btn btn-primary" ng-click="DoctorJump.Edit()">编辑</a>
+                <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="DoctorDetail.ShowAdd({})">新增</a>
+                    <a class="btn btn-primary" ng-click="DoctorDetail.ShowEdit()">编辑</a>
                     <a class="btn btn-primary" ng-click="DoctorDelect()">删除</a>
-                    <!--<a class="btn btn-primary" ng-click="DoctorJump.View()">详情</a>-->
+                    <a class="btn btn-primary" ng-click="DoctorView.ShowView()">详情</a>
                 </span>
             </header>
             <div class="main-box-body clearfix">
@@ -21,7 +21,6 @@
                                 <th><span>科室名称</span></th>
                                 <th><span>医生名称</span></th>
                                 <th><span>医生归属</span></th>
-                                <th><span>是否默认</span></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -31,7 +30,6 @@
                                 <td><span>{{row.wardDeptname}}</span></td>
                                 <td><span>{{row.dTName}}</span></td>
                                 <td><span>{{row.isLocalName}}</span></td>
-                                <td><span>{{row.isDefaultDoctorPerUser=="Y"?"默认":"非默认"}}</span></td>
                             </tr>
                         </tbody>
                     </table>
