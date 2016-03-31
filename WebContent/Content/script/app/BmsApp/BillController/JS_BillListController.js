@@ -60,14 +60,13 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
     /// <summary>计费单详情</summary>
     console.log("计费单管理-计费单详情管理");
     $scope.PageData = {};
+    $scope.BillData = {};
 
     $scope.QueryService = {
         /// <summary>查询服务</summary>
         GetOlderInfo: function () {
             /// <summary>获取订单明细</summary>
-            $BMSApi.PublicInfoService.GetPendingDetail($stateParams, function (orderInfo) {
-                $.extend($scope.PageData, orderInfo);
-            })
+            $BMSApi.PublicInfoService.GetPendingDetail($stateParams, function (orderInfo) { $.extend($scope.PageData, orderInfo); if (!$stateParams.hOFNNo) { $.extend($scope.BillData, orderInfo); } })
         }
     }
 

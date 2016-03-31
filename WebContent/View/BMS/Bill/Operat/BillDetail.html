@@ -21,28 +21,29 @@
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" href="#pro_OrderBaseInfo" style="width:80%">订单信息[货主：<span ng-bind="PageData.sOOIOrgCodeName"></span>]</h5>
+                            <h5 data-toggle="collapse" href="#pro_OrderBaseInfo">订单信息[货主：<span ng-bind="BillData.sOOIOrgCodeName"></span>]</h5>
                         </div>
                         <div class="widget-content nopadding collapse in" id="pro_OrderBaseInfo">
                             <div class="control-group ">
                                 <div class="Vessel">
-                                    订单编号：<span ng-bind=""></span>
+                                    订单编号：<span ng-bind="BillData.sONo"></span>
                                 </div>
                                 <div class="Vessel">
-                                    下单时间：<span ng-bind=""></span>
+                                    下单时间：<span ng-bind="BillData.createDate"></span>
                                 </div>
                                 <div class="Vessel">
-                                    订单状态：<span ng-bind=""></span>
+                                    订单状态：<span ng-bind="BillData.statusName"></span>
                                 </div>
                             </div>
                             <div class="control-group ">
                                 <div class="Vessel All">
                                     收货信息：
-                                    <span ng-bind=""></span>
-                                    <span ng-bind=""></span>
-                                    <span ng-bind=""></span>
-                                    <span ng-bind=""></span>
-                                    <a href="javascript:void(0)"><span ng-bind=""></span></a>
+                                    <span ng-bind="BillData.deliveryProvinceName"></span>
+                                    <span ng-bind="BillData.deliveryCityName"></span>
+                                    <span ng-bind="BillData.deliveryDistrictName"></span>
+                                    <span ng-bind="BillData.deliveryAddress"></span>
+                                    <span ng-bind="BillData.deliveryContact"></span>
+                                    <a href="javascript:void(0)"><span ng-bind="BillData.deliveryrMobile"></span></a>
                                 </div>
                             </div>
                         </div>
@@ -51,9 +52,97 @@
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" href="#pro_OrderBaseInfo" style="width:80%">手术信息</h5>
+                            <h5 data-toggle="collapse" style="width:80%" href="#SurgeryInformation">手术信息</h5>
+                            <a class="btn" ng-click="Module.HospitalConfig.show()"><i class="fa fa-reddit-square"></i> 选择医生</a>
+                        </div>
+                        <div id="SurgeryInformation" class="widget-content nopadding collapse in">
+                            <div class="control-group ">
+                                <label>
+                                    医院名称：<span ng-bind="BillData.hPCode?PageData.hPCodeName:'未选择'"></span>
+                                </label>
+                                <label>
+                                    科室名称：<span ng-bind="BillData.wardDeptCode?PageData.wardDeptCodeName:'未选择'"></span>
+                                </label>
+                                <label>
+                                    医生名称：<span ng-bind="BillData.dTCode?PageData.dTCode:'未选择'"></span>
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel">
+                                    <span class="required">*</span>
+                                    <span class="Text">手术时间：</span>
+                                    <span class="Left" ng-show-data="" ng-model="BillData.operationDate"></span>
+                                </div>
+                                <div class="Vessel">
+                                    手 术 室：<input type="text" placeholder="请输入手术室信息" />
+                                </div>
+                                <div class="Vessel">
+                                    计费单据：<input type="text" placeholder="请输入医院计费单号" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel">
+                                    签字医生：<input type="text" placeholder="请输入签字医生姓名"  />
+                                </div>
+                                <div class="Vessel">
+                                   洗手护士：<input type="text" placeholder="请输入洗手护士姓名" />
+                                </div>
+                               <div class="Vessel">
+                                   手术护士：<input type="text" placeholder="请输入手术护士姓名" />
+                               </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel All">
+                                    诊断信息：<input type="text" class="Input" placeholder="请输入患者诊断信息" />
+                                </div>
+                            </div>
+                            <div ng-doctors="" ng-model="PageData" ng-operat="Module.HospitalConfig"></div>
                         </div>
                     </div>
+
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" href="#PatientInfo">患者信息</h5>
+                        </div>
+                        <div id="PatientInfo" class="widget-content nopadding collapse in">
+                            <div class="control-group">
+                                <div class="Vessel">
+                                   患者姓名：<input type="text" placeholder="请输入患者姓名" />
+                                </div>
+                                <div class="Vessel">
+                                    患者年龄：<input type="number" style="width:80px;" value="40" />
+                                </div>
+                                <div class="Vessel">
+                                   患者性别：<span ng-dictionary="PRNSEX" ng-model="BillData.patientSex"></span>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <div class="Vessel">
+                                    联系电话：<input type="text" placeholder="请输入患者联系电话" />
+                                </div>
+                                <div class="Vessel Second">
+                                    联系地址：<input type="text" class="Input" placeholder="请输入患者联系地址" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel">
+                                    <span class="Text">入院时间：</span>
+                                    <span class="Left" ng-show-data="" ng-model="afsd"></span>
+                                </div>
+                                <div class="Vessel">
+                                    住 院 号：<input type="text" placeholder="请输入患者住院号" />
+                                </div>
+                                <div class="Vessel">
+                                    住院病区：<input type="text" placeholder="请输入患者住院病区" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="Order">
