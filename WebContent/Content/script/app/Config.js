@@ -57,7 +57,10 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
     $scope.goLastPage = function () { $window.history.back(); }
 
     /// <summary>登出</summary>
-    $scope.SignOut = function () { var LoginOut = function () { $local.setValue("USER", null); $scope.goView("login"); }; try { $Api.AccountService.LoginOut({}, LoginOut); } catch (e) { LoginOut(); } }
+    $scope.SignOut = function () {
+        var LoginOut = function () { $local.setValue("USER", null); $scope.goView("login"); };
+        try { $Api.AccountService.LoginOut({}, LoginOut); } catch (e) { LoginOut(); } finally { LoginOut(); }
+    }
     /// <summary>菜单权限控制</summary>
     //判断菜单是否有权限
     $scope.Comp = function (code) { if (ServerConfiguration.IsDevelop) { return true; } else { return JSON.stringify($scope.User.functionInfo).indexOf(code) > -1; } }
