@@ -65,6 +65,6 @@ var BMSPath = {
     Base: {
         /// <summary>基础数据管理</summary>
         //物资列表
-        materiallist: "v1/feeNote/materialList"
+        materiallist: "/v1/feeNote/materialList"
     }
 }
