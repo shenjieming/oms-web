@@ -6,10 +6,10 @@
 /// <reference path="../BMSPath.js" />
 
 var BMSApiService = angular.module('BMSApiService', []);
-BMSApiService.service("$BMSApi", function ($PublicInfoFactory, $BillFactory, $ReconciliationFactory, $InvoiceFactory) {
+BMSApiService.service("$BMSApi", function ($PublicInfoFactory, $BillFactory, $ReconciliationFactory, $InvoiceFactory, $BMSBaseFactory) {
     return {
         //公共信息服务
-        PublicInfoService: $PublicInfoFactory, BillService: $BillFactory, ReconciliationService: $ReconciliationFactory, InvoiceService: $InvoiceFactory
+        PublicInfoService: $PublicInfoFactory, BillService: $BillFactory, ReconciliationService: $ReconciliationFactory, InvoiceService: $InvoiceFactory, BMSBaseService: $BMSBaseFactory
     }
 });
 BMSApiService.factory("$BMSApiFactory", function ($AjaxHelp) {
@@ -17,6 +17,18 @@ BMSApiService.factory("$BMSApiFactory", function ($AjaxHelp) {
     var apiHelp = new $AjaxHelp(ServerConfiguration.BMSPath);
     return apiHelp;
 });
+
+BMSApiService.factory("$BMSBaseFactory", function ($BMSApiFactory, $MessagService) {
+    /// <summary>BMSApi请求服务配置</summary>
+    return {
+        GetMaterialList: function (data, callback) {
+            /// <summary>获取物资列表</summary>
+            $MessagService.loading("物资信息获取中，请稍等...");
+            $BMSApiFactory.PostApi(BMSPath.Base.materiallist, data, callback);
+        }
+    };
+});
+
 BMSApiService.factory("$PublicInfoFactory", function ($BMSApiFactory, $MessagService) {
     /// <summary>公共信息服务</summary>
     return {
