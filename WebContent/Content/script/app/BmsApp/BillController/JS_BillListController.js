@@ -64,14 +64,54 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
 
     $scope.QueryService = {
         /// <summary>查询服务</summary>
-        GetOlderInfo: function () {
+        GetOrderInfo: function () {
             /// <summary>获取订单明细</summary>
-            $BMSApi.PublicInfoService.GetPendingDetail($stateParams, function (orderInfo) { $.extend($scope.PageData, orderInfo); if (!$stateParams.hOFNNo) { $.extend($scope.BillData, orderInfo); } })
+            $BMSApi.PublicInfoService.GetPendingDetail($stateParams, function (orderInfo) {
+                $.extend($scope.PageData, orderInfo);
+                if (!$stateParams.hOFNNo) {
+                    $scope.QueryService.GetBillInfoByOrder(orderInfo);
+                }
+            })
+        },
+        GetBillInfoByOrder: function (orderInfo) {
+            /// <summary>根据订单获取计费单信息</summary>
+            $.extend($scope.BillData, {
+                sONo: orderInfo.sONo,
+                createDate: orderInfo.createDate,
+                statusName: orderInfo.statusName,
+                deliveryProvinceName: orderInfo.deliveryProvinceName,
+                deliveryCityName: orderInfo.deliveryCityName,
+                deliveryDistrictName: orderInfo.deliveryDistrictName,
+                deliveryAddress: orderInfo.deliveryAddress,
+                deliveryContact: orderInfo.deliveryContact,
+                deliveryrMobile: orderInfo.deliveryrMobile,
+                dLOrgCode: orderInfo.soCreateOrgCode,
+                hPCode: orderInfo.hPCode,
+                hPCodeName: orderInfo.hPCodeName,
+                wardDeptCode: orderInfo.wardDeptCode,
+                wardDeptCodeName: orderInfo.wardDeptCodeName,
+                dTCode:orderInfo.dTCode,dTCodeName:orderInfo.dTCodeName,
+                operationDate: orderInfo.operationDate,
+                operationOperationRoom: orderInfo.operationOperationRoom,
+                operationFeedbackRemark: orderInfo.operationFeedbackRemark,
+                patientHPNo: orderInfo.patientHPNo,
+                patientWard: orderInfo.patientWard,
+                patientRoom: orderInfo.patientRoom,
+                patientBedNo: orderInfo.patientBedNo,
+                patientName:orderInfo.patientName,
+                patientSex: orderInfo.patientSex,
+                patientAge: orderInfo.patientAge,
+                patientAddress: orderInfo.patientAddress,
+                patientTel: orderInfo.patientTel,
+                patientRemark: orderInfo.patientRemark,
+                patientDiseaseInfo: orderInfo.patientDiseaseInfo,
+                patientEntryDate: orderInfo.patientEntryDate
+            });
         }
     }
 
     if ($stateParams.sONo) {
-        $scope.QueryService.GetOlderInfo();
+        $scope.QueryService.GetOrderInfo();
     }
 });
 

@@ -10,9 +10,9 @@ OMSApiService
                 /// <summary>用户登陆</summary>
                 $ApiService.PostApi(ApiPath.Account.pcLogin, data, callback);
             },
-            LoginOut: function (data, callback) {
+            LoginOut: function (data, callback, eorr) {
                 /// <summary>用户登出</summary>
-                $ApiService.PostApi(ApiPath.Account.loginOut, data, callback);
+                $ApiService.PostApi(ApiPath.Account.loginOut, data, callback,eorr);
             },
             ModifyPassword: function (data, callback) {
                 /// <summary>修改密码</summary>
