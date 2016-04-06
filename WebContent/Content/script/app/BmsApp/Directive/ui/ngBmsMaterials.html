@@ -1,0 +1,63 @@
+﻿<div>
+    <ng-dialog ng-model="ngBmsMaterials">
+        <div style="display: inline-block; width: 99%; padding: 5px;">
+            <div class="input-group" style="float:right;width:250px;">
+                <input type="text" class="form-control" placeholder="请输入物资编码或物资编号"
+                       style="padding:8px;" ng-model="Pagein.searchValue" ng-keyup="Service.UpEnter($event)">
+                <a class="input-group-addon" href="javascript:void(0)" ng-click="Pagein.ReLoad()()"><i class="fa fa-search"></i></a>
+            </div>
+        </div>
+        <div class="main-box clearfix">
+            <div class="table-responsive" style="height:400px;max-height:400px;min-height:400px; overflow-y:auto">
+                <table class="table table-bordered tab-striped">
+                    <thead>
+                        <tr>
+                            <th><span>序号</span></th>
+                            <th><span>医院物资编码</span></th>
+                            <th><span>耗材名称</span></th>
+                            <th><span>耗材品牌</span></th>
+                            <th><span>规格</span></th>
+                            <th><span>材料</span></th>
+                            <th><span>单价</span></th>
+                            <td title="点击后全部物料添加" ng-click="Service.AddAllQty()">
+                                <span class="selected">
+                                    <a style="color: #436EEE" href="javascript:void(0)">
+                                        <i class="fa fa-check-square"></i> 需求数量
+                                    </a>
+                                </span>
+                            </td>
+                            <th><span>生效期</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-class="{'selected':row.reqQty>0}" ng-dblclick="Service.AddreqQty(row)" ng-repeat="row in Service.MaterialList">
+                            <td>{{$index+1}}</td>
+                            <td>
+                                <span ng-bind="row.dHMedMaterialInternalNo"></span>
+                            </td>
+                            <td>
+                                <span ng-bind="row.medMaterialName"></span>
+                            </td>
+                            <td>
+                                <span ng-bind="row.medMaterialBrandName"></span>
+                            </td>
+                            <td>
+                                <span ng-bind="row.medMaterialSpecification"></span>
+                            </td>
+                            <td><span ng-bind="row.medMaterialMaterials"></span></td>
+                            <td><span ng-bind="'￥'+row.medMaterialPrice"></span></td>
+                            <td>
+                                <input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" /></span>
+                            </td>
+                            <td>
+                                <span ng-bind="Service.GetDayToData(0, row.medMaterialEffectiveDateFrom)"></span>至
+                                <span ng-bind="Service.GetDayToData(0, row.medMaterialEffectiveDateTo)"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-pagein="page" ng-model="Pagein"></div>
+        </div>
+    </ng-dialog>
+</div>

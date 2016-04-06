@@ -1,0 +1,236 @@
+﻿<div class="row" ng-controller="BillDetailController">
+    <div class="tools">
+        <h5 style="float:left; font-weight:bold; margin-left:8px;">
+            <i class="fa fa-file-archive-o"></i>
+            计费单管理
+        </h5>
+        <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-click="Service.Submit()"><i class="fa fa-save"></i> 提交</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+    <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
+    <div ng-doctors="" ng-model="BillData" ng-operat="Module.HospitalConfig"></div>
+    <div ng-bms-materials="Module.MateriaConfig"></div>
+    <div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active" href="#Bill" data-toggle="tab"><a>开始计费</a></li>
+            <li role="presentation" href="#Order" data-toggle="tab"><a>订单详情</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="Bill">
+                <div class="row-fluid">
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" href="#pro_OrderBaseInfo">订单信息[货主：<span ng-bind="BillData.sOOIOrgCodeName"></span>]</h5>
+                        </div>
+                        <div class="widget-content nopadding collapse in" id="pro_OrderBaseInfo">
+                            <div class="control-group ">
+                                <div class="Vessel">
+                                    订单编号：<span ng-bind="BillData.sONo"></span>
+                                </div>
+                                <div class="Vessel">
+                                    下单时间：<span ng-bind="BillData.createDate"></span>
+                                </div>
+                                <div class="Vessel">
+                                    订单状态：<span ng-bind="BillData.statusName"></span>
+                                </div>
+                            </div>
+                            <div class="control-group ">
+                                <div class="Vessel All">
+                                    收货信息：
+                                    <span ng-bind="BillData.deliveryProvinceName"></span>
+                                    <span ng-bind="BillData.deliveryCityName"></span>
+                                    <span ng-bind="BillData.deliveryDistrictName"></span>
+                                    <span ng-bind="BillData.deliveryAddress"></span>
+                                    <span ng-bind="BillData.deliveryContact"></span>
+                                    <a href="javascript:void(0)"><span ng-bind="BillData.deliveryrMobile"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" style="width:80%" href="#SurgeryInformation">手术信息</h5>
+                            <a class="btn" ng-click="Module.HospitalConfig.show()"><i class="fa fa-reddit-square"></i> 选择医生</a>
+                        </div>
+                        <div id="SurgeryInformation" class="widget-content nopadding collapse in">
+                            <div class="control-group">
+                                <div class="Vessel All">
+                                    <span class="required">*</span>
+                                    计费单号：<input type="text" class="Input" ng-model="BillData.hOFNHospitalNo" placeholder="请输入医院计费单号" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel All">
+                                    <span class="required">*</span>
+                                    手术名称：<input type="text" class="Input" ng-model="BillData.operationDesc" placeholder="请输入本次手术的信息" />
+                                </div>
+                            </div>
+                            <div class="control-group ">
+                                <label>
+                                    医院名称：<span ng-bind="BillData.hPCode?BillData.hPCodeName:'未选择'"></span>
+                                </label>
+                                <label>
+                                    科室名称：<span ng-bind="BillData.wardDeptCode?BillData.wardDeptCodeName:'未选择'"></span>
+                                </label>
+                                <label>
+                                    医生名称：<span ng-bind="BillData.dTCode?BillData.dTCodeName:'未选择'"></span>
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel">
+                                    <span class="required">*</span>
+                                    <span class="Text">手术时间：</span>
+                                    <span class="Left" ng-show-data="" ng-model="BillData.operationDate"></span>
+                                </div>
+                                <div class="Vessel">
+                                    手 术 室：<input type="text" placeholder="请输入手术室信息" ng-model="BillData.operationOperationRoom" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel">
+                                    签字医生：<input type="text" placeholder="请输入签字医生姓名" ng-model="BillData.hOFNSignPerson1" />
+                                </div>
+                                <div class="Vessel">
+                                    洗手护士：<input type="text" placeholder="请输入洗手护士姓名" ng-model="BillData.hOFNSignPerson2" />
+                                </div>
+                                <div class="Vessel">
+                                    手术护士：<input type="text" placeholder="请输入手术护士姓名" ng-model="BillData.hOFNSignPerson3" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel All">
+                                    诊断信息：<input type="text" class="Input" ng-model="BillData.patientDiseaseInfo" placeholder="请输入患者诊断信息" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel All">
+                                    反馈信息：<input type="text" class="Input" ng-model="BillData.operationFeedbackRemark" placeholder="请输入本次手术反馈信息" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" href="#PatientInfo">患者信息</h5>
+                        </div>
+                        <div id="PatientInfo" class="widget-content nopadding collapse in">
+                            <div class="control-group">
+                                <div class="Vessel">
+                                    患者姓名：<input type="text" placeholder="请输入患者姓名" ng-model="BillData.patientName" />
+                                </div>
+                                <div class="Vessel">
+                                    患者年龄：<input type="number" style="width:80px;" value="40" ng-model="BillData.patientAge" />
+                                </div>
+                                <div class="Vessel">
+                                    患者性别：<span ng-dictionary="PRNSEX" ng-model="BillData.patientSex"></span>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <div class="Vessel">
+                                    联系电话：<input type="text" placeholder="请输入患者联系电话" ng-model="BillData.patientTel" />
+                                </div>
+                                <div class="Vessel Second">
+                                    联系地址：<input type="text" class="Input" placeholder="请输入患者联系地址" ng-model="BillData.patientAddress" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel">
+                                    <span class="Text">入院时间：</span>
+                                    <span class="Left" ng-show-data="" ng-model="BillData.patientEntryDate"></span>
+                                </div>
+                                <div class="Vessel">
+                                    住 院 号：<input type="text" placeholder="请输入患者住院号" ng-model="BillData.patientHPNo" />
+                                </div>
+                                <div class="Vessel">
+                                    住院病区：<input type="text" placeholder="请输入患者住院病区" ng-model="BillData.patientWard" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel">
+                                    住院病房：<input type="text" placeholder="请输入患者病房信息" ng-model="BillData.patientRoom" />
+                                </div>
+                                <div class="Vessel">
+                                    患者病床：<input type="text" placeholder="请输入患者病床信息" ng-model="BillData.patientBedNo" />
+                                </div>
+                                <div class="Vessel" ng-if="false">
+                                    患者费用：<span ng-bind="'未计费'"></span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel All">
+                                    备注信息：<input type="text" class="Input" placeholder="写一些关于患者的其他相关信息" ng-model="BillData.patientRemark" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" style="width:80%;" href="#MaterialsInfo">物资信息</h5>
+                            <a class="btn" href="javascritp:void(0)" ng-click="Module.MateriaConfig.show()"><i class="fa fa-folder-open"></i>选择物资</a>
+                        </div>
+                        <div id="MaterialsInfo" class="widget-content nopadding collapse in">
+                            <div ng-show="BillData.detail.length>0" class="main-box-body clearfix" style="padding: 15px; max-height: 450px; overflow: auto; width: 100%;">
+                                <div class="table-responsive">
+                                    <table style="width:1400px; min-width:100%; max-width:2000px;" class="table table-bordered tab-striped" st-table="BillData.detail" st-safe-src="rowCollection">
+                                        <thead>
+                                            <tr>
+                                                <th><span>医院物资编码</span></th>
+                                                <th><span>耗材名称</span> </th>
+                                                <th><span>耗材品牌</span> </th>
+                                                <th><span>规格 </span> </th>
+                                                <th><span>材料</span> </th>
+                                                <th><span>使用批次</span> </th>
+                                                <th><span>计费数量</span></th>
+                                                <th><span>耗材单价</span></th>
+                                                <th><span>患者单价(+5%)</span></th>
+                                                <th><span>有效日期</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="row in BillData.detail">
+                                                <td><input type="text" ng-model="row.dHMedMaterialInternalNo" placeholder="请输入医院物资编码" /></td>
+                                                <td><input type="text" ng-model="row.dHMMName" placeholder="请输入物资名称" /></td>
+                                                <td><span ng-bind="row.medMaterialBrandName"></span> </td>
+                                                <td><input type="text" ng-model="row.dHMMSpecification" placeholder="请输入物资规格" /> </td>
+                                                <td><input type="text" ng-model="row.dHMMMaterials"  placeholder="请输入物资材料"/></td>
+                                                <td><input type="text" ng-model="row.lotSerial"  placeholder="请输入物资批次"/></td>
+                                                <td><input type="number" ng-model="row.qty" style="width:60px;" placeholder="请输入计费数量" /></td>
+                                                <td><input type="number" ng-model="row.hPUnitEstPrice" ng-change="Service.Compute.HpUnitEstPrice(row)" placeholder="请输入耗材单价" onclick="this.select()" style="width:100px;" /></td>
+                                                <td><input type="number" ng-model="row.patientUnitEstPrice" onclick="this.select()" style="width:100px;" placeholder="请输入销售单价" /></td>
+                                                <td><span ng-bind="row.medMaterialEffectiveDateFrom"></span></td>
+                                             </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="control-group " ng-if="!BillData.detail.length>0">
+                                <label style="width:100%;color:red;" ng-click="Module.MateriaConfig.show()">请选择计费物资  </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Order">
+                <div ui-view="Accurate"></div>
+            </div>
+
+        </div>
+    </div>
+    <div class="tools">
+        <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-click="Service.Submit()"><i class="fa fa-save"></i> 提交</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+</div>
