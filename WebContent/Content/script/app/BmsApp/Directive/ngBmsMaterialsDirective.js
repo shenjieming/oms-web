@@ -27,7 +27,7 @@ app.directive("ngBmsMaterials", function ($BMSApi, $MessagService, $local, $AppH
                 },
                 GetChangeMaterials: function () {
                     /// <summary>获取修改的物资信息</summary>
-                    $.each($scope.Service.MaterialList, function (index, data) { var flg = true; $.each($scope.Service.ChangeList, function (i, changeData) { if (data.dHMedMaterialInternalNo == changeData.dHMedMaterialInternalNo) { changeData.reqQty = data.reqQty; return true; } }); if (flg) { $scope.Service.ChangeList.push(data); } });
+                    $.each($scope.Service.MaterialList, function (index, data) { if (data.reqQty > 0) { var flg = true; $.each($scope.Service.ChangeList, function (i, changeData) { if (data.dHMedMaterialInternalNo == changeData.dHMedMaterialInternalNo) { changeData.reqQty = data.reqQty; flg = false; return false; } }); if (flg) { $scope.Service.ChangeList.push(data); } } });
                 },
                 UpEnter: function (e) {
                     /// <summary>点击回车事件</summary>
@@ -65,14 +65,7 @@ app.directive("ngBmsMaterials", function ($BMSApi, $MessagService, $local, $AppH
                 },
                 title: "物资选择", width: "100%", position: [0], height: "90%", buttons: {
                     "确定": function () {
-                        $scope.Service.GetChangeMaterials();
-                        var data = $scope.Service.ChangeList;
-                        if (data.length) {
-                            $scope.ngBmsMaterials.fixed(data);
-                            $scope.ngBmsMaterials.hide();
-                        } else {
-                            $MessagService.caveat("请至少添加一件物资...")
-                        }
+                        $scope.Service.GetChangeMaterials(); var data = $scope.Service.ChangeList; if (data.length) { $scope.$apply(function () { $scope.ngBmsMaterials.fixed(data); }); $scope.ngBmsMaterials.hide(); } else { $MessagService.caveat("请至少添加一件物资...") }
                     },
                     "关闭": function () {
                         $scope.ngBmsMaterials.hide();

@@ -69,7 +69,19 @@ BmsApp
             })
             .state("app.bms.bill.view", {
                 /// <summary>计费单视图管理</summary>
-                url: "/view/:hOFNNo", cache: false, templateUrl: "View/BMS/Bill/View/BillView.html?data=" + Timestamp, controller: "BillViewController", loadJs: ["Content/script/app/BmsApp/BillController/OperatController/JS_BillView.js"], resolve: app.resolve
+                url: "/view/:hOFNNo",
+                cache: false,
+                views: {
+                    "": {
+                        templateUrl: "View/BMS/Bill/View/BillView.html?data=" + Timestamp,
+                        controller: "BillInfoController",
+                    },
+                    "Accurate@app.bms.bill.view": {
+                        templateUrl: "View/OMS/Order/Surgery/View/AccurateView.html?data=" + Timestamp,
+                        controller: "AccurateController",
+                    }
+                },
+                loadJs: ["Content/script/app/BmsApp/BillController/OperatController/JS_BillView.js"], resolve: app.resolve
             })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
