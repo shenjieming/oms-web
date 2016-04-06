@@ -13,35 +13,45 @@
                     <thead>
                         <tr>
                             <th><span>序号</span></th>
-                            <th><span>物料编码</span></th>
-                            <th><span>物料名称</span></th>
-                            <th><span>物料类型</span></th>
-                            <th><span>物料规格</span></th>
-                            <th ng-show="Pagein.categoryByPlatform=='TOOL'"><span>通用类型</span></th>
-                            <td title="点击后全部物料添加" ng-click="Service.AddAllQty()"><span class="selected"><a style="color: #436EEE" href="javascript:void(0)"><i class="fa fa-check-square"></i>需求数量</a></span> </td>
+                            <th><span>医院物资编码</span></th>
+                            <th><span>耗材名称</span></th>
+                            <th><span>耗材品牌</span></th>
+                            <th><span>规格</span></th>
+                            <th><span>材料</span></th>
+                            <th><span>单价</span></th>
+                            <td title="点击后全部物料添加" ng-click="Service.AddAllQty()">
+                                <span class="selected">
+                                    <a style="color: #436EEE" href="javascript:void(0)">
+                                        <i class="fa fa-check-square"></i> 需求数量
+                                    </a>
+                                </span>
+                            </td>
+                            <th><span>生效期</span></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-class="{'selected':row.reqQty>0}" ng-dblclick="Service.AddreqQty(row)" ng-repeat="row in Service.MaterialList">
                             <td>{{$index+1}}</td>
                             <td>
-                                <span ng-bind="row.medMICode"></span>
+                                <span ng-bind="row.dHMedMaterialInternalNo"></span>
                             </td>
                             <td>
-                                <span ng-bind="row.medMIName"></span>
+                                <span ng-bind="row.medMaterialName"></span>
                             </td>
                             <td>
-                                <span ng-bind="row.categoryByPlatformName"></span>
+                                <span ng-bind="row.medMaterialBrandName"></span>
                             </td>
                             <td>
-                                <span ng-bind="row.specification"></span>
+                                <span ng-bind="row.medMaterialSpecification"></span>
                             </td>
-                            <td ng-show="Pagein.categoryByPlatform=='TOOL'">
-                                <span ng-bind="row.applyCommonTypeName"></span>
-                            </td>
-
+                            <td><span ng-bind="row.medMaterialMaterials"></span></td>
+                            <td><span ng-bind="'￥'+row.medMaterialPrice"></span></td>
                             <td>
-                                <input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" /> <span ng-bind="row.medMIUnitName"></span>
+                                <input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" /></span>
+                            </td>
+                            <td>
+                                <span ng-bind="Service.GetDayToData(0, row.medMaterialEffectiveDateFrom)"></span>至
+                                <span ng-bind="Service.GetDayToData(0, row.medMaterialEffectiveDateTo)"></span>
                             </td>
                         </tr>
                     </tbody>
