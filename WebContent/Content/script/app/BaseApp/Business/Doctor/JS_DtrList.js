@@ -28,12 +28,7 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
         //服务层开启
         SelectInfo: function () {
             /// <summary>下拉框接口集合</summary>
-            $scope.SelectInfo.dTGrade.getdTGradeList();
-            $scope.SelectInfo.dTEducation.getdTEducationList();
-            $scope.SelectInfo.dTSex.getdTSexList();
             $scope.SelectInfo.Hosptail.getHosptailList();
-            $scope.SelectInfo.DTPMsgType1.getDTPMsgType1List();
-            $scope.SelectInfo.DTPMsgType2.getDTPMsgType2List();
         },
         SelectButton: function () {
             $scope.SelectButton.Hosptail.getHosptailList();
@@ -53,10 +48,12 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
         Delect: function () {
             var row = row ? row : $local.getSelectedRow($scope.DoctorList.info)
             if (row) {
-                $Api.ManaDocter.GetbizDataDoctorDisable({ dTCode: row.dTCode }, function () {
-                    $MessagService.succ("该信息删除成功！");
-                    $scope.DoctorList.GetDoctorList();
-                })
+                if (confirm("您确认要删除当前医生吗?")) {
+                    $Api.ManaDocter.GetbizDataDoctorDisable({ dTCode: row.dTCode }, function () {
+                        $MessagService.succ("该医生删除成功！");
+                        $scope.DoctorList.GetDoctorList();
+                    })
+                } 
             } else {
                 $MessagService.caveat("请选择一条删除的医生信息！");
             }
@@ -219,50 +216,6 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
                 }
             }
         },
-        dTGrade: {
-            //医生级别
-            dic: [],
-            getdTGradeList: function () {
-                /// <summary>获取医生级别</summary>
-                $Api.Public.GetDictionary({ dictType: "PLDTGD" }, function (rData) {
-                    $scope.SelectInfo.dTGrade.dic = rData;
-                });
-            }
-        },
-        dTEducation: {
-            //医生学历
-            dic: [],
-            getdTEducationList: function () {
-                /// <summary>获取医生学历</summary>
-                $Api.Public.GetDictionary({ dictType: "PRNEDU" }, function (rData) {
-                    $scope.SelectInfo.dTEducation.dic = rData;
-                });
-            }
-        },
-        dTSex: {
-            //医生性别
-            dic: [],
-            getdTSexList: function () {
-                /// <summary>获取医生学历</summary>
-                $Api.Public.GetDictionary({ dictType: "PRNSEX" }, function (rData) {
-                    $scope.SelectInfo.dTSex.dic = rData;
-                });
-            }
-        },
-        DTPMsgType1: {
-            getDTPMsgType1List: function () {
-                $Api.Public.GetDictionary({ dictType: "PMSGTP" }, function (rData) {
-                    $scope.SelectInfo.DTPMsgType1.dic = rData;
-                })
-            }
-        },
-        DTPMsgType2: {
-        getDTPMsgType2List: function () {
-            $Api.Public.GetDictionary({ dictType: "PMSGTP" }, function (rData) {
-                $scope.SelectInfo.DTPMsgType2.dic = rData;
-            })
-        }
-    }
     }
     $scope.buttonList = {
         isLocal: function () {

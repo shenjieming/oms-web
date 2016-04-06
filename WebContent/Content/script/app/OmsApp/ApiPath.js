@@ -56,6 +56,8 @@ var ApiPath = {
             //订单取消
             cancel: "/v2/common/order/cancel"
         },
+        //订单状态
+        findOrderStatus:"/v2/common/order/findOrderStatus", 
         Sign: {
             /// <summary>订单签收</summary>
             //订单签收

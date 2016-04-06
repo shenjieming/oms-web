@@ -49,13 +49,15 @@ app.controller("HplListController", function ($scope, $state, $local, $Api, $Mes
             $scope.HospitalList.info = row ? row : $scope.getSelectedRow();
             console.log($scope.HospitalList.info)
             if ($scope.HospitalList.info) {
-                $Api.ManaHospital.GetdeleteHospital($scope.HospitalList.info, function (rData) {
-                    $MessagService.caveat("该医院删除成功!")                 
-                })
+                if (confirm("您确认要删除当前医院吗?")) {
+                    $Api.ManaHospital.GetdeleteHospital($scope.HospitalList.info, function (rData) {
+                        $MessagService.caveat("该医院删除成功!")
+                    })
+                }       
             } else {
                 $MessagService.caveat("请选择一条数据!")
             }
-            $scope.HospitalList.GetHospitalList(t);
+            $scope.HospitalList.GetHospitalList();
         },
         DepartMentList: function () {
             var dptopt = $local.getSelectedRow($scope.HospitalList.info)

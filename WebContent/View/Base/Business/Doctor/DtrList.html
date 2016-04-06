@@ -4,7 +4,7 @@
         <div class="main-box clearfix" ng-slide="!DoctorList.IsView&&!DoctorList.IsEdit">
             <header class="main-box-header clearfix">
                 <h2 class="pull-left">医生列表</h2>
-                <span style="float:right;">
+                <span class="btn-group oms-btn-group" style="float:right;">
                     <a class="btn btn-primary" ng-click="DoctorJump.Add()">新增</a>
                     <a class="btn btn-primary" ng-click="DoctorJump.Delect()">删除</a>
                     <a class="btn btn-primary" ng-click="DoctorJump.Edit()">编辑</a>
@@ -15,14 +15,16 @@
                            style="padding:8px;" ng-model="DoctorJump.SearchWhere" ng-keyup="DoctorJump.UpEnter($event)">
                     <a class="input-group-addon" href="javascript:void(0)" ng-click="DoctorJump.QueryDLList()"><i class="fa fa-search"></i></a>
                 </div>-->
-                <div class="input-group" style="float: right; margin-right: 10px;">
-                    <select ng-change="DoctorJump.SelectDepartment()" ng-model="DoctorList.wardDeptCode">
+                <div class="input-group" style="float: right; margin-right: 30px;">
+                    科室名称：
+                    <select ng-change="DoctorJump.SelectDepartment()" ng-model="DoctorList.wardDeptCode" style="height:35px;">
                         <option value="">请选择科室</option>
                         <option ng-repeat="item in SelectButton.Department.dic" value="{{item.wardDeptCode}}">{{item.wardDeptName}}</option>
                     </select>
                 </div>
-                <div class="input-group" style="float: right; margin-right: 10px;">
-                    <select ng-change="DoctorJump.SelectHostptail()" ng-model="DoctorList.hPCode">
+                <div class="input-group" style="float: right; margin-right: 30px;">
+                    医院名称：
+                    <select ng-change="DoctorJump.SelectHostptail()" ng-model="DoctorList.hPCode" style=" height:35px">
                         <option value="">请选择医院</option>
                         <option ng-repeat="item in SelectButton.Hosptail.dic" value="{{item.hPCode}}">{{item.hPName}}</option>
                     </select>
@@ -64,7 +66,7 @@
         </div>
         <div ng-slide="DoctorList.IsEdit" style="display:none;">
             <div class="tools">
-                <span style="float:right;">
+                <span class="btn-group oms-btn-group" style="float:right;">
                     <a class="btn btn-primary" ng-click="DoctorJump.Save()"><i class="fa fa-pencil"></i> 保存</a>
                     <a class="btn btn-primary" ng-click="DoctorJump.isEdit(false)"><i class="fa  fa-reply"></i> 返回</a>
                 </span>
@@ -73,7 +75,7 @@
                 <div class="widget-box">
                     <div class="widget-title bg_ly" data-toggle="collapse" href="#DepartmentInformation">
                         <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                        <h5>医生信息</h5>
+                        <h5>常用信息</h5>
                     </div>
                     <div class="widget-content nopadding collapse in" id="DepartmentInformation">
                         <div class="control-group ">
@@ -91,21 +93,6 @@
                                     <option ng-repeat="item in SelectInfo.Department.dic" ng-selected="item.wardDeptCode==DoctorDetail.Info.wardDeptCode" value="{{item.wardDeptCode}}">{{item.wardDeptName}}</option>
                                 </select>
                             </label>
-                            <label>
-                                科室编码：{{DoctorDetail.Info.wardDeptCode}}
-                            </label>
-                        </div>
-                        <div class="control-group ">
-                            <label>
-                                <span class="required">*</span>医生姓名：<input type="text" placeholder="请输入医生姓名" ng-model="DoctorDetail.Info.dTName" />
-                            </label>
-                            <label>
-                                <span class="required">*</span>医生级别：
-                                <select ng-model="DoctorDetail.Info.dTGrade">
-                                    <option value="">请选择医生级别</option>
-                                    <option ng-repeat="item in SelectInfo.dTGrade.dic" ng-selected="item.id==DoctorDetail.Info.dTGrade" value="{{item.id}}">{{item.text}}</option>
-                                </select>
-                            </label>
                             <label ng-show="buttonList.isLocal">
                                 <span style="float:left;line-height:25px;">医生归属：</span>
                                 <input type="checkbox" id="checkbox_c999" class="chkbox" ng-checked="DoctorDetail.Info.isLocalCheck" ng-model="DoctorDetail.Info.isLocalCheck" />
@@ -116,38 +103,50 @@
                         </div>
                         <div class="control-group ">
                             <label>
-                                <span class="required">*</span>工作编号：<input type="text" placeholder="请输入工作编号" ng-model="DoctorDetail.Info.dTIDCard" />
+                                <span class="required">*</span>医生姓名：<input type="text" placeholder="请输入医生姓名" ng-model="DoctorDetail.Info.dTName" />
                             </label>
-                            <label>
-                                <span class="required">*</span>医生性别：
-                                <select ng-model="DoctorDetail.Info.dTSex">
-                                    <option value="">请选择性别</option>
-                                    <option ng-repeat="item in SelectInfo.dTSex.dic" ng-selected="item.id==DoctorDetail.Info.dTSex" value="{{item.id}}">{{item.text}}</option>
-                                </select>
-                            </label>
-                            <label>
-                                医生邮箱：<input type="text" placeholder="请输入医生邮箱" ng-model="DoctorDetail.Info.dTEmail" />
-                            </label>
-
-                        </div>
-                        <div class="control-group ">
                             <label>
                                 医生手机：<input type="text" placeholder="请输入医生手机" ng-model="DoctorDetail.Info.dTMobile" />
                             </label>
                             <label>
-                                <span class="required">*</span>医生学历：
-                                <select ng-model="DoctorDetail.Info.dTEducation" ng-change="SelectInfo.dTEducation.change(item)">
-                                    <option value="">请选择学历</option>
-                                    <option ng-repeat="item in SelectInfo.dTEducation.dic" ng-selected="item.id==DoctorDetail.Info.dTEducation" value="{{item.id}}">{{item.text}}</option>
-                                </select>
-                            </label>
-                            <label>
-                                医生电话：<input type="text" placeholder="请输入医生电话" ng-model="DoctorDetail.Info.dTTel" />
+                                组织名称：<span ng-bind="User.userInfo.orgName"></span> 
                             </label>
                         </div>
                         <div class="control-group ">
                             <label style="width:100%">
-                                医生地址：<input type="text" style="width:80%"  placeholder="请输入医生地址" ng-model="DoctorDetail.Info.dTAddress" />
+                                <span style="float:left">医生需求：</span>
+                                <textarea class="box-80" ng-model="DoctorDetail.Info.dTOperationPreferenceDesc" placeholder="请输入医生需求"></textarea>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget-box">
+                    <div class="widget-title bg_ly" data-toggle="collapse" href="#PersonInformation">
+                        <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                        <h5>个人信息</h5>
+                    </div>
+                    <div class="widget-content nopadding collapse in" id="PersonInformation">
+                        <div class="control-group ">
+                            <label>
+                                <span class="required">*</span>医生类型：<span ng-dictionary="PLDTTP" ng-model="DoctorDetail.Info.dTType"></span>
+                            </label>
+                            <label>
+                                <span class="required">*</span>医生级别：<span ng-dictionary="PLDTGD" ng-model="DoctorDetail.Info.dTGrade"></span>
+                            </label>
+
+                        </div>
+                        <div class="control-group ">
+                            <label style="width:100%">
+                                <span class="required">*</span>身份证号：<input type="text" style="width:80%" placeholder="请输入身份证号" ng-model="DoctorDetail.Info.dTIDCard" />
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label>
+                                <span class="required">*</span>医生性别：<span ng-dictionary="PRNSEX" ng-model="DoctorDetail.Info.dTSex"></span>
+                            </label>
+                            <label>
+                                <span class="required">*</span>医生学历：<span ng-dictionary="PRNEDU" ng-model="DoctorDetail.Info.dTEducation"></span>
                             </label>
                         </div>
                         <div class="control-group ">
@@ -155,12 +154,6 @@
                                 医生描述：<input type="text" style="width:80%" placeholder="请输入描述信息" ng-model="DoctorDetail.Info.dTDescription" />
                             </label>
                         </div>
-                        <div class="control-group ">
-                            <label style="width:100%">
-                                <span style="float:left">医生喜好：</span>
-                                <textarea class="box-80" ng-model="DoctorDetail.Info.dTOperationPreferenceDesc" placeholder="请输入医生喜好"></textarea>
-                            </label>
-                        </div>                       
                         <div class="control-group ">
                             <label style="width:100%">
                                 <span style="float:left">医生备注：</span>
@@ -176,52 +169,63 @@
                     </div>
                     <div class="widget-content nopadding collapse in" id="TopContacts">
                         <div class="control-group ">
+                            <label>
+                                联系电话：<input type="text" placeholder="请输入医生联系电话" ng-model="DoctorDetail.Info.dTTel" />
+                            </label>
+                            <label>
+                                电子邮箱：<input type="text" placeholder="请输入医生电子邮箱" ng-model="DoctorDetail.Info.dTEmail" />
+                            </label>
+                        </div>
+                        <div class="control-group">
+                            <label style="width:100%">
+                                联系地址：<input type="text" placeholder="请输入医生联系地址" ng-model="DoctorDetail.Info.dTAddress" style="width:80%" />
+                            </label>
+                        </div>
+                        <div class="control-group ">
                             <span>&nbsp;&nbsp;第一联系人信息：</span>
                         </div>
                         <div class="control-group">
                             <label>
-                                通讯工具：
-                                <select ng-model="DoctorDetail.Info.DTPMsgType1" style="min-width:140px">
-                                    <option value="">请选择通讯工具</option>
-                                    <option ng-repeat="item in SelectInfo.DTPMsgType1.dic" ng-selected="item.id==DoctorDetail.Info.DTPMsgType1" value="{{item.id}}">{{item.text}}</option>
-                                </select>
+                                通讯工具：<span ng-dictionary="PMSGTP" ng-model="DoctorDetail.Info.dTPMsgType1"></span>
                             </label>
                             <label style="width:67%">
-                                通讯号码：<input type="text" style="width:80%" ng-model="DoctorDetail.Info.DTPMsgNo1" placeholder="请输入第一联系人通讯号码" />
+                                通讯号码：<input type="text" style="width:72%" ng-model="DoctorDetail.Info.dTPMsgNo1" placeholder="请输入第一联系人通讯号码" />
                             </label>
                         </div>
                         <div class="control-group">
-                            <label  style="width:100%">
-                                通讯号描述：<input type="text" style="width:80%" placeholder="请输入通讯号描述" ng-model="DoctorDetail.Info.DTPMsgDesc1" />
-                            </label>                           
+                            <label style="width:100%">
+                                通讯号描述：<input type="text" style="width:80%" placeholder="请输入通讯号描述" ng-model="DoctorDetail.Info.dTPMsgDesc1" />
+                            </label>
                         </div>
                         <div class="control-group ">
                             <span>&nbsp;&nbsp;第二联系人信息：</span>
                         </div>
                         <div class="control-group">
                             <label>
-                                通讯工具：
-                                <select ng-model="DoctorDetail.Info.DTPMsgType2" style="min-width:140px">
-                                    <option value="">请选择通讯工具</option>
-                                    <option ng-repeat="item in SelectInfo.DTPMsgType2.dic" ng-selected="item.id==DoctorDetail.Info.DTPMsgType2" value="{{item.id}}">{{item.text}}</option>
-                                </select>
+                                通讯工具：<span ng-dictionary="PMSGTP" ng-model="DoctorDetail.Info.dTPMsgType2"></span>
                             </label>
                             <label style="width:67%">
-                               通讯号码：<input type="text" style="width:72%" ng-model="DoctorDetail.Info.DTPMsgNo2" placeholder="请输入第二联系人通讯号码" />
+                                通讯号码：<input type="text" style="width:72%" ng-model="DoctorDetail.Info.dTPMsgNo2" placeholder="请输入第二联系人通讯号码" />
                             </label>
                         </div>
                         <div class="control-group">
                             <label style="width:100%">
-                                通讯号描述：<input type="text" style="width:80%" placeholder="请输入通讯号描述" ng-model="DoctorDetail.Info.DTPMsgDesc2" />
-                            </label> 
+                                通讯号描述：<input type="text" style="width:80%" placeholder="请输入通讯号描述" ng-model="DoctorDetail.Info.dTPMsgDesc2" />
+                            </label>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="tools">
+                <span class="btn-group oms-btn-group" style="float:right;">
+                    <a class="btn btn-primary" ng-click="DoctorJump.Save()"><i class="fa fa-pencil"></i> 保存</a>
+                    <a class="btn btn-primary" ng-click="DoctorJump.isEdit(false)"><i class="fa  fa-reply"></i> 返回</a>
+                </span>
+            </div>
         </div>
         <div ng-slide="DoctorList.IsView" style="display:none;">
             <div class="tools">
-                <span style="float:right;">
+                <span class="btn-group oms-btn-group" style="float:right;">
                     <a class="btn btn-primary" ng-click="DoctorJump.isView(false)"><i class="fa  fa-reply"></i> 返回</a>
                 </span>
             </div>
@@ -229,75 +233,76 @@
                 <div class="widget-box">
                     <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
                         <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                        <h5>医生信息</h5>
+                        <h5>常用信息</h5>
                     </div>
                     <div class="widget-content nopadding collapse in" id="BaseInformation">
 
                         <div class="control-group ">
                             <label>
-                                医院名称：{{DoctorView.Info.hPCodeName}}
+                                医院名称：<span ng-bind="DoctorView.Info.hPCodeName"></span> 
                             </label>
                             <label>
-                                科室名称：{{DoctorView.Info.wardDeptCodeName}}
+                                科室名称：<span ng-bind="DoctorView.Info.wardDeptCodeName"></span>  
                             </label>
                             <label>
-                                科室编码：{{DoctorView.Info.wardDeptCodeName}}
-                            </label>
-                        </div>
-                        <div class="control-group ">
-                            <label>
-                                医生姓名：{{DoctorView.Info.dTName}}
-                            </label>
-                            <label>
-                                医生级别：{{DoctorView.Info.dTGradeName}}
-                            </label>
-                            <label>
-                                医生归属：{{DoctorView.Info.isLocal=="LOCAL"?"本院":"非本院"}}
+                                医生归属：<span ng-bind="DoctorView.Info.isLocalName"></span>
                             </label>
                         </div>
                         <div class="control-group ">
                             <label>
-                                工作编号：{{DoctorView.Info.dTIDCard}}
+                                医生姓名：<span ng-bind="DoctorView.Info.dTName"></span> 
                             </label>
                             <label>
-                                医生性别：{{DoctorView.Info.dTSexName}}
+                                医生手机：<span ng-bind="DoctorView.Info.dTMobile"></span> 
                             </label>
                             <label>
-                                医生邮箱：{{DoctorView.Info.dTEmail}}
-                            </label>
-                        </div>
-                        <div class="control-group ">
-                            <label>
-                                医生手机：{{DoctorView.Info.dTMobile}}
-                            </label>
-                            <label>
-                                医生学历：{{DoctorView.Info.dTEducationName}}
-                            </label>
-                            <label>
-                                医生电话：{{DoctorView.Info.dTTel}}
+                                组织名称：<span ng-bind="DoctorView.Info.dLOrgCodeName"></span> 
                             </label>
                         </div>
                         <div class="control-group ">
                             <label style="width:100%">
-                                医生地址：{{DoctorView.Info.dTAddress}}
+                                医生需求：<span ng-bind="DoctorView.Info.dTOperationPreferenceDesc"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-box">
+                    <div class="widget-title bg_ly" data-toggle="collapse" href="#PersonView">
+                        <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                        <h5>个人信息</h5>
+                    </div>
+                    <div class="widget-content nopadding collapse in" id="PersonView">
+                        <div class="control-group ">
+                            <label>
+                                医生类型：<span ng-bind="DoctorView.Info.dTType"></span>
+                            </label>
+                            <label>
+                                医生级别：<span ng-bind="DoctorView.Info.dTGradeName"></span> 
                             </label>
                         </div>
                         <div class="control-group ">
                             <label style="width:100%">
-                                医生描述：{{DoctorView.Info.dTRemark}}
+                                工作编号：<span ng-bind="DoctorView.Info.dTIDCard"></span> 
+                            </label>
+                        </div>
+                        <div class="control-group ">
+                            <label>
+                                医生性别：<span ng-bind="DoctorView.Info.dTSexName"></span>
+                            </label>
+                            <label>
+                                医生学历：<span ng-bind="DoctorView.Info.dTEducationName"></span>
                             </label>
                         </div>
                         <div class="control-group ">
                             <label style="width:100%">
-                                医生喜好：{{DoctorView.Info.dTOperationPreferenceDesc}}
+                                医生描述：<span ng-bind="DoctorView.Info.dTRemark"></span>
                             </label>
                         </div>
                         <div class="control-group ">
                             <label style="width:100%">
-                                医生备注：{{DoctorView.Info.dTRemark}}
+                                医生备注：<span ng-bind="DoctorView.Info.dTRemark"></span> 
                             </label>
                         </div>
-                  
                     </div>
                 </div>
                 <div class="widget-box">
@@ -307,39 +312,55 @@
                     </div>
                     <div class="widget-content nopadding collapse in" id="TopContacts">
                         <div class="control-group ">
-                            <span>&nbsp;&nbsp;第一联系人信息：</span>
-                        </div>
-                        <div class="control-group ">
                             <label>
-                                通讯工具：{{DoctorView.Info.DTPMsgType1}}
+                                联系电话：<span ng-bind="DoctorView.Info.dTTel"></span> 
                             </label>
-                            <label style="width:67%">
-                                通讯号码：{{DoctorView.Info.DTPMsgNo1}}
-                            </label>
-                        </div>
-                        <div class="control-group ">
-                            <label style="width:100%">
-                                通讯号描述：{{DoctorView.Info.DTPMsgDesc1}}
-                            </label>
-                        </div>
-                        <div class="control-group ">
-                            <span>&nbsp;&nbsp;第二联系人信息：</span>
-                        </div>
-                        <div class="control-group ">
                             <label>
-                                通讯工具：{{DoctorView.Info.DTPMsgType2}}
+                                电子邮箱：<span ng-bind="DoctorView.Info.dTEmail"></span> 
                             </label>
-                            <label style="width:67%">
-                                通讯号码：{{DoctorView.Info.DTPMsgNo2}}
-                            </label>
-                        </div>
-                        <div class="control-group ">
-                            <label style="width:100%">
-                                通讯号描述：{{DoctorView.Info.DTPMsgDesc2}}
+                            <label>
+                                联系地址：<span ng-bind="DoctorView.Info.dTAddress"></span> 
                             </label>
                         </div>
-                    </div>
+                            <div class="control-group ">
+                                <span>&nbsp;&nbsp;第一联系人信息：</span>
+                            </div>
+                            <div class="control-group ">
+                                <label>
+                                    通讯工具：<span ng-bind="DoctorView.Info.dTPMsgType1Name"></span> 
+                                </label>
+                                <label style="width:67%">
+                                    通讯号码：<span ng-bind="DoctorView.Info.dTPMsgNo1"></span> 
+                                </label>
+                            </div>
+                            <div class="control-group ">
+                                <label style="width:100%">
+                                    通讯号描述：<span ng-bind="DoctorView.Info.dTPMsgDesc1"></span> 
+                                </label>
+                            </div>
+                            <div class="control-group ">
+                                <span>&nbsp;&nbsp;第二联系人信息：</span>
+                            </div>
+                            <div class="control-group ">
+                                <label>
+                                    通讯工具：<span ng-bind="DoctorView.Info.dTPMsgType2Name"></span> 
+                                </label>
+                                <label style="width:67%">
+                                    通讯号码：<span ng-bind="DoctorView.Info.dTPMsgNo2"></span> 
+                                </label>
+                            </div>
+                            <div class="control-group ">
+                                <label style="width:100%">
+                                    通讯号描述：<span ng-bind="DoctorView.Info.dTPMsgDesc2"></span> 
+                                </label>
+                            </div>
+                        </div>
                 </div>
+            </div>
+            <div class="tools">
+                <span class="btn-group oms-btn-group" style="float:right;">
+                    <a class="btn btn-primary" ng-click="DoctorJump.isView(false)"><i class="fa  fa-reply"></i> 返回</a>
+                </span>
             </div>
         </div>
     </div>

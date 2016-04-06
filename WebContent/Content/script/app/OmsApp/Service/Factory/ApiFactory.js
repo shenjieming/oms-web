@@ -1,9 +1,7 @@
-﻿OMSApiService
+OMSApiService
     .factory("$ApiService", function ($local, $AjaxHelp) {
         /// <summary>OMSApi请求服务配置</summary>
-        var userData = $local.getValue("USER");
-        var apiHelp = new $AjaxHelp(ServerConfiguration.OMSPath, userData);
-        return apiHelp;
+        var apiHelp = new $AjaxHelp(ServerConfiguration.OMSPath); return apiHelp;
     })
     .factory("$AccountService", function ($MessagService, $ApiService) {
         /// <summary>账户操作服务管理</summary>
@@ -11,6 +9,10 @@
             Login: function (data, callback) {
                 /// <summary>用户登陆</summary>
                 $ApiService.PostApi(ApiPath.Account.pcLogin, data, callback);
+            },
+            LoginOut: function (data, callback, eorr) {
+                /// <summary>用户登出</summary>
+                $ApiService.PostApi(ApiPath.Account.loginOut, data, callback,eorr);
             },
             ModifyPassword: function (data, callback) {
                 /// <summary>修改密码</summary>
@@ -284,6 +286,10 @@
     .factory("$SurgeryService", function ($MessagService, $ApiService) {
         /// <summary>手术订单服务</summary>
         return {
+            findOrderStatus: function (data, callback) {
+                /// <summary>获取订单状态</summary>
+                $ApiService.PostApi(ApiPath.Surgery.findOrderStatus, data, callback);
+            },
             Save: function (data, callback) {
                 /// <summary>手术订单保存</summary>
                 $MessagService.loading("手术订单保存中，请稍等...");
@@ -301,7 +307,7 @@
             },
             Cancel: function (data, callback) {
                 $MessagService.loading("订单取消中，请稍等...");
-                service.Post(ApiPath.Surgery.Approval.cancel, data, callback);
+                $ApiService.PostApi(ApiPath.Surgery.Approval.cancel, data, callback);
             },
             Sign: {
                 /// <summary>订单签收</summary>

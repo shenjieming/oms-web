@@ -21,13 +21,15 @@ app.controller("FactureListController", function ($scope, $state, $local, $Api, 
         Delet: function (row) {
             $scope.FactureList.info = row ? row : $scope.getSelectedRow();
             if ($scope.FactureList.info) {
-                $Api.BusinessData.MedManuFacture.GetDeleteMedManuFacture($scope.FactureList.info, function (rData) {
-                    $MessagService.caveat("该厂商删除成功!")
-                    $scope.FactureList.GetFactureList();
-                })
+                if (confirm("您确认要删除当前厂商吗?")) {
+                    $Api.BusinessData.MedManuFacture.GetDeleteMedManuFacture($scope.FactureList.info, function (rData) {
+                        $MessagService.caveat("该厂商删除成功!")
+                    })
+                }           
             } else {
                 $MessagService.caveat("请选择一条数据!")
             }
+            $scope.FactureList.GetFactureList();
         }
     }
 

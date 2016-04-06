@@ -4,16 +4,27 @@
         <div class="main-box clearfix">
             <header class="main-box-header clearfix">
                 <h2 class="pull-left">品牌列表</h2>
-                <span style="float:right;">
+                <span class="btn-group oms-btn-group" style="float:right;">
                     <a class="btn btn-primary" ng-click="BrandDetailAdd.ShowAdd({})">新增</a>
                     <a class="btn btn-primary" ng-click="BrandDetail.ShowEdit()">编辑</a>
                     <a class="btn btn-primary" ng-click="BrandDelet()">删除</a>
                     <a class="btn btn-primary" ng-click="BrandView.ShowView()">详情</a>
                 </span>
+                <div class="input-group" style="float: right; margin-right: 30px;">
+                    物料品牌：
+                    <select ng-change="BrandList.Brand.GetBrandList()" ng-model="BrandList.medBrandCode" style="height: 35px; min-width: 140px">
+                        <option value="">请选择品牌</option>
+                        <option ng-repeat="item in BrandList.SearchBrand.dic" value="{{item.medBrandCode}}">{{item.medBrandName}}</option>
+                    </select>
+                </div>
+                <div class="input-group" style="float: right; margin-right: 30px;">
+                    物料厂商：
+                    <select ng-change="BrandList.Facture.Change()" ng-model="BrandList.medMnfcCode" style="height:35px;min-width:140px">
+                        <option value="">请选择厂商</option>
+                        <option ng-repeat="item in BrandList.Facture.dic" value="{{item.id}}">{{item.text}}</option>
+                    </select>
+                </div>                
             </header>
-            <div class="col-lg-3" style=" height:auto; max-height: 480px; overflow-y: auto; ">
-                <div ng-tree="" ng-setting="tree.setting" ng-data="tree.data" ng-model="tree.obj"></div>
-            </div>
             <div class="main-box-body clearfix">
                 <div class="table-responsive list-box" style="min-height:450px">
                     <table class="table table-bordered table-striped" st-table="BrandList.info">
@@ -51,7 +62,11 @@
         <div class="row">
             <div class="col-lg-1"></div>
             <div class="col-lg-5">
-                厂家名称：{{BrandDetail.Info.medMnfcCodeName}}
+                <span class="required">*</span>厂商名称：
+                <select ng-model="BrandDetail.Info.medMnfcCode">
+                    <option value="">请选择厂商</option>
+                    <option ng-repeat="item in BrandList.Facture.dic" value="{{item.id}}">{{item.text}}</option>
+                </select>
             </div>
             <div class="col-lg-5">
                 <span class="required">*</span>品牌名称：<input type="text" ng-model="BrandDetail.Info.medBrandName" placeholder="请输入品牌名称" />
@@ -101,7 +116,11 @@
         <div class="row">
             <div class="col-lg-1"></div>
             <div class="col-lg-5">
-                厂家名称：{{BrandDetailAdd.Info.medMnfcCodeName}}
+                <span class="required">*</span>厂商名称：
+                <select ng-model="BrandDetailAdd.Info.medMnfcCode">
+                    <option value="">请选择厂商</option>
+                    <option ng-repeat="item in BrandList.Facture.dic" value="{{item.id}}">{{item.text}}</option>
+                </select>
             </div>
             <div class="col-lg-5">
                 <span class="required">*</span>品牌名称：<input type="text" ng-model="BrandDetailAdd.Info.medBrandName" placeholder="请输入品牌名称" />
