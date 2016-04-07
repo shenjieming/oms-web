@@ -92,7 +92,10 @@ OmsApp
                 /// <summary>物料追加</summary>
                 url: "/fback/:sono", cache: false, views: { "": { templateUrl: "View/OMS/Order/Surgery/Feedback.html?data=" + Timestamp, controller: "OrderViewController" }, "Original@app.oms.order.fback": { templateUrl: "View/OMS/Order/Surgery/View/SingleView.html?data=" + Timestamp, controller: "OriginalController" }, "Accurate@app.oms.order.fback": { templateUrl: "View/OMS/Order/Surgery/View/AccurateView.html?data=" + Timestamp, controller: "AccurateController", }, "Library@app.oms.order.fback": { templateUrl: "View/OMS/Order/Surgery/View/LibraryView.html?data=" + Timestamp, controller: "LibraryController" } }, authenticate: true, viewAuth: true
             })
-
+            .state("app.oms.order.preview",{
+                ///<summary>下单预览<summary>
+                url:"",cache:false, templateUrl:"View/OMS/Order/Surgery/OrderPreview.html?data=" + Timestamp, controller:"OrderViewController",
+            })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         /// <summary>备货订单列表管理</summary>
@@ -125,6 +128,7 @@ OmsApp
                 /// <summary>备货订单出库单查询</summary>
                 url: "/delivery",  cache: false,  templateUrl: "View/OMS/Order/Stock/IntegratedStockList.html?data=" + Timestamp,   resolve: app.resolve
             })
+
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         /// <summary>备货订单管理</summary>
