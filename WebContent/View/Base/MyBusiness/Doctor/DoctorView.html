@@ -1,0 +1,147 @@
+﻿<div class="row">
+    <div class="tools">
+        <h5 style="float:left;">医生详情</h5>
+        <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#PersonalInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>常用信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="PersonalInformation">
+                <div class="control-group ">
+                    <label>
+                        医院名称：<span ng-bind="DoctorView.info.hPCodeName"></span>
+                    </label>
+                    <label>
+                        科室名称：<span ng-bind="DoctorView.info.wardDeptCodeName"></span>
+                    </label>
+                    <label>
+                        医生归属：<span ng-bind="DoctorView.info.isLocalName"></span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        医生名称:<span ng-bind="DoctorView.info.dTName"></span>
+                    </label>
+                    <label>
+                        医生号码：<span ng-bind="DoctorView.info.dTMobile"></span>
+                    </label>
+                    <label>
+                        设为默认:<span ng-bind="DoctorView.info.isDefaultDoctorPerUserName"></span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        关系描述:<span ng-bind="DoctorView.info.relDesc"></span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        医生喜好:<span ng-bind="DoctorView.info.dTOperationPreferenceDesc"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#RegistrationInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>个人信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="RegistrationInformation">
+                <div class="control-group ">
+                    <label>
+                        医生类型：<span ng-bind="DoctorView.info.dTType"></span>
+                    </label>
+                    <label>
+                        医生级别：<span ng-bind="DoctorView.info.dTGrade"></span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        身份证号：<span ng-bind="DoctorView.info.dTIDCard"></span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        医生性别：<span ng-bind="DoctorView.info.dTSex"></span>
+                    </label>
+                    <label>
+                        医生学历：<span ng-bind="DoctorView.info.dTEducation"></span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        医生描述：<span ng-bind="DoctorView.info.dTDescription"></span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        医生备注:<span ng-bind="DoctorView.info.dTRemark"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#TopContacts">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>联系信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="TopContacts">
+                <div class="control-group ">
+                    <label>
+                        联系电话：<span ng-bind="DoctorView.info.dTTel"></span>
+                    </label>
+                    <label>
+                        电子邮箱：<span ng-bind="DoctorView.info.dTEmail"></span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        联系地址：<span ng-bind="DoctorView.info.dTAddress"></span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <span>&nbsp;&nbsp;第一联系人信息：</span>
+                </div>
+                <div class="control-group">
+                    <label>
+                        通讯工具：<span ng-bind="DoctorView.info.dTPMsgType1"></span>
+                    </label>
+                    <label>
+                        通讯号码：<span ng-bind="DoctorView.info.dTPMsgNo1"></span>
+                    </label>
+                    <label>
+                        通讯描述：<span ng-bind="DoctorView.info.dTPMsgDesc1"></span>
+                    </label>
+                </div>
+
+                <div class="control-group ">
+                    <span>&nbsp;&nbsp;第二联系人信息：</span>
+                </div>
+                <div class="control-group">
+                    <label>
+                        通讯工具：<span ng-bind="DoctorView.info.dTPMsgType2"></span>
+                    </label>
+                    <label>
+                        通讯号码：<span ng-bind="DoctorView.info.dTPMsgNo2"></span>
+                    </label>
+                    <label>
+                        通讯描述：<span ng-bind="DoctorView.info.dTPMsgDesc2"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tools">
+        <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+</div>
+
+
+

@@ -4,10 +4,10 @@
             <header class="main-box-header clearfix">
                 <h2 class="pull-left">{{title}}</h2>
                 <span class="btn-group oms-btn-group" style="float:right;">
-                    <a class="btn btn-primary"> <i class="fa fa-pencil"></i> 订单计费</a>
-                    <a class="btn btn-primary"> <i class="fa fa-clipboard"></i> 调整计费</a>
-                    <a class="btn btn-primary"><i class="fa fa-eye"></i> 审批计费</a>
-                    <a class="btn btn-primary"><i class="fa fa-align-justify"></i> 计费详情</a>
+                    <a class="btn btn-primary" ng-click="PageControl.AddNewBill()"> <i class="fa fa-pencil"></i> 订单计费</a>
+                    <a class="btn btn-primary" ng-click="PageControl.ModifyBill()"> <i class="fa fa-clipboard"></i> 调整计费</a>
+                    <a class="btn btn-primary" ng-click="PageControl.ApprovalBill()"><i class="fa fa-eye"></i> 审批计费</a>
+                    <a class="btn btn-primary" ng-click="PageControl.ViewBill()"><i class="fa fa-align-justify"></i> 计费详情</a>
                 </span>
                 <div class="input-group" style="float:right;width:250px;margin-right:10px;">
                     <input type="text" class="form-control" placeholder="请输入计费单号或订单号"
@@ -35,7 +35,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in Integrated.BillList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                            <tr ng-repeat="row in Integrated.BillList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="PageControl.ViewBillByRow(row)">
                                 <td>{{$index+1}}</td>
                                 <td><span ng-bind="row.hOFNNo"></span></td>
                                 <td><span ng-bind="row.hOFNHospitalNo?hOFNHospitalNo:'-'"></span></td>

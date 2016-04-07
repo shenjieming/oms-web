@@ -25,11 +25,11 @@ AjaxService.factory("$AjaxHelp", function ($http, $rootScope, $local, $MessagSer
             },
             Exception: function (data, callback) {
                 /// <summary>请求异常处理</summary>
-                console.log(data); switch (data.code) { case 1001: case "1001": $MessagService.eorr("网络异常,错误编码：" + data.code + "！"); break; case 2001: case "2001": $MessagService.eorr("您没有访问的权限！"); break; case 3001: case "3001": $MessagService.eorr("请确认您的必输项是否完整！"); break; case 4001: case "4001": $MessagService.eorr("用户信息失效，请重新登录！"); $state.go("login"); break; case 1: case "1": $MessagService.eorr(data.msg + "！"); break; case 0: case "0": callback(data.info); $MessagService.hide(1000); break; default: $MessagService.eorr("网络异常,错误编码：" + data.code + data.info + "，请联系管理员！"); }
+                console.log(data); switch (data.code) { case 1001: case "1001": $MessagService.eorr("网络异常,错误编码：" + data.code + "！"); break; case 2001: case "2001": $MessagService.eorr("您没有访问的权限！"); break; case 3001: case "3001": $MessagService.eorr("请确认您的必输项是否完整！"); break; case 4001: case "4001": $MessagService.eorr("用户信息失效，请重新登录！"); $local.setValue("USER", null); $state.go("login"); break; case 1: case "1": $MessagService.eorr(data.msg + "！"); break; case 0: case "0": callback(data.info); $MessagService.hide(1000); break; default: $MessagService.eorr("网络异常,错误编码：" + data.code + data.info + "，请联系管理员！"); }
             },
             Eorr: function (data, callback) {
                 /// <summary>报错处理</summary>
-                switch (data.status) { case 404: $MessagService.eorr(data.status + "错误：找不到请求的服务器，请联系网络管理员！"); break; case 400: $MessagService.eorr(data.status + "错误：无效的请求，请联系网络管理员！"); break; case 0: $MessagService.eorr(data.status + "错误：无权限的请求，请联系网络管理员！"); break; default: $MessagService.eorr(data.status + "错误：未捕获的异常，请联系网络管理员！"); break; } if (callback) { callback(data); }
+                console.log(data);switch (data.status) { case 404: $MessagService.eorr(data.status + "错误：找不到请求的服务器，请联系网络管理员！"); break; case 400: $MessagService.eorr(data.status + "错误：无效的请求，请联系网络管理员！"); break; case 0: $MessagService.eorr(data.status + "错误：无权限的请求，请联系网络管理员！"); break; default: $MessagService.eorr(data.status + "错误：未捕获的异常，请联系网络管理员！"); break; } if (callback) { callback(data); }
             }
         }
 
@@ -46,6 +46,7 @@ AjaxService.factory("$AjaxHelp", function ($http, $rootScope, $local, $MessagSer
                     privateObjects.Eorr(responseData, error);
                 }
             });
+
         }
 
         this.GetApi = function (url, data, success, error) {
@@ -63,8 +64,7 @@ AjaxService.factory("$AjaxHelp", function ($http, $rootScope, $local, $MessagSer
 
         this.FromApi = function (url, data, success, error) {
             /// <summary>附件上传</summary>
-            var user = $local.getValue("USER");
-            data.token = user.token;
+            var user = $local.getValue("USER"); data.token = user.token;
             $.ajax({
                 type: "POST", url: privateObjects.GetQueryUrl(url), dataType: 'json', data: data, crossDomain: true, success: function (responseData, textStatus, jqXHR) {
                     /// <summary>请求完毕</summary>

@@ -120,7 +120,7 @@ app.controller("MedKitListController", function ($scope, $state, $local, $Api, $
             $Api.MedKitService.Save($scope.Detail.PageData, function () {
                 $MessagService.succ("套件保存成功！");
                 $scope.MedKit.GetMedKitList();
-                $scope.Service.isEdit(false);
+                $scope.Service.isEdit(false);   
             });
         }
     }

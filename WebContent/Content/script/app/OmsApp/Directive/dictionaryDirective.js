@@ -9,30 +9,5 @@
 var Dictionary = new Object();
 app.directive("ngDictionary", function ($Api, $MessagService) {
     /// <summary>字典标签</summary>
-    return {
-        restrict: "EA",
-        templateUrl: "Content/script/app/OmsApp/Directive/ui/ngDictionary.html?data=" + Timestamp,
-        scope: {
-            ngModel: '='
-        },
-        replace: true,
-        link: function ($scope, element, attrs) {
-            $scope.Dictionary = new Array();
-
-            if (Dictionary[attrs.ngDictionary]) {
-                $scope.Dictionary = Dictionary[attrs.ngDictionary];
-            }
-            else {
-                $Api.Public.GetDictionary({ dictType: attrs.ngDictionary }, function (data) {
-                    $scope.Dictionary = data;
-                    Dictionary[attrs.ngDictionary] = data;
-                    //if (!$scope.ngModel) {//设置选择项的默认值
-                    //    $scope.ngModel = data[data.length - 1].id;
-                    //}
-                });
-            }
-
-
-        }
-    };
+    return { restrict: "EA", templateUrl: "Content/script/app/OmsApp/Directive/ui/ngDictionary.html?data=" + Timestamp, scope: { ngModel: '=' }, replace: true, link: function ($scope, element, attrs) { $scope.Dictionary = new Array(); if (Dictionary[attrs.ngDictionary]) { $scope.Dictionary = Dictionary[attrs.ngDictionary]; } else { $Api.Public.GetDictionary({ dictType: attrs.ngDictionary }, function (data) { $scope.Dictionary = data; Dictionary[attrs.ngDictionary] = data; }); } } };
 });

@@ -49,10 +49,13 @@ app.controller("DlOrgListController", function ($scope, $state, $local, $Api, $M
         Delect: function () {
             var dlopt = $local.getSelectedRow($scope.DlOrgList.info);
             if (dlopt) {
-                $Api.ManageDl.GetdeleteDealer({ orgCode: dlopt.orgCode }, function (rData) {
-                    $MessagService.succ("该信息删除成功");
-                    $scope.DlOrgList.GetDlOrgList();
-                })
+                if (confirm("您确认要删除当前经销商吗?")) {
+                    $Api.ManageDl.GetdeleteDealer({ orgCode: dlopt.orgCode }, function (rData) {
+                        $MessagService.succ("该经销商删除成功");
+                        $scope.DlOrgList.GetDlOrgList();
+                    })
+                }
+           
             } else {
                 $MessagService.caveat("请选择一条删除的经销商");
             }   

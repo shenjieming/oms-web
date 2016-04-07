@@ -50,7 +50,7 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
                     /// <summary>点击tree后的事件</summary>
                     $scope.Pagein.pageIndex = 1;//当前数据分页从第一页开始
                     $scope.Material.options = treeNode.options;//获取当前节点的条件
-                    $scope.Material.GetList();//数据读取
+                    $scope.Material.GetZtreeList();//数据读取
                 }
             }
         },
@@ -87,7 +87,7 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
         },
         QueryMaterialList: function () {
             /// <summary>查询物料列表</summary>
-            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1 });
+            $scope.Pagein = $.extend($scope.Pagein, { searchValue:$scope.Pagein.searchValue });
             $scope.Material.GetList();
         },
         UpEnter: function (e) {
@@ -105,6 +105,16 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
         IsEdit: false,
         MaterialList: new Array(),
         MedManuFactureList:new Array(),
+        GetZtreeList: function () {
+            /// <summary>获取物料列表</summary>
+            $MessagService.loading("物料列表获取中，请稍等...");
+            var options = $.extend($scope.Material.options, $scope.Pagein);//条件合并
+            $Api.MaterialsService.GetMaterialsList(options, function (rData) {
+                $scope.Pagein.total = rData.total;//分页控件获取当前数据请求的总页数
+                $scope.Material.MaterialList = rData.rows;
+                console.log(rData)
+            });
+        },
         GetList: function () {
             /// <summary>获取物料列表</summary>
             $MessagService.loading("物料列表获取中，请稍等...");
@@ -142,4 +152,5 @@ app.controller("MaterialController", function ($scope, $state, $local, $Api, $Me
     }
 
     $scope.Service.PageLoad();
+    $scope.Material.GetList();
 });

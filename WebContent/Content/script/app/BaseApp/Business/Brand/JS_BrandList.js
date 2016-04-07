@@ -10,88 +10,60 @@
 app.controller("BrandListController", function ($scope, $state, $local, $Api, $MessagService) {
 
     /// <summary>品牌列表</summary>
-    $scope.tree = {
-        setting: {
-            callback: {
-                beforeExpand: true,
-                onExpand: function (event, treeId, treeNode) {
-                    /// <summary>tree查询子节点</summary>
-                    console.log($scope.tree.data)
-                    if (!treeNode.reNode) {
-                        treeNode.reNode = true;
-                        treeNode.Subset(treeNode.options, function (rData) {
-                            /// <summary>子集数据查询</summary>
-                            var nodeList = new Array();
-                            for (var i = 0; i < rData.rows.length; i++) {
-                                var node = {
-                                    id: rData.rows[i].medMnfcCode, name: rData.rows[i].medMnfcCodeName
-                                };
-                                node.options = { medMnfcCode: rData.rows[i].medMnfcCode, medMnfcCodeName:rData.rows[i].medMnfcCodeName };
-                                nodeList.push(node);
-                            }
-                            $scope.tree.obj.addNodes(treeNode, nodeList);
-                        });
-                    }
-                },
-                onClick: function (event, treeId, treeNode) {
-                    /// <summary>点击tree后的事件</summary>
-                    $scope.Pagein.pageIndex = 1;//当前数据分页从第一页开始
-                        $scope.BrandList.options = treeNode.options;//获取当前节点的条件
-                        $scope.BrandList.GetZreeBrandList();//数据读取
-                    }               
-            }
-        },
-        obj: new Object()
-    }
-
-
     $scope.BrandList = {
-        info: [],
-        IsView: false,
-        IsEdit: false,
-        options: [],
-        GetZreeBrandList: function () {
-            /// <summary>获取品牌列表</summary>
-            var opt = $.extend($scope.BrandList.options, $scope.Pagein);
-            console.log(opt)
-            $Api.BusinessData.MedBrand.GetQueryAllMedBrand(opt, function (rData) {
-                $scope.BrandList.info = rData.rows;
-                console.log(rData.rows)
-                $scope.Pagein.total = rData.total;
-                //for (var i = 0; i < $scope.BrandList.info.length; i++) {
-                //    if ($scope.BrandList.info[i].validStatusName == "无效") {
-                //        $scope.BrandList.info[i].isEnable = true;
-                //    }
-                //}
-            })
+        info:new Array(),
+        Brand:{
+            GetBrandList: function () {
+                /// <summary>获取品牌列表</summary>
+                var opt = $.extend({ medBrandCode: $scope.BrandList.medBrandCode }, $scope.Pagein);
+                $Api.BusinessData.MedBrand.GetQueryAllMedBrand(opt, function (rData) {
+                    $scope.BrandList.info = rData.rows;
+                    $scope.BrandList.Brand.dic = rData.rows;
+                    $scope.Pagein.total = rData.total;
+                })
+            },
         },
-        GetFacture: function () {
-            /// <summary>厂商下拉框</summary>
-            $Api.BusinessData.MedManuFacture.GetMedManuFactureCommboxList({}, function (rData) {
-                var treeData = new Array();
-                for (var i = 0; i < rData.length; i++) {
-                    treeData.push({ id: rData[i].id, name: rData[i].text, isParent: true, options: { medMnfcCode: rData[i].id, medMnfcCodeName: rData[i].text }, Subset: $Api.BusinessData.MedBrand.GetQueryAllMedBrand, SubsetType: "medMnfcCode" });
-                }
-                $scope.tree.data = treeData;
-            })
+        SearchBrand: {
+            dic: new Array(),
+            GetBrandList: function () {
+                /// <summary>获取品牌列表</summary>
+                $Api.BusinessData.MedBrand.GetQueryAllMedBrand({ medMnfcCode: $scope.BrandList.medMnfcCode }, function (rData) {
+                    $scope.BrandList.SearchBrand.dic = rData.rows;
+                })
+            },
+        },
+        Facture: {
+            dic: new Array(),
+            Change: function () {
+                $scope.Pagein.medMnfcCode = $scope.BrandList.medMnfcCode;
+                $scope.BrandList.Brand.GetBrandList();
+                $scope.BrandList.SearchBrand.GetBrandList();
+                $scope.BrandList.medBrandCode = "";
+            },
+            GetFacture: function () {
+                /// <summary>厂商下拉框</summary>
+                $Api.BusinessData.MedManuFacture.GetMedManuFactureCommboxList({}, function (rData) {
+                    $scope.BrandList.Facture.dic = rData;
+                    console.log(rData)
+                     
+                })
+            }
         }
+      
     }
 
     $scope.BrandDetail = {
         // 品牌编辑
         Info:new Object(),
         ShowEdit: function () {
-            var opt=  $scope.getSelectedRow();
+            var opt = $local.getSelectedRow($scope.BrandList.info);
             if (opt) {
                 $Api.BusinessData.MedBrand.GetQueryMedBrandDetail({ medBrandCode: opt.medBrandCode }, function (rData) {
-                    console.log(rData)
                     $scope.BrandDetail.Info = rData;
                     $scope.BrandDetail.model.show();
-                    $scope.BrandDetail.Info.medMnfcCode = $scope.BrandList.options.medMnfcCode;
-                    $scope.BrandDetail.Info.medMnfcCodeName = $scope.BrandList.options.medMnfcCodeName;
                 })         
             }else{
-                $MessagService.cavet("请选择编辑的品牌信息！")
+                $MessagService.caveat("请选择编辑的品牌信息！")
             }
          
         },
@@ -99,14 +71,15 @@ app.controller("BrandListController", function ($scope, $state, $local, $Api, $M
             $scope.BrandDetail.model.hide();
         },
         Verification: function () {
+            /// <summary>验证</summary>
             var result = true;
             if (!$scope.BrandDetail.Info.medBrandName) {
                 result = false;
-                $MessagService.cavet("请输入品牌名称")
+                $MessagService.caveat("请输入品牌名称")
             }
             else if (!$scope.BrandDetail.Info.medBrandCode) {
                     result = false;
-                $MessagService.cavet("请输入品牌编码")
+                $MessagService.caveat("请输入品牌编码")
             }
             return result;
         },
@@ -114,7 +87,8 @@ app.controller("BrandListController", function ($scope, $state, $local, $Api, $M
             if ($scope.BrandDetail.Verification()) {
                 $Api.BusinessData.MedBrand.GetUpdateMedBrand($scope.BrandDetail.Info, function (rData) {
                     $MessagService.succ("该品牌保存成功！");
-                    $scope.BrandList.GetFacture();
+                    $scope.BrandList.Brand.GetBrandList();
+                    $scope.BrandDetail.model.hide();
                 })
             }
         },        
@@ -124,17 +98,14 @@ app.controller("BrandListController", function ($scope, $state, $local, $Api, $M
         // 品牌详情
         Info: [],
         ShowView: function () {
-            var opt = $scope.getSelectedRow();
+            var opt = $local.getSelectedRow($scope.BrandList.info);
             if (opt) {
                 $Api.BusinessData.MedBrand.GetQueryMedBrandDetail({ medBrandCode: opt.medBrandCode }, function (rData) {
                     $scope.BrandView.Info = rData;
                     $scope.BrandView.model.show();
-                    console.log(rData)
-                    $scope.BrandView.Info.medMnfcCode = $scope.BrandList.options.medMnfcCode;
-                    $scope.BrandView.Info.medMnfcCodeName = $scope.BrandList.options.medMnfcCodeName;
                 })
             } else {
-                $MessagService.cavet("请选择查看的品牌信息！")
+                $MessagService.caveat("请选择查看的品牌信息！")
             }
         },
         cancel: function () {
@@ -148,9 +119,6 @@ app.controller("BrandListController", function ($scope, $state, $local, $Api, $M
             /// <summary>品牌新增</summary>
             $scope.BrandDetailAdd.Info = row;
             $scope.BrandDetailAdd.model.show();
-            console.log($scope.BrandList.options)
-            $scope.BrandDetailAdd.Info.medMnfcCode = $scope.BrandList.options.medMnfcCode;
-            $scope.BrandDetailAdd.Info.medMnfcCodeName = $scope.BrandList.options.medMnfcCodeName;
         },
         cancel: function () {
             $scope.BrandDetailAdd.model.hide();
@@ -158,21 +126,24 @@ app.controller("BrandListController", function ($scope, $state, $local, $Api, $M
         Verification: function () {
             var result = true;
             if (!$scope.BrandDetailAdd.Info.medBrandName) {
-                $MessagService.cavet("请输入品牌名称")
+                $MessagService.caveat("请输入品牌名称")
                 result = false;
             }
             else if (!$scope.BrandDetailAdd.Info.medBrandCode) {
-                $MessagService.cavet("请输入品牌编码")
+                $MessagService.caveat("请输入品牌编码")
                 result = false;
             }
             return result;
         },
         Save: function () {
             console.log($scope.BrandDetailAdd.Info)
+            if ($scope.BrandDetailAdd.Info.medBrandFullName == null) {
+                $scope.BrandDetailAdd.Info.medBrandFullName = $scope.BrandDetailAdd.Info.medBrandName
+            }
             if ($scope.BrandDetailAdd.Verification()) {
                 $Api.BusinessData.MedBrand.GetAddMedBrand($scope.BrandDetailAdd.Info, function (rData) {
                     $MessagService.succ("该品牌保存成功！")
-                    $scope.BrandList.GetZreeBrandList();
+                    $scope.BrandList.Brand.GetBrandList();
                     $scope.BrandDetailAdd.model.hide();
                 })
             }
@@ -185,27 +156,18 @@ app.controller("BrandListController", function ($scope, $state, $local, $Api, $M
     $scope.BrandDetailAdd.model = { title: "品牌信息", width: 650, height: 300, buttons: { "保存": $scope.BrandDetailAdd.Save, "取消": $scope.BrandDetailAdd.cancel } }
 
 
-    $scope.BrandDelet = function (row) {
-        $scope.BrandList.info = row ? row : $scope.getSelectedRow();
+    $scope.BrandDelet = function () {
+        $scope.BrandList.info = $local.getSelectedRow($scope.BrandList.info);
         if ($scope.BrandList.info) {
-            $Api.BusinessData.MedBrand.GetDeleteMedBrand($scope.BrandList.info, function (rData) {
-                $MessagService.succ("该品牌删除成功！")
-                $scope.BrandList.GetZreeBrandList();
-            })
+            if (confirm("您确认要删除当前品牌吗?")) {
+                $Api.BusinessData.MedBrand.GetDeleteMedBrand($scope.BrandList.info, function (rData) {
+                    $MessagService.succ("该品牌删除成功！")
+                    $scope.BrandList.Brand.GetBrandList();
+                })
+            }else( $scope.BrandList.Brand.GetBrandList())
         } else {
-            $MessagService.cavet("请选择一条删除的品牌！")
+            $MessagService.caveat("请选择一条删除的品牌！")
         }
-    }
-
-    $scope.getSelectedRow = function () {
-        /// <summary>获取选择的行</summary>
-        var result = false;
-        $.each($scope.BrandList.info, function (index, item) {
-            if (item.isSelected) {
-                result = item;
-            }
-        });
-        return result;
     }
     $scope.Pagein = {
         pageSize: 10,
@@ -216,7 +178,9 @@ app.controller("BrandListController", function ($scope, $state, $local, $Api, $M
     }
     $scope.Load = function () {
         /// <summary>页面初始化</summary>
-        $scope.BrandList.GetFacture();
+        $scope.BrandList.Brand.GetBrandList();
+        $scope.BrandList.Facture.GetFacture();
+        $scope.BrandList.SearchBrand.GetBrandList();
     }
     $scope.Load();
 })

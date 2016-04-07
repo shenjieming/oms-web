@@ -187,12 +187,30 @@
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         $stateProvider
         .state("app.base.mybusiness.doctor", {
-            /// <summary>我的医院</summary>
+            /// <summary>我的医生列表</summary>
             url: "/doctor",
             cache: false,
             controller: "DoctorListController",
             templateUrl: "View/Base/MyBusiness/Doctor/DoctorList.html?data=" + Timestamp,
             loadJs: ["Content/script/app/BaseApp/MyBusiness/Doctor/JS_DoctorList.js"],
+            resolve: app.resolve
+        })
+        .state("app.base.mybusiness.doctoredit", {
+            /// <summary>我的医生编辑</summary>
+            url: "/doctoredit/:docopt",
+            cache: false,
+            controller: "DoctorEditController",
+            templateUrl: "View/Base/MyBusiness/Doctor/DoctorEdit.html?data=" + Timestamp,
+            loadJs: ["Content/script/app/BaseApp/MyBusiness/Doctor/JS_DoctorEdit.js"],
+            resolve: app.resolve
+        })
+        .state("app.base.mybusiness.doctorview", {
+            /// <summary>我的医生详情</summary>
+            url: "/doctorview/:docopt",
+            cache: false,
+            controller: "DoctorViewController",
+            templateUrl: "View/Base/MyBusiness/Doctor/DoctorView.html?data=" + Timestamp,
+            loadJs: ["Content/script/app/BaseApp/MyBusiness/Doctor/JS_DoctorView.js"],
             resolve: app.resolve
         })
     })
@@ -448,6 +466,19 @@
                resolve: app.resolve
            })
     })
+//库区管理
+    .config(function($stateProvider,$urlRouterProvider,$requireProvider){
+    $stateProvider
+        .state("app.base.business.whzone",{
+            //<summary>库区列表<summary>
+            url:"/whzone",
+            cache:false,
+            templateUrl:"View/Base/Business/WhZone/WhZoneList.html?data="+Timestamp,
+            controller:"WhZoneListController",
+            loadJs:["Content/script/app/BaseApp/Business/WhZone/JS_WhZoneList.js"],
+            resolve:app.resolve
+        })
+})
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         /// <summary品牌管理</summary>
         $stateProvider
@@ -475,17 +506,17 @@
            })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
-    /// <summary>我的产品管理</summary>
-    $stateProvider
-       .state("app.base.business.productmanagement", {
-           /// <summary>我的产品列表</summary>
-           url: "/productmanagement",
-           cache: false,
-           templateUrl: "View/Base/Business/AgentProduct/AgentProductList.html?data=" + Timestamp,
-           controller: "ProductListController",
-           loadJs: ["Content/script/app/BaseApp/Business/AgentProduct/JS_AgentProductList.js"],
-           resolve: app.resolve
-       })
+        /// <summary>我的产品管理</summary>
+        $stateProvider
+           .state("app.base.business.productmanagement", {
+               /// <summary>我的产品列表</summary>
+               url: "/productmanagement",
+               cache: false,
+               templateUrl: "View/Base/Business/AgentProduct/AgentProductList.html?data=" + Timestamp,
+               controller: "ProductListController",
+               loadJs: ["Content/script/app/BaseApp/Business/AgentProduct/JS_AgentProductList.js"],
+               resolve: app.resolve
+           })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         /// <summary>仓库订单路由配置</summary>
@@ -605,7 +636,7 @@
         var service = new Array();
 
         service.push({
-            name: "我的业务数据", url: "", state: "app.base.mybusiness", icon: "fa-drupal",
+            name: "我的业务数据", url: "", state: "app.base.mybusiness", icon: "fa-drupal", order: 4,
             detail: [
                 { name: "我的模板", url: "#/app/base/mybusiness/materialtemplate", state: "app.base.mybusiness.materialtemplate" },
                 { name: "我的套件", url: "#/app/base/mybusiness/kits", state: "app.base.mybusiness.kits" },
@@ -615,7 +646,8 @@
             ]
         });
         service.push({
-            name: "业务数据管理", url: "", state: "app.base.business", icon: "fa-link", detail: [
+            name: "业务数据管理", url: "", state: "app.base.business", icon: "fa-link", order: 5,
+            detail: [
                 { name: "经销商管理", url: "#/app/base/business/dlorganization", state: "app.base.business.dlorganization" },
                 { name: "货主管理", url: "#/app/base/business/oiorganization", state: "app.base.business.oiorganization" },
                 { name: "医院管理", url: "#/app/base/business/hplmanagement", state: "app.base.business.hplmanagement" },
@@ -628,10 +660,11 @@
                 { name: "订单仓库路由管理", url: "#/app/base/business/orderroutingmanagement", state: "app.base.business.orderroutingmanagement" },
                 { name: "代理产品管理", url: "#/app/base/business/productmanagement", state: "app.base.business.productmanagement" },
                 { name: "事件通知管理", url: "#/app/base/business/dlmanagementnotice", state: "app.base.business.dlmanagementnotice" },
+                { name: "库区管理", url: "#/app/base/business/whzone", state: "app.base.business.whzone" },
             ]
         });
         service.push({
-            name: "权限管理", url: "", state: "app.base.comp", icon: "fa-folder-open",
+            name: "权限管理", url: "", state: "app.base.comp", icon: "fa-folder-open", order: 6,
             detail: [
                 { name: "用户列表", url: "#/app/base/comp/user/list", state: "app.base.comp.user.list" },
                 { name: "角色列表", url: "#/app/base/comp/role/list", state: "app.base.comp.role.list" },
@@ -640,7 +673,8 @@
             ]
         });
         service.push({
-            name: "基础信息", url: "", state: "app.base.basis", icon: "fa-desktop", detail: [
+            name: "基础信息", url: "", state: "app.base.basis", icon: "fa-desktop", order: 7,
+            detail: [
                 { name: "国家信息", url: "#/app/base/basis/country", state: "app.base.basis.country" },
                 { name: "行政区域", url: "#/app/base/basis/admd", state: "app.base.basis.admd" },
                 { name: "币种信息", url: "#/app/base/basis/currency", state: "app.base.basis.currency" },

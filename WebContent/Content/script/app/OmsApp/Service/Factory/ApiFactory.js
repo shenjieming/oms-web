@@ -1,9 +1,7 @@
-﻿/// <reference path="../../ApiPath.js" />
 OMSApiService
     .factory("$ApiService", function ($local, $AjaxHelp) {
         /// <summary>OMSApi请求服务配置</summary>
-        var apiHelp = new $AjaxHelp(ServerConfiguration.OMSPath);
-        return apiHelp;
+        var apiHelp = new $AjaxHelp(ServerConfiguration.OMSPath); return apiHelp;
     })
     .factory("$AccountService", function ($MessagService, $ApiService) {
         /// <summary>账户操作服务管理</summary>
@@ -12,9 +10,9 @@ OMSApiService
                 /// <summary>用户登陆</summary>
                 $ApiService.PostApi(ApiPath.Account.pcLogin, data, callback);
             },
-            LoginOut: function (data, callback) {
+            LoginOut: function (data, callback, eorr) {
                 /// <summary>用户登出</summary>
-                $ApiService.PostApi(ApiPath.Account.loginOut, data, callback);
+                $ApiService.PostApi(ApiPath.Account.loginOut, data, callback,eorr);
             },
             ModifyPassword: function (data, callback) {
                 /// <summary>修改密码</summary>
@@ -36,6 +34,31 @@ OMSApiService
                 /// <summary>//获取指定用户信息</summary>
                 $ApiService.PostApi(ApiPath.Account.findUserInfo, data, callback);
             }
+        }
+    })
+    .factory("$WhZoneService",function($MessagService,$ApiService){
+        return{
+                //库区管理
+            GetWhZoneList: function (data, callback) {
+                    /// <summary>获取库区信息</summary>
+                    $ApiService.PostApi(ApiPath.BusinessData.Reservoir.queryAllWhzone, data, callback);
+            },
+            DeleteWhzone:function(data,callback){
+                //<summary>库区删除<summary>
+                $ApiService.PostApi(ApiPath.BusinessData.Reservoir.whZoneDelete,data,callback);
+            },
+            GETWhzoneView:function(data,callback){
+                //<summary>库区详情<summary>
+                $ApiService.PostApi(ApiPath.BusinessData.Reservoir.queryAllWhzone,data,callback);
+            },
+            WhzoneInsert:function(data,callback){
+                //<summary>库区新增<summary>
+                $ApiService.PostApi(ApiPath.BusinessData.Reservoir.whZoneAdd,data,callback);
+            },
+            WhzoneEdit:function(data,callback){
+                //<summary>库区编辑<summary>
+                $ApiService.PostApi(ApiPath.BusinessData.Reservoir.whZoneEduit,data, callback);
+            },
         }
     })
     .factory("$UserService", function ($MessagService, $ApiService) {
@@ -263,6 +286,10 @@ OMSApiService
     .factory("$SurgeryService", function ($MessagService, $ApiService) {
         /// <summary>手术订单服务</summary>
         return {
+            findOrderStatus: function (data, callback) {
+                /// <summary>获取订单状态</summary>
+                $ApiService.PostApi(ApiPath.Surgery.findOrderStatus, data, callback);
+            },
             Save: function (data, callback) {
                 /// <summary>手术订单保存</summary>
                 $MessagService.loading("手术订单保存中，请稍等...");
