@@ -31,21 +31,17 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
             /// <summary>根据选择的列表调整页面</summary>
             $local.CarriedSelectedRow($scope.Integrated.BillList, callback);
         },
-        AddNewBill: function () {
-            /// <summary>添加信息的计费单</summary>
-            $scope.goView("app.bms.bill.detail", { hOFNNo: "" });
-        },
         ModifyBill: function () {
             /// <summary>修改计费单</summary>
-            this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.detail", { hOFNNo: row.hOFNNo }); });
+            this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.detail", row); });
         },
         ApprovalBill: function () {
             /// <summary>审批订单</summary>
-            this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.view", { hOFNNo: row.hOFNNo }); });
+            this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.view", row); });
         },
         ViewBillByRow: function (row) {
             /// <summary>根据选中的行</summary>
-            $scope.goView("app.bms.bill.view", { hOFNNo: row.hOFNNo });
+            $scope.goView("app.bms.bill.view", row);
         },
         ViewBill: function () {
             /// <summary>查看订单详情</summary>
@@ -70,26 +66,21 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
         },
         GetBillInfo: function () {
             /// <summary>获取计费单明细</summary>
-            $BMSApi.PublicInfoService.GetBillDetail($stateParams.hOFNNo, function (billInfo) {
-                debugger
+            $BMSApi.PublicInfoService.GetBillDetail($stateParams, function (billInfo) {
+                $.extend($scope.BillData, billInfo)
             });
         }
     }
-
-    if ($stateParams.sONo) {
-        $scope.QueryService.GetOrderInfo();
-    }
-
-    if ($stateParams.hOFNNo) {
-        $scope.QueryService.GetBillInfo();
-    }
-
+    
     var $Factory = new $BillDetailFactory($scope);
+    if ($stateParams.sONo) { $scope.QueryService.GetOrderInfo(); }
+
+    if ($stateParams.hOFNNo) { $scope.QueryService.GetBillInfo(); }
 });
 
 
 app.factory("$BillDetailFactory", function ($BMSApi) {
-    /// <summary></summary>
+    /// <summary>订单信息服务工厂</summary>
     var $BillDetailFactory = function (scope) {
         var $scope = scope;
 

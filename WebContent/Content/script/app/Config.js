@@ -68,7 +68,6 @@ app.controller("employeeController", function ($scope, $state, $MenuService, $lo
     /// <summary>个人信息控制器</summary>
     $scope.msgBox = {};
 
-
     $scope.modifyPwd = {
         pwsInfo: {},
         show: function () {
