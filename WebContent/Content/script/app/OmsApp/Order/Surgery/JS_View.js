@@ -416,7 +416,7 @@ app.controller("SingleController", function ($scope, $state, $local, $Api, $Mess
     //地址选择配置
     $scope.AddressConfig = {
         fixed: function (rowInfo) {
-            /// <summary>选择地址事件</summary> 
+            /// <summary>选择地址事件</summary>
             $.extend($scope.PageData, {
                 deliveryContact: rowInfo.contact, deliveryrMobile: rowInfo.mobile, deliveryProvinceCode: rowInfo.provinceCode, deliveryProvinceName: rowInfo.provinceCodeName, deliveryCityCode: rowInfo.cityCode,
                 deliveryCityName: rowInfo.cityCodeName, deliveryDistrictCode: rowInfo.districtCode, deliveryDistrictName: rowInfo.districtCodeName, deliveryAddress: rowInfo.address, iniitCarrierTransType: rowInfo.carrierTransType
@@ -499,6 +499,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
     $scope.FeedBack = {
         order: {},
         medMaterial: new Array(),
+        notInDetail: new Array(),
         attachment: {
             images: new Array(),
             remark: ""
@@ -525,6 +526,19 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
     $scope.FeedBackService = {
         /// <summary>订单处理服务</summary>
         Submit: function () {
+            //校验并添加默认数据
+            if($scope.FeedBack.notInDetail.length > 0){
+                $.each($scope.FeedBack.notInDetail,function(index,item){
+                    if(item.lotSerial == null){
+                        item.lotSerial = "NOLOTINFO";//设置默认值
+                    }
+                    if(item.returnWarehouse == null){
+                        var currentUser = $local.getValue("USER").userInfo;
+                        var warehouse = currentUser.orgCode;
+                        item.returnWarehouse = warehouse;
+                    }
+                })
+            }
             /// <summary>订单处理提交</summary>
             $Api.SurgeryService.Process.Back($scope.FeedBack, function (rData) {
                 $scope.goLastPage();
@@ -557,6 +571,38 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
         }
     };
 
+    $scope.OtherMaterialsConfig = {
+        fixed: function (OtherMaterialsList) {
+            $scope.$apply(function () {
+                if($scope.FeedBack.notInDetail.length > 0){
+                    var result = new Array();
+                    var hash = {};
+                    var allMaterials = $scope.FeedBack.notInDetail.concat(OtherMaterialsList);
+                    for(var i=0,elem;(elem = allMaterials[i]) != null;i++){
+                        if(hash[elem.medMIInternalNo]){
+                            $.each(result,function(index, item){
+                                if(item.medMIInternalNo == elem.medMIInternalNo){
+                                    item.reqQty += elem.reqQty
+                                }
+                            })
+                        }else{
+                            result.push(elem);
+                            hash[elem.medMIInternalNo]=true;
+                        }
+                    }
+                    $scope.FeedBack.notInDetail = result;
+                }else{
+                    $.each(OtherMaterialsList,function(index, item){
+                        $scope.FeedBack.notInDetail.push(item);
+                    })
+                }
+            })
+        },
+        DelKit:function(index){
+            $scope.FeedBack.notInDetail.splice(index, 1);
+            console.log($scope.FeedBack.notInDetail);
+        }
+    }
 
     $scope.MaterialsConfig = {
         Material: new Array(),
@@ -690,7 +736,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
 
     $scope.AddressConfig = {
         fixed: function (rowInfo) {
-            /// <summary>选择地址事件</summary> 
+            /// <summary>选择地址事件</summary>
             $.extend($scope.PageData, {
                 deliveryContact: rowInfo.contact,
                 deliveryrMobile: rowInfo.mobile,

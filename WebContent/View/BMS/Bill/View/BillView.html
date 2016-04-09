@@ -1,10 +1,219 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
-</head>
-<body>
+﻿<div class="row" ng-controller="BillViewController">
+    <div class="tools">
+        <h5 style="float:left; font-weight:bold; margin-left:8px;">
+            <i class="fa fa-file-archive-o"></i>
+            计费单管理
+        </h5>
+        <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+    <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
+    <div ng-doctors="" ng-model="BillData" ng-operat="Module.HospitalConfig"></div>
+    <div ng-bms-materials="Module.MateriaConfig"></div>
+    <div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active" href="#Bill" data-toggle="tab"><a>计费详情</a></li>
+            <li role="presentation" href="#Order" data-toggle="tab"><a>订单详情</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="Bill">
+                <div class="row-fluid">
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" href="#pro_OrderBaseInfo">订单信息[货主：<span ng-bind="BillData.sOOIOrgCodeName"></span>]</h5>
+                        </div>
+                        <div class="widget-content nopadding collapse in" id="pro_OrderBaseInfo">
+                            <div class="control-group ">
+                                <div class="Vessel">
+                                    订单编号：<span ng-bind="BillData.sONo"></span>
+                                </div>
+                                <div class="Vessel">
+                                    下单时间：<span ng-bind="BillData.createDate"></span>
+                                </div>
+                                <div class="Vessel">
+                                    订单状态：<span ng-bind="BillData.statusName"></span>
+                                </div>
+                            </div>
+                            <div class="control-group ">
+                                <div class="Vessel All">
+                                    收货信息：
+                                    <span ng-bind="BillData.deliveryProvinceName"></span>
+                                    <span ng-bind="BillData.deliveryCityName"></span>
+                                    <span ng-bind="BillData.deliveryDistrictName"></span>
+                                    <span ng-bind="BillData.deliveryAddress"></span>
+                                    <span ng-bind="BillData.deliveryContact"></span>
+                                    <a href="javascript:void(0)"><span ng-bind="BillData.deliveryrMobile"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-</body>
-</html>
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" href="#SurgeryInformation">手术信息</h5>
+                        </div>
+                        <div id="SurgeryInformation" class="widget-content nopadding collapse in">
+                            <div class="control-group">
+                                <div class="Vessel All">
+                                    计费单号：<span ng-bind="BillData.hOFNHospitalNo"></span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel All">
+                                    手术名称：<span ng-bind="BillData.operationDesc"></span>
+                                </div>
+                            </div>
+                            <div class="control-group ">
+                                <label>
+                                    医院名称：<span ng-bind="BillData.hPCodeName"></span>
+                                </label>
+                                <label>
+                                    科室名称：<span ng-bind="BillData.wardDeptCodeName"></span>
+                                </label>
+                                <label>
+                                    医生名称：<span ng-bind="BillData.dTCodeName"></span>
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel">
+                                    手术时间：<span ng-bind="BillData.operationDate"></span>
+                                </div>
+                                <div class="Vessel">
+                                    手 术 室：<span ng-bind="BillData.operationOperationRoom"></span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel">
+                                    签字医生：<span ng-bind="BillData.hOFNSignPerson1"></span>
+                                </div>
+                                <div class="Vessel">
+                                    洗手护士：<span ng-bind="BillData.hOFNSignPerson2"></span>
+                                </div>
+                                <div class="Vessel">
+                                    手术护士：<span ng-bind="BillData.hOFNSignPerson3"></span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel All">
+                                    诊断信息：<span ng-bind="BillData.patientDiseaseInfo"></span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel All">
+                                    反馈信息：<span ng-bind="BillData.operationFeedbackRemark"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" href="#PatientInfo">患者信息</h5>
+                        </div>
+                        <div id="PatientInfo" class="widget-content nopadding collapse in">
+                            <div class="control-group">
+                                <div class="Vessel">
+                                    患者姓名：<span ng-bind="BillData.patientName"></span>
+                                </div>
+                                <div class="Vessel">
+                                    患者年龄：<span ng-bind="BillData.patientAge"></span>
+                                </div>
+                                <div class="Vessel">
+                                    患者性别：<span ng-bind="BillData.patientSex"></span>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <div class="Vessel">
+                                    联系电话：<span ng-bind="BillData.patientTel"></span>
+                                </div>
+                                <div class="Vessel Second">
+                                    联系地址：<span ng-bind="BillData.patientAddress"></span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel">
+                                   入院时间：<span ng-bind="BillData.patientEntryDate"></span>
+                                </div>
+                                <div class="Vessel">
+                                    住 院 号：<span ng-bind="BillData.patientHPNo"></span>
+                                </div>
+                                <div class="Vessel">
+                                    住院病区：<span ng-bind="BillData.patientWard"></span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel">
+                                    住院病房：<span ng-bind="BillData.patientRoom"></span>
+                                </div>
+                                <div class="Vessel">
+                                    患者病床：<span ng-bind="BillData.patientBedNo"></span>
+                                </div>
+                                <div class="Vessel" ng-if="false">
+                                    患者费用：<span ng-bind="'未计费'"></span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="Vessel All">
+                                    备注信息：<span ng-bind="BillData.patientRemark"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" href="#MaterialsInfo">物资信息</h5>
+                        </div>
+                        <div id="MaterialsInfo" class="widget-content nopadding collapse in">
+                            <div class="main-box-body clearfix" style="padding: 15px; max-height: 450px; overflow: auto; width: 100%;">
+                                <div class="table-responsive">
+                                    <table style="width:1400px; min-width:100%; max-width:2000px;" class="table table-bordered tab-striped" st-table="BillData.detail" st-safe-src="rowCollection">
+                                        <thead>
+                                            <tr>
+                                                <th><span>医院物资编码</span></th>
+                                                <th><span>耗材名称</span> </th>
+                                                <th><span>耗材品牌</span> </th>
+                                                <th><span>规格 </span> </th>
+                                                <th><span>材料</span> </th>
+                                                <th><span>使用批次</span> </th>
+                                                <th><span>计费数量</span></th>
+                                                <th><span>耗材单价</span></th>
+                                                <th><span>患者单价(+5%)</span></th>
+                                                <th><span>有效日期</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="row in BillData.detail">
+                                                <td><span ng-bind="row.dHMedMaterialInternalNo"></span></td>
+                                                <td><span ng-bind="row.dHMMName"></span></td>
+                                                <td><span ng-bind="row.medMaterialBrandName"></span> </td>
+                                                <td><span ng-bind="row.dHMMSpecification"></span></td>
+                                                <td><span ng-bind="row.dHMMMaterials"></span></td>
+                                                <td><span ng-bind="row.lotSerial"></span></td>
+                                                <td><span ng-bind="row.qty"></span></td>
+                                                <td><span ng-bind="row.hPUnitEstPrice"></span></td>
+                                                <td><span ng-bind="row.patientUnitEstPrice"></span></td>
+                                                <td><span ng-bind="row.medMaterialEffectiveDateFrom"></span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Order">
+                <div ui-view="Accurate"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
