@@ -1,0 +1,257 @@
+﻿
+<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">订单仓库路由列表</h2>
+                <span class="btn-group oms-btn-group" style="float:right;" >
+                    <a class="btn btn-primary" ng-click="WhRoutingDetailAdd.ShowAdd({})">新增</a>
+                    <a class="btn btn-primary" ng-click="WhRoutingDetail.ShowEdit()">编辑</a>
+                    <a class="btn btn-primary" ng-click="WhRoutingDelect()">删除</a>
+                    <a class="btn btn-primary" ng-click="WhRoutingView.ShowView()">详情</a>
+                </span>
+            </header>
+            <div class="col-lg-3" style=" height: auto; max-height: 480px; overflow-y: auto; max-width: 200px">
+                <div ng-tree="" ng-setting="tree.setting" ng-data="tree.data" ng-model="tree.obj"></div>
+            </div>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px">
+                    <table class="table table-bordered table-striped" st-table="WhRouting.info">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>货主</span></th>
+                                <th><span>经销商</span></th>
+                                <th><span>品牌编码</span> </th>
+                                <th><span>品牌名称</span></th>
+                                <th><span>产品线编码</span></th>
+                                <th><span>产品线名称</span></th>
+                                <th><span>仓库</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in WhRouting.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                                <td>{{$index+1}}</td>
+                                <td><span>{{row.oIOrgCodeName}}</span></td>
+                                <td><span>{{row.dLOrgCodeName}}</span></td>
+                                <td ng-repeat="a  in row.brands"><span>{{a.medBrandCode}}</span></td>
+                                <td><span>{{row.medProdLnNameEn}}</span></td>
+                                <td><span>{{row.medProdLnTypeCode}}</span></td>
+                                <td><span>{{row.medProdLnDefineClass1}}</span></td>
+                                <td><span>{{row.wHOrgCodeName}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div ng-pagein="page" ng-model="Pagein"></div>
+    </div>
+    <ng-dialog ng-model="WhRoutingDetailAdd.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5" ng-show="WhRouting.options.medBrandCode">
+                品牌名称：{{WhRoutingDetailAdd.Info.medBrandCode}}
+            </div>
+            <div class="col-lg-5" ng-show="!WhRouting.options.medBrandCode">
+                <span class="required">*</span>品牌名称：
+                <select ng-model="WhRoutingDetailAdd.Info.medBrandCode" ng-change="SelectInfo.Bind.change(item)">
+                    <option value="">请选择品牌</option>
+                    <option ng-repeat="item in SelectInfo.Bind.dic" ng-selected="item.id ==WhRoutingDetailAdd.Info.medBrandCode" value="{{item.id}}">{{item.text}}</option>
+                </select>
+            </div>
+            <div class="col-lg-5">
+                <span class="required">*</span>产品名称：<input type="text" ng-model="WhRoutingDetailAdd.Info.medProdLnName" placeholder="请输入产品线名称" />
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <span class="required">*</span>产品编码：<input type="text" ng-model="WhRoutingDetailAdd.Info.medProdLnCode" placeholder="请输入产品线全称" />
+            </div>
+            <div class="col-lg-5">
+                <span class="required">*</span>产品全称：<input type="text" ng-model="WhRoutingDetailAdd.Info.medProdLnFullName" placeholder="请输入产品线全称" />
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                英文名称：<input type="text" ng-model="WhRoutingDetailAdd.Info.medProdLnNameEn" placeholder="请输入英文名称" />
+            </div>
+            <div class="col-lg-5">
+                英文全称：<input type="text" ng-model="WhRoutingDetailAdd.Info.medProdLnFullNameEn" placeholder="请输入英文全称" />
+            </div>
+
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <span class="required">*</span>产品类型：
+                <select ng-model="WhRoutingDetailAdd.Info.medProdLnTypeCode" ng-change="SelectInfo.WhRoutingType.change(item)">
+                    <option value="">请选择产品类型</option>
+                    <option ng-repeat="item in SelectInfo.WhRoutingType.dic" ng-selected="item.id ==WhRoutingDetailAdd.Info.medProdLnTypeCode" value="{{item.id}}">{{item.text}}</option>
+                </select>
+            </div>
+            <div class="col-lg-5">
+                分类项一：<input type="text" ng-model="WhRoutingDetailAdd.Info.medProdLnDefineClass1" placeholder="请输入分类项一" />
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+
+            <div class="col-lg-5">
+                分类项二：<input type="text" ng-model="WhRoutingDetailAdd.Info.medProdLnDefineClass2" placeholder="请输入分类项二" />
+            </div>
+            <div class="col-lg-5">
+                分类项三：<input type="text" ng-model="WhRoutingDetailAdd.Info.medProdLnDefineClass3" placeholder="请输入分类项三" />
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                产品备注：<input type="text" ng-model="WhRoutingDetailAdd.Info.remark" placeholder="请输入产品备注" />
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <span style="float:left;"> 产品描述：</span>
+                <textarea style="width:85%;height:60px;" ng-model="WhRoutingDetailAdd.Info.medProdLnDesc" placeholder="请输入产品描述"></textarea>
+            </div>
+        </div>
+
+    </ng-dialog>
+    <ng-dialog ng-model="WhRoutingDetail.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5" ng-show="WhRouting.options.medBrandCode">
+                品牌名称：{{WhRoutingDetail.Info.medBrandCode}}
+            </div>
+            <div class="col-lg-5" ng-show="!WhRouting.options.medBrandCode">
+                <span class="required">*</span>品牌名称：
+                <select ng-model="WhRoutingDetail.Info.medBrandCode" ng-change="SelectInfo.BindEdit.change(item)">
+                    <option value="">请选择品牌名称</option>
+                    <option ng-repeat="item in SelectInfo.BindEdit.dic" ng-selected="item.id ==WhRoutingDetail.Info.medBrandCode" value="{{item.id}}">{{item.text}}</option>
+                </select>
+            </div>
+            <div class="col-lg-5">
+                <span class="required">*</span>产品名称：<input type="text" ng-model="WhRoutingDetail.Info.medProdLnName" placeholder="请输入产品线名称" />
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                产品编码：{{WhRoutingDetail.Info.medProdLnCode}}
+            </div>
+            <div class="col-lg-5">
+                <span class="required">*</span>产品全称：<input type="text" ng-model="WhRoutingDetail.Info.medProdLnFullName" placeholder="请输入产品线全称" />
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                英文名称：<input type="text" ng-model="WhRoutingDetail.Info.medProdLnNameEn" placeholder="请输入英文名称" />
+            </div>
+            <div class="col-lg-5">
+                英文全称：<input type="text" ng-model="WhRoutingDetail.Info.medProdLnFullNameEn" placeholder="请输入英文全称" />
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <span class="required">*</span>产品类型：
+                <select ng-model="WhRoutingDetail.Info.medProdLnTypeCode" ng-change="SelectInfo.WhRoutingTypeEdit.change(item)">
+                    <option value="">请选择产品类型</option>
+                    <option ng-repeat="item in SelectInfo.WhRoutingTypeEdit.dic" ng-selected="item.id ==WhRoutingDetail.Info.medProdLnTypeCode" value="{{item.id}}">{{item.text}}</option>
+                </select>
+            </div>
+            <div class="col-lg-5">
+                分类项一：<input type="text" ng-model="WhRoutingDetail.Info.medProdLnDefineClass1" placeholder="请输入分类项一" />
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                分类项二：<input type="text" ng-model="WhRoutingDetail.Info.medProdLnDefineClass2" placeholder="请输入分类项二" />
+            </div>
+            <div class="col-lg-5">
+                分类项三：<input type="text" ng-model="WhRoutingDetail.Info.medProdLnDefineClass3" placeholder="请输入分类项三" />
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                产品备注：<input type="text" ng-model="WhRoutingDetail.Info.remark" placeholder="请输入产品备注" />
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <span style="float:left;"> 产品描述：</span>
+                <textarea style="width:85%;height:60px;" ng-model="WhRoutingDetail.Info.medProdLnDesc" placeholder="请输入产品描述"></textarea>
+            </div>
+        </div>
+
+    </ng-dialog>
+    <ng-dialog ng-model="WhRoutingView.model">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                品牌名称：{{WhRoutingView.Info.medBrandCode}}
+            </div>
+            <div class="col-lg-5">
+                产品名称：{{WhRoutingView.Info.medProdLnName}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                产品编码：{{WhRoutingView.Info.medProdLnCode}}
+            </div>
+            <div class="col-lg-5">
+                产品全称：{{WhRoutingView.Info.medProdLnFullName}}
+            </div>
+
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                英文名称：{{WhRoutingView.Info.medProdLnNameEn}}
+            </div>
+            <div class="col-lg-5">
+                英文全称：{{WhRoutingView.Info.medProdLnFullNameEn}}
+            </div>
+
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                产品类型：{{WhRoutingView.Info.medProdLnTypeCodeName}}
+            </div>
+            <div class="col-lg-5">
+                分类项一：{{WhRoutingView.Info.medProdLnDefineClass1}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                分类项二：{{WhRoutingView.Info.medProdLnDefineClass2}}
+            </div>
+            <div class="col-lg-5">
+                分类项三：{{WhRoutingView.Info.medProdLnDefineClass3}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                产品备注：{{WhRoutingView.Info.remark}}
+            </div>
+        </div>
+        <div class="row row-mt-8">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                产品描述：{{WhRoutingView.Info.medProdLnDesc}}
+            </div>
+        </div>
+    </ng-dialog>
+</div>

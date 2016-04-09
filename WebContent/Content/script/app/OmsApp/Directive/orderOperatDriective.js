@@ -24,6 +24,8 @@ app.directive("ngOrderApproval", function ($Api, $MessagService, $local) {
                 title: "订单审批", width: 650, height: 300, buttons: {
                     "确定": function () {
                         $.extend($scope.Service, $scope.ngModel);
+                        console.log($scope.ngModel)
+                        console.log($scope.Service)
                         $Api.SurgeryService.Approval($scope.Service, function (rData) {
                             $scope.ngOperat.fixed($scope.Service);
                             $scope.ngOperat.hide();

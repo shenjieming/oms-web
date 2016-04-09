@@ -36,7 +36,21 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
         /// <summary>订单审批配置</summary>
         Operat: {
             fixed: function () {
+                console.log()
                 $scope.goLastPage();
+            }
+        },
+        ApprovalBy:function(){
+            $Api.SurgeryService.ApprovalBy($scope.PageData, function (rData) {
+                $MessagService.succ($scope.PageData.sONo + "审批通过");
+                $scope.goLastPage();
+            })
+        },
+        Cancel: function () {
+            if (confirm("您确认要取消该订单吗？s")) {
+                $Api.SurgeryService.Cancel($scope.PageData, function (rData) {
+                    $scope.goLastPage();
+                })
             }
         },
         Model: { sONo: $scope.sono }

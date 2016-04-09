@@ -31,7 +31,6 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
                                     node.Subset = $Api.BrandService.GetProductLine;
                                     node.options = { oIOrgCode: treeNode.options.oIOrgCode, medBrandCode: rData[i].id, includeMedProdLn: rData[i].param, medBrandCodeName: rData[i].text };
                                 } else {
-                                    console.log(treeNode.options)
                                     node.options = { medBrandCode: treeNode.options.medBrandCode, medBrandCodeName: treeNode.options.medBrandCodeName, medProdLnCode: rData[i].id, medProdLnCodeName: rData[i].text };
                                 }
                                 nodeList.push(node);
@@ -41,14 +40,10 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
                     }
                 },
                 onClick: function (event, treeId, treeNode) {
-                    /// <summary>点击tree后的事件</summary>
+                    /// <summary>点击tree后的事件</summary
                     $scope.Pagein.pageIndex = 1;//当前数据分页从第一页开始
                     $scope.ProLine.options = treeNode.options;//获取当前节点的条件
                     $scope.ProLine.GetZreeProLine();//数据读取
-                    $scope.Server.Add = true;
-                    $scope.Server.Delect = true;            
-                    $scope.Server.Edit = true;
-                    $scope.Server.View = true;                  
                 }
             }
         },
@@ -59,6 +54,7 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
     $scope.ProLine = {
         info: [],
         options: [],
+
         GetZreeProLine: function () {
             /// <summary>获取科室列表</summary>
             var opt = $.extend($scope.ProLine.options, $scope.Pagein);
@@ -66,7 +62,6 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
             $Api.ProductLine.Getquery(opt, function (rData) {
                 $scope.ProLine.info = rData.rows;
                 $scope.Pagein.total = rData.total;
-                console.log(rData)
             })
         },
         GetCargoOwner: function () {
@@ -81,13 +76,6 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
             })
         },
     }
-    $scope.Server = {
-        Add: false,
-        Edit: false,
-        Delect: false,
-        View: false,
-    }
-
     $scope.ProLineDetailAdd = {
         //产品线新增页面
         Info: [],
@@ -104,7 +92,7 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
             } else {
                 $scope.SelectInfo.Bind.getBindList();
             }
-    
+
         },
         cancel: function () {
             $scope.ProLineDetailAdd.model.hide();
@@ -152,8 +140,8 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
                         $scope.ProLineDetail.Info.medBrandCode = $scope.ProLine.options.medBrandCode;
                         $scope.ProLineDetail.Info.medBrandCodeName = $scope.ProLine.options.medBrandCodeName;
                     } else {
-                        $scope.SelectInfo.BindEdit.getBindEditList();                      
-                    }           
+                        $scope.SelectInfo.BindEdit.getBindEditList();
+                    }
                 });
             } else {
                 $MessagService.caveat("该选择一条编辑的产品线！")
@@ -183,7 +171,7 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
                     $MessagService.succ("该信息保存成功！")
                     $scope.ProLine.GetZreeProLine();
                 });
-            } 
+            }
         },
         cancel: function () {
             $scope.ProLineDetail.model.hide();
