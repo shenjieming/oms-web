@@ -29,7 +29,7 @@ AjaxService.factory("$AjaxHelp", function ($http, $rootScope, $local, $MessagSer
             },
             Eorr: function (data, callback) {
                 /// <summary>报错处理</summary>
-                console.log(data);switch (data.status) { case 404: $MessagService.eorr(data.status + "错误：找不到请求的服务器，请联系网络管理员！"); break; case 400: $MessagService.eorr(data.status + "错误：无效的请求，请联系网络管理员！"); break; case 0: $MessagService.eorr(data.status + "错误：无权限的请求，请联系网络管理员！"); break; default: $MessagService.eorr(data.status + "错误：未捕获的异常，请联系网络管理员！"); break; } if (callback) { callback(data); }
+                console.log(data); switch (data.status) { case 404: $MessagService.eorr(data.status + "错误：找不到请求的服务器，请联系网络管理员！"); break; case 400: $MessagService.eorr(data.status + "错误：无效的请求，请联系网络管理员！"); break; case 0: $MessagService.eorr("无权限的请求，请重新登录！"); $local.setValue("USER", null); $state.go("login"); break; default: $MessagService.eorr(data.status + "错误：未捕获的异常，请联系网络管理员！"); break; } if (callback) { callback(data); }
             }
         }
 

@@ -31,17 +31,21 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
             /// <summary>根据选择的列表调整页面</summary>
             $local.CarriedSelectedRow($scope.Integrated.BillList, callback);
         },
+        AddNewBill: function () {
+            /// <summary>添加信息的计费单</summary>
+            $scope.goView("app.bms.bill.detail", { hOFNNo: "" });
+        },
         ModifyBill: function () {
             /// <summary>修改计费单</summary>
-            this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.detail", row); });
+            this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.detail", { hOFNNo: row.hOFNNo }); });
         },
         ApprovalBill: function () {
             /// <summary>审批订单</summary>
-            this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.view", row); });
+            this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.view", { hOFNNo: row.hOFNNo }); });
         },
         ViewBillByRow: function (row) {
             /// <summary>根据选中的行</summary>
-            $scope.goView("app.bms.bill.view", row);
+            $scope.goView("app.bms.bill.view", { hOFNNo: row.hOFNNo });
         },
         ViewBill: function () {
             /// <summary>查看订单详情</summary>
@@ -55,32 +59,38 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
 app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams, $BillDetailFactory) {
     /// <summary>计费单详情</summary>
     console.log("计费单管理-计费单详情管理");
+
+    var $Factory = new $BillDetailFactory($scope);
     $scope.PageData = {};
+
     $scope.BillData = { detail: new Array() };
 
     $scope.QueryService = {
         /// <summary>查询服务</summary>
         GetOrderInfo: function () {
             /// <summary>获取订单明细</summary>
-            $BMSApi.PublicInfoService.GetPendingDetail($stateParams, function (orderInfo) { $.extend($scope.PageData, orderInfo); if (!$stateParams.hOFNNo) { $.extend($scope.BillData, $Factory.GetOrderMapping(orderInfo)); } });
+            $BMSApi.PublicInfoService.GetPendingDetail($stateParams, function (orderInfo) {
+                $.extend($scope.PageData, orderInfo); if (!$stateParams.hOFNNo) { $.extend($scope.BillData, $Factory.GetOrderMapping(orderInfo)); }
+            });
         },
         GetBillInfo: function () {
             /// <summary>获取计费单明细</summary>
             $BMSApi.PublicInfoService.GetBillDetail($stateParams, function (billInfo) {
-                $.extend($scope.BillData, billInfo)
+                $.extend($scope.BillData, billInfo);
             });
         }
     }
-    
-    var $Factory = new $BillDetailFactory($scope);
+
+
     if ($stateParams.sONo) { $scope.QueryService.GetOrderInfo(); }
 
     if ($stateParams.hOFNNo) { $scope.QueryService.GetBillInfo(); }
+
 });
 
 
 app.factory("$BillDetailFactory", function ($BMSApi) {
-    /// <summary>订单信息服务工厂</summary>
+    /// <summary></summary>
     var $BillDetailFactory = function (scope) {
         var $scope = scope;
 
