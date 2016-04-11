@@ -24,21 +24,18 @@
                                 <th><span>经销商</span></th>
                                 <th><span>品牌编码</span> </th>
                                 <th><span>品牌名称</span></th>
-                                <th><span>产品线编码</span></th>
-                                <th><span>产品线名称</span></th>
+
                                 <th><span>仓库</span></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in WhRouting.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
-                                <td>{{$index+1}}</td>
-                                <td><span>{{row.oIOrgCodeName}}</span></td>
-                                <td><span>{{row.dLOrgCodeName}}</span></td>
-                                <td ng-repeat="a  in row.brands"><span>{{a.medBrandCode}}</span></td>
-                                <td><span>{{row.medProdLnNameEn}}</span></td>
-                                <td><span>{{row.medProdLnTypeCode}}</span></td>
-                                <td><span>{{row.medProdLnDefineClass1}}</span></td>
-                                <td><span>{{row.wHOrgCodeName}}</span></td>
+                            <tr  st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                                <!--<td ng-repeat="row in WhRouting.info">{{$index+1}}</td>
+                                <td ng-repeat="row in WhRouting.info"><span>{{row.oIOrgCodeName}}</span></td>
+                                <td ng-repeat="row in WhRouting.info"><span>{{row.dLOrgCodeName}}</span></td>
+                                <td ng-repeat="a  in WhRouting.info.brands"><span>{{a.medBrandCode}}</span></td>
+                                <td ng-repeat="a  in WhRouting.info.brands "><span>{{a.medProdLnName}}</span></td>
+                                <td ng-repeat="row in WhRouting.info"><span>{{row.wHOrgCodeName}}</span></td>-->
                             </tr>
                         </tbody>
                     </table>

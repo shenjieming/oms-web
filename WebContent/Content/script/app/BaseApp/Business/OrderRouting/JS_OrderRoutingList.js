@@ -62,18 +62,7 @@ app.controller("OrderRoutingListController", function ($scope, $state, $local, $
                 $scope.WhRouting.info = rData;
                 console.log(rData)
                 $scope.Pagein.total = rData.total;
-                var Brandlist = new Array;
-                var JasonList = rData;
                 //数据合并
-                for (var i = 0; i < rData.length; i++) {                    
-                    for (var j = 0; j < rData[i].brands.length; j++) {
-                        console.log(rData[i].brands[j])
-                        //JasonList.push(rData[i].brands[j].medProdLnCode)
-                        //JasonList.push(rData[i].brands[j].medProdLnName)                   
-                          
-                    }
-                    console.log(rData[i].brands[j])
-                }
             })
         },
         FindAllWareHouse: function () {
