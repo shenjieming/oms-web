@@ -36,7 +36,21 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
         /// <summary>订单审批配置</summary>
         Operat: {
             fixed: function () {
+                console.log()
                 $scope.goLastPage();
+            }
+        },
+        ApprovalBy:function(){
+            $Api.SurgeryService.ApprovalBy($scope.PageData, function (rData) {
+                $MessagService.succ($scope.PageData.sONo + "审批通过");
+                $scope.goLastPage();
+            })
+        },
+        Cancel: function () {
+            if (confirm("您确认要取消" + "【"+$scope.PageData.sONo+"】"+"订单吗？")) {
+                $Api.SurgeryService.Cancel($scope.PageData, function (rData) {
+                    $scope.goLastPage();
+                })
             }
         },
         Model: { sONo: $scope.sono }
@@ -269,12 +283,14 @@ app.controller("SingleController", function ($scope, $state, $local, $Api, $Mess
     /// <summary>手术下单下单控制器</summary>
     /*基础对象区域Begion*/
     $scope.sono = $stateParams.sono;//获取订单编号
+    var a=1
     $scope.PageData = {
         wardDeptCode: "", initHPCode: "", initDTCode: "", patientDiseaseInfo: "",
         initOperationDate: $AppHelp.Data.GetDate(-1, null, "start"),
         prodLns: new Array(),
         attachments: { images: new Array(), remark: "" }
     }
+    console.log($scope.PageData.initOperationDate)
     /*基础对象区域End*/
     /*逻辑对象区域Begion*/
     $scope.PageService = {

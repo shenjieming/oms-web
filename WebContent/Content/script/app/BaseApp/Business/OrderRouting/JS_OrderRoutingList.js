@@ -1,4 +1,4 @@
-/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
+﻿/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-touch.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-sanitize.min.js" />
@@ -7,9 +7,9 @@
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
 
-app.controller("ProductLineController", function ($scope, $state, $local, $Api, $MessagService) {
+app.controller("OrderRoutingListController", function ($scope, $state, $local, $Api, $MessagService) {
 
-    /// <summary>科室列表</summary>
+    /// <summary>订单仓库路由列表</summary>
     $scope.tree = {
         setting: {
             callback: {
@@ -25,13 +25,13 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
                                 var node = {
                                     id: rData[i].id, name: rData[i].text
                                 };
-                                if (treeNode.SubsetType == "medBrandCode") {//根据条件参数控制子集的条件参数
-                                    node.SubsetType = "medProdLnCode";
+                                if (treeNode.SubsetType == "oIOrgCode") {//根据条件参数控制子集的条件参数
+                                    node.SubsetType = "orgCode";                   
                                     node.isParent = true;
-                                    node.Subset = $Api.BrandService.GetProductLine;
-                                    node.options = { oIOrgCode: treeNode.options.oIOrgCode, medBrandCode: rData[i].id, includeMedProdLn: rData[i].param, medBrandCodeName: rData[i].text };
+                                    node.Subset = $Api.OrderRout.GetfindDLByOIOrgCodeCombox;
+                                    node.options = { wHOrgCode: treeNode.options.wHOrgCode, orgCode: rData[i].id };
                                 } else {
-                                    node.options = { medBrandCode: treeNode.options.medBrandCode, medBrandCodeName: treeNode.options.medBrandCodeName, medProdLnCode: rData[i].id, medProdLnCodeName: rData[i].text };
+                                    node.options = { dLOrgCode: rData[i].id, oIOrgCode: treeNode.options.orgCode, wHOrgCode: treeNode.options.wHOrgCode }
                                 }
                                 nodeList.push(node);
                             }
@@ -42,8 +42,9 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
                 onClick: function (event, treeId, treeNode) {
                     /// <summary>点击tree后的事件</summary
                     $scope.Pagein.pageIndex = 1;//当前数据分页从第一页开始
-                    $scope.ProLine.options = treeNode.options;//获取当前节点的条件
-                    $scope.ProLine.GetZreeProLine();//数据读取
+                    $scope.WhRouting.options = treeNode.options;//获取当前节点的条件
+                    console.log($scope.WhRouting.options)
+                    $scope.WhRouting.GetZreeWhRouting();//数据读取
                 }
             }
         },
@@ -51,43 +52,42 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
     }
 
 
-    $scope.ProLine = {
+    $scope.WhRouting = {
         info: [],
         options: [],
-
-        GetZreeProLine: function () {
-            /// <summary>获取科室列表</summary>
-            var opt = $.extend($scope.ProLine.options, $scope.Pagein);
-            console.log(opt)
-            $Api.ProductLine.Getquery(opt, function (rData) {
-                $scope.ProLine.info = rData.rows;
+        GetZreeWhRouting: function () {
+            /// <summary>获取订单仓库路由列表</summary>
+            var opt = $.extend($scope.WhRouting.options, $scope.Pagein);
+            $Api.OrderRout.GetqueryOdwhCfg(opt, function (rData) {
+                $scope.WhRouting.info = rData;
+                console.log(rData)
                 $scope.Pagein.total = rData.total;
+                //数据合并
             })
         },
-        GetCargoOwner: function () {
-            /// <summary>获取我的货主信息</summary>
-            $Api.OrganizationService.GetCargoOwner({}, function (rData) {
+        FindAllWareHouse: function () {
+            /// <summary>获取所有仓库路由配置</summary>
+            $Api.MaterialsService.GetAllWareHouse({}, function (rData) {
                 var treeData = new Array();
-                console.log(rData);
                 for (var i = 0; i < rData.length; i++) {
-                    treeData.push({ id: rData[i].id, name: rData[i].text, isParent: true, options: { oIOrgCode: rData[i].id }, Subset: $Api.BrandService.GetBrandList, SubsetType: "medBrandCode" });
+                    treeData.push({ id: rData[i].id, name: rData[i].text, isParent: true, options: { wHOrgCode: rData[i].id }, Subset: $Api.OrderRout.GetfindOICombox, SubsetType: "oIOrgCode" });
                 }
                 $scope.tree.data = treeData;;
             })
         },
     }
-    $scope.ProLineDetailAdd = {
+    $scope.WhRoutingDetailAdd = {
         //产品线新增页面
         Info: [],
         ShowAdd: function (row) {
-            $scope.ProLineDetailAdd.Info = row;
-            $scope.ProLineDetailAdd.model.show();
+            $scope.WhRoutingDetailAdd.Info = row;
+            $scope.WhRoutingDetailAdd.model.show();
             // 货主编码、品牌编码、
-            $scope.ProLineDetailAdd.Info.oIOrgCode = $scope.ProLine.options.oIOrgCode;
-            $scope.SelectInfo.ProLineType.getProLineTypeList();
-            if ($scope.ProLine.options.medBrandCode) {
-                $scope.ProLineDetailAdd.Info.medBrandCode = $scope.ProLine.options.medBrandCode;
-                $scope.ProLineDetailAdd.Info.medBrandCodeName = $scope.ProLine.options.medBrandCodeName;
+            $scope.WhRoutingDetailAdd.Info.oIOrgCode = $scope.WhRouting.options.oIOrgCode;
+            $scope.SelectInfo.WhRoutingType.getWhRoutingTypeList();
+            if ($scope.WhRouting.options.medBrandCode) {
+                $scope.WhRoutingDetailAdd.Info.medBrandCode = $scope.WhRouting.options.medBrandCode;
+                $scope.WhRoutingDetailAdd.Info.medBrandCodeName = $scope.WhRouting.options.medBrandCodeName;
 
             } else {
                 $scope.SelectInfo.Bind.getBindList();
@@ -95,20 +95,20 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
 
         },
         cancel: function () {
-            $scope.ProLineDetailAdd.model.hide();
+            $scope.WhRoutingDetailAdd.model.hide();
         },
         verification: function () {
             /// <summary>//验证开启</summary>
             var result = true;
-            if (!$scope.ProLineDetailAdd.Info.medBrandCode || !$scope.ProLineDetailAdd.Info.medBrandCodeName) {
+            if (!$scope.WhRoutingDetailAdd.Info.medBrandCode || !$scope.WhRoutingDetailAdd.Info.medBrandCodeName) {
                 result = false;
                 $MessagService.caveat("请维护该产品品牌信息！")
             }
-            else if (!$scope.ProLineDetailAdd.Info.medProdLnName || !$scope.ProLineDetailAdd.Info.medProdLnCode) {
+            else if (!$scope.WhRoutingDetailAdd.Info.medProdLnName || !$scope.WhRoutingDetailAdd.Info.medProdLnCode) {
                 result = false;
                 $MessagService.caveat("请维护该产品信息！")
             }
-            else if (!$scope.ProLineDetailAdd.Info.medProdLnTypeCode) {
+            else if (!$scope.WhRoutingDetailAdd.Info.medProdLnTypeCode) {
                 result = false;
                 $MessagService.caveat("请维护该产品产品线类型！")
             }
@@ -116,29 +116,29 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
         },
         Save: function () {
             //保存产品线信息
-            if ($scope.ProLineDetailAdd.verification()) {
-                $Api.ProductLine.Getinsert($scope.ProLineDetailAdd.Info, function (rData) {
-                    $scope.ProLineDetailAdd.model.hide();
+            if ($scope.WhRoutingDetailAdd.verification()) {
+                $Api.ProductLine.Getinsert($scope.WhRoutingDetailAdd.Info, function (rData) {
+                    $scope.WhRoutingDetailAdd.model.hide();
                     $MessagService.succ("该信息保存成功！")
-                    $scope.ProLine.GetZreeProLine();
+                    $scope.WhRouting.GetZreeWhRouting();
                 });
             }
         }
     }
     ////  产品线编辑页面启动！
-    $scope.ProLineDetail = {
+    $scope.WhRoutingDetail = {
         Info: [],
         ShowEdit: function () {
             var porline = $scope.getSelectedRow();
             if (porline) {
-                $scope.ProLineDetail.model.show();
+                $scope.WhRoutingDetail.model.show();
                 $Api.ProductLine.Getquery(porline, function (rData) {
-                    $scope.ProLineDetail.Info = rData.rows[0];
-                    $scope.ProLineDetail.Info.oIOrgCode = $scope.ProLine.options.oIOrgCode;
-                    $scope.SelectInfo.ProLineTypeEdit.getProLineTypeEditList();
-                    if ($scope.ProLine.options.medBrandCode) {
-                        $scope.ProLineDetail.Info.medBrandCode = $scope.ProLine.options.medBrandCode;
-                        $scope.ProLineDetail.Info.medBrandCodeName = $scope.ProLine.options.medBrandCodeName;
+                    $scope.WhRoutingDetail.Info = rData.rows[0];
+                    $scope.WhRoutingDetail.Info.oIOrgCode = $scope.WhRouting.options.oIOrgCode;
+                    $scope.SelectInfo.WhRoutingTypeEdit.getWhRoutingTypeEditList();
+                    if ($scope.WhRouting.options.medBrandCode) {
+                        $scope.WhRoutingDetail.Info.medBrandCode = $scope.WhRouting.options.medBrandCode;
+                        $scope.WhRoutingDetail.Info.medBrandCodeName = $scope.WhRouting.options.medBrandCodeName;
                     } else {
                         $scope.SelectInfo.BindEdit.getBindEditList();
                     }
@@ -150,66 +150,66 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
         verification: function () {
             /// <summary>//验证开启</summary>
             var result = true;
-            if (!$scope.ProLineDetail.Info.medBrandCode || !$scope.ProLineDetail.Info.medBrandCodeName) {
+            if (!$scope.WhRoutingDetail.Info.medBrandCode || !$scope.WhRoutingDetail.Info.medBrandCodeName) {
                 result = false;
                 $MessagService.caveat("请维护该产品品牌信息！")
             }
-            else if (!$scope.ProLineDetail.Info.medProdLnName || !$scope.ProLineDetail.Info.medProdLnCode) {
+            else if (!$scope.WhRoutingDetail.Info.medProdLnName || !$scope.WhRoutingDetail.Info.medProdLnCode) {
                 result = false;
                 $MessagService.caveat("请维护该产品信息！")
             }
-            else if (!$scope.ProLineDetail.Info.medProdLnTypeCode) {
+            else if (!$scope.WhRoutingDetail.Info.medProdLnTypeCode) {
                 result = false;
                 $MessagService.caveat("请维护该产品产品线类型！")
             }
             return result;
         },
         Save: function () {
-            if ($scope.ProLineDetail.verification()) {
-                $Api.ProductLine.Getupdate($scope.ProLineDetail.Info, function (rData) {
-                    $scope.ProLineDetail.model.hide();
+            if ($scope.WhRoutingDetail.verification()) {
+                $Api.ProductLine.Getupdate($scope.WhRoutingDetail.Info, function (rData) {
+                    $scope.WhRoutingDetail.model.hide();
                     $MessagService.succ("该信息保存成功！")
-                    $scope.ProLine.GetZreeProLine();
+                    $scope.WhRouting.GetZreeWhRouting();
                 });
             }
         },
         cancel: function () {
-            $scope.ProLineDetail.model.hide();
+            $scope.WhRoutingDetail.model.hide();
         },
     }
     // 关闭
-    $scope.ProLineView = {
+    $scope.WhRoutingView = {
         // 产品线详情
         Info: [],
         ShowView: function () {
             var porline = $scope.getSelectedRow();
             console.log(porline)
             if (porline) {
-                $scope.ProLineView.model.show();
+                $scope.WhRoutingView.model.show();
                 $Api.ProductLine.Getquery(porline, function (rData) {
-                    $scope.ProLineView.Info = rData.rows[0];
+                    $scope.WhRoutingView.Info = rData.rows[0];
                 });
             } else {
                 $MessagService.caveat("该选择一条查看的产品线！")
             }
         },
         cancel: function () {
-            $scope.ProLineView.model.hide();
+            $scope.WhRoutingView.model.hide();
         },
     }
-    $scope.ProLineDelect = function () {
+    $scope.WhRoutingDelect = function () {
         /// <summary>产品线删除</summary>
-        var proLine = $scope.getSelectedRow();
-        if (proLine) {
-            $Api.ProductLine.Getdelect(proLine, function (rData) {
+        var WhRouting = $scope.getSelectedRow();
+        if (WhRouting) {
+            $Api.ProductLine.Getdelect(WhRouting, function (rData) {
                 $MessagService.succ("该产品线删除成功！")
-                $scope.ProLine.GetZreeProLine();
+                $scope.WhRouting.GetZreeWhRouting();
             })
         }
     }
-    $scope.ProLineView.model = { title: "品牌详情", width: 550, height: 300, buttons: { "确定": $scope.ProLineView.cancel } }
-    $scope.ProLineDetail.model = { title: "品牌信息", width: 650, height: 300, buttons: { "保存": $scope.ProLineDetail.Save, "取消": $scope.ProLineDetail.cancel } }
-    $scope.ProLineDetailAdd.model = { title: "品牌信息", width: 650, height: 300, buttons: { "保存": $scope.ProLineDetailAdd.Save, "取消": $scope.ProLineDetailAdd.cancel } }
+    $scope.WhRoutingView.model = { title: "品牌详情", width: 550, height: 300, buttons: { "确定": $scope.WhRoutingView.cancel } }
+    $scope.WhRoutingDetail.model = { title: "品牌信息", width: 650, height: 300, buttons: { "保存": $scope.WhRoutingDetail.Save, "取消": $scope.WhRoutingDetail.cancel } }
+    $scope.WhRoutingDetailAdd.model = { title: "品牌信息", width: 650, height: 300, buttons: { "保存": $scope.WhRoutingDetailAdd.Save, "取消": $scope.WhRoutingDetailAdd.cancel } }
 
 
     ///下拉框启动
@@ -219,15 +219,15 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
             change: function (item) {
                 /// <summary>品牌列表修改事件</summary>
                 for (var i = 0; i < $scope.SelectInfo.Bind.dic.length; i++) {
-                    if ($scope.SelectInfo.Bind.dic[i].id == $scope.ProLineDetailAdd.Info.medBrandCode) {
-                        $scope.ProLineDetailAdd.Info.medBrandCodeName = $scope.SelectInfo.Bind.dic[i].text;
+                    if ($scope.SelectInfo.Bind.dic[i].id == $scope.WhRoutingDetailAdd.Info.medBrandCode) {
+                        $scope.WhRoutingDetailAdd.Info.medBrandCodeName = $scope.SelectInfo.Bind.dic[i].text;
                         return;
                     }
                 }
             },
             getBindList: function () {
                 /// <summary>获取品牌列表</summary>
-                $Api.BrandService.GetBrandList({ oIOrgCode: $scope.ProLineDetailAdd.Info.oIOrgCode }, function (rData) {
+                $Api.BrandService.GetBrandList({ oIOrgCode: $scope.WhRoutingDetailAdd.Info.oIOrgCode }, function (rData) {
                     $scope.SelectInfo.Bind.dic = rData;
                     console.log(rData)
                 });
@@ -238,55 +238,55 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
             change: function (item) {
                 /// <summary>品牌列表修改事件</summary>
                 for (var i = 0; i < $scope.SelectInfo.BindEdit.dic.length; i++) {
-                    if ($scope.SelectInfo.BindEdit.dic[i].id == $scope.ProLineDetail.Info.medBrandCode) {
-                        $scope.ProLineDetail.Info.medBrandCodeName = $scope.SelectInfo.BindEdit.dic[i].text;
+                    if ($scope.SelectInfo.BindEdit.dic[i].id == $scope.WhRoutingDetail.Info.medBrandCode) {
+                        $scope.WhRoutingDetail.Info.medBrandCodeName = $scope.SelectInfo.BindEdit.dic[i].text;
                         return;
                     }
                 }
             },
             getBindEditList: function () {
                 /// <summary>获取品牌列表</summary>
-                $Api.BrandService.GetBrandList({ oIOrgCode: $scope.ProLineDetail.Info.oIOrgCode }, function (rData) {
+                $Api.BrandService.GetBrandList({ oIOrgCode: $scope.WhRoutingDetail.Info.oIOrgCode }, function (rData) {
                     $scope.SelectInfo.BindEdit.dic = rData;
                     console.log(rData)
                 });
             }
         },
-        ProLineType: {
+        WhRoutingType: {
             dic: [],
             change: function (item) {
                 /// <summary>产品线类型修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.ProLineType.dic.length; i++) {
-                    if ($scope.SelectInfo.ProLineType.dic[i].id == $scope.ProLineDetailAdd.Info.medProdLnTypeCode) {
-                        $scope.ProLineDetailAdd.Info.medProdLnTypeCodeName = $scope.SelectInfo.ProLineType.dic[i].text;
+                for (var i = 0; i < $scope.SelectInfo.WhRoutingType.dic.length; i++) {
+                    if ($scope.SelectInfo.WhRoutingType.dic[i].id == $scope.WhRoutingDetailAdd.Info.medProdLnTypeCode) {
+                        $scope.WhRoutingDetailAdd.Info.medProdLnTypeCodeName = $scope.SelectInfo.WhRoutingType.dic[i].text;
                         return;
                     }
                 }
             },
-            getProLineTypeList: function () {
+            getWhRoutingTypeList: function () {
                 /// <summary>获取产品线类型</summary>
-                $Api.BrandService.GetProductLineType({ oIOrgCode: $scope.ProLineDetailAdd.Info.oIOrgCode }, function (rData) {
-                    $scope.SelectInfo.ProLineType.dic = rData;
+                $Api.BrandService.GetProductLineType({ oIOrgCode: $scope.WhRoutingDetailAdd.Info.oIOrgCode }, function (rData) {
+                    $scope.SelectInfo.WhRoutingType.dic = rData;
                     console.log(rData)
                 });
             }
         },
-        ProLineTypeEdit: {
+        WhRoutingTypeEdit: {
             dic: [],
             change: function (item) {
                 /// <summary>产品线类型修改事件</summary>
-                for (var i = 0; i < $scope.SelectInfo.ProLineTypeEdit.dic.length; i++) {
-                    if ($scope.SelectInfo.ProLineTypeEdit.dic[i].id == $scope.ProLineDetail.Info.medProdLnTypeCode) {
-                        $scope.ProLineDetail.Info.medProdLnTypeCodeName = $scope.SelectInfo.ProLineTypeEdit.dic[i].text;
+                for (var i = 0; i < $scope.SelectInfo.WhRoutingTypeEdit.dic.length; i++) {
+                    if ($scope.SelectInfo.WhRoutingTypeEdit.dic[i].id == $scope.WhRoutingDetail.Info.medProdLnTypeCode) {
+                        $scope.WhRoutingDetail.Info.medProdLnTypeCodeName = $scope.SelectInfo.WhRoutingTypeEdit.dic[i].text;
                         return;
                     }
                 }
             },
-            getProLineTypeEditList: function () {
+            getWhRoutingTypeEditList: function () {
                 /// <summary>获取产品线类型</summary>
-                console.log($scope.ProLineDetail.Info.oIOrgCode)
-                $Api.BrandService.GetProductLineType({ oIOrgCode: $scope.ProLineDetail.Info.oIOrgCode }, function (rData) {
-                    $scope.SelectInfo.ProLineTypeEdit.dic = rData;
+                console.log($scope.WhRoutingDetail.Info.oIOrgCode)
+                $Api.BrandService.GetProductLineType({ oIOrgCode: $scope.WhRoutingDetail.Info.oIOrgCode }, function (rData) {
+                    $scope.SelectInfo.WhRoutingTypeEdit.dic = rData;
                     console.log(rData)
                 });
             }
@@ -297,7 +297,7 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
     $scope.getSelectedRow = function () {
         /// <summary>获取选择的行</summary>
         var result = false;
-        $.each($scope.ProLine.info, function (index, item) {
+        $.each($scope.WhRouting.info, function (index, item) {
             if (item.isSelected) {
                 result = item;
             }
@@ -316,7 +316,7 @@ app.controller("ProductLineController", function ($scope, $state, $local, $Api, 
     }
     $scope.Load = function () {
         /// <summary>页面初始化</summary>
-        $scope.ProLine.GetCargoOwner();
+        $scope.WhRouting.FindAllWareHouse();
     }
     $scope.Load();
 })

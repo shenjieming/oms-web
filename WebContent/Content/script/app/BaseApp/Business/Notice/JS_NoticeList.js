@@ -170,7 +170,7 @@ app.controller("NoticeListController", function ($scope, $state, $local, $Api, $
             },
             getEmailList: function () {
                 /// <summary>获取邮件通知信息</summary>
-                $Api.Public.GetDictionary({ dictType: "TPSOEN" }, function (rData) {
+                $Api.Public.GetDictionary({ dictType: "TPSOEM" }, function (rData) {
                     $scope.SelectInfo.EmailList.dic = rData;
                     console.log(rData)
                 });
@@ -246,6 +246,7 @@ app.controller("NoticeListController", function ($scope, $state, $local, $Api, $
         },
         isApplyDLAL: function () {
             /// <summary>订单人所在订单共享组</summary>
+           alert(1)
             $scope.NoticePageInfo.Info.isApplyDLAL = !$scope.NoticePageInfo.Info.isApplyDLAL;
             $scope.NoticePageInfo.Info.isApplyToDLALL = $scope.NoticePageInfo.Info.isApplyDLAL ? "Y" : "N";
         },

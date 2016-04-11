@@ -27,6 +27,8 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                 productLine: false,
                 brandLine: false,
                 all: false,
+                checkgroup: true,
+                option:false,
                 AddreqQty: function (Material) {
                     /// <summary>添加套件物料</summary>
                     Material.reqQty++;
@@ -64,21 +66,45 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                     });
                 },
                 QueryMaterialList: function () {
-                    /// <summary>便捷查询物料信息</summary>   
+                    /// <summary>便捷查询物料信息</summary> 
+                    console.log($scope.Service)
+                    if (!$scope.Service.brandLine && !$scope.Service.productLine && !$scope.Service.all && $scope.Pagein.categoryByPlatform == "TOOL") {
+                        $scope.Service.option = true;
+                    }
                     $.extend($scope.Pagein, {
                         pageIndex: 1,
                         productLine: $scope.Service.productLine ? "Y" : "N",//品牌内通用(跨产品线)
                         brandLine: $scope.Service.brandLine ? "Y" : "N",
                         all: $scope.Service.all ? "Y" : "N"
                     });
-
+                    console.log($scope.Pagein)
                     $scope.Pagein.ReLoad();
                     // $scope.Service.GetList();
                 },
                 GetMaterialListByCategory: function (type) {
-                    /// <summary>根据物料类型获取物料</summary>
+                    /// <summary>根据物料类型获取物料</summary>                    
                     $.extend($scope.Pagein, { categoryByPlatform: type });
                     $scope.Service.QueryMaterialList();
+                },
+                GetCheckis: function () {
+                    /// <summary>选择产品线专用</summary>
+                    $scope.Pagein.categoryByPlatform = "TOOL";
+                    $scope.Service.option = true;
+                    $scope.Service.GetMaterialListByCategory();
+                },
+                GetCheckon: function () {
+                    /// <summary>选择产品线通用</summary>
+                    $scope.Service.option = !$scope.Service.option;
+                    if ($scope.Service.option) {
+                        $scope.Service.all = false;
+                        $scope.Service.productLine = false;
+                        $scope.Service.brandLine = false;
+                    } else {
+                        $scope.Service.all = true;
+                        $scope.Service.productLine = true;
+                        $scope.Service.brandLine = true;
+                    }
+                    $scope.Service.GetMaterialListByCategory();
                 },
                 GetMaterialQty: function (data) {
                     /// <summary>获取物料的数量</summary>
@@ -110,16 +136,20 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                     });
                 }
             }
-
+     
+          
             $scope.Pagein = {
                 /// <summary>分页信息</summary>
-                pageSize: 20,
+                pageSize: 8,
                 categoryByPlatform: "IMPLANT",
                 pageIndex: 1,
                 callbake: function () {
                     $scope.Service.GetList();
                 }
             }
+            var categoryByPlatform = new Object();
+            categoryByPlatform = $scope.Pagein.categoryByPlatform;
+            categoryByPlatform = "IMPLANT" ? "植入物" : "工具";
             var modelConfig = {
                 open: function () {
                     /// <summary>弹出层打开事件</summary>
@@ -129,7 +159,9 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                     $scope.Pagein.searchValue = "";
                     $scope.Service.GetMaterialListByCategory();
                 },
-                title: "物料选择", width: "100%", position:[0],height: "90%", buttons: {
+                //"物料选择- "+categoryByPlatform+" - 产品线"
+                //"物料选择-植入物/工具-产品线"
+                title:"物料选择-植入物/工具-产品线", width: "100%", position: [0], height: "90%", buttons: {
                     "确定": function () {
                         $scope.Service.GetChangeMaterials();
                         var data = $scope.Service.ChangeList;
@@ -143,9 +175,10 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                     "关闭": function () {
                         $scope.ngOperat.hide();
                     }
-                }
+                },
             }
             $.extend($scope.ngOperat, modelConfig);
+           
         }
     }
 });

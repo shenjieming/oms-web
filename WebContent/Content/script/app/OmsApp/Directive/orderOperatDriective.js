@@ -18,23 +18,47 @@ app.directive("ngOrderApproval", function ($Api, $MessagService, $local) {
         replace: true,
         link: function ($scope, element, attrs) {
             $scope.Service = {
-                operat: "checkYes", eventReasonDesc: ""
+                operat: "", eventReasonDesc: new Array()
             }
             var modelConfig = {
-                title: "订单审批", width: 650, height: 300, buttons: {
+                title: "拒绝申请", width: 650, height: 300, buttons: {
                     "确定": function () {
                         $.extend($scope.Service, $scope.ngModel);
-                        $Api.SurgeryService.Approval($scope.Service, function (rData) {
+                        $scope.Service.eventReasonDesc = $(".box-80").val();
+                        $Api.SurgeryService.RejectApproval($scope.Service, function (rData) {
                             $scope.ngOperat.fixed($scope.Service);
                             $scope.ngOperat.hide();
                         });
                     },
                     "关闭": function () {
                         $scope.ngOperat.hide();
-                    }
+                    },                    
+                },
+                open: function () {
+                    $scope.SelectInfo.GetSofarrList();
                 }
             }
             $.extend($scope.ngOperat, modelConfig);
+            $scope.SelectInfo = {
+                dic: new Array(),             
+                change: function () {
+                    debugger
+                    for (var i = 0; i < $scope.SelectInfo.dic.length; i++) {
+                        if ($scope.SelectInfo.dic[i].id == $scope.Service.operat) {
+                           a=( $scope.SelectInfo.dic[i].text);                            
+                           $(".box-80").val($(".box-80").val() + " " + a)
+                            return
+                        }
+                    }
+                    //$scope.Service.operat.push($)
+                },
+                GetSofarrList: function () {
+                    /// <summary>获取订单审批拒绝原因</summary>
+                    $Api.Public.GetDictionary({ dictType:"SOFARR" }, function (rData) {
+                        $scope.SelectInfo.dic = rData;
+                    })
+                }
+            }
 
         }
     };

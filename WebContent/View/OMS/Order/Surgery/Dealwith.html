@@ -7,10 +7,10 @@
             <span style="color: #FF3300">(<span ng-bind="PageData.statusName"></span>)</span>
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
-            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
-            <a class="btn btn-danger" ng-if="View.Competence.dealwith" ng-click="DealService.Cancel()"><i class="fa fa-undo"></i>取消</a>
-            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Submit()"><i class="fa fa-wrench"></i>处理</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i> 保存</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Submit()"><i class="fa fa-wrench"></i> 处理</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+            <a class="btn btn-danger" ng-if="View.Competence.dealwith" ng-click="DealService.Cancel()"><i class="fa fa-undo"></i> 取消订单</a>   
         </span>
     </div>
     <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
@@ -178,9 +178,10 @@
     </div>
     <div class="tools">
         <span class="btn-group oms-btn-group" style="float:right;">
-            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
-            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Submit()"><i class="fa fa-wrench"></i>处理</a>
-            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa  fa-reply"></i> 返回</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i> 保存</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Submit()"><i class="fa fa-wrench"></i> 处理</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+            <a class="btn btn-danger" ng-if="View.Competence.dealwith" ng-click="DealService.Cancel()"><i class="fa fa-undo"></i> 取消订单</a>
         </span>
     </div>
 </div>

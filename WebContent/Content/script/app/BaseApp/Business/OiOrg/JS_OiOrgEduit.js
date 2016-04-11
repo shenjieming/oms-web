@@ -20,6 +20,7 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
         },
         GetOiOrgDetail: function () {
             /// <summary>获取货主详情</summary>
+            console.log($scope.oiPageInfo.Info)
             $Api.ManageOi.GetqueryOwnerOfInventoryDetail({ orgCode: $scope.oiopt }, function (rData) {
                 $scope.oiPageInfo.Info = rData;
                 console.log($scope.oiPageInfo.Info)
