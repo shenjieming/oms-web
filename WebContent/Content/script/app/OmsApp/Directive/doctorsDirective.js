@@ -89,6 +89,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                 Save: function () {
                     if ($scope.operat.verification()) {
                         $scope.Service.DoctorsDetail.isLocal = $scope.Service.DoctorsDetail.isLocalCheck ? "LOCAL" : "NOTLOCAL"
+                        $scope.Service.DoctorsDetail.isDefaultDoctorPerUser = "N";
                         console.log($scope.Service.DoctorsDetail)
                         $Api.HospitalService.SaveDoctor($scope.Service.DoctorsDetail, function (rData) {
                             $MessagService.succ("该信息保存成功！");
