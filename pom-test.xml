@@ -5,9 +5,23 @@
 	<artifactId>oms-web</artifactId>
 	<version>test</version>
 	<packaging>war</packaging>
+	
+	<properties>
+		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+		<version>FWP${maven.build.timestamp}</version>
+	</properties>
+	
 	<build>
-		<finalName>oms-web</finalName>
-		<sourceDirectory>src</sourceDirectory>
+		<finalName>${project.artifactId}-${project.version}-${maven.build.timestamp}</finalName>
+		<resources>
+			<resource>
+				<directory>build/test</directory>
+				<includes>
+					<include>**/*.js</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -33,7 +47,7 @@
 						<phase>compile</phase>
 						<configuration>
 							<tasks>
-								<copy overwrite="true" file="${basedir}/build/test/ServerConfiguration.js" tofile="${basedir}/WebContent/Content/script/app/ServerConfiguration.js" />
+								<move overwrite="true" file="${project.build.directory}/classes/ServerConfiguration.js" tofile="${basedir}/WebContent/Content/script/app/ServerConfiguration.js" />
 							</tasks>
 						</configuration>
 						<goals>
