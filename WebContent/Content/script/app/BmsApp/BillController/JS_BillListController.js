@@ -63,7 +63,6 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
     $scope.PageData = {};
     $scope.BillData = { detail: new Array() };
     $scope.$Factory = new $BillDetailFactory($scope);
-
     $scope.QueryService = {
         /// <summary>查询服务</summary>
         GetOrderInfo: function (param) {
@@ -75,14 +74,13 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
             $BMSApi.PublicInfoService.GetBillDetail(param, function (billInfo) {
                 $scope.$apply(function () {
                     $.extend($scope.BillData, billInfo);
+                    $scope.BillData.detail = billInfo.detail;
                 });
             });
         }
     }
 
-
     if ($stateParams.sONo) { $scope.QueryService.GetOrderInfo($stateParams); }
-
     if ($stateParams.hOFNNo) { $scope.QueryService.GetBillInfo($stateParams); }
 
 });
@@ -92,6 +90,7 @@ app.factory("$BillDetailFactory", function ($BMSApi) {
     /// <summary></summary>
     var $BillDetailFactory = function (scope) {
         var $scope = scope;
+
         this.GetOrderMapping = function (orderInfo) {
             /// <summary>获取订单映射</summary>
             return { sONo: orderInfo.sONo, createDate: orderInfo.createDate, statusName: orderInfo.statusName, deliveryProvinceName: orderInfo.deliveryProvinceName, deliveryCityName: orderInfo.deliveryCityName, deliveryDistrictName: orderInfo.deliveryDistrictName, deliveryAddress: orderInfo.deliveryAddress, deliveryContact: orderInfo.deliveryContact, deliveryrMobile: orderInfo.deliveryrMobile, dLOrgCode: orderInfo.soCreateOrgCode, hPCode: orderInfo.hPCode, hPCodeName: orderInfo.hPCodeName, wardDeptCode: orderInfo.wardDeptCode, wardDeptCodeName: orderInfo.wardDeptCodeName, dTCode: orderInfo.dTCode, dTCodeName: orderInfo.dTCodeName, operationDate: orderInfo.operationDate, operationOperationRoom: orderInfo.operationOperationRoom, operationFeedbackRemark: orderInfo.operationFeedbackRemark, patientHPNo: orderInfo.patientHPNo, patientWard: orderInfo.patientWard, patientRoom: orderInfo.patientRoom, patientBedNo: orderInfo.patientBedNo, patientName: orderInfo.patientName, patientSex: orderInfo.patientSex, patientAge: orderInfo.patientAge, patientAddress: orderInfo.patientAddress, patientTel: orderInfo.patientTel, patientRemark: orderInfo.patientRemark, patientDiseaseInfo: orderInfo.patientDiseaseInfo, patientEntryDate: orderInfo.patientEntryDate }
