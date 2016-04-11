@@ -1,4 +1,4 @@
-﻿
+
 var OmsApp = angular.module('OmsApp', ["OMSApiService"]);
 OmsApp
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {

@@ -1,4 +1,4 @@
-﻿/// <reference path="../Config.js" />
+/// <reference path="../Config.js" />
 /// <reference path="../BMSPath.js" />
 /// <reference path="../../../lib/jnDo_1.0/jnDo_1.0.js" />
 
@@ -37,15 +37,15 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
         },
         ModifyBill: function () {
             /// <summary>修改计费单</summary>
-            this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.detail", { hOFNNo: row.hOFNNo }); });
+            this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.detail", row); });
         },
         ApprovalBill: function () {
             /// <summary>审批订单</summary>
-            this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.view", { hOFNNo: row.hOFNNo }); });
+            this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.view", row); });
         },
         ViewBillByRow: function (row) {
             /// <summary>根据选中的行</summary>
-            $scope.goView("app.bms.bill.view", { hOFNNo: row.hOFNNo });
+            $scope.goView("app.bms.bill.view", row);
         },
         ViewBill: function () {
             /// <summary>查看订单详情</summary>
@@ -60,31 +60,30 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
     /// <summary>计费单详情</summary>
     console.log("计费单管理-计费单详情管理");
 
-    var $Factory = new $BillDetailFactory($scope);
     $scope.PageData = {};
-
     $scope.BillData = { detail: new Array() };
+    $scope.$Factory = new $BillDetailFactory($scope);
 
     $scope.QueryService = {
         /// <summary>查询服务</summary>
-        GetOrderInfo: function () {
+        GetOrderInfo: function (param) {
             /// <summary>获取订单明细</summary>
-            $BMSApi.PublicInfoService.GetPendingDetail($stateParams, function (orderInfo) {
-                $.extend($scope.PageData, orderInfo); if (!$stateParams.hOFNNo) { $.extend($scope.BillData, $Factory.GetOrderMapping(orderInfo)); }
-            });
+            $BMSApi.PublicInfoService.GetPendingDetail(param, function (orderInfo) { $.extend($scope.PageData, orderInfo); if (!param.hOFNNo) { $.extend($scope.BillData, $scope.$Factory.GetOrderMapping(orderInfo)); } });
         },
-        GetBillInfo: function () {
+        GetBillInfo: function (param) {
             /// <summary>获取计费单明细</summary>
-            $BMSApi.PublicInfoService.GetBillDetail($stateParams, function (billInfo) {
-                $.extend($scope.BillData, billInfo);
+            $BMSApi.PublicInfoService.GetBillDetail(param, function (billInfo) {
+                $scope.$apply(function () {
+                    $.extend($scope.BillData, billInfo);
+                });
             });
         }
     }
 
 
-    if ($stateParams.sONo) { $scope.QueryService.GetOrderInfo(); }
+    if ($stateParams.sONo) { $scope.QueryService.GetOrderInfo($stateParams); }
 
-    if ($stateParams.hOFNNo) { $scope.QueryService.GetBillInfo(); }
+    if ($stateParams.hOFNNo) { $scope.QueryService.GetBillInfo($stateParams); }
 
 });
 
@@ -93,23 +92,26 @@ app.factory("$BillDetailFactory", function ($BMSApi) {
     /// <summary></summary>
     var $BillDetailFactory = function (scope) {
         var $scope = scope;
+        this.GetOrderMapping = function (orderInfo) {
+            /// <summary>获取订单映射</summary>
+            return { sONo: orderInfo.sONo, createDate: orderInfo.createDate, statusName: orderInfo.statusName, deliveryProvinceName: orderInfo.deliveryProvinceName, deliveryCityName: orderInfo.deliveryCityName, deliveryDistrictName: orderInfo.deliveryDistrictName, deliveryAddress: orderInfo.deliveryAddress, deliveryContact: orderInfo.deliveryContact, deliveryrMobile: orderInfo.deliveryrMobile, dLOrgCode: orderInfo.soCreateOrgCode, hPCode: orderInfo.hPCode, hPCodeName: orderInfo.hPCodeName, wardDeptCode: orderInfo.wardDeptCode, wardDeptCodeName: orderInfo.wardDeptCodeName, dTCode: orderInfo.dTCode, dTCodeName: orderInfo.dTCodeName, operationDate: orderInfo.operationDate, operationOperationRoom: orderInfo.operationOperationRoom, operationFeedbackRemark: orderInfo.operationFeedbackRemark, patientHPNo: orderInfo.patientHPNo, patientWard: orderInfo.patientWard, patientRoom: orderInfo.patientRoom, patientBedNo: orderInfo.patientBedNo, patientName: orderInfo.patientName, patientSex: orderInfo.patientSex, patientAge: orderInfo.patientAge, patientAddress: orderInfo.patientAddress, patientTel: orderInfo.patientTel, patientRemark: orderInfo.patientRemark, patientDiseaseInfo: orderInfo.patientDiseaseInfo, patientEntryDate: orderInfo.patientEntryDate }
+        }
 
         this.GetDoctorMapping = function (doc) {
             /// <summary>获取医生模型映射</summary>
             return { hPCode: doc.hPCode, hPCodeName: doc.hPName, wardDeptCode: doc.wardDeptCode, wardDeptCodeName: doc.wardDeptname, dTCode: doc.dTCode, dTCodeName: doc.dTName };
         }
-        this.GetMateriaMappings = function (materias, aims) {
+        this.GetMateriaMappings = function (materia) {
             /// <summary>获取物资映射信息</summary>
-            var result = new Array(); $.each(materias, function (index, materia) { result.push($.extend(materia, { qty: materia.reqQty, dHMMName: materia.medMaterialFullName, dHMMSpecification: materia.medMaterialSpecification, dHMMMaterials: materia.medMaterialMaterials, hPUnitEstPrice: parseFloat(materia.medMaterialPrice), patientUnitEstPrice: (parseFloat(materia.medMaterialPrice) * 1.05) })); }); return result;
+            return $.extend(materia, { qty: materia.reqQty, dHMMName: materia.medMaterialFullName, dHMMSpecification: materia.medMaterialSpecification, dHMMMaterials: materia.medMaterialMaterials, hPUnitEstPrice: parseFloat(materia.medMaterialPrice), patientUnitEstPrice: (parseFloat(materia.medMaterialPrice) * 1.05) });
         }
-        this.GetOrderMapping = function (orderInfo) {
-            /// <summary>获取订单映射</summary>
-            return { sONo: orderInfo.sONo, createDate: orderInfo.createDate, statusName: orderInfo.statusName, deliveryProvinceName: orderInfo.deliveryProvinceName, deliveryCityName: orderInfo.deliveryCityName, deliveryDistrictName: orderInfo.deliveryDistrictName, deliveryAddress: orderInfo.deliveryAddress, deliveryContact: orderInfo.deliveryContact, deliveryrMobile: orderInfo.deliveryrMobile, dLOrgCode: orderInfo.soCreateOrgCode, hPCode: orderInfo.hPCode, hPCodeName: orderInfo.hPCodeName, wardDeptCode: orderInfo.wardDeptCode, wardDeptCodeName: orderInfo.wardDeptCodeName, dTCode: orderInfo.dTCode, dTCodeName: orderInfo.dTCodeName, operationDate: orderInfo.operationDate, operationOperationRoom: orderInfo.operationOperationRoom, operationFeedbackRemark: orderInfo.operationFeedbackRemark, patientHPNo: orderInfo.patientHPNo, patientWard: orderInfo.patientWard, patientRoom: orderInfo.patientRoom, patientBedNo: orderInfo.patientBedNo, patientName: orderInfo.patientName, patientSex: orderInfo.patientSex, patientAge: orderInfo.patientAge, patientAddress: orderInfo.patientAddress, patientTel: orderInfo.patientTel, patientRemark: orderInfo.patientRemark, patientDiseaseInfo: orderInfo.patientDiseaseInfo, patientEntryDate: orderInfo.patientEntryDate }
-        }
-        this.AddMaterias = function (materias) {
+
+        this.AddMaterias = function (materias, aims) {
             /// <summary>批量添加物料信息</summary>
-            if (!$scope.BillData.detail) { $scope.BillData.detail = new Array(); } $.each(materias, function (index, materia) { var flg = true; $.each($scope.BillData.detail, function (i, data) { if (materia.dHMedMaterialInternalNo == data.dHMedMaterialInternalNo) { data.qty += materia.qty; flg = false; return false; } }); if (flg) { $scope.BillData.detail.push(materia); } });
+            if (!aims) { aims = new Array(); } $.each(materias, function (index, item) { var materia = BillDetailFactory.GetMateriaMappings(item); var flg = true; $.each(aims, function (i, data) { if (materia.dHMedMaterialInternalNo == data.dHMedMaterialInternalNo) { data.qty += materia.qty; flg = false; return false; } }); if (flg) { aims.push(materia); } });
         }
+
+        var BillDetailFactory = this; return this;
     }
     return $BillDetailFactory;
 });

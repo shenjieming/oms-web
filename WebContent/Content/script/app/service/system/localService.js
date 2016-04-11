@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../lib/Jquery/jquery-1.4.4.min.js" />
+/// <reference path="../../../lib/Jquery/jquery-1.4.4.min.js" />
 /// <reference path="../../../lib/angular-1.2.20/angular.min.js" />
 /// <reference path="../../Config.js" />
 /// <summary>本地资源服务</summary>

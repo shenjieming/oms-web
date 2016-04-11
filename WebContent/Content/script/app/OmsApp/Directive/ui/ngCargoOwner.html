@@ -1,4 +1,4 @@
-﻿<span>
+<span>
     <span ng-show="!Cargo.List.length">您没有货主信息，请联系您的货主</span>
     <select ng-show="Cargo.List.length" style="min-width: 78%;" ng-model="ngModel" ng-change="Cargo.ChangeCargo()" ng-options="item.id as item.text for item in Cargo.List">
         <option value="">请选择货主</option>

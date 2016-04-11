@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../View/Business/Suite/SuiteEduit.html" />
+/// <reference path="../../../View/Business/Suite/SuiteEduit.html" />
 /// <reference path="User/JS_Information.js" />
 /// <reference path="../lib/angular-1.2.20/angular-route.min.js" />
 /// <reference path="../lib/angular-1.2.20/angular.min.js" />

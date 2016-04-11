@@ -1,4 +1,4 @@
-﻿/// <reference path="../../lib/angular-1.2.20/angular.min.js" />
+/// <reference path="../../lib/angular-1.2.20/angular.min.js" />
 
 var BmsApp = angular.module('BmsApp', ["BMSApiService"]);
 BmsApp
@@ -69,7 +69,7 @@ BmsApp
             })
             .state("app.bms.bill.view", {
                 /// <summary>计费单视图管理</summary>
-                url: "/view/:hOFNNo",
+                url: "/view/:hOFNNo/:sONo",
                 cache: false,
                 views: {
                     "": {

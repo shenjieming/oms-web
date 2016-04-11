@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../Config.js" />
+/// <reference path="../../../Config.js" />
 /// <reference path="../../../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../../../../lib/angular-1.2.20/angular.min.js" />
 
@@ -12,13 +12,13 @@ app.controller("BillDetailController", function ($scope, $state, $local, $BMSApi
             /// <summary>医生选择配置</summary>
             fixed: function (doc) {
                 /// <summary>选择医生事件</summary>
-                $.extend($scope.BillData, $Factory.GetDoctorMapping(doc)); $scope.Module.HospitalConfig.hide();
+                $.extend($scope.BillData, $scope.$Factory.GetDoctorMapping(doc)); $scope.Module.HospitalConfig.hide();
             }
         },
         MateriaConfig: {
             /// <summary>物资配置</summary>
             fixed: function (MateriasList) {
-                $Factory.AddMaterias($Factory.GetMateriaMappings(MateriasList, $scope.BillData.detail));
+                $scope.$Factory.AddMaterias(MateriasList, $scope.BillData.detail);
             }
         }
     }
