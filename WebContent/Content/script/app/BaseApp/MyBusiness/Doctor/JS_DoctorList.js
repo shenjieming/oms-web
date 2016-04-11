@@ -1,4 +1,4 @@
-﻿/// <reference path="../../lib/angular-1.2.20/angular.min.js" />
+/// <reference path="../../lib/angular-1.2.20/angular.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-touch.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-sanitize.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-loader.js" />

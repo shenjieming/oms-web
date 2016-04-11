@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../View/Business/Suite/SuiteEduit.html" />
+/// <reference path="../../../View/Business/Suite/SuiteEduit.html" />
 /// <reference path="User/JS_Information.js" />
 /// <reference path="../lib/angular-1.2.20/angular-route.min.js" />
 /// <reference path="../lib/angular-1.2.20/angular.min.js" />
@@ -67,7 +67,6 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
 app.controller("employeeController", function ($scope, $state, $MenuService, $local, $MessagService, $Api) {
     /// <summary>个人信息控制器</summary>
     $scope.msgBox = {};
-
 
     $scope.modifyPwd = {
         pwsInfo: {},

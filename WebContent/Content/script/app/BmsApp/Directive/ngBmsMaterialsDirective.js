@@ -1,4 +1,4 @@
-﻿
+
 /// <reference path="../../../lib/Jquery/jquery-1.11.1.min.js" />
 app.directive("ngBmsMaterials", function ($BMSApi, $MessagService, $local, $AppHelp) {
     /// <summary>BMS物资选择</summary>  

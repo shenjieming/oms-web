@@ -1,4 +1,4 @@
-﻿/// <reference path="../Jquery/jquery-1.4.4.min.js" />
+/// <reference path="../Jquery/jquery-1.4.4.min.js" />
 /// <reference path="../angular-1.2.20/angular.js" />
 /// <reference path="script/jquery.ztree.all-3.5.min.js" />
 /// <reference path="script/jn_Src.min.js" />

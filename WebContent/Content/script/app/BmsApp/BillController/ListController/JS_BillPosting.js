@@ -1,4 +1,4 @@
-﻿
+
 
 app.controller("BillPostingListController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
     /// <summary>已对账计费单列表管理</summary>

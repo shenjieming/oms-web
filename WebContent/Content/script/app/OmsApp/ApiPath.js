@@ -1,4 +1,4 @@
-﻿/// <reference path="../ServerConfiguration.js" />
+/// <reference path="../ServerConfiguration.js" />
 
 console.log("接口控制启动");
 var ApiPath = {

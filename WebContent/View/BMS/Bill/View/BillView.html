@@ -1,16 +1,15 @@
-﻿<div class="row" ng-controller="BillViewController">
+<div class="row" ng-controller="BillViewController">
     <div class="tools">
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
             计费单管理
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-click=""><i class="fa fa-eye"></i> 审批</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
     <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
-    <div ng-doctors="" ng-model="BillData" ng-operat="Module.HospitalConfig"></div>
-    <div ng-bms-materials="Module.MateriaConfig"></div>
     <div>
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active" href="#Bill" data-toggle="tab"><a>计费详情</a></li>
@@ -19,37 +18,6 @@
         <div class="tab-content">
             <div class="tab-pane active" id="Bill">
                 <div class="row-fluid">
-                    <div class="widget-box">
-                        <div class="widget-title bg_ly">
-                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" href="#pro_OrderBaseInfo">订单信息[货主：<span ng-bind="BillData.sOOIOrgCodeName"></span>]</h5>
-                        </div>
-                        <div class="widget-content nopadding collapse in" id="pro_OrderBaseInfo">
-                            <div class="control-group ">
-                                <div class="Vessel">
-                                    订单编号：<span ng-bind="BillData.sONo"></span>
-                                </div>
-                                <div class="Vessel">
-                                    下单时间：<span ng-bind="BillData.createDate"></span>
-                                </div>
-                                <div class="Vessel">
-                                    订单状态：<span ng-bind="BillData.statusName"></span>
-                                </div>
-                            </div>
-                            <div class="control-group ">
-                                <div class="Vessel All">
-                                    收货信息：
-                                    <span ng-bind="BillData.deliveryProvinceName"></span>
-                                    <span ng-bind="BillData.deliveryCityName"></span>
-                                    <span ng-bind="BillData.deliveryDistrictName"></span>
-                                    <span ng-bind="BillData.deliveryAddress"></span>
-                                    <span ng-bind="BillData.deliveryContact"></span>
-                                    <a href="javascript:void(0)"><span ng-bind="BillData.deliveryrMobile"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>
@@ -123,7 +91,7 @@
                                     患者年龄：<span ng-bind="BillData.patientAge"></span>
                                 </div>
                                 <div class="Vessel">
-                                    患者性别：<span ng-bind="BillData.patientSex"></span>
+                                    患者性别：<span ng-bind="BillData.patientSexName"></span>
                                 </div>
                             </div>
 
@@ -168,7 +136,7 @@
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" href="#MaterialsInfo">物资信息</h5>
+                            <h5 data-toggle="collapse" href="#MaterialsInfo">物资信息{{BillData.detail.length}}</h5>
                         </div>
                         <div id="MaterialsInfo" class="widget-content nopadding collapse in">
                             <div class="main-box-body clearfix" style="padding: 15px; max-height: 450px; overflow: auto; width: 100%;">
@@ -181,7 +149,7 @@
                                                 <th><span>耗材品牌</span> </th>
                                                 <th><span>规格 </span> </th>
                                                 <th><span>材料</span> </th>
-                                                <th><span>使用批次</span> </th>
+                                                <th><span>使用 批次</span> </th>
                                                 <th><span>计费数量</span></th>
                                                 <th><span>耗材单价</span></th>
                                                 <th><span>患者单价(+5%)</span></th>

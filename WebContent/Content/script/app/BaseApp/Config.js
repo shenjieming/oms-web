@@ -1,4 +1,4 @@
-﻿var BaseApp = angular.module('BaseApp', [])
+var BaseApp = angular.module('BaseApp', [])
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         /// <summary>页面配置信息</summary>
         $stateProvider
