@@ -38,7 +38,7 @@
                             <tr ng-repeat="row in Integrated.BillList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="PageControl.ViewBillByRow(row)">
                                 <td>{{$index+1}}</td>
                                 <td><span ng-bind="row.hOFNNo"></span></td>
-                                <td><span ng-bind="row.hOFNHospitalNo?hOFNHospitalNo:'-'"></span></td>
+                                <td><span ng-bind="row.hOFNHospitalNo?row.hOFNHospitalNo:'-'"></span></td>
                                 <td><span ng-bind="row.sONo"></span></td>
                                 <td><span ng-bind="row.dTCodeName"></span></td>
                                 <td><span ng-bind="row.hPCodeName"></span></td>

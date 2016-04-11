@@ -59,32 +59,33 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
 app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams, $BillDetailFactory) {
     /// <summary>计费单详情</summary>
     console.log("计费单管理-计费单详情管理");
+
+    var $Factory = new $BillDetailFactory($scope);
     $scope.PageData = {};
+
     $scope.BillData = { detail: new Array() };
 
     $scope.QueryService = {
         /// <summary>查询服务</summary>
         GetOrderInfo: function () {
             /// <summary>获取订单明细</summary>
-            $BMSApi.PublicInfoService.GetPendingDetail($stateParams, function (orderInfo) { $.extend($scope.PageData, orderInfo); if (!$stateParams.hOFNNo) { $.extend($scope.BillData, $Factory.GetOrderMapping(orderInfo)); } });
+            $BMSApi.PublicInfoService.GetPendingDetail($stateParams, function (orderInfo) {
+                $.extend($scope.PageData, orderInfo); if (!$stateParams.hOFNNo) { $.extend($scope.BillData, $Factory.GetOrderMapping(orderInfo)); }
+            });
         },
         GetBillInfo: function () {
             /// <summary>获取计费单明细</summary>
-            $BMSApi.PublicInfoService.GetBillDetail($stateParams.hOFNNo, function (billInfo) {
-                debugger
+            $BMSApi.PublicInfoService.GetBillDetail($stateParams, function (billInfo) {
+                $.extend($scope.BillData, billInfo);
             });
         }
     }
 
-    if ($stateParams.sONo) {
-        $scope.QueryService.GetOrderInfo();
-    }
 
-    if ($stateParams.hOFNNo) {
-        $scope.QueryService.GetBillInfo();
-    }
+    if ($stateParams.sONo) { $scope.QueryService.GetOrderInfo(); }
 
-    var $Factory = new $BillDetailFactory($scope);
+    if ($stateParams.hOFNNo) { $scope.QueryService.GetBillInfo(); }
+
 });
 
 

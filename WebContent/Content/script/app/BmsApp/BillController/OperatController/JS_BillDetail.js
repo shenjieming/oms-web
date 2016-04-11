@@ -34,14 +34,9 @@ app.controller("BillDetailController", function ($scope, $state, $local, $BMSApi
         },
         Submit: function () {
             /// <summary>计费单提交</summary>
-            $BMSApi.BillService.Submit($scope.BillData, function (rData) {
-                $scope.goLastPage();
-            });
+            $BMSApi.BillService.Submit($scope.BillData, function (rData) { $scope.goLastPage(); });
         }
     }
-
-    //$BillDetailFactory.Get();
-    var $Factory = new $BillDetailFactory($scope);
 });
 
 
