@@ -1,5 +1,8 @@
+﻿///  <autosync enabled="true" /> 
 /// <reference path="../Config.js" />
 /// <reference path="../BMSPath.js" />
+/// <reference path="../../../lib/angular-1.2.20/angular.min.js" />
+/// <reference path="../../../lib/angular-1.2.20/angular-route.js" />
 /// <reference path="../../../lib/jnDo_1.0/jnDo_1.0.js" />
 
 app.controller("BillController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
@@ -71,15 +74,10 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
         },
         GetBillInfo: function (param) {
             /// <summary>获取计费单明细</summary>
-            $BMSApi.PublicInfoService.GetBillDetail(param, function (billInfo) {
-                $scope.$apply(function () {
-                    $.extend($scope.BillData, billInfo);
-                    $scope.BillData.detail = billInfo.detail;
-                });
-            });
+            $BMSApi.PublicInfoService.GetBillDetail(param, function (billInfo) { $.extend($scope.BillData, billInfo); $.extend($scope.BillData, $stateParams); setTimeout(function () { $scope.$Factory.AddMaterias(billInfo.detail, $scope.BillData.detail) }); });
         }
-    }
-
+    };
+   
     if ($stateParams.sONo) { $scope.QueryService.GetOrderInfo($stateParams); }
     if ($stateParams.hOFNNo) { $scope.QueryService.GetBillInfo($stateParams); }
 
@@ -102,12 +100,13 @@ app.factory("$BillDetailFactory", function ($BMSApi) {
         }
         this.GetMateriaMappings = function (materia) {
             /// <summary>获取物资映射信息</summary>
-            return $.extend(materia, { qty: materia.reqQty, dHMMName: materia.medMaterialFullName, dHMMSpecification: materia.medMaterialSpecification, dHMMMaterials: materia.medMaterialMaterials, hPUnitEstPrice: parseFloat(materia.medMaterialPrice), patientUnitEstPrice: (parseFloat(materia.medMaterialPrice) * 1.05) });
+            var Price= parseFloat(materia.medMaterialPrice?materia.medMaterialPrice:materia.hPUnitEstPrice)
+            return $.extend(materia, { qty: materia.reqQty, dHMMName: materia.medMaterialFullName, dHMMSpecification: materia.medMaterialSpecification, dHMMMaterials: materia.medMaterialMaterials, hPUnitEstPrice: Price, patientUnitEstPrice: (Price * 1.05) });
         }
 
         this.AddMaterias = function (materias, aims) {
             /// <summary>批量添加物料信息</summary>
-            if (!aims) { aims = new Array(); } $.each(materias, function (index, item) { var materia = BillDetailFactory.GetMateriaMappings(item); var flg = true; $.each(aims, function (i, data) { if (materia.dHMedMaterialInternalNo == data.dHMedMaterialInternalNo) { data.qty += materia.qty; flg = false; return false; } }); if (flg) { aims.push(materia); } });
+            if (!aims) { aims = new Array(); } $.each(materias, function (index, item) { var materia = BillDetailFactory.GetMateriaMappings(item); var flg = true; $.each(aims, function (i, data) { if (materia.dHMedMaterialInternalNo == data.dHMedMaterialInternalNo) { data.qty += materia.qty; flg = false; return false; } }); if (flg) { aims.push(materia); } }); return aims;
         }
 
         var BillDetailFactory = this; return this;

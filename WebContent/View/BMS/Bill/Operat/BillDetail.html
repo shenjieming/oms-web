@@ -176,7 +176,7 @@
                                                 <td><input type="number" ng-model="row.qty" style="width:60px;" placeholder="请输入计费数量" /></td>
                                                 <td><input type="number" ng-model="row.hPUnitEstPrice" ng-change="Service.Compute.HpUnitEstPrice(row)" placeholder="请输入耗材单价" onclick="this.select()" style="width:100px;" /></td>
                                                 <td><input type="number" ng-model="row.patientUnitEstPrice" onclick="this.select()" style="width:100px;" placeholder="请输入销售单价" /></td>
-                                                <td><span ng-bind="row.medMaterialEffectiveDateFrom"></span></td>
+                                                <td><span ng-bind="row.medMaterialEffectiveDateFrom?row.medMaterialEffectiveDateFrom:row.effectiveToDate"></span></td>
                                              </tr>
                                         </tbody>
                                     </table>

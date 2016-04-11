@@ -38,11 +38,12 @@ BmsApp
             })
             .state("app.bms.bill.approval", {
                 /// <summary>待审批计费单列表</summary>
-                url: "/approvallist", cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillApprovalListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_BillApproval.js"], resolve: app.resolve
+                url: "/approval",
+                cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillApprovalListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_BillApproval.js"], resolve: app.resolve
             })
             .state("app.bms.bill.approveded", {
                 /// <summary>已审批计费单列表</summary>
-                url: "/approvaledlist", cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillApprovaledListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_BillApprovaled.js"], resolve: app.resolve
+                url: "/approveded", cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillApprovaledListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_BillApprovaled.js"], resolve: app.resolve
             })
             .state("app.bms.bill.posting", {
                 /// <summary>计费单已对账列表</summary>
@@ -122,14 +123,14 @@ BmsApp
             })
             .state("app.bms.rec.approval", {
                 /// <summary>待审批对账单列表</summary>
-                url: "/approvallist",
+                url: "/approval",
                 cache: false,
                 templateUrl: "" + Timestamp,
                 controller: "RecApprovalListController"
             })
             .state("app.bms.rec.approveded", {
                 /// <summary>已审批对账单列表</summary>
-                url: "/approvaledlist",
+                url: "/approveded",
                 cache: false,
                 templateUrl: "" + Timestamp,
                 controller: "RecApprovaledListController"

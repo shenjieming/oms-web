@@ -1,4 +1,4 @@
-<div class="row" ng-controller="BillViewController">
+﻿<div class="row" ng-controller="BillViewController">
     <div class="tools">
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
@@ -26,7 +26,7 @@
                         <div id="SurgeryInformation" class="widget-content nopadding collapse in">
                             <div class="control-group">
                                 <div class="Vessel All">
-                                    计费单号：<span ng-bind="BillData.hOFNHospitalNo"></span>
+                                    医院计费单号：<span ng-bind="BillData.hOFNHospitalNo"></span>
                                 </div>
                             </div>
                             <div class="control-group">
@@ -153,7 +153,6 @@
                                                 <th><span>计费数量</span></th>
                                                 <th><span>耗材单价</span></th>
                                                 <th><span>患者单价(+5%)</span></th>
-                                                <th><span>有效日期</span></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -167,7 +166,6 @@
                                                 <td><span ng-bind="row.qty"></span></td>
                                                 <td><span ng-bind="row.hPUnitEstPrice"></span></td>
                                                 <td><span ng-bind="row.patientUnitEstPrice"></span></td>
-                                                <td><span ng-bind="row.medMaterialEffectiveDateFrom"></span></td>
                                             </tr>
                                         </tbody>
                                     </table>
