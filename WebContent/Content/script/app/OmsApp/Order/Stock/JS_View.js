@@ -14,9 +14,104 @@ app.controller("StockViewController", function ($scope, $state, $local, $Api, $M
     $scope.PageData = {
         wardDeptCode: "", initHPCode: "", initDTCode: "", patientDiseaseInfo: "",
         prodLns: new Array(),
-        attachments: { images: new Array(), remark: "" }
+        attachments: { images: new Array(), remark: "" },
+        allCount:{implant:0,tool:0,kit:0,all:0,whName:""},
+        AllmedMaterias: new Array()
     }
+    $scope.PreViewCount={
+        //物料统计
+        CountMaterialFunction:function () {
 
+            ///<summary>产品线物料信息统计</summary>
+            //获取产品线下全部的物料信息
+            $scope.PageData.AllmedMaterias = new Array();//元数据清空
+            $scope.PageData.allCount={implant:0,tool:0,kit:0,all:0};
+            var result = new Array();
+            //获取产品线下的全部物料
+            $.each($scope.PreViewCount.prodLns.GetMedMateriasByprodLns($scope.PageData.prodLns),function (index,medMateria) {
+                result.push(medMateria);
+            });
+            ///获取套件下的全部物料，注意异步调用，使用aims来匹配数据结果集
+            $.each($scope.PreViewCount.Kit.GetHMedKitDetail($scope.PageData.medKits),function (index,medMateria) {
+                result.push(medMateria);
+            })
+
+            ///result去重,由于去重时，遍历了正在的结果集，所以可以在这里做数据分析，分析工具和植入物的数量
+            $.each(result,function (index,medMaterial) {
+                var flag = true;
+                $scope.PageData.allCount.all+=medMaterial.reqQty;
+                if(medMaterial.categoryByPlatform=="IMPLANT"){
+                    $scope.PageData.allCount.implant+=medMaterial.reqQty;
+                }
+                else if(medMaterial.categoryByPlatform=="TOOL"){
+                    $scope.PageData.allCount.tool+=medMaterial.reqQty;
+                }
+                $.each($scope.PageData.AllmedMaterias,function (mindex,mresult) {
+                    if(medMaterial.medMIInternalNo==mresult.medMIInternalNo){
+                        mresult.reqQty+=medMaterial.reqQty;
+                        flag=false;
+                        return false;
+                    }
+                });
+                if(flag){
+                    $scope.PageData.AllmedMaterias.push(medMaterial);
+                }
+            })
+        },
+        ///<summary>套件分析</summary>
+        Kit:{
+            //获取套件详情
+            GetHMedKitDetail:function (kits) {
+                var result = new Array();
+                if(kits){
+                    $.each(kits,function (index,kit) {
+                        $scope.PageData.allCount.kit+=kit.reqQty;
+                        $Api.MedKitService.GetMedKitDetail(kit,function (kitDetail) {
+                            $scope.PreViewCount.Kit.GetMedMaterialByProInKit(kitDetail,result,kit);
+                        })
+                    });
+                }
+                return result;
+            },
+            GetMedMaterialByProInKit:function (kitDetail,aims,kit) {
+                //<summary>获取套件中产品线包物料总集合
+                $.each(kitDetail.productLine,function (index,line) {
+                    ///<summary>获取产品线下的物料</summary>
+                    $scope.PreViewCount.Kit.GetMedMaterialInProln(line,aims,kit);
+                });
+            },
+            GetMedMaterialInProln:function (line,aims,kit) {
+                $.each(line.medMaterias, function (index, material) {
+                    for(var i=0;i<kit.reqQty;i++){
+                        aims.push($.extend({}, material));
+                    }
+                })
+            }
+        },
+        prodLns:{
+            ///<summary>产品线分析</summary>
+            GetMedMateriasByprodLns:function (prodlins) {
+                ///<summary>根据产品线信息获取物料总集合</summary>
+                //遍历产品线
+                var result = new Array();
+                if(prodlins){
+                    $.each (prodlins,function (index,lin) {
+                        $scope.PreViewCount.prodLns.GetMedMateriasByLine(lin,result);
+                    });
+                }
+                return result;
+            },
+            GetMedMateriasByLine:function (lin,aims) {
+                ///<summary>获取产品线下全部物料的信息</summary>
+                if (lin.medMaterias) {
+                    $.each(lin.medMaterias, function (index, medMateria) {
+                        aims.push($.extend({}, medMateria));//物料添加进结果集
+                    });
+                }
+            }
+
+        },
+    }
     $scope.View = {
         Surgery: "View/Order/Stock/View/SingleView.html?data=" + Timestamp,
         Competence: {}
@@ -297,10 +392,8 @@ app.controller("StockSingleController", function ($scope, $state, $local, $Api, 
                     attachments: $scope.file.GetEventMapping(rData.events, "0001_0002")
                 });
             });
-        }
+        },
     }
-
-
     $scope.file = {
         /// <summary>附件控制器</summary>
         Upload: function (files) {
@@ -451,9 +544,6 @@ app.controller("StockAccurateController", function ($scope, $state, $local, $Api
             });
         }
     });
-
-
-
     $scope.MaterialsConfig = {
         Material: new Array(),
         GetShowMaterial: function (type) {
@@ -570,11 +660,17 @@ app.controller("StockDealwithController", function ($scope, $state, $local, $Api
             $Api.StockService.Process.Submit($scope.PageData, function (rData) {
                 $scope.goLastPage();
             });
+        },
+        Hide:function () {
+            $scope.DealService.model.hide();
+        },
+        Show:function () {
+            $scope.PreViewCount.CountMaterialFunction();
+            $scope.DealService.model.show();
         }
     }
-
+    $scope.DealService.model = { title: "备货单预览", width: 1376, height: 768, buttons: { "提交": $scope.DealService.Submit, "返回": $scope.DealService.Hide } };
     $scope.TemplateService = {}
-
     $scope.AddressConfig = {
         fixed: function (rowInfo) {
             /// <summary>选择地址事件</summary> 
