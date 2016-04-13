@@ -57,7 +57,6 @@
                         </div>
                         <div ng-address="address" ng-model="PageData" ng-operat="AddressConfig"></div>
                     </div>
-
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>
@@ -148,7 +147,7 @@
                                             <td>仓库</td>
                                         </tr>
                                         </thead>
-                                        <tr ng-repeat="row in PageData.AllmedMaterias">
+                                        <tr ng-repeat="row in PageData.Implate">
                                             <td>{{$index+1}}</td>
                                             <td><span ng-bind="row.medBrandCodeName?row.medBrandCodeName:row.medBrandName"></span>
                                             <td><span ng-bind="row.medProdLnCodeName?row.medProdLnCodeName:row.medProdLnName"></span>

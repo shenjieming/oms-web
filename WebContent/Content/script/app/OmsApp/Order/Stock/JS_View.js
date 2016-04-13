@@ -16,7 +16,9 @@ app.controller("StockViewController", function ($scope, $state, $local, $Api, $M
         prodLns: new Array(),
         attachments: { images: new Array(), remark: "" },
         allCount:{implant:0,tool:0,kit:0,all:0,whName:""},
-        AllmedMaterias: new Array()
+        AllmedMaterias: new Array(),
+        Implate:new Array(),
+        Tool:new Array(),
     }
     $scope.PreViewCount={
         //物料统计
@@ -44,7 +46,7 @@ app.controller("StockViewController", function ($scope, $state, $local, $Api, $M
                     $scope.PageData.allCount.implant+=medMaterial.reqQty;
                 }
                 else if(medMaterial.categoryByPlatform=="TOOL"){
-                    $scope.PageData.allCount.tool+=medMaterial.reqQty;
+                    $scope.PageControl.Tool.push(medMaterial);
                 }
                 $.each($scope.PageData.AllmedMaterias,function (mindex,mresult) {
                     if(medMaterial.medMIInternalNo==mresult.medMIInternalNo){
@@ -55,6 +57,14 @@ app.controller("StockViewController", function ($scope, $state, $local, $Api, $M
                 });
                 if(flag){
                     $scope.PageData.AllmedMaterias.push(medMaterial);
+                }
+            })
+            $.each($scope.PageData.AllmedMaterias,function (index,material) {
+                if(medMaterial.categoryByPlatform=="IMPLANT"){
+                    $scope.PageData.Implate.push(material);
+                }
+                else if(medMaterial.categoryByPlatform=="TOOL"){
+                    $scope.PageControl.Tool.push(material);
                 }
             })
         },
