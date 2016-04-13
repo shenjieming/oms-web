@@ -92,6 +92,7 @@
                         <span class="Text required" style="margin-left:-70px;margin-top:0px;">*</span>
                         <span class="Text">手术时间：</span>
                         <span ng-show-data="" ng-model="PageData.initOperationDate"></span>
+                        <span style="line-height: 25px; vertical-align: 50%;" id="OrderData"> {{DisplayWeek}}</span>
                     </label>
                     <label style="width:60%">
                         <span class="required">*</span>
@@ -100,7 +101,7 @@
                 </div>
                 <div class="control-group ">
                     <label style="width:100%;">
-                        患者描述:
+                        患者描述：
                         <input type="text" style="width: 78%" ng-model="PageData.initPatientInfo" />
                     </label>
                 </div>
