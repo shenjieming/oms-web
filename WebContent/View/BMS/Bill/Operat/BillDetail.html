@@ -188,6 +188,31 @@
                         </div>
                     </div>
 
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" style="width:80%" href="#AdditionalInformation">图片信息</h5>
+                            <a class="btn j_file_panel" href="javascript:void(0)">
+                                <i class="fa fa-image"></i>
+                                添加图片
+                                <div ng-file="file" ng-model="file"></div>
+                            </a>
+                        </div>
+                        <div id="AdditionalInformation" class="widget-content nopadding collapse in">
+                            <div class="control-group ">
+                                <div ng-img-list="img" ng-comp="{delImg:true}" ng-model="BillData.images"></div>
+                                <label style="opacity:0.5;width:100%;" ng-show="!BillData.images.images.length">
+                                    添加点图片丰富您的订单吧，
+                                    最多支持上传5张图片
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label style="width:100%">
+                                    图片说明：<input type="text" style="width:78%;" placeholder="对您的图片说点什么吧..." ng-model="PageData.attachments.remark" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="Order">
