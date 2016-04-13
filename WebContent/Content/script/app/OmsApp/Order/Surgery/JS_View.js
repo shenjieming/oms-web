@@ -15,8 +15,10 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
         wardDeptCode: "", initHPCode: "", initDTCode: "", patientDiseaseInfo: "",
         prodLns: new Array(),
         attachments: { images: new Array(), remark: "" },
-        allCount:{implant:0,tool:0,kit:0,all:0},
-        AllmedMaterias: new Array()
+        allCount:{implant:0,tool:0,kit:0,all:0,whName:""},
+        AllmedMaterias: new Array(),
+        Implate:new Array(),
+        Tool:new Array(),
     }
     $scope.PreViewCount={
         //物料统计
@@ -25,20 +27,22 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
             ///<summary>产品线物料信息统计</summary>
             //获取产品线下全部的物料信息
             $scope.PageData.AllmedMaterias = new Array();//元数据清空
+            $scope.PageData.Implate = new Array();
+            $scope.PageData.Tool = new Array();
             $scope.PageData.allCount={implant:0,tool:0,kit:0,all:0};
             var result = new Array();
             //获取产品线下的全部物料
-                $.each($scope.PreViewCount.prodLns.GetMedMateriasByprodLns($scope.PageData.prodLns),function (index,medMateria) {
-                    result.push(medMateria);
-                });
+            $.each($scope.PreViewCount.prodLns.GetMedMateriasByprodLns($scope.PageData.prodLns),function (index,medMateria) {
+                result.push(medMateria);
+            });
             ///获取套件下的全部物料，注意异步调用，使用aims来匹配数据结果集
-                $.each($scope.PreViewCount.Kit.GetHMedKitDetail($scope.PageData.medKits),function (index,medMateria) {
-                    result.push(medMateria);
-                })
+            $.each($scope.PreViewCount.Kit.GetHMedKitDetail($scope.PageData.medKits),function (index,medMateria) {
+                result.push(medMateria);
+            })
 
             ///result去重,由于去重时，遍历了正在的结果集，所以可以在这里做数据分析，分析工具和植入物的数量
             $.each(result,function (index,medMaterial) {
-                 var flag = true;
+                var flag = true;
                 $scope.PageData.allCount.all+=medMaterial.reqQty;
                 if(medMaterial.categoryByPlatform=="IMPLANT"){
                     $scope.PageData.allCount.implant+=medMaterial.reqQty;
@@ -55,6 +59,14 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
                 });
                 if(flag){
                     $scope.PageData.AllmedMaterias.push(medMaterial);
+                }
+            })
+            $.each($scope.PageData.AllmedMaterias,function (index,material) {
+                if(material.categoryByPlatform=="IMPLANT"){
+                    $scope.PageData.Implate.push(material);
+                }
+                else if(material.categoryByPlatform=="TOOL"){
+                    $scope.PageData.Tool.push(material);
                 }
             })
         },
@@ -112,6 +124,7 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
 
         },
     }
+
     $scope.View = {
         Surgery: "View/Order/Surgery/View/SingleView.html?data=" + Timestamp,
         Competence: {}
@@ -132,6 +145,19 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
         Operat: {
             fixed: function () {
                 $scope.goLastPage();
+            }
+        },
+        ApprovalBy:function(){
+            $Api.SurgeryService.ApprovalBy($scope.PageData, function (rData) {
+                $MessagService.succ($scope.PageData.sONo + "审批通过");
+                $scope.goLastPage();
+            })
+        },
+        Cancel: function () {
+            if (confirm("您确认要取消" + "【"+$scope.PageData.sONo+"】"+"订单吗？")) {
+                $Api.SurgeryService.Cancel($scope.PageData, function (rData) {
+                    $scope.goLastPage();
+                })
             }
         },
         Model: { sONo: $scope.sono }
@@ -163,6 +189,9 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
             $scope.EventFilter();
         }
     })
+
+
+
     $scope.file = {
         /// <summary>附件控制器</summary>
         GetEventMapping: function (eventList, statusCode) {
@@ -219,6 +248,7 @@ app.controller("AccurateController", function ($scope, $state, $local, $Api, $Me
             $.extend($scope.PageData, {
                 orderFile: $OMSSpecially.File.GetEventMapping($scope.PageData.events, "0020_0011")
             });
+
             setTimeout(function () {
                 $.extend($scope.AccurProduct.data, {
                     medKits: $scope.PageData.orderKits,
@@ -227,6 +257,9 @@ app.controller("AccurateController", function ($scope, $state, $local, $Api, $Me
             });
         }
     });
+
+
+
     $scope.MaterialsConfig = {
         Material: new Array(),
         GetShowMaterial: function (type) {
@@ -239,11 +272,14 @@ app.controller("AccurateController", function ($scope, $state, $local, $Api, $Me
             });
         }
     };
+
+
     $scope.AccurProduct = {
         data: new Object(),
         Service: {},
         Competence: { tool: false, operat: false }
-    };
+    }
+
 })
 app.controller("LibraryController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $route) {
     /// <summary>出库单</summary>
@@ -350,16 +386,23 @@ app.controller("LibraryController", function ($scope, $state, $local, $Api, $Mes
         }
     }
 })
-app.controller("SingleController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $AppHelp, $OMSSpecially) {
+app.controller("SingleController", function ($rootScope,$scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $AppHelp, $OMSSpecially) {
     /// <summary>手术下单下单控制器</summary>
     /*基础对象区域Begion*/
     $scope.sono = $stateParams.sono;//获取订单编号
     $scope.PageData = {
         wardDeptCode: "", initHPCode: "", initDTCode: "", patientDiseaseInfo: "",
-        initOperationDate: $AppHelp.Data.GetDate(-1, null, "start"),
+        Date: $AppHelp.Data.GetDate(-1, null, "start"),
         prodLns: new Array(),
-        attachments: { images: new Array(), remark: "" }
+        attachments: { images: new Array(), remark: "" },
     }
+
+    //substring(0, 2);
+    /*后台时间格式转换修改 YY-MM-DD (星期 几)*/
+    $scope.PageData.initOperationDate = $scope.PageData.Date.substring(0, $scope.PageData.Date.length - 8);
+    var myDate = new Date($scope.PageData.initOperationDate)
+    $scope.DisplayWeek = "  星期" + "日一二三四五六".charAt(myDate.getDay());
+    //console.log($scope.PageData.DisplayWeek)
     /*基础对象区域End*/
     /*逻辑对象区域Begion*/
     $scope.PageService = {
@@ -488,6 +531,7 @@ app.controller("SingleController", function ($scope, $state, $local, $Api, $Mess
     $scope.AddressConfig = {
         fixed: function (rowInfo) {
             /// <summary>选择地址事件</summary>
+            console.log(rowInfo)
             $.extend($scope.PageData, {
                 deliveryContact: rowInfo.contact, deliveryrMobile: rowInfo.mobile, deliveryProvinceCode: rowInfo.provinceCode, deliveryProvinceName: rowInfo.provinceCodeName, deliveryCityCode: rowInfo.cityCode,
                 deliveryCityName: rowInfo.cityCodeName, deliveryDistrictCode: rowInfo.districtCode, deliveryDistrictName: rowInfo.districtCodeName, deliveryAddress: rowInfo.address, iniitCarrierTransType: rowInfo.carrierTransType
@@ -570,6 +614,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
     $scope.FeedBack = {
         order: {},
         medMaterial: new Array(),
+        notInDetail: new Array(),
         attachment: {
             images: new Array(),
             remark: ""
@@ -596,6 +641,19 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
     $scope.FeedBackService = {
         /// <summary>订单处理服务</summary>
         Submit: function () {
+            //校验并添加默认数据
+            if($scope.FeedBack.notInDetail.length > 0){
+                $.each($scope.FeedBack.notInDetail,function(index,item){
+                    if(item.lotSerial == null){
+                        item.lotSerial = "NOLOTINFO";//设置默认值
+                    }
+                    if(item.returnWarehouse == null){
+                        var currentUser = $local.getValue("USER").userInfo;
+                        var warehouse = currentUser.orgCode;
+                        item.returnWarehouse = warehouse;
+                    }
+                })
+            }
             /// <summary>订单处理提交</summary>
             $Api.SurgeryService.Process.Back($scope.FeedBack, function (rData) {
                 $scope.goLastPage();
@@ -628,6 +686,38 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
         }
     };
 
+    $scope.OtherMaterialsConfig = {
+        fixed: function (OtherMaterialsList) {
+            $scope.$apply(function () {
+                if($scope.FeedBack.notInDetail.length > 0){
+                    var result = new Array();
+                    var hash = {};
+                    var allMaterials = $scope.FeedBack.notInDetail.concat(OtherMaterialsList);
+                    for(var i=0,elem;(elem = allMaterials[i]) != null;i++){
+                        if(hash[elem.medMIInternalNo]){
+                            $.each(result,function(index, item){
+                                if(item.medMIInternalNo == elem.medMIInternalNo){
+                                    item.reqQty += elem.reqQty
+                                }
+                            })
+                        }else{
+                            result.push(elem);
+                            hash[elem.medMIInternalNo]=true;
+                        }
+                    }
+                    $scope.FeedBack.notInDetail = result;
+                }else{
+                    $.each(OtherMaterialsList,function(index, item){
+                        $scope.FeedBack.notInDetail.push(item);
+                    })
+                }
+            })
+        },
+        DelKit:function(index){
+            $scope.FeedBack.notInDetail.splice(index, 1);
+            console.log($scope.FeedBack.notInDetail);
+        }
+    }
 
     $scope.MaterialsConfig = {
         Material: new Array(),
@@ -748,6 +838,14 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
                 $scope.goLastPage();
             });
         },
+        Hide:function () {
+            $scope.DealService.model.hide();
+        },
+        Show:function () {
+            $scope.PreViewCount.CountMaterialFunction();
+            console.log($scope.PageData.Tool)
+            $scope.DealService.model.show();
+        },
         Cancel: function () {
             if (confirm("您确认要取消当前订单吗?")) {
                 //调用取消接口，因不满足前置条件，无法回退，保持原状就行
@@ -756,16 +854,9 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
                      $scope.goLastPage();
                  });
             }
-        },
-        Hide:function () {
-            $scope.DealService.model.hide();
-        },
-        Show:function () {
-            $scope.PreViewCount.CountMaterialFunction();
-            $scope.DealService.model.show();
         }
     }
-    $scope.DealService.model = { title: "订单预览", width: 1027, height: 1000, buttons: { "提交": $scope.DealService.Submit, "返回": $scope.DealService.Hide } };
+    $scope.DealService.model = { title: "手术下单预览", width: 1376, height: 768, buttons: { "提交": $scope.DealService.Submit, "返回": $scope.DealService.Hide } };
     $scope.AddressConfig = {
         fixed: function (rowInfo) {
             /// <summary>选择地址事件</summary>

@@ -27,6 +27,8 @@ app.controller("StockViewController", function ($scope, $state, $local, $Api, $M
             ///<summary>产品线物料信息统计</summary>
             //获取产品线下全部的物料信息
             $scope.PageData.AllmedMaterias = new Array();//元数据清空
+            $scope.PageData.Implate = new Array();
+            $scope.PageData.Tool = new Array();
             $scope.PageData.allCount={implant:0,tool:0,kit:0,all:0};
             var result = new Array();
             //获取产品线下的全部物料
@@ -46,7 +48,7 @@ app.controller("StockViewController", function ($scope, $state, $local, $Api, $M
                     $scope.PageData.allCount.implant+=medMaterial.reqQty;
                 }
                 else if(medMaterial.categoryByPlatform=="TOOL"){
-                    $scope.PageControl.Tool.push(medMaterial);
+                    $scope.PageData.allCount.tool+=medMaterial.reqQty;
                 }
                 $.each($scope.PageData.AllmedMaterias,function (mindex,mresult) {
                     if(medMaterial.medMIInternalNo==mresult.medMIInternalNo){
@@ -60,11 +62,11 @@ app.controller("StockViewController", function ($scope, $state, $local, $Api, $M
                 }
             })
             $.each($scope.PageData.AllmedMaterias,function (index,material) {
-                if(medMaterial.categoryByPlatform=="IMPLANT"){
+                if(material.categoryByPlatform=="IMPLANT"){
                     $scope.PageData.Implate.push(material);
                 }
-                else if(medMaterial.categoryByPlatform=="TOOL"){
-                    $scope.PageControl.Tool.push(material);
+                else if(material.categoryByPlatform=="TOOL"){
+                    $scope.PageData.Tool.push(material);
                 }
             })
         },

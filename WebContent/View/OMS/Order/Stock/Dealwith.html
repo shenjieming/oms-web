@@ -155,11 +155,8 @@
                                             <td><span ng-bind="row.medMICodeName?row.medMICodeName:row.medMIName"></span>
                                             <td><span ng-bind="row.specification"></span>
                                             <td><span ng-bind="row.reqQty"></span>
-                                            <td><span ng-bind=""></span>
                                         </tr>
                                     </table>
-
-
                                 </div>
                                 <div class="yulan_biaoge">
 
@@ -179,15 +176,15 @@
                                             <td>仓库</td>
                                         </tr>
                                         </thead>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
+                                        <tr ng-repeat="row in PageData.Tool">
+                                            <td>{{$index+1}}</td>
+                                            <td><span ng-bind="row.medBrandCodeName?row.medBrandCodeName:row.medBrandName"></span>
+                                            <td><span ng-bind="row.medProdLnCodeName?row.medProdLnCodeName:row.medProdLnName"></span>
+                                            <td><span ng-bind="row.medMICode"></span>
+                                            <td><span ng-bind="row.medMICodeName?row.medMICodeName:row.medMIName"></span>
+                                            <td><span ng-bind="row.specification"></span>
+                                            <td><span ng-bind="row.reqQty"></span>
+                                            <td><span ng-bind="row.estMedMIWarehouseName"></span>
                                         </tr>
                                     </table>
                                 </div>

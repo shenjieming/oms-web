@@ -235,7 +235,7 @@
                                             <td>仓库</td>
                                         </tr>
                                         </thead>
-                                        <tr ng-repeat="row in PageData.AllmedMaterias">
+                                        <tr ng-repeat="row in PageData.Implate">
                                             <td>{{$index+1}}</td>
                                             <td><span ng-bind="row.medBrandCodeName?row.medBrandCodeName:row.medBrandName"></span>
                                             <td><span ng-bind="row.medProdLnCodeName?row.medProdLnCodeName:row.medProdLnName"></span>
@@ -243,19 +243,16 @@
                                             <td><span ng-bind="row.medMICodeName?row.medMICodeName:row.medMIName"></span>
                                             <td><span ng-bind="row.specification"></span>
                                             <td><span ng-bind="row.reqQty"></span>
-                                            <td><span ng-bind="row.medMIWarehouse"></span>
+                                            <td><span ng-bind="row.estMedMIWarehouseName"></span>
                                         </tr>
                                     </table>
 
 
                                 </div>
                                 <div class="yulan_biaoge">
-
                                     <h4><b>工具：</b>脊骨-adena,<span ng-bind="PageData.allCount.tool"></span>件</h4>
                                     <table class="yulan_bordered" cellpadding="0" cellspacing="0">
-
                                         <thead>
-
                                         <tr class="yulan_line">
                                             <td>序号</td>
                                             <td>品牌名称</td>
@@ -267,57 +264,15 @@
                                             <td>仓库</td>
                                         </tr>
                                         </thead>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
-                                            <td>上海三友</td>
+                                        <tr ng-repeat="row in PageData.Tool">
+                                            <td>{{$index+1}}</td>
+                                            <td><span ng-bind="row.medBrandCodeName?row.medBrandCodeName:row.medBrandName"></span>
+                                            <td><span ng-bind="row.medProdLnCodeName?row.medProdLnCodeName:row.medProdLnName"></span>
+                                            <td><span ng-bind="row.medMICode"></span>
+                                            <td><span ng-bind="row.medMICodeName?row.medMICodeName:row.medMIName"></span>
+                                            <td><span ng-bind="row.specification"></span>
+                                            <td><span ng-bind="row.reqQty"></span>
+                                            <td><span ng-bind="row.estMedMIWarehouseName"></span>
                                         </tr>
                                     </table>
                                 </div>
