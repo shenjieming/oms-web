@@ -1,4 +1,4 @@
-﻿/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
+/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-touch.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-sanitize.min.js" />
@@ -13,32 +13,58 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
         link: function ($scope, element, attrs) {
             var userInfo = $local.getValue("USER").userInfo;
             var modelConfig = {
-                title: "收货地址选择", width: 750, height: 400, buttons: {
+                title: "收货地址选择", width: 850, height: 400, buttons: {
                     "确定": function () { var dataRow = $local.getSelectedRow($scope.Service.AddressList); if (dataRow) { $scope.$apply(function () { $scope.ngOperat.fixed(dataRow); }); } else { $MessagService.caveat("请选择一条常用地址信息！"); } }, "关闭": function () { $scope.ngOperat.hide(); }
                 },
-                open: function () { $.extend($scope.operat, { isEdit: true, isDetail: false }); $scope.Service.GetAddressList(); $(".ui-dialog-buttonset").show(); if (userInfo.orgType != "DL") { $scope.operat.Button = false; } }
+                open: function () { $.extend($scope.operat, { isEdit: true, isDetail: false }); $scope.Service.GetAddressList(); $(".ui-dialog-buttonset").show(); if (userInfo.orgType != "DL") { $scope.operat.Button = false; };},
+              
             };
             $scope.operat = {
                 isEdit: true,//是否显示编辑信息
                 isDetail: false,//是否显示明细信息
                 Button: true,
-                ChangeEdit: function () {
+                ChangeEdit: function (date) {
                     /// <summary>修改地址列表状态</summary>
-                    var address = $local.getSelectedRow($scope.Service.AddressList); if (address) { $.extend($scope.operat, { isDetail: true, isEdit: false }); var parm = $.extend({ userID: userInfo.userId }, address); $Api.MyAddress.GetbizDataMyAddressDetail(parm, function (rData) { $scope.Service.AddressDetail = rData; $scope.SelectInfo.Province.getProvinceList(); $scope.SelectInfo.City.getCityList(); $scope.SelectInfo.District.getDistrictList(); $scope.SelectInfo.carrierTransType.getcarrierTransTypeList(); $(".ui-dialog-buttonset").hide(); }) } else { $MessagService.caveat("请选择编辑的信息！"); }
+                    //var address = $local.getSelectedRow($scope.Service.AddressList);
+                        $.extend($scope.operat, { isDetail: true, isEdit: false });
+                        var parm = $.extend({ userID: userInfo.userId }, date);
+                        $Api.MyAddress.GetbizDataMyAddressDetail(parm, function (rData) {
+                            $scope.Service.AddressDetail = rData;
+                            $scope.Service.AddressDetail.deliveryProvinceCode = rData.provinceCode;
+                            $scope.Service.AddressDetail.deliveryCityCode = rData.cityCode;
+                            $scope.Service.AddressDetail.deliveryDistrictCode = rData.districtCode;
+                            $(".ui-dialog-buttonset").hide();
+                            $("#ui-id-6").html("编辑收货地址");
+                        })
+        
                 },
                 ChangeDetail: function () {
                     /// <summary>新增地址列表信息</summary>
-                    $.extend($scope.operat, { isDetail: true, isEdit: false }); $scope.SelectInfo.Province.getProvinceList(); $scope.Service.AddressDetail = new Object(); if (!$scope.Service.AddressDetail.provinceCode) { $scope.SelectInfo.City.dic = new Array(); $scope.SelectInfo.District.dic = new Array(); } $(".ui-dialog-buttonset").hide(); $scope.SelectInfo.carrierTransType.getcarrierTransTypeList();
+                    $.extend($scope.operat, { isDetail: true, isEdit: false }); $(".ui-dialog-buttonset").hide(); $("#ui-id-6").html("新增收货地址");
                 },
                 List: function () {
                     /// <summary>我的地址列表返回</summary>
-                    $scope.operat.isDetail = !$scope.operat.isDetail; $scope.operat.isEdit = !$scope.operat.isEdit; $scope.Service.GetAddressList(); $(".ui-dialog-buttonset").show();
+                    $scope.operat.isDetail = !$scope.operat.isDetail; $scope.operat.isEdit = !$scope.operat.isEdit; $scope.Service.AddressDetail = new Array(); $scope.Service.GetAddressList(); $(".ui-dialog-buttonset").show(); $("#ui-id-6").html("收货地址选择")
                 },
                 verification: function () {
-                    var result = true; if (!$scope.Service.AddressDetail.contact) { result = false; $MessagService.caveat("请维护该联系人姓名！"); } else if (!$scope.Service.AddressDetail.mobile) { result = false; $MessagService.caveat("请维护该联系人号码！"); } else if (!$scope.Service.AddressDetail.provinceCode || !$scope.Service.AddressDetail.cityCode || !$scope.Service.AddressDetail.districtCode || !$scope.Service.AddressDetail.address) { result = false; $MessagService.caveat("请维护该联系人地址！"); } return result;
+                    var result = true; if (!$scope.Service.AddressDetail.contact) { result = false; $MessagService.caveat("请维护该联系人姓名！"); } else if (!$scope.Service.AddressDetail.mobile) { result = false; $MessagService.caveat("请维护该联系人号码！"); } else if (!$scope.Service.AddressDetail.deliveryProvinceCode || !$scope.Service.AddressDetail.deliveryCityCode || !$scope.Service.AddressDetail.deliveryDistrictCode || !$scope.Service.AddressDetail.address) { result = false; $MessagService.caveat("请维护该联系人地址！"); } return result;
                 },
                 Save: function () {
-                    if ($scope.operat.verification()) { $Api.RepresentativeService.SaveAddress($scope.Service.AddressDetail, function (rData) { $MessagService.succ("该信息保存成功！"); $.extend($scope.operat, { isDetail: !$scope.operat.isDetail, isEdit: !$scope.operat.isEdit }); $scope.Service.GetAddressList(); $(".ui-dialog-buttonset").show(); $scope.Service.AddressDetail = new Array(); }) }
+                    //我的地址保存
+                    if ($scope.operat.verification()) {
+                        $scope.Service.AddressDetail.provinceCode= $scope.Service.AddressDetail.deliveryProvinceCode ;
+                        $scope.Service.AddressDetail.cityCode = $scope.Service.AddressDetail.deliveryCityCode;
+                        $scope.Service.AddressDetail.districtCode = $scope.Service.AddressDetail.deliveryDistrictCode;
+                        console.log()
+                        $Api.RepresentativeService.SaveAddress($scope.Service.AddressDetail, function (rData) {
+                            $MessagService.succ("该信息保存成功！");
+                            $.extend($scope.operat, { isDetail: !$scope.operat.isDetail, isEdit: !$scope.operat.isEdit });
+                            $scope.Service.GetAddressList();
+                            $(".ui-dialog-buttonset").show();
+                            $("#ui-id-6").html("收货地址选择");
+                            $scope.Service.AddressDetail = new Array();
+                        })
+                    }
                 }
             }
             $scope.ngOperat = $.extend(modelConfig, $scope.ngOperat);
@@ -52,46 +78,6 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                 }
             };
             $scope.Service.GetAddressList();
-            $scope.SelectInfo = {
-                Province: {
-                    //省份类型下拉框  
-                    dic: new Array(),
-                    change: function () {
-                        /// <summary>省份列表修改事件</summary>     
-                        $.extend($scope.Service.AddressDetail, { cityCode: "", districtCode: "" }); $scope.SelectInfo.District.dic = new Array(); $scope.SelectInfo.City.getCityList()
-                    }, getProvinceList: function () {
-                        /// <summary>获取省份列表</summary>
-                        $Api.BasisService.GetadmdivisionList({ level: "1" }, function (rData) { $scope.SelectInfo.Province.dic = rData.rows; });
-                    }
-                },
-                City: {
-                    //市区类型下拉框  
-                    dic: new Array(), change: function () {
-                        /// <summary>省份市区修改事件</summary>     
-                        $.extend($scope.Service.AddressDetail, { districtCode: "" }); $scope.SelectInfo.District.getDistrictList()
-                    }, getCityList: function () {
-                        /// <summary>获取市区列表</summary>
-                        if ($scope.Service.AddressDetail.provinceCode) { var option = { level: "2", parentDivCode: $scope.Service.AddressDetail.provinceCode }; $Api.BasisService.GetadmdivisionList(option, function (rData) { $scope.SelectInfo.City.dic = rData.rows; }); } else { $scope.SelectInfo.City.dic = new Array(); }
-                    }
-                },
-                District: {
-                    //区域类型下拉框  
-                    dic: new Array(), getDistrictList: function () {
-                        /// <summary>获取区域列表</summary>
-                        if ($scope.Service.AddressDetail.cityCode && $scope.Service.AddressDetail.provinceCode) { var option = { level: "3", parentDivCode: $scope.Service.AddressDetail.cityCode }; $Api.BasisService.GetadmdivisionList(option, function (rData) { $scope.SelectInfo.District.dic = rData.rows; }); } else { $scope.SelectInfo.District.dic = new Array(); }
-                    }
-                },
-                carrierTransType: {
-                    //运输方式
-                    dic: new Array(),
-                    getcarrierTransTypeList: function () {
-                        $Api.Public.GetDictionary({ dictType: "TRANTP" }, function (rData) {
-                            $scope.SelectInfo.carrierTransType.dic = rData;
-                            console.log(rData)
-                        })
-                    }
-                }
-            }
         }
     }
 });

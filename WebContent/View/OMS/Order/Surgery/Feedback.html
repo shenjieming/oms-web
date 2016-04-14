@@ -1,4 +1,4 @@
-﻿<div class="row" ng-controller="FeedbackController">
+<div class="row" ng-controller="FeedbackController">
     <div class="tools">
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
@@ -135,64 +135,66 @@
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" style="width:80%" href="#Add_Materials">物料非订单信息</h5>
-                            <a class="btn" ng-click="materialDialog.Show()"><i class="fa fa-reddit-square"></i>添加物料</a>
-
+                            <h5 data-toggle="collapse" style="width:80%" href="#other_Materials">其它物料信息</h5>
+                            <a class="btn" ng-click="OtherMaterialsConfig.show()"><i class="fa fa-shopping-cart"></i>物料添加</a>
                         </div>
-                        <div class="widget-content nopadding collapse in" id="back_Materials">
+                        <div id="other_Materials" class="widget-content nopadding collapse in">
                             <div class="control-group ">
                                 <div class="main-box-body clearfix" style="width: 100%;">
                                     <div class="table-responsive">
                                         <table class="table table-bordered tab-striped">
                                             <thead>
-                                                <tr>
-                                                    <th><span>序号</span></th>
-                                                    <th><span>品牌名称</span></th>
-                                                    <th><span>产品线</span></th>
-                                                    <th><span>物料编码</span></th>
-                                                    <th><span>物料名称</span></th>
-                                                    <th><span>物料类型</span></th>
-                                                    <th><span>物料规格</span></th>
-                                                    <th><span>批次</span></th>
-                                                    <th><span>出库数量</span></th>
-                                                    <th><span>使用数量</span></th>
-                                                    <th><span>返库仓库</span></th>
-                                                </tr>
+                                            <tr>
+                                                <th><span>序号</span></th>
+                                                <th><span>品牌名称</span></th>
+                                                <th><span>产品线</span></th>
+                                                <th><span>物料编码</span></th>
+                                                <th><span>物料名称</span></th>
+                                                <th><span>物料类型</span></th>
+                                                <th><span>物料规格</span></th>
+                                                <th><span>批次</span></th>
+                                                <th><span>使用数量</span></th>
+                                                <th><span>返库仓库</span></th>
+                                                <th><span>操作</span></th>
+                                            </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="row in materialList.Info">
-                                                    <td>{{$index+1}}</td>
-                                                    <td>{{row.medBrandName}}</td>
-                                                    <td>{{row.medProdLnName}}</td>
-                                                    <td>{{row.medMICode}}</td>
-                                                    <td>{{row.medMIName}}</td>                                                  
-                                                    <td>{{row.categoryByPlatformName}}</td>
-                                                    <td>{{row.specification}}</td>
-                                                    <td>
-                                                        <input type="text" style="width:60px" ng-model="row.lotSerial" />
-                                                    </td>
-                                                    <td>{{row.actQty}}</td>
-                                                    <td>
-                                                        0
-                                                        <!--<input type="number" ng-change="dictionary.DefaultUseType(row)" style="width:60px;" ng-model="row.useQty" min="0" max="{{row.actQty}}" />
-                                                        <select ng-selected="0" ng-show="row.useQty>0" ng-model="row.useType" ng-options="item.id as item.text for item in dictionary.UseTypeList">
-                                                            <option value="">使用类型</option>
-                                                        </select-->
-                                                    </td>
-                                                    <td>
-                                                        <select ng-model="row.returnWarehouse" ng-change="WarehouseConfig.GetKitInventory(row)" ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
-                                                            <option value="">请选择仓库</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
+                                            <tr ng-repeat="row in FeedBack.notInDetail">
+                                                <td>{{$index+1}}</td>
+                                                <td>{{row.medBrandName}}</td>
+                                                <td>{{row.medProdLnName}}</td>
+                                                <td>{{row.medMICode}}</td>
+                                                <td>{{row.medMIName}}</td>
+                                                <td>{{row.categoryByPlatformName}}</td>
+                                                <td>{{row.specification}}</td>
+                                                <td>
+                                                    <input type="text" style="width:60px" ng-model="row.lotSerial" />
+                                                </td>
+                                                <td>
+                                                    <input type="number" ng-value="row.reqQty" ng-change="dictionary.DefaultUseType(row)" style="width:60px;" ng-model="row.reqQty" min="0" />
+                                                    <select ng-selected="0" ng-show="row.reqQty>0" ng-model="row.useType" ng-options="item.id as item.text for item in dictionary.UseTypeList">
+                                                        <option value="">使用类型</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select ng-model="row.returnWarehouse" ng-change="WarehouseConfig.GetKitInventory(row)" ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
+                                                        <option value="">请选择仓库</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <button type="button" ng-click="OtherMaterialsConfig.DelKit($index)" class="btn btn-xs btn-danger">
+                                                        <i class="fa fa-times"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
+                            <div ng-materials="" ng-operat="OtherMaterialsConfig"></div>
                         </div>
                     </div>
-
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>

@@ -1,4 +1,4 @@
-﻿<div class="row">
+<div class="row">
     <div class="tools">
         <h5 style="float:left;">经销商详情</h5>
         <span class="btn-group oms-btn-group" style="float:right;">
@@ -15,10 +15,17 @@
             <div class="widget-content nopadding collapse in" id="PersonalInformation">
                 <div class="control-group ">
                     <label>
-                        <span class="required">*</span> 经销商名称：<input type="text" ng-model="dlPageInfo.Info.dLName" placeholder="请输入经销商名" />
+                        <span class="required">*</span>经销商名称：<input type="text" ng-model="dlPageInfo.Info.dLName" placeholder="请输入经销商名" />
                     </label>
-                    <label style="width:60%">
-                        <span class="required">*</span>经销商全称：<input type="text" style="width:84%" ng-model="dlPageInfo.Info.dLFullName" placeholder="请输入经销全称" />
+                    <label style="w">
+                        <span class="required">*</span>经销商全称：<input type="text"  ng-model="dlPageInfo.Info.dLFullName" placeholder="请输入经销全称" />
+                    </label>
+                    <label>
+                        <span class="required">*</span>所属货主：
+                        <select ng-model="dlPageInfo.Info.oIOrgCode：">
+                            <option value="">请选择货主</option>
+                            <option ng-repeat="item in SelectInfo.OrgCode.dic" ng-selected="item.orgCode==dlPageInfo.Info.orgCode" value="{{item.orgCode}}">{{item.oIName}}</option>
+                        </select>
                     </label>
                 </div>
                 <div class="control-group">
@@ -42,11 +49,10 @@
             <div class="widget-content nopadding collapse in" id="RegistrationInformation">
                 <div class="control-group ">
                     <label>
-                        <span class="required">*</span> 注册名称：<input type="text" ng-model="dlPageInfo.Info.corpRegCompanyName" placeholder="请输入注册名称" />
+                        <span class="required">*</span>注册名称：<input type="text" ng-model="dlPageInfo.Info.corpRegCompanyName" placeholder="请输入注册名称" />
                     </label>
                     <label>
-                        <span class="required">*</span>注册编码：<input type="text" onkeyup="value=value.replace(/[^\w\.\-\/]/ig,'')" maxlength="18" ng-model="dlPageInfo.Info.corpRegNo
-                                                                   " placeholder="请输入注册编码" />
+                        <span class="required">*</span>注册编码：<input type="text" onkeyup="value=value.replace(/[^\w\.\-\/]/ig,'')" maxlength="18" ng-model="dlPageInfo.Info.corpRegNo" placeholder="请输入注册编码" />
                     </label>
                     <label>
                         <span class="required">*</span>注册币别：

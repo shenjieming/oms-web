@@ -1,4 +1,4 @@
-﻿<div class="row">
+<div class="row">
     <div class="col-lg-12 row-mt-8">
         <div class="main-box clearfix">
 
@@ -134,19 +134,10 @@
                                         <option value="">请选择医院...</option>
                                         <option ng-repeat="item in SelectInfo.Hosptail.dic" value="{{item.hPCode}}">{{item.hPName}}</option>
                                     </select>
-                                </div>
-                                <div class="Vessel">
-                                    医&nbsp;&nbsp;生：
-                                    <select ng-model="Pagein.dTCode" style="min-width:160px;margin-left:-8px;">
-                                        <option value="">请选择医生...</option>
-                                        <option ng-repeat="item in SelectInfo.Doctor.dic" value="{{item.dTCode}}">{{item.dTName}}</option>
-                                    </select>
-                                </div>
+                                </div>                                
                                 <div class="Vessel ">
                                     患者姓名：<input type="text" ng-model="Pagein.patientName" placeholder="请输入患者姓名" style="width:180px" />
                                 </div>
-                            </div>                           
-                            <div class="control-group" ng-if="User.userInfo.orgType=='WH'">
                                 <div class="Vessel  ">
                                     订单状态：
                                     <select ng-model="Pagein.status" style="margin-left: -8px; min-width:180px">
@@ -156,7 +147,7 @@
                                         <option ng-repeat="item in SelectInfo.Status.dic" selected="{{item.id}}" value="{{item.id}}">{{item.text}}</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>                           
                         </div>
                     </div>
                 </div>

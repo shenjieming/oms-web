@@ -3,43 +3,31 @@
         
         <div ng-slide="operat.isEdit">
             <div style="width:100%; padding-right:20px;">
-                <a href="javascript:void(0)" class="btn btn-primary" style="float:right;" ng-click="operat.ChangeEdit()" ng-if="operat.Button">编辑</a>
-                <a href="javascript:void(0)" class="btn btn-primary" style="float:right;margin-right:10px;" ng-click="operat.ChangeDetail()" ng-if="operat.Button">添加</a>
+                <!--<a href="javascript:void(0)" class="btn btn-primary" style="float:right;" ng-click="operat.ChangeEdit()" ng-if="operat.Button">编辑</a>
+                <a href="javascript:void(0)" class="btn btn-primary" style="float:right;margin-right:10px;" ng-click="operat.ChangeDetail()" ng-if="operat.Button">添加</a>-->
             </div>
             <div class="main-box-body clearfix" style="padding:15px;max-height:450px;overflow:auto;display:inline-block;width:100%">
                 <div class="table-responsive" style=" margin-top:-10px;">
                     <table class="table table-bordered table-striped" st-table="Service.DoctorsList">
                         <thead>
                             <tr>
-                                <th><span>序号</span></th>
-                                <th><span>医院编码</span></th>
-                                <th><span>医院名称</span></th>
-                                <th><span>科室编码</span></th>
-                                <th><span>科室名称</span></th>
-                                <th><span>医生编码</span></th>
+                                <th><span>序号</span></th>                            
+                                <th><span>医院名称</span></th>                        
+                                <th><span>科室名称</span></th>                           
                                 <th><span>医生名称</span></th>
                                 <th><span>医生归属</span></th>
-                                <th><span>操作</span></th>
+                                <th><span>操作<button type="button" class="btn btn-xs btn-danger" ng-click="operat.ChangeDetail()" ng-if="operat.Button" style="margin-left:4px;width:22px"><i class="fa fa-plus-square"></i></button></span></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="row in Service.DoctorsList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="ngOperat.fixed(row)">
-                                <td>{{$index+1}}</td>
-                                <td>
-                                    <span ng-bind="row.hPCode"></span>
-                                </td>
+                                <td>{{$index+1}}</td>                            
                                 <td title="{{row.hPPreferenceDesc}}">
                                     <span ng-bind="row.hPName"></span>
-                                </td>
-                                <td>
-                                    <span ng-bind="row.wardDeptCode"></span>
-                                </td>
+                                </td>                       
                                 <td>
                                     <span ng-bind="row.wardDeptname"></span>
-                                </td>
-                                <td>
-                                    <span ng-bind="row.dTCode"></span>
-                                </td>
+                                </td>                           
                                 <td title="{{row.dTOperationPreferenceDesc}}">
                                     <span ng-bind="row.dTName"></span>
                                 </td>
@@ -47,6 +35,7 @@
                                     <span ng-bind="row.isLocalName"></span>
                                 </td>
                                 <td>
+                                    <button type="button" class="btn btn-xs btn-danger" ng-click="operat.ChangeEdit(row)" ng-if="operat.Button" style="margin-left:6px;width:22px"><i class="fa fa-edit"></i></button>
                                     <button type="button" class="btn btn-xs btn-danger" ng-click="Service.DelDoctor(row)"><i class="fa fa-times"></i></button>
                                 </td>
                             </tr>
@@ -67,7 +56,7 @@
                     <div class="col-lg-5">
                         <span class="required">*</span> 医院名称：<select ng-model="Service.DoctorsDetail.hPCode" ng-change="SelectInfo.Doctor.change()">
                             <option value="">请选择医院名称...</option>
-                            <option ng-repeat="item in SelectInfo.Doctor.dic" ng-selected="item.id==Service.DoctorsDetail.hPCode" value="{{item.id}}">{{item.text}}</option>
+                                                                 <option ng-repeat="item in SelectInfo.Doctor.dic" ng-selected="item.hPCode==Service.DoctorsDetail.hPCode" value="{{item.hPCode}}">{{item.hPName}}</option>
                         </select>
                     </div>
                     <div class="col-lg-5">
@@ -88,12 +77,12 @@
                 </div>
                 <div class="row row-mt-8">
                     <div class="col-lg-1"></div>
-                    <div class="col-lg-10" ng-show="Service.isLocalCheck">
+                    <div class="col-lg-10" >
                         <span style="float:left;line-height:25px;">医生归属：</span>
                         <input type="checkbox" id="checkbox_c999" class="chkbox" ng-checked="Service.DoctorsDetail.isLocalCheck" ng-model="Service.DoctorsDetail.isLocalCheck" />
                         <label for="checkbox_c999" style="float:left"></label>
-                        <span ng-show="Service.DoctorsDetail.isLocalCheck" style="line-height: 25px;"> 本院</span>
-                        <span ng-show="!Service.DoctorsDetail.isLocalCheck" style="line-height: 25px;">非本院</span>
+                        <span ng-if="Service.DoctorsDetail.isLocalCheck" style="line-height: 25px;"> 本院</span>
+                        <span ng-if="!Service.DoctorsDetail.isLocalCheck" style="line-height: 25px;">非本院</span>
                     </div>
                 </div>
                 <div class="row row-mt-8">

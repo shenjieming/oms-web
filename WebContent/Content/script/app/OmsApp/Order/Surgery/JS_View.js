@@ -160,6 +160,19 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
                 })
             }
         },
+        ApprovalBy:function(){
+            $Api.SurgeryService.ApprovalBy($scope.PageData, function (rData) {
+                $MessagService.succ($scope.PageData.sONo + "审批通过");
+                $scope.goLastPage();
+            })
+        },
+        Cancel: function () {
+            if (confirm("您确认要取消" + "【"+$scope.PageData.sONo+"】"+"订单吗？")) {
+                $Api.SurgeryService.Cancel($scope.PageData, function (rData) {
+                    $scope.goLastPage();
+                })
+            }
+        },
         Model: { sONo: $scope.sono }
     }
     $scope.SignConfig = {

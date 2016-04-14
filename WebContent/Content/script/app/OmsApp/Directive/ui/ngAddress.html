@@ -1,9 +1,9 @@
-﻿<div>
+<div>
     <ng-dialog ng-model="ngOperat">
         <div ng-slide="operat.isEdit">
             <div style="width:100%; padding-right:20px;">
-                <a href="javascript:void(0)" class="btn btn-primary" style="float:right;" ng-click="operat.ChangeEdit()" ng-show="operat.Button">编辑</a>
-                <a href="javascript:void(0)" class="btn btn-primary" style="float:right;margin-right:10px;" ng-click="operat.ChangeDetail()" ng-show="operat.Button">添加</a>
+                <!--<a href="javascript:void(0)" class="btn btn-primary" style="float:right;" ng-click="operat.ChangeEdit()" ng-if="operat.Button">编辑</a>-->
+                <!--<a href="javascript:void(0)" class="btn btn-primary" style="float:right;margin-right:10px;" ng-click="operat.ChangeDetail()" ng-if="operat.Button">添加</a>-->
             </div>
             <div class="main-box-body clearfix" style="padding:15px;max-height:450px;overflow:auto;display:inline-block;width:100%">
                 <div class="table-responsive">
@@ -11,19 +11,28 @@
                         <thead>
                             <tr>
                                 <th><span>序号</span></th>
+                                <th><span>配送</span></th>
+                                <th><span>收件人</span></th>
+                                <th><span>电话</span></th>
                                 <th><span>省</span></th>
                                 <th><span>市</span></th>
                                 <th><span>区</span></th>
-                                <th><span>收件人</span></th>
-                                <th><span>联系电话</span></th>
-                                <th><span>配送方式</span></th>
-                                <th><span>联系地址</span></th>
-                                <th><span>操作</span></th>
+                                <th><span>地址</span></th>
+                                <th><span>操作<button type="button" class="btn btn-xs btn-danger" ng-click="operat.ChangeDetail()" ng-if="operat.Button" style="margin-left:4px;width:22px"><i class="fa fa-plus-square"></i></button></span></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="row in Service.AddressList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="ngOperat.fixed(row)">
                                 <td>{{$index+1}}</td>
+                                <td>
+                                    <span ng-bind="row.carrierTransTypeName"></span>
+                                </td>
+                                <td>
+                                    <span ng-bind="row.contact"></span>
+                                </td>
+                                <td>
+                                    <span ng-bind="row.mobile"></span>
+                                </td>
                                 <td>
                                     <span ng-bind="row.provinceCodeName"></span>
                                 </td>
@@ -34,19 +43,11 @@
                                     <span ng-bind="row.districtCodeName"></span>
                                 </td>
                                 <td>
-                                    <span ng-bind="row.contact"></span>
-                                </td>
-                                <td>
-                                    <span ng-bind="row.mobile"></span>
-                                </td>
-                                <td>
-                                    <span ng-bind="row.carrierTransTypeName"></span>
-                                </td>
-                                <td>
                                     <span ng-bind="row.address"></span>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-xs btn-danger" ng-click="Service.DelAddress(row)"><i class="fa fa-times"></i></button>
+                                    <button type="button" class="btn btn-xs btn-danger" ng-click="operat.ChangeEdit(row)" ng-if="operat.Button" style="margin-left:6px;width:22px"><i class="fa fa-edit"></i></button>
+                                    <button type="button" class="btn btn-xs btn-danger" ng-click="Service.DelAddress(row)"><i class="fa fa-times"></i></button>                                  
                                 </td>
                             </tr>
                         </tbody>
@@ -55,67 +56,35 @@
             </div>
         </div>
         <div ng-slide="operat.isDetail">
-            <div style="width:100%; padding-right:20px;">
+            <div style="width:100%;">
                 <a href="javascript:void(0)" class="btn btn-primary" style="float:right;" ng-click="operat.List()">返回</a>
                 <a href="javascript:void(0)" class="btn btn-primary" style="float:right;margin-right:10px;" ng-click="operat.Save()">保存</a>
             </div>
             <div style="width:100%;display:inline-block">
-
-                <div class="row row-mt-8">
+                <div class="row">
                     <div class="col-lg-1"></div>
-                    <div class="col-lg-5">
-                        <span class="required">*</span>收&nbsp;件&nbsp;人&nbsp;：
-                        <input type="text" ng-model="Service.AddressDetail.contact" placeholder="请输入收件人..." style="margin-left: 2px"/>
+                    <div class="col-lg-3">
+                        <span class="required">*</span>收件人：
+                        <input type="text" ng-model="Service.AddressDetail.contact" placeholder="请输入收件人..." style="width:130px;margin-left:-2px" />
                     </div>
-                    <div class="col-lg-5">
-                        <span class="required">*</span>  联系电话：
-                        <input type="text" ng-model="Service.AddressDetail.mobile" placeholder="请输入联系电话..."/>
+                    <div class="col-lg-3">
+                        <span class="required">*</span>电&nbsp;&nbsp;&nbsp;话：
+                        <input type="text" ng-model="Service.AddressDetail.mobile" placeholder="请输入联系电话..." style="width:130px" />
                     </div>
-                </div>
-                <!--<div class="row row-mt-8">
-            <div class="col-lg-1"></div>
-            <div class="col-lg-10">
-                <span class="required">*</span>区&nbsp;&nbsp;域&nbsp;&nbsp;：<span ng-area="" ng-model="Service.AddressList"></span>
-            </div>
-        </div>-->
-                <div class="row row-mt-8">
-                    <div class="col-lg-1"></div>
-                    <div class="col-lg-5">
-                        <span class="required">*</span>所在省份：
-                        <select ng-model="Service.AddressDetail.provinceCode" ng-change="SelectInfo.Province.change()">
-                            <option value="">请选择所在省份</option>
-                            <option ng-repeat="item in SelectInfo.Province.dic" ng-selected="item.divCode==Service.AddressDetail.provinceCode" value="{{item.divCode}}">{{item.divName}}</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-5">
-                        <span class="required">*</span>所在市级：
-                        <select ng-model="Service.AddressDetail.cityCode" ng-change="SelectInfo.City.change()">
-                            <option value="">请选择所在市级</option>
-                            <option ng-repeat="item in SelectInfo.City.dic" ng-selected="item.divCode==Service.AddressDetail.cityCode" value="{{item.divCode}}">{{item.divName}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row row-mt-8">
-                    <div class="col-lg-1"></div>
-                    <div class="col-lg-5">
-                        <span class="required">*</span>所在区县：
-                        <select ng-model="Service.AddressDetail.districtCode">
-                            <option value="">请选择所在区县</option>
-                            <option ng-repeat="item in SelectInfo.District.dic" ng-selected="item.divCode==Service.AddressDetail.districtCode" value="{{item.divCode}}">{{item.divName}}</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-5">
-                        <span class="required">*</span>配送方式：
-                        <select ng-model="Service.AddressDetail.carrierTransType">
-                            <option value="">请选择配送方式</option>
-                            <option ng-repeat="item in SelectInfo.carrierTransType.dic" ng-selected="item.id==Service.AddressDetail.carrierTransType" value="{{item.id}}">{{item.text}}</option>
-                        </select>
+                    <div class="col-lg-3">
+                        <span class="required">*</span>配&nbsp;&nbsp;&nbsp;送：<span ng-dictionary="TRANTP" ng-model="Service.AddressDetail.carrierTransType"></span>
                     </div>
                 </div>
                 <div class="row row-mt-8">
                     <div class="col-lg-1"></div>
                     <div class="col-lg-10">
-                        <span class="required">*</span> 联系地址：<input type="text" ng-model="Service.AddressDetail.address" placeholder="请输入联系地址..." style="width:75%;margin-left: 4px" />
+                        <span class="required">*</span>地&nbsp;&nbsp;&nbsp;区：<span ng-area="" ng-model="Service.AddressDetail"></span>
+                    </div>
+                </div>
+                <div class="row row-mt-8">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-10">
+                        <span class="required">*</span>地&nbsp;&nbsp;&nbsp;址：<input type="text" ng-model="Service.AddressDetail.address" placeholder="请输入联系地址..." style="width:77%;margin-left: 4px" />
                     </div>
                 </div>
             </div>

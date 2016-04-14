@@ -1,4 +1,4 @@
-﻿/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
+/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-touch.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-sanitize.min.js" />
@@ -39,13 +39,11 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                 isEdit: true,//是否显示编辑信息
                 isDetail: false,//是否显示明细信息
                 Button:true,//菜单按钮
-                ChangeEdit: function () {
-                    /// <summary>修改医生状态</summary>
-                    var doctoropt = $local.getSelectedRow($scope.Service.DoctorsList)
-                    if (doctoropt) {
+                ChangeEdit: function (date) {
+                    /// <summary>修改医生状态</summary>                 
                         $scope.operat.isEdit = !$scope.operat.isEdit;
                         $scope.operat.isDetail = !$scope.operat.isDetail;
-                        $Api.ManaDocter.GetbizDataDoctorDetail({ dTCode: doctoropt.dTCode }, function (rData) {
+                        $Api.ManaDocter.GetbizDataDoctorDetail({ dTCode: date.dTCode }, function (rData) {
                             $scope.Service.DoctorsDetail = rData;
                             console.log(rData)
                             $scope.SelectInfo.Doctor.getDoctorList();
@@ -55,10 +53,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                             }
                         });
                         $(".ui-dialog-buttonset").hide();
-                    } else {
-                        $MessagService.caveat("请选择一条编辑的医院！");
-                    }
-
+                        $("#ui-id-2").html("编辑医生");
                 },
                 ChangeDetail: function () {
                     /// <summary>新增医生信息</summary>
@@ -66,6 +61,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                     $scope.operat.isEdit = !$scope.operat.isEdit;
                     $scope.Service.DoctorsDetail = new Object;
                     $(".ui-dialog-buttonset").hide();
+                    $("#ui-id-2").html("新增医生");
                     if (!$scope.Service.DoctorsDetail.hPCode) { $scope.SelectInfo.Department.dic = new Array(); }
                     $scope.Service.DoctorsDetail.isLocalCheck = true;
                     $scope.SelectInfo.Doctor.getDoctorList();
@@ -84,6 +80,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                     $scope.operat.isEdit = !$scope.operat.isEdit;
                     $scope.Service.GetDoctors();
                     $(".ui-dialog-buttonset").show();
+                    $("#ui-id-2").html("医生选择");
                 },
                 verification: function () {
                     /// <summary>医生添加验证</summary>
@@ -92,6 +89,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                 Save: function () {
                     if ($scope.operat.verification()) {
                         $scope.Service.DoctorsDetail.isLocal = $scope.Service.DoctorsDetail.isLocalCheck ? "LOCAL" : "NOTLOCAL"
+                        $scope.Service.DoctorsDetail.isDefaultDoctorPerUser = "N";
                         console.log($scope.Service.DoctorsDetail)
                         $Api.HospitalService.SaveDoctor($scope.Service.DoctorsDetail, function (rData) {
                             $MessagService.succ("该信息保存成功！");
@@ -100,6 +98,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                             $scope.Service.GetDoctors();
                             $scope.Service.DoctorsDetail = [];
                             $(".ui-dialog-buttonset").show();
+                            $("#ui-id-2").html("医生选择");
                         })
                     }                   
                 },
@@ -122,8 +121,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                 DoctorsDetail: new Object,
                 GetDoctors: function () {
                     /// <summary>获取常用医生</summary>
-                    console.log($scope.ngModel)
-                    $Api.HospitalService.GetDoctors($scope.ngModel, function (rData) { $scope.Service.DoctorsList = rData.rows; });
+                    $Api.HospitalService.GetDoctors({}, function (rData) { $scope.Service.DoctorsList = rData.rows; });
                 },
                 DelDoctor: function (data) {
                     /// <summary>删除医生</summary>
@@ -149,8 +147,8 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                     getDoctorList: function () {
                         /// <summary>获取医院</summary>
                         console.log()
-                        $Api.HospitalService.GetHospital($scope.ngModel, function (rData) {
-                            $scope.SelectInfo.Doctor.dic = rData
+                        $Api.ManaHospital.GetqueryAllHospital({}, function (rData) {
+                            $scope.SelectInfo.Doctor.dic = rData.rows;
                             console.log(rData)
                         })
                     }

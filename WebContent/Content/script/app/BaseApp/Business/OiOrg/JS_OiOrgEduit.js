@@ -1,4 +1,4 @@
-﻿/// <reference path="../../lib/angular-2.2.20/angular-route.min.js" />
+/// <reference path="../../lib/angular-2.2.20/angular-route.min.js" />
 /// <reference path="../../lib/angular-2.2.20/angular.min.js" />
 /// <reference path="../../lib/angular-2.2.20/angular-touch.js" />
 /// <reference path="../../lib/angular-2.2.20/angular-sanitize.min.js" />
@@ -20,6 +20,7 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
         },
         GetOiOrgDetail: function () {
             /// <summary>获取货主详情</summary>
+            console.log($scope.oiPageInfo.Info)
             $Api.ManageOi.GetqueryOwnerOfInventoryDetail({ orgCode: $scope.oiopt }, function (rData) {
                 $scope.oiPageInfo.Info = rData;
                 console.log($scope.oiPageInfo.Info)

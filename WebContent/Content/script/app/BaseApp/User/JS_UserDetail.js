@@ -1,4 +1,4 @@
-﻿/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
+/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-touch.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-sanitize.min.js" />
@@ -91,14 +91,16 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
             //机构类型下拉框  
             dic: new Array(),
             change: function (item) {
-                /// <summary>角色类型修改事件</summary>
+                /// <summary>角色类型修改事件</summary> 
+                $scope.addRoleList.dic = new Array();
+                $scope.addRoleList.Detail = new Array();
                 for (var i = 0; i < $scope.SelectInfo.orgType.dic.length; i++) {
                     if ($scope.SelectInfo.orgType.dic[i].id == $scope.PageInfo.UserInfo.orgType) {
                         $scope.PageInfo.UserInfo.orgTypeName = $scope.SelectInfo.orgType.dic[i].text;
                         $scope.SelectInfo.roleType.getOrgcodeList()
                         return;
                     }
-                }
+                }            
             },
             getList: function () {
                 /// <summary>获取组织类型</summary>
@@ -214,12 +216,10 @@ app.controller("UserDetailController", function ($scope, $state, $local, $Api, $
                 result = [];
                 $scope.addRoleList.model.hide();
                 $scope.addRoleList.dic = $scope.addRoleList.Detail;
-                console.log($scope.addRoleList.dic)
             })
         },
         delGroup: function (index) {
             /// <summary>删除组成员</summary>CallResult
-            console.log(index)
             $scope.addRoleList.dic.splice(index, 1);
         },
     }

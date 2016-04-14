@@ -1,4 +1,4 @@
-﻿
+
 app.controller("PendingBillListController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
     /// <summary>计费单管理</summary>
     console.log("计费管理-待计费订单管理");

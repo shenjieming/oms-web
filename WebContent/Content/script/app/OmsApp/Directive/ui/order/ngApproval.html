@@ -1,21 +1,28 @@
-﻿<div>
+<div>
     <ng-dialog ng-model="ngOperat">
         <div class="row-fluid">
             <div class="widget-box" style="margin-top:0px;">
                 <div class="widget-content">
                     <div class="control-group">
                         <label style="width:100%;">
-                        审批类型：
-                            <select ng-model="Service.operat">
+                            原因：
+                            <!--<select ng-model="Service.operat">
                                 <option value="checkYes">批准申请</option>
                                 <option value="checkNo">拒绝申请</option>
                                 <option value="cancel">取消申请</option>
+                            </select>-->
+                            <!--<span ng-dictionary="SOFARR" ng-model="Service.operat" ></span>-->
+                            <select ng-model="Service.operat" ng-change="SelectInfo.change()">
+                                <option value="">请选择原因</option>
+                                <option ng-repeat="item in SelectInfo.dic" ng-selected="item.id==Service.operat" value="{{item.id}}">{{item.text}}</option>
                             </select>
                         </label>
                     </div>
                     <div class="control-group">
                         <label style="width:100%;">
-                            备注信息：<input type="text" style="width:78%;" ng-model="Service.eventReasonDesc" />
+                           <span  style=" display:block; margin-bottom:-10px"> 备注：</span>
+                            <textarea class="box-80" placeholder="请输入备注" style="margin-left:40px" ng-model="Service.eventReasonDesc"></textarea>
+                            <!--备注：{{Service.eventReasonDesc}}-->
                         </label>
                     </div>
                 </div>

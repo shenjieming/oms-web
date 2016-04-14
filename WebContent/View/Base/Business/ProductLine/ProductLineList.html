@@ -1,14 +1,14 @@
-﻿
+
 <div class="row">
     <div class="col-lg-12 row-mt-8">
         <div class="main-box clearfix">
             <header class="main-box-header clearfix">
                 <h2 class="pull-left">产品线管理列表</h2>
-                <span class="btn-group oms-btn-group" style="float:right;">
-                    <a class="btn btn-primary" ng-click="ProLineDetailAdd.ShowAdd({})" ng-show="Server.Add">新增</a>
-                    <a class="btn btn-primary" ng-click="ProLineDetail.ShowEdit()" ng-show="Server.Edit">编辑</a>
-                    <a class="btn btn-primary" ng-click="ProLineDelect()" ng-show="Server.Delect">删除</a>
-                    <a class="btn btn-primary" ng-click="ProLineView.ShowView()" ng-show="Server.View">详情</a>
+                <span class="btn-group oms-btn-group" style="float:right;" ng-slide="ProLine.options.medProdLnCode">
+                    <a class="btn btn-primary" ng-click="ProLineDetailAdd.ShowAdd({})">新增</a>
+                    <a class="btn btn-primary" ng-click="ProLineDetail.ShowEdit()" >编辑</a>
+                    <a class="btn btn-primary" ng-click="ProLineDelect()" >删除</a>
+                    <a class="btn btn-primary" ng-click="ProLineView.ShowView()">详情</a>
                 </span>
             </header>
             <div class="col-lg-3" style=" height: auto; max-height: 480px; overflow-y: auto; max-width: 200px">

@@ -1,13 +1,14 @@
-﻿
+
 <div class="row">
     <div class="col-lg-12 row-mt-8">
         <div class="main-box clearfix" ng-slide="!DepartmentList.IsEdit&&!DepartmentList.IsView">
             <header class="main-box-header clearfix">
                 <h2 class="pull-left">科室列表</h2>
-                <span style="float:right;">
+                <span style="float:right;" class="btn-group oms-btn-group">
                     <a class="btn btn-primary" ng-click="DepartmentJump.Add()">新增</a>
                     <a class="btn btn-primary" ng-click="DepartmentJump.Edit()">编辑</a>
                     <a class="btn btn-primary" ng-click="DepartmentJump.View()">详情</a>
+                    <a class="btn btn-primary" ng-click="goLastPage()">返回</a>
                 </span>
                 <!--<div class="input-group" style="float:right;width:250px;margin-right:10px;">
                     <input type="text" class="form-control" placeholder="请输入科室名称"

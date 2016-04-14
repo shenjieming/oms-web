@@ -1,4 +1,4 @@
-﻿<div class="row" ng-controller="DealwithController">
+<div class="row" ng-controller="DealwithController">
     <div class="tools">
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
@@ -10,7 +10,6 @@
             <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
             <a class="btn btn-danger" ng-if="View.Competence.dealwith" ng-click="DealService.Cancel()"><i class="fa fa-undo"></i>取消</a>
             <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Show()"><i class="fa fa-wrench"></i>处理</a>
-            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
     <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>

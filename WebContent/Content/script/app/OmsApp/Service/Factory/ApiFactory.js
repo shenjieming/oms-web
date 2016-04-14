@@ -305,7 +305,18 @@ OMSApiService
                 $MessagService.loading("订单审批中，请稍等...");
                 $ApiService.PostApi(ApiPath.Surgery.Approval[data.operat], data, callback);
             },
+            ApprovalBy: function (data, callback) {
+                /// <summary>批准审批</summary>
+                $MessagService.loading("批准审批中，请稍等...");
+                $ApiService.PostApi(ApiPath.Surgery.Approval.checkYes, data, callback);
+            },
+            RejectApproval: function (data, callback) {
+                /// <summary>拒绝审批</summary>
+                $MessagService.loading("拒绝审批中，请稍等...");
+                $ApiService.PostApi(ApiPath.Surgery.Approval.checkNo, data, callback);
+            },
             Cancel: function (data, callback) {
+                /// <summary>取消审批</summary>
                 $MessagService.loading("订单取消中，请稍等...");
                 $ApiService.PostApi(ApiPath.Surgery.Approval.cancel, data, callback);
             },

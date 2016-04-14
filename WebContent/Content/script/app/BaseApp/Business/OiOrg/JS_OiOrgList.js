@@ -1,4 +1,4 @@
-﻿/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
+/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-touch.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-sanitize.min.js" />
@@ -16,7 +16,6 @@ app.controller("OiOrgListController", function ($scope, $state, $local, $Api, $M
         GetRelManList:function () {
             /// <summary>获取货主经销商关系列表</summary>
             $scope.relorgCode = $local.getSelectedRow($scope.OiOrgList.info)
-            console.log($scope.relorgCode)
             if ($scope.relorgCode) {
                 var paramData = $.extend({ oIorgCode: $scope.relorgCode.orgCode }, $scope.Pagein);
                 console.log(paramData)

@@ -1,4 +1,4 @@
-﻿/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
+/// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-touch.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-sanitize.min.js" />
@@ -81,7 +81,7 @@ app.controller("DlOrgEduitController", function ($scope, $state, $local, $Api, $
                 $scope.dlPageInfo.Info.corpRegDistrictCode = $scope.dlPageInfo.Info.deliveryDistrictCode;
                 $Api.ManageDl.Save($scope.dlPageInfo.Info, function (rData) {
                     $MessagService.succ("用户保存成功！");
-                    $scope.goView('app.business.dlorganization');
+                    $scope.goView('app.base.business.dlorganization');
                 })
             }
         }
@@ -100,6 +100,16 @@ app.controller("DlOrgEduitController", function ($scope, $state, $local, $Api, $
                 });
             },
         },
+        //OrgCode: {
+        //    //选择经销商所属货主
+        //    dic: new Array(),
+        //    getOrgCodeList: function () {
+        //        /// <summary>获取当前货主列表</summary>
+        //        $Api.ManageOi.GetqueryAllOwnerOfInventory({}, function (rData) {
+        //            $scope.SelectInfo.OrgCode.dic = rData.rows;
+        //        })
+        //    }
+        //}
     }
     $scope.dlPageInfo.Load();
 })
