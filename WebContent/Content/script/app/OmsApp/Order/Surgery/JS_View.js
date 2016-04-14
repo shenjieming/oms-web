@@ -284,15 +284,20 @@ app.controller("SingleController", function ($rootScope,$scope, $state, $local, 
     $scope.sono = $stateParams.sono;//获取订单编号
     $scope.PageData = {
         wardDeptCode: "", initHPCode: "", initDTCode: "", patientDiseaseInfo: "",
-        initOperationDate: $AppHelp.Data.GetDate(-1, null, "start"),
         prodLns: new Array(),
         attachments: { images: new Array(), remark: "" },
     }
-
+    $scope.initOperationDate = function () {
+        /// <summary>获取当前手术时间</summary>
+        $Api.SurgeryService.Process.GetFindUserLastOrder({}, function (rData) {
+            $scope.PageData.initOperationDate = rData.initOperationDate;
+            console.log(rData.initOperationDate)
+        });
+    }
+    $scope.initOperationDate();
     //substring(0, 2);
     /*后台时间格式转换修改 YY-MM-DD (星期 几)*/
-    $scope.PageData.Date = $scope.PageData.initOperationDate.substring(0, $scope.PageData.initOperationDate.length - 8);
-    var myDate = new Date($scope.PageData.Date)
+    var myDate = new Date($scope.PageData.initOperationDate)
     $scope.DisplayWeek = "  星期" + "日一二三四五六".charAt(myDate.getDay());
     //console.log($scope.PageData.DisplayWeek)
     /*基础对象区域End*/

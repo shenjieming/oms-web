@@ -173,13 +173,14 @@ angular.module('jnDo', [])
             replace: true,
             link: function ($scope, element, attrs) {
                 var options = $.extend({
-                    format: "Y-m-d ",
+                    format: "Y-m-d H:00:00",
                     onClose: function () {
                         $scope.ngModel = $(element).val();
                         setTimeout(function () {
                             $scope.$apply(function () { $scope.ngModel = $(element).val(); });
                             var myDate = new Date($(element).val());
                             $("#OrderData").html("  星期" + "日一二三四五六".charAt(myDate.getDay()));
+
                         });
                     }
                 }, $scope.ngDatatime);
