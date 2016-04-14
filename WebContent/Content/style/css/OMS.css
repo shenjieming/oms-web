@@ -802,25 +802,25 @@ input[type='number'] {
 /*订单备货单预览*/
 @charset "utf-8";
 /* CSS Document */
-*{margin:0; padding:0;list-style:none;}
-.yulan_box{position:relative; padding:10px; background-color:#ffffff ;box-shadow:100px 10px 10px #CCCCCC; }
+*{margin:0; padding:0;}
+.yulan_box{position:relative; padding:10px; background-color:#ffffff ;box-shadow:100px 10px 10px #CCCCCC;max-height:500px; overflow-y:auto }
 .yulan_tk { overflow:hidden;}
-.yulan_tk { border:1px solid #d9d9d9; width:52%;}
+.yulan_tk { border:1px solid #d9d9d9;}
 .yulan_button{float:right;
     margin:1.5em; }
 .yulan_button a{ padding:10px 20px;
     background-color:#2e8ac8;
     color:#ffffff; font-size:14px;border-radius:2px; font-weight:bold; font-family:"微软雅黑";}
 .yulan_button a:hover{background-color:#0698fa; }
-.yulan_xinxi>li{ padding:0.5em;}
+.yulan_xinxi>li{ padding:0.5em;list-style:none;}
 .yulan_xinxi b{color:#808080;}
 .yulan_xinxi{ float:left; clear:right;
     font-size:14px;font-family:"微软雅黑"; color:#4d4d4d;}
 .yulan_gaik{overflow:hidden;}
-.yulan_gaik li{float:left;margin-right:40px;}
+.yulan_gaik li{float:left;margin-right:40px;list-style:none;}
 .yulan_gaik a{font-size:12px;}
 
-.yulan_ys{border-top:solid 1px #d9d9d9; border-bottom:solid 1px #d9d9d9;padding:10px; font-family:"微软雅黑"; font-size:14px; font-weight:bold; color: #808080; width:100%;}
+.yulan_ys{border-top:solid 1px #d9d9d9; border-bottom:solid 1px #d9d9d9;padding:10px; font-family:"微软雅黑"; font-size:14px; font-weight:bold; color: #808080; width:700px;}
 
 .yulan_bordered { border: solid #d9d9d9 1px;
     -moz-border-radius: 6px;
@@ -887,6 +887,7 @@ input[type='number'] {
 .yulan_biaoge .bordered{margin:10px;}
 .yulan_biaoge h4 {margin:10px; color:#292828; font:14px "微软雅黑";}
 .yulan_biaoge h4 b{color:#666666}
-.yulan_dd{ position:absolute; top:26px; left:24px; font-family:"微软雅黑"; font-size:24px; font-weight:bold; color:#2e8ac8;}
+.yulan_dd{ position:absolute; top:20px; left:24px; font-family:"微软雅黑"; font-size:24px; font-weight:bold; color:#2e8ac8;}
 .yulan_line { background-color:#3498db;}
 .yulan_line td{ color:#ffffff; font-weight:bold;}
+.yulan_biaoge{ display:block; margin-left:6px;}

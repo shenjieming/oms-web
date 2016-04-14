@@ -875,7 +875,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
             }
         }
     }
-    $scope.DealService.model = { title: "手术下单预览", width: 1376, height: 768, buttons: { "提交": $scope.DealService.Submit, "返回": $scope.DealService.Hide } };
+    $scope.DealService.model = { title: "手术下单预览", width: 720, height: 650, buttons: { "提交": $scope.DealService.Submit, "返回": $scope.DealService.Hide } };
     $scope.AddressConfig = {
         fixed: function (rowInfo) {
             /// <summary>选择地址事件</summary>
