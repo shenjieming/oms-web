@@ -2,10 +2,16 @@
 app.controller("PendingBillListController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
     /// <summary>计费单管理</summary>
     console.log("计费管理-待计费订单管理");
-    $scope.title = "";
+    $scope.title = "订单计费管理";
     $scope.Integrated = {
         //计费单列表
         OrderList: new Array(),
+        Enter: function (e) {
+            var keycode = window.event ? e.keyCode : e.which;
+            if (keycode == 13) {
+                $scope.Integrated.DataQuery({});
+            }
+        },
         DataQuery: function (data) {
             /// <summary>时间日期查询</summary>
             $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, createDateBegin: data.StartDay, createDateEnd: data.EndDay }); $scope.Integrated.GetOrderList();

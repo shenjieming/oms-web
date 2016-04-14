@@ -91,7 +91,7 @@ angular.module('jnDo', [])
             }
         };
     })
-    .directive("ngFile", function () {
+    .directive("ngFile", function ($MessagService) {
         /// <summary>文件上传控件</summary>
         return {
             restrict: "EA",
@@ -104,8 +104,10 @@ angular.module('jnDo', [])
                 $(element).change(function () {
                     /// <summary>上传附件后处理</summary>
                     var upFiles = this.files;
-                    if ($scope.ngModel.Upload) {
+                    if ($scope.ngModel && $scope.ngModel.Upload) {
                         $scope.ngModel.Upload(upFiles);
+                    } else {
+                        $MessagService.caveat("未找到文件的数据分析函数！");
                     }
                 });
             }
@@ -171,13 +173,14 @@ angular.module('jnDo', [])
             replace: true,
             link: function ($scope, element, attrs) {
                 var options = $.extend({
-                    format: "Y-m-d ",
+                    format: "Y-m-d H:00:00",
                     onClose: function () {
                         $scope.ngModel = $(element).val();
                         setTimeout(function () {
                             $scope.$apply(function () { $scope.ngModel = $(element).val(); });
                             var myDate = new Date($(element).val());
                             $("#OrderData").html("  星期" + "日一二三四五六".charAt(myDate.getDay()));
+
                         });
                     }
                 }, $scope.ngDatatime);

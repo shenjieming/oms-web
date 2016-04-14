@@ -1,11 +1,14 @@
+﻿///  <autosync enabled="true" /> 
 /// <reference path="../Config.js" />
 /// <reference path="../BMSPath.js" />
+/// <reference path="../../../lib/angular-1.2.20/angular.min.js" />
+/// <reference path="../../../lib/angular-1.2.20/angular-route.js" />
 /// <reference path="../../../lib/jnDo_1.0/jnDo_1.0.js" />
 
 app.controller("BillController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
     /// <summary>计费单管理</summary>
     console.log("计费管理主程序运行");
-    $scope.title = "";
+    $scope.title = "订单计费";
     $scope.Integrated = {
         //计费单列表
         BillList: new Array(),
@@ -25,10 +28,18 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
    
     $scope.PageControl = {
         /// <summary>页面控制</summary>
-        //页面权限控制
-        Competence: { modify: false,approval: false },
+       SetCompetence: function (comp) {
+           /// <summary>设置页面权限</summary>
+           this.InitCompetence();
+           $.extend($scope.Competence, comp);
+       },
+       InitCompetence: function () {
+           /// <summary>初始化权限</summary>
+           $scope.Competence = { modify: false, batchapproval: false, approval: false, unapproval: false, discard: false }
+       },
         GoPageBySedRow: function (callback) {
             /// <summary>根据选择的列表调整页面</summary>
+            $local.setValue("ORDERCOMP", $scope.Competence);
             $local.CarriedSelectedRow($scope.Integrated.BillList, callback);
         },
         AddNewBill: function () {
@@ -38,6 +49,11 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
         ModifyBill: function () {
             /// <summary>修改计费单</summary>
             this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.detail", row); });
+        },
+        BatchApproval: function () {
+            /// <summary>批量计费单审批</summary>
+            ///TODO:计费单的批量审批
+            alert("功能搭建中，敬请期待！");
         },
         ApprovalBill: function () {
             /// <summary>审批订单</summary>
@@ -53,6 +69,16 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
         }
     }
 
+    //权限配置Begion
+    $scope.Competence = {
+        modify: false,
+        batchapproval: false,
+        approval: false,
+        unapproval: false,
+        discard: false
+    }
+    //权限配置End
+
     /// <summary>分页配置信息对象</summary>
     $scope.Pagein = { pageSize: 10, createDateBegin: null, createDateEnd: null, pageIndex: 1, callbake: function () { $scope.Integrated.GetBillList(); } }
 });
@@ -61,8 +87,12 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
     console.log("计费单管理-计费单详情管理");
 
     $scope.PageData = {};
-    $scope.BillData = { detail: new Array() };
+    $scope.BillData = { detail: new Array(), images: new Array() };
     $scope.$Factory = new $BillDetailFactory($scope);
+    $scope.Competence = $local.getValue("ORDERCOMP");
+
+
+
     $scope.QueryService = {
         /// <summary>查询服务</summary>
         GetOrderInfo: function (param) {
@@ -71,14 +101,9 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
         },
         GetBillInfo: function (param) {
             /// <summary>获取计费单明细</summary>
-            $BMSApi.PublicInfoService.GetBillDetail(param, function (billInfo) {
-                $scope.$apply(function () {
-                    $.extend($scope.BillData, billInfo);
-                    $scope.BillData.detail = billInfo.detail;
-                });
-            });
+            $BMSApi.PublicInfoService.GetBillDetail(param, function (billInfo) { $.extend($scope.BillData, billInfo); $.extend($scope.BillData, $stateParams); setTimeout(function () { $scope.$Factory.AddMaterias(billInfo.detail, $scope.BillData.detail) }); });
         }
-    }
+    };
 
     if ($stateParams.sONo) { $scope.QueryService.GetOrderInfo($stateParams); }
     if ($stateParams.hOFNNo) { $scope.QueryService.GetBillInfo($stateParams); }
@@ -102,12 +127,13 @@ app.factory("$BillDetailFactory", function ($BMSApi) {
         }
         this.GetMateriaMappings = function (materia) {
             /// <summary>获取物资映射信息</summary>
-            return $.extend(materia, { qty: materia.reqQty, dHMMName: materia.medMaterialFullName, dHMMSpecification: materia.medMaterialSpecification, dHMMMaterials: materia.medMaterialMaterials, hPUnitEstPrice: parseFloat(materia.medMaterialPrice), patientUnitEstPrice: (parseFloat(materia.medMaterialPrice) * 1.05) });
+            var Price= parseFloat(materia.medMaterialPrice?materia.medMaterialPrice:materia.hPUnitEstPrice)
+            return $.extend(materia, { qty: materia.reqQty, dHMMName: materia.medMaterialFullName, dHMMSpecification: materia.medMaterialSpecification, dHMMMaterials: materia.medMaterialMaterials, hPUnitEstPrice: Price, patientUnitEstPrice: (Price * 1.05) });
         }
 
         this.AddMaterias = function (materias, aims) {
             /// <summary>批量添加物料信息</summary>
-            if (!aims) { aims = new Array(); } $.each(materias, function (index, item) { var materia = BillDetailFactory.GetMateriaMappings(item); var flg = true; $.each(aims, function (i, data) { if (materia.dHMedMaterialInternalNo == data.dHMedMaterialInternalNo) { data.qty += materia.qty; flg = false; return false; } }); if (flg) { aims.push(materia); } });
+            if (!aims) { aims = new Array(); } $.each(materias, function (index, item) { var materia = BillDetailFactory.GetMateriaMappings(item); var flg = true; $.each(aims, function (i, data) { if (materia.dHMedMaterialInternalNo == data.dHMedMaterialInternalNo) { data.qty += materia.qty; flg = false; return false; } }); if (flg) { aims.push(materia); } }); return aims;
         }
 
         var BillDetailFactory = this; return this;

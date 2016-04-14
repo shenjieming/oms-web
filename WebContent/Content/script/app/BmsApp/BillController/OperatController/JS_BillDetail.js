@@ -1,10 +1,29 @@
-/// <reference path="../../../Config.js" />
+﻿/// <reference path="../../../Config.js" />
 /// <reference path="../../../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../../../../lib/angular-1.2.20/angular.min.js" />
 
-app.controller("BillDetailController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams, $BillDetailFactory) {
+app.controller("BillDetailController", function ($scope, $state,$Api, $local, $BMSApi, $MessagService, $stateParams, $BillDetailFactory, $FileService) {
     /// <summary>计费单控制管理</summary>
     console.log("计费单管理-计费单新增修改操作管理");
+
+    $scope.file = {
+        /// <summary>附件控制器</summary>
+        Upload: function (files) {
+            /// <summary>上传事件</summary>
+            $.each(files, function (index, item) {
+                if ($scope.BillData.images.length >= 5) { $MessagService.caveat("您上传的图片超过了5张。"); return false; }
+                if (item.type.indexOf("image") > -1) {
+                    $FileService.ReaderFiles(item, function (data) {
+                        /// <summary>文件读取</summary>
+                        $Api.Public.UploadFile(data, function (rData) { $scope.BillData.images.push(rData); });
+                    });
+                } else {
+                    $MessagService.caveat("您上传的不是图片！")
+                }
+
+            });
+        }
+    }
 
     $scope.Module = {
         /// <summary>组件控制器</summary>

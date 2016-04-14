@@ -36,17 +36,23 @@ BmsApp
                 /// <summary>已计费计费单列表</summary>
                 url: "/alreadylist", cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillAlreadyListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_BillAlready.js"], resolve: app.resolve
             })
+            .state("app.bms.bill.notapproval", {
+                /// <summary>未审批计费单列表</summary>
+                url: "/notapproval",
+                cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillNotApprovalListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_BillApproval.js"], resolve: app.resolve
+            })
             .state("app.bms.bill.approval", {
                 /// <summary>待审批计费单列表</summary>
-                url: "/approvallist", cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillApprovalListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_BillApproval.js"], resolve: app.resolve
+                url: "/approval",
+                cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillApprovalListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_BillApproval.js"], resolve: app.resolve
             })
             .state("app.bms.bill.approveded", {
                 /// <summary>已审批计费单列表</summary>
-                url: "/approvaledlist", cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillApprovaledListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_BillApprovaled.js"], resolve: app.resolve
+                url: "/approveded", cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillApprovaledListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_BillApprovaled.js"], resolve: app.resolve
             })
             .state("app.bms.bill.posting", {
                 /// <summary>计费单已对账列表</summary>
-                url: "/postinglist", cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillPostingListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_BillPosting.js"], resolve: app.resolve
+                url: "/posting", cache: false, templateUrl: "View/BMS/Bill/View/BillList.html?data=" + Timestamp, controller: "BillPostingListController", loadJs: ["Content/script/app/BmsApp/BillController/ListController/JS_BillPosting.js"], resolve: app.resolve
             })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
@@ -122,14 +128,14 @@ BmsApp
             })
             .state("app.bms.rec.approval", {
                 /// <summary>待审批对账单列表</summary>
-                url: "/approvallist",
+                url: "/approval",
                 cache: false,
                 templateUrl: "" + Timestamp,
                 controller: "RecApprovalListController"
             })
             .state("app.bms.rec.approveded", {
                 /// <summary>已审批对账单列表</summary>
-                url: "/approvaledlist",
+                url: "/approveded",
                 cache: false,
                 templateUrl: "" + Timestamp,
                 controller: "RecApprovaledListController"
@@ -178,6 +184,7 @@ BmsApp
                 { name: "综合计费单查询", url: "#/app/bms/bill/complex", state: "app.bms.bill.complex" },
                 { name: "待计费订单", url: "#/app/bms/bill/pending", state: "app.bms.bill.pending" },
                 { name: "我的计费单", url: "#/app/bms/bill/list", state: "app.bms.bill.list" },
+                { name: "未审批计费", url: "#/app/bms/bill/notapproval", state: "app.bms.bill.notapproval" },
                 { name: "待审批计费", url: "#/app/bms/bill/approval", state: "app.bms.bill.approval" },
                 { name: "已审批计费", url: "#/app/bms/bill/approveded", state: "app.bms.bill.approveded" },
                 { name: "已对账计费", url: "#/app/bms/bill/posting", state: "app.bms.bill.posting" }

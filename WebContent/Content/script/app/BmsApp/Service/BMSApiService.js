@@ -70,7 +70,7 @@ BMSApiService.factory("$BillFactory", function ($BMSApiFactory, $MessagService) 
         Submit: function (data, callback) {
             /// <summary>提交计费单</summary>
             $MessagService.loading("计费单提交中，请稍等...");
-            $BMSApiFactory.PostApi(BMSPath.BillManage.doFee, data, callback);
+            if (data.hOFNNo) { $BMSApiFactory.PostApi(BMSPath.BillManage.modify, data, callback); } else { $BMSApiFactory.PostApi(BMSPath.BillManage.doFee, data, callback); }
         },
         Modify: function (data, callback) {
             /// <summary>计费单修改</summary>
