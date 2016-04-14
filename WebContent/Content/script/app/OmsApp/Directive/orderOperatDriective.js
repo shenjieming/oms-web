@@ -31,6 +31,7 @@ app.directive("ngOrderApproval", function ($Api, $MessagService, $local) {
                         });
                     },
                     "关闭": function () {
+                        $(".box-80").val("");
                         $scope.ngOperat.hide();
                     },                    
                 },
@@ -42,7 +43,6 @@ app.directive("ngOrderApproval", function ($Api, $MessagService, $local) {
             $scope.SelectInfo = {
                 dic: new Array(),             
                 change: function () {
-                    debugger
                     for (var i = 0; i < $scope.SelectInfo.dic.length; i++) {
                         if ($scope.SelectInfo.dic[i].id == $scope.Service.operat) {
                            a=( $scope.SelectInfo.dic[i].text);                            

@@ -128,7 +128,7 @@
     margin:8px;
     padding-top: 10px;
     padding-left: 10px; /*border-radius: 8px; 	-moz-border-radius: 8px;*/
-    border-radius: 8px;
+    border-radius: 4px;
 }
 
     .j_pager div.short {
@@ -146,6 +146,7 @@
             margin-left: 8px;
             margin-top:-4px;
             float: left;
+            text-align:center;
         }
 
     .j_pager ul {
@@ -275,7 +276,33 @@
     color: White;
     border: solid 1px #F82723;
 }
+/*blue*/
+.blue {
+              background-color: #2b84bf;
+          }
 
+.blue.normal {
+
+    color: #FFFFFF;
+
+}
+.blue.active {
+    background-color: #37a2ea;
+    color: White;
+
+    
+}
+.j_pager.blue .j_btn {
+    background-color: #2b84bf;
+    color: #fff;
+    padding: 8px;
+    margin: 0px;
+    margin-top: -7px;
+}
+.j_pager.blue input.j_btn {
+    height:auto;
+    width:auto;
+}
 /*分页插件结束*/
 
 

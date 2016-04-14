@@ -147,8 +147,9 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                     getDoctorList: function () {
                         /// <summary>获取医院</summary>
                         console.log()
-                        $Api.HospitalService.GetHospital({}, function (rData) {
-                            $scope.SelectInfo.Doctor.dic = rData
+                        $Api.ManaHospital.GetqueryAllHospital({}, function (rData) {
+                            $scope.SelectInfo.Doctor.dic = rData.rows;
+                            console.log(rData)
                         })
                     }
                 },

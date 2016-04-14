@@ -1,4 +1,4 @@
-/// <reference path="../../../lib/angular-1.2.20/angular-route.min.js" />
+﻿/// <reference path="../../../lib/angular-1.2.20/angular-route.min.js" />
 /// <reference path="../../../lib/angular-1.2.20/angular.min.js" />
 /// <reference path="../../../lib/angular-1.2.20/angular-touch.js" />
 /// <reference path="../../../lib/angular-1.2.20/angular-sanitize.min.js" />
@@ -36,7 +36,6 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
         /// <summary>订单审批配置</summary>
         Operat: {
             fixed: function () {
-                console.log()
                 $scope.goLastPage();
             }
         },
@@ -279,18 +278,23 @@ app.controller("LibraryController", function ($scope, $state, $local, $Api, $Mes
         }
     }
 })
-app.controller("SingleController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $AppHelp, $OMSSpecially) {
+app.controller("SingleController", function ($rootScope,$scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $AppHelp, $OMSSpecially) {
     /// <summary>手术下单下单控制器</summary>
     /*基础对象区域Begion*/
     $scope.sono = $stateParams.sono;//获取订单编号
-    var a=1
     $scope.PageData = {
         wardDeptCode: "", initHPCode: "", initDTCode: "", patientDiseaseInfo: "",
         initOperationDate: $AppHelp.Data.GetDate(-1, null, "start"),
         prodLns: new Array(),
-        attachments: { images: new Array(), remark: "" }
+        attachments: { images: new Array(), remark: "" },
     }
-    console.log($scope.PageData.initOperationDate)
+
+    //substring(0, 2);
+    /*后台时间格式转换修改 YY-MM-DD (星期 几)*/
+    $scope.PageData.Date = $scope.PageData.initOperationDate.substring(0, $scope.PageData.initOperationDate.length - 8);
+    var myDate = new Date($scope.PageData.Date)
+    $scope.DisplayWeek = "  星期" + "日一二三四五六".charAt(myDate.getDay());
+    //console.log($scope.PageData.DisplayWeek)
     /*基础对象区域End*/
     /*逻辑对象区域Begion*/
     $scope.PageService = {
@@ -419,6 +423,7 @@ app.controller("SingleController", function ($scope, $state, $local, $Api, $Mess
     $scope.AddressConfig = {
         fixed: function (rowInfo) {
             /// <summary>选择地址事件</summary>
+            console.log(rowInfo)
             $.extend($scope.PageData, {
                 deliveryContact: rowInfo.contact, deliveryrMobile: rowInfo.mobile, deliveryProvinceCode: rowInfo.provinceCode, deliveryProvinceName: rowInfo.provinceCodeName, deliveryCityCode: rowInfo.cityCode,
                 deliveryCityName: rowInfo.cityCodeName, deliveryDistrictCode: rowInfo.districtCode, deliveryDistrictName: rowInfo.districtCodeName, deliveryAddress: rowInfo.address, iniitCarrierTransType: rowInfo.carrierTransType
@@ -710,13 +715,15 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
 app.controller("DealwithController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>订单处理</summary>
     $scope.DealService = {
-        /// <summary>订单处理服务</summary>
+        /// <summary>订单处理服务</summary> 
         Submit: function () {
-            /// <summary>订单处理提交</summary>
-            $scope.ProductService.Deduplication();//去重
-            $Api.SurgeryService.Process.Submit($scope.PageData, function (rData) {
-                $scope.goLastPage();
-            });
+            if (confirm("订单号：" + $scope.PageData.sONo+"确认需要要处理吗？")) {
+                /// <summary>订单处理提交</summary>
+                $scope.ProductService.Deduplication();//去重
+                $Api.SurgeryService.Process.Submit($scope.PageData, function (rData) {
+                    $scope.goLastPage();
+                });
+            }
         },
         Save: function () {
             /// <summary>订单处理保存</summary>
