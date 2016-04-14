@@ -863,7 +863,6 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         },
         Show:function () {
             $scope.PreViewCount.CountMaterialFunction();
-            console.log($scope.PageData.Tool)
             $scope.DealService.model.show();
         },
         Cancel: function () {
