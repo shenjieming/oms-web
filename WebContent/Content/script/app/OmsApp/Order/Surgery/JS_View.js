@@ -722,13 +722,13 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
     $scope.DealService = {
         /// <summary>订单处理服务</summary> 
         Submit: function () {
-            if (confirm("订单号：" + $scope.PageData.sONo+"确认需要要处理吗？")) {
+            //if (confirm("订单号：" + $scope.PageData.sONo+"确认需要要处理吗？")) {
                 /// <summary>订单处理提交</summary>
                 $scope.ProductService.Deduplication();//去重
                 $Api.SurgeryService.Process.Submit($scope.PageData, function (rData) {
                     $scope.goLastPage();
                 });
-            }
+            //}
         },
         Save: function () {
             /// <summary>订单处理保存</summary>
