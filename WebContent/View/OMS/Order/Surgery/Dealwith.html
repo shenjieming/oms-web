@@ -9,7 +9,7 @@
         <span class="btn-group oms-btn-group" style="float:right;">
             <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
             <a class="btn btn-danger" ng-if="View.Competence.dealwith" ng-click="DealService.Cancel()"><i class="fa fa-undo"></i>取消</a>
-            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Submit()"><i class="fa fa-wrench"></i>处理</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Show()"><i class="fa fa-wrench"></i>处理</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
@@ -181,8 +181,6 @@
                         <tr>
                             <td>
                                 <div class="yulan_button">
-                                    <a>提交</a>
-                                    <a>返回</a>
                                 </div>
                                 <ul class="yulan_xinxi">
                                     <li>
@@ -250,7 +248,7 @@
 
                                 </div>
                                 <div class="yulan_biaoge">
-                                    <h4><b>工具：</b>脊骨-adena,<span ng-bind="PageData.allCount.tool"></span>件</h4>
+                                    <h4><b>工具：</b><span ng-bind="PageData.allCount.tool"></span>件</h4>
                                     <table class="yulan_bordered" cellpadding="0" cellspacing="0">
                                         <thead>
                                         <tr class="yulan_line">
@@ -277,8 +275,6 @@
                                     </table>
                                 </div>
                                 <div class="yulan_button">
-                                    <a>提交</a>
-                                    <a>返回</a>
                                 </div>
                             </td>
                         </tr>
