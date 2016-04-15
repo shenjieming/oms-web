@@ -14,7 +14,68 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
     $scope.PageData = {
         wardDeptCode: "", initHPCode: "", initDTCode: "", patientDiseaseInfo: "",
         prodLns: new Array(),
-        attachments: { images: new Array(), remark: "" }
+        attachments: { images: new Array(), remark: "" },
+        proView:new Object(),
+        allCount:{implant:0,tool:0,all:0},
+        Implate:new Array(),
+        Tool:new Array(),
+    }
+
+    $scope.PreViewCount= {
+        //预览页面
+        GetData:function () {
+            $scope.PageData.proView = new Object();
+            $scope.PageData.Implate = new Array();
+            $scope.PageData.Tool = new Array();
+            $scope.PageData.allCount.tool=0;
+            $scope.PageData.allCount.all=0;
+            $scope.PageData.allCount.implant=0;
+            $Api.SurgeryService.Process.ProView($scope.PageData,function (rData) {
+                $scope.PageData.proView=rData;
+                $scope.PreViewCount.CountImplantsIsSingle(rData.implants);
+                $scope.PreViewCount.CountToolIsSingle(rData.tools)
+            })
+        },
+        //植入物统计+去重
+        CountImplantsIsSingle:function (implants) {
+            if(implants){
+                $.each(implants,function (index,implant) {
+                    $scope.PageData.allCount.all+=implant.reqQty;
+                    $scope.PageData.allCount.implant+=implant.reqQty;
+                    var flag = true;
+                    $.each($scope.PageData.Implate,function (index,thisImplant) {
+                        if(implant.medMIInternalNo==thisImplant.medMIInternalNo){
+                            thisImplant.reqQty+=implant.reqQty;
+                            flag=false;
+                            return false;
+                        }
+                    });
+                    if(flag){
+                        $scope.PageData.Implate.push(implant);
+                    }
+                })
+            }
+        },
+        //工具统计+去重
+        CountToolIsSingle:function (tools) {
+            if(tools){
+                $.each(tools,function (index,tool) {
+                    $scope.PageData.allCount.all+=tool.reqQty;
+                    $scope.PageData.allCount.tool+=tool.reqQty;
+                    var flag = true;
+                    $.each($scope.PageData.Tool,function (index,thisTool) {
+                        if(tool.medMIInternalNo==thisTool.medMIInternalNo){
+                            thisTool.reqQty+=tool.reqQty;
+                            flag=false;
+                            return false;
+                        }
+                    });
+                    if(flag){
+                        $scope.PageData.Tool.push(tool);
+                    }
+                })
+            }
+        }
     }
 
     $scope.View = {
@@ -37,6 +98,19 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
         Operat: {
             fixed: function () {
                 $scope.goLastPage();
+            }
+        },
+        ApprovalBy:function(){
+            $Api.SurgeryService.ApprovalBy($scope.PageData, function (rData) {
+                $MessagService.succ($scope.PageData.sONo + "审批通过");
+                $scope.goLastPage();
+            })
+        },
+        Cancel: function () {
+            if (confirm("您确认要取消" + "【"+$scope.PageData.sONo+"】"+"订单吗？")) {
+                $Api.SurgeryService.Cancel($scope.PageData, function (rData) {
+                    $scope.goLastPage();
+                })
             }
         },
         ApprovalBy:function(){
@@ -720,7 +794,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
 app.controller("DealwithController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>订单处理</summary>
     $scope.DealService = {
-        /// <summary>订单处理服务</summary> 
+        /// <summary>订单处理服务</summary>
         Submit: function () {
             //if (confirm("订单号：" + $scope.PageData.sONo+"确认需要要处理吗？")) {
                 /// <summary>订单处理提交</summary>
@@ -737,17 +811,24 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
                 $scope.goLastPage();
             });
         },
+        Hide:function () {
+            $scope.DealService.model.hide();
+        },
+        Show:function () {
+            $scope.PreViewCount.GetData();
+            $scope.DealService.model.show();
+        },
         Cancel: function () {
             if (confirm("您确认要取消当前订单吗?")) {
                 //调用取消接口，因不满足前置条件，无法回退，保持原状就行
-                 $Api.SurgeryService.Cancel($scope.PageData, function (rData) {
-                     $MessagService.succ("订单取消成功！");
-                     $scope.goLastPage();
-                 });
+                $Api.SurgeryService.Cancel($scope.PageData, function (rData) {
+                    $MessagService.succ("订单取消成功！");
+                    $scope.goLastPage();
+                });
             }
         }
     }
-
+    $scope.DealService.model = { title: "手术下单预览", width: 720, height: 800, buttons: { "提交": $scope.DealService.Submit, "返回": $scope.DealService.Hide } };
     $scope.AddressConfig = {
         fixed: function (rowInfo) {
             /// <summary>选择地址事件</summary>

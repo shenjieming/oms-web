@@ -91,7 +91,7 @@ angular.module('jnDo', [])
             }
         };
     })
-    .directive("ngFile", function () {
+    .directive("ngFile", function ($MessagService) {
         /// <summary>文件上传控件</summary>
         return {
             restrict: "EA",
@@ -104,8 +104,10 @@ angular.module('jnDo', [])
                 $(element).change(function () {
                     /// <summary>上传附件后处理</summary>
                     var upFiles = this.files;
-                    if ($scope.ngModel.Upload) {
+                    if ($scope.ngModel && $scope.ngModel.Upload) {
                         $scope.ngModel.Upload(upFiles);
+                    } else {
+                        $MessagService.caveat("未找到文件的数据分析函数！");
                     }
                 });
             }

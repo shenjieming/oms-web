@@ -799,3 +799,95 @@ input[type='number'] {
         background: -webkit-linear-gradient(top, #2980b9 0%, #2980b9 100%);
         background: linear-gradient(to bottom, #2980b9 0%, #2980b9 100%);
     }
+/*订单备货单预览*/
+@charset "utf-8";
+/* CSS Document */
+*{margin:0; padding:0;}
+.yulan_box{position:relative; padding:10px; background-color:#ffffff ;box-shadow: 0px 0px 10px 0px  #CCCCCC;max-height:500px; overflow-y:auto }
+.yulan_tk { overflow:hidden;}
+.yulan_tk { border:1px solid #d9d9d9;}
+.yulan_button{float:right;
+    margin:1.5em; }
+.yulan_button a{ padding:10px 20px;
+    background-color:#2e8ac8;
+    color:#ffffff; font-size:14px;border-radius:2px; font-weight:bold; font-family:"微软雅黑";}
+.yulan_button a:hover{background-color:#0698fa; }
+.yulan_xinxi>li{ padding:0.5em;list-style:none;}
+.yulan_xinxi b{color:#808080;}
+.yulan_xinxi{ float:left; clear:right;
+    font-size:14px;font-family:"微软雅黑"; color:#4d4d4d;}
+.yulan_gaik{overflow:hidden;}
+.yulan_gaik li{float:left;margin-right:40px;list-style:none;}
+.yulan_gaik a{font-size:12px;}
+
+.yulan_ys{border-top:solid 1px #d9d9d9; border-bottom:solid 1px #d9d9d9;padding:10px; font-family:"微软雅黑"; font-size:14px; font-weight:bold; color: #808080; width:700px;}
+
+.yulan_bordered { border: solid #d9d9d9 1px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -webkit-box-shadow: 0 1px 1px #e5e5e5;
+    -moz-box-shadow: 0 1px 1px #e5e5e5;
+    box-shadow: 0 1px 1px #e5e5e5; font:0.875em "微软雅黑";}
+
+
+.yulan_bordered td{
+    border-left: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
+    padding: 8px;
+    text-align:left; color:#4d4d4d;
+
+}
+
+
+
+.yulan_bordered td:first-child, .yulan_bordered th:first-child {
+    border-left: none;
+}
+
+.yulan_bordered th:first-child {
+    -moz-border-radius: 1px 0 0 0;
+    -webkit-border-radius: 1px 0 0 0;
+    border-radius: 1px 0 0 0;
+}
+
+.yulan_bordered th:last-child {
+    -moz-border-radius: 0 1px 0 0;
+    -webkit-border-radius: 0 1px 0 0;
+    border-radius: 0 1px 0 0;
+}
+
+.yulan_bordered th:only-child{
+    -moz-border-radius: 1px 1px 0 0;
+    -webkit-border-radius: 1px 1px 0 0;
+    border-radius: 1px 1px 0 0;
+}
+
+.yulan_bordered tr:last-child td:first-child {
+    -moz-border-radius: 1px 0 0 0;
+    -webkit-border-radius: 1px 0 0 0;
+    border-radius: 1px 0 0 0;
+}
+
+.yulan_bordered tr:last-child td:last-child {
+    -moz-border-radius: 0 0 1px 0;
+    -webkit-border-radius: 0 0 1px 0;
+    border-radius: 0 0 1px 0;
+}
+.yulan_bordered td:hover {
+    background: #2d8ac7;
+    -o-transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+    color:#FFFFFF;
+}
+
+
+.yulan_biaoge .bordered{margin:10px;}
+.yulan_biaoge h4 {margin:10px; color:#292828; font:14px "微软雅黑";}
+.yulan_biaoge h4 b{color:#666666}
+.yulan_dd{ position:absolute; top:20px; left:24px; font-family:"微软雅黑"; font-size:24px; font-weight:bold; color:#2e8ac8;}
+.yulan_line { background-color:#3498db;}
+.yulan_line td{ color:#ffffff; font-weight:bold;}
+.yulan_biaoge{ display:block; margin-left:6px;}

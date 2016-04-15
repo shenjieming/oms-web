@@ -1,11 +1,13 @@
-<div class="row" ng-controller="BillViewController">
+﻿<div class="row" ng-controller="BillViewController">
     <div class="tools">
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
             计费单管理
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
-            <a class="btn btn-primary" ng-click=""><i class="fa fa-eye"></i> 审批</a>
+            <a class="btn btn-primary" ng-if="Competence.approval" ng-click="ApprovalConfig.show()"><i class="fa fa-eye"></i> 审批</a>
+            <a class="btn btn-primary" ng-if="Competence.unapproval" ng-click="UnApprovalConfig.show()"><i class="fa fa-eye"></i> 反审批</a>
+            <a class="btn btn-primary" ng-if="Competence.discard" ng-click="DisableConfig.show()"><i class="fa fa-eye"></i> 取消</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
@@ -26,7 +28,7 @@
                         <div id="SurgeryInformation" class="widget-content nopadding collapse in">
                             <div class="control-group">
                                 <div class="Vessel All">
-                                    计费单号：<span ng-bind="BillData.hOFNHospitalNo"></span>
+                                    医院计费单号：<span ng-bind="BillData.hOFNHospitalNo"></span>
                                 </div>
                             </div>
                             <div class="control-group">
@@ -136,7 +138,7 @@
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" href="#MaterialsInfo">物资信息{{BillData.detail.length}}</h5>
+                            <h5 data-toggle="collapse" href="#MaterialsInfo">物资信息</h5>
                         </div>
                         <div id="MaterialsInfo" class="widget-content nopadding collapse in">
                             <div class="main-box-body clearfix" style="padding: 15px; max-height: 450px; overflow: auto; width: 100%;">
@@ -153,7 +155,6 @@
                                                 <th><span>计费数量</span></th>
                                                 <th><span>耗材单价</span></th>
                                                 <th><span>患者单价(+5%)</span></th>
-                                                <th><span>有效日期</span></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -167,11 +168,27 @@
                                                 <td><span ng-bind="row.qty"></span></td>
                                                 <td><span ng-bind="row.hPUnitEstPrice"></span></td>
                                                 <td><span ng-bind="row.patientUnitEstPrice"></span></td>
-                                                <td><span ng-bind="row.medMaterialEffectiveDateFrom"></span></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-box" ng-if="BillData.images.length">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" href="#AdditionalInformation">图片信息</h5>
+                        </div>
+                        <div id="AdditionalInformation" class="widget-content nopadding collapse in">
+                            <div class="control-group ">
+                                <div ng-img-list="img" ng-comp="{delImg:false}" ng-model="BillData.images"></div>
+                            </div>
+                            <div class="control-group" ng-if="false">
+                                <label style="width:100%">
+                                    图片说明：<span ng-bind=""></span>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -181,7 +198,10 @@
             <div role="tabpanel" class="tab-pane" id="Order">
                 <div ui-view="Accurate"></div>
             </div>
-
         </div>
+        <span ng-approval-bill="ApprovalConfig" ng-model="BillData"></span>
+        <span ng-anti-approval-bill="UnApprovalConfig" ng-model="BillData"></span>
+        <span ng-disable-bill="DisableConfig" ng-model="BillData"></span>
+        
     </div>
 </div>

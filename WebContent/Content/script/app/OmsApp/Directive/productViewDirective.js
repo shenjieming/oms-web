@@ -341,10 +341,12 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                 },
                 GetMedmaterialInventory: function (medmaterial) {
                     /// <summary>获取物料库存</summary>
+
                     var param = $scope.WarehouseConfig.GetMedmaterialParamData(medmaterial);
                     $Api.MaterialsService.GetMedmaterialInventory(param, function (rData) { $scope.WarehouseConfig.AnalyticalInventory(rData, medmaterial); })
                 },
                 GetMedmaterialParamData: function (medmaterial) {
+                    /// <summary>获取物料查询库存的条件</summary>
                     var paramData = new Array();
                     if (medmaterial) {
                         paramData.push($scope.WarehouseConfig.StandardizationMedmaterialParam(medmaterial));
@@ -359,6 +361,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                 },
                 StandardizationMedmaterialParam: function (medmaterial) {
                     /// <summary>标准化物料条件参数</summary>
+                    medmaterial.estMedMIWarehouseName = $scope.WarehouseConfig.GetWarehouseNameByCode(medmaterial.medMIWarehouse).name
                     return {
                         medMIInternalNo: medmaterial.medMIInternalNo,
                         warehouseCode: medmaterial.medMIWarehouse,
@@ -397,6 +400,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                 },
                 StandardizationKitParam: function (kit) {
                     /// <summary>标准化套件请求的库存参数</summary>
+                    kit.estMedMIWarehouseName = $scope.WarehouseConfig.GetWarehouseNameByCode(kit.estMedMIWarehouse).name;
                     return {
                         medKitInternalNo: kit.medKitInternalNo,
                         warehouseCode: kit.estMedMIWarehouse
@@ -406,12 +410,21 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                     /// <summary>解析库存</summary>
                     $.each(data, function (index, item) {
                         $.each($scope.ngModel.medKits, function (kIndex, kItem) {
-                            if (item.medKitInternalNo == kItem.medKitInternalNo) {
-                                kItem.inventory = item.inventory ? item.inventory : "0";
-                            }
+                            if (item.medKitInternalNo == kItem.medKitInternalNo) {   kItem.inventory = item.inventory ? item.inventory : "0"; }
                         });
                     });
 
+                },
+                GetWarehouseNameByCode: function (code) {
+                    /// <summary>根据仓库编码获取仓库名称</summary>
+                    var result = { name: "未选择仓库" }
+                    $.each($scope.WarehouseConfig.WarehouseList, function (index,item) {
+                        if (item.id == code) {
+                            result.name = item.text;
+                            return false;
+                        }
+                    })
+                    return result;
                 }
             }
 

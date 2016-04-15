@@ -4,11 +4,14 @@
             <header class="main-box-header clearfix">
                 <h2 class="pull-left">{{title}}</h2>
                 <span class="btn-group oms-btn-group" style="float:right;">
-                    <a class="btn btn-primary" ng-click="PageControl.ModifyBill()"> <i class="fa fa-clipboard"></i> 调整计费</a>
-                    <a class="btn btn-primary" ng-click="PageControl.ApprovalBill()"><i class="fa fa-eye"></i> 审批计费</a>
+                    <a class="btn btn-primary" ng-if="Competence.modify" ng-click="PageControl.ModifyBill()"> <i class="fa fa-clipboard"></i> 调整计费</a>
+                    <a class="btn btn-primary" ng-if="Competence.batchapproval" ng-click="PageControl.()"><i class="fa fa-eye"></i> 批量审批</a>
+                    <a class="btn btn-primary" ng-if="Competence.approval" ng-click="PageControl.ApprovalBill()"><i class="fa fa-eye"></i> 审批计费</a>
+                    <a class="btn btn-primary" ng-if="Competence.unapproval" ng-click="PageControl.ApprovalBill()"><i class="fa fa-eye"></i> 反审批</a>
+                    <a class="btn btn-primary" ng-if="Competence.discard" ng-click="PageControl.ApprovalBill()"><i class="fa fa-eye"></i> 取消计费</a>
                     <a class="btn btn-primary" ng-click="PageControl.ViewBill()"><i class="fa fa-align-justify"></i> 计费详情</a>
                 </span>
-                <div class="input-group" style="float:right;width:250px;margin-right:10px;">
+                <div class="input-group" ng-if="false" style="float:right;width:250px;margin-right:10px;">
                     <input type="text" class="form-control" placeholder="请输入计费单号或订单号"
                            style="padding:8px;" ng-model="Pagein.sONo">
                     <a class="input-group-addon" href="javascript:void(0)"><i class="fa fa-search"></i></a>
