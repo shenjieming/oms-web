@@ -15,114 +15,67 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
         wardDeptCode: "", initHPCode: "", initDTCode: "", patientDiseaseInfo: "",
         prodLns: new Array(),
         attachments: { images: new Array(), remark: "" },
-        allCount:{implant:0,tool:0,kit:0,all:0,whName:""},
-        AllmedMaterias: new Array(),
+        proView:new Object(),
+        allCount:{implant:0,tool:0,all:0},
         Implate:new Array(),
         Tool:new Array(),
     }
-    $scope.PreViewCount={
-        //物料统计
-        CountMaterialFunction:function () {
 
-            ///<summary>产品线物料信息统计</summary>
-            //获取产品线下全部的物料信息
-            $scope.PageData.AllmedMaterias = new Array();//元数据清空
+    $scope.PreViewCount= {
+        //预览页面
+        GetData:function () {
+            $scope.PageData.proView = new Object();
             $scope.PageData.Implate = new Array();
             $scope.PageData.Tool = new Array();
-            $scope.PageData.allCount={implant:0,tool:0,kit:0,all:0};
-            var result = new Array();
-            //获取产品线下的全部物料
-            $.each($scope.PreViewCount.prodLns.GetMedMateriasByprodLns($scope.PageData.prodLns),function (index,medMateria) {
-                result.push(medMateria);
-            });
-            ///获取套件下的全部物料，注意异步调用，使用aims来匹配数据结果集
-            $.each($scope.PreViewCount.Kit.GetHMedKitDetail($scope.PageData.medKits),function (index,medMateria) {
-                result.push(medMateria);
-            })
-
-            ///result去重,由于去重时，遍历了正在的结果集，所以可以在这里做数据分析，分析工具和植入物的数量
-            $.each(result,function (index,medMaterial) {
-                var flag = true;
-                $scope.PageData.allCount.all+=medMaterial.reqQty;
-                if(medMaterial.categoryByPlatform=="IMPLANT"){
-                    $scope.PageData.allCount.implant+=medMaterial.reqQty;
-                }
-                else if(medMaterial.categoryByPlatform=="TOOL"){
-                    $scope.PageData.allCount.tool+=medMaterial.reqQty;
-                }
-                $.each($scope.PageData.AllmedMaterias,function (mindex,mresult) {
-                    if(medMaterial.medMIInternalNo==mresult.medMIInternalNo){
-                        mresult.reqQty+=medMaterial.reqQty;
-                        flag=false;
-                        return false;
-                    }
-                });
-                if(flag){
-                    $scope.PageData.AllmedMaterias.push(medMaterial);
-                }
-            })
-            $.each($scope.PageData.AllmedMaterias,function (index,material) {
-                if(material.categoryByPlatform=="IMPLANT"){
-                    $scope.PageData.Implate.push(material);
-                }
-                else if(material.categoryByPlatform=="TOOL"){
-                    $scope.PageData.Tool.push(material);
-                }
+            $scope.PageData.allCount.tool=0;
+            $scope.PageData.allCount.all=0;
+            $scope.PageData.allCount.implant=0;
+            $Api.SurgeryService.Process.ProView($scope.PageData,function (rData) {
+                $scope.PageData.proView=rData;
+                $scope.PreViewCount.CountImplantsIsSingle(rData.implants);
+                $scope.PreViewCount.CountToolIsSingle(rData.tools)
             })
         },
-        ///<summary>套件分析</summary>
-        Kit:{
-            //获取套件详情
-            GetHMedKitDetail:function (kits) {
-                var result = new Array();
-                if(kits){
-                    $.each(kits,function (index,kit) {
-                        $scope.PageData.allCount.kit+=kit.reqQty;
-                        $Api.MedKitService.GetMedKitDetail(kit,function (kitDetail) {
-                            $scope.PreViewCount.Kit.GetMedMaterialByProInKit(kitDetail,result,kit);
-                        })
+        //植入物统计+去重
+        CountImplantsIsSingle:function (implants) {
+            if(implants){
+                $.each(implants,function (index,implant) {
+                    $scope.PageData.allCount.all+=implant.reqQty;
+                    $scope.PageData.allCount.implant+=implant.reqQty;
+                    var flag = true;
+                    $.each($scope.PageData.Implate,function (index,thisImplant) {
+                        if(implant.medMIInternalNo==thisImplant.medMIInternalNo){
+                            thisImplant.reqQty+=implant.reqQty;
+                            flag=false;
+                            return false;
+                        }
                     });
-                }
-                return result;
-            },
-            GetMedMaterialByProInKit:function (kitDetail,aims,kit) {
-                //<summary>获取套件中产品线包物料总集合
-                $.each(kitDetail.productLine,function (index,line) {
-                    ///<summary>获取产品线下的物料</summary>
-                    $scope.PreViewCount.Kit.GetMedMaterialInProln(line,aims,kit);
-                });
-            },
-            GetMedMaterialInProln:function (line,aims,kit) {
-                $.each(line.medMaterias, function (index, material) {
-                    for(var i=0;i<kit.reqQty;i++){
-                        aims.push($.extend({}, material));
+                    if(flag){
+                        $scope.PageData.Implate.push(implant);
                     }
                 })
             }
         },
-        prodLns:{
-            ///<summary>产品线分析</summary>
-            GetMedMateriasByprodLns:function (prodlins) {
-                ///<summary>根据产品线信息获取物料总集合</summary>
-                //遍历产品线
-                var result = new Array();
-                if(prodlins){
-                    $.each (prodlins,function (index,lin) {
-                        $scope.PreViewCount.prodLns.GetMedMateriasByLine(lin,result);
+        //工具统计+去重
+        CountToolIsSingle:function (tools) {
+            if(tools){
+                $.each(tools,function (index,tool) {
+                    $scope.PageData.allCount.all+=tool.reqQty;
+                    $scope.PageData.allCount.tool+=tool.reqQty;
+                    var flag = true;
+                    $.each($scope.PageData.Tool,function (index,thisTool) {
+                        if(tool.medMIInternalNo==thisTool.medMIInternalNo){
+                            thisTool.reqQty+=tool.reqQty;
+                            flag=false;
+                            return false;
+                        }
                     });
-                }
-                return result;
-            },
-            GetMedMateriasByLine:function (lin,aims) {
-                ///<summary>获取产品线下全部物料的信息</summary>
-                if (lin.medMaterias) {
-                    $.each(lin.medMaterias, function (index, medMateria) {
-                        aims.push($.extend({}, medMateria));//物料添加进结果集
-                    });
-                }
+                    if(flag){
+                        $scope.PageData.Tool.push(tool);
+                    }
+                })
             }
-
-        },
+        }
     }
 
     $scope.View = {
@@ -841,7 +794,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
 app.controller("DealwithController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>订单处理</summary>
     $scope.DealService = {
-        /// <summary>订单处理服务</summary> 
+        /// <summary>订单处理服务</summary>
         Submit: function () {
             if (confirm("订单号：" + $scope.PageData.sONo+"确认需要要处理吗？")) {
                 /// <summary>订单处理提交</summary>
@@ -862,20 +815,20 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
             $scope.DealService.model.hide();
         },
         Show:function () {
-            $scope.PreViewCount.CountMaterialFunction();
+            $scope.PreViewCount.GetData();
             $scope.DealService.model.show();
         },
         Cancel: function () {
             if (confirm("您确认要取消当前订单吗?")) {
                 //调用取消接口，因不满足前置条件，无法回退，保持原状就行
-                 $Api.SurgeryService.Cancel($scope.PageData, function (rData) {
-                     $MessagService.succ("订单取消成功！");
-                     $scope.goLastPage();
-                 });
+                $Api.SurgeryService.Cancel($scope.PageData, function (rData) {
+                    $MessagService.succ("订单取消成功！");
+                    $scope.goLastPage();
+                });
             }
         }
     }
-    $scope.DealService.model = { title: "手术下单预览", width: 720, height: 650, buttons: { "提交": $scope.DealService.Submit, "返回": $scope.DealService.Hide } };
+    $scope.DealService.model = { title: "手术下单预览", width: 720, height: 800, buttons: { "提交": $scope.DealService.Submit, "返回": $scope.DealService.Hide } };
     $scope.AddressConfig = {
         fixed: function (rowInfo) {
             /// <summary>选择地址事件</summary>

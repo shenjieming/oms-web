@@ -123,7 +123,7 @@
                         <tr>
                             <td>
                                 <div class="yulan_ys">
-                                    植入物<span ng-bind="PageData.allCount.implant"></span>件，工具<span ng-bind="PageData.allCount.tool"></span>件（其中套件套件:<span ng-bind="PageData.allCount.kit"></span>）合计 全部:<span ng-bind="PageData.allCount.all"></span>件
+                                    植入物<span ng-bind="PageData.allCount.implant"></span>件，工具<span ng-bind="PageData.allCount.tool"></span>件（其中套件:<span ng-bind="PageData.proView.kitCount"></span>）合计 全部:<span ng-bind="PageData.allCount.all"></span>件
                                 </div>
                             <td>
                         </tr>
@@ -147,13 +147,13 @@
                                         </thead>
                                         <tr ng-repeat="row in PageData.Implate">
                                             <td>{{$index+1}}</td>
-                                            <td><span ng-bind="row.medBrandCodeName?row.medBrandCodeName:row.medBrandName"></span>
-                                            <td><span ng-bind="row.medProdLnCodeName?row.medProdLnCodeName:row.medProdLnName"></span>
-                                            <td><span ng-bind="row.medMICode"></span>
-                                            <td><span ng-bind="row.medMICodeName?row.medMICodeName:row.medMIName"></span>
+                                            <td><span ng-bind="row.medBrandCodeName"></span>
+                                            <td><span ng-bind="row.medProdLineCodeName"></span>
+                                            <td><span ng-bind="row.medMiCode"></span>
+                                            <td><span ng-bind="row.medMICodeName"></span>
                                             <td><span ng-bind="row.specification"></span>
                                             <td><span ng-bind="row.reqQty"></span>
-                                            <td><span ng-bind="row.estMedMIWarehouseName"></span>
+                                            <td><span ng-bind="row.wHName"></span>
                                         </tr>
                                     </table>
                                 </div>
@@ -174,13 +174,13 @@
                                         </thead>
                                         <tr ng-repeat="row in PageData.Tool">
                                             <td>{{$index+1}}</td>
-                                            <td><span ng-bind="row.medBrandCodeName?row.medBrandCodeName:row.medBrandName"></span>
-                                            <td><span ng-bind="row.medProdLnCodeName?row.medProdLnCodeName:row.medProdLnName"></span>
-                                            <td><span ng-bind="row.medMICode"></span>
-                                            <td><span ng-bind="row.medMICodeName?row.medMICodeName:row.medMIName"></span>
+                                            <td><span ng-bind="row.medBrandCodeName"></span>
+                                            <td><span ng-bind="row.medProdLineCodeName"></span>
+                                            <td><span ng-bind="row.medMiCode"></span>
+                                            <td><span ng-bind="row.medMICodeName"></span>
                                             <td><span ng-bind="row.specification"></span>
                                             <td><span ng-bind="row.reqQty"></span>
-                                            <td><span ng-bind="row.estMedMIWarehouseName"></span>
+                                            <td><span ng-bind="row.wHName"></span>
                                         </tr>
                                     </table>
                                 </div>

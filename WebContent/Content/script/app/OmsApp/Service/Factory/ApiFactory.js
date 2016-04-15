@@ -394,6 +394,10 @@ OMSApiService
                     /// <summary>//上一次手术信息（获取服务器端手术时间）</summary>
                     $ApiService.PostApi(ApiPath.Surgery.Process.findUserLastOrder, data, callback);
                 },
+                ProView:function (data,callback) {
+                    ///<summary>预览页面<summary>
+                    $ApiService.PostApi(ApiPath.Surgery.Process.proView,data,callback);
+                }
             },
             DataSources: {
                 /// <summary>手术订单数据源</summary>

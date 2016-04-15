@@ -48,6 +48,8 @@ var ApiPath = {
             backsave: "/v2/order/temporarySaveReturnWareHouseOrder",
             //上一次手术信息（获取服务器端手术时间）
             findUserLastOrder:"/v2/common/order/findUserLastOrder",
+            //预览
+            proView:"/v2/common/order/proview",
         },
         Approval: {
             /// <summary>订单审批</summary>
