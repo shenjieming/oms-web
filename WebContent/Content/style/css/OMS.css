@@ -803,7 +803,7 @@ input[type='number'] {
 @charset "utf-8";
 /* CSS Document */
 *{margin:0; padding:0;}
-.yulan_box{position:relative; padding:10px; background-color:#ffffff ;box-shadow:100px 10px 10px #CCCCCC;max-height:500px; overflow-y:auto }
+.yulan_box{position:relative; padding:10px; background-color:#ffffff ;box-shadow: 0px 0px 10px 0px  #CCCCCC;max-height:500px; overflow-y:auto }
 .yulan_tk { overflow:hidden;}
 .yulan_tk { border:1px solid #d9d9d9;}
 .yulan_button{float:right;
