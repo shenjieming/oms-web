@@ -6,7 +6,10 @@ BmsApp
         $stateProvider
              .state("app.bms", {
                  /// <summary>票据管理模板</summary>
-                 url: "/bms", cache: false, template: "<div ui-view></div>", abstract: true, resolve: app.resolve, loadJs: ["Content/script/app/BmsApp/BillController/JS_BillListController.js"]
+                 url: "/bms", cache: false, template: "<div ui-view></div>", abstract: true, resolve: app.resolve, loadJs: [
+                     "Content/script/app/BmsApp/BillController/JS_BillListController.js",
+                     "Content/script/app/BmsApp/ReconciliationController/JS_ReconciliationListController.js"
+                 ]
              })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
@@ -96,55 +99,68 @@ BmsApp
                 url: "/rec",
                 cache: false,
                 template: "<div ui-view></div>",
-                abstract: true
+                abstract: true,
+                controller: "ReconciliationController",
             })
              .state("app.bms.rec.complex", {
                  /// <summary>对账单综合查询</summary>
                  url: "/complex",
                  cache: false,
-                 templateUrl: "" + Timestamp,
+                 templateUrl: "View/BMS/Reconciliation/View/ReconciliationList.html?data=" + Timestamp,
+                 resolve: app.resolve,
+                 loadJs: ["Content/script/app/BmsApp/ReconciliationController/ListController/JS_ReconciliationComplex.js"],
                  controller: "RecComplexListController"
              })
             .state("app.bms.rec.list", {
                 /// <summary>我的对账单列表</summary>
                 url: "/list",
                 cache: false,
-                templateUrl: "" + Timestamp,
+                templateUrl: "View/BMS/Reconciliation/View/ReconciliationList.html?data=" + Timestamp,
+                resolve: app.resolve,
+                loadJs: ["Content/script/app/BmsApp/ReconciliationController/ListController/JS_MyReconciliation.js"],
                 controller: "RecListController"
             })
-            .state("app.bms.rec.pendlist", {
-                /// <summary>待对账订单列表</summary>
-                url: "/pendlist",
-                cache: false,
-                templateUrl: "" + Timestamp,
-                controller: "RecPendListController"
-            })
-            .state("app.bms.rec.already", {
-                /// <summary>已对账单列表</summary>
-                url: "/alreadylist",
-                cache: false,
-                templateUrl: "" + Timestamp,
-                controller: "RecAlreadyListController"
+            .state("app.bms.rec.notapproval", {
+                /// <summary>未审批对账单</summary>
+                url: "/notapproval",
+                cache: false, templateUrl: "View/BMS/Reconciliation/View/ReconciliationList.html?data=" + Timestamp,
+                resolve: app.resolve,
+                loadJs: ["Content/script/app/BmsApp/ReconciliationController/ListController/JS_ApprovalReconciliation.js"],
+                controller: "RecNotApprovalListController"
             })
             .state("app.bms.rec.approval", {
                 /// <summary>待审批对账单列表</summary>
                 url: "/approval",
                 cache: false,
-                templateUrl: "" + Timestamp,
+                templateUrl: "View/BMS/Reconciliation/View/ReconciliationList.html?data=" + Timestamp,
+                resolve: app.resolve,
+                loadJs: ["Content/script/app/BmsApp/ReconciliationController/ListController/JS_ApprovalReconciliation.js"],
                 controller: "RecApprovalListController"
             })
             .state("app.bms.rec.approveded", {
                 /// <summary>已审批对账单列表</summary>
                 url: "/approveded",
                 cache: false,
-                templateUrl: "" + Timestamp,
+                templateUrl: "View/BMS/Reconciliation/View/ReconciliationList.html?data=" + Timestamp,
+                resolve: app.resolve,
+                loadJs: ["Content/script/app/BmsApp/ReconciliationController/ListController/JS_ApprovaledReconciliation.js"],
                 controller: "RecApprovaledListController"
             })
+            .state("app.bms.rec.already", {
+                /// <summary>已已开票单列表</summary>
+                url: "/alreadylist",
+                cache: false,
+                templateUrl: "View/BMS/Reconciliation/View/ReconciliationList.html?data=" + Timestamp,
+                resolve: app.resolve,
+                loadJs: ["Content/script/app/BmsApp/ReconciliationController/ListController/JS_AlreadyReconciliation.js"],
+                controller: "RecAlreadyListController"
+            })
+
             .state("app.bms.rec.posting", {
                 /// <summary>对账单已开票列表</summary>
                 url: "/postinglist",
                 cache: false,
-                templateUrl: "" + Timestamp,
+                templateUrl: "View/BMS/Reconciliation/View/ReconciliationList.html?data=" + Timestamp,
                 controller: "RecPostingListController"
             })
     })
@@ -175,10 +191,15 @@ BmsApp
                 abstract: true
             })
     })
-    .factory("$BmsMenuService", function () {
+    .factory("$BmsMenuService", function ($BmsBillMenuService, $BmsReconciliationMenuService, $BmsInvoiceMenuService) {
         /// <summary>BMS系统菜单服务</summary>
         var service = new Array();
-        service.push({
+        service.push($BmsBillMenuService); service.push($BmsReconciliationMenuService); service.push($BmsInvoiceMenuService);
+        return service;
+    })
+    .factory("$BmsBillMenuService", function () {
+        /// <summary>BMS系统计费单菜单管理</summary>
+        return {
             name: "订单计费管理", url: "", state: "app.bms.bill", icon: "fa-laptop", order: 3,
             detail: [
                 { name: "综合计费单查询", url: "#/app/bms/bill/complex", state: "app.bms.bill.complex" },
@@ -189,7 +210,32 @@ BmsApp
                 { name: "已审批计费", url: "#/app/bms/bill/approveded", state: "app.bms.bill.approveded" },
                 { name: "已对账计费", url: "#/app/bms/bill/posting", state: "app.bms.bill.posting" }
             ]
-        });
-
-        return service;
+        };
+    })
+    .factory("$BmsReconciliationMenuService", function () {
+        /// <summary>BMS系统对账单菜单管理</summary>
+        return {
+            name: "计费对账管理", url: "", state: "app.bms.rec", icon: "fa-laptop", order: 3,
+            detail: [
+                { name: "对账单综合查询", url: "#/app/bms/rec/complex", state: "app.bms.rec.complex" },
+                { name: "我的对账单", url: "#/app/bms/rec/pending", state: "app.bms.rec.pending" },
+                { name: "未审批对账单", url: "#/app/bms/rec/list", state: "app.bms.rec.list" },
+                { name: "待审批对账单", url: "#/app/bms/rec/notapproval", state: "app.bms.rec.notapproval" },
+                { name: "已审批对账单", url: "#/app/bms/rec/approval", state: "app.bms.rec.approval" },
+                { name: "已开票对账单", url: "#/app/bms/rec/approveded", state: "app.bms.rec.approveded" }
+            ]
+        };
+    })
+    .factory("$BmsInvoiceMenuService", function () {
+        /// <summary>BMS发票系统菜管理</summary>
+        return {
+            name: "票据管理", url: "", state: "app.bms.rec", icon: "fa-laptop", order: 3,
+            detail: [
+                { name: "票据综合查询", url: "#/app/bms/bill/complex", state: "app.bms.bill.complex" },
+                { name: "我的发票", url: "#/app/bms/bill/pending", state: "app.bms.bill.pending" },
+                { name: "未审批发票", url: "#/app/bms/bill/list", state: "app.bms.bill.list" },
+                { name: "待审批发票", url: "#/app/bms/bill/notapproval", state: "app.bms.bill.notapproval" },
+                { name: "已审批发票", url: "#/app/bms/bill/approval", state: "app.bms.bill.approval" }
+            ]
+        };
     })

@@ -82,6 +82,7 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
     /// <summary>分页配置信息对象</summary>
     $scope.Pagein = { pageSize: 10, createDateBegin: null, createDateEnd: null, pageIndex: 1, callbake: function () { $scope.Integrated.GetBillList(); } }
 });
+
 app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams, $BillDetailFactory) {
     /// <summary>计费单详情</summary>
     console.log("计费单管理-计费单详情管理");
@@ -109,7 +110,6 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
     if ($stateParams.hOFNNo) { $scope.QueryService.GetBillInfo($stateParams); }
 
 });
-
 
 app.factory("$BillDetailFactory", function ($BMSApi) {
     /// <summary></summary>
