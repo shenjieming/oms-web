@@ -8,8 +8,8 @@ var ServerConfiguration = {
     //OMS请求地址
     //开启OMS系统
     StartOMS: true,
-    //OMSPath: "http://192.168.1.84:8081/oms-api",
-    OMSPath: "http://127.0.0.1:8080/oms-api",
+    OMSPath: "http://192.168.1.84:8081/oms-api",
+    //OMSPath: "http://127.0.0.1:8080/oms-api",
     //开启BMS系统
     StartBMS: false,
     //BMS请求地址
