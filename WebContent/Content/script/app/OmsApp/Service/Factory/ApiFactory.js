@@ -389,7 +389,11 @@ OMSApiService
                 Back: function (data, callback) {
                     /// <summary>订单返库</summary>
                     $ApiService.PostApi(ApiPath.Surgery.Process.back, data, callback);
-                }
+                },
+                GetFindUserLastOrder: function (data, callback) {
+                    /// <summary>//上一次手术信息（获取服务器端手术时间）</summary>
+                    $ApiService.PostApi(ApiPath.Surgery.Process.findUserLastOrder, data, callback);
+                },
             },
             DataSources: {
                 /// <summary>手术订单数据源</summary>
