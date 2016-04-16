@@ -159,7 +159,7 @@
                                 </td>
                                 <td ng-show="Competence.warehouse">
                                     <span ng-show="Competence.operat">
-                                        <select ng-model="row.medMIWarehouse" ng-change="WarehouseConfig.GetMedmaterialInventory(row)" ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
+                                        <select ng-model="row.medMIWarehouse" ng-change="WarehouseConfig.GetMedmaterialInventory(row,item)" ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
                                             <option value="">请选择仓库</option>
                                         </select>
                                     </span>
