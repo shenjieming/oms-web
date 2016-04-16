@@ -800,6 +800,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
                 /// <summary>订单处理提交</summary>
                 $scope.ProductService.Deduplication();//去重
                 $Api.SurgeryService.Process.Submit($scope.PageData, function (rData) {
+                    $scope.DealService.model.hide();
                     $scope.goLastPage();
                 });
             //}
