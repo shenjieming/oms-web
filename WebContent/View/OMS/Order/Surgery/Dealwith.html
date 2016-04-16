@@ -7,10 +7,10 @@
             <span style="color: #FF3300">(<span ng-bind="PageData.statusName"></span>)</span>
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
-            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i> 保存</a>
-            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Submit()"><i class="fa fa-wrench"></i> 处理</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Show()"><i class="fa fa-wrench"></i>处理</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
-            <a class="btn btn-danger" ng-if="View.Competence.dealwith" ng-click="DealService.Cancel()"><i class="fa fa-undo"></i> 取消订单</a>   
+            <a class="btn btn-danger" ng-if="View.Competence.dealwith" ng-click="DealService.Cancel()"><i class="fa fa-undo"></i> 取消订单</a>
         </span>
     </div>
     <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
@@ -47,13 +47,17 @@
                                 </label>
                             </div>
                             <div class="control-group ">
-                                <table class="Vessel" style="width:100%">
+                                <label style="width:100%">
+                                    地址：<span ng-area="" ng-model="PageData"></span>
+                                    <input type="text" ng-model="PageData.deliveryAddress" style="border:0;border-bottom:1px solid #ccc;font-size:12px;width:370px" />
+                                </label>     
+                                <!--<table class="Vessel" style="width:100%">
                                     <tr>
                                         <td style="padding-left:2.2%;"><span  style="font-size:12px"> &nbsp;地址：</span></td>
                                         <td style="padding:0px;"><span ng-area="" ng-model="PageData"></span></td>
                                         <td style="width:50%;padding:0px;"><input type="text" ng-model="PageData.deliveryAddress" style="width:99%;border:0;border-bottom:1px solid #ccc;font-size:12px" /></td>
                                     </tr>
-                                </table>
+                                </table>-->
                             </div>
                         </div>
                         <div ng-address="address" ng-model="PageData" ng-operat="AddressConfig"></div>
@@ -174,12 +178,120 @@
                 </div>
             </div>
         </div>
+        <ng-dialog ng-model="DealService.model">
+            <div class="yulan_box">
+                <div class="yulan_tk">
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="yulan_button">
+                                </div>
+                                <ul class="yulan_xinxi">
+                                    <li>
+                                        <ul class="yulan_gaik">
+                                            <li><b>医院：</b><span ng-bind="PageData.hPCode"></span></li>
+                                            <li><b>科室：</b><span ng-bind="PageData.wardDeptCodeName"></span></li>
+                                            <li><b>医生：</b><span ng-bind="PageData.dTCodeName"></span></li>
+                                            <li><b>手术时间：</b><span ng-bind="PageData.operationDate"></span></li>
+                                        </ul>
+                                    </li>
+                                    <li><b>医院要求：</b><span ng-bind="PageData.hPPreferenceDesc"></span></li>
+                                    <li><b>医生要求：</b><span ng-bind="PageData.dTOperationPreferenceDesc"></span></li>
+                                    <li><b>诊断信息：</b><span ng-bind="PageData.patientDiseaseInfo"></span></li>
+                                    <li>
+                                        <ul class="yulan_gaik">
+                                            <li><b>收件人：</b><span ng-bind="PageData.deliveryContact"></span></li>
+                                            <li><b>联系电话：</b><span ng-bind="PageData.deliveryrMobile"></span></li>
+                                            <li><b>配送：</b><span ng-bind="PageData.iniitCarrierTransTypeName"></span></li>
+                                        </ul>
+                                    </li>
+                                    <li><b>地址：</b><span ng-bind="PageData.deliveryProvinceName"></span><span ng-bind="PageData.deliveryCityName"></span>
+                                        <span ng-bind="PageData.deliveryDistrictName"></span><span ng-bind="PageData.deliveryAddress"></span>
+                                    </li>
+                                </ul>
+                            <td>
+                        </tr>
 
+                        <tr>
+                            <td>
+                                <div class="yulan_ys">
+                                    植入物<span ng-bind="PageData.allCount.implant"></span>件，工具<span ng-bind="PageData.allCount.tool"></span>件（其中套件:<span ng-bind="PageData.proView.kitCount"></span>）合计 全部:<span ng-bind="PageData.allCount.all"></span>件
+                                </div>
+                            <td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="yulan_biaoge">
+
+                                    <h4><b>植入物：</b><span ng-bind="PageData.allCount.implant"></span>件</h4>
+                                    <table class="yulan_bordered" cellpadding="0" cellspacing="0">
+                                        <thead>
+                                        <tr class="yulan_line">
+                                            <td>序号</td>
+                                            <td>品牌名称</td>
+                                            <td>产品线</td>
+                                            <td>物料编码</td>
+                                            <td>物料名称</td>
+                                            <td>物料规格</td>
+                                            <td>数量</td>
+                                            <td>仓库</td>
+                                        </tr>
+                                        </thead>
+                                        <tr ng-repeat="row in PageData.Implate">
+                                            <td>{{$index+1}}</td>
+                                            <td><span ng-bind="row.medBrandCodeName"></span>
+                                            <td><span ng-bind="row.medProdLineCodeName"></span>
+                                            <td><span ng-bind="row.medMiCode"></span>
+                                            <td><span ng-bind="row.medMICodeName"></span>
+                                            <td><span ng-bind="row.specification"></span>
+                                            <td><span ng-bind="row.reqQty"></span>
+                                            <td><span ng-bind="row.wHName"></span>
+                                        </tr>
+                                    </table>
+
+
+                                </div>
+                                <div class="yulan_biaoge">
+                                    <h4><b>工具：</b><span ng-bind="PageData.allCount.tool"></span>件</h4>
+                                    <table class="yulan_bordered" cellpadding="0" cellspacing="0">
+                                        <thead>
+                                        <tr class="yulan_line">
+                                            <td>序号</td>
+                                            <td>品牌名称</td>
+                                            <td>产品线</td>
+                                            <td>物料编码</td>
+                                            <td>物料名称</td>
+                                            <td>物料规格</td>
+                                            <td>数量</td>
+                                            <td>仓库</td>
+                                        </tr>
+                                        </thead>
+                                        <tr ng-repeat="row in PageData.Tool">
+                                            <td>{{$index+1}}</td>
+                                            <td><span ng-bind="row.medBrandCodeName"></span>
+                                            <td><span ng-bind="row.medProdLineCodeName"></span>
+                                            <td><span ng-bind="row.medMiCode"></span>
+                                            <td><span ng-bind="row.medMICodeName"></span>
+                                            <td><span ng-bind="row.specification"></span>
+                                            <td><span ng-bind="row.reqQty"></span>
+                                            <td><span ng-bind="row.wHName"></span>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="yulan_button">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="yulan_dd">手术订单配货确认</div>
+            </div>
+        </ng-dialog>
     </div>
     <div class="tools">
         <span class="btn-group oms-btn-group" style="float:right;">
-            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i> 保存</a>
-            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Submit()"><i class="fa fa-wrench"></i> 处理</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Show()"><i class="fa fa-wrench"></i>处理</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
             <a class="btn btn-danger" ng-if="View.Competence.dealwith" ng-click="DealService.Cancel()"><i class="fa fa-undo"></i> 取消订单</a>
         </span>
