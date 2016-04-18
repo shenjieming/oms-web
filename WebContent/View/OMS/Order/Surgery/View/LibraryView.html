@@ -9,13 +9,13 @@
     <div class="widget-content nopadding collapse in" id="{{lib.wONo}}">
         <div class="control-group ">
             <label>
-                订单状态：<span class="red" ng-bind="lib.statusName"></span>
+                状态：<span class="red" ng-bind="lib.statusName"></span>
             </label>
             <label>
-                出库仓库：<span ng-bind="lib.medMIWarehouseName"></span>
+                仓库：<span ng-bind="lib.medMIWarehouseName"></span>
             </label>
             <label>
-                创建时间：<span ng-bind="lib.createDate?lib.createDate:'-'"></span>
+                创建：<span ng-bind="lib.createDate?lib.createDate:'-'"></span>
             </label>
             <a ng-show="(lib.status=='WOSTS00010')&&View.Competence.sign" class="btn btn-warning" ng-click="LivraryConfig.OBSign(lib)"><i class="fa fa-vine"></i>签收</a>
         </div>
@@ -31,17 +31,17 @@
                         <thead>
                             <tr>
                                 <th><span>序号</span></th>
-                                <th><span>品牌名称</span></th>
+                                <th><span>品牌</span></th>
                                 <th><span>产品线</span></th>
                                 <th><span>物料编码</span></th>
                                 <th><span>物料名称</span></th>
-                                <th><span>物料类型</span></th>
-                                <th><span>物料规格</span></th>
-                                <th><span>出库数量</span></th>
+                                <th><span>类型</span></th>
+                                <th><span>规格</span></th>
+                                <th><span>数量</span></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in lib.Material"  class="ng-scope ng-isolate-scope st-selected">
+                            <tr ng-repeat="row in lib.Material"  class="ng-scope ng-isolate-scope">
                                 <td>{{$index+1}}</td>
                                 <td><span ng-bind="row.medBrandCodeName"></span></td>
                                 <td><span ng-bind="row.medProdLnCodeName"></span></td>

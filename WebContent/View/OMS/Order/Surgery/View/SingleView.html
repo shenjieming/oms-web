@@ -2,23 +2,23 @@
     <div class="widget-box">
         <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5>基础信息[货主：<span ng-bind="PageData.sOOIOrgCodeName"></span>]</h5>
+            <h5>收货信息 [货主：<span ng-bind="PageData.sOOIOrgCodeName"></span>]</h5>
         </div>
         <div class="widget-content nopadding collapse in" id="BaseInformation">
             <div class="control-group ">
                 <label>
-                    收 货 人：<span ng-bind="PageData.deliveryContact"></span>
+                    收货人：<span ng-bind="PageData.deliveryContact"></span>
                 </label>
                 <label>
-                    联系电话：<span ng-bind="PageData.deliveryrMobile"></span>
+                    电话：<span ng-bind="PageData.deliveryrMobile"></span>
                 </label>
                 <label>
-                    配送方式：<span ng-bind="PageData.iniitCarrierTransTypeName"></span>
+                    配送：<span ng-bind="PageData.iniitCarrierTransTypeName"></span>
                 </label>
             </div>
             <div class="control-group ">
                 <label style="width:100%">
-                    收货地址：
+                    地址：
                     <span ng-bind="PageData.deliveryProvinceName"></span> 
                     <span ng-bind="PageData.deliveryCityName"></span> 
                     <span ng-bind="PageData.deliveryDistrictName"></span>
@@ -35,13 +35,13 @@
         <div id="SurgeryInformation" class="widget-content nopadding collapse in">
             <div class="control-group ">
                 <label>
-                    医院名称：<span ng-bind="PageData.initHPCodeName"></span>
+                    医院：<span ng-bind="PageData.initHPCodeName"></span>
                 </label>
                 <label>
-                    科室名称：<span ng-bind="PageData.initWardDeptCodeName"></span>
+                    科室：<span ng-bind="PageData.initWardDeptCodeName"></span>
                 </label>
                 <label>
-                    医生名称：<span ng-bind="PageData.initDTCodeName"></span><span style="color:green">[<span ng-bind="PageData.initIsLocalName"></span>]</span>
+                    医生：<span ng-bind="PageData.initDTCodeName"></span><span style="color:green">[<span ng-bind="PageData.initIsLocalName"></span>]</span>
                 </label>
             </div>
             <div class="control-group">
@@ -64,7 +64,7 @@
             </div>
             <div class="control-group ">
                 <label style="width:100%;">
-                    患者描述:<span ng-bind="PageData.initPatientInfo"></span>
+                    患者信息：<span ng-bind="PageData.initPatientInfo"></span>
                 </label>
             </div>
         </div>
@@ -73,7 +73,7 @@
         <div class="widget-title bg_ly" data-toggle="collapse" href="#ProductInformation">
             <span class="icon"><i class="fa icon-chevron-down"></i></span>
             <h5>
-                产品信息<span ng-bind="singleProduc.Competence.ShowInfo"></span>
+                器械信息<span ng-bind="singleProduc.Competence.ShowInfo"></span>
             </h5>
         </div>
         <div id="ProductInformation" class="widget-content nopadding collapse in">
@@ -83,7 +83,7 @@
     <div class="widget-box">
         <div class="widget-title bg_ly" data-toggle="collapse" href="#AdditionalInformation">
             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5>图片信息</h5>
+            <h5>附件信息</h5>
         </div>
         <div id="AdditionalInformation" class="widget-content nopadding collapse in">
             <div class="control-group ">
@@ -91,7 +91,7 @@
             </div>
             <div class="control-group">
                 <label style="width:100%">
-                    图片说明：<span ng-bind="PageData.initFile.remark"></span>
+                    附件备注：<span ng-bind="PageData.initFile.remark"></span>
                 </label>
             </div>
         </div>

@@ -34,10 +34,10 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                     /// <summary>获取显示信息</summary>
                     $scope.ngComp.ShowInfo = "";
                     if ($scope.Statistic.KitsCount) {
-                        $scope.ngComp.ShowInfo += " 套件" + $scope.Statistic.KitsCount + "套(" + $scope.Statistic.KitMCount + "件)";
+                        $scope.ngComp.ShowInfo += " 套件：" + $scope.Statistic.KitsCount + "套（" + $scope.Statistic.KitMCount + "件）";
                     }
                     if ($scope.Statistic.AllMaterialCount) {
-                        $scope.ngComp.ShowInfo += " 散件" + $scope.Statistic.AllMaterialCount + "件(植入物" + $scope.Statistic.AllImplantCount + "件，工具" + $scope.Statistic.AllToolCount + "件）"
+                        $scope.ngComp.ShowInfo += " 散件：" + $scope.Statistic.AllMaterialCount + "件（植入物：" + $scope.Statistic.AllImplantCount + "件，工具：" + $scope.Statistic.AllToolCount + "件）"
                     }
                 }
             }

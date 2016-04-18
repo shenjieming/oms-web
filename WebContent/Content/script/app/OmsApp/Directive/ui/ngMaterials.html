@@ -7,8 +7,8 @@
                 <a class="btn" ng-class="{true: 'btn-info',false:'btn-primary'}[Pagein.categoryByPlatform!='TOOL']" ng-click="Service.GetCheckis()" style="margin-right:45px;"><i class="fa fa-wrench"></i> 工具</a>
             </div>
             <div class="btn-group" ng-show="Pagein.categoryByPlatform=='TOOL'">
-                <input type="radio" name="redio" value="" id="aa" ng-checked="Service.option" ng-click="Service.GetCheckon()" /> 工具专用
-                <input type="radio" name="redio" value="" id="bb" ng-checked="!Service.option" ng-click="Service.GetCheckon()" style="margin-left:50px" /> 工具通用
+                <input type="radio" name="redio" value="" id="aa" ng-checked="Service.option" ng-click="Service.GetCheckon()" /> 专用工具
+                <input type="radio" name="redio" value="" id="bb" ng-checked="!Service.option" ng-click="Service.GetCheckon()" style="margin-left:50px" /> 通用工具
             </div>
             <span ng-show="Pagein.categoryByPlatform=='IMPLANT'"></span>
             <span ng-show="!Service.option&&Pagein.categoryByPlatform=='TOOL'" class="btn-group" style="margin-top:4px">
@@ -30,10 +30,10 @@
                             <th><span>序号</span></th>
                             <th><span>物料编码</span></th>
                             <th><span>物料名称</span></th>
-                            <th><span>物料规格</span></th>
-                            <th><span>物料类型</span></th>            
-                            <th ng-show="Pagein.categoryByPlatform=='TOOL'"><span>通用类型</span></th>
-                            <td title="点击后全部物料添加" ng-click="Service.AddAllQty()"><span class="selected"> <img src="./Content/style/img/KaiXinIcon/quantityDemanded.png" /><a style="color: #436EEE" href="javascript:void(0)"> 需求数量</a></span> </td>
+                            <th><span>规格</span></th>
+                            <th><span>类型</span></th>            
+                            <th ng-show="Pagein.categoryByPlatform=='TOOL'"><span>通用性</span></th>
+                            <td title="点击后全部物料添加" ng-click="Service.AddAllQty()"><span class="selected"> <img src="./Content/style/img/KaiXinIcon/quantityDemanded.png" /><a style="color: #436EEE; font-size: 12px; font-weight: bold" href="javascript:void(0)"> 需求数量</a></span> </td>
                         </tr>
                     </thead>
                     <tbody>

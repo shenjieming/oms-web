@@ -297,7 +297,7 @@ app.controller("LibraryController", function ($scope, $state, $local, $Api, $Mes
                 }
 
             });
-            result = " 物料" + stat.AllMaterialCount + "件(植入物" + stat.AllImplantCount + "件，工具" + stat.AllToolCount + "件）"
+            result = " 物料：" + stat.AllMaterialCount + "件(植入物：" + stat.AllImplantCount + "件，工具：" + stat.AllToolCount + "件）"
 
             return result;
         },
@@ -387,17 +387,17 @@ app.controller("SingleController", function ($rootScope,$scope, $state, $local, 
                 $MessagService.caveat("请选择配送方式")
                 result = false
             } else if (!$scope.PageData.initDTCodeName) {
-                $MessagService.caveat("请选择手术医生信息")
+                $MessagService.caveat("请选择主刀医生")
                 result = false
             }
             else if (!$scope.PageData.initOperationDate) {
                 $MessagService.caveat("请选择手术时间")
                 result = false
             } else if (!$scope.PageData.initDiseaseInfo) {
-                $MessagService.caveat("请输入患者诊断信息")
+                $MessagService.caveat("请输入诊断信息")
                 result = false
             } else if ($scope.PageData.prodLns.length == 0) {
-                $MessagService.caveat("请选择产品线")
+                $MessagService.caveat("请至少选择一条产品线")
                 result = false
             }
             return result
