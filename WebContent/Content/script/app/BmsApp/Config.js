@@ -8,7 +8,8 @@ BmsApp
                  /// <summary>票据管理模板</summary>
                  url: "/bms", cache: false, template: "<div ui-view></div>", abstract: true, resolve: app.resolve, loadJs: [
                      "Content/script/app/BmsApp/BillController/JS_BillListController.js",
-                     "Content/script/app/BmsApp/ReconciliationController/JS_ReconciliationListController.js"
+                     "Content/script/app/BmsApp/ReconciliationController/JS_ReconciliationListController.js",
+                     "Content/script/app/BmsApp/InvoiceController/JS_InvoiceListController.js",
                  ]
              })
     })
@@ -188,7 +189,48 @@ BmsApp
                 url: "/invoice",
                 cache: false,
                 template: "<div ui-view></div>",
-                abstract: true
+                abstract: true,
+                controller: "InvoiceController"
+            })
+            .state("app.bms.invoice.complex", {/// <summary>发票综合查询管理</summary>
+                url: "/complex",
+                cache: false,
+                templateUrl: "View/BMS/Invoice/View/InvoiceList.html?data=" + Timestamp,
+                controller: "InvoiceComplexListController",
+                loadJs: ["Content/script/app/BmsApp/InvoiceController/ListController/JS_InvoiceComplex.js"],
+                resolve: app.resolve
+            })
+            .state("app.bms.invoice.list", {/// <summary>我的发票管理</summary>
+                url: "/list",
+                cache: false,
+                templateUrl: "View/BMS/Invoice/View/InvoiceList.html?data=" + Timestamp,
+                controller: "InvoiceListController",
+                loadJs: ["Content/script/app/BmsApp/InvoiceController/ListController/JS_MyInvoice.js"],
+                resolve: app.resolve
+            })
+            .state("app.bms.invoice.notapproval", {/// <summary>未审核发票管理</summary>
+                url: "/notapproval",
+                cache: false,
+                templateUrl: "View/BMS/Invoice/View/InvoiceList.html?data=" + Timestamp,
+                controller: "InvoiceNotApprovalListController",
+                loadJs: ["Content/script/app/BmsApp/InvoiceController/ListController/JS_InvoiceApproval.js"],
+                resolve: app.resolve
+            })
+            .state("app.bms.invoice.approval", {/// <summary>待审核发票管理</summary>
+                url: "/approval",
+                cache: false,
+                templateUrl: "View/BMS/Invoice/View/InvoiceList.html?data=" + Timestamp,
+                controller: "InvoiceApprovalListController",
+                loadJs: ["Content/script/app/BmsApp/InvoiceController/ListController/JS_InvoiceApproval.js"],
+                resolve: app.resolve
+            })
+            .state("app.bms.invoice.approveded", {/// <summary>已审核发票管理</summary>
+                url: "/approveded",
+                cache: false,
+                templateUrl: "View/BMS/Invoice/View/InvoiceList.html?data=" + Timestamp,
+                controller: "InvoiceApprovaedlListController",
+                loadJs: ["Content/script/app/BmsApp/InvoiceController/ListController/JS_InvoiceApprovaled.js"],
+                resolve: app.resolve
             })
     })
     .factory("$BmsMenuService", function ($BmsBillMenuService, $BmsReconciliationMenuService, $BmsInvoiceMenuService) {
@@ -232,7 +274,7 @@ BmsApp
             name: "票据管理", url: "", state: "app.bms.invoice", icon: "fa-laptop", order: 3,
             detail: [
                 { name: "票据综合查询", url: "#/app/bms/invoice/complex", state: "app.bms.invoice.complex" },
-                { name: "我的发票", url: "#/app/bms/invoice/pending", state: "app.bms.invoice.pending" },
+                { name: "我的发票", url: "#/app/bms/invoice/list", state: "app.bms.invoice.list" },
                 { name: "未审批发票", url: "#/app/bms/invoice/list", state: "app.bms.invoice.list" },
                 { name: "待审批发票", url: "#/app/bms/invoice/notapproval", state: "app.bms.invoice.notapproval" },
                 { name: "已审批发票", url: "#/app/bms/invoice/approval", state: "app.bms.invoice.approval" }
