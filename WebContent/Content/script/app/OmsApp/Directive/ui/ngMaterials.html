@@ -1,4 +1,4 @@
-<div>
+    <div>
     <ng-dialog ng-model="ngOperat">
         <div style="display: inline-block; width: 99%; padding: 5px;">
             <div class="btn-group">
@@ -28,9 +28,11 @@
                     <thead>
                         <tr>
                             <th><span>序号</span></th>
+                            <th ng-if="Pagein.categoryByPlatform!='IMPLANT'"><span>品牌</span></th>
+                            <th ng-if="Pagein.categoryByPlatform!='IMPLANT'"><span>产品线</span></th>
                             <th><span>物料编码</span></th>
                             <th><span>物料名称</span></th>
-                            <th><span>规格</span></th>
+                            <th ng-if ="Pagein.categoryByPlatform=='IMPLANT'"><span>规格</span></thng-if>  
                             <th><span>类型</span></th>            
                             <th ng-show="Pagein.categoryByPlatform=='TOOL'"><span>通用性</span></th>
                             <td title="点击后全部物料添加" ng-click="Service.AddAllQty()"><span class="selected"> <img src="./Content/style/img/KaiXinIcon/quantityDemanded.png" /><a style="color: #436EEE; font-size: 12px; font-weight: bold" href="javascript:void(0)"> 需求数量</a></span> </td>
@@ -39,19 +41,25 @@
                     <tbody>
                         <tr ng-class="{'selected':row.reqQty>0}" ng-dblclick="Service.AddreqQty(row)" ng-repeat="row in Service.MaterialList">
                             <td>{{$index+1}}</td>
+                            <td ng-show="Pagein.categoryByPlatform!='IMPLANT'">
+                                <span ng-bind="row.medBrandName"></span>
+                            </td>
+                            <td ng-show="Pagein.categoryByPlatform!='IMPLANT'">
+                                <span ng-bind="row.medProdLnName"></span>
+                            </td>
                             <td>
                                 <span ng-bind="row.medMICode"></span>
                             </td>
                             <td>
                                 <span ng-bind="row.medMIName"></span>
                             </td>
-                            <td>
+                            <td ng-if="Pagein.categoryByPlatform=='IMPLANT'">
                                 <span ng-bind="row.specification"></span>
                             </td>
                             <td>
                                 <span ng-bind="row.categoryByPlatformName"></span>
                             </td>
-                            <td ng-show="Pagein.categoryByPlatform=='TOOL'">
+                            <td ng-if="Pagein.categoryByPlatform=='TOOL'">
                                 <span ng-bind="row.applyCommonTypeName"></span>
                             </td>
 

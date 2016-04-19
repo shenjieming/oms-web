@@ -6,12 +6,12 @@
                     <div class="control-group">
                         <label style="width:50%">
                             <span class="required" style="margin-top:8px;">*</span>
-                            品牌名称：<select ng-model="Server.Brand" ng-change="Server.GetProductLineList()" ng-options="item as item.text for item in Server.BrandList">
-                                <option value="">请选择产品线</option>
+                            品牌：<select ng-model="Server.Brand" ng-change="Server.GetProductLineList()" ng-options="item as item.text for item in Server.BrandList">
+                                <option value="">请选择品牌</option>
                             </select>
                         </label>
                         <label style="width: 50%; margin-top: 8px;">
-                            产品类型：<select ng-model="prodLn.medProdLineType" ng-change="Server.GetProductLineList()">
+                            类型：<select ng-model="prodLn.medProdLineType" ng-change="Server.GetProductLineList()">
                                 <option value="">请选择产品线类型</option>
                                 <option ng-repeat="item in Server.ProductLineTypeList" value="{{item.id}}">{{item.text}}</option>
                             </select>
@@ -21,22 +21,22 @@
                     <div class="control-group">
                         <label style="width:50%">
                             <span class="required" style="margin-top:8px;">*</span>
-                            产&nbsp;品&nbsp;线&nbsp;&nbsp;：<select ng-model="prodLn.medProdLnCode">
-                                <option value="">请选择产品线信息</option>
+                            产品线：<select ng-model="prodLn.medProdLnCode">
+                                <option value="">请选择产品线</option>
                                 <option ng-repeat="item in Server.ProductLineList" value="{{item.id}}">{{item.text}}</option>
                             </select>
                         </label>
                         <label style="width:50%" ng-show="Server.ChaneIsTool">
-                            <span style="float:left;line-height:25px;">工具情况：</span>
+                            <span style="float:left;line-height:25px;">工具：</span>
                             <input type="checkbox" id="checkbox_c2" class="chkbox" ng-checked="prodLn.isChecked" ng-model="prodLn.isChecked" />
                             <label for="checkbox_c2" style="float:left"></label>
-                            <span ng-show="prodLn.isChecked" style="line-height: 25px;"> 需要</span>
-                            <span ng-show="!prodLn.isChecked" style="line-height: 25px;">不需要</span>
+                            <span ng-show="prodLn.isChecked" style="line-height: 25px;"> 配</span>
+                            <span ng-show="!prodLn.isChecked" style="line-height: 25px;">不配</span>
                         </label>
                     </div>
                     <div class="control-group">
                         <label style="width:100%;">
-                            备注信息：<input type="text" style="width:78%;" ng-model="prodLn.remark" />
+                            备注：<input type="text" style="width:78%;" ng-model="prodLn.remark" placeholder="请输入本次手术该产品线额外说明，例：LUMFIX尽量配小持棒钳"/>
                         </label>
                     </div>
                 </div>

@@ -21,8 +21,8 @@
                                 <th><span>套件名称</span></th>
                                 <th><span>类型</span></th>
                                 <th><span>需求数量</span></th>
+                                <th ng-show="Competence.warehouse&&Competence.operat"><span><a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory()"><i class="fa fa-cubes"></i> 库存</a> </span> </th>
                                 <th ng-show="Competence.warehouse"><span>仓库</span></th>
-                                <th ng-show="Competence.warehouse&&Competence.operat"><span><a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory()"><i class="fa fa-cubes"></i> 全部库存</a> </span> </th>
                                 <th><span>库区</span></th>
                                 <th ng-show="Competence.operat"><span>操作</span> </th>
                             </tr>
@@ -44,6 +44,10 @@
                                     <span ng-show="!Competence.operat" ng-bind="row.kitTypeName"></span>
 
                                 </td>
+                                
+                                <td ng-show="Competence.warehouse&&Competence.operat">
+                                    <a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory(row)">{{row.inventory?row.inventory:"当前库存"}}</a>
+                                </td>
                                 <td ng-show="Competence.warehouse">
                                     <span ng-show="Competence.operat">
                                         <select ng-model="row.estMedMIWarehouse" ng-change="WarehouseConfig.GetKitInventory(row)" ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
@@ -51,9 +55,6 @@
                                         </select>
                                     </span>
                                     <span ng-show="!Competence.operat" ng-bind="row.estMedMIWarehouseName"> </span>
-                                </td>
-                                <td ng-show="Competence.warehouse&&Competence.operat">
-                                    <a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory(row)">{{row.inventory?row.inventory:"当前库存"}}</a>
                                 </td>
                                 <td>
                                     <span ng-bind="row.zoneName"></span>
@@ -76,7 +77,7 @@
                 <div class="control-group" style="display:block;border:0px;">
                     <div ng-show="Competence.operat" class="btn-group">
                         <a class="btn btn-warning" ng-click="ProductConfig.operat.show()"><i class="fa fa-medkit"></i>加产品线</a>
-                        <a class="btn btn-danger" ng-click="ProductConfig.deleteLine()"><i class="fa fa-scissors"></i>删除</a>
+                        <a class="btn btn-danger" ng-click="ProductConfig.deleteLine()"><i class="fa fa-scissors"></i>减产品线</a>
                     </div>
                     <div id="{{ProductConfig.tree.treeId}}" ng-tree="" ng-show="ngModel.prodLns.length" ng-setting="ProductConfig.tree.setting" ng-data="ProductConfig.tree.data" ng-model="ProductConfig.tree.obj"></div>
                 </div>
@@ -128,11 +129,11 @@
                                 <th><span>序号</span></th>
                                 <th><span>物料编码</span></th>
                                 <th><span>物料名称</span></th>
-                                <th><span>类型</span></th>
                                 <th><span>规格</span></th>
+                                <th><span>类型</span></th>             
                                 <th><span>需求数量</span></th>
                                 <th ng-show="Competence.warehouse"><span>仓库</span> </th>
-                                <th ng-show="Competence.warehouse&&Competence.operat"><span><a href="javascript:void(0)" ng-click="WarehouseConfig.GetMedmaterialInventory()"><i class="fa fa-cubes"></i> 全部库存</a> </span> </th>
+                                <th ng-show="Competence.warehouse&&Competence.operat"><span><a href="javascript:void(0)" ng-click="WarehouseConfig.GetMedmaterialInventory()"><i class="fa fa-cubes"></i> 库存</a> </span> </th>
                                 <th ng-show="Competence.operat"><span>操作</span> </th>
                             </tr>
                         </thead>
@@ -146,11 +147,12 @@
                                     <span ng-bind="row.medMIName?row.medMIName:row.medMICodeName"></span>
                                 </td>
                                 <td>
-                                    <span ng-bind="row.categoryByPlatformName"></span>
-                                </td>
-                                <td>
                                     <span ng-bind="row.specification"></span>
                                 </td>
+                                <td>
+                                    <span ng-bind="row.categoryByPlatformName"></span>
+                                </td>
+                            
                                 <td ng-show="Competence.operat">
                                     <input type="number" value="0" ng-change="ProductConfig.GetLineMaterialCount()" ng-model="row.reqQty" style="width:60px" min="0" />{{row.medMIUnitName}}
                                 </td>

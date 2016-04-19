@@ -2,7 +2,7 @@
     <ng-dialog ng-model="ngOperat">
         <div style="display: inline-block; width: 99%; padding: 5px;">
             <div class="input-group" style="float:right;width:250px;">
-                <input type="text" class="form-control" placeholder="请输入物料编码或物料名称"
+                <input type="text" class="form-control" placeholder="请输入套件编码、名称"
                        style="padding:8px;" ng-model="Service.SearchWhere">
                 <a class="input-group-addon" href="javascript:void(0)"><i class="fa fa-search"></i></a>
             </div>
@@ -15,9 +15,9 @@
                             <th><span>序号</span></th>
                             <th><span>套件编码</span></th>
                             <th><span>套件名称</span></th>
-                            <th><span>套件类型</span></th>
-                            <th><span>仓库名称</span></th>
+                            <th><span>类型</span></th>                       
                             <th><span>需求数量</span></th>
+                            <th><span>仓库</span></th>
                             <th><span>库区</span></th>
                         </tr>
                     </thead>
@@ -34,10 +34,10 @@
                                 <span ng-bind="row.kitTypeName"></span>
                             </td>
                             <td>
-                                <span ng-bind="row.whName"></span>
+                                <input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" />
                             </td>
                             <td>
-                                <input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" />
+                                <span ng-bind="row.whName"></span>
                             </td>
                             <td>
                                 <span ng-bind="row.zoneName"></span>
