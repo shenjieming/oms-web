@@ -918,13 +918,18 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         }
     }
 
-    $scope.ImportTemplateService = {
+    $scope.ImportTemplateServicePublic = {
         /// <summary>物料模板导入</summary>
         fixed: function (templateInfo) {
             /// <summary>确认使用模板</summary>
         }
     }
-
+    $scope.ImportTemplateServicePrivate = {
+        /// <summary>物料模板导入</summary>
+        fixed: function (templateInfo) {
+            /// <summary>确认使用模板</summary>
+        }
+    }
     //产品服务
     $scope.ProductService = {};
     //产品权限

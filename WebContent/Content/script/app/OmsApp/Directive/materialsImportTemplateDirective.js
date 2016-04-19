@@ -13,15 +13,17 @@ app.directive("ngMaterialsImportTemplate", function ($Api, $MessagService, $loca
         templateUrl: "Content/script/app/OmsApp/Directive/ui/ngMaterialsImportTemplate.html?data=" + Timestamp,
         scope: {
             ngModel: '=',
+            ngType:"=",
             ngMaterialsImportTemplate: "=",
         },
         replace: true,
         link: function ($scope, element, attrs) {
             /// <summary>模板另存为插件</summary>
-            $scope.TemplateData = { tmplAccessType: "PUBLIC", tmplType: "IMPLANTT", medKits: [], prodLns: [] }
+            $scope.TemplateData = { tmplAccessType: "PUBLIC", tmplType: "IMPLANTT", medKits: [], prodLns: [] };
             $scope.Service = {
                 Save: function () {
                     /// <summary>保存模板</summary>
+                    if($scope.ngType){$scope.TemplateData.tmplAccessType=$scope.ngType};
                     $Api.MaterialsService.SaveTemplate($scope.TemplateData, function (rData) {
                         $scope.ngMaterialsImportTemplate.hide();
                     });

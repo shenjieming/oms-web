@@ -19,8 +19,11 @@
                         </label>
                     </div>
                     <div class="control-group ">
-                        <label>
-                            <span class="required">*</span>模板权限：<span ng-dictionary="SOTACC" ng-model="TemplateData.tmplAccessType"></span>
+                        <label ng-if="ngType=='PUBLIC'">
+                            <span class="required">*</span>模板权限：共有模板
+                        </label>
+                        <label ng-if="ngType=='PRIVATE'">
+                            <span class="required">*</span>模板权限：私有模板
                         </label>
                         <label style="width:60%">
                             模板描述：<input type="text" style="width:78%;" ng-model="TemplateData.tmplDesc" />
