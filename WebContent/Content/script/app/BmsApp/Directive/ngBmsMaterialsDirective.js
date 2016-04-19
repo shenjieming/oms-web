@@ -5,9 +5,7 @@ app.directive("ngBmsMaterials", function ($BMSApi, $MessagService, $local, $AppH
     return {
         restrict: "EA",
         templateUrl: "Content/script/app/BmsApp/Directive/ui/ngBmsMaterials.html?data=" + Timestamp,
-        scope: {
-            ngBmsMaterials: "=",
-        },
+        scope: {  ngBmsMaterials: "=",   },
         replace: true,
         link: function ($scope, element, attrs) {
             $scope.Service = {
@@ -17,13 +15,7 @@ app.directive("ngBmsMaterials", function ($BMSApi, $MessagService, $local, $AppH
                 ChangeList: new Array(),
                 GetMaterialList: function () {
                     /// <summary>获取物资列表</summary>
-                    $scope.Service.GetChangeMaterials(); $BMSApi.BMSBaseService.GetMaterialList($scope.Pagein, function (queryData) {
-                        $scope.Pagein.total = queryData.total;
-                        $scope.Service.MaterialList = new Array();
-                        $.each(queryData.rows, function (index, item) {
-                            $scope.Service.MaterialList.push($.extend(item, { reqQty: $scope.Service.GetMaterialQty(item) }));
-                        });
-                    });
+                    $scope.Service.GetChangeMaterials(); $BMSApi.BMSBaseService.GetMaterialList($scope.Pagein, function (queryData) { $scope.Pagein.total = queryData.total; $scope.Service.MaterialList = new Array(); $.each(queryData.rows, function (index, item) { $scope.Service.MaterialList.push($.extend(item, { reqQty: $scope.Service.GetMaterialQty(item) })); }); });
                 },
                 GetChangeMaterials: function () {
                     /// <summary>获取修改的物资信息</summary>
@@ -63,14 +55,7 @@ app.directive("ngBmsMaterials", function ($BMSApi, $MessagService, $local, $AppH
                     //清空冗余数据
                     $scope.Service.InitializeDirective();
                 },
-                title: "物资选择", width: "100%", position: [0], height: "90%", buttons: {
-                    "确定": function () {
-                        $scope.Service.GetChangeMaterials(); var data = $scope.Service.ChangeList; if (data.length) { $scope.$apply(function () { $scope.ngBmsMaterials.fixed(data); }); $scope.ngBmsMaterials.hide(); } else { $MessagService.caveat("请至少添加一件物资...") }
-                    },
-                    "关闭": function () {
-                        $scope.ngBmsMaterials.hide();
-                    }
-                }
+                title: "物资选择", width: "100%", position: [0], height: "90%", buttons: { "确定": function () { $scope.Service.GetChangeMaterials(); var data = $scope.Service.ChangeList; if (data.length) { $scope.$apply(function () { $scope.ngBmsMaterials.fixed(data); }); $scope.ngBmsMaterials.hide(); } else { $MessagService.caveat("请至少添加一件物资...") } }, "关闭": function () { $scope.ngBmsMaterials.hide(); } }
             }
             $.extend($scope.ngBmsMaterials, modelConfig);
         }

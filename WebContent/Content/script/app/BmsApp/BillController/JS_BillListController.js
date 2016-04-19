@@ -11,12 +11,7 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
     $scope.title = "订单计费";
     $scope.Integrated = {
         //计费单列表
-        Enter: function (e) {
-            var keycode = window.event ? e.keyCode : e.which;
-            if (keycode == 13) {
-                $scope.Integrated.DataQuery({});
-            }
-        },
+        Enter: function (e) { var keycode = window.event ? e.keyCode : e.which; if (keycode == 13) { $scope.Integrated.DataQuery({}); } },
         BillList: new Array(),
         DataQuery: function (data) {
             /// <summary>时间日期查询</summary>
@@ -36,8 +31,7 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
         /// <summary>页面控制</summary>
        SetCompetence: function (comp) {
            /// <summary>设置页面权限</summary>
-           this.InitCompetence();
-           $.extend($scope.Competence, comp);
+           this.InitCompetence();  $.extend($scope.Competence, comp);
        },
        InitCompetence: function () {
            /// <summary>初始化权限</summary>
@@ -45,8 +39,7 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
        },
         GoPageBySedRow: function (callback) {
             /// <summary>根据选择的列表调整页面</summary>
-            $local.setValue("ORDERCOMP", $scope.Competence);
-            $local.CarriedSelectedRow($scope.Integrated.BillList, callback);
+            $local.setValue("ORDERCOMP", $scope.Competence);   $local.CarriedSelectedRow($scope.Integrated.BillList, callback);
         },
         AddNewBill: function () {
             /// <summary>添加信息的计费单</summary>
@@ -76,13 +69,7 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
     }
 
     //权限配置Begion
-    $scope.Competence = {
-        modify: false,
-        batchapproval: false,
-        approval: false,
-        unapproval: false,
-        discard: false
-    }
+    $scope.Competence = { modify: false, batchapproval: false, approval: false, unapproval: false, discard: false };
     //权限配置End
 
     /// <summary>分页配置信息对象</summary>
@@ -93,10 +80,7 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
     /// <summary>计费单详情</summary>
     console.log("计费单管理-计费单详情管理");
 
-    $scope.PageData = {};
-    $scope.BillData = { detail: new Array(), images: new Array() };
-    $scope.$Factory = new $BillDetailFactory($scope);
-    $scope.Competence = $local.getValue("ORDERCOMP");
+    $scope.PageData = {}; $scope.BillData = { detail: new Array(), images: new Array() }; $scope.$Factory = new $BillDetailFactory($scope); $scope.Competence = $local.getValue("ORDERCOMP");
 
 
 
@@ -112,8 +96,7 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
         }
     };
 
-    if ($stateParams.sONo) { $scope.QueryService.GetOrderInfo($stateParams); }
-    if ($stateParams.hOFNNo) { $scope.QueryService.GetBillInfo($stateParams); }
+    if ($stateParams.sONo) { $scope.QueryService.GetOrderInfo($stateParams); } if ($stateParams.hOFNNo) { $scope.QueryService.GetBillInfo($stateParams); }
 
 });
 
