@@ -33,15 +33,15 @@
                         <tbody>
                             <tr ng-repeat="row in Integrated.ReconciliationList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="PageControl.ViewBillByRow(row)">
                                 <td>{{$index+1}}</td>
-                                <td><span ng-bind="row"></span></td>
-                                <td><span ng-bind="row"></span></td>
-                                <td><span ng-bind="row"></span></td>
-                                <td><span ng-bind="row"></span></td>
-                                <td><span ng-bind="row"></span></td>
-                                <td><span ng-bind="row"></span></td>
-                                <td><span ng-bind="row"></span></td>
-                                <td><span ng-bind="row"></span></td>
-                                <td><span ng-bind="row"></span></td>
+                                <td><span ng-bind="row.hSOANo"></span></td>
+                                <td><span ng-bind="row.hSOAHospitalNo"></span></td>
+                                <td><span ng-bind="row.hSOASourceTypeName"></span></td>
+                                <td><span ng-bind="row.hPCodeName"></span></td>
+                                <td><span ng-bind="row.hSOAIssueDate"></span></td>
+                                <td><span ng-bind="row.hSOAIssueByName"></span></td>
+                                <td><span ng-bind="AppHelp.Data.GetDate(0,row.hSOADateFrom)"></span>~<span ng-bind="AppHelp.Data.GetDate(0,row.hSOADateTo)"></span></td>
+                                <td><span ng-bind="row.hSOAAmt"></span></td>
+                                <td><span ng-bind="row.sTATUSName"></span></td>
                             </tr>
                         </tbody>
                     </table>

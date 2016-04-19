@@ -147,8 +147,8 @@ BmsApp
                 controller: "RecApprovaledListController"
             })
             .state("app.bms.rec.already", {
-                /// <summary>已已开票单列表</summary>
-                url: "/alreadylist",
+                /// <summary>已开票单列表</summary>
+                url: "/already",
                 cache: false,
                 templateUrl: "View/BMS/Reconciliation/View/ReconciliationList.html?data=" + Timestamp,
                 resolve: app.resolve,
@@ -218,24 +218,24 @@ BmsApp
             name: "计费对账管理", url: "", state: "app.bms.rec", icon: "fa-laptop", order: 3,
             detail: [
                 { name: "对账单综合查询", url: "#/app/bms/rec/complex", state: "app.bms.rec.complex" },
-                { name: "我的对账单", url: "#/app/bms/rec/pending", state: "app.bms.rec.pending" },
-                { name: "未审批对账单", url: "#/app/bms/rec/list", state: "app.bms.rec.list" },
-                { name: "待审批对账单", url: "#/app/bms/rec/notapproval", state: "app.bms.rec.notapproval" },
-                { name: "已审批对账单", url: "#/app/bms/rec/approval", state: "app.bms.rec.approval" },
-                { name: "已开票对账单", url: "#/app/bms/rec/approveded", state: "app.bms.rec.approveded" }
+                { name: "我的对账单", url: "#/app/bms/rec/list", state: "app.bms.rec.list" },
+                { name: "未审批对账单", url: "#/app/bms/rec/notapproval", state: "app.bms.rec.notapproval" },
+                { name: "待审批对账单", url: "#/app/bms/rec/approval", state: "app.bms.rec.approval" },
+                { name: "已审批对账单", url: "#/app/bms/rec/approveded", state: "app.bms.rec.approveded" },
+                { name: "已开票对账单", url: "#/app/bms/rec/already", state: "app.bms.rec.already" }
             ]
         };
     })
     .factory("$BmsInvoiceMenuService", function () {
         /// <summary>BMS发票系统菜管理</summary>
         return {
-            name: "票据管理", url: "", state: "app.bms.rec", icon: "fa-laptop", order: 3,
+            name: "票据管理", url: "", state: "app.bms.invoice", icon: "fa-laptop", order: 3,
             detail: [
-                { name: "票据综合查询", url: "#/app/bms/bill/complex", state: "app.bms.bill.complex" },
-                { name: "我的发票", url: "#/app/bms/bill/pending", state: "app.bms.bill.pending" },
-                { name: "未审批发票", url: "#/app/bms/bill/list", state: "app.bms.bill.list" },
-                { name: "待审批发票", url: "#/app/bms/bill/notapproval", state: "app.bms.bill.notapproval" },
-                { name: "已审批发票", url: "#/app/bms/bill/approval", state: "app.bms.bill.approval" }
+                { name: "票据综合查询", url: "#/app/bms/invoice/complex", state: "app.bms.invoice.complex" },
+                { name: "我的发票", url: "#/app/bms/invoice/pending", state: "app.bms.invoice.pending" },
+                { name: "未审批发票", url: "#/app/bms/invoice/list", state: "app.bms.invoice.list" },
+                { name: "待审批发票", url: "#/app/bms/invoice/notapproval", state: "app.bms.invoice.notapproval" },
+                { name: "已审批发票", url: "#/app/bms/invoice/approval", state: "app.bms.invoice.approval" }
             ]
         };
     })

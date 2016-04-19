@@ -11,6 +11,12 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
     $scope.title = "订单计费";
     $scope.Integrated = {
         //计费单列表
+        Enter: function (e) {
+            var keycode = window.event ? e.keyCode : e.which;
+            if (keycode == 13) {
+                $scope.Integrated.DataQuery({});
+            }
+        },
         BillList: new Array(),
         DataQuery: function (data) {
             /// <summary>时间日期查询</summary>

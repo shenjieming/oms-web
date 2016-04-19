@@ -30,7 +30,7 @@ app.controller("ReconciliationController", function ($scope, $state, $local, $BM
             $scope.Integrated.BillList = new Array(); if (isNew) { $scope.Integrated.ClearWhere(); };
             var paramData = $.extend($scope.Pagein, param);
             $BMSApi.PublicInfoService.GetReconciliationList(paramData, function (getResult) {
-                $scope.Pagein.total = getResult.total; $scope.Integrated.BillList = getResult.rows;
+                $scope.Pagein.total = getResult.total; $scope.Integrated.ReconciliationList = getResult.rows;
             });
         }
     };
