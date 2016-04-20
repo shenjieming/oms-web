@@ -13,29 +13,29 @@
             </div>
             <div class="widget-content nopadding collapse in" id="BaseInformation">
                 <div class="control-group ">
-                    <label style="width:60%">
+                    <label style="width:30%">
                         <span class="required">*</span>
                         货主信息：<span ng-cargo="Detail.PageData.sOOIOrgCode" ng-model="Detail.PageData.oIOrgCode" ng></span>
                     </label>
-                </div>
-                <div class="control-group ">
-                    <label>
-                        <span class="required">*</span>模板名称：<input type="text" ng-model="Detail.PageData.tmplName" />
-                    </label>
-                    <label>
-                        <span class="required">*</span>模板全称：<input type="text" ng-model="Detail.PageData.tmplFullName" />
-                    </label>
-                    <label>
+                    <label style="width: 30%">
                         <span class="required">*</span>模板类型：<span ng-dictionary="SOTTYP" ng-model="Detail.PageData.tmplType"></span>
                     </label>
-                </div>
-                <div class="control-group ">
-                    <label ng-if="typeTmplate=='PUBLIC'">
+                    <label ng-if="typeTmplate=='PUBLIC'" style="width: 40%">
                         <span class="required">*</span>模板权限：共有模板
                     </label>
-                    <label ng-if="typeTmplate=='PRIVATE'">
+                    <label ng-if="typeTmplate=='PRIVATE'" style="width: 40%">
                         <span class="required">*</span>模板权限：私有模板
                     </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span>模板名称：<input type="text" style="width: 40%" ng-model="Detail.PageData.tmplName" />
+                    </label>
+                    <label>
+                        <span class="required">*</span>模板全称：<input type="text" style="width:60%" ng-model="Detail.PageData.tmplFullName" />
+                    </label>
+                </div>
+                <div class="control-group ">
                     <label style="width:60%">
                         模板描述：<input type="text" style="width:78%;" ng-model="Detail.PageData.tmplDesc" />
                     </label>
