@@ -16,8 +16,8 @@
                             <th><span>序号</span></th>
                             <th><span>模板名称</span></th>
                             <th><span>模板类型</span></th>
-                            <th><span>模板描述</span></th>
-                            <th><span>备注</span></th>
+                            <th><span>描述</span></th>
+                            <th><span>许可</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,7 +33,7 @@
                                 <span ng-bind="row.tmplDesc"></span>
                             </td>
                             <td>
-                                <span ng-bing="row.remark"></span>
+                                <span ng-bind="row.tmplAccessTypeName"></span>
                             </td>
                         </tr>
                     </tbody>

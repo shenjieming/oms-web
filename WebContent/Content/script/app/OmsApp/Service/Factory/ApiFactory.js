@@ -415,7 +415,11 @@ OMSApiService
                     /// <summary>综合订单查询列表</summary>
                     $MessagService.loading("综合订单信息获取中，请稍等...");
                     $ApiService.PostApi(ApiPath.Surgery.DataSources.IntegratedOrderInquiry, data, callback);
-                }
+                },
+                GetOutBoundList: function (data, callback) {
+                    /// <summary>出库单查询列表</summary>
+                    $ApiService.PostApi(ApiPath.Surgery.DataSources.outBoundList, data, callback);
+                },
             }
         }
     })
@@ -1266,6 +1270,18 @@ OMSApiService
                         $MessagService.eorr("网络异常，请联系管理员！");
                     }
                 });
+            },
+            BasedaUploadFile: function (data, callback) {
+                /// <summary>基础数据上传附件</summary>
+                $MessagService.loading("附件上传中，请稍等...");
+                $ApiService.FromApi(ApiPath.Public.basedataload, data, function (rData) {
+                    if (!rData.code) {
+                        callback(rData);
+                        $MessagService.hide(1000);
+                    } else {
+                        $MessagService.eorr("网络异常，请联系管理员！");
+                    }
+                });;
             },
             GetEventList: function (data, callback) {
                 /// <summary>获取事件选择列表</summary>

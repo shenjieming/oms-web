@@ -3,22 +3,22 @@
     <div class="widget-box">
         <div class="widget-title bg_ly">
             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5 data-toggle="collapse" href="#pro_BaseInformation">精确信息[货主：<span ng-bind="PageData.sOOIOrgCodeName"></span> ]</h5>
+            <h5 data-toggle="collapse" href="#pro_BaseInformation">收货信息 [货主：<span ng-bind="PageData.sOOIOrgCodeName"></span>]</h5>
         </div>
         <div class="widget-content nopadding collapse in" id="pro_BaseInformation">
             <div class="control-group ">
                 <label>
-                    收 货 人：<span ng-bind="PageData.deliveryContact"></span>
+                    收货人：<span ng-bind="PageData.deliveryContact"></span>
                 </label>
                 <label>
-                    联系电话：<span ng-bind="PageData.deliveryrMobile"></span>
+                    电话：<span ng-bind="PageData.deliveryrMobile"></span>
                 </label>
-                <label>配送方式：<span ng-bind="PageData.carrierTransTypeName"></span>
+                <label>配送：<span ng-bind="PageData.carrierTransTypeName"></span>
                 </label>
             </div>
             <div class="control-group ">
                 <label style="width:100%">
-                    <span>  收货地址：</span>
+                    <span>地址：</span>
                     <span>
                         <span ng-bind="PageData.deliveryProvinceName"></span>
                         <span ng-bind="PageData.deliveryCityName"></span>
@@ -38,13 +38,13 @@
         <div id="pro_SurgeryInformation" class="widget-content nopadding collapse in">
             <div class="control-group ">
                 <label>
-                    医院名称：<span ng-bind="PageData.hPCodeName"></span>
+                    医院：<span ng-bind="PageData.hPCodeName"></span>
                 </label>
                 <label>
-                    科室名称：<span ng-bind="PageData.wardDeptCodeName"></span>
+                    科室：<span ng-bind="PageData.wardDeptCodeName"></span>
                 </label>
                 <label>
-                    医生名称：<span ng-bind="PageData.dTCodeName"></span> <span style="color:green">[<span ng-bind="PageData.isLocalName"></span> ]</span>
+                    医生：<span ng-bind="PageData.dTCodeName"></span> <span style="color:green">[<span ng-bind="PageData.isLocalName"></span> ]</span>
                 </label>
             </div>
             <div class="control-group">
@@ -67,7 +67,7 @@
             </div>
             <div class="control-group ">
                 <label style="width:100%;">
-                    患者描述:<span ng-bind="PageData.patientRemark"></span>
+                    患者备注：<span ng-bind="PageData.patientRemark"></span>
                 </label>
             </div>
         </div>
@@ -76,7 +76,7 @@
     <div class="widget-box">
         <div class="widget-title bg_ly">
             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5 style="width:80%" data-toggle="collapse" href="#pro_ProductInformation">产品信息
+            <h5 style="width:80%" data-toggle="collapse" href="#pro_ProductInformation">器械信息
                 <span ng-bind="AccurProduct.Competence.ShowInfo"></span>
             </h5>
         </div>
@@ -87,7 +87,7 @@
     <div class="widget-box">
         <div class="widget-title bg_ly">
             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5 data-toggle="collapse" href="#pro_AdditionalInformation">图片信息</h5>
+            <h5 data-toggle="collapse" href="#pro_AdditionalInformation">附件信息</h5>
         </div>
         <div id="pro_AdditionalInformation" class="widget-content nopadding collapse in">
             <div class="control-group ">
@@ -95,7 +95,7 @@
             </div>
             <div class="control-group">
                 <label style="width:100%">
-                    图片说明：<span ng-bind="PageData.orderFile.remark"></span>
+                    附件备注：<span ng-bind="PageData.orderFile.remark"></span>
                 </label>
             </div>
         </div>

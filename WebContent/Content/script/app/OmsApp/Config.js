@@ -146,14 +146,14 @@ OmsApp
         /// <summary>OMS菜单服务</summary>
         var service = new Array();
         service.push({
-            name: "手术订单管理", url: "", state: "app.oms.order", icon: "fa-pencil", order: 1,
+            name: "手术订单", url: "", state: "app.oms.order", icon: "fa-pencil", order: 1,
             detail: [
                 //{ name: "出库单查询", url: "#/app/order/delivery", state: "app.order.delivery" },
-                { name: "综合订单查询", url: "#/app/oms/order/complex", state: "app.oms.order.complex" },
+                { name: "综合查询", url: "#/app/oms/order/complex", state: "app.oms.order.complex" },
                 { name: "我的订单", url: "#/app/oms/order/orderlist", state: "app.oms.order.orderlist" },
-                { name: "我的待审批", url: "#/app/oms/order/approval", state: "app.oms.order.approval" },
-                { name: "我的待处理", url: "#/app/oms/order/deal", state: "app.oms.order.deal" },
-                { name: "我的待签收", url: "#/app/oms/order/sign", state: "app.oms.order.sign" },
+                { name: "待审批", url: "#/app/oms/order/approval", state: "app.oms.order.approval" },
+                { name: "待处理", url: "#/app/oms/order/deal", state: "app.oms.order.deal" },
+                { name: "待签收", url: "#/app/oms/order/sign", state: "app.oms.order.sign" },
                 { name: "出库单追加", url: "#/app/oms/order/stock", state: "app.oms.order.stock" },
                 { name: "返库申请", url: "#/app/oms/order/apply", state: "app.oms.order.apply" },
                 { name: "返库处理", url: "#/app/oms/order/back", state: "app.oms.order.back" },
@@ -162,14 +162,14 @@ OmsApp
             ]
         });
         service.push({
-            name: "备货订单管理", url: "", state: "app.oms.stock", icon: "fa-shopping-cart", order: 2,
+            name: "备货订单", url: "", state: "app.oms.stock", icon: "fa-shopping-cart", order: 2,
             detail: [
                 //{ name: "出库单查询", url: "#/app/stock/delivery", state: "app.stock.delivery" },
-                { name: "综合订单查询", url: "#/app/oms/stock/complex", state: "app.oms.stock.complex" },
+                { name: "综合查询", url: "#/app/oms/stock/complex", state: "app.oms.stock.complex" },
                 { name: "我的备货", url: "#/app/oms/stock/list", state: "app.oms.stock.list" },
-                { name: "我的待审批", url: "#/app/oms/stock/approval", state: "app.oms.stock.approval" },
-                { name: "我的待处理", url: "#/app/oms/stock/deal", state: "app.oms.stock.deal" },
-                { name: "我的待签收", url: "#/app/oms/stock/sign", state: "app.oms.stock.sign" },
+                { name: "待审批", url: "#/app/oms/stock/approval", state: "app.oms.stock.approval" },
+                { name: "待处理", url: "#/app/oms/stock/deal", state: "app.oms.stock.deal" },
+                { name: "待签收", url: "#/app/oms/stock/sign", state: "app.oms.stock.sign" },
                 { name: "备货草稿箱", url: "#/app/oms/stock/draft", state: "app.oms.stock.draft" }
             ]
         });

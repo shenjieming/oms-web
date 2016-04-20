@@ -22,7 +22,7 @@
                     </label>
                     <label>
                         <span class="required">*</span>所属货主：
-                        <select ng-model="dlPageInfo.Info.oIOrgCode：">
+                        <select ng-model="dlPageInfo.Info.oIOrgCode">
                             <option value="">请选择货主</option>
                             <option ng-repeat="item in SelectInfo.OrgCode.dic" ng-selected="item.orgCode==dlPageInfo.Info.orgCode" value="{{item.orgCode}}">{{item.oIName}}</option>
                         </select>
