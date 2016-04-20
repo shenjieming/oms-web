@@ -37,6 +37,7 @@ app.directive("ngOrderApproval", function ($Api, $MessagService, $local) {
                 },
                 open: function () {
                     $scope.SelectInfo.GetSofarrList();
+                    $(".ui-dialog-title").html("拒绝申请")
                 }
             }
             $.extend($scope.ngOperat, modelConfig);

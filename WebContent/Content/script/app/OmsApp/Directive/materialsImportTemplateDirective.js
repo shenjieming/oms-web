@@ -46,7 +46,8 @@ app.directive("ngMaterialsImportTemplate", function ($Api, $MessagService, $loca
                     "关闭": function () {
                         $scope.ngMaterialsImportTemplate.hide();
                     }
-                }
+                },
+                open: function () { $(".ui-dialog-title").html("模板导入"); }
             }
             $.extend($scope.ngMaterialsImportTemplate, modelConfig);
         }

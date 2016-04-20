@@ -33,6 +33,7 @@ app.directive("ngMaterialsTemplate", function ($Api, $MessagService, $local) {
                     /// <summary>模板选择打开事件</summary>
                     $scope.Pagein.tmplName = "";
                     $scope.Service.GetMaterialsTemplate();
+                    $(".ui-dialog-title").html("选择订单器械模板（可一键添加订单所需器械，又快又准）");
                 }
             }
             //模板选择配置合并

@@ -73,7 +73,8 @@ app.directive("ngMedKits", function ($Api, $MessagService, $local) {
                     "关闭": function () {
                         $scope.ngOperat.hide();
                     }
-                }
+                },
+                open: function () { $(".ui-dialog-title").html("套件（手术器械包）选择"); }
             }
             $.extend($scope.ngOperat, modelConfig);
         }
