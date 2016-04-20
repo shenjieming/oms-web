@@ -8,14 +8,14 @@
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
             <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
-            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Submit()"><i class="fa fa-wrench"></i>处理</a>
-            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
-            <a class="btn btn-danger" ng-if="View.Competence.dealwith" ng-click="DealService.Cancel()"><i class="fa fa-undo"></i> 取消订单</a>
+            <a class="btn btn-danger" ng-if="View.Competence.dealwith" ng-click="DealService.Cancel()"><i class="fa fa-undo"></i>取消</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Show()"><i class="fa fa-wrench"></i>处理</a>
         </span>
     </div>
     <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
     <div ng-materials-template="TemplateService" ng-model="PageData"></div>
-    <div ng-materials-import-template="ImportTemplateService" ng-model="PageData"></div>
+    <div ng-materials-import-template="ImportTemplateServicePublic" ng-type="'PUBLIC'" ng-model="PageData"></div>
+    <div ng-materials-import-template="ImportTemplateServicePrivate" ng-type="'PRIVATE'" ng-model="PageData"></div>
     <div>
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active" href="#Dealwith" data-toggle="tab"><a>开始处理</a></li>
@@ -138,9 +138,14 @@
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li ng-click="ImportTemplateService.show()">
+                                    <li ng-click="ImportTemplateServicePublic.show()">
                                         <a href="javascript:void(0)">
-                                            <i class="fa fa-gears"></i>另存为模板
+                                            <i class="fa fa-gears"></i>另存为共有模板
+                                        </a>
+                                    </li>
+                                    <li ng-click="ImportTemplateServicePrivate.show()">
+                                        <a href="javascript:void(0)">
+                                            <i class="fa fa-gears"></i>另存为私有模板
                                         </a>
                                     </li>
                                 </ul>
@@ -189,7 +194,7 @@
                                 <ul class="yulan_xinxi">
                                     <li>
                                         <ul class="yulan_gaik">
-                                            <li><b>医院：</b><span ng-bind="PageData.hPCode"></span></li>
+                                            <li><b>医院：</b><span ng-bind="PageData.hPCodeName"></span></li>
                                             <li><b>科室：</b><span ng-bind="PageData.wardDeptCodeName"></span></li>
                                             <li><b>医生：</b><span ng-bind="PageData.dTCodeName"></span></li>
                                             <li><b>手术时间：</b><span ng-bind="PageData.operationDate"></span></li>
@@ -289,11 +294,18 @@
         </ng-dialog>
     </div>
     <div class="tools">
+<<<<<<< HEAD
         <span class="btn-group oms-btn-group" style="float:right;">
             <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
             <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Submit()"><i class="fa fa-wrench"></i>处理</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
             <a class="btn btn-danger" ng-if="View.Competence.dealwith" ng-click="DealService.Cancel()"><i class="fa fa-undo"></i> 取消订单</a>
+=======
+        <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Show()"><i class="fa fa-wrench"></i>处理</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa  fa-reply"></i> 返回</a>
+>>>>>>> refs/remotes/origin/Jason
         </span>
     </div>
 </div>
