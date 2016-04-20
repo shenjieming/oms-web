@@ -6,3 +6,5 @@
 /pom-test.xml
 /pom.xml
 /build/
+/.idea
+/.settings
