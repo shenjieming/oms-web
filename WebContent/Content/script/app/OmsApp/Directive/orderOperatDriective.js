@@ -91,6 +91,7 @@ app.directive("ngSign", function ($Api, $MessagService, $local) {
                     }
                 },
                 open: function () {
+                    $scope.Service.remark = "外包装完好，确认签收";
                     $.extend($scope.Service, $scope.ngModel);
                 }
             }

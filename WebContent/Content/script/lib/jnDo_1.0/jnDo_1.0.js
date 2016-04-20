@@ -155,7 +155,7 @@ angular.module('jnDo', [])
                         $scope.ngModel.splice(index, 1);
                     }
                 }
-
+               
                 $.extend($scope.Service.Comp, $scope.ngComp);//权限配置
 
                 initPhotoSwipeFromDOM(element);
