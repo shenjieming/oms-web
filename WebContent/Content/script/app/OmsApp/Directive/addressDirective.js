@@ -16,7 +16,7 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                 title: "收货地址选择", width: 850, height: 400, buttons: {
                     "确定": function () { var dataRow = $local.getSelectedRow($scope.Service.AddressList); if (dataRow) { $scope.$apply(function () { $scope.ngOperat.fixed(dataRow); }); } else { $MessagService.caveat("请选择一条常用地址信息！"); } }, "关闭": function () { $scope.ngOperat.hide(); }
                 },
-                open: function () { $.extend($scope.operat, { isEdit: true, isDetail: false }); $scope.Service.GetAddressList(); $(".ui-dialog-buttonset").show(); if (userInfo.orgType != "DL") { $scope.operat.Button = false; };},
+                open: function () { $.extend($scope.operat, { isEdit: true, isDetail: false }); $scope.Service.GetAddressList(); $(".ui-dialog-buttonset").show(); if (userInfo.orgType != "DL") { $scope.operat.Button = false; }; $(".ui-dialog-title").html("收货地址选择"); },
               
             };
             $scope.operat = {
@@ -34,17 +34,17 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                             $scope.Service.AddressDetail.deliveryCityCode = rData.cityCode;
                             $scope.Service.AddressDetail.deliveryDistrictCode = rData.districtCode;
                             $(".ui-dialog-buttonset").hide();
-                            $("#ui-id-2").html("编辑收货地址");
+                            $(".ui-dialog-title").html("收货地址编辑");
                         })
         
                 },
                 ChangeDetail: function () {
                     /// <summary>新增地址列表信息</summary>
-                    $.extend($scope.operat, { isDetail: true, isEdit: false }); $(".ui-dialog-buttonset").hide(); $("#ui-id-2").html("新增收货地址");
+                    $.extend($scope.operat, { isDetail: true, isEdit: false }); $(".ui-dialog-buttonset").hide(); $(".ui-dialog-title").html("收货地址新增");
                 },
                 List: function () {
                     /// <summary>我的地址列表返回</summary>
-                    $scope.operat.isDetail = !$scope.operat.isDetail; $scope.operat.isEdit = !$scope.operat.isEdit; $scope.Service.AddressDetail = new Object(); $scope.Service.GetAddressList(); $(".ui-dialog-buttonset").show(); $("#ui-id-2").html("收货地址选择")
+                    $scope.operat.isDetail = !$scope.operat.isDetail; $scope.operat.isEdit = !$scope.operat.isEdit; $scope.Service.AddressDetail = new Object(); $scope.Service.GetAddressList(); $(".ui-dialog-buttonset").show(); $(".ui-dialog-title").val("收货地址选择")
                 },
                 verification: function () {
                     var result = true; if (!$scope.Service.AddressDetail.contact) { result = false; $MessagService.caveat("请维护该联系人姓名！"); } else if (!$scope.Service.AddressDetail.mobile) { result = false; $MessagService.caveat("请维护该联系人号码！"); } else if (!$scope.Service.AddressDetail.deliveryProvinceCode || !$scope.Service.AddressDetail.deliveryCityCode || !$scope.Service.AddressDetail.deliveryDistrictCode || !$scope.Service.AddressDetail.address) { result = false; $MessagService.caveat("请维护该联系人地址！"); } return result;
@@ -61,7 +61,7 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                             $.extend($scope.operat, { isDetail: !$scope.operat.isDetail, isEdit: !$scope.operat.isEdit });
                             $scope.Service.GetAddressList();
                             $(".ui-dialog-buttonset").show();
-                            $("#ui-id-2").html("收货地址选择");
+                            $(".ui-dialog-title").html("收货地址选择");
                             $scope.Service.AddressDetail =new Object();
                         })
                     }

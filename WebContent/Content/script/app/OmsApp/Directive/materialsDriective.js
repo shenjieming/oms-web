@@ -144,6 +144,9 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                 } else {
                     $scope.title = "工具"
                 }
+                if ($scope.ngLinename==null) {
+                    $scope.ngLinename="产品线"
+                }
                 $(".ui-dialog-title").html("物料选择 - " + $scope.title + " - " + $scope.ngLinename);
             }
             $scope.Pagein = {
