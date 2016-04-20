@@ -545,7 +545,7 @@ var BaseApp = angular.module('BaseApp', [])
             })
             .state("app.base.mybusiness.materialtemplatedetail", {
                 /// <summary>物料模板管理</summary>
-                url: "/materialtemplatedetail/:tmplSODetailID",
+                url: "/materialtemplatedetail/:tmplSODetailID/:typeTmplate",
                 cache: false,
                 controller: "MaterialTemplateController",
                 templateUrl: "View/Base/MyBusiness/MaterialTemplate/MaterialTemplateDetail.html?data=" + Timestamp,

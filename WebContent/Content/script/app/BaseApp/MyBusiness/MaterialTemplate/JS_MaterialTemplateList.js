@@ -18,8 +18,9 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
         callbake: function () {
             $scope.MaterialTemplate.GetMaterialTemplateList();
         }
+    },$scope.Detail ={
+        PageData:new Object(),
     }
-
     $scope.MaterialTemplate = {
         IsView: false,
         IsEdit: false,
@@ -49,9 +50,8 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
                 $scope.Service.GoTemplateDetail(row);
             });
         },
-        Add: function () {
-            /// <summary>添加模板</summary>
-            $scope.Service.GoTemplateDetail({});
+        Add:function (type) {
+            $scope.Service.GoTemplateDetail({typeTmplate:type});
         },
         GoTemplateView: function (row) {
             /// <summary>前往模板详细页面</summary>
@@ -97,11 +97,18 @@ app.controller("MaterialTemplateController", function ($scope, $stateParams, $st
         ProductService: {},
         ProductCompetence: { operat: true, tool: false, warehouse: false }
     }
-
+    $scope.typeTmplate = "";
+    if($stateParams.typeTmplate=="PUBLIC"){
+        $scope.typeTmplate = "PUBLIC";
+    }
+    if($stateParams.typeTmplate=="PRIVATE"){
+        $scope.typeTmplate = "PRIVATE";
+    }
     $scope.Service = {
         /// <summary>模板服务管理</summary>
         Save: function () {
             /// <summary>模板保存</summary>
+            $scope.Detail.PageData.tmplAccessType = $stateParams.typeTmplate;
             $Api.MaterialsService.SaveTemplate($scope.Detail.PageData, function (rData) {
                 $MessagService.caveat("模板保存成功！");
                 $scope.goLastPage();
@@ -118,7 +125,6 @@ app.controller("MaterialTemplateController", function ($scope, $stateParams, $st
                 setTimeout(function () {
                     $scope.$apply(function () {
                         $scope.Detail.isChangeProd = true;
-                        debugger
                         $scope.Service.GetNewProdLine(rdata.freeTemplateInfo, $scope.Detail.PageData.prodLns);
                         $scope.Detail.PageData.medKits = rdata.kitTemplateInfo;
                     });
