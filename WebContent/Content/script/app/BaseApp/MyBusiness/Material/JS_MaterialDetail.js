@@ -19,7 +19,11 @@ app.controller("MaterialDetailController", function ($scope, $stateParams, $stat
             /// <summary>获取物料明细</summary>
             $Api.BusinessData.MedMaterial.GetMedMaterialItemDetail($stateParams, function (rData) {
                 $scope.PageData = rData;
-                $scope.PageData.attachmentForms = rData.attachments;
+                $scope.PageData.attachmentForms = [{images: new Array()}];
+                for (var i = 0; i < rData.attachments.length; i++) {
+                    $scope.PageData.attachmentForms[0].images.push(rData.attachmentForms[i].url)
+                }
+                console.log(rData)
                 //for (var i = 0; i < $scope.PageData.attachmentForms.length; i++) {
                 //    $scope.PageData.attachmentForms[0].images.push( $scope.PageData.attachmentForms[i].url)
                 //}

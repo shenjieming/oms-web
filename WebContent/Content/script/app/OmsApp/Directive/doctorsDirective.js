@@ -32,7 +32,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                     if (userInfo.orgType != "DL") {
                         $scope.operat.Button = false;
                     }
-                   
+                    $(".ui-dialog-title").html("医生选择");
                 },
             }
             $scope.operat = {
@@ -53,7 +53,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                             }
                         });
                         $(".ui-dialog-buttonset").hide();
-                        $("#ui-id-2").html("编辑医生");
+                        $(".ui-dialog-title").html("医生编辑");
                 },
                 ChangeDetail: function () {
                     /// <summary>新增医生信息</summary>
@@ -61,7 +61,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                     $scope.operat.isEdit = !$scope.operat.isEdit;
                     $scope.Service.DoctorsDetail = new Object;
                     $(".ui-dialog-buttonset").hide();
-                    $("#ui-id-2").html("新增医生");
+                    $(".ui-dialog-title").html("新增医生");
                     if (!$scope.Service.DoctorsDetail.hPCode) { $scope.SelectInfo.Department.dic = new Array(); }
                     $scope.Service.DoctorsDetail.isLocalCheck = true;
                     $scope.SelectInfo.Doctor.getDoctorList();
@@ -80,7 +80,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                     $scope.operat.isEdit = !$scope.operat.isEdit;
                     $scope.Service.GetDoctors();
                     $(".ui-dialog-buttonset").show();
-                    $("#ui-id-2").html("医生选择");
+                    $(".ui-dialog-title").html("医生选择");
                 },
                 verification: function () {
                     /// <summary>医生添加验证</summary>
@@ -98,7 +98,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                             $scope.Service.GetDoctors();
                             $scope.Service.DoctorsDetail = [];
                             $(".ui-dialog-buttonset").show();
-                            $("#ui-id-2").html("医生选择");
+                            $(".ui-dialog-title").html("医生选择");
                         })
                     }                   
                 },
