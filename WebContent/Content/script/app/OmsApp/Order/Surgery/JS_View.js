@@ -202,6 +202,7 @@ app.controller("OriginalController", function ($scope, $state, $local, $Api, $Me
             $.extend($scope.singleProduc, {
                 prodLns: $scope.PageData.initOrderProdlns
             });
+            console.log($scope.PageData)
         }
     });
 
@@ -213,8 +214,7 @@ app.controller("AccurateController", function ($scope, $state, $local, $Api, $Me
         if ($scope.PageData.sONo) {
             $.extend($scope.PageData, {
                 orderFile: $OMSSpecially.File.GetEventMapping($scope.PageData.events, "0020_0011")
-            });
-
+            }); 
             setTimeout(function () {
                 $.extend($scope.AccurProduct.data, {
                     medKits: $scope.PageData.orderKits,
@@ -365,7 +365,6 @@ app.controller("SingleController", function ($rootScope,$scope, $state, $local, 
         /// <summary>获取当前手术时间</summary>
         $Api.SurgeryService.Process.GetFindUserLastOrder({}, function (rData) {
             $scope.PageData.initOperationDate = rData.initOperationDate;
-            console.log(rData.initOperationDate)
         });
     }
     $scope.initOperationDate();
@@ -502,7 +501,6 @@ app.controller("SingleController", function ($rootScope,$scope, $state, $local, 
     $scope.AddressConfig = {
         fixed: function (rowInfo) {
             /// <summary>选择地址事件</summary>
-            console.log(rowInfo)
             $.extend($scope.PageData, {
                 deliveryContact: rowInfo.contact, deliveryrMobile: rowInfo.mobile, deliveryProvinceCode: rowInfo.provinceCode, deliveryProvinceName: rowInfo.provinceCodeName, deliveryCityCode: rowInfo.cityCode,
                 deliveryCityName: rowInfo.cityCodeName, deliveryDistrictCode: rowInfo.districtCode, deliveryDistrictName: rowInfo.districtCodeName, deliveryAddress: rowInfo.address, iniitCarrierTransType: rowInfo.carrierTransType
@@ -796,14 +794,31 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
     $scope.DealService = {
         /// <summary>订单处理服务</summary>
         Submit: function () {
-            //if (confirm("订单号：" + $scope.PageData.sONo+"确认需要要处理吗？")) {
-                /// <summary>订单处理提交</summary>
+            if ($scope.DealService.Verification()) {
                 $scope.ProductService.Deduplication();//去重
                 $Api.SurgeryService.Process.Submit($scope.PageData, function (rData) {
                     $scope.DealService.model.hide();
                     $scope.goLastPage();
                 });
-            //}
+            }
+        },
+        Verification: function () {
+            var verifig = true;
+            $.each($scope.PageData.prodLns, function (index, item) {
+                if (!item.medMaterias.length) {
+                    $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
+                    verifig = false;
+                }
+            });
+            $.each($scope.PageData.medKits, function (index, item) {
+                /// <summary>检测套件是否满足库存条件</summary>
+                if (item.reqQty > item.inventory) {
+                    if (!confirm("存在不满足库存数量的套件，请问是否继续提交？")) {
+                        verifig = false;
+                    }
+                }
+            })
+            return verifig;
         },
         Save: function () {
             /// <summary>订单处理保存</summary>
@@ -812,7 +827,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
                 $scope.goLastPage();
             });
         },
-        Hide:function () {
+        DealServicehide: function () {
             $scope.DealService.model.hide();
         },
         Show:function () {
@@ -827,9 +842,26 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
                     $scope.goLastPage();
                 });
             }
-        }
+        },
+        Print: function () {
+            /// <summary>显示出库单号</summary>
+            if ($scope.DealService.Verification()) {
+                $Api.SurgeryService.Process.Submit($scope.PageData, function (rData) {
+                    $scope.DealService.model.hide();
+                });
+                $Api.SurgeryService.DataSources.GetOutBoundList({ sONo: $scope.PageData.sONo }, function (rData) {
+                    $scope.OutboundOrdermodel.show();
+                    $scope.Print = rData;
+                });
+            };//去重
+        },
+        PrintCancel: function () {
+            $scope.OutboundOrdermodel.hide();
+            $scope.goLastPage();
+        },
     }
-    $scope.DealService.model = { title: "手术下单预览", width: 720, height: 800, buttons: { "提交": $scope.DealService.Submit, "返回": $scope.DealService.Hide } };
+    $scope.DealService.model = { title: "手术下单预览", width: 730, height: 800, buttons: { "提交": $scope.DealService.Submit, "返回": $scope.DealService.DealServicehide, "打印提交": $scope.DealService.Print } };
+    $scope.OutboundOrdermodel = { title: "出库单详情", width: 730, height: 800, buttons: { "确定": $scope.DealService.PrintCancel } };
     $scope.AddressConfig = {
         fixed: function (rowInfo) {
             /// <summary>选择地址事件</summary>

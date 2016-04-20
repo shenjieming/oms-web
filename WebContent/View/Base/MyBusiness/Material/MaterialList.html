@@ -26,18 +26,24 @@
                                 <tr>
                                     <th><span>序号</span></th>
                                     <th><span>品牌名称</span></th>
+                                    <th><span>产品线编码</span></th>
+                                    <th><span>物料类型</span></th>
                                     <th><span>物料编码</span></th>
                                     <th><span>物料名称</span></th>
                                     <th><span>规格</span></th>
-                                    <th><span>扫描编码</span></th>
-                                    <th><span>应用通用性</span></th>
-                                </tr>
+                                </tr>   
                             </thead>
                             <tbody>
                                 <tr ng-repeat="row in Material.MaterialList" ng-dblclick="Service.ShowMaterialDetail(row)" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
                                     <td><span ng-bind="$index+1"></span> </td>
                                     <td>
                                         <span ng-bind="row.medBrandName"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="row.medProdLnName"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="row.categoryByPlatformName"></span>
                                     </td>
                                     <td>
                                         <span ng-bind="row.medMICode"></span>
@@ -47,12 +53,6 @@
                                     </td>
                                     <td>
                                         <span ng-bind="row.specification"></span>
-                                    </td>
-                                    <td>
-                                        <span ng-bind="row.medMIInternalNo"></span>
-                                    </td>
-                                    <td>
-                                        <span ng-bind="row.applyCommonTypeName"></span>
                                     </td>
                                 </tr>
                             </tbody>

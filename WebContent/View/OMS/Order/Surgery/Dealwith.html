@@ -188,7 +188,7 @@
                                 <ul class="yulan_xinxi">
                                     <li>
                                         <ul class="yulan_gaik">
-                                            <li><b>医院：</b><span ng-bind="PageData.hPCode"></span></li>
+                                            <li><b>医院：</b><span ng-bind="PageData.hPCodeName"></span></li>
                                             <li><b>科室：</b><span ng-bind="PageData.wardDeptCodeName"></span></li>
                                             <li><b>医生：</b><span ng-bind="PageData.dTCodeName"></span></li>
                                             <li><b>手术时间：</b><span ng-bind="PageData.operationDate"></span></li>
@@ -247,8 +247,6 @@
                                             <td><span ng-bind="row.wHName"></span>
                                         </tr>
                                     </table>
-
-
                                 </div>
                                 <div class="yulan_biaoge">
                                     <h4><b>工具：</b><span ng-bind="PageData.allCount.tool"></span>件</h4>
@@ -286,7 +284,43 @@
                 <div class="yulan_dd">手术订单配货确认</div>
             </div>
         </ng-dialog>
-    </div>
+
+        <ng-dialog ng-model="OutboundOrdermodel">
+            <div class="main-box-body clearfix" style="padding:15px;max-height:450px;overflow:auto;display:inline-block;width:100%">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" st-table="Print">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>出库单号</span></th>
+                                <th><span>仓库</span></th>
+                                <th><span>订单号</span></th>
+                                <th><span>订单状态</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in Print" class="ng-scope ng-isolate-scope">
+                                <td>{{$index+1}}</td>
+                                <td>
+                                    <span ng-bind="row.wONo"></span>
+                                </td>
+                                <td>
+                                    <span ng-bind="row.medMIWarehouseName"></span>
+                                </td>
+                                <td>
+                                    <span ng-bind="row.sONo"></span>
+                                </td>
+                                <td>
+                                    <span ng-bind="row.statusName"></span>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </ng-dialog>
+</div>
     <div class="tools">
         <span class="btn-group oms-btn-group" style="float:right;">
             <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
