@@ -204,17 +204,8 @@
             </div>
             <div class="widget-content nopadding collapse in" id="DetailImageInformation">
                 <div class="control-group ">
-                    <div ng-img="img" ng-comp="{delImg:true}" ng-model="PageData.attachmentForms[0].images"></div>
-                    <label style="opacity:0.5;width:100%;" ng-show="!PageData.attachmentForms[0].images.length">
-                        添加点图片丰富您的订单吧，
-                        最多支持上传5张图片
-                    </label>
-                </div>
-                <div class="control-group">
-                    <label style="width:100%">
-                        图片说明：<input type="text" style="width:78%;" placeholder="我是图片备注字段..." ng-model="PageData.attachmentForms[0].desc" />
-                    </label>
-                </div>
+                    <div ng-img="img" ng-comp="{delImg:true}" ng-model="PageData.attachmentForms[0].images"></div>               
+                </div>                                
             </div>
         </div>
     </div>

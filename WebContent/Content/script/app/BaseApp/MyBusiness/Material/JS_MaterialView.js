@@ -18,6 +18,8 @@ app.controller("MaterialViewController", function ($scope, $state,$stateParams, 
             /// <summary>获取物料明细</summary>
             $Api.BusinessData.MedMaterial.GetMedMaterialItemDetail($stateParams, function (rData) {
                 $scope.PageData = rData;
+                $scope.PageData.attachmentForms = [{ images: new Array() }];
+                $scope.PageData.attachmentForms[0].images = $scope.PageData.attachments;
             });
         }
     }

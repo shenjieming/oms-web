@@ -611,6 +611,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
         /// <summary>订单处理服务</summary>
         Submit: function () {
             //校验并添加默认数据
+            console.log($scope.FeedBack)
             if($scope.FeedBack.notInDetail.length > 0){
                 $.each($scope.FeedBack.notInDetail,function(index,item){
                     if(item.lotSerial == null){
