@@ -888,7 +888,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
 
         }
     };
-    $scope.OutboundOrdermodel = { title: "出库单", width: 730, height: 800, buttons: { "确定": $scope.DealService.PrintCancel }, open: function () { $(".ui-dialog-title").html("订单 " + $scope.PageData.sONo + " ,请复制您所在仓库的出库单号用于之后的打印...") } };
+    $scope.OutboundOrdermodel = { title: "出库单", width: 730, height: 800, buttons: { "确定": $scope.DealService.PrintCancel }, open: function () { $(".ui-dialog-title").html("订单 " + $scope.PageData.sONo + " ,请复制您所在仓库的出库单号用于之后的打印...") }, close: function () { $scope.goLastPage(); } };
     $scope.AddressConfig = {
         fixed: function (rowInfo) {
             /// <summary>选择地址事件</summary>
