@@ -862,7 +862,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         },
     }
     $scope.DealService.model = { title: "手术下单预览", width: 730, height: 800, buttons: { "提交": $scope.DealService.Submit, "返回": $scope.DealService.DealServicehide, "打印提交": $scope.DealService.Print }, open: function () { $(".ui-dialog-title").html("手术下单预览") } };
-    $scope.OutboundOrdermodel = { title: "出库单详情", width: 730, height: 800, buttons: { "确定": $scope.DealService.PrintCancel },$(".ui-dialog-title").html("出库单详情") };
+    $scope.OutboundOrdermodel = { title: "出库单详情", width: 730, height: 800, buttons: { "确定": $scope.DealService.PrintCancel }, open: function () { $(".ui-dialog-title").html("出库单详情") } };
     $scope.AddressConfig = {
         fixed: function (rowInfo) {
             /// <summary>选择地址事件</summary>
