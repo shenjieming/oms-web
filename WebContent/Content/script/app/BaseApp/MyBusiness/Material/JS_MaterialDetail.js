@@ -11,7 +11,7 @@
 
 app.controller("MaterialDetailController", function ($scope, $stateParams, $state, $local, $Api, $MessagService, $FileService) {
     /// <summary>经销商物料查询</summary>
-    $scope.PageData = { certMultiQty: 4, isScanSupported: "Y", disinfectionNeeded: "Y", effectiveControl: "Y", attachmentForms: [{images: new Array(), remark: "" }] };
+    $scope.PageData = { certMultiQty: 4, isScanSupported: "Y", disinfectionNeeded: "Y", effectiveControl: "Y", attachmentForms: [{ images: new Array() }] };
 
     $scope.Service = {
         /// <summary>物料管理服务</summary>
@@ -19,14 +19,9 @@ app.controller("MaterialDetailController", function ($scope, $stateParams, $stat
             /// <summary>获取物料明细</summary>
             $Api.BusinessData.MedMaterial.GetMedMaterialItemDetail($stateParams, function (rData) {
                 $scope.PageData = rData;
+                console.log($scope.PageData)
                 $scope.PageData.attachmentForms = [{images: new Array()}];
-                for (var i = 0; i < rData.attachments.length; i++) {
-                    $scope.PageData.attachmentForms[0].images.push(rData.attachmentForms[i].url)
-                }
-                console.log(rData)
-                //for (var i = 0; i < $scope.PageData.attachmentForms.length; i++) {
-                //    $scope.PageData.attachmentForms[0].images.push( $scope.PageData.attachmentForms[i].url)
-                //}
+                $scope.PageData.attachmentForms[0].images = $scope.PageData.attachments;
             });
         },
         IsChecked: function (ischeck, model, sd) {
@@ -35,6 +30,7 @@ app.controller("MaterialDetailController", function ($scope, $stateParams, $stat
         },
         Save: function () {
             /// <summary>物料信息保存</summary>
+            //$scope.PageData.attachment.images = $scope.PageData.attachmentForms[0].images[0];
             $Api.BusinessData.MedMaterial.Save($scope.PageData, function () {
                 $MessagService.caveat("物料保存成功！");
                 setTimeout(function () {
@@ -106,8 +102,8 @@ app.controller("MaterialDetailController", function ($scope, $stateParams, $stat
         Upload: function (files) {
             /// <summary>上传事件</summary>
             $.each(files, function (index, item) {              
-                if ($scope.PageData.attachmentForms[0].images.length >= 5) {
-                    $MessagService.caveat("您上传的图片超过了5张。")
+                if ($scope.PageData.attachmentForms[0].images.length >= 2) {
+                    $MessagService.caveat("您上传的图片超过了2张。")
                     return false;
                 }
                 if (item.type.indexOf("image") > -1) {
