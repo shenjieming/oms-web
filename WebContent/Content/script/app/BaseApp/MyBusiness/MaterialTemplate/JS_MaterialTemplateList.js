@@ -108,7 +108,9 @@ app.controller("MaterialTemplateController", function ($scope, $stateParams, $st
         /// <summary>模板服务管理</summary>
         Save: function () {
             /// <summary>模板保存</summary>
-            $scope.Detail.PageData.tmplAccessType = $stateParams.typeTmplate;
+            if ($stateParams.typeTmplate){
+                $scope.Detail.PageData.tmplAccessType = $stateParams.typeTmplate;
+            }
             $Api.MaterialsService.SaveTemplate($scope.Detail.PageData, function (rData) {
                 $MessagService.caveat("模板保存成功！");
                 $scope.goLastPage();
