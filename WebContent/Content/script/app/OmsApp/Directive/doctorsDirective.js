@@ -11,7 +11,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
     return {
         restrict: "EA",
         templateUrl: "Content/script/app/OmsApp/Directive/ui/ngDoctors.html?data=" + Timestamp,
-        scope: { ngModel: '=', ngOperat: "=" },
+        scope: { ngModel: '=', ngOperat: "=",ngPagedate:"=" },
         replace: true,
         link: function ($scope, element, attrs) {
             var userInfo = $local.getValue("USER").userInfo;
@@ -33,6 +33,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                         $scope.operat.Button = false;
                     }
                     $(".ui-dialog-title").html("医生选择");
+                    $scope.userInfo = $local.getValue("USER").userInfo;
                 },
             }
             $scope.operat = {
@@ -71,8 +72,7 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                     /// <summary>我的医生列表隐藏</summary>
                     //$scope.operat.isEdit = true;
                     //$scope.operat.isDetail = !$scope.operat.isDetail;
-                    $scope.ngOperat.hide();
-     
+                    $scope.ngOperat.hide();     
                 },
                 List: function () {
                     /// <summary>我的医生列表返回</summary>
@@ -121,7 +121,17 @@ app.directive("ngDoctors", function ($Api, $MessagService, $local) {
                 DoctorsDetail: new Object,
                 GetDoctors: function () {
                     /// <summary>获取常用医生</summary>
-                    $Api.HospitalService.GetDoctors({}, function (rData) { $scope.Service.DoctorsList = rData.rows; });
+                    if (!$scope.ngPagedate) {
+                        console.log(userInfo)
+                        $scope.sOCreateBy = userInfo.userId;
+                        $scope.sOCreateByOrgCode = userInfo.orgCode;
+                    } else {
+                        $scope.sOCreateBy = $scope.ngPagedate.sOCreateBy;
+                        $scope.sOCreateByOrgCode = $scope.ngPagedate.sOCreateByOrgCode;
+                    }
+                    //$scope.sOCreateBy = $scope.ngPagedate.sOCreateBy ? $scope.ngPagedate.sOCreateBy : $scope.User.userInfo.userId;
+                    //$scope.sOCreateByOrgCode = $scope.ngPagedate.sOCreateByOrgCode ? $scope.ngPagedate.sOCreateByOrgCode : $scope.User.userInfo.orgCode;
+                    $Api.HospitalService.GetDoctors({ sOCreateBy: $scope.sOCreateBy, sOCreateByOrgCode: $scope.sOCreateByOrgCode }, function (rData) { $scope.Service.DoctorsList = rData.rows; });
                 },
                 DelDoctor: function (data) {
                     /// <summary>删除医生</summary>

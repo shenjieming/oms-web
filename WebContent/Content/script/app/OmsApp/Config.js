@@ -16,10 +16,10 @@ OmsApp
                 /// <summary>备货订单管理</summary>
                 url: "/stock",  cache: false, template: "<div ui-view></div>",  controller: "StockController",  abstract: true,   loadJs: [ "Content/script/app/OmsApp/Order/Stock/JS_View.js"  ], resolve: app.resolve
             })
-            //.state("app.oms.outbound", {
-            //    /// <summary>出库单管理</summary>
-            //    url: "/outbound",  cache: false, template: "<div ui-view></div>",  controller: "OutboundController",  abstract: true,   loadJs: [ "Content/script/app/OmsApp/Order/Stock/JS_View.js"  ], resolve: app.resolve
-            //});
+            .state("app.oms.outbound", {
+               /// <summary>出库单管理</summary>
+               url: "/outbound",  cache: false, template: "<div ui-view></div>",  controller: "OutboundController",  abstract: true,   loadJs: [ "Content/script/app/OmsApp/Order/Stock/JS_View.js"  ], resolve: app.resolve
+            });
 
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
@@ -147,18 +147,18 @@ OmsApp
                 url: "/dealpage/:sono", cache: false, views: { "": { templateUrl: "View/OMS/Order/Stock/Dealwith.html?data=" + Timestamp, controller: "StockViewController" }, "Original@app.oms.stock.dealpage": { templateUrl: "View/OMS/Order/Stock/View/SingleView.html?data=" + Timestamp, controller: "StockOriginalController" } }, authenticate: true, viewAuth: true
             })
     })
-        //.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
-        //    /// <summary>出库单列表维护</summary>
-        //    $stateProvider
-        //        .state("app.oms.outbound.list", {
-        //            /// <summary>出库单列表</summary>
-        //            url: "/list",
-        //            cache: false,
-        //            templateUrl: "View/OMS/Order/Outbound/OutboundList.html?data=" + Timestamp,
-        //            controller: "OutboundListController", loadJs: ["Content/script/app/OmsApp/Order/Outbound/JS_OutboundList.js"],
-        //            resolve: app.resolve,
-        //        })
-        //})
+        .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
+           /// <summary>出库单列表维护</summary>
+           $stateProvider
+               .state("app.oms.outbound.list", {
+                   /// <summary>出库单列表</summary>
+                   url: "/list",
+                   cache: false,
+                   templateUrl: "View/OMS/Order/Outbound/OutboundList.html?data=" + Timestamp,
+                   controller: "OutboundListController", loadJs: ["Content/script/app/OmsApp/Order/Outbound/JS_OutboundList.js"],
+                   resolve: app.resolve,
+               })
+        })
     .factory("$OMSMenuService", function () {
         /// <summary>OMS菜单服务</summary>
         var service = new Array();
@@ -190,11 +190,11 @@ OmsApp
                 { name: "备货草稿箱", url: "#/app/oms/stock/draft", state: "app.oms.stock.draft" }
             ]
         });
-        //service.push({
-        //    name: "出库单管理", url: "", state: "app.oms.outbound", icon: "fa-shopping-cart", order: 2,
-        //    detail: [
-        //        { name: "出库单查询", url: "#/app/oms/outbound/list", state: "app.oms.outbound.list" }
-        //    ]
-        //});
+        service.push({
+           name: "出库单管理", url: "", state: "app.oms.outbound", icon: "fa-shopping-cart", order: 2,
+           detail: [
+               { name: "出库单查询", url: "#/app/oms/outbound/list", state: "app.oms.outbound.list" }
+           ]
+        });
         return service;
     })

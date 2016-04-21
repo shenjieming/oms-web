@@ -574,8 +574,8 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                 attachment: $scope.file.GetEventMapping($scope.PageData.events, "0080_0001")
             })
             $scope.WarehouseConfig.GetList();
-            $scope.MaterialsConfig.GetMaterialList($scope.PageData.feedBackProcess, $scope.PageData.feedBack);
             $scope.dictionary.GetUseType();
+            $scope.MaterialsConfig.GetMaterialList($scope.PageData.feedBackProcess, $scope.PageData.feedBack);
         }
     });
     /*数据监控End*/
@@ -597,6 +597,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
             /// <summary>获取用户使用类型</summary>
             $Api.Public.GetDictionary({ dictType: "MMIUTP" }, function (rData) {
                 $scope.dictionary.UseTypeList = rData;
+                console.log(rData)
             });
         },
         DefaultUseType: function (row) {
@@ -604,9 +605,20 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
             if (!row.useType) {
                 row.useType = $scope.dictionary.UseTypeList[0].id;
             }
-        }
-    }
+        },       
 
+    }
+    $scope.WarehouseConfig = {
+        /// <summary>仓库配置信息</summary>
+        WarehouseList: new Array(),
+        GetList: function () {
+            /// <summary>获取仓库列表</summary>
+            $Api.MaterialsService.GetAllWareHouse({}, function (rData) {
+                $scope.WarehouseConfig.WarehouseList = rData;
+            });
+        },
+
+    }
     $scope.FeedBackService = {
         /// <summary>订单处理服务</summary>
         Submit: function () {
@@ -663,7 +675,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                     var result = new Array();
                     var hash = {};
                     var allMaterials = $scope.FeedBack.notInDetail.concat(OtherMaterialsList);
-                    for(var i=0,elem;(elem = allMaterials[i]) != null;i++){
+                    for (var i = 0, elem; (elem = allMaterials[i]) != null; i++) {
                         if(hash[elem.medMIInternalNo]){
                             $.each(result,function(index, item){
                                 if(item.medMIInternalNo == elem.medMIInternalNo){
@@ -679,8 +691,15 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                 }else{
                     $.each(OtherMaterialsList,function(index, item){
                         $scope.FeedBack.notInDetail.push(item);
+
                     })
                 }
+                $scope.dictionary.GetUseType();
+                for (var i = 0; i < $scope.FeedBack.notInDetail.length; i++) {
+                    $scope.FeedBack.notInDetail[i].returnWarehouse = $scope.User.userInfo.orgCode;
+                    $scope.FeedBack.notInDetail[i].useType = $scope.dictionary.UseTypeList[0].id;
+                }
+                console.log($scope.FeedBack.notInDetail)
             })
         },
         DelKit:function(index){
@@ -724,29 +743,22 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                     }));
                 }
             });
-            $.each(result, function (index, item) {
-                $.each(ulist, function (uIndex, uItem) {
-                    if (uItem.medMIInternalNo == item.medMIInternalNo && item.lotSerial == uItem.lotSerial) {//同批次物料
-                        $.extend(item, {
-                            useQty: uItem.useQty
-                        });
-                    }
+            if (ulist.medMaterial.length) {
+                $.each(result, function (index, item) {
+                    $.each(ulist, function (uIndex, uItem) {
+                        if (uItem.medMIInternalNo == item.medMIInternalNo && item.lotSerial == uItem.lotSerial) {//同批次物料
+                            $.extend(item, {
+                                useQty: uItem.useQty
+                            });
+                        }
+                    });
                 });
-            });
+            }
+       
             $scope.FeedBack.medMaterial = result;
         }
     };
 
-    $scope.WarehouseConfig = {
-        /// <summary>仓库配置信息</summary>
-        WarehouseList: new Array(),
-        GetList: function () {
-            /// <summary>获取仓库列表</summary>
-            $Api.MaterialsService.GetAllWareHouse({}, function (rData) {
-                $scope.WarehouseConfig.WarehouseList = rData;
-            });
-        }
-    }
 
     $scope.file = {
         /// <summary>附件控制器</summary>
