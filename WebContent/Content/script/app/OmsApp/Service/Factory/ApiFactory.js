@@ -348,22 +348,22 @@ OMSApiService
                     /// <summary>手术订单处理提交</summary>
                     $MessagService.loading("处理提交中，请稍等...");
                     var verifig = true;
-                    $.each(data.prodLns, function (index, item) {
-                        if (!item.medMaterias.length) {
-                            $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
-                            verifig = false;
-                            return true;
-                        }
-                    });
-                    $.each(data.medKits, function (index,item) {
-                        /// <summary>检测套件是否满足库存条件</summary>
-                        if (item.reqQty > item.inventory) {
-                            if (!confirm("存在不满足库存数量的套件，请问是否继续提交？")) {
-                                verifig = false;
-                            }
-                            return false;
-                        }
-                    })
+                    //$.each(data.prodLns, function (index, item) {
+                    //    if (!item.medMaterias.length) {
+                    //        $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
+                    //        verifig = false;
+                    //        return true;
+                    //    }
+                    //});
+                    //$.each(data.medKits, function (index,item) {
+                    //    /// <summary>检测套件是否满足库存条件</summary>
+                    //    if (item.reqQty > item.inventory) {
+                    //        if (!confirm("存在不满足库存数量的套件，请问是否继续提交？")) {
+                    //            verifig = false;
+                    //        }
+                    //        return false;
+                    //    }
+                    //})
 
                     if (verifig) {
                         $ApiService.PostApi(ApiPath.Surgery.Process.submit, data, callback);
@@ -418,6 +418,7 @@ OMSApiService
                 },
                 GetOutBoundList: function (data, callback) {
                     /// <summary>出库单查询列表</summary>
+                    console.log(data)
                     $ApiService.PostApi(ApiPath.Surgery.DataSources.outBoundList, data, callback);
                 },
             }

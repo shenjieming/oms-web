@@ -189,15 +189,12 @@
                     <table>
                         <tr>
                             <td>
-                                <div class="yulan_button">
-                                </div>
+                                
                                 <ul class="yulan_xinxi">
                                     <li>
                                         <ul class="yulan_gaik">
-                                            <li><b>医院：</b><span ng-bind="PageData.hPCodeName"></span></li>
-                                            <li><b>科室：</b><span ng-bind="PageData.wardDeptCodeName"></span></li>
-                                            <li><b>医生：</b><span ng-bind="PageData.dTCodeName"></span></li>
-                                            <li><b>手术时间：</b><span ng-bind="PageData.operationDate"></span></li>
+                                            <li><b>医生：</b><span ng-bind="PageData.hPCodeName"></span>，<span ng-bind="PageData.dTCodeName"></span></li>
+                                            <li><b>手术日期：</b><span ng-bind="OperationDate"></span><span ng-bind="OperationDateWeek"></span></li>
                                         </ul>
                                     </li>
                                     <li><b>医院要求：</b><span ng-bind="PageData.hPPreferenceDesc"></span></li>
@@ -205,8 +202,8 @@
                                     <li><b>诊断信息：</b><span ng-bind="PageData.patientDiseaseInfo"></span></li>
                                     <li>
                                         <ul class="yulan_gaik">
-                                            <li><b>收件人：</b><span ng-bind="PageData.deliveryContact"></span></li>
-                                            <li><b>联系电话：</b><span ng-bind="PageData.deliveryrMobile"></span></li>
+                                            <li><b>收货人：</b><span ng-bind="PageData.deliveryContact"></span></li>
+                                            <li><b>电话：</b><span ng-bind="PageData.deliveryrMobile"></span></li>
                                             <li><b>配送：</b><span ng-bind="PageData.iniitCarrierTransTypeName"></span></li>
                                         </ul>
                                     </li>
@@ -220,7 +217,7 @@
                         <tr>
                             <td>
                                 <div class="yulan_ys">
-                                    植入物<span ng-bind="PageData.allCount.implant"></span>件，工具<span ng-bind="PageData.allCount.tool"></span>件（其中套件:<span ng-bind="PageData.proView.kitCount"></span>）合计 全部:<span ng-bind="PageData.allCount.all"></span>件
+                                    植入物 <span ng-bind="PageData.allCount.implant"></span>件 + 工具 <span ng-bind="PageData.allCount.tool"></span>件 = <span ng-bind="PageData.allCount.all"></span>件 （含器械包 <span ng-bind="PageData.proView.kitCount"></span>套）
                                 </div>
                             <td>
                         </tr>
@@ -233,11 +230,11 @@
                                         <thead>
                                         <tr class="yulan_line">
                                             <td>序号</td>
-                                            <td>品牌名称</td>
+                                            <td>品牌</td>
                                             <td>产品线</td>
                                             <td>物料编码</td>
                                             <td>物料名称</td>
-                                            <td>物料规格</td>
+                                            <td>规格</td>
                                             <td>数量</td>
                                             <td>仓库</td>
                                         </tr>
@@ -260,11 +257,11 @@
                                         <thead>
                                         <tr class="yulan_line">
                                             <td>序号</td>
-                                            <td>品牌名称</td>
+                                            <td>品牌</td>
                                             <td>产品线</td>
                                             <td>物料编码</td>
                                             <td>物料名称</td>
-                                            <td>物料规格</td>
+                                            <td>规格</td>
                                             <td>数量</td>
                                             <td>仓库</td>
                                         </tr>
@@ -287,7 +284,7 @@
                         </tr>
                     </table>
                 </div>
-                <div class="yulan_dd">手术订单配货确认</div>
+
             </div>
         </ng-dialog>
 
@@ -298,28 +295,20 @@
                         <thead>
                             <tr>
                                 <th><span>序号</span></th>
-                                <th><span>出库单号</span></th>
                                 <th><span>仓库</span></th>
-                                <th><span>订单号</span></th>
-                                <th><span>订单状态</span></th>
+                                <th><span>出库单号</span></th>
+                                
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="row in Print">
                                 <td>{{$index+1}}</td>
                                 <td>
-                                    <span ng-bind="row.wONo"></span>
-                                </td>
-                                <td>
                                     <span ng-bind="row.medMIWarehouseName"></span>
                                 </td>
                                 <td>
-                                    <span ng-bind="row.sONo"></span>
-                                </td>
-                                <td>
-                                    <span ng-bind="row.statusName"></span>
-                                </td>
-
+                                    <span ng-bind="row.wONo"></span>
+                                </td>                     
                             </tr>
                         </tbody>
                     </table>

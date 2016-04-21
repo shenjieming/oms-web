@@ -33,10 +33,11 @@ app.directive("ngMaterialsImportTemplate", function ($Api, $MessagService, $loca
             }
             var modelConfig = {
                 open: function () {
+                    $(".ui-dialog-title").html("模板导入");
                     $scope.TemplateData = $.extend($scope.TemplateData, {
                         oIOrgCode: $scope.ngModel.sOOIOrgCode,
                         tmplFullName:"",tmplName:"",tmplDesc:"",remark:"",   tmplAccessType: "PUBLIC", tmplType: "IMPLANTT",
-                        isChangeProd: true, medKits: $scope.ngModel.medKits, prodLns: $scope.ngModel.prodLns
+                        isChangeProd: true, medKits: $scope.ngModel.medKits, prodLns: $scope.ngModel.prodLns,
                     });
                 },
                 title: "模板导入", width: "99%", position: [0], height: "90%", buttons: {
@@ -47,7 +48,6 @@ app.directive("ngMaterialsImportTemplate", function ($Api, $MessagService, $loca
                         $scope.ngMaterialsImportTemplate.hide();
                     }
                 },
-                open: function () { $(".ui-dialog-title").html("模板导入"); }
             }
             $.extend($scope.ngMaterialsImportTemplate, modelConfig);
         }
