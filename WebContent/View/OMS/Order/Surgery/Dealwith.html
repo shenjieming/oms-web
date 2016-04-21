@@ -294,7 +294,7 @@
         <ng-dialog ng-model="OutboundOrdermodel">
             <div class="main-box-body clearfix" style="padding:15px;max-height:450px;overflow:auto;display:inline-block;width:100%">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped" st-table="Print">
+                    <table class="table table-bordered " st-table="Print">
                         <thead>
                             <tr>
                                 <th><span>序号</span></th>
@@ -305,7 +305,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in Print" class="ng-scope ng-isolate-scope">
+                            <tr ng-repeat="row in Print">
                                 <td>{{$index+1}}</td>
                                 <td>
                                     <span ng-bind="row.wONo"></span>

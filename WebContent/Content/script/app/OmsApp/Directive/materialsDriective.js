@@ -56,6 +56,7 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                         medProdLnCode: $scope.ngLine,
                         isQueryInventory: "N"
                     }, $scope.Pagein);//条件合并
+                    console.log(options)
                     $Api.MaterialsService.GetMaterialsList(options, function (rData) {
                         $scope.Service.MaterialList = new Array();
                         $scope.Pagein.total = rData.total;//分页控件获取当前数据请求的总页数
@@ -71,6 +72,7 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                     if (!$scope.Service.brandLine && !$scope.Service.productLine && !$scope.Service.all && $scope.Pagein.categoryByPlatform == "TOOL") {
                         $scope.Service.option = true;
                     }
+                    console.log($scope.Service)
                     $.extend($scope.Pagein, {
                         pageIndex: 1,
                         productLine: $scope.Service.productLine ? "Y" : "N",//品牌内通用(跨产品线)
@@ -79,7 +81,7 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                     });
                     console.log($scope.Pagein)
                     $scope.Pagein.ReLoad();
-                    // $scope.Service.GetList();
+                     //$scope.Service.GetList();
                 },
                 GetMaterialListByCategory: function (type) {
                     /// <summary>根据物料类型获取物料</summary>                    
@@ -87,10 +89,20 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                     $scope.Service.QueryMaterialList();
                     $scope.TitleModification();
                 },
-                GetCheckis: function () {
-                    /// <summary>选择产品线专用</summary>
+                ToolCheckis: function () {
+                    /// <summary>物料类型选择工具</summary>
                     $scope.Pagein.categoryByPlatform = "TOOL";
                     $scope.Service.option = true;
+                    $scope.Service.GetMaterialListByCategory();
+                },
+                ImplantCheckis: function () {
+                    /// <summary>物料类型选择植入物</summary>
+                    $scope.Pagein.categoryByPlatform = "IMPLANT";
+                    $scope.Service.option = true;
+                    $scope.Service.all = false;
+                    $scope.Service.brandLine = false;
+                    $scope.Service.isQueryInventory = false;
+                    $scope.Service.productLine = false;
                     $scope.Service.GetMaterialListByCategory();
                 },
                 GetCheckon: function () {
@@ -138,7 +150,6 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                 }
             }
             $scope.TitleModification = function () {
-                console.log($scope.ngLinename)
                 if ($scope.Pagein.categoryByPlatform == "IMPLANT") {
                     $scope.title = "植入物"
                 } else {
@@ -158,10 +169,6 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                     $scope.Service.GetList();
                 }
             }
-            //var categoryByPlatform = new Object();
-            //categoryByPlatform = $scope.Pagein.categoryByPlatform;
-            //categoryByPlatform = "IMPLANT" ? "植入物" : "工具";
-            //console.log($scope.Pagein)
             var modelConfig = {
                 open: function () {
                     /// <summary>弹出层打开事件</summary>
@@ -170,7 +177,6 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                     $scope.Service.MaterialList = new Array();
                     $scope.Pagein.searchValue = "";
                     $scope.Service.GetMaterialListByCategory();
-                    console.log($scope.Pagein.categoryByPlatform)
                     $scope.TitleModification();
                 },
                 title:"物料选择-植入物/工具-产品线", width: "100%", position: [0], height: "90%", buttons: {

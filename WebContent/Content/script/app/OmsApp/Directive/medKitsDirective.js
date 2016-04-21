@@ -59,6 +59,7 @@ app.directive("ngMedKits", function ($Api, $MessagService, $local) {
                 open: function () {
                     $scope.Service.SearchWhere = "";
                     $scope.Service.GetMedKits();
+                    $(".ui-dialog-title").html("套件（手术器械包）选择");
                 },
                 title: "套件（手术器械包）选择", width: "100%", height: "95%", buttons: {
                     "确定": function () {
@@ -74,7 +75,6 @@ app.directive("ngMedKits", function ($Api, $MessagService, $local) {
                         $scope.ngOperat.hide();
                     }
                 },
-                open: function () { $(".ui-dialog-title").html("套件（手术器械包）选择"); }
             }
             $.extend($scope.ngOperat, modelConfig);
         }

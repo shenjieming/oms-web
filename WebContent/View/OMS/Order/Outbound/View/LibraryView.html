@@ -1,0 +1,58 @@
+
+<div class="widget-box" ng-repeat="lib in PageData.outBounds">
+    <div class="widget-title bg_ly">
+        <span class="icon"><i class="fa icon-chevron-down"></i></span>
+        <h5 style="width:80%" data-toggle="collapse" href="#{{lib.wONo}}">出库单号：{{lib.wONo}}</h5>
+    </div>
+    <div class="widget-content nopadding collapse in" id="{{lib.wONo}}">
+        <div class="control-group ">
+            <label>
+                订单状态：<span class="red">{{lib.statusName}}</span>
+            </label>
+            <label>
+                出库仓库：{{lib.medMIWarehouseName}}
+            </label>
+            <label></label>
+            <a ng-show="(lib.status=='WOSTS00010')&&View.Competence.sign" class="btn btn-warning" ng-click="LivraryConfig.OBSign(lib)"><i class="fa fa-vine"></i>签收</a>
+        </div>
+        <div class="control-group">
+            <label style="width:100%">
+                出库指示：{{lib.wHSpecialNotes}}
+            </label>
+        </div>
+        <div class="control-group ">
+            <div class="main-box-body clearfix" style="max-height: 450px; overflow: auto; width: 100%;">
+                <div class="table-responsive">
+                    <table class="table table-bordered tab-striped">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>品牌名称</span></th>
+                                <th><span>产品线</span></th>
+                                <th><span>物料编码</span></th>
+                                <th><span>物料名称</span></th>
+                                <th><span>物料类型</span></th>
+                                <th><span>物料规格</span></th>
+                                <th><span>出库数量</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in lib.Material">
+                                <td>{{$index+1}}</td>
+                                <td>{{row.medBrandCodeName}}</td>
+                                <td>{{row.medProdLnCodeName}}</td>
+                                <td>{{row.medMICode}}</td>
+                                <td>{{row.medMICodeName}}</td>
+                                <td>{{row.categoryByPlatformName}}</td>
+                                <td>{{row.specification}}</td>
+                                <td>{{row.reqQty}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-ob-sign="" ng-model="LivraryConfig.Order" ng-operat="LivraryConfig.Operat"></div>
