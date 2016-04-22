@@ -21,7 +21,7 @@ app.directive("ngMaterialsTemplate", function ($Api, $MessagService, $local) {
             //模板选择默认配置
             var userInfo = $local.getValue("USER").userInfo;
             var modelConfig = {
-                title: "选择物料模板", width: 850, height: 300, buttons: {
+                title: "选择订单器械模板（可一键添加订单所需器械，又快又准）", width: 850, height: 300, buttons: {
                     "确定": function () {
                         $scope.Service.fixed();
                     },
@@ -33,6 +33,7 @@ app.directive("ngMaterialsTemplate", function ($Api, $MessagService, $local) {
                     /// <summary>模板选择打开事件</summary>
                     $scope.Pagein.tmplName = "";
                     $scope.Service.GetMaterialsTemplate();
+                    $(".ui-dialog-title").html("选择订单器械模板（可一键添加订单所需器械，又快又准）");
                 }
             }
             //模板选择配置合并
@@ -59,6 +60,7 @@ app.directive("ngMaterialsTemplate", function ($Api, $MessagService, $local) {
                     $Api.MaterialsService.GetMaterialsTemplateList($scope.Pagein, function (rData) {
                         $scope.Service.List = rData.rows;
                         $scope.Pagein.total = rData.total;//分页控件获取当前数据请求的总页数
+                        console.log(rData)
                     })
                 },
                 Select: function (template) {

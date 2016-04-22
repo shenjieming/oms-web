@@ -48,6 +48,8 @@ var ApiPath = {
             backsave: "/v2/order/temporarySaveReturnWareHouseOrder",
             //上一次手术信息（获取服务器端手术时间）
             findUserLastOrder:"/v2/common/order/findUserLastOrder",
+            //预览
+            proView:"/v2/common/order/proview",
         },
         Approval: {
             /// <summary>订单审批</summary>
@@ -73,6 +75,8 @@ var ApiPath = {
             orderList: "/v2/common/order/list",
             //综合查询列表
             IntegratedOrderInquiry: "/v2/common/order/queryOrderList",
+            //出库单查询列表
+            outBoundList:"/v2/common/order/outBoundList",
         }
 
     },
@@ -534,8 +538,10 @@ var ApiPath = {
         /// <summary>公开通用接口</summary>
         //数据字典
         dictionary: "/v2/common/dict/list",
-        //附加上传
+        //业务附加上传
         upload: "/v2/upload/biz",
+        //基础数据附件上传
+        basedataload: "/v2/upload/basedata",
         //事件选择列表
         event: "/v2/common/order/eventComboxList",
         //通用-全部医院下拉列表(下拉框)-查询经销商医院关系表

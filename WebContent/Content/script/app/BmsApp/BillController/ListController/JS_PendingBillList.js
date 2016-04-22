@@ -6,12 +6,7 @@ app.controller("PendingBillListController", function ($scope, $state, $local, $B
     $scope.Integrated = {
         //计费单列表
         OrderList: new Array(),
-        Enter: function (e) {
-            var keycode = window.event ? e.keyCode : e.which;
-            if (keycode == 13) {
-                $scope.Integrated.DataQuery({});
-            }
-        },
+        Enter: function (e) { var keycode = window.event ? e.keyCode : e.which; if (keycode == 13) { $scope.Integrated.DataQuery({}); } },
         DataQuery: function (data) {
             /// <summary>时间日期查询</summary>
             $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, createDateBegin: data.StartDay, createDateEnd: data.EndDay }); $scope.Integrated.GetOrderList();

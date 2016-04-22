@@ -36,6 +36,7 @@ app.directive("ngProductline", function ($Api, $MessagService) {
                         $scope.ngOperat.hide();
                     }
                 },
+                open: function () { $(".ui-dialog-title").html("产品线选择"); },
                 verification: function () {
                     /// <summary>验证用户选择</summary>
                     var result = false;

@@ -26,8 +26,10 @@ app.directive("ngMedKits", function ($Api, $MessagService, $local) {
                 MedKits: new Array(),
                 GetMedKits: function () {
                     /// <summary>获取套件信息</summary>
-                    $Api.MedKitService.GetMedKitList({ oIOrgCode: $scope.ngCargoModel }, function (rData) {
+                    var parm = $.extend({ oIOrgCode: $scope.ngCargoModel }, $scope.Pagein);//条件合并
+                    $Api.MedKitService.GetMedKitList(parm, function (rData) {
                         $scope.Service.MedKits = new Array();
+                        $scope.Pagein.total = rData.total;
                         $.each(rData.rows, function (index, item) {
                             $scope.Service.MedKits.push($.extend(item, { reqQty: 0 }));
                         });
@@ -44,12 +46,22 @@ app.directive("ngMedKits", function ($Api, $MessagService, $local) {
                     return result;
                 }
             }
+            $scope.Pagein = {
+                /// <summary>分页信息</summary>
+                pageSize: 8,
+                pageIndex: 1,
+                callbake: function () {
+                    $scope.Service.GetMedKits();
+                }
+            }
+
             var modelConfig = {
                 open: function () {
                     $scope.Service.SearchWhere = "";
                     $scope.Service.GetMedKits();
+                    $(".ui-dialog-title").html("套件（手术器械包）选择");
                 },
-                title: "套件选择", width: "99%",position:[0], height: "90%", buttons: {
+                title: "套件（手术器械包）选择", width: "100%", height: "95%", buttons: {
                     "确定": function () {
                         var data = $scope.Service.GetChangeMedKits();
                         if (data.length) {
@@ -62,7 +74,7 @@ app.directive("ngMedKits", function ($Api, $MessagService, $local) {
                     "关闭": function () {
                         $scope.ngOperat.hide();
                     }
-                }
+                },
             }
             $.extend($scope.ngOperat, modelConfig);
         }

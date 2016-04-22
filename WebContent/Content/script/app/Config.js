@@ -42,7 +42,7 @@ app.controller("HomeController", function ($scope, $state, $MenuService, $local,
     /// <summary>首页控制器</summary>
     var classList = ["one", "three", "four", "five", "six"]; $scope.homeClass = classList[0]; var index = 0; setInterval(function () { index++; if (index > classList.length - 1) { index = 0 } $scope.$apply(function () { $scope.homeClass = classList[index]; }); }, 3000);
 });
-app.controller("masterController", function ($scope, $state, $MenuService, $local, $MessagService, $Api, $window) {
+app.controller("masterController", function ($scope, $state, $MenuService, $local, $MessagService, $Api, $window, $AppHelp) {
     /// <summary>模板信息控制器</summary>
     $scope.fold = false; $scope.view = { header: "View/MasterPages/header.html?data=" + Timestamp, footer: "View/MasterPages/footer.html?data=" + Timestamp, menu: "View/MasterPages/menu.html?data=" + Timestamp }; $scope.User = $local.getValue("USER");
     console.log($scope.User);
@@ -56,6 +56,8 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
     /// <summary>返回上一页</summary>
     $scope.goLastPage = function () { $window.history.back(); }
 
+    $scope.AppHelp = $AppHelp;
+
     /// <summary>登出</summary>
     $scope.SignOut = function () {
         var LoginOut = function () { $local.setValue("USER", null); $scope.goView("login"); }; try { $Api.AccountService.LoginOut({}, LoginOut, LoginOut); } catch (e) { LoginOut(); } finally { LoginOut(); }//强制退出
@@ -63,6 +65,7 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
     /// <summary>菜单权限控制</summary>
     //判断菜单是否有权限
     $scope.Comp = function (code) { if (ServerConfiguration.IsDevelop) { return true; } else { return JSON.stringify($scope.User.functionInfo).indexOf(code) > -1; } }
+    //$scope.Comp=true;
 });
 app.controller("employeeController", function ($scope, $state, $MenuService, $local, $MessagService, $Api) {
     /// <summary>个人信息控制器</summary>

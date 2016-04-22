@@ -1,13 +1,13 @@
 
 <div>
     <div ng-med-kits="med" ng-model="MedKitsConfig.useData" ng-operat="MedKitsConfig.operat" ng-cargo-model="ngModel.sOOIOrgCode"></div>
-    <div ng-materials="" ng-model="ngModel.prodLns" ng-operat="MaterialsConfig.operat" ng-line="ProductConfig.useLine.medProdLnCode" ng-change="ProductConfig.useLine.medMaterias"></div>
+    <div ng-materials="" ng-model="ngModel.prodLns" ng-operat="MaterialsConfig.operat" ng-linename="ProductConfig.useLine.medProdLnCodeName" ng-line="ProductConfig.useLine.medProdLnCode" ng-change="ProductConfig.useLine.medMaterias"></div>
     <div ng-productline="{{ngModel.sOCreateByOrgCode}}" ng-model="ngModel.prodLns" ng-operat="ProductConfig.operat" ng-cargo-model="ngModel.sOOIOrgCode"></div>
     <div ng-show="Competence.kits">
         <div class="control-group">
             <div style="width:100%;">
-                <span style=" color: #808080; line-height:30px;margin-left:25px" ng-show="!ngModel.medKits.length"> 未使用套件 {{Competence.operat?"，您可以添加您配置好的套件":""}}</span>
-                <a class="btn btn-warning" ng-click="MedKitsConfig.operat.show()" style="float:right;margin-right:10px;" ng-show="Competence.operat"><i class="fa fa-arrows"></i>添加套件</a>
+                <span style=" color: #808080; line-height: 30px; margin-left: 25px; font-size: 12px;" ng-show="!ngModel.medKits.length"> 尚未配置套件（套件就是仓库预置器械包，出库快又准） {{Competence.operat?" ":""}}</span>
+                <a class="btn btn-warning" ng-click="MedKitsConfig.operat.show()" style="float:right;margin-right:10px;" ng-show="Competence.operat"><i class="fa fa-arrows"></i>套件添加</a>
             </div>
         </div>
         <div class="control-group" ng-show="ngModel.medKits.length">
@@ -19,10 +19,10 @@
                                 <th><span>序号</span></th>
                                 <th><span>套件编码</span></th>
                                 <th><span>套件名称</span></th>
-                                <th><span>套件类型</span></th>
+                                <th><span>类型</span></th>
                                 <th><span>需求数量</span></th>
-                                <th ng-show="Competence.warehouse"><span>所在仓库</span></th>
-                                <th ng-show="Competence.warehouse&&Competence.operat"><span><a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory()"><i class="fa fa-cubes"></i> 全部库存</a> </span> </th>
+                                <th ng-show="Competence.warehouse&&Competence.operat"><span><a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory()"><i class="fa fa-cubes"></i> 库存</a> </span> </th>
+                                <th ng-show="Competence.warehouse"><span>仓库</span></th>
                                 <th><span>库区</span></th>
                                 <th ng-show="Competence.operat"><span>操作</span> </th>
                             </tr>
@@ -44,6 +44,10 @@
                                     <span ng-show="!Competence.operat" ng-bind="row.kitTypeName"></span>
 
                                 </td>
+
+                                <td ng-show="Competence.warehouse&&Competence.operat">
+                                    <a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory(row)">{{row.inventory?row.inventory:"当前库存"}}</a>
+                                </td>
                                 <td ng-show="Competence.warehouse">
                                     <span ng-show="Competence.operat">
                                         <select ng-model="row.estMedMIWarehouse" ng-change="WarehouseConfig.GetKitInventory(row)" ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
@@ -51,9 +55,6 @@
                                         </select>
                                     </span>
                                     <span ng-show="!Competence.operat" ng-bind="row.estMedMIWarehouseName"> </span>
-                                </td>
-                                <td ng-show="Competence.warehouse&&Competence.operat">
-                                    <a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory(row)">{{row.inventory?row.inventory:"当前库存"}}</a>
                                 </td>
                                 <td>
                                     <span ng-bind="row.zoneName"></span>
@@ -76,42 +77,42 @@
                 <div class="control-group" style="display:block;border:0px;">
                     <div ng-show="Competence.operat" class="btn-group">
                         <a class="btn btn-warning" ng-click="ProductConfig.operat.show()"><i class="fa fa-medkit"></i>加产品线</a>
-                        <a class="btn btn-danger" ng-click="ProductConfig.deleteLine()"><i class="fa fa-scissors"></i>删除</a>
+                        <a class="btn btn-danger" ng-click="ProductConfig.deleteLine()"><i class="fa fa-scissors"></i>减产品线</a>
                     </div>
                     <div id="{{ProductConfig.tree.treeId}}" ng-tree="" ng-show="ngModel.prodLns.length" ng-setting="ProductConfig.tree.setting" ng-data="ProductConfig.tree.data" ng-model="ProductConfig.tree.obj"></div>
                 </div>
             </div>
             <div class="col-lg-9" ng-show="ngModel.prodLns.length">
                 <div class="control-group">
-                    <label> 品牌名称：<span ng-bind="ProductConfig.useLine.medBrandCodeName"></span></label>
-                    <label style="width:32%;">产品线名称：<span ng-bind="ProductConfig.useLine.medProdLnCodeName"></span></label>
+                    <label> 品牌：<span ng-bind="ProductConfig.useLine.medBrandCodeName"></span></label>
+                    <label style="width:32%;">产品线：<span ng-bind="ProductConfig.useLine.medProdLnCodeName"></span></label>
                     <label ng-show="Competence.tool">
-                        <span style="float:left">工具情况：</span>
+                        <span style="float:left">工具：</span>
                         <input type="checkbox" id="checkbox" class="chkbox" ng-change="ProductConfig.ChangeTool()"
                                ng-checked="ProductConfig.useLine.isChecked" ng-model="ProductConfig.useLine.isChecked">
                         <label for="checkbox" style="float:left" ng-show="Competence.operat"></label>
-                        <span ng-show="ProductConfig.useLine.isChecked">需要</span>
-                        <span ng-show="!ProductConfig.useLine.isChecked">不需要</span>
+                        <span ng-show="ProductConfig.useLine.isChecked">配</span>
+                        <span ng-show="!ProductConfig.useLine.isChecked">不配</span>
                     </label>
                 </div>
                 <div class="control-group">
                     <label style="width:90%">
-                        备注信息：<span ng-bind="ProductConfig.useLine.remark"></span>
+                        备注：<span ng-bind="ProductConfig.useLine.remark"></span>
                     </label>
-                    <a class="btn btn-warning" style="width:97px;height:35px;" ng-show="Competence.operat" ng-click="MaterialsConfig.operat.show()"><i class="fa fa-link"></i>添加物料</a>
+                    <a class="btn btn-warning" style="width:97px;height:35px;" ng-show="Competence.operat" ng-click="MaterialsConfig.operat.show()"><i class="fa fa-link"></i>物料添加</a>
                 </div>
                 <div class="control-group" ng-show="!ProductConfig.useLine.medMaterias.length" style="border:0px;">
-                    <label style="width: 100%; color: #808080;" ng-show="!Competence.operat">未使用物料</label>
-                    <label style="width:100%;color:red;" ng-show="Competence.operat">未配置物料，请对当前产品线添加物料...</label>
+                    <label style="width: 100%; color: #808080;" ng-show="!Competence.operat">{{ProductConfig.useLine.medBrandCodeName}}（{{ProductConfig.useLine.medProdLnCodeName}}）尚未配置物料</label>
+                    <label style="width:100%;color:red;" ng-show="Competence.operat">{{ProductConfig.useLine.medBrandCodeName}}（{{ProductConfig.useLine.medProdLnCodeName}}）尚未配置物料</label>
                 </div>
 
 
             </div>
 
-            <label style="width:100%;color:red;" ng-show="!ngModel.prodLns.length">为选择产品线，请添加产品线...</label>
+            <label style="width:100%;color:red;" ng-show="!ngModel.prodLns.length">尚未选择产品线</label>
         </div>
         <div ng-show="ProductConfig.useLine.medMaterias.length" style="width:100%;">
-            <div class="control-group" >
+            <div class="control-group">
                 <div class="btn-group oms-btn-group" role="group" style="border-bottom:0px;">
                     <a class="btn" ng-class="{true: 'btn-info',false:'btn-primary'}[MaterialsConfig.categoryByPlatform!='']" ng-click=" MaterialsConfig.GetShowMaterial('')"><i class="fa fa-puzzle-piece"></i> 全部({{Statistic.ProMaterielCount}})件</a>
                     <a class="btn" ng-class="{true: 'btn-info',false:'btn-primary'}[MaterialsConfig.categoryByPlatform!='IMPLANT']" ng-click="MaterialsConfig.GetShowMaterial('IMPLANT')"><i class="fa fa-puzzle-piece"></i> 植入物({{Statistic.ProImplantCount}})件</a>
@@ -128,11 +129,11 @@
                                 <th><span>序号</span></th>
                                 <th><span>物料编码</span></th>
                                 <th><span>物料名称</span></th>
-                                <th><span>物料类型</span></th>
-                                <th><span>物料规格</span></th>
+                                <th><span>规格</span></th>
+                                <th><span>类型</span></th>
                                 <th><span>需求数量</span></th>
-                                <th ng-show="Competence.warehouse"><span>使用仓库</span> </th>
-                                <th ng-show="Competence.warehouse&&Competence.operat"><span><a href="javascript:void(0)" ng-click="WarehouseConfig.GetMedmaterialInventory()"><i class="fa fa-cubes"></i> 全部库存</a> </span> </th>
+                                <th ng-show="Competence.warehouse"><span>仓库</span> </th>
+                                <th ng-show="Competence.warehouse&&Competence.operat"><span><a href="javascript:void(0)" ng-click="WarehouseConfig.GetMedmaterialInventory()"><i class="fa fa-cubes"></i> 库存</a> </span> </th>
                                 <th ng-show="Competence.operat"><span>操作</span> </th>
                             </tr>
                         </thead>
@@ -146,11 +147,12 @@
                                     <span ng-bind="row.medMIName?row.medMIName:row.medMICodeName"></span>
                                 </td>
                                 <td>
-                                    <span ng-bind="row.categoryByPlatformName"></span>
-                                </td>
-                                <td>
                                     <span ng-bind="row.specification"></span>
                                 </td>
+                                <td>
+                                    <span ng-bind="row.categoryByPlatformName"></span>
+                                </td>
+
                                 <td ng-show="Competence.operat">
                                     <input type="number" value="0" ng-change="ProductConfig.GetLineMaterialCount()" ng-model="row.reqQty" style="width:60px" min="0" />{{row.medMIUnitName}}
                                 </td>
@@ -159,7 +161,7 @@
                                 </td>
                                 <td ng-show="Competence.warehouse">
                                     <span ng-show="Competence.operat">
-                                        <select ng-model="row.medMIWarehouse" ng-change="WarehouseConfig.GetMedmaterialInventory(row)" ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
+                                        <select ng-model="row.medMIWarehouse" ng-change="WarehouseConfig.GetMedmaterialInventory(row,item)" ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
                                             <option value="">请选择仓库</option>
                                         </select>
                                     </span>

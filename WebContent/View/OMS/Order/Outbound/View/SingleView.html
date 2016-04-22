@@ -1,0 +1,54 @@
+<div class="row-fluid">
+    <div class="widget-box">
+        <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
+            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+            <h5>基础信息[货主：{{PageData.sOOIOrgCodeName}}]</h5>
+        </div>
+        <div class="widget-content nopadding collapse in" id="BaseInformation">
+            <div class="control-group ">
+                <label>
+                    收 货 人：{{PageData.deliveryContact}}
+                </label>
+                <label>
+                    联系电话：{{PageData.deliveryrMobile}}
+                </label>
+                <label>
+                    配送方式：{{PageData.iniitCarrierTransTypeName}}
+                </label>
+            </div>
+            <div class="control-group ">
+                <label style="width:100%">
+                    收货地址：
+                    {{PageData.deliveryProvinceName}}  {{PageData.deliveryCityName}}  {{PageData.deliveryDistrictName}} {{PageData.deliveryAddress}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="widget-box">
+        <div class="widget-title bg_ly" data-toggle="collapse" href="#ProductInformation">
+            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+            <h5>产品信息
+                {{singleProduc.Competence.ShowInfo}}
+            </h5>
+        </div>
+        <div id="ProductInformation" class="widget-content nopadding collapse in">
+        	 <div ng-product-view="singleProductView" ng-model="singleProduc" ng-service="singleProduc.Service" ng-comp="singleProduc.Competence"></div>
+        </div>
+    </div>
+    <div class="widget-box">
+        <div class="widget-title bg_ly" data-toggle="collapse" href="#AdditionalInformation">
+            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+            <h5>图片信息</h5>
+        </div>
+        <div id="AdditionalInformation" class="widget-content nopadding collapse in">
+            <div class="control-group ">
+                <div ng-img="img" ng-model="PageData.initFile.images"></div>
+            </div>
+            <div class="control-group">
+                <label style="width:100%">
+                    图片说明：{{PageData.initFile.remark}}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

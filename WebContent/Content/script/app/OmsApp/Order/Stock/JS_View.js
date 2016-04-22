@@ -14,9 +14,69 @@ app.controller("StockViewController", function ($scope, $state, $local, $Api, $M
     $scope.PageData = {
         wardDeptCode: "", initHPCode: "", initDTCode: "", patientDiseaseInfo: "",
         prodLns: new Array(),
-        attachments: { images: new Array(), remark: "" }
+        attachments: { images: new Array(), remark: "" },
+        proView:new Object(),
+        allCount:{implant:0,tool:0,all:0},
+        Implate:new Array(),
+        Tool:new Array(),
     }
 
+    $scope.PreViewCount= {
+        //预览页面
+        GetData:function () {
+            $scope.PageData.proView = new Object();
+            $scope.PageData.Implate = new Array();
+            $scope.PageData.Tool = new Array();
+            $scope.PageData.allCount.tool=0;
+            $scope.PageData.allCount.all=0;
+            $scope.PageData.allCount.implant=0;
+            $Api.SurgeryService.Process.ProView($scope.PageData,function (rData) {
+                $scope.PageData.proView=rData;
+                $scope.PreViewCount.CountImplantsIsSingle(rData.implants);
+                $scope.PreViewCount.CountToolIsSingle(rData.tools)
+            })
+        },
+        //植入物统计+去重
+        CountImplantsIsSingle:function (implants) {
+            if(implants){
+                $.each(implants,function (index,implant) {
+                    $scope.PageData.allCount.all+=implant.reqQty;
+                    $scope.PageData.allCount.implant+=implant.reqQty;
+                    var flag = true;
+                    $.each($scope.PageData.Implate,function (index,thisImplant) {
+                        if(implant.medMIInternalNo==thisImplant.medMIInternalNo){
+                            thisImplant.reqQty+=implant.reqQty;
+                            flag=false;
+                            return false;
+                        }
+                    });
+                    if(flag){
+                        $scope.PageData.Implate.push(implant);
+                    }
+                })
+            }
+        },
+        //工具统计+去重
+        CountToolIsSingle:function (tools) {
+            if(tools){
+                $.each(tools,function (index,tool) {
+                    $scope.PageData.allCount.all+=tool.reqQty;
+                    $scope.PageData.allCount.tool+=tool.reqQty;
+                    var flag = true;
+                    $.each($scope.PageData.Tool,function (index,thisTool) {
+                        if(tool.medMIInternalNo==thisTool.medMIInternalNo){
+                            thisTool.reqQty+=tool.reqQty;
+                            flag=false;
+                            return false;
+                        }
+                    });
+                    if(flag){
+                        $scope.PageData.Tool.push(tool);
+                    }
+                })
+            }
+        }
+    }
     $scope.View = {
         Surgery: "View/Order/Stock/View/SingleView.html?data=" + Timestamp,
         Competence: {}
@@ -297,10 +357,8 @@ app.controller("StockSingleController", function ($scope, $state, $local, $Api, 
                     attachments: $scope.file.GetEventMapping(rData.events, "0001_0002")
                 });
             });
-        }
+        },
     }
-
-
     $scope.file = {
         /// <summary>附件控制器</summary>
         Upload: function (files) {
@@ -451,9 +509,6 @@ app.controller("StockAccurateController", function ($scope, $state, $local, $Api
             });
         }
     });
-
-
-
     $scope.MaterialsConfig = {
         Material: new Array(),
         GetShowMaterial: function (type) {
@@ -570,11 +625,17 @@ app.controller("StockDealwithController", function ($scope, $state, $local, $Api
             $Api.StockService.Process.Submit($scope.PageData, function (rData) {
                 $scope.goLastPage();
             });
+        },
+        Hide:function () {
+            $scope.DealService.model.hide();
+        },
+        Show:function () {
+            $scope.PreViewCount.GetData();
+            $scope.DealService.model.show();
         }
     }
-
+    $scope.DealService.model = { title: "备货单预览", width: 720, height: 800, buttons: { "提交": $scope.DealService.Submit, "返回": $scope.DealService.Hide } };
     $scope.TemplateService = {}
-
     $scope.AddressConfig = {
         fixed: function (rowInfo) {
             /// <summary>选择地址事件</summary> 
