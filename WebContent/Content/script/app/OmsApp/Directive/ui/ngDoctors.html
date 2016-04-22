@@ -12,10 +12,10 @@
                         <thead>
                             <tr>
                                 <th><span>序号</span></th>                            
-                                <th><span>医院名称</span></th>                        
-                                <th><span>科室名称</span></th>                           
-                                <th><span>医生名称</span></th>
-                                <th><span>医生归属</span></th>
+                                <th><span>医院</span></th>                        
+                                <th><span>科室</span></th>                           
+                                <th><span>医生</span></th>
+                                <th><span>属地</span></th>
                                 <th><span>操作<button type="button" class="btn btn-xs btn-danger" ng-click="operat.ChangeDetail()" ng-if="operat.Button" style="margin-left:4px;width:22px"><i class="fa fa-plus-square"></i></button></span></th>
                             </tr>
                         </thead>
@@ -54,31 +54,31 @@
                 <div class="row">
                     <div class="col-lg-1"></div>
                     <div class="col-lg-5">
-                        <span class="required">*</span> 医院名称：<select ng-model="Service.DoctorsDetail.hPCode" ng-change="SelectInfo.Doctor.change()">
-                            <option value="">请选择医院名称...</option>
-                                                                 <option ng-repeat="item in SelectInfo.Doctor.dic" ng-selected="item.hPCode==Service.DoctorsDetail.hPCode" value="{{item.hPCode}}">{{item.hPName}}</option>
+                        <span class="required">*</span>医院：<select ng-model="Service.DoctorsDetail.hPCode" ng-change="SelectInfo.Doctor.change()" style="width:180px">
+                            <option value="">请选择医院...</option>
+                         <option ng-repeat="item in SelectInfo.Doctor.dic" ng-selected="item.hPCode==Service.DoctorsDetail.hPCode" value="{{item.hPCode}}">{{item.hPName}}</option>
                         </select>
                     </div>
                     <div class="col-lg-5">
-                        <span class="required">*</span>   科室名称：<select ng-model="Service.DoctorsDetail.wardDeptCode">
-                            <option value="">请选择科室名称...</option>
-                                 <option ng-repeat="item in SelectInfo.Department.dic" ng-selected="item.id==Service.DoctorsDetail.wardDeptCode" value="{{item.id}}">{{item.text}}</option>
-                        </select>
+                        <span class="required">*</span>科室：<select ng-model="Service.DoctorsDetail.wardDeptCode" style="width:180px">
+    <option value="">请选择科室...</option>
+    <option ng-repeat="item in SelectInfo.Department.dic" ng-selected="item.id==Service.DoctorsDetail.wardDeptCode" value="{{item.id}}">{{item.text}}</option>
+</select>
                     </div>
                 </div>
                 <div class="row row-mt-8">
                     <div class="col-lg-1"></div>
                     <div class="col-lg-5">
-                        <span class="required">*</span> 医生名称：<input type="text" ng-model="Service.DoctorsDetail.dTName" placeholder="请输入医生名称..." />
+                        <span class="required">*</span> 医生：<input type="text" ng-model="Service.DoctorsDetail.dTName" placeholder="请输入医生姓名..." />
                     </div>
                     <div class="col-lg-5">
-                        联系电话：<input type="text" ng-model="Service.DoctorsDetail.dTMobile" placeholder="请输入医生联系电话..." />
+                        电话：<input type="text" ng-model="Service.DoctorsDetail.dTMobile" placeholder="请输入医生联系电话..." />
                     </div>
                 </div>
                 <div class="row row-mt-8">
                     <div class="col-lg-1"></div>
                     <div class="col-lg-10" >
-                        <span style="float:left;line-height:25px;">医生归属：</span>
+                        <span style="float:left;line-height:25px;">属地：</span>
                         <input type="checkbox" id="checkbox_c999" class="chkbox" ng-checked="Service.DoctorsDetail.isLocalCheck" ng-model="Service.DoctorsDetail.isLocalCheck" />
                         <label for="checkbox_c999" style="float:left"></label>
                         <span ng-if="Service.DoctorsDetail.isLocalCheck" style="line-height: 25px;"> 本院</span>
@@ -88,7 +88,7 @@
                 <div class="row row-mt-8">
                     <div class="col-lg-1"></div>
                     <div class="col-lg-10">
-                        要求信息：<input type="text" ng-model="Service.DoctorsDetail.dTOperationPreferenceDesc" placeholder="请输入医生手术时的要求信息..." style="width:75%;" />
+                        手术偏好：<input type="text" ng-model="Service.DoctorsDetail.dTOperationPreferenceDesc" placeholder="请输入医生手术偏好，例：用软探针" style="width:76%;" />
                     </div>
                 </div>
             </div>

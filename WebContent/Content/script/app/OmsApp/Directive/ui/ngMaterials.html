@@ -1,20 +1,20 @@
-<div>
+    <div>
     <ng-dialog ng-model="ngOperat">
         <div style="display: inline-block; width: 99%; padding: 5px;">
             <div class="btn-group">
 
-                <a class="btn" ng-class="{true: 'btn-info',false:'btn-primary'}[Pagein.categoryByPlatform!='IMPLANT']" ng-click="Service.GetMaterialListByCategory('IMPLANT')"><i class="fa fa-puzzle-piece"></i> 植入物</a>
-                <a class="btn" ng-class="{true: 'btn-info',false:'btn-primary'}[Pagein.categoryByPlatform!='TOOL']" ng-click="Service.GetCheckis()" style="margin-right:45px;"><i class="fa fa-wrench"></i> 工具</a>
+                <a class="btn" ng-class="{true: 'btn-info',false:'btn-primary'}[Pagein.categoryByPlatform!='IMPLANT']" ng-click="Service.ImplantCheckis()"><i class="fa fa-puzzle-piece"></i> 植入物</a>
+                <a class="btn" ng-class="{true: 'btn-info',false:'btn-primary'}[Pagein.categoryByPlatform!='TOOL']" ng-click="Service.ToolCheckis()" style="margin-right:45px;"><i class="fa fa-wrench"></i> 工具</a>
             </div>
             <div class="btn-group" ng-show="Pagein.categoryByPlatform=='TOOL'">
-                <input type="radio" name="redio" value="" id="aa" ng-checked="Service.option" ng-click="Service.GetCheckon()" /> 工具通用
-                <input type="radio" name="redio" value="" id="bb" ng-checked="!Service.option" ng-click="Service.GetCheckon()" style="margin-left:50px" /> 工具选用
+                <input type="radio" name="redio" value="" id="aa" ng-checked="Service.option" ng-click="Service.GetCheckon()" /> 专用工具
+                <input type="radio" name="redio" value="" id="bb" ng-checked="!Service.option" ng-click="Service.GetCheckon()" style="margin-left:50px" /> 通用工具
             </div>
             <span ng-show="Pagein.categoryByPlatform=='IMPLANT'"></span>
             <span ng-show="!Service.option&&Pagein.categoryByPlatform=='TOOL'" class="btn-group" style="margin-top:4px">
-                <label class="inp-chk" style="margin-left:15px;"><input type="checkbox" ng-checked="Service.productLine" ng-model="Service.productLine" ng-change="Service.QueryMaterialList()" />产品线通用</label>
-                <label class="inp-chk"><input type="checkbox" ng-checked="Service.brandLine" ng-model="Service.brandLine" ng-change="Service.QueryMaterialList()" />品牌通用</label>
-                <label class="inp-chk"><input type="checkbox" ng-checked="Service.all" ng-model="Service.all" ng-change="Service.QueryMaterialList()" />厂商通用</label>
+                <label class="inp-chk" style="margin-left:15px;"><input type="checkbox" ng-checked="Service.productLine" ng-model="Service.productLine" ng-change="Service.QueryMaterialList()" /> 跨产品线通用&nbsp; </label>
+                <label class="inp-chk"><input type="checkbox" ng-checked="Service.brandLine" ng-model="Service.brandLine" ng-change="Service.QueryMaterialList()" /> 跨品牌通用&nbsp; </label>
+                <label class="inp-chk"><input type="checkbox" ng-checked="Service.all" ng-model="Service.all" ng-change="Service.QueryMaterialList()" /> 跨厂商通用&nbsp; </label>
             </span>
             <div class="input-group" style="float:right;width:250px;">
                 <input type="text" class="form-control" placeholder="请输入物料编码、名称、规格"
@@ -28,30 +28,38 @@
                     <thead>
                         <tr>
                             <th><span>序号</span></th>
+                            <th ng-if="Pagein.categoryByPlatform!='IMPLANT'"><span>品牌</span></th>
+                            <th ng-if="Pagein.categoryByPlatform!='IMPLANT'"><span>产品线</span></th>
                             <th><span>物料编码</span></th>
                             <th><span>物料名称</span></th>
-                            <th><span>物料规格</span></th>
-                            <th><span>物料类型</span></th>            
-                            <th ng-show="Pagein.categoryByPlatform=='TOOL'"><span>通用类型</span></th>
-                            <td title="点击后全部物料添加" ng-click="Service.AddAllQty()"><span class="selected"> <img src="Content/style/img/KaiXinIcon/quantityDemanded.png" /><a style="color: #436EEE" href="javascript:void(0)"> 需求数量</a></span> </td>
+                            <th ng-if ="Pagein.categoryByPlatform=='IMPLANT'"><span>规格</span></thng-if>  
+                            <th><span>类型</span></th>            
+                            <th ng-show="Pagein.categoryByPlatform=='TOOL'"><span>通用性</span></th>
+                            <td title="点击后全部物料添加" ng-click="Service.AddAllQty()"><span class="selected"> <img src="./Content/style/img/KaiXinIcon/quantityDemanded.png" /><a style="color: #436EEE; font-size: 12px; font-weight: bold" href="javascript:void(0)"> 需求数量</a></span> </td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-class="{'selected':row.reqQty>0}" ng-dblclick="Service.AddreqQty(row)" ng-repeat="row in Service.MaterialList">
                             <td>{{$index+1}}</td>
+                            <td ng-show="Pagein.categoryByPlatform!='IMPLANT'">
+                                <span ng-bind="row.medBrandName"></span>
+                            </td>
+                            <td ng-show="Pagein.categoryByPlatform!='IMPLANT'">
+                                <span ng-bind="row.medProdLnName"></span>
+                            </td>
                             <td>
                                 <span ng-bind="row.medMICode"></span>
                             </td>
                             <td>
                                 <span ng-bind="row.medMIName"></span>
                             </td>
-                            <td>
+                            <td ng-if="Pagein.categoryByPlatform=='IMPLANT'">
                                 <span ng-bind="row.specification"></span>
                             </td>
                             <td>
                                 <span ng-bind="row.categoryByPlatformName"></span>
                             </td>
-                            <td ng-show="Pagein.categoryByPlatform=='TOOL'">
+                            <td ng-if="Pagein.categoryByPlatform=='TOOL'">
                                 <span ng-bind="row.applyCommonTypeName"></span>
                             </td>
 
@@ -61,8 +69,8 @@
                         </tr>
                     </tbody>
                 </table>
+                <div ng-pagein="page" ng-model="Pagein"></div>
             </div>
-            <div ng-pagein="page" ng-model="Pagein"></div>
         </div>
     </ng-dialog>
 </div>

@@ -13,15 +13,17 @@ app.directive("ngMaterialsImportTemplate", function ($Api, $MessagService, $loca
         templateUrl: "Content/script/app/OmsApp/Directive/ui/ngMaterialsImportTemplate.html?data=" + Timestamp,
         scope: {
             ngModel: '=',
+            ngType:"=",
             ngMaterialsImportTemplate: "=",
         },
         replace: true,
         link: function ($scope, element, attrs) {
             /// <summary>模板另存为插件</summary>
-            $scope.TemplateData = { tmplAccessType: "PUBLIC", tmplType: "IMPLANTT", medKits: [], prodLns: [] }
+            $scope.TemplateData = { tmplAccessType: "PUBLIC", tmplType: "IMPLANTT", medKits: [], prodLns: [] };
             $scope.Service = {
                 Save: function () {
                     /// <summary>保存模板</summary>
+                    if($scope.ngType){$scope.TemplateData.tmplAccessType=$scope.ngType};
                     $Api.MaterialsService.SaveTemplate($scope.TemplateData, function (rData) {
                         $scope.ngMaterialsImportTemplate.hide();
                     });
@@ -31,10 +33,11 @@ app.directive("ngMaterialsImportTemplate", function ($Api, $MessagService, $loca
             }
             var modelConfig = {
                 open: function () {
+                    $(".ui-dialog-title").html("模板导入");
                     $scope.TemplateData = $.extend($scope.TemplateData, {
                         oIOrgCode: $scope.ngModel.sOOIOrgCode,
                         tmplFullName:"",tmplName:"",tmplDesc:"",remark:"",   tmplAccessType: "PUBLIC", tmplType: "IMPLANTT",
-                        isChangeProd: true, medKits: $scope.ngModel.medKits, prodLns: $scope.ngModel.prodLns
+                        isChangeProd: true, medKits: $scope.ngModel.medKits, prodLns: $scope.ngModel.prodLns,
                     });
                 },
                 title: "模板导入", width: "99%", position: [0], height: "90%", buttons: {
@@ -44,7 +47,7 @@ app.directive("ngMaterialsImportTemplate", function ($Api, $MessagService, $loca
                     "关闭": function () {
                         $scope.ngMaterialsImportTemplate.hide();
                     }
-                }
+                },
             }
             $.extend($scope.ngMaterialsImportTemplate, modelConfig);
         }

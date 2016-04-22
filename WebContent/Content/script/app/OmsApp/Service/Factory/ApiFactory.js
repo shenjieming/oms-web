@@ -348,22 +348,22 @@ OMSApiService
                     /// <summary>手术订单处理提交</summary>
                     $MessagService.loading("处理提交中，请稍等...");
                     var verifig = true;
-                    $.each(data.prodLns, function (index, item) {
-                        if (!item.medMaterias.length) {
-                            $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
-                            verifig = false;
-                            return true;
-                        }
-                    });
-                    $.each(data.medKits, function (index,item) {
-                        /// <summary>检测套件是否满足库存条件</summary>
-                        if (item.reqQty > item.inventory) {
-                            if (!confirm("存在不满足库存数量的套件，请问是否继续提交？")) {
-                                verifig = false;
-                            }
-                            return false;
-                        }
-                    })
+                    //$.each(data.prodLns, function (index, item) {
+                    //    if (!item.medMaterias.length) {
+                    //        $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
+                    //        verifig = false;
+                    //        return true;
+                    //    }
+                    //});
+                    //$.each(data.medKits, function (index,item) {
+                    //    /// <summary>检测套件是否满足库存条件</summary>
+                    //    if (item.reqQty > item.inventory) {
+                    //        if (!confirm("存在不满足库存数量的套件，请问是否继续提交？")) {
+                    //            verifig = false;
+                    //        }
+                    //        return false;
+                    //    }
+                    //})
 
                     if (verifig) {
                         $ApiService.PostApi(ApiPath.Surgery.Process.submit, data, callback);
@@ -394,6 +394,10 @@ OMSApiService
                     /// <summary>//上一次手术信息（获取服务器端手术时间）</summary>
                     $ApiService.PostApi(ApiPath.Surgery.Process.findUserLastOrder, data, callback);
                 },
+                ProView:function (data,callback) {
+                    ///<summary>预览页面<summary>
+                    $ApiService.PostApi(ApiPath.Surgery.Process.proView,data,callback);
+                }
             },
             DataSources: {
                 /// <summary>手术订单数据源</summary>
@@ -411,7 +415,12 @@ OMSApiService
                     /// <summary>综合订单查询列表</summary>
                     $MessagService.loading("综合订单信息获取中，请稍等...");
                     $ApiService.PostApi(ApiPath.Surgery.DataSources.IntegratedOrderInquiry, data, callback);
-                }
+                },
+                GetOutBoundList: function (data, callback) {
+                    /// <summary>出库单查询列表</summary>
+                    console.log(data)
+                    $ApiService.PostApi(ApiPath.Surgery.DataSources.outBoundList, data, callback);
+                },
             }
         }
     })
@@ -1262,6 +1271,18 @@ OMSApiService
                         $MessagService.eorr("网络异常，请联系管理员！");
                     }
                 });
+            },
+            BasedaUploadFile: function (data, callback) {
+                /// <summary>基础数据上传附件</summary>
+                $MessagService.loading("附件上传中，请稍等...");
+                $ApiService.FromApi(ApiPath.Public.basedataload, data, function (rData) {
+                    if (!rData.code) {
+                        callback(rData);
+                        $MessagService.hide(1000);
+                    } else {
+                        $MessagService.eorr("网络异常，请联系管理员！");
+                    }
+                });;
             },
             GetEventList: function (data, callback) {
                 /// <summary>获取事件选择列表</summary>

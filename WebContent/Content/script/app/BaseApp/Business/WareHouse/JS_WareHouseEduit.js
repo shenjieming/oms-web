@@ -42,6 +42,9 @@ app.controller("WareHouseEduitController", function ($scope, $state, $local, $Ap
         },
         verification: function () {
             /// <summary>验证模块</summary>
+            $scope.whPageInfo.Info.wHProvinceCode = $scope.whPageInfo.Info.deliveryProvinceCode;
+            $scope.whPageInfo.Info.wHCityCode = $scope.whPageInfo.Info.deliveryCityCode;
+            $scope.whPageInfo.Info.wHDistrictCode = $scope.whPageInfo.Info.deliveryDistrictCode;
             var result = true;
             if (!$scope.whPageInfo.Info.wHName) {
                 $MessagService.caveat("请维护该仓库名称！");
@@ -60,9 +63,7 @@ app.controller("WareHouseEduitController", function ($scope, $state, $local, $Ap
         Save: function () {
             /// <summary>仓库组操作</summary>
             if ($scope.whPageInfo.verification()) {
-                $scope.whPageInfo.Info.wHProvinceCode = $scope.whPageInfo.Info.deliveryProvinceCode;
-                $scope.whPageInfo.Info.wHCityCode = $scope.whPageInfo.Info.deliveryCityCode;
-                $scope.whPageInfo.Info.wHDistrictCode = $scope.whPageInfo.Info.deliveryDistrictCode;
+
                 $Api.ManaWareHouse.Save($scope.whPageInfo.Info, function (rData) {
                     $MessagService.succ("仓库保存成功！");
                     $scope.goView('app.base.business.whmanagement');

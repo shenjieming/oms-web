@@ -9,7 +9,7 @@
         <div class="widget-box">
             <div class="widget-title bg_ly" data-toggle="collapse" href="#ViewBasicInformation">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5>物料信息</h5>
+                <h5>物料基本信息</h5>
             </div>
             <div class="widget-content nopadding collapse in" id="ViewBasicInformation">
                 <div class="control-group ">
@@ -17,10 +17,10 @@
                         货主名称：{{PageData.oIOrgCodeName}}
                     </label>
                     <label>
-                        品牌名称：{{PageData.medBrandCodeName}}
+                        品牌：{{PageData.medBrandCodeName}}
                     </label>
                     <label>
-                        产品线名称：{{PageData.medProdLnCodeName}}
+                        产品线：{{PageData.medProdLnCodeName}}
                     </label>
                 </div>
                 <div class="control-group">
@@ -31,72 +31,73 @@
                         物料类型：<span ng-bind="PageData.categoryByPlatformName"></span>
                     </label>
                     <label>
-                        应用范围：<span ng-bind="PageData.applyCommonType"></span>
+                        通用性：<span ng-bind="PageData.applyCommonType"></span>
                     </label>
                 </div>
                 <div class="control-group">
                     <label>
                         物料名称：<span ng-bind="PageData.medMIName"></span>
                     </label>
-                    <label style="width:60%;">物料全称：<span ng-bind="PageData.medMIFullName"></span></label>
-                </div>
-                <div class="control-group">
-                    <label>英文名称：<span ng-bind="PageData.medMINameEN"></span></label>
-                    <label style="width:60%;">英文全称：<span ng-bind="PageData.medMIFullNameEN"></span></label>
+                    <label>物料全称：<span ng-bind="PageData.medMIFullName"></span></label>
+                    <label>
+                        规格：<span ng-bind="PageData.specification"></span>
+                    </label>
                 </div>
                 <div class="control-group">
                     <label>
-                        物料规格：<span ng-bind="PageData.specification"></span>
+                        <span>扫描信息：</span>
+                        <span ng-bind="PageData.isScanSupported=='Y'?'支持':'不支持'"></span>|
+                        <span ng-bind="PageData.medMICodeScanned"></span>
                     </label>
+                    <label>
+                        无菌包装：<span ng-bind="PageData.disinfectionNeeded=='Y'?'是':'否'"></span>
+                    </label>
+                    <label>产品方向：<span ng-bind="PageData.directionName"></span> </label>
+                </div>
+                <div class="control-group">
                     <label>
                         物料型号：<span ng-bind="PageData.model"></span>
                     </label>
+                    <label>材料：<span ng-bind="PageData.materials"></span> </label>
+                    <label>使用说明：<span ng-bind="PageData.useInfo"></span></label>           
+                </div>
+                <div class="control-group">
                     <label>
                         物料单位：<span ng-bind="PageData.medMIUnit"></span>
                     </label>
-                </div>
-                <div class="control-group">
-                    <label>第一分类：<span ng-bind="PageData.medMIUserDefineClass1"></span> </label>
-                    <label>第二分类：<span ng-bind="PageData.medMIUserDefineClass2"></span></label>
-                    <label>第三分类：<span ng-bind="PageData.medMIUserDefineClass3"></span></label>
-                </div>
-                <div class="control-group">
-                    <label style="width:100%">
-                        <span>扫描信息：</span>
-                        <span ng-bind="PageData.isScanSupported=='Y'?'支持扫描':'不可扫描'"></span>|
-                        <span ng-bind="PageData.medMICodeScanned"></span>
+                    <label>
+                        有 效 期：<span ng-bind="PageData.effectiveControl=='Y'?'长期有效':'短期有效'"></span>
                     </label>
                 </div>
 
                 <div class="control-group ">
                     <label style="width:100%">
-                        <span ng-bind="PageData.remark"></span>
+                      备注：<span ng-bind="PageData.remark"></span>
                     </label>
                 </div>
             </div>
         </div>
-
         <div class="widget-box">
             <div class="widget-title bg_ly" data-toggle="collapse" href="#ViewCharacteristicInformation">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5>物料特性</h5>
+                <h5>物料附加信息</h5>
             </div>
             <div class="widget-content nopadding collapse in" id="ViewCharacteristicInformation">
+                <div class="control-group">
+                    <label>分类一：<span ng-bind="PageData.medMIUserDefineClass1"></span> </label>
+                    <label>分类二：<span ng-bind="PageData.medMIUserDefineClass2"></span></label>
+                    <label>分类三：<span ng-bind="PageData.medMIUserDefineClass3"></span></label>
+                </div>
+                <div class="control-group">
+                    <label>英文名称：<span ng-bind="PageData.medMINameEN"></span></label>
+                    <label style="width:60%;">英文全称：<span ng-bind="PageData.medMIFullNameEN"></span></label>
+                </div>
                 <div class="control-group ">
                     <label>
                         合格证联数：<span ng-bind="PageData.certMultiQty"></span> 联
                     </label>
                     <label style="width:60%">
                         注册证号：<span ng-bind="PageData.registryNo"></span>
-                    </label>
-                </div>
-                <div class="control-group">
-                    <label>产品方向：<span ng-bind="PageData.directionName"></span> </label>
-                    <label>
-                        消毒情况：<span ng-bind="PageData.disinfectionNeeded=='Y'?'需要消毒':'无菌包装'"></span>
-                    </label>
-                    <label>
-                        有 效 期：<span ng-bind="PageData.effectiveControl=='Y'?'长期有效':'短期有效'"></span>
                     </label>
                 </div>
                 <div class="control-group">
@@ -123,32 +124,27 @@
                         标准编码：<span ng-bind="PageData.standardCode3"></span>
                     </label>
                 </div>
-                <div class="control-group">
-                    <label style="width:100%;">材料说明：<span ng-bind="PageData.materials"></span> </label>
-                </div>
-                <div class="control-group">
-                    <label style="width:100%">使用说明：<span ng-bind="PageData.useInfo"></span></label>
-                </div>
+         
             </div>
         </div>
 
         <div class="widget-box">
             <div class="widget-title bg_ly" data-toggle="collapse" href="#ViewManufacturerInfo">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5>厂商信息</h5>
+                <h5>厂商原始信息</h5>
             </div>
             <div class="widget-content nopadding collapse in" id="ViewManufacturerInfo">
                 <div class="control-group ">
                     <label ng-if="false">
-                        厂商信息：<span ng-bind="PageData.medMnfcOrgCodeName"></span>
+                        厂商：<span ng-bind="PageData.medMnfcOrgCodeName"></span>
                     </label>
                     <label style="width:100%">
-                        物料编码：<span ng-bind="PageData.mnfcMedMICode"></span>
+                        编码：<span ng-bind="PageData.mnfcMedMICode"></span>
                     </label>
                 </div>
                 <div class="control-group">
-                    <label>物料名称：<span ng-bind="PageData.mnfcMedMIName"></span> </label>
-                    <label style="width:60%">物料全称：<span ng-bind="PageData.mnfcMedMIFullName"></span> </label>
+                    <label>名称：<span ng-bind="PageData.mnfcMedMIName"></span> </label>
+                    <label style="width:60%">全称：<span ng-bind="PageData.mnfcMedMIFullName"></span> </label>
                 </div>
                 <div class="control-group">
                     <label>英文名称：<span ng-bind="PageData.mnfcMedMINameEN"></span></label>
@@ -160,16 +156,11 @@
         <div class="widget-box">
             <div class="widget-title bg_ly">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5 data-toggle="collapse" href="#ViewImageInformation">图片信息</h5>
+                <h5 data-toggle="collapse" href="#ViewImageInformation">物料图片及附件</h5>
             </div>
             <div class="widget-content nopadding collapse in" id="ViewImageInformation">
                 <div class="control-group ">
-                    <div ng-img="img" ng-comp="{delImg:true}" ng-model="PageData.attachments.images"></div>
-                </div>
-                <div class="control-group">
-                    <label style="width:100%">
-                        图片说明：<span ng-bing="PageData.attachments.remark"></span>
-                    </label>
+                    <div ng-img="img" ng-comp="{delImg:true}" ng-model="PageData.attachmentForms[0].images"></div>
                 </div>
             </div>
         </div>

@@ -3,8 +3,8 @@
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
             手术订单
-            <span style="color: #0033FF">[<span ng-bind="sono"></span>]</span>
-            <span style="color: #FF3300">({<span ng-bind="PageData.statusName"></span>)</span>
+            <span style="color: #0033FF">【<span ng-bind="sono"></span>】</span>
+            <span style="color: #FF3300">（<span ng-bind="PageData.statusName"></span>）</span>
 
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
@@ -40,10 +40,10 @@
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" style="width:80%" href="#pro_AdditionalInformation">{{View.Competence.sign?"返库信息":"事件信息"}}</h5>
+                            <h5 data-toggle="collapse" style="width:80%" href="#pro_AdditionalInformation">返库信息</h5>
                             <a class="btn j_file_panel" href="javascript:void(0)">
                                 <i class="fa fa-image"></i>
-                                添加图片
+                                附件上传 
                                 <div ng-file="file" ng-model="file"></div>
                             </a>
                         </div>
@@ -58,20 +58,19 @@
                             </div>
                             <div class="control-group ">
                                 <label style="width:100%">
-                                    {{View.Competence.apply?"返库":"事件"}}说明:
-                                    <input type="text" style="width:78%;" ng-model="Event.remark" placeholder="请输入本次操作的说明..." />
+                                    {{View.Competence.apply?"返库":"事件"}}说明：
+                                    <input type="text" style="width:78%;" ng-model="Event.remark" placeholder="请输入返库额外说明，例：患者感染，请注意消毒后清点" />
                                 </label>
                             </div>
                             <div class="control-group ">
                                 <div ng-img-list="img" ng-comp="{delImg:true}" ng-model="Event.attachments.images"></div>
                                 <label style="opacity:0.5;width:100%;" ng-show="!Event.attachments.images.length">
-                                    添加点图片丰富您的订单吧，
-                                    最多支持上传5张图片
+                                    请上传术后相关资料，如医院计费单照片、术后反馈单照片...
                                 </label>
                             </div>
                             <div class="control-group">
                                 <label style="width:100%">
-                                    图片说明：<input type="text" style="width:78%;" placeholder="对您的图片说点什么吧..." ng-model="Event.attachments.remark" />
+                                    附件备注：<input type="text" style="width:78%;" placeholder="请输入附件额外说明" ng-model="Event.attachments.remark" />
                                 </label>
                             </div>
                         </div>
