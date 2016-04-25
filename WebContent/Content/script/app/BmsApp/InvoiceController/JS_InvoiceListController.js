@@ -5,9 +5,8 @@
 /// <reference path="../../../lib/angular-1.2.20/angular-route.js" />
 /// <reference path="../../../lib/jnDo_1.0/jnDo_1.0.js" />
 app.controller("InvoiceController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
-    /// <summary>对账单管理</summary>
-    console.log("对账单管理主程序运行");
-    $scope.title = "计费单对账";
+    /// <summary>票据管理</summary>
+    console.log("票据管理，主程序运行");
 
     $scope.Competence = {
         /// <summary>权限配置</summary>
@@ -15,23 +14,19 @@ app.controller("InvoiceController", function ($scope, $state, $local, $BMSApi, $
     }
 
     $scope.Integrated = {
-        //对账单列表
-        ReconciliationList: new Array(),
+        /// <summary>计费发票列表</summary>
+        InvoiceList: new Array(),
         DataQuery: function (data) {
             /// <summary>时间日期查询</summary>
-            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, createDateBegin: data.StartDay, createDateEnd: data.EndDay }); $scope.Integrated.GetBillList();
+            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, createDateBegin: data.StartDay, createDateEnd: data.EndDay }); $scope.Integrated.GetInvoiceList();
         },
         ClearWhere: function () {
             /// <summary>清空查询条件</summary>
             $.extend($scope.Pagein, { pageIndex: 1, searchValue: null, createDateBegin: null, createDateEnd: null });
         },
-        GetReconciliationList: function (param, isNew) {
-            /// <summary>获取对账单列表</summary>
-            $scope.Integrated.BillList = new Array(); if (isNew) { $scope.Integrated.ClearWhere(); };
-            var paramData = $.extend($scope.Pagein, param);
-            $BMSApi.PublicInfoService.GetReconciliationList(paramData, function (getResult) {
-                $scope.Pagein.total = getResult.total; $scope.Integrated.ReconciliationList = getResult.rows;
-            });
+        GetInvoiceList: function (param, isNew) {
+            /// <summary>获取计费发票列表</summary>
+            $scope.Integrated.InvoiceList = new Array(); if (isNew) { $scope.Integrated.ClearWhere(); };    var paramData = $.extend($scope.Pagein, param);     $BMSApi.PublicInfoService.GetInvoiceList(paramData, function (getResult) {     $scope.Pagein.total = getResult.total;    $scope.Integrated.InvoiceList = getResult.rows;   });
         }
     };
 
@@ -49,7 +44,7 @@ app.controller("InvoiceController", function ($scope, $state, $local, $BMSApi, $
         GoPageBySedRow: function (callback) {
             /// <summary>根据选择的列表调整页面</summary>
             $local.setValue("ORDERCOMP", $scope.Competence);
-            $local.CarriedSelectedRow($scope.Integrated.BillList, callback);
+            $local.CarriedSelectedRow($scope.Integrated.InvoiceList, callback);
         }
     }
 

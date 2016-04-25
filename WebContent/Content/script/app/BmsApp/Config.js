@@ -107,10 +107,10 @@ BmsApp
         $stateProvider
             .state("app.bms.rec.detail", {
                 /// <summary>对账单管理信息</summary>
-                url: "/detail",
+                url: "/detail/:hSOANo",
                 cache: false,
-                templateUrl: "" + Timestamp,
-                controller: "RecDetailController"
+                templateUrl: "View/BMS/Reconciliation/Operat/ReconciliationDetail.html?data=" + Timestamp,
+                controller: "RecInfoController"
             })
             .state("app.bms.rec.view", {
                 /// <summary>对账单管理视图</summary>
@@ -144,7 +144,9 @@ BmsApp
     .factory("$BmsMenuService", function ($BmsBillMenuService, $BmsReconciliationMenuService, $BmsInvoiceMenuService) {
         /// <summary>BMS系统菜单服务</summary>
         var service = new Array();
-        service.push($BmsBillMenuService); service.push($BmsReconciliationMenuService); service.push($BmsInvoiceMenuService);
+        //service.push($BmsBillMenuService);
+        service.push($BmsReconciliationMenuService);
+        //service.push($BmsInvoiceMenuService);
         return service;
     })
     .factory("$BmsBillMenuService", function () {

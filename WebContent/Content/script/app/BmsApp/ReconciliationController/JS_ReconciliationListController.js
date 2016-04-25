@@ -19,7 +19,7 @@ app.controller("ReconciliationController", function ($scope, $state, $local, $BM
         ReconciliationList: new Array(),
         DataQuery: function (data) {
             /// <summary>时间日期查询</summary>
-            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, createDateBegin: data.StartDay, createDateEnd: data.EndDay }); $scope.Integrated.GetBillList();
+            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, createDateBegin: data.StartDay, createDateEnd: data.EndDay }); $scope.Integrated.GetReconciliationList();
         },
         ClearWhere: function () {
             /// <summary>清空查询条件</summary>
@@ -44,7 +44,7 @@ app.controller("ReconciliationController", function ($scope, $state, $local, $BM
         },
         InitCompetence: function () {
             /// <summary>初始化权限</summary>
-            $scope.Competence = { modify: false, batchapproval: false, approval: false, unapproval: false, discard: false }
+            $scope.Competence = { add: false, modify: false, batchapproval: false, approval: false, unapproval: false, discard: false }
         },
         GoPageBySedRow: function (callback) {
             /// <summary>根据选择的列表调整页面</summary>
@@ -58,7 +58,33 @@ app.controller("ReconciliationController", function ($scope, $state, $local, $BM
     $scope.Pagein = { pageSize: 10, createDateBegin: null, createDateEnd: null, pageIndex: 1, callbake: function () { $scope.Integrated.GetBillList(); } }
 });
 
+app.controller("RecInfoController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
+    /// <summary>对账信息管理</summary>
+    console.log("对账管理-对账详情启动");
 
 
+
+    $scope.QueryService = {
+        /// <summary>对账管理，查询服务</summary>
+        GetReconciliationInfo: function (param) {
+            /// <summary>获取对账单明细</summary>
+
+        }
+
+    };
+
+
+});
+app.factory("$RecInfFactory", function ($BMSApi) {
+    /// <summary>对账管理服务平台工厂</summary>
+    var RecInfFactory = function (scope) {
+        /// <summary>对账管理服务器</summary>
+        var $scope = scope;
+
+
+
+    }
+    return RecInfFactory;
+});
 
 

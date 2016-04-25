@@ -4,7 +4,12 @@
             <header class="main-box-header clearfix">
                 <h2 class="pull-left">{{title}}</h2>
                 <span class="btn-group oms-btn-group" style="float:right;">
-                    <a class="btn btn-primary" ng-click=""><i class="fa fa-align-justify"></i> 计费详情</a>
+                    <a class="btn btn-primary" ng-if="Competence.add" ng-click=""><i class="fa fa-pencil"></i> 新建对账</a>
+                    <a class="btn btn-primary" ng-if="Competence.modify" ng-click=""> <i class="fa fa-clipboard"></i> 对账修改</a>
+                    <a class="btn btn-primary" ng-if="Competence.approval" ng-click=""><i class="fa fa-eye"></i> 审批对账</a>
+                    <a class="btn btn-primary" ng-if="Competence.unapproval" ng-click=""><i class="fa fa-eye"></i> 反审批</a>
+                    <a class="btn btn-primary" ng-if="Competence.discard" ng-click=""><i class="fa fa-eye"></i> 取消对账</a>
+                    <a class="btn btn-primary" ng-click=""><i class="fa fa-align-justify"></i> 对账详情</a>
                 </span>
                 <div class="input-group" ng-if="false" style="float:right;width:250px;margin-right:10px;">
                     <input type="text" class="form-control" placeholder="请输入计费单号或订单号"
@@ -34,12 +39,12 @@
                             <tr ng-repeat="row in Integrated.ReconciliationList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="PageControl.ViewBillByRow(row)">
                                 <td>{{$index+1}}</td>
                                 <td><span ng-bind="row.hSOANo"></span></td>
-                                <td><span ng-bind="row.hSOAHospitalNo"></span></td>
+                                <td><span ng-bind="row.hSOAHospitalNo?row.hSOAHospitalNo:'-'"></span></td>
                                 <td><span ng-bind="row.hSOASourceTypeName"></span></td>
                                 <td><span ng-bind="row.hPCodeName"></span></td>
                                 <td><span ng-bind="row.hSOAIssueDate"></span></td>
                                 <td><span ng-bind="row.hSOAIssueByName"></span></td>
-                                <td><span ng-bind="AppHelp.Data.GetDate(0,row.hSOADateFrom)"></span>~<span ng-bind="AppHelp.Data.GetDate(0,row.hSOADateTo)"></span></td>
+                                <td><span ng-bind="AppHelp.Data.GetDate(0,row.hSOADateFrom)"></span>至<span ng-bind="AppHelp.Data.GetDate(0,row.hSOADateTo)"></span></td>
                                 <td><span ng-bind="row.hSOAAmt"></span></td>
                                 <td><span ng-bind="row.sTATUSName"></span></td>
                             </tr>
