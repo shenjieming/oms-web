@@ -17,18 +17,15 @@ app.directive("ngSelectBase", function ($Api, $MessagService) {
                 GetQueryServer: function (callback) {
                     /// <summary>获取请求服务</summary>
                     switch ($scope.ngSelectBase) {
-                        case "hosptail":
-                            this.BaseQuseyService;
-                            break;
-                        case "":
-                            break;
-                        default:
-                            break;
-
+                        //医院下拉列表
+                        case "hosptail": this.BaseQuseyService = $Api.HospitalService.GetHospital; break;
+                            //科室下拉列表
+                        case "sections": this.BaseQuseyService = $Api.HospitalService.GetSections; break;
+                            //医院下拉列表
+                        case "doctors": this.BaseQuseyService = $Api.HospitalService.GetDoctors; break;
+                        default: this.BaseQuseyService = $Api.HospitalService.GetHospital; break;
                     }
-
                 }
-
             };
 
             //获取请求的基础数据访问服务，请求数据源
