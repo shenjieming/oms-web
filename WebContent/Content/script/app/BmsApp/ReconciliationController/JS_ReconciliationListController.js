@@ -48,12 +48,23 @@ app.controller("ReconciliationController", function ($scope, $state, $local, $BM
         },
         GoPageBySedRow: function (callback) {
             /// <summary>根据选择的列表调整页面</summary>
-            $local.setValue("ORDERCOMP", $scope.Competence);
-            $local.CarriedSelectedRow($scope.Integrated.BillList, callback);
+            $local.setValue("ORDERCOMP", $scope.Competence); $local.CarriedSelectedRow($scope.Integrated.ReconciliationList, callback);
         },
-        AddNewData: function () {
-            /// <summary>添加新的对账单</summary>
-            $scope.goView("");
+        GoDetailPage: function (row) {
+            /// <summary>前往对账操作明细页面</summary>
+            $scope.goView("app.bms.rec.detail", row);
+        },
+        GoViewPage: function (row) {
+            /// <summary>前往对账明细视图页面</summary>
+            $scope.goView("app.bms.rec.view", row);
+        },
+        GoViewByDetail: function () {
+            /// <summary>根据对账明细前往对账详情页面</summary>
+            $scope.PageControl.GoPageBySedRow($scope.PageControl.GoViewPage);
+        },
+        EditDetail: function () {
+            /// <summary>编辑对账数据</summary>
+            $scope.PageControl.GoPageBySedRow($scope.PageControl.GoDetailPage);
         }
     }
 
@@ -65,8 +76,7 @@ app.controller("ReconciliationController", function ($scope, $state, $local, $BM
 app.controller("RecInfoController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
     /// <summary>对账信息管理</summary>
     console.log("对账管理-对账详情启动");
-
-
+    $scope.RecInfo = { detail: new Array(), images: new Array() }
 
     $scope.QueryService = {
         /// <summary>对账管理，查询服务</summary>
@@ -74,8 +84,8 @@ app.controller("RecInfoController", function ($scope, $state, $local, $BMSApi, $
             /// <summary>获取对账单明细</summary>
 
         }
-
     };
+
 
 
 });
@@ -85,7 +95,10 @@ app.factory("$RecInfFactory", function ($BMSApi) {
         /// <summary>对账管理服务器</summary>
         var $scope = scope;
 
-
+        this.GetNewRecMapping = function () {
+            /// <summary>获取新的的对账单映射</summary>
+            return { detail: new Array(), images: new Array() };
+        }
 
     }
     return RecInfFactory;
