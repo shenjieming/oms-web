@@ -160,7 +160,7 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
             if (callback) {
                 callback(rowData);
             } else {
-                $state.go(view, { sono: rowData.sONo });
+                $scope.goView(view, { sono: rowData.sONo });
             }
         } else {
             $MessagService.caveat("请选择一条订单数据！");
@@ -170,7 +170,7 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
     $scope.ProcessingOrders = function (sono) {
         /// <summary>处理订单</summary>
         $local.setValue("ORDERCOMP", { dealwith: true });
-        $state.go("app.oms.stock.dealpage", { sono: sono });
+        $scope.goView("app.oms.stock.dealpage", { sono: sono });
     }
 
     $scope.Additional = function () {
@@ -180,7 +180,7 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
 
     $scope.addStock = function () {
         /// <summary>添加备货下单</summary>
-        $state.go("app.oms.stock.single", { sono: "" });
+        $scope.goView("app.oms.stock.single", { sono: "" });
     }
 
     $scope.editStock = function (sono) {
@@ -238,7 +238,7 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
     $scope.showView = function (sono) {
         /// <summary>查看备货订单</summary>
         $local.setValue("ORDERCOMP", {});
-        $state.go("app.oms.stock.view", { sono: sono });
+        $scope.goView("app.oms.stock.view", { sono: sono });
     }
 
     /*页面操作End*/
@@ -334,7 +334,7 @@ app.controller("StockSingleController", function ($scope, $state, $local, $Api, 
                 /// <summary>保存备货订单</summary>
                 setTimeout(function () {
                     $MessagService.succ("订单保存成功，订单号：" + rData);
-                    $state.go("app.oms.stock.draft");
+                    $scope.goView("app.oms.stock.draft");
                 }, 500);
             });
         },
@@ -344,7 +344,7 @@ app.controller("StockSingleController", function ($scope, $state, $local, $Api, 
                 /// <summary>提交备货订单</summary>
                 setTimeout(function () {
                     $MessagService.succ("订单" + rData + "提交成功");
-                    $state.go("app.oms.stock.list");
+                    $scope.goView("app.oms.stock.list");
                 }, 500);
             });
         },

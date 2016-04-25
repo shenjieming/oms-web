@@ -335,7 +335,7 @@ app.controller("SingleController", function ($rootScope,$scope, $state, $local, 
                     /// <summary>保存手术订单</summary>
                     $MessagService.succ("订单保存成功，订单号：" + rData);
                     setTimeout(function () {
-                        $state.go("app.oms.order.draft");
+                        $scope.goView("app.oms.order.draft");
                     }, 500);
                 });
             }
@@ -347,7 +347,7 @@ app.controller("SingleController", function ($rootScope,$scope, $state, $local, 
                     /// <summary>提交手术订单</summary>
                     $MessagService.succ("订单" + rData + "提交成功");
                     setTimeout(function () {
-                        $state.go("app.oms.order.orderlist");
+                        $scope.goView("app.oms.order.orderlist");
                     }, 500);
                 });
             }

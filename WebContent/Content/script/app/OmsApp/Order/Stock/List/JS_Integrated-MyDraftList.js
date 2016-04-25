@@ -19,7 +19,7 @@ app.controller("StockMyDraftListController", function ($scope, $state, $local, $
     $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
     $scope.showView = function (sono) {
         /// <summary>查看备货订单</summary>
-        $state.go("app.stock.single", { sono: sono });
+        $scope.goView("app.stock.single", { sono: sono });
     }
     $scope.Integrated.GetStockList({ opt: "INSTK_MYORDER_DRAFT" });
 });

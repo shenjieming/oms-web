@@ -22,13 +22,13 @@ app.controller("WareHouseListController", function ($scope, $state, $local, $Api
     $scope.Service = {
         Add: function () {
             /// <summary>仓库新增</summary>
-            $state.go("app.base.business.whmanagementEduit", { whopt: "" });
+            $scope.goView("app.base.business.whmanagementEduit", { whopt: "" });
         },
         Edit: function () {
             /// <summary>仓库编辑</summary>
             var whopt = $local.getSelectedRow($scope.WareHouseList.info)
             if (whopt) {
-                $state.go("app.base.business.whmanagementEduit", { whopt: whopt.orgCode });
+                $scope.goView("app.base.business.whmanagementEduit", { whopt: whopt.orgCode });
             } else {
                 $MessagService.caveat("请选择一条编辑的仓库！")
             }
@@ -38,7 +38,7 @@ app.controller("WareHouseListController", function ($scope, $state, $local, $Api
             /// <summary>仓库详情</summary>
             var whopt = row ? row : $local.getSelectedRow($scope.WareHouseList.info);
             if (whopt) {
-                $state.go("app.base.business.whmanagementView", { whopt: whopt.orgCode });
+                $scope.goView("app.base.business.whmanagementView", { whopt: whopt.orgCode });
             } else {
                 $MessagService.caveat("请选择一条查看的仓库！")
             }

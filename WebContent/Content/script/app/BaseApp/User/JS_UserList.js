@@ -13,7 +13,7 @@ app.controller("UserListController", function ($scope, $state, $local, $Api, $Me
         /// <summary>用户详情操作</summary>
         Add: function () {
             /// <summary>新增用户</summary>
-            $state.go("app.base.comp.user.detail");
+            $scope.goView("app.base.comp.user.detail");
         },
         Edit: function () {
             /// <summary>编辑用户</summary
@@ -21,7 +21,7 @@ app.controller("UserListController", function ($scope, $state, $local, $Api, $Me
             if (!$scope.getSelectedRow()) {
                 $MessagService.caveat("请选择一条数据");
             } else {
-                $state.go("app.base.comp.user.detail", { accId: accId.loginAccountId });
+                $scope.goView("app.base.comp.user.detail", { accId: accId.loginAccountId });
             }
         },
     };
@@ -40,7 +40,7 @@ app.controller("UserListController", function ($scope, $state, $local, $Api, $Me
         View: function (row) {
             /// <summary>查看用户详情</summary 
             var accId = $scope.getSelectedRow();   // 选中用户信息   
-            $state.go("app.base.comp.user.view", { accId: accId.loginAccountId });
+            $scope.goView("app.base.comp.user.view", { accId: accId.loginAccountId });
         }
     }
     $scope.UserInfo = {

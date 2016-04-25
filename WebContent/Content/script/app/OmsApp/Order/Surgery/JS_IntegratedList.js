@@ -21,7 +21,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             if (callback) {
                 callback(rowData);
             } else {
-                $state.go(view, { sono: rowData.sONo });
+                $scope.goView(view, { sono: rowData.sONo });
             }
         } else {
             $MessagService.caveat("请选择一条订单数据！");
@@ -31,7 +31,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
     $scope.ProcessingOrders = function (sono) {
         /// <summary>处理订单</summary>
         $local.setValue("ORDERCOMP", { dealwith: true });
-        $state.go("app.oms.order.dealpage", { sono: sono });
+        $scope.goView("app.oms.order.dealpage", { sono: sono });
     }
 
     $scope.Additional = function () {
@@ -41,7 +41,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
 
     $scope.addSurgery = function () {
         /// <summary>添加手术下单</summary>
-        $state.go("app.oms.order.single", { sono: "" });
+        $scope.goView("app.oms.order.single", { sono: "" });
     }
 
     $scope.editSurgery = function (sono) {
@@ -98,7 +98,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
     $scope.showView = function (sono) {
         /// <summary>查看手术订单</summary>
         $local.setValue("ORDERCOMP", {});
-        $state.go("app.oms.order.view", { sono: sono });
+        $scope.goView("app.oms.order.view", { sono: sono });
     }
 
     /*页面操作End*/
@@ -437,7 +437,7 @@ app.controller("ApprovalListController", function ($scope, $state, $local, $Api,
     $scope.showView = function (sono) {
         /// <summary>查看手术订单</summary>
         $local.setValue("ORDERCOMP", { approval: true });
-        $state.go("app.oms.order.view", { sono: sono });
+        $scope.goView("app.oms.order.view", { sono: sono });
     }
 })
 app.controller("BackListController", function ($scope, $state, $local, $Api, $MessagService) {
@@ -463,7 +463,7 @@ app.controller("DealWithListController", function ($scope, $state, $local, $Api,
     $scope.showView = function (sono) {
         /// <summary>查看手术订单</summary>
         $local.setValue("ORDERCOMP", {});
-        $state.go("app.oms.order.view", { sono: sono });
+        $scope.goView("app.oms.order.view", { sono: sono });
     }
 
 })
@@ -487,7 +487,7 @@ app.controller("MyDraftListController", function ($scope, $state, $local, $Api, 
     };
     $scope.showView = function (sono) {
         /// <summary>查看手术订单</summary>
-        $state.go("app.oms.order.single", { sono: sono });
+        $scope.goView("app.oms.order.single", { sono: sono });
     }
     //条件清空
     $scope.Integrated.ClearWhere(true);
@@ -516,6 +516,6 @@ app.controller("SignListController", function ($scope, $state, $local, $Api, $Me
     $scope.showView = function (sono) {
         /// <summary>查看手术订单</summary>
         $local.setValue("ORDERCOMP", { sign: true });
-        $state.go("app.oms.order.view", { sono: sono });
+        $scope.goView("app.oms.order.view", { sono: sono });
     }
 })

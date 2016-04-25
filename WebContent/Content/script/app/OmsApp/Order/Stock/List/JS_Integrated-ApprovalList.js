@@ -23,6 +23,6 @@ app.controller("StockApprovalListController", function ($scope, $state, $local, 
     $scope.showView = function (sono) {
         /// <summary>查看备货订单</summary>
         $local.setValue("ORDERCOMP", { approval: true });
-        $state.go("app.stock.view", { sono: sono });
+        $scope.goView("app.stock.view", { sono: sono });
     }
 });
