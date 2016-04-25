@@ -881,15 +881,18 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
                         $MessagService.loading("正在生成拣货任务...");
                         setTimeout(function () {
                             $MessagService.loading("正在生成拣货单 ...");
+                            setTimeout(function(){
+                                $MessagService.loading("正在生成打印 ...");
+                            },6000)
                             setTimeout(function () {
                                 $scope.OutboundOrdermodel.hide();
                                 window.open("http://wmstest.med-log.cn/Reports/Pages/Report.aspx?ItemPath=%2freport+project1%2fpicklist");
                                 $scope.goLastPage();
-                            }, 5000);
-                        }, 10000);
-                    }, 10000);
-                }, 10000);
-            }, 10000);
+                            }, 6000);
+                        }, 6000);
+                    }, 6000);
+                }, 6000);
+            }, 6000);
 
         },
     }
