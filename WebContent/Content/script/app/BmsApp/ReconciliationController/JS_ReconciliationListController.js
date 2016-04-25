@@ -50,6 +50,10 @@ app.controller("ReconciliationController", function ($scope, $state, $local, $BM
             /// <summary>根据选择的列表调整页面</summary>
             $local.setValue("ORDERCOMP", $scope.Competence);
             $local.CarriedSelectedRow($scope.Integrated.BillList, callback);
+        },
+        AddNewData: function () {
+            /// <summary>添加新的对账单</summary>
+            $scope.goView("");
         }
     }
 

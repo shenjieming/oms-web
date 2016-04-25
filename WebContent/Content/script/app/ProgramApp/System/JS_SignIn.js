@@ -20,7 +20,7 @@ app.controller("SignInController", function ($scope, $state, $local, $Api, $Mess
                 console.log($local.getValue("USER"));
                 setTimeout(function () {
                     $scope.$apply(function () {
-                        $state.go('app.home');
+                        $scope.goView("app.home");
                     });
                 }, 500)
             }, function () { });
