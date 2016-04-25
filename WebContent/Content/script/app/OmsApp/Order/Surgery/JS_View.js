@@ -872,9 +872,24 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
             };//去重
         },
         PrintCancel: function () {
-               $scope.OutboundOrdermodel.hide();
-            window.open("http://wmstest.med-log.cn/Reports/Pages/Report.aspx?ItemPath=%2freport+project1%2fpicklist");
-            $scope.goLastPage();
+            $MessagService.loading("正在处理订单信息.....");
+            setTimeout(function () {
+                $MessagService.loading("正在生成出库单...");
+                setTimeout(function () {
+                    $MessagService.loading("正在提交仓库信息...");
+                    setTimeout(function () {
+                        $MessagService.loading("正在生成拣货任务...");
+                        setTimeout(function () {
+                            $MessagService.loading("正在生成拣货单 ...");
+                            setTimeout(function () {
+                                $scope.OutboundOrdermodel.hide();
+                                window.open("http://wmstest.med-log.cn/Reports/Pages/Report.aspx?ItemPath=%2freport+project1%2fpicklist");
+                                $scope.goLastPage();
+                            }, 5000);
+                        }, 10000);
+                    }, 10000);
+                }, 10000);
+            }, 10000);
 
         },
     }
