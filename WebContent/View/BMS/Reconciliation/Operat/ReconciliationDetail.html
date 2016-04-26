@@ -10,8 +10,6 @@
         </span>
     </div>
     <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
-    <div ng-doctors="" ng-model="BillData" ng-operat="Module.HospitalConfig"></div>
-    <div ng-bms-materials="Module.MateriaConfig"></div>
     <div>
         <div class="tab-content">
             <div>
@@ -19,13 +17,35 @@
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" href="#SurgeryInformation">基础对账信息</h5>
+                            <h5 data-toggle="collapse" href="#Information">基础对账信息</h5>
                         </div>
-                        <div id="SurgeryInformation" class="widget-content nopadding collapse in">
+                        <div id="Information" class="widget-content nopadding collapse in">
                             <div class="control-group">
                                 <div class="Vessel">
-                                    <span class="required">*</span>
-                                    对账医院：<span ng-select-base="hosptail" ng-model=""></span>
+                                    <span class="required">*</span>                                    
+                                    对账医院：<span ng-select-base="hosptail" ng-model="RecInfo.hPCode" ng-param="{}"></span>
+                                </div>
+                                <div class="Vessel Second">
+                                    <span style="float:left;line-height:35px;">对账来源：</span>
+                                    <span class="input-group">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-info dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                {{PageData.isScanSupported=="Y"?"支持":"不支持" }}
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="javascript:void(0)">支持</a></li>
+                                                <li><a href="javascript:void(0)">不支持</a></li>
+                                            </ul>
+                                        </span>
+                                        <input type="text" class="Input" placeholder="请输入对账来源票据单号" >
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <div class="Vessel">
 
                                 </div>
                             </div>
@@ -35,10 +55,11 @@
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" style="width:80%;" href="#MaterialsInfo">对账明细</h5>
-                            <a class="btn" href="javascritp:void(0)" ng-click=""><i class="fa fa-folder-open"></i>选择计费单</a>
+                            <h5 data-toggle="collapse" style="width:80%;" href="#BillInfo">对账明细</h5>
+                            <a class="btn" href="javascript:void(0)" ng-if="!RecInfo.hPCode"><i class="fa fa-folder-open"></i> 请选择对账医院</a>
+                            <a class="btn" href="javascritp:void(0)" ng-if="RecInfo.hPCode" ng-click=""><i class="fa fa-folder-open"></i> 选择计费单</a>
                         </div>
-                        <div id="MaterialsInfo" class="widget-content nopadding collapse in">
+                        <div id="BillInfo" class="widget-content nopadding collapse in">
                             <div ng-show="BillData.detail.length>0" class="main-box-body clearfix" style="padding: 15px; max-height: 450px; overflow: auto; width: 100%;">
                                 <div class="table-responsive">
                                     <table style="width:1400px; min-width:100%; max-width:2000px;" class="table table-bordered tab-striped" st-table="BillData.detail" st-safe-src="rowCollection">

@@ -14,7 +14,7 @@ BmsApp
         $stateProvider
             .state("app.bms.bill", {
                 /// <summary>计费管理信息</summary>
-                url: "/bill", template: "<div ui-view></div>", abstract: true, controller: "BillController",
+                url: "/bill", template: "<div ui-view></div>", abstract: true, controller: "BillController",resolve:app.resolve, loadJs: ["Content/script/app/BmsApp/BillController/JS_BillListController.js"]
             })
             .state("app.bms.bill.pending", {
                 /// <summary>待计费订单列表</summary>
@@ -70,7 +70,7 @@ BmsApp
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         $stateProvider
             .state("app.bms.rec", {  /// <summary>对账管理信息</summary>
-                url: "/rec", cache: false, template: "<div ui-view></div>", abstract: true, controller: "ReconciliationController",
+                url: "/rec", cache: false, template: "<div ui-view></div>", abstract: true, controller: "ReconciliationController", resolve: app.resolve, loadJs: [ "Content/script/app/BmsApp/ReconciliationController/JS_ReconciliationListController.js" ]
             })
              .state("app.bms.rec.complex", {
                  /// <summary>对账单综合查询</summary>
@@ -125,7 +125,7 @@ BmsApp
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         $stateProvider
             .state("app.bms.invoice", {  /// <summary>发票管理信息</summary>
-                url: "/invoice",     cache: false,     template: "<div ui-view></div>",    abstract: true,   controller: "InvoiceController"
+                url: "/invoice", cache: false, template: "<div ui-view></div>", abstract: true, controller: "InvoiceController", resolve: app.resolve, loadJs: ["Content/script/app/BmsApp/InvoiceController/JS_InvoiceListController.js" ]
             })
             .state("app.bms.invoice.complex", {/// <summary>发票综合查询管理</summary>
                 url: "/complex",    cache: false,   templateUrl: "View/BMS/Invoice/View/InvoiceList.html?data=" + Timestamp,    controller: "InvoiceComplexListController",  loadJs: ["Content/script/app/BmsApp/InvoiceController/ListController/JS_InvoiceComplex.js"],   resolve: app.resolve
