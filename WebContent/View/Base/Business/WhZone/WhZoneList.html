@@ -10,6 +10,11 @@
                     <a class="btn btn-primary" ng-click="WhzoneView.GETWhzoneView()"><i class="fa fa-align-justify">详情</i></a>
                     <a class="btn btn-danger"  ng-click="WhZoneList.DeleteWhzone()"><i class="fa fa-times"></i> 删除</a>
                 </span>
+                <div class="input-group" style="float:right;width:250px;margin-right:10px;">
+                    <input type="text" class="form-control" placeholder="请输入库区编码或名称"
+                           style="padding:8px;" ng-model="Pagein.searchValue" ng-keyup="WhZoneList.UpEnter($event)">
+                    <a class="input-group-addon" href="javascript:void(0)" ng-click="WhZoneList.QueryWhzone()"><i class="fa fa-search"></i></a>
+                </div>
             </header>
             <div class="main-box-body clearfix">
                 <div class="table-responsive list-box" style="min-height:450px">

@@ -31,8 +31,17 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
                 $MessagService.caveat("请选择一条库区信息");
                 $scope.WhZoneList.GetWhZoneList();
             }
-        }
-
+        },
+        QueryWhzone:function(){
+            $scope.Pagein.pageIndex = 1;
+            $scope.WhZoneList.GetWhZoneList();
+        },
+        UpEnter: function (e) {
+            var keycode = window.event ? e.keyCode : e.which;
+            if (keycode == 13) {
+                $scope.WhZoneList.QueryWhzone();
+            }
+        },
     },
     $scope.WhzoneView={
         info:[],
@@ -128,6 +137,7 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
     $scope.Pagein = {
             pageSize: 10,
             pageIndex: 1,
+            searchValue:null,
             callbake: function () {
                 $scope.Load();
             }
