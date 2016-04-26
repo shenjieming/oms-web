@@ -1,4 +1,4 @@
-﻿<div class="row" ng-controller="ReconciliationDetailController">
+﻿<div class="row" ng-controller="ReconciliationDetailController" ng-init="Service.Init()">
     <div class="tools">
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
@@ -22,31 +22,66 @@
                         <div id="Information" class="widget-content nopadding collapse in">
                             <div class="control-group">
                                 <div class="Vessel">
-                                    <span class="required">*</span>                                    
+                                    <span class="required">*</span>
                                     对账医院：<span ng-select-base="hosptail" ng-model="RecInfo.hPCode" ng-param="{}"></span>
                                 </div>
                                 <div class="Vessel Second">
-                                    <span style="float:left;line-height:35px;">对账来源：</span>
+                                    <span style="float:left;line-height:35px;">对账信息：</span>
                                     <span class="input-group">
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-info dropdown-toggle"
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                {{PageData.isScanSupported=="Y"?"支持":"不支持" }}
+                                                <span ng-bind="RecInfo.hSOASourceTypeName"></span>
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a href="javascript:void(0)">支持</a></li>
-                                                <li><a href="javascript:void(0)">不支持</a></li>
+                                                <li ng-repeat="row in Service.OrderSource">
+                                                    <a href="javascript:void(0)" ng-click="Service.ChangeOrderSource(row)" ng-bind="row.text"></a>
+                                                </li>
                                             </ul>
                                         </span>
-                                        <input type="text" class="Input" placeholder="请输入对账来源票据单号" >
+                                        <input type="text" class="Input" placeholder="请选择对账单来源后输入对账单票据号">
                                     </span>
+                                </div>
+                            </div>
+
+                            <div class="control-group ">
+                                <div class="Vessel">
+                                    对账类型：<span ng-dictionary="HSOATP" ng-model="RecInfo.hSOAType"></span>
+                                </div>
+                                <div class="Vessel Second">
+                                    <span class="Text">对账时间：</span>
+                                    <span class="Left" ng-show-data="" ng-model="RecInfo.hSOADateFrom"></span>
+                                    <div class="Text"> 至</div>
+                                    <span class="Left" ng-show-data="" ng-model="RecInfo.hSOADateTo"></span>
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <div class="Vessel">
+                                    制 单 人：<input type="text" ng-model="RecInfo.hSOAIssueByName" />
+                                </div>
+                                <div class="Vessel">
+                                    <span class="Text">制单日期：</span>
+                                    <span class="Left" ng-show-data="" ng-model="RecInfo.hSOAIssueDate"></span>
+                                </div>
+                            </div>
 
+                            <div class="control-group">
+                                <div class="Vessel All">
+                                    医院备注：<input type="text" class="Input" ng-model="RecInfo.hSOAHospitalRemark" placeholder="请输入医院对账单的备注说明" />
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <div class="Vessel All">
+                                    业务说明：<input type="text" class="Input" ng-model="RecInfo.hSOABizDesc" placeholder="请输入处理业务说明" />
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <div class="Vessel All">
+                                    备注说明：<input type="text" class="Input" ng-model="RecInfo.hSOARemark" placeholder="请输入对账单备注说明" />
                                 </div>
                             </div>
                         </div>
@@ -65,37 +100,33 @@
                                     <table style="width:1400px; min-width:100%; max-width:2000px;" class="table table-bordered tab-striped" st-table="BillData.detail" st-safe-src="rowCollection">
                                         <thead>
                                             <tr>
-                                                <th><span>医院物资编码</span></th>
-                                                <th><span>耗材名称</span> </th>
-                                                <th><span>耗材品牌</span> </th>
-                                                <th><span>规格 </span> </th>
-                                                <th><span>材料</span> </th>
-                                                <th><span>使用批次</span> </th>
-                                                <th><span>计费数量</span></th>
-                                                <th><span>耗材单价</span></th>
-                                                <th><span>患者单价(+5%)</span></th>
+                                                <th><span>序号</span></th>
+                                                <th><span>计费单编号</span> </th>
+                                                <th><span>医院物资编码</span> </th>
+                                                <th><span>耗材名称 </span> </th>
+                                                <th><span>品牌</span> </th>
+                                                <th><span>规格</span> </th>
+                                                <th><span>材料</span></th>
+                                                <th><span>待对账数</span></th>
+                                                <th><span>对账数</span></th>
                                                 <th><span>有效日期</span></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="row in BillData.detail">
-                                                <td><input type="text" ng-model="row.dHMedMaterialInternalNo" placeholder="请输入医院物资编码" /></td>
-                                                <td><input type="text" ng-model="row.dHMMName" placeholder="请输入物资名称" /></td>
-                                                <td><span ng-bind="row.medMaterialBrandName"></span> </td>
-                                                <td><input type="text" ng-model="row.dHMMSpecification" placeholder="请输入物资规格" /> </td>
-                                                <td><input type="text" ng-model="row.dHMMMaterials" placeholder="请输入物资材料" /></td>
-                                                <td><input type="text" ng-model="row.lotSerial" placeholder="请输入物资批次" /></td>
-                                                <td><input type="number" ng-model="row.qty" style="width:60px;" placeholder="请输入计费数量" /></td>
-                                                <td><input type="number" ng-model="row.hPUnitEstPrice" ng-change="Service.Compute.HpUnitEstPrice(row)" placeholder="请输入耗材单价" onclick="this.select()" style="width:100px;" /></td>
-                                                <td><input type="number" ng-model="row.patientUnitEstPrice" onclick="this.select()" style="width:100px;" placeholder="请输入销售单价" /></td>
-                                                <td><span ng-bind="row.medMaterialEffectiveDateFrom?row.medMaterialEffectiveDateFrom:row.effectiveToDate"></span></td>
+                                            <tr ng-repeat="row in RecInfo.detail">
+                                                <td>
+                                                    <span ng-bind="$index"></span>
+                                                    <input type="hidden" ng-model="row.hOFNLineSeqNo" />
+                                                </td>
+                                                <td><span ng-bind="row.text"></span></td>
+
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                             <div class="control-group " ng-if="!BillData.detail.length>0">
-                                <label style="width:100%;color:red;" ng-click="">请选择计费单对账  </label>
+                                <label style="width:100%;color:red;" ng-click="">请选择计费单对账</label>
                             </div>
                         </div>
                     </div>

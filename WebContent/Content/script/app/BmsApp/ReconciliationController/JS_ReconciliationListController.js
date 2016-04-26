@@ -73,33 +73,51 @@ app.controller("ReconciliationController", function ($scope, $state, $local, $BM
     $scope.Pagein = { pageSize: 10, createDateBegin: null, createDateEnd: null, pageIndex: 1, callbake: function () { $scope.Integrated.GetBillList(); } }
 });
 
-app.controller("RecInfoController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
+app.controller("RecInfoController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams, $RecInfFactory) {
     /// <summary>对账信息管理</summary>
     console.log("对账管理-对账详情启动");
     $scope.RecInfo = { detail: new Array(), images: new Array() }
-
+    $scope.Factory = $RecInfFactory($scope);
     $scope.QueryService = {
         /// <summary>对账管理，查询服务</summary>
         GetReconciliationInfo: function (param) {
             /// <summary>获取对账单明细</summary>
 
+        },
+        GetRecByMappingData: function (data) {
+            /// <summary>根据映射数据获取对账信息</summary>
+            $.extend($scope.RecInfo, data)
         }
     };
 
+    if ($stateParams.hSOANo) {
 
-
+    } else {
+        $scope.QueryService.GetRecByMappingData($scope.Factory.GetNewRecMapping());
+    }
 });
-app.factory("$RecInfFactory", function ($BMSApi) {
+app.factory("$RecInfFactory", function ($BMSApi,$AppHelp) {
     /// <summary>对账管理服务平台工厂</summary>
     var RecInfFactory = function (scope) {
         /// <summary>对账管理服务器</summary>
-        var $scope = scope;
+        this.$scope = scope;
 
         this.GetNewRecMapping = function () {
             /// <summary>获取新的的对账单映射</summary>
-            return { detail: new Array(), images: new Array() };
+            return {
+                hSOASourceType: "HSOASTHP",
+                hSOASourceTypeName: "医院",
+                hSOAType: "HSOATPNM",
+                hSOADateFrom: $AppHelp.Data.GetDate(30,null,3),
+                hSOADateTo: $AppHelp.Data.GetDate(0, null, 3),
+                hSOAIssueDate: $AppHelp.Data.GetDate(0, null, 3),
+                hSOAIssueByName: $scope.User.userInfo.userName,
+                detail: new Array(),
+                images: new Array()
+            };
         }
 
+        return this;
     }
     return RecInfFactory;
 });
