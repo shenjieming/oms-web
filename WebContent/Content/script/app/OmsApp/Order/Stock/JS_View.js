@@ -634,7 +634,9 @@ app.controller("StockDealwithController", function ($scope, $state, $local, $Api
             $scope.DealService.model.show();
         }
     }
-    $scope.DealService.model = { title: "备货单预览", width: 720, height: 800, buttons: { "提交": $scope.DealService.Submit, "返回": $scope.DealService.Hide } };
+    $scope.DealService.model = { title: "备货单预览", width: 720, height: 800, buttons: { "提交": $scope.DealService.Submit, "返回": $scope.DealService.Hide },open:function(){
+        $(".ui-dialog-title").html("订单 " + $scope.PageData.sONo + "备货清单确认")
+    } };
     $scope.TemplateService = {}
     $scope.AddressConfig = {
         fixed: function (rowInfo) {
