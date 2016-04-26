@@ -4,10 +4,7 @@ app.directive("ngApprovalBill", function ($BMSApi, $MessagService, $local, $AppH
     return {
         restrict: "EA",
         templateUrl: "Content/script/app/BmsApp/Directive/ui/ngApprovalBill.html?data=" + Timestamp,
-        scope: {
-            ngApprovalBill: "=",
-            ngModel: "="
-        },
+        scope: { ngApprovalBill: "=", ngModel: "=" },
         replace: true,
         link: function ($scope, element, attrs) {
 
@@ -15,25 +12,11 @@ app.directive("ngApprovalBill", function ($BMSApi, $MessagService, $local, $AppH
                 hOFNNo: $scope.ngModel.hOFNNo,
                 Approval: function (callback) {
                     /// <summary>计费单审批</summary>
-                    $BMSApi.BillService.Check($scope.ngModel, function (rData) {
-                        $MessagService.succ("计费单审批成功！");
-                        if (callback) { callback(); }
-                        $scope.ngApprovalBill.hide();
-                    });
+                    $BMSApi.BillService.Check($scope.ngModel, function (rData) { $MessagService.succ("计费单审批成功！"); if (callback) { callback(); } $scope.ngApprovalBill.hide(); });
                 }
             }
 
-            var modelConfig = {
-                open: function () {
-                    /// <summary>弹出层打开事件</summary>
-                },
-                title: "计费单审批", width: "500", height: "350", buttons: {
-                    "确定": function () {
-                        $scope.Service.Approval($scope.ngApprovalBill.fixed);  
-                    },
-                    "关闭": function () { $scope.ngApprovalBill.hide(); }
-                }
-            }
+            var modelConfig = { title: "计费单审批", width: "500", height: "350", buttons: { "确定": function () { $scope.Service.Approval($scope.ngApprovalBill.fixed); }, "关闭": function () { $scope.ngApprovalBill.hide(); } } }
             $.extend($scope.ngApprovalBill, modelConfig);
 
         }
@@ -45,10 +28,7 @@ app.directive("ngAntiApprovalBill", function ($BMSApi, $MessagService, $local, $
     return {
         restrict: "EA",
         templateUrl: "Content/script/app/BmsApp/Directive/ui/ngUnApprovalBill.html?data=" + Timestamp,
-        scope: {
-            ngAntiApprovalBill: "=",
-            ngModel: "="
-        },
+        scope: { ngAntiApprovalBill: "=", ngModel: "=" },
         replace: true,
         link: function ($scope, element, attrs) {
 
@@ -56,26 +36,11 @@ app.directive("ngAntiApprovalBill", function ($BMSApi, $MessagService, $local, $
                 hOFNNo: $scope.ngModel.hOFNNo,
                 AntiApproval: function (callback) {
                     /// <summary>计费单反审批</summary>
-                    $BMSApi.BillService.AntiCheck($scope.ngModel, function (rData) {
-                        $MessagService.succ("计费单反审批成功！");
-                        if (callback) { callback(); }
-                        $scope.ngAntiApprovalBill.hide();
-                    });
+                    $BMSApi.BillService.AntiCheck($scope.ngModel, function (rData) { $MessagService.succ("计费单反审批成功！"); if (callback) { callback(); } $scope.ngAntiApprovalBill.hide(); });
                 }
             }
 
-            var modelConfig = {
-                open: function () {
-                    /// <summary>弹出层打开事件</summary>
-                },
-                title: "计费单反审批", width: "500", height: "350", buttons: {
-                    "确定": function () {
-                        $scope.Service.AntiApproval($scope.ngAntiApprovalBill.fixed);
-                    },
-                    "关闭": function () { $scope.ngAntiApprovalBill.hide(); }
-                }
-            }
-            $.extend($scope.ngAntiApprovalBill, modelConfig);
+            var modelConfig = { title: "计费单反审批", width: "500", height: "350", buttons: { "确定": function () { $scope.Service.AntiApproval($scope.ngAntiApprovalBill.fixed); }, "关闭": function () { $scope.ngAntiApprovalBill.hide(); } } }; $.extend($scope.ngAntiApprovalBill, modelConfig);
         }
     }
 });
@@ -86,10 +51,7 @@ app.directive("ngDisableBill", function ($BMSApi, $MessagService, $local, $AppHe
     return {
         restrict: "EA",
         templateUrl: "Content/script/app/BmsApp/Directive/ui/ngDisableBill.html?data=" + Timestamp,
-        scope: {
-            ngDisableBill: "=",
-            ngModel: "="
-        },
+        scope: {   ngDisableBill: "=",    ngModel: "="   },
         replace: true,
         link: function ($scope, element, attrs) {
 
@@ -97,25 +59,11 @@ app.directive("ngDisableBill", function ($BMSApi, $MessagService, $local, $AppHe
                 hOFNNo: $scope.ngModel.hOFNNo,
                 Disable: function (callback) {
                     /// <summary>计费单反审批</summary>
-                    $BMSApi.BillService.Disable($scope.ngModel, function (rData) {
-                        $MessagService.succ("计费单废弃成功！");
-                        if (callback) { callback(); }  $scope.ngDisableBill.hide();
-                    });
+                    $BMSApi.BillService.Disable($scope.ngModel, function (rData) { $MessagService.succ("计费单废弃成功！"); if (callback) { callback(); } $scope.ngDisableBill.hide(); });
                 }
             }
 
-            var modelConfig = {
-                open: function () {
-                    /// <summary>弹出层打开事件</summary>
-                },
-                title: "计费单反审批", width: "500", height: "350", buttons: {
-                    "确定": function () {
-                        $scope.Service.Disable($scope.ngDisableBill.fixed);
-                    },
-                    "关闭": function () { $scope.ngDisableBill.hide(); }
-                }
-            }
-            $.extend($scope.ngDisableBill, modelConfig);
+            var modelConfig = { title: "计费单反审批", width: "500", height: "350", buttons: { "确定": function () { $scope.Service.Disable($scope.ngDisableBill.fixed); }, "关闭": function () { $scope.ngDisableBill.hide(); } } }; $.extend($scope.ngDisableBill, modelConfig);
         }
     }
 });

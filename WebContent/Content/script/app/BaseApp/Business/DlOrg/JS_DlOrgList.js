@@ -24,13 +24,13 @@ app.controller("DlOrgListController", function ($scope, $state, $local, $Api, $M
     $scope.DlOrgJump = {
         Add: function () {
             /// <summary>经销商新增</summary>
-            $state.go("app.base.business.dlorganizationEduit");
+            $scope.goView("app.base.business.dlorganizationEduit");
         },
         Edit: function () {
             /// <summary>经销商编辑</summary>
             var dlopt = $local.getSelectedRow($scope.DlOrgList.info)
             if (dlopt) {
-                $state.go("app.base.business.dlorganizationEduit", { dlopt: dlopt.orgCode });
+                $scope.goView("app.base.business.dlorganizationEduit", { dlopt: dlopt.orgCode });
             } else {
                 $MessagService.caveat("请选择一条编辑的经销商");
             }       
@@ -40,7 +40,7 @@ app.controller("DlOrgListController", function ($scope, $state, $local, $Api, $M
             var dlopt = row ? row : $local.getSelectedRow($scope.DlOrgList.info);
             console.log(dlopt)
             if (dlopt) {
-                $state.go("app.base.business.dlorganizationView", { dlopt: dlopt.orgCode });
+                $scope.goView("app.base.business.dlorganizationView", { dlopt: dlopt.orgCode });
             }
             else {
                 $MessagService.caveat("请选择一条查看的经销商");

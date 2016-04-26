@@ -13,7 +13,7 @@ app.controller("StockMyDraftListController", function ($scope, $state, $local, $
 
     $scope.Competence = {
         modify: true,
-        submit:true
+        submit: true
     };
     //数据清空
     $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });

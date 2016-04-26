@@ -33,7 +33,7 @@
                                         <option value="">请选择货主...</option>
                                         <option ng-repeat="item in SelectInfo.OIorg.dic" value="{{item.id}}">{{item.text}}</option>
                                     </select>
-                                </div>                                
+                                </div>
                                 <div class="Vessel  ">
                                     状态：
                                     <select ng-model="Pagein.status" style="margin-left: -8px; min-width: 180px;">
@@ -66,7 +66,7 @@
                                         <option ng-repeat="item in SelectInfo.Doctor.dic" value="{{item.dTCode}}">{{item.wardDeptCodeName}}[{{item.dTName}}]</option>
                                     </select>
                                 </div>
-                             
+
                             </div>
                             <div class="control-group" ng-if="User.userInfo.orgType=='OI'">
                                 <div class="Vessel">
@@ -85,7 +85,7 @@
                                         <option value="">请选择经销商...</option>
                                         <option ng-repeat="item in SelectInfo.DLorg.dic" value="{{item.orgCode}}">{{item.dLName}}</option>
                                     </select>
-                                </div>                               
+                                </div>
                             </div>
                             <div class="control-group" ng-if="User.userInfo.orgType=='OI'">
                                 <div class="Vessel">
@@ -126,7 +126,7 @@
                                         <option ng-repeat="item in SelectInfo.DLorg.dic" value="{{item.orgCode}}">{{item.dLName}}</option>
                                     </select>
                                 </div>
-                            </div>    
+                            </div>
                             <div class="control-group" ng-if="User.userInfo.orgType=='WH'">
                                 <div class="Vessel  ">
                                     医院：
@@ -134,7 +134,7 @@
                                         <option value="">请选择医院...</option>
                                         <option ng-repeat="item in SelectInfo.Hosptail.dic" value="{{item.hPCode}}">{{item.hPName}}</option>
                                     </select>
-                                </div>                                
+                                </div>
                                 <div class="Vessel ">
                                     患者：<input type="text" ng-model="Pagein.patientName" placeholder="请输入患者姓名" style="width:180px" />
                                 </div>
@@ -147,7 +147,7 @@
                                         <option ng-repeat="item in SelectInfo.Status.dic" selected="{{item.id}}" value="{{item.id}}">{{item.text}}</option>
                                     </select>
                                 </div>
-                            </div>                           
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -183,17 +183,17 @@
                         <thead>
                             <tr>
                                 <th><span>序号</span></th>
-                                <th><span>订单号</span></th>              
-                                <th ng-if="ListCompetence.sOOIOrgCodeName"  width="120px"><span>货主</span></th>
+                                <th><span>订单号</span></th>
+                                <th ng-if="ListCompetence.sOOIOrgCodeName" width="120px"><span>货主</span></th>
                                 <th ng-if="ListCompetence.sOCreateByOrgCodeName" width="120px"><span>经销商</span></th>
                                 <th><span style="width:10px">医院</span></th>
                                 <th ng-if="ListCompetence.dTCodeName"><span>医生</span></th>
                                 <th><span>手术日期</span></th>
                                 <th ng-if="ListCompetence.initMedProdLnCodeName"><span>产品线</span></th>
-                                <th ng-if="ListCompetence.patientName"><span>患者</span></th>  
-                                <th ng-if="ListCompetence.sOHandleByOrgCodeName"><span>仓库</span></th>                          
-                                <th><span>下单人</span></th>                         
-                                <th><span>下单日期</span></th>                                
+                                <th ng-if="ListCompetence.patientName"><span>患者</span></th>
+                                <th ng-if="ListCompetence.sOHandleByOrgCodeName"><span>仓库</span></th>
+                                <th><span>下单人</span></th>
+                                <th><span>下单日期</span></th>
                                 <th><span>状态</span></th>
                             </tr>
                         </thead>
@@ -202,7 +202,7 @@
                                 <td>{{$index+1}}</td>
                                 <td>
                                     {{row.sONo}}
-                                </td>                                      
+                                </td>
                                 <td ng-if="ListCompetence.sOOIOrgCodeName">
                                     {{row.sOOIOrgCodeName}}
                                 </td>
@@ -229,13 +229,13 @@
                                 </td>
                                 <td>
                                     {{row.sOCreateByName}}
-                                </td>                              
+                                </td>
                                 <td>
                                     {{row.createDate}}
-                                </td> 
+                                </td>
                                 <td>
                                     <span ng-class="(row.status=='SOSTS00200'||row.status=='SOSTS00040')?'red':''">{{row.statusName}}</span>
-                                </td>                                         
+                                </td>
                             </tr>
                         </tbody>
                     </table>

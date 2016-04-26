@@ -1,0 +1,58 @@
+﻿<div class="row">
+    <div class="col-lg-12 row-mt-8">
+        <div class="main-box clearfix">
+            <header class="main-box-header clearfix">
+                <h2 class="pull-left">{{title}}</h2>
+                <span class="btn-group oms-btn-group" style="float:right;">
+                    <a class="btn btn-primary" ng-if="Competence.add" ng-click="PageControl.GoDetailPage({hSOANo:''})"><i class="fa fa-pencil"></i> 新建对账</a>
+                    <a class="btn btn-primary" ng-if="Competence.modify" ng-click="PageControl.EditDetail()"> <i class="fa fa-clipboard"></i> 对账修改</a>
+                    <a class="btn btn-primary" ng-if="Competence.approval" ng-click="PageControl.GoViewByDetail()"><i class="fa fa-eye"></i> 审批对账</a>
+                    <a class="btn btn-primary" ng-if="Competence.unapproval" ng-click="PageControl.GoViewByDetail()"><i class="fa fa-eye"></i> 反审批</a>
+                    <a class="btn btn-primary" ng-if="Competence.discard" ng-click="PageControl.GoViewByDetail()"><i class="fa fa-eye"></i> 取消对账</a>
+                    <a class="btn btn-primary" ng-click="PageControl.GoViewByDetail()"><i class="fa fa-align-justify"></i> 对账详情</a>
+                </span>
+                <div class="input-group" ng-if="false" style="float:right;width:250px;margin-right:10px;">
+                    <input type="text" class="form-control" placeholder="请输入计费单号或订单号"
+                           style="padding:8px;" ng-model="Pagein.sONo">
+                    <a class="input-group-addon" href="javascript:void(0)"><i class="fa fa-search"></i></a>
+                </div>
+            </header>
+
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box">
+                    <table class="table table-bordered table-striped" st-table="Integrated.BillList">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>对账单编码</span></th>
+                                <th><span>医院对账单编码</span></th>
+                                <th><span>对账单来源</span></th>
+                                <th><span>对账医院</span></th>
+                                <th><span>对账时间</span></th>
+                                <th><span>对账人</span></th>
+                                <th><span>对账周期</span></th>
+                                <th><span>对账金额</span></th>
+                                <th><span>对账状态</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in Integrated.ReconciliationList" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="PageControl.GoViewPage(row)">
+                                <td>{{$index+1}}</td>
+                                <td><span ng-bind="row.hSOANo"></span></td>
+                                <td><span ng-bind="row.hSOAHospitalNo?row.hSOAHospitalNo:'-'"></span></td>
+                                <td><span ng-bind="row.hSOASourceTypeName"></span></td>
+                                <td><span ng-bind="row.hPCodeName"></span></td>
+                                <td><span ng-bind="row.hSOAIssueDate"></span></td>
+                                <td><span ng-bind="row.hSOAIssueByName"></span></td>
+                                <td><span ng-bind="AppHelp.Data.GetDate(0,row.hSOADateFrom)"></span>至<span ng-bind="AppHelp.Data.GetDate(0,row.hSOADateTo)"></span></td>
+                                <td><span ng-bind="row.hSOAAmt"></span></td>
+                                <td><span ng-bind="row.sTATUSName"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
+    </div>
+</div>

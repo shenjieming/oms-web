@@ -61,6 +61,16 @@ BMSApiService.factory("$PublicInfoFactory", function ($BMSApiFactory, $MessagSer
             /// <summary>获取对账单明细信息</summary>
             $MessagService.loading("对账单明细获取中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.PublicInfo.reconciliationdetail, data, callback);
+        },
+        GetInvoiceList: function (data, callback) {
+            /// <summary>获取发票列表</summary>
+            $MessagService.loading("对账发票列表获取中，请稍等...");
+            $BMSApiFactory.PostApi(BMSPath.PublicInfo.invoicelist, data, callback);
+        },
+        GetInvoiceDetail: function (data, callback) {
+            /// <summary>获取发票明细</summary>
+            $MessagService.loading("发票明细或许中，请稍等...");
+            $BMSApiFactory.PostApi(BMSPath.PublicInfo.invoicedetail, data, callback);
         }
     }
 });

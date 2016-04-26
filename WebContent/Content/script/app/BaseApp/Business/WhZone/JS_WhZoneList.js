@@ -31,8 +31,17 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
                 $MessagService.caveat("请选择一条库区信息");
                 $scope.WhZoneList.GetWhZoneList();
             }
-        }
-
+        },
+        QueryWhzone:function(){
+            $scope.Pagein.pageIndex = 1;
+            $scope.WhZoneList.GetWhZoneList();
+        },
+        UpEnter: function (e) {
+            var keycode = window.event ? e.keyCode : e.which;
+            if (keycode == 13) {
+                $scope.WhZoneList.QueryWhzone();
+            }
+        },
     },
     $scope.WhzoneView={
         info:[],
@@ -64,10 +73,11 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
                     $MessagService.caveat("库区编码不能为空");
                     result=false;
                 }
-                if(!scope.WhzoneInsert.info.zoneName){
+                if(!$scope.WhzoneInsert.info.zoneName){
                     $MessagService.caveat("库区名称不能为空");
                     result=false;
                 }
+                return result;
             },
         }
     $scope.WhzoneInsert={
@@ -77,7 +87,7 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
             if ($scope.WhzoneValid.ValidWhzoneInsert()){
                 $Api.WhZone.WhzoneInsert($scope.WhzoneInsert.info,function(rData){
                     $MessagService.succ("库区添加成功！");
-                    $scope.WhzoneInsert.mode.hide();
+                    $scope.WhzoneInsert.model.hide();
                     $scope.WhZoneList.GetWhZoneList();
                 });
             }
@@ -127,6 +137,7 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
     $scope.Pagein = {
             pageSize: 10,
             pageIndex: 1,
+            searchValue:null,
             callbake: function () {
                 $scope.Load();
             }
