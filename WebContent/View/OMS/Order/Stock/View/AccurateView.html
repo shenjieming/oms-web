@@ -8,24 +8,28 @@
         <div class="widget-content nopadding collapse in" id="pro_BaseInformation">
             <div class="control-group ">
                 <label>
-                    收 货 人：{{PageData.deliveryContact}}
+                    收货人：{{PageData.deliveryContact}}
                 </label>
                 <label>
-                    联系电话：{{PageData.deliveryrMobile}}
+                    电话：{{PageData.deliveryrMobile}}
                 </label>
                 <label>
-                    配送方式：{{PageData.carrierTransTypeName}}
+                    配送：{{PageData.carrierTransTypeName}}
                 </label>
             </div>
             <div class="control-group ">
-                <label style="width:100%">
-                    <span>  收货地址：</span>
+                <label style="width:60%">
+                    <span>地址：</span>
                     <span>
                         {{PageData.deliveryProvinceName}}
                         {{PageData.deliveryCityName}}
                         {{PageData.deliveryDistrictName}}
                         {{PageData.deliveryAddress}}
                     </span>
+                </label>
+                <label>
+                    <span>  送达日期：</span>
+                    <span ng-bind="deliveryReqArrivalDate"></span>
                 </label>
             </div>
         </div>

@@ -9,7 +9,7 @@
 
 app.controller("StockDealWithListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>订单处理控制器</summary>
-    $scope.title = "备货订单待处理列表";
+    $scope.title = "待处理订单";
 
     $scope.Competence = {
         dealwith: true

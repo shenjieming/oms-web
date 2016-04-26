@@ -3,8 +3,8 @@
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
             手术订单
-            <span style="color: #0033FF">[<span ng-bind="sono"></span>]</span>
-            <span style="color: #FF3300">(<span ng-bind="PageData.statusName"></span>)</span>
+            <span style="color: #0033FF"><span ng-bind="sono"></span></span>
+            <span style="color: #FF3300"><span ng-bind="PageData.statusName"></span></span>
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
             <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
@@ -95,13 +95,10 @@
                             </div>
                             <div class="control-group">
                                 <label>
-                                    <span class="required">*</span>
-                                    <span style="float:left;line-height:32px;">手术时间：</span>
-                                    <div class="input-group" style="float:left;width:180px;">
-                                        <input type="text" class="form-control" placeholder="请选择手术时间"
-                                               style="padding:8px;" ng-datatime="" ng-model="PageData.operationDate">
-                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                    </div>
+                                    <span class="Text required" style="margin-left:-70px;margin-top:0px;">*</span>
+                                    <span class="Text">手术日期：</span>
+                                    <span ng-show-data="" ng-model="PageData.initOperationDate"></span>
+                                        <span style="line-height: 25px; vertical-align: 50%;" id="OrderData"> {{DisplayWeek}}</span>                                  
                                 </label>
                                 <label style="width:60%">
                                     <span class="required">*</span>
@@ -229,12 +226,12 @@
                                     <table class="yulan_bordered" cellpadding="0" cellspacing="0">
                                         <thead>
                                         <tr class="yulan_line">
-                                            <td>序号</td>
-                                            <td>品牌</td>
-                                            <td>产品线</td>
-                                            <td>物料编码</td>
-                                            <td>物料名称</td>
-                                            <td>规格</td>
+                                            <td >序号</td>
+                                            <td style="width:70px">品牌</td>
+                                            <td style="width:110px">产品线</td>
+                                            <td style="width:110px">物料编码</td>
+                                            <td style="width:250px">物料名称</td>
+                                            <td style="width:200px">规格</td>
                                             <td>数量</td>
                                             <td>仓库</td>
                                         </tr>
@@ -257,11 +254,11 @@
                                         <thead>
                                         <tr class="yulan_line">
                                             <td>序号</td>
-                                            <td>品牌</td>
-                                            <td>产品线</td>
-                                            <td>物料编码</td>
-                                            <td>物料名称</td>
-                                            <td>规格</td>
+                                            <td style="width:70px">品牌</td>
+                                            <td style="width:110px">产品线</td>
+                                            <td style="width:110px">物料编码</td>
+                                            <td style="width:250px">物料名称</td>
+                                            <td style="width:200px">规格</td>
                                             <td>数量</td>
                                             <td>仓库</td>
                                         </tr>
@@ -289,32 +286,36 @@
         </ng-dialog>
 
         <ng-dialog ng-model="OutboundOrdermodel">
-            <div class="main-box-body clearfix" style="padding:15px;max-height:450px;overflow:auto;display:inline-block;width:100%">
-                <div class="table-responsive">
-                    <table class="table table-bordered " st-table="Print">
-                        <thead>
-                            <tr>
-                                <th><span>序号</span></th>
-                                <th><span>仓库</span></th>
-                                <th><span>出库单号</span></th>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="row in Print">
-                                <td>{{$index+1}}</td>
-                                <td>
-                                    <span ng-bind="row.medMIWarehouseName"></span>
-                                </td>
-                                <td>
-                                    <span ng-bind="row.wONo"></span>
-                                </td>                     
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="yulan_box">
+                <div class="yulan_tk">
+                    <div class="yulan_biaoge">
+                        <table class="yulan_bordered">
+                            <thead>
+                                <tr class="yulan_line" style="height:34px;">
+                                    <th style="padding-left: 8px; width: 128px; color: #ffffff"><span>序号</span></th>
+                                    <th style="padding-left: 8px; width: 204px; color: #ffffff"><span>仓库</span></th>
+                                    <th style="padding-left: 8px; width: 359px; color: #ffffff"><span>出库单号</span></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="row in Print">
+                                    <td>{{$index+1}}</td>
+                                    <td>
+                                        <span ng-bind="row.medMIWarehouseName"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="row.wONo"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="yulan_button">
+                    </div>
                 </div>
             </div>
-        </ng-dialog>
+</ng-dialog>
 </div>
     <div class="tools">
 

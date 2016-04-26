@@ -3,8 +3,8 @@
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
             手术订单
-            <span style="color: #0033FF">[{{sono}}]</span>
-            <span style="color: #FF3300">({{PageData.statusName}})</span>
+            <span style="color: #0033FF">{{sono}}</span>
+            <span style="color: #FF3300">{{PageData.statusName}}</span>
 
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
@@ -57,9 +57,9 @@
                             </div>
                             <div class="control-group">
                                 <label>
-                                    <span style="float:left;line-height:32px;">手术时间：</span>
+                                    <span style="float:left;line-height:32px;">手术日期：</span>
                                     <div class="input-group" style="float:left;width:180px;">
-                                        <input type="text" class="form-control" placeholder="请选择手术时间"
+                                        <input type="text" class="form-control" placeholder="请选择手术日期"
                                                style="padding:8px;" ng-datatime="" ng-model="FeedBack.order.operationDate">
                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
                                     </div>

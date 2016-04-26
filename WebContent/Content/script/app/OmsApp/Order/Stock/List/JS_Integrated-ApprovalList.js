@@ -9,7 +9,7 @@
 
 app.controller("StockApprovalListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>备货订单审批控制器</summary>
-    $scope.title = "待审批订单列表";
+    $scope.title = "待审批订单";
 
     //数据清空
     $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });

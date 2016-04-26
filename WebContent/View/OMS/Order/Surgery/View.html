@@ -3,16 +3,16 @@
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
             手术订单
-            <span style="color: #0033FF">【<span ng-bind="sono"></span>】</span>
-            <span style="color: #FF3300">（<span ng-bind="PageData.statusName"></span>）</span>
+            <span style="color: #0033FF"><span ng-bind="sono"></span></span>
+            <span style="color: #FF3300"><span ng-bind="PageData.statusName"></span></span>
 
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
             <a class="btn btn-primary" ng-if="View.Competence.dealwith"><i class="fa fa-wrench"></i>处理</a>
-            <a class="btn btn-primary" ng-if="View.Competence.approval" ng-click="ApprovalConfig.ApprovalBy()"><i class="fa fa-check-circle-o"></i> 批准申请</a>
-            <a class="btn btn-primary" ng-if="View.Competence.approval" ng-click="ApprovalConfig.Operat.show()"><i class="fa fa-times-circle-o"></i> 拒绝申请</a> 
+            <a class="btn btn-primary" ng-if="View.Competence.approval" ng-click="ApprovalConfig.ApprovalBy()"><i class="fa fa-check-circle-o"></i> 批准</a>
+            <a class="btn btn-primary" ng-if="View.Competence.approval" ng-click="ApprovalConfig.Operat.show()"><i class="fa fa-times-circle-o"></i> 拒绝</a> 
             <a class="btn btn-primary" ng-if="View.Competence.sign" ng-click="SignConfig.Operat.show()"><i class="fa fa-eye"></i> 订单签收</a>
-            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返  回</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
             <a class="btn btn-danger" ng-if="View.Competence.approval" ng-click="ApprovalConfig.Cancel()"><i class="fa fa-undo"></i> 订单取消</a>
         </span>
     </div>
@@ -57,10 +57,10 @@
     <div class="tools">
         <span class="btn-group oms-btn-group" style="float:right;">
             <a class="btn btn-primary" ng-if="View.Competence.dealwith"><i class="fa fa-wrench"></i>处理</a>
-            <a class="btn btn-primary" ng-if="View.Competence.approval" ng-click="ApprovalConfig.ApprovalBy()"><i class="fa fa-check-circle-o"></i> 批准申请</a>
-            <a class="btn btn-primary" ng-if="View.Competence.approval" ng-click="ApprovalConfig.Operat.show()"><i class="fa fa-times-circle-o"></i> 拒绝申请</a>
+            <a class="btn btn-primary" ng-if="View.Competence.approval" ng-click="ApprovalConfig.ApprovalBy()"><i class="fa fa-check-circle-o"></i> 批准</a>
+            <a class="btn btn-primary" ng-if="View.Competence.approval" ng-click="ApprovalConfig.Operat.show()"><i class="fa fa-times-circle-o"></i> 拒绝</a>
             <a class="btn btn-primary" ng-if="View.Competence.sign" ng-click="SignConfig.Operat.show()"><i class="fa fa-eye"></i> 订单签收</a>
-            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返  回</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
             <a class="btn btn-danger" ng-if="View.Competence.approval" ng-click="ApprovalConfig.Cancel()"><i class="fa fa-undo"></i> 订单取消</a>
         </span>
     </div>

@@ -9,7 +9,7 @@
 
 app.controller("StockSignListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>签收订单管理控制器</summary>
-    $scope.title = "待签收订单列表";
+    $scope.title = "待签收订单";
 
     $scope.Competence = {
         sign: true

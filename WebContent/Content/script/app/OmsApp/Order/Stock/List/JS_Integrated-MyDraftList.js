@@ -9,7 +9,7 @@
 
 app.controller("StockMyDraftListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>订单草稿数据控制器</summary>
-    $scope.title = "我的订单草稿";
+    $scope.title = "订单草稿";
 
     $scope.Competence = {
         modify: true,
