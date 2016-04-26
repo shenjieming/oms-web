@@ -153,6 +153,7 @@
                                     <table style="width:1400px; min-width:100%; max-width:2000px;" class="table table-bordered tab-striped" st-table="BillData.detail" st-safe-src="rowCollection">
                                         <thead>
                                             <tr>
+                                                <th><span>序号</span></th>
                                                 <th><span>医院物资编码</span></th>
                                                 <th><span>耗材名称</span> </th>
                                                 <th><span>耗材品牌</span> </th>
@@ -167,6 +168,7 @@
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="row in BillData.detail">
+                                                <td><span ng-bind="$index"></span></td>
                                                 <td><input type="text" ng-model="row.dHMedMaterialInternalNo" placeholder="请输入医院物资编码" /></td>
                                                 <td><input type="text" ng-model="row.dHMMName" placeholder="请输入物资名称" /></td>
                                                 <td><span ng-bind="row.medMaterialBrandName"></span> </td>

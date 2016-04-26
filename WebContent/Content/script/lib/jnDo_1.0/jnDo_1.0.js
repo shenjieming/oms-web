@@ -393,11 +393,11 @@ angular.module('jnDo', [])
                     else if (myDay > 30) { switch (myMonth) { case 4: case 6: case 9: case 11: myDay = 30; break; default: myDay = 31; break; } }
                     switch (type) {
                         //返回年和月的形式
-                        case "1": return myYear + "-" + (myMonth + 1); break;
+                        case 1: case "1": return myYear + "-" + (myMonth + 1); break;
                             //返回全时间格式，精确到秒
-                        case "2": return myYear + "-" + (myMonth + 1) + "-" + myDay + " " + myHours + ":" + myMinute + ":" + mySecond; break;
+                        case 2: case "2": return myYear + "-" + (myMonth + 1) + "-" + myDay + " " + myHours + ":" + myMinute + ":" + mySecond; break;
                             //返回全时间格式，精确到小时
-                        case "3": return myYear + "-" + (myMonth + 1) + "-" + myDay + " " + myHours + ":00:00"; break;
+                        case 3: case "3": return myYear + "-" + (myMonth + 1) + "-" + myDay + " " + myHours + ":00:00"; break;
                             //开始时间
                         case "start": return myYear + "-" + (myMonth + 1) + "-" + myDay + " 00:00:00"; break;
                             //结束时间

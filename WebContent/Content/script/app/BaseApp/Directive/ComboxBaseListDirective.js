@@ -28,7 +28,7 @@ app.directive("ngSelectBase", function ($Api, $MessagService) {
             };
 
             //获取请求的基础数据访问服务，请求数据源
-            $scope.Service.GetQueryServer(function () { $scope.Service.BaseQuseyService($scope.ngParam, function (data) { $scope.BaseList = data; }); });
+            $scope.Service.GetQueryServer(function () { $scope.Service.BaseQuseyService($scope.ngParam, function (data) { $scope.BaseList = data; $scope.ngModel = data[0].id }); });
         }
     };
 });
