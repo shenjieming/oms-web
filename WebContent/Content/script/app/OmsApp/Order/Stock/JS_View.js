@@ -91,16 +91,17 @@ app.controller("StockViewController", function ($scope, $state, $local, $Api, $M
             /// <summary>获取订单明细</summary>
             $Api.StockService.DataSources.GetDetail({ sONo: $scope.sono }, function (rData) {
                 $.extend($scope.PageData, rData);
-                $scope.deliveryReqArrivalDate = FormatDateWeek(new Date($scope.PageData.deliveryReqArrivalDate))
-                var myDate = new Date($scope.PageData.deliveryReqArrivalDate)
+                $scope.deliveryReqArrivalDate = FormatDateWeek(new Date($scope.PageData.deliveryReqArrivalDate.replace("-", "/").replace("-", "/")))
+                var myDate = new Date($scope.PageData.deliveryReqArrivalDate.replace("-", "/").replace("-", "/"))
                 $scope.DisplayWeek = "  星期" + "日一二三四五六".charAt(myDate.getDay());
             });
 
         }
     }
-    function FormatDateWeek(strTime) {
-        var date = new Date(strTime);
-        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "  " + "星期" + "日一二三四五六".charAt(date.getDay());
+    function FormatDate(strTime) {
+        console.log(strTime)
+        //   var date = new Date(replace("-", "/").replace("-", "/"));         
+        return strTime.getFullYear() + "-" + (strTime.getMonth() + 1) + "-" + strTime.getDate();
     }
     //+ "  " + "星期" + "日一二三四五六".charAt(date.getDay())
 
@@ -270,8 +271,9 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
 
     //  日期格式转换
     function FormatDate(strTime) {
-        var date = new Date(strTime);
-        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+        console.log(strTime)
+        //   var date = new Date(replace("-", "/").replace("-", "/"));         
+        return strTime.getFullYear() + "-" + (strTime.getMonth() + 1) + "-" + strTime.getDate();
     }
     //+ "  " + "星期" + "日一二三四五六".charAt(date.getDay())
     /*页面列表Begion*/
@@ -299,15 +301,15 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
                 for (var i = 0; i < rData.rows.length; i++) {
                     /// <summary> 日期转换</summary>
                     if (rData.rows[i].operationDate) {
-                        rData.rows[i].operationDate = FormatDate(new Date(rData.rows[i].operationDate))
+                        rData.rows[i].operationDate = FormatDate(new Date(rData.rows[i].operationDate.replace("-", "/").replace("-", "/")))
                     } else {
-                        rData.rows[i].operationDate = FormatDate(new Date(rData.rows[i].initOperationDate))
+                        rData.rows[i].operationDate = FormatDate(new Date(rData.rows[i].initOperationDate.replace("-", "/").replace("-", "/")))
                     }
                     if (rData.rows[i].createDate) {
-                        rData.rows[i].createDate = FormatDate(new Date(rData.rows[i].createDate))
+                        rData.rows[i].createDate = FormatDate(new Date(rData.rows[i].createDate.replace("-", "/").replace("-", "/")))
                     }
                     if (rData.rows[i].deliveryReqArrivalDate) {
-                        rData.rows[i].deliveryReqArrivalDate = FormatDate(new Date(rData.rows[i].deliveryReqArrivalDate))
+                        rData.rows[i].deliveryReqArrivalDate = FormatDate(new Date(rData.rows[i].deliveryReqArrivalDate.replace("-", "/").replace("-", "/")))
                     }
 
                 }
