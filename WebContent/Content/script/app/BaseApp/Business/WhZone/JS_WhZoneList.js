@@ -64,10 +64,11 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
                     $MessagService.caveat("库区编码不能为空");
                     result=false;
                 }
-                if(!scope.WhzoneInsert.info.zoneName){
+                if(!$scope.WhzoneInsert.info.zoneName){
                     $MessagService.caveat("库区名称不能为空");
                     result=false;
                 }
+                return result;
             },
         }
     $scope.WhzoneInsert={
@@ -77,7 +78,7 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
             if ($scope.WhzoneValid.ValidWhzoneInsert()){
                 $Api.WhZone.WhzoneInsert($scope.WhzoneInsert.info,function(rData){
                     $MessagService.succ("库区添加成功！");
-                    $scope.WhzoneInsert.mode.hide();
+                    $scope.WhzoneInsert.model.hide();
                     $scope.WhZoneList.GetWhZoneList();
                 });
             }
