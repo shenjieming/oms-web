@@ -9,17 +9,17 @@
 
 app.controller("StockMyDraftListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>订单草稿数据控制器</summary>
-    $scope.title = "我的订单草稿";
+    $scope.title = "订单草稿";
 
     $scope.Competence = {
         modify: true,
-        submit:true
+        submit: true
     };
     //数据清空
     $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
     $scope.showView = function (sono) {
         /// <summary>查看备货订单</summary>
-        $scope.goView("app.stock.single", { sono: sono });
+        $state.go("app.stock.single", { sono: sono });
     }
     $scope.Integrated.GetStockList({ opt: "INSTK_MYORDER_DRAFT" });
 });

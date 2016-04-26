@@ -15,62 +15,62 @@ app.controller("StockViewController", function ($scope, $state, $local, $Api, $M
         wardDeptCode: "", initHPCode: "", initDTCode: "", patientDiseaseInfo: "",
         prodLns: new Array(),
         attachments: { images: new Array(), remark: "" },
-        proView:new Object(),
-        allCount:{implant:0,tool:0,all:0},
-        Implate:new Array(),
-        Tool:new Array(),
+        proView: new Object(),
+        allCount: { implant: 0, tool: 0, all: 0 },
+        Implate: new Array(),
+        Tool: new Array(),
     }
 
-    $scope.PreViewCount= {
+    $scope.PreViewCount = {
         //预览页面
-        GetData:function () {
+        GetData: function () {
             $scope.PageData.proView = new Object();
             $scope.PageData.Implate = new Array();
             $scope.PageData.Tool = new Array();
-            $scope.PageData.allCount.tool=0;
-            $scope.PageData.allCount.all=0;
-            $scope.PageData.allCount.implant=0;
-            $Api.SurgeryService.Process.ProView($scope.PageData,function (rData) {
-                $scope.PageData.proView=rData;
+            $scope.PageData.allCount.tool = 0;
+            $scope.PageData.allCount.all = 0;
+            $scope.PageData.allCount.implant = 0;
+            $Api.SurgeryService.Process.ProView($scope.PageData, function (rData) {
+                $scope.PageData.proView = rData;
                 $scope.PreViewCount.CountImplantsIsSingle(rData.implants);
                 $scope.PreViewCount.CountToolIsSingle(rData.tools)
             })
         },
         //植入物统计+去重
-        CountImplantsIsSingle:function (implants) {
-            if(implants){
-                $.each(implants,function (index,implant) {
-                    $scope.PageData.allCount.all+=implant.reqQty;
-                    $scope.PageData.allCount.implant+=implant.reqQty;
+        CountImplantsIsSingle: function (implants) {
+            if (implants) {
+                $.each(implants, function (index, implant) {
+                    $scope.PageData.allCount.all += implant.reqQty;
+                    $scope.PageData.allCount.implant += implant.reqQty;
                     var flag = true;
-                    $.each($scope.PageData.Implate,function (index,thisImplant) {
-                        if(implant.medMIInternalNo==thisImplant.medMIInternalNo){
-                            thisImplant.reqQty+=implant.reqQty;
-                            flag=false;
+                    $.each($scope.PageData.Implate, function (index, thisImplant) {
+                        if (implant.medMIInternalNo == thisImplant.medMIInternalNo) {
+                            thisImplant.reqQty += implant.reqQty;
+                            flag = false;
                             return false;
                         }
                     });
-                    if(flag){
+                    if (flag) {
                         $scope.PageData.Implate.push(implant);
                     }
                 })
             }
         },
         //工具统计+去重
-        CountToolIsSingle:function (tools) {
-            if(tools){
-                $.each(tools,function (index,tool) {
-                    $scope.PageData.allCount.all+=tool.reqQty;
-                    $scope.PageData.allCount.tool+=tool.reqQty;
+        CountToolIsSingle: function (tools) {
+            if (tools) {
+                $.each(tools, function (index, tool) {
+                    $scope.PageData.allCount.all += tool.reqQty;
+                    $scope.PageData.allCount.tool += tool.reqQty;
                     var flag = true;
-                    $.each($scope.PageData.Tool,function (index,thisTool) {
-                        if(tool.medMIInternalNo==thisTool.medMIInternalNo){
-                            thisTool.reqQty+=tool.reqQty;
-                            flag=false;
+                    $.each($scope.PageData.Tool, function (index, thisTool) {
+                        if (tool.medMIInternalNo == thisTool.medMIInternalNo) {
+                            thisTool.reqQty += tool.reqQty;
+                            flag = false;
                             return false;
                         }
                     });
-                    if(flag){
+                    if (flag) {
                         $scope.PageData.Tool.push(tool);
                     }
                 })
@@ -89,14 +89,39 @@ app.controller("StockViewController", function ($scope, $state, $local, $Api, $M
         /// <summary>页面服务</summary>
         GetDetail: function () {
             /// <summary>获取订单明细</summary>
-            $Api.StockService.DataSources.GetDetail({ sONo: $scope.sono }, function (rData) { $.extend($scope.PageData, rData); });
+            $Api.StockService.DataSources.GetDetail({ sONo: $scope.sono }, function (rData) {
+                $.extend($scope.PageData, rData);
+                $scope.deliveryReqArrivalDate = FormatDateWeek(new Date($scope.PageData.deliveryReqArrivalDate))
+                var myDate = new Date($scope.PageData.deliveryReqArrivalDate)
+                $scope.DisplayWeek = "  星期" + "日一二三四五六".charAt(myDate.getDay());
+            });
+
         }
     }
+    function FormatDateWeek(strTime) {
+        var date = new Date(strTime);
+        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "  " + "星期" + "日一二三四五六".charAt(date.getDay());
+    }
+    //+ "  " + "星期" + "日一二三四五六".charAt(date.getDay())
 
+    console.log($scope.PageData)
 
     $scope.ApprovalConfig = {
         /// <summary>订单审批配置</summary>
         Operat: { fixed: function () { $scope.goLastPage(); } },
+        ApprovalBy: function () {
+            $Api.SurgeryService.ApprovalBy($scope.PageData, function (rData) {
+                $MessagService.succ($scope.PageData.sONo + "审批通过");
+                $scope.goLastPage();
+            })
+        },
+        Cancel: function () {
+            if (confirm("您确认要取消" + "【" + $scope.PageData.sONo + "】" + "订单吗？")) {
+                $Api.SurgeryService.Cancel($scope.PageData, function (rData) {
+                    $scope.goLastPage();
+                })
+            }
+        },
         Model: { sONo: $scope.sono }
     }
     $scope.SignConfig = {
@@ -243,6 +268,12 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
 
     /*页面操作End*/
 
+    //  日期格式转换
+    function FormatDate(strTime) {
+        var date = new Date(strTime);
+        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    }
+    //+ "  " + "星期" + "日一二三四五六".charAt(date.getDay())
     /*页面列表Begion*/
     $scope.Pagein = {
         /// <summary>分页配置信息对象</summary>
@@ -265,11 +296,54 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
             }
             GetList(paramData, function (rData) {
                 $scope.Pagein.total = rData.total;
+                for (var i = 0; i < rData.rows.length; i++) {
+                    /// <summary> 日期转换</summary>
+                    if (rData.rows[i].operationDate) {
+                        rData.rows[i].operationDate = FormatDate(new Date(rData.rows[i].operationDate))
+                    } else {
+                        rData.rows[i].operationDate = FormatDate(new Date(rData.rows[i].initOperationDate))
+                    }
+                    if (rData.rows[i].createDate) {
+                        rData.rows[i].createDate = FormatDate(new Date(rData.rows[i].createDate))
+                    }
+                    if (rData.rows[i].deliveryReqArrivalDate) {
+                        rData.rows[i].deliveryReqArrivalDate = FormatDate(new Date(rData.rows[i].deliveryReqArrivalDate))
+                    }
+
+                }
                 $scope.Integrated.StockList = rData.rows;
+                console.log($scope.Integrated.StockList)
             });
         }
     }
 
+    $scope.ListCompetence = {
+        /// <summary>列表权限</summary>
+        sONo: true,
+        sOCreateByOrgCodeName: false, //经销商
+        sOOIOrgCodeName: false, //货主
+        initMedProdLnCodeName: false, //产品线
+        sOHandleByOrgCodeName: false, //仓库
+    }
+    var UserJurisdiction = $scope.User;
+    $scope.jurisdiction = function () {
+        /// <summary>不同用户列表控制</summary>
+        if (UserJurisdiction.userInfo.orgType == "WH") {
+            $scope.ListCompetence.sOCreateByOrgCodeName = true;
+            $scope.ListCompetence.sOOIOrgCodeName = true;
+            $scope.ListCompetence.initMedProdLnCodeName = true;
+        }
+        if (UserJurisdiction.userInfo.orgType == "OI") {
+            $scope.ListCompetence.sOCreateByOrgCodeName = true;
+            $scope.ListCompetence.initMedProdLnCodeName = true;
+        }
+        if (UserJurisdiction.userInfo.orgType == "DL") {
+            $scope.ListCompetence.sOOIOrgCodeName = true;
+            $scope.ListCompetence.initMedProdLnCodeName = true;
+
+        }
+    }
+    $scope.jurisdiction();
     /*页面列表End*/
 
     /*页面权限Begion*/
@@ -284,10 +358,6 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
         append: false,
     }
 
-    $scope.ListCompetence = {
-        /// <summary>列表权限</summary>
-        sONo: true, initMedProdLnCodeName: true
-    }
 
     /*页面权限End*/
 })
@@ -302,7 +372,17 @@ app.controller("StockSingleController", function ($scope, $state, $local, $Api, 
     $scope.ProductCompetence = {
         kits: false, warehouse: false
     }
-
+    $scope.initOperationDate = function () {
+        /// <summary>获取当前手术时间</summary>
+        $Api.SurgeryService.Process.GetFindUserLastOrder({}, function (rData) {
+            $scope.PageData.deliveryReqArrivalDate = rData.initOperationDate;
+        });
+    }
+    $scope.initOperationDate();
+    //substring(0, 2);
+    /*后台时间格式转换修改 YY-MM-DD (星期 几)*/
+    var myDate = new Date($scope.PageData.deliveryReqArrivalDate)
+    $scope.DisplayWeek = "  星期" + "日一二三四五六".charAt(myDate.getDay());
     /*基础对象区域End*/
 
     /*逻辑对象区域Begion*/
@@ -344,7 +424,7 @@ app.controller("StockSingleController", function ($scope, $state, $local, $Api, 
                 /// <summary>提交备货订单</summary>
                 setTimeout(function () {
                     $MessagService.succ("订单" + rData + "提交成功");
-                    $scope.goView("app.oms.stock.list");
+                    $state.go("app.oms.stock.list");
                 }, 500);
             });
         },
@@ -431,14 +511,14 @@ app.controller("StockSingleController", function ($scope, $state, $local, $Api, 
         },
         GetDefault: function () {
             /// <summary>获取默认地址</summary>
-            $Api.RepresentativeService.GetDefaultaddress({}, function (address) {
-                if (address) {
-                    $.extend($scope.PageData, {
-                        deliveryContact: address.contact, deliveryrMobile: address.mobile, deliveryProvinceCode: address.provinceCode, deliveryProvinceName: address.provinceCodeName, deliveryCityCode: address.cityCode,
-                        deliveryCityName: address.cityCodeName, deliveryDistrictCode: address.districtCode, deliveryDistrictName: address.districtCodeName, deliveryAddress: address.address, iniitCarrierTransType: address.carrierTransType
-                    });
-                }
-            });
+            //$Api.RepresentativeService.GetDefaultaddress({}, function (address) {
+            //    if (address) {
+            //        $.extend($scope.PageData, {
+            //            deliveryContact: address.contact, deliveryrMobile: address.mobile, deliveryProvinceCode: address.provinceCode, deliveryProvinceName: address.provinceCodeName, deliveryCityCode: address.cityCode,
+            //            deliveryCityName: address.cityCodeName, deliveryDistrictCode: address.districtCode, deliveryDistrictName: address.districtCodeName, deliveryAddress: address.address, iniitCarrierTransType: address.carrierTransType
+            //        });
+            //    }
+            //});
         }
     };
 
@@ -559,9 +639,30 @@ app.controller("StockLibraryController", function ($scope, $state, $local, $Api,
             /// <summary>出库单分析</summary>
             if ($scope.PageData.outBounds) {
                 $.each($scope.PageData.outBounds, function (item, Bounds) {
-                    $.extend(Bounds, { Material: $scope.LibraryService.MaterialAnalysis(Bounds) })
+                    var Material = $scope.LibraryService.MaterialAnalysis(Bounds);
+                    $.extend(Bounds, { Material: Material, ShowInfo: $scope.LibraryService.GetShowInfo(Material) })
                 });
             }
+        },
+        GetShowInfo: function (list) {
+            /// <summary>获取显示的出库单分析信息</summary>
+            var result = "";
+            var stat = {
+                /// <summary>统计</summary>
+                AllMaterialCount: 0, AllImplantCount: 0, AllToolCount: 0
+            }
+            $.each(list, function (index, mItem) {
+                stat.AllMaterialCount += mItem.reqQty;
+                if (mItem.categoryByPlatform == "IMPLANT") {
+                    stat.AllImplantCount += mItem.reqQty;
+                } else {
+                    stat.AllToolCount += mItem.reqQty;
+                }
+
+            });
+            result = " 物料：" + stat.AllMaterialCount + "件（   植入物：" + stat.AllImplantCount + "件，工具：" + stat.AllToolCount + "件）"
+
+            return result;
         },
         MaterialAnalysis: function (Bounds) {
             /// <summary>物料分析</summary>
@@ -626,10 +727,10 @@ app.controller("StockDealwithController", function ($scope, $state, $local, $Api
                 $scope.goLastPage();
             });
         },
-        Hide:function () {
+        Hide: function () {
             $scope.DealService.model.hide();
         },
-        Show:function () {
+        Show: function () {
             $scope.PreViewCount.GetData();
             $scope.DealService.model.show();
         }

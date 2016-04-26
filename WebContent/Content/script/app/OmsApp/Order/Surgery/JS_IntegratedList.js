@@ -134,6 +134,14 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
     //patientName
     //sOCreateBy  
 
+
+
+    //  日期格式转换
+    function FormatDate(strTime) {
+        var date = new Date(strTime);
+        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    }
+    //+ "  " + "星期" + "日一二三四五六".charAt(date.getDay())
     $scope.Integrated = {
         OrderList: new Array(),
         IsQuery: false,
@@ -152,7 +160,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             $.extend($scope.Pagein, {
                 pageIndex: isReload ? 1 : $scope.Pagein.pageIndex, sONo: "",
                 createDateBegin: null, createDateEnd: null, status: "", oIOrgCode: "", dTCode: "", hPCode: "", patientName: "",
-                sOCreateByOrgCode:"",sOCreateByName:"",sOHandleByOrgCode:""
+                sOCreateByOrgCode: "", sOCreateByName: "", sOHandleByOrgCode: ""
             });
         },
         Enter: function (e) {
@@ -180,9 +188,22 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             if (!paramData.opt) {
                 GetList = $Api.SurgeryService.DataSources.GetIntegratedOrderInquiry;
             }
+
             GetList(paramData, function (rData) {
                 $scope.Pagein.total = rData.total;
+                console.log(rData.rows)
+                for (var i = 0; i < rData.rows.length; i++) {
+                    //rData.rows[i].operationDate = rData.rows[i].operationDate.substring(0, 11)                 
+                    if (rData.rows[i].operationDate) {
+                        rData.rows[i].operationDate = FormatDate(new Date(rData.rows[i].operationDate))
+                    } else {
+                        rData.rows[i].operationDate = FormatDate(new Date(rData.rows[i].initOperationDate))
+                    }
+                    rData.rows[i].createDate = FormatDate(new Date(rData.rows[i].createDate))
+                }
+
                 $scope.Integrated.OrderList = rData.rows;
+                console.log(rData.rows)
             });
         }
     }
@@ -246,7 +267,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
                 /// <summary>科室下拉框</summary>
                 $Api.ManaDepartment.GetbizDataWDList({ hPCode: $scope.Pagein.hPCode }, function (rData) {
                     $scope.SelectInfo.wardDeptCode.dic = rData.rows;
-              
+
                 })
             }
         },
@@ -264,7 +285,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             GetStatusList: function () {
                 /// <summary>订单状态下拉框</summary>
                 $Api.SurgeryService.findOrderStatus({}, function (rData) {
-                    $scope.SelectInfo.Status.dic = rData;          
+                    $scope.SelectInfo.Status.dic = rData;
                 })
             }
         },
@@ -274,7 +295,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
                 /// <summary>仓库下拉框</summary>
                 $Api.ManaWareHouse.GetqueryWareHouse({}, function (rData) {
                     $scope.SelectInfo.Warehouse.dic = rData.rows;
-              
+
                 })
             }
         },
@@ -283,7 +304,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         /// <summary>高级查询开关按钮</summary>
         $scope.Integrated.IsQuery = !$scope.Integrated.IsQuery
         console.log($scope.SelectInfo.Status.dic)
-        if ($scope.SelectInfo.Status.dic.length==0) {
+        if ($scope.SelectInfo.Status.dic.length == 0) {
             $scope.ButtonList();
         }
     }
@@ -303,7 +324,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             $scope.SelectInfo.DLorg.GetDLorgList();
         }
         $scope.SelectInfo.Hosptail.GetHosptailList();
-        $scope.SelectInfo.Status.GetStatusList();  
+        $scope.SelectInfo.Status.GetStatusList();
     }
     $scope.HighSelectList = {
         // 根据用户显示对象条件查询框
@@ -314,7 +335,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         patientName: false,
         Warehouse: false,
         Singler: false,
-        DlCode:false,
+        DlCode: false,
     }
     $scope.file = {
         /// <summary>附件控制器</summary>
@@ -359,8 +380,8 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
     /*页面权限End*/
 })
 app.controller("IntegratedListController", function ($scope, $state, $local, $Api, $MessagService) {
-    /// <summary>综合订单查询列表</summary>
-    $scope.title = "综合订单查询";
+    /// <summary>综合查询</summary>
+    $scope.title = "订单列表";
     $scope.Competence = {
     };
 
@@ -368,6 +389,7 @@ app.controller("IntegratedListController", function ($scope, $state, $local, $Ap
         /// <summary>查看手术订单</summary>
         $local.setValue("ORDERCOMP", {});
         $scope.GetRowGoPage("app.oms.order.view");
+
     }
     //条件清空
     $scope.Integrated.ClearWhere(true);
@@ -389,25 +411,28 @@ app.controller("IntegratedListController", function ($scope, $state, $local, $Ap
         if (UserJurisdiction.userInfo.orgType == "WH") {
             $scope.ListCompetence.sOOIOrgCodeName = true;
             $scope.ListCompetence.sOCreateByOrgCodeName = true;
-            $scope.ListCompetence.hPCodeName=true;
-            $scope.ListCompetence.dTCodeName=true;
+            $scope.ListCompetence.hPCodeName = true;
+            $scope.ListCompetence.dTCodeName = true;
             $scope.ListCompetence.patientName = true;
         }
         if (UserJurisdiction.userInfo.orgType == "OI") {
-            $scope.ListCompetence.sOHandleByOrgCodeName = true;
             $scope.ListCompetence.sOCreateByOrgCodeName = true;
+            $scope.ListCompetence.initMedProdLnCodeName = true;
         }
         if (UserJurisdiction.userInfo.orgType == "DL") {
             $scope.ListCompetence.hPCodeName = true;
             $scope.ListCompetence.dTCodeName = true;
             $scope.ListCompetence.initMedProdLnCodeName = true;
+            $scope.ListCompetence.sOOIOrgCodeName = true;
+            $scope.ListCompetence.sOCreateByOrgCodeName = true;
         }
     }
     $scope.jurisdiction();
+
 })
 app.controller("AppendListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>待追加备货单列表</summary>
-    $scope.title = "可追加备货单列表";
+    $scope.title = "可追加配货";
     //条件清空
 
     $scope.Integrated.GetOrderList({ opt: "OPER_CAN_ADD_ORDER_LIST" });
@@ -415,19 +440,24 @@ app.controller("AppendListController", function ($scope, $state, $local, $Api, $
     $scope.Competence = { append: true };
 })
 app.controller("ApplyListController", function ($scope, $state, $local, $Api, $MessagService) {
-    /// <summary>订单返库申请控制器</summary>
-    $scope.title = "待返库申请列表";
+    /// <summary>待返库订单控制器</summary>
+    $scope.title = "待返库订单";
 
     $scope.Competence = {
         apply: true
     }
     $scope.Integrated.ClearWhere(true);
     $scope.Integrated.GetOrderList({ opt: "OPER_WAITBACK_LIST" });
+    $scope.ListCompetence.hPCodeName = true;
+    $scope.ListCompetence.dTCodeName = true;
+    $scope.ListCompetence.initMedProdLnCodeName = false;
+    $scope.ListCompetence.sOOIOrgCodeName = true;
 })
 app.controller("ApprovalListController", function ($scope, $state, $local, $Api, $MessagService) {
-    /// <summary>手术订单审批控制器</summary>
-    $scope.title = "待审批订单列表";
-
+    /// <summary>待审批订单控制器</summary>
+    $scope.title = "待审批订单";
+    $scope.ListCompetence.sOCreateByOrgCodeName = true;
+    $scope.ListCompetence.initMedProdLnCodeName = true;
     $scope.Integrated.GetOrderList({ opt: "OPER_ADUIT_LIST" });
 
     $scope.Competence = { approval: true };
@@ -441,8 +471,8 @@ app.controller("ApprovalListController", function ($scope, $state, $local, $Api,
     }
 })
 app.controller("BackListController", function ($scope, $state, $local, $Api, $MessagService) {
-    /// <summary>返库处理控制器</summary>
-    $scope.title = "待返库处理列表";
+    /// <summary>待报台订单控制器</summary>
+    $scope.title = "待报台订单";
     $scope.Competence = {
         back: true
     };
@@ -452,11 +482,14 @@ app.controller("BackListController", function ($scope, $state, $local, $Api, $Me
 })
 app.controller("DealWithListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>订单处理控制器</summary>
-    $scope.title = "待订单处理列表";
-
+    $scope.title = "待处理订单";
     $scope.Competence = {
         dealwith: true
     };
+    $scope.ListCompetence.sOOIOrgCodeName = true;
+    $scope.ListCompetence.sOCreateByOrgCodeName = true;
+    $scope.ListCompetence.hPCodeName = true;
+    $scope.ListCompetence.dTCodeName = true;
     //条件清空
     $scope.Integrated.ClearWhere(true);
     $scope.Integrated.GetOrderList({ opt: "OPER_PROCESS_LIST" });
@@ -469,7 +502,7 @@ app.controller("DealWithListController", function ($scope, $state, $local, $Api,
 })
 app.controller("FeedbackListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>反馈单草稿控制器</summary>
-    $scope.title = "反馈处理草稿";
+    $scope.title = "报台草稿";
     $scope.Competence = {
         back: true
     };
@@ -479,11 +512,11 @@ app.controller("FeedbackListController", function ($scope, $state, $local, $Api,
 })
 app.controller("MyDraftListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>订单草稿数据控制器</summary>
-    $scope.title = "我的订单草稿";
+    $scope.title = "订单草稿";
 
     $scope.Competence = {
         modify: true,
-        submit: true
+        submit: true,
     };
     $scope.showView = function (sono) {
         /// <summary>查看手术订单</summary>
@@ -492,6 +525,10 @@ app.controller("MyDraftListController", function ($scope, $state, $local, $Api, 
     //条件清空
     $scope.Integrated.ClearWhere(true);
     $scope.Integrated.GetOrderList({ opt: "OPER_MYORDER_DRAFT" });
+    $scope.ListCompetence.hPCodeName = true;
+    $scope.ListCompetence.dTCodeName = true;
+    $scope.ListCompetence.initMedProdLnCodeName = true;
+    $scope.ListCompetence.sOOIOrgCodeName = true;
 })
 app.controller("MyOrderListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>我的订单控制器</summary>
@@ -501,10 +538,14 @@ app.controller("MyOrderListController", function ($scope, $state, $local, $Api, 
     //条件清空
     $scope.Integrated.ClearWhere(true);
     $scope.Integrated.GetOrderList({ opt: "OPER_MYORDER_LIST" });
+    $scope.ListCompetence.hPCodeName = true;
+    $scope.ListCompetence.dTCodeName = true;
+    $scope.ListCompetence.initMedProdLnCodeName = true;
+    $scope.ListCompetence.sOOIOrgCodeName = true;
 })
 app.controller("SignListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>签收订单管理控制器</summary>
-    $scope.title = "待签收订单列表";
+    $scope.title = "待签收订单";
 
     $scope.Competence = {
         sign: true
@@ -512,6 +553,10 @@ app.controller("SignListController", function ($scope, $state, $local, $Api, $Me
     //条件清空
     $scope.Integrated.ClearWhere(true);
     $scope.Integrated.GetOrderList({ opt: "OPER_SIGN_LIST" });
+    $scope.ListCompetence.hPCodeName = true;
+    $scope.ListCompetence.dTCodeName = true;
+    $scope.ListCompetence.initMedProdLnCodeName = false;
+    $scope.ListCompetence.sOOIOrgCodeName = true;
 
     $scope.showView = function (sono) {
         /// <summary>查看手术订单</summary>

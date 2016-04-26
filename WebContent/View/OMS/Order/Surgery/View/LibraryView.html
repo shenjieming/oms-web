@@ -2,7 +2,8 @@
 <div class="widget-box" ng-repeat="lib in PageData.outBounds">
     <div class="widget-title bg_ly">
         <span class="icon"><i class="fa icon-chevron-down"></i></span>
-        <h5 style="width:80%" data-toggle="collapse" href="#{{lib.wONo}}">出库单号：<span ng-bind="lib.wONo"></span>
+        <h5 style="width:80%" data-toggle="collapse" href="#{{lib.wONo}}">
+            出库单号：<span ng-bind="lib.wONo"></span>
             <span ng-bind="lib.ShowInfo"></span>
         </h5>
     </div>
@@ -15,7 +16,7 @@
                 仓库：<span ng-bind="lib.medMIWarehouseName"></span>
             </label>
             <label>
-                创建：<span ng-bind="lib.createDate?lib.createDate:'-'"></span>-[<span ng-bind="PageData.sOCreateByOrgCodeName"></span>]
+                创建：<span ng-bind="lib.createByName"></span> <span ng-bind="lib.createDate?lib.createDate:'-'"></span>
             </label>
             <a ng-show="(lib.status=='WOSTS00010')&&View.Competence.sign" class="btn btn-warning" ng-click="LivraryConfig.OBSign(lib)"><i class="fa fa-vine"></i>签收</a>
         </div>
@@ -41,7 +42,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in lib.Material"  class="ng-scope ng-isolate-scope">
+                            <tr ng-repeat="row in lib.Material" class="ng-scope ng-isolate-scope">
                                 <td>{{$index+1}}</td>
                                 <td><span ng-bind="row.medBrandCodeName"></span></td>
                                 <td><span ng-bind="row.medProdLnCodeName"></span></td>

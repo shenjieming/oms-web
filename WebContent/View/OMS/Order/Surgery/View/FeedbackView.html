@@ -18,7 +18,7 @@
             </div>
             <div class="control-group ">
                 <label>
-                    入院时间：<span ng-bind="PageData.patientEntryDate"></span>
+                    入院日期：<span ng-bind="PageData.patientDateFmtYMDW"></span>    <!--patientEntryDate 修改成 patientDateFmtYMDW-->
                 </label>
                 <label>
                     住院号：<span ng-bind="PageData.patientHPNo"></span>
@@ -40,7 +40,7 @@
             </div>
             <div class="control-group">
                 <label>
-                    取出日期：<span ng-bind="PageData.retrieveEstDate"></span>
+                    取出日期：<span ng-bind="PageData.retrieveEstDateFmtYMDW"></span>     <!--retrieveEstDate 修改成 retrieveEstDateFmtYMDW-->
                 </label>
                 <label style="width:60%">
                     取出描述：<span ng-bind="PageData.retrieveDesc"></span>
@@ -69,8 +69,8 @@
                                     <th><span>规格</span></th>
                                     <th><span>批次</span></th>
                                     <th><span>数量</span></th>
-                                    <th><span>使用</span></th> 
-                                    <th><span>出库清单</span></th>                             
+                                    <th><span>使用</span></th>
+                                    <th><span>出库清单</span></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -84,7 +84,7 @@
                                     <td><span ng-bind="row.specification"></span></td>
                                     <td><span ng-bind="row.lotSerial"></span></td>
                                     <td><span ng-bind="row.useQty"></span></td>
-                                    <td><span ng-bind="row.useTypeName"></span></td>                   
+                                    <td><span ng-bind="row.useTypeName"></span></td>
                                     <td>{{row.isInSODetail=="Y"?"内":"外"}}</td>
                                 </tr>
                             </tbody>

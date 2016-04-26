@@ -2,7 +2,10 @@
     <div class="tools">
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
-            手术订单  <span ng-show="sono" style="color: #0033FF">[<span ng-bind="sono"></span>]</span>
+            手术订单  <span ng-show="sono" style="color: #0033FF">
+                <span ng-bind="sono"></span>
+            </span>
+            <span style="color: #FF3300">{{PageData.statusName}}</span>
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
             <a class="btn btn-primary" ng-click="PageService.Save()"><i class="fa fa-save"></i> 保存</a>
@@ -39,7 +42,7 @@
                         <span class="required" style="line-height:10px;">*</span>
                         电话：{{PageData.deliveryrMobile?PageData.deliveryrMobile:""}}
                     </label>
-                    <label >
+                    <label>
                         <span class="required">*</span>配送：
                         <span ng-dictionary="TRANTP" ng-model="PageData.iniitCarrierTransType"></span>
                     </label>
@@ -90,7 +93,7 @@
                 <div class="control-group">
                     <label>
                         <span class="Text required" style="margin-left:-70px;margin-top:0px;">*</span>
-                        <span class="Text">手术时间：</span>
+                        <span class="Text">手术日期：</span>
                         <span ng-show-data="" ng-model="PageData.initOperationDate"></span>
                         <span style="line-height: 25px; vertical-align: 50%;" id="OrderData"> {{DisplayWeek}}</span>
                     </label>
@@ -116,7 +119,8 @@
         <div class="widget-box">
             <div class="widget-title bg_ly">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5 data-toggle="collapse" href="#ProductInformation">器械信息
+                <h5 data-toggle="collapse" href="#ProductInformation">
+                    器械信息
                     <span ng-bind="ProductCompetence.ShowInfo"></span>
                 </h5>
             </div>
@@ -138,7 +142,7 @@
                 <div class="control-group ">
                     <div ng-img-list="img" ng-comp="{delImg:true}" ng-model="PageData.attachments.images"></div>
                     <label style="opacity:0.5;width:100%;" ng-show="!PageData.attachments.images.length">
-                         请上传手术相关资料，如病历牌照片、诊断书照片...
+                        请上传手术相关资料，如病历牌照片、诊断书照片...
                     </label>
                 </div>
                 <div class="control-group">

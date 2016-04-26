@@ -84,13 +84,34 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
     }
     $.extend($scope.View.Competence, $local.getValue("ORDERCOMP"));
     /*基础对象区域End*/
-
+    //日期format 格式 
+    function FormatDate(strTime) {
+        var date = new Date(strTime);
+        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "  " + "星期" + "日一二三四五六".charAt(date.getDay());
+    }
     /*逻辑对象区域Begion*/
     $scope.PageService = {
         /// <summary>页面服务</summary>
         GetDetail: function () {
             /// <summary>获取订单明细</summary>
-            $Api.SurgeryService.DataSources.GetDetail({ sONo: $scope.sono }, function (rData) { $.extend($scope.PageData, rData); });
+            $Api.SurgeryService.DataSources.GetDetail({ sONo: $scope.sono }, function (rData) {
+                $.extend($scope.PageData, rData);
+                console.log($scope.PageData)
+                if ($scope.PageData.initOperationDate   ) {
+                    $scope.PageData.DataFmtYMDW = FormatDate(new Date($scope.PageData.initOperationDate))
+    
+                   
+                }
+                if ($scope.PageData.patientEntryDate) {
+                  $scope.PageData.patientDateFmtYMDW = FormatDate(new Date($scope.PageData.patientEntryDate))
+                }
+                if ($scope.PageData.retrieveEstDate) {
+                   $scope.PageData.retrieveEstDateFmtYMDW = FormatDate(new Date($scope.PageData.retrieveEstDate))
+                }
+                var myDate = new Date($scope.PageData.initOperationDate)
+                $scope.DisplayWeek = "  星期" + "日一二三四五六".charAt(myDate.getDay());
+            });
+
         }
     }
     $scope.ApprovalConfig = {
@@ -98,19 +119,6 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
         Operat: {
             fixed: function () {
                 $scope.goLastPage();
-            }
-        },
-        ApprovalBy:function(){
-            $Api.SurgeryService.ApprovalBy($scope.PageData, function (rData) {
-                $MessagService.succ($scope.PageData.sONo + "审批通过");
-                $scope.goLastPage();
-            })
-        },
-        Cancel: function () {
-            if (confirm("您确认要取消" + "【"+$scope.PageData.sONo+"】"+"订单吗？")) {
-                $Api.SurgeryService.Cancel($scope.PageData, function (rData) {
-                    $scope.goLastPage();
-                })
             }
         },
         ApprovalBy:function(){
@@ -297,7 +305,7 @@ app.controller("LibraryController", function ($scope, $state, $local, $Api, $Mes
                 }
 
             });
-            result = " 物料：" + stat.AllMaterialCount + "件(植入物：" + stat.AllImplantCount + "件，工具：" + stat.AllToolCount + "件）"
+            result = " 物料：" + stat.AllMaterialCount + "件（植入物：" + stat.AllImplantCount + "件，工具：" + stat.AllToolCount + "件）"
 
             return result;
         },
@@ -906,7 +914,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
 
         }
     };
-    $scope.OutboundOrdermodel = { title: "出库单", width: 730, height: 800, buttons: { "确定": $scope.DealService.PrintCancel }, open: function () { $(".ui-dialog-title").html("订单 " + $scope.PageData.sONo + " ,请复制您所在仓库的出库单号用于之后的打印...") }, close: function () { $scope.goLastPage(); } };
+    $scope.OutboundOrdermodel = { title: "出库单", width: 730, height: 200, buttons: { "确定": $scope.DealService.PrintCancel }, open: function () { $(".ui-dialog-title").html("订单 " + $scope.PageData.sONo + " ,请复制您所在仓库的出库单号用于之后的打印...") }, close: function () { $scope.goLastPage(); } };
     $scope.AddressConfig = {
         fixed: function (rowInfo) {
             /// <summary>选择地址事件</summary>
