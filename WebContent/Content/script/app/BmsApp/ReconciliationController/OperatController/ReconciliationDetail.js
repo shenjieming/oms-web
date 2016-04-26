@@ -5,21 +5,30 @@
 app.controller("ReconciliationDetailController", function ($scope, $state, $local, $BMSApi, $MessagService, $Api) {
     /// <summary>对账单管理，明细管理器</summary>
 
+
+    $scope.Module = {
+        /// <summary>组件控制器</summary>
+        BillListConfig: {
+            /// <summary>订单列表配置器</summary>
+            fixed: function (list) {
+                /// <summary>选择医生事件</summary>
+               
+            }
+        }
+    }
+
     $scope.Service = {
         /// <summary>对账单明细服务</summary>
-        OrderSource:new Array(),
-        GetOrderSource:function(){
+        OrderSource: new Array(),
+        GetOrderSource: function () {
             /// <summary>获取对账单来源</summary>
-            $Api.Public.GetDictionary({ dictType: "HSOAST" }, function(dicty) {
+            $Api.Public.GetDictionary({ dictType: "HSOAST" }, function (dicty) {
                 $scope.Service.OrderSource = dicty;
             });
         },
         ChangeOrderSource: function (hsoast) {
             /// <summary>修改对账单来源</summary>
-            $scope.QueryService.GetRecByMappingData({
-                hSOASourceType: hsoast.id,
-                hSOASourceTypeName: hsoast.text,
-            });
+            $scope.QueryService.GetRecByMappingData({ hSOASourceType: hsoast.id, hSOASourceTypeName: hsoast.text });
         },
         Init: function () {
             /// <summary>页面加载事件</summary>

@@ -10,6 +10,7 @@
         </span>
     </div>
     <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
+    <div ng-bill-list="Module.BillListConfig" ng-model="RecInfo"></div>
     <div>
         <div class="tab-content">
             <div>
@@ -92,7 +93,7 @@
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>
                             <h5 data-toggle="collapse" style="width:80%;" href="#BillInfo">对账明细</h5>
                             <a class="btn" href="javascript:void(0)" ng-if="!RecInfo.hPCode"><i class="fa fa-folder-open"></i> 请选择对账医院</a>
-                            <a class="btn" href="javascritp:void(0)" ng-if="RecInfo.hPCode" ng-click=""><i class="fa fa-folder-open"></i> 选择计费单</a>
+                            <a class="btn" href="javascritp:void(0)" ng-if="RecInfo.hPCode" ng-click="Module.BillListConfig.show()"><i class="fa fa-folder-open"></i> 选择计费单</a>
                         </div>
                         <div id="BillInfo" class="widget-content nopadding collapse in">
                             <div ng-show="BillData.detail.length>0" class="main-box-body clearfix" style="padding: 15px; max-height: 450px; overflow: auto; width: 100%;">
@@ -108,8 +109,8 @@
                                                 <th><span>规格</span> </th>
                                                 <th><span>材料</span></th>
                                                 <th><span>待对账数</span></th>
-                                                <th><span>对账数</span></th>
-                                                <th><span>有效日期</span></th>
+                                                <th><span>对账数量</span></th>
+                                                <th><span>对账单机</span></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -118,8 +119,15 @@
                                                     <span ng-bind="$index"></span>
                                                     <input type="hidden" ng-model="row.hOFNLineSeqNo" />
                                                 </td>
-                                                <td><span ng-bind="row.text"></span></td>
-
+                                                <td><span ng-bind="row.hSOANo"></span></td>
+                                                <td><span ng-bind="row.dHMedMaterialInternalNo"></span></td>
+                                                <td><span ng-bind="row.medMaterialName"></span></td>
+                                                <td><span ng-bind="row.medMaterialBrandName"></span></td>
+                                                <td><span ng-bind="row.dHMMSpecification"></span></td>
+                                                <td><span ng-bind="row.dHMMMaterials"></span></td>
+                                                <td><span ng-bind="row.qty-row.recordInHSOAQty"></span></td>
+                                                <td><input style="width:60px;" type="number" ng-model="row.recordInHSOAQty" /> </td>
+                                                <td><span ng-bind="row.hPUnitPrice"></span> </td>
                                             </tr>
                                         </tbody>
                                     </table>
