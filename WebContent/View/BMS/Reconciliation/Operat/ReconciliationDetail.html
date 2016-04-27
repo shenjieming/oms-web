@@ -41,7 +41,7 @@
                                                 </li>
                                             </ul>
                                         </span>
-                                        <input type="text" class="Input" placeholder="请选择对账单来源后输入对账单票据号">
+                                        <input type="text" class="Input" ng-model="RecInfo.hSOAHospitalNo" placeholder="请选择对账单来源后输入对账单票据号">
                                     </span>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                             <a class="btn" href="javascript:void(0)" ng-if="RecInfo.hPCode" ng-click="Module.BillListConfig.show()"><i class="fa fa-folder-open"></i> 选择计费单</a>
                         </div>
                         <div id="RecInfo" class="widget-content nopadding collapse in">
-                            <div ng-show="RecInfo.detail.length>0" class="main-box-body clearfix" style="padding: 15px; max-height: 450px; overflow: auto; width: 100%;">
+                            <div ng-show="RecInfo.detail.length>0" class="main-box-body clearfix" style="padding: 15px; width: 100%;">
                                 <div class="table-responsive">
                                     <table style="width:1000px; min-width:100%; max-width:2000px;" class="table table-bordered tab-striped" st-table="BillData.detail" st-safe-src="rowCollection">
                                         <thead>
@@ -108,23 +108,37 @@
                                                 <th><span>品牌</span> </th>
                                                 <th><span>规格</span> </th>
                                                 <th><span>材料</span></th>
-                                                <th><span>待对账数</span></th>
+                                                <th><span><span style="color:#ff6a00;" ng-bind="BillService.Gather.HsQtyCount"></span> 待对账数</span></th>
                                                 <th><span>对账数量</span></th>
                                                 <th><span>对账单价</span></th>
+                                                <th><span>金额</span></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="row in RecInfo.detail">
                                                 <td style="text-align:center;"><span ng-bind="$index+1"></span></td>
-                                                <td><span ng-bind="row.hSOANo"></span></td>
+                                                <td><span ng-bind="row.hOFNNo"></span></td>
                                                 <td><span ng-bind="row.dHMedMaterialInternalNo"></span></td>
                                                 <td><span ng-bind="row.medMaterialName"></span></td>
                                                 <td><span ng-bind="row.medMaterialBrandName"></span></td>
                                                 <td><span ng-bind="row.dHMMSpecification"></span></td>
                                                 <td><span ng-bind="row.dHMMMaterials"></span></td>
                                                 <td><span ng-bind="row.qty-row.recordInHSOAQty"></span></td>
-                                                <td><input style="width:60px;" max="{{row.qty-row.recordInHSOAQty}}" min="0" type="number" ng-model="row.offsetQty" /> </td>
-                                                <td><span ng-bind="row.hPUnitEstPrice"></span> </td>
+                                                <td><input style="width:60px;" ng-change="BillService.ChangeBillList()" max="{{row.qty-row.recordInHSOAQty}}" min="0" type="number" ng-model="row.offsetQty" /> </td>
+                                                <td style="text-align:right;">￥<span ng-bind="row.hPUnitEstPrice.toFixed(2)"></span> </td>
+                                                <td style="text-align:right;">￥<span ng-bind="(row.hPUnitEstPrice*row.offsetQty).toFixed(2)"></span> </td>
+                                            </tr>
+                                            <tr style="text-align:right;border-top :1px solid #000">
+                                                <td style="text-align:center;">合计</td>
+                                                <td><span ng-bind="BillService.Gather.BillCount"></span> 张计费单 </td>
+                                                <td colspan="2"><span ng-bind="BillService.Gather.MaterialCount"></span> 件医疗耗材</td>
+                                                <td><span ng-bind="BillService.Gather.BrandCount"></span> 种品牌 </td>
+
+                                                <td><span ng-bind="BillService.Gather.SpeciCount"></span> 种规格</td>
+                                                <td><span ng-bind="BillService.Gather.StuffCount"></span> 种材料</td>
+                                                <td><span ng-bind="BillService.Gather.HsQtyCount-BillService.Gather.OffsetQtyCount"></span> 件未对账</td>
+                                                <td><span ng-bind="BillService.Gather.OffsetQtyCount"></span> 件对账</td>
+                                                <td colspan="2">￥<span style="color:#ff6a00" ng-bind="BillService.Gather.Amount.toFixed(2)"></span>元</td>
                                             </tr>
                                         </tbody>
                                     </table>

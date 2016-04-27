@@ -104,7 +104,12 @@ app.factory("$RecInfFactory", function ($BMSApi,$AppHelp) {
 
         var GetBillDetailMapping = function (detail) {
             /// <summary>获取计费单详情映射信息</summary>
-            return $.extend(detail, { medMaterialName: detail.dHMMName, offsetQty: (detail.qty - (detail.recordInHSOAQty ? detail.recordInHSOAQty : 0)) });
+            return $.extend(detail, {  medMaterialName: detail.dHMMName, hOFNLineSeqNo:detail.lineSeqNo, offsetQty: (detail.qty - (detail.recordInHSOAQty ? detail.recordInHSOAQty : 0)) });
+        }
+
+        var GetDictionaryCount = function (dictionary) {
+            /// <summary>获取字典的属性数量</summary>
+            var result = 0; for (var key in dictionary) { result++; } return result;
         }
 
         this.GetNewRecMapping = function () {
@@ -114,14 +119,12 @@ app.factory("$RecInfFactory", function ($BMSApi,$AppHelp) {
 
         this.GetNewBillDetail = function (oldlist, newlist) {
             /// <summary>获取新的计费单详情</summary>
-            $.each(newlist, function (index, bill) {
-                var flg = true;
-                if (flg) {
-                    oldlist.push(GetBillDetailMapping(bill));
-                }
-            });
+            $.each(newlist, function (index, bill) { var newbill = GetBillDetailMapping(bill); var flg = true; $.each(oldlist, function (oindex, item) { if (newbill.hOFNNo == item.hOFNNo && newbill.hOFNLineSeqNo == item.hOFNLineSeqNo) { flg = false; return false; } }); if (flg) { oldlist.push(newbill); } }); return oldlist;
+        }
 
-            return oldlist;
+        this.BillAnalysis = function (list) {
+            /// <summary>订单数据分析</summary>
+            var result = { BillCount: 0, MaterialCount: 0, BrandCount: 0, SpeciCount: 0, StuffCount: 0, HsQtyCount: 0, OffsetQtyCount: 0, Amount: 0 }; var Dictionary = { bill: new Array(), Material: new Array(), Brand: new Array(), Speci: new Array(), Stuff: new Array() }; $.each(list, function (index, bill) { Dictionary.bill[bill.hOFNNo] = 1; Dictionary.Material[bill.dHMedMaterialInternalNo] = 1; Dictionary.Brand[bill.medMaterialBrandName] = 1; Dictionary.Speci[bill.dHMMSpecification] = 1; Dictionary.Stuff[bill.dHMMMaterials] = 1; var OffsetQty = bill.offsetQty; var HsQty = (bill.qty - (bill.recordInHSOAQty ? bill.recordInHSOAQty : 0)); var Amount = OffsetQty * bill.hPUnitEstPrice; $.extend(result, { HsQtyCount: result.HsQtyCount + HsQty, OffsetQtyCount: result.OffsetQtyCount + OffsetQty, Amount: result.Amount + Amount }); }); $.extend(result, { BillCount: GetDictionaryCount(Dictionary.bill), MaterialCount: GetDictionaryCount(Dictionary.Material), BrandCount: GetDictionaryCount(Dictionary.Brand), SpeciCount: GetDictionaryCount(Dictionary.Speci), StuffCount: GetDictionaryCount(Dictionary.Stuff) }); return result;
         }
 
         return this;
