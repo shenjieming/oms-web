@@ -183,6 +183,24 @@ var BaseApp = angular.module('BaseApp', [])
             loadJs: ["Content/script/app/BaseApp/MyBusiness/Address/JS_AddressList.js"],
             resolve: app.resolve
         })
+          .state("app.base.mybusiness.addressedit", {
+              /// <summary>我的地址编辑</summary>
+              url: "/addressedit",
+              cache: false,
+              controller: "AddressEditController",
+              templateUrl: "View/Base/MyBusiness/Address/AddressEdit.html?data=" + Timestamp,
+              loadJs: ["Content/script/app/BaseApp/MyBusiness/Address/JS_AddressEdit.js"],
+              resolve: app.resolve
+          })
+          .state("app.base.mybusiness.addressview", {
+              /// <summary>我的地址详情</summary>
+              url: "/addressview",
+              cache: false,
+              controller: "AddressViewController",
+              templateUrl: "View/Base/MyBusiness/Address/AddressView.html?data=" + Timestamp,
+              loadJs: ["Content/script/app/BaseApp/MyBusiness/Address/JS_AddressView.js"],
+              resolve: app.resolve
+          })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         $stateProvider

@@ -1,0 +1,107 @@
+﻿<div class="row">
+    <div class="tools">
+        <h5 style="float:left;">地址详情</h5>
+        <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-click="AddressDetail.Save()"><i class="fa fa-save"></i> 保存</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#PersonalInformation">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>基本信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="PersonalInformation">
+
+                <div class="control-group ">
+                    <label>
+                        <span class="required">*</span>联系人：<input type="text" ng-model="AddressDetail.info.contact" placeholder="请输入联系人姓名" />
+                    </label>
+                    <label>
+                        手机：<input type="text" ng-model="AddressDetail.info.mobile" placeholder="请输入联系人手机号码" />
+                    </label>
+                    <label>
+                        <span class="required">*</span>配送方式：
+                        <span ng-dictionary="TRANTP" ng-model="AddressDetail.info.carrierTransType"></span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        <span class="required"></span>邮政编码：<input type="text" style="width:80%" ng-model="AddressDetail.info.postcode" placeholder="请输入医生关系描述" />
+                    </label>
+                    <label>
+                        <span class="required">*</span>地址类型：
+                        <span ng-dictionary="ADDRTP" ng-model="AddressDetail.info.addressType"></span>
+                    </label>
+                    <label>
+                        <span style="float:left;line-height:25px;">地址默认：</span>
+                        <input type="checkbox" id="checkbox_c4" class="chkbox" ng-checked="AddressDetail.info.checkisDefaultPerAddressType" ng-model="AddressDetail.Info.checkisDefaultPerAddressType" />
+                        <label for="checkbox_c4" style="float:left"></label>
+                        <span ng-show="AddressDetail.Info.checkisDefaultPerAddressType" style="line-height: 25px;"> 默认</span>
+                        <span ng-show="!AddressDetail.Info.checkisDefaultPerAddressType" style="line-height: 25px;">非默认</span>
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label style="width:100%">
+                        <span class="required">*</span>地区：<span ng-area="" ng-model="AddressDetail.info"></span>
+                        <input ng-model="AddressDetail.info.address" placeholder="请输入联系人详细地址" style="width:360px" />
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#TopContacts">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>联系信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="TopContacts">
+                <div class="control-group ">
+                    <label>
+                        公司：<input type="text" ng-model="AddressDetail.info.company" placeholder="请输入该联系人公司名称" />
+                    </label>
+                    <label>
+                        总机：<input type="text" ng-model="AddressDetail.info.dTAddress" placeholder="请输入该联系人公司总机" />
+                    </label>
+                    <label>
+                        电子邮箱：<input type="text" onkeyup="this.value=this.value.replace(/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/)" ng-model="AddressDetail.info.dTEmail" placeholder="请输入该联系人电子邮箱" />
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label>
+                        通讯工具一：
+                        <span ng-dictionary="MMICTG" ng-model="AddressDetail.info.contactPMsgType1"></span>
+                    </label>
+                    <label>
+                        号码：<input type="text" ng-model="AddressDetail.info.contactPMsgNo1" placeholder="请输入该联系人通讯号码" />
+                    </label>
+                    <label>
+                        用途：<input type="text" ng-model="AddressDetail.info.contactPMsgDesc1" placeholder="请输入该联系人通讯描述" />
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label>
+                        通讯工具二：
+                        <span ng-dictionary="MMICTG" ng-model="AddressDetail.info.contactPMsgType2"></span>
+                    </label>
+                    <label>
+                        号码：<input type="text" ng-model="AddressDetail.info.contactPMsgNo2" placeholder="请输入该联系人通讯号码" />
+                    </label>
+                    <label>
+                        用途：<input type="text" ng-model="AddressDetail.info.contactPMsgDesc2" placeholder="请输入该联系人通讯描述" />
+                    </label>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <div class="tools">
+        <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-click="AddressDetail.Save()"><i class="fa fa-save"></i> 保存</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+        </span>
+    </div>
+</div>
+
+
+
+
