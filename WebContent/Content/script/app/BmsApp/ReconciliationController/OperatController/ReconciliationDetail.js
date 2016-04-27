@@ -2,19 +2,22 @@
 /// <reference path="../../../../lib/Jquery/jquery-1.11.1.min.js" />
 
 
-app.controller("ReconciliationDetailController", function ($scope, $state, $local, $BMSApi, $MessagService, $Api) {
+app.controller("ReconciliationDetailController", function ($scope, $state, $local, $BMSApi, $MessagService, $Api, $RecInfFactory) {
     /// <summary>对账单管理，明细管理器</summary>
-
-
     $scope.Module = {
         /// <summary>组件控制器</summary>
         BillListConfig: {
             /// <summary>订单列表配置器</summary>
             fixed: function (list) {
                 /// <summary>选择医生事件</summary>
-               
+                $scope.QueryService.GetRecByMappingData({ detail: $scope.Factory.GetNewBillDetail($scope.RecInfo.detail, list) });
             }
         }
+    }
+
+    $scope.BillService = {
+        /// <summary>计费单信息处理服务</summary>
+        
     }
 
     $scope.Service = {
@@ -22,14 +25,13 @@ app.controller("ReconciliationDetailController", function ($scope, $state, $loca
         OrderSource: new Array(),
         GetOrderSource: function () {
             /// <summary>获取对账单来源</summary>
-            $Api.Public.GetDictionary({ dictType: "HSOAST" }, function (dicty) {
-                $scope.Service.OrderSource = dicty;
-            });
+            $Api.Public.GetDictionary({ dictType: "HSOAST" }, function (dicty) { $scope.Service.OrderSource = dicty; });
         },
         ChangeOrderSource: function (hsoast) {
             /// <summary>修改对账单来源</summary>
             $scope.QueryService.GetRecByMappingData({ hSOASourceType: hsoast.id, hSOASourceTypeName: hsoast.text });
         },
+
         Init: function () {
             /// <summary>页面加载事件</summary>
             $scope.Service.GetOrderSource();

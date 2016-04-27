@@ -47,6 +47,11 @@ BMSApiService.factory("$PublicInfoFactory", function ($BMSApiFactory, $MessagSer
             $MessagService.loading("计费单列表获取中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.PublicInfo.billlist, data, callback);
         },
+        GetMoreBillDetail: function (data, callback) {
+            /// <summary>获取更多的计费订单</summary>
+            $MessagService.loading("计费单详情获取中，请稍等...");
+            $BMSApiFactory.PostApi(BMSPath.PublicInfo.morebilldetail, data, callback);
+        },
         GetBillDetail: function (data, callback) {
             /// <summary>获取计费订单的详细信息</summary>
             $MessagService.loading("计费单详情获取中，请稍等...");
