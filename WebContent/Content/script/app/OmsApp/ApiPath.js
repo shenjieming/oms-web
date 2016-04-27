@@ -36,6 +36,8 @@ var ApiPath = {
             save: "/v2/common/order/process/save",
             //提交手术订单
             submit: "/v2/common/order/process/submit",
+            //订单提交-线下
+            offlineSubmit: "/v2/common/order/process/offlineSubmit",
             //追加配货单提交
             addOB: "/v2/common/order/process/addOB",
             //事件添加

@@ -852,8 +852,23 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
             $scope.DealService.model.hide();
         },
         Show:function () {
+            /// <summary>线上处理订单预览</summary>
             $scope.PreViewCount.GetData();
             $scope.DealService.model.show();
+        },
+        OfflineSubmit:function () {
+            /// <summary>线下处理订单提交</summary>
+            if (confirm("您确认要提交当前线下处理订单吗?")) {
+                if ($scope.View.Competence.handleType=='offline') {
+                    if($scope.PageData.sOOfflineHandleReasonType != undefined && $scope.PageData.sOOfflineHandleReasonType != ''){
+                        $Api.SurgeryService.Process.OfflineSubmit($scope.PageData, function (rData) {
+                            $scope.goLastPage();
+                        });
+                    }else{
+                        $MessagService.caveat("请填写线下处理原因");
+                    }
+                }
+            }
         },
         Cancel: function () {
             if (confirm("您确认要取消当前订单吗?")) {

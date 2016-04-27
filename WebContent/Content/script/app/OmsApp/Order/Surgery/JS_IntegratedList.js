@@ -28,11 +28,20 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         }
     }
 
-    $scope.ProcessingOrders = function (sono) {
-        /// <summary>处理订单</summary>
-        $local.setValue("ORDERCOMP", { dealwith: true });
+    //跳转到线上处理页面
+    $scope.ProcessingOnlineOrders = function (sono) {
+        /// <summary>处理线上订单</summary>
+        $local.setValue("ORDERCOMP", { dealwith: true , handleType: 'online' });
         $scope.goView("app.oms.order.dealpage", { sono: sono });
     }
+
+    //跳转到线下处理页面
+    $scope.ProcessingOfflineOrders = function (sono) {
+        /// <summary>处理线下订单</summary>
+        $local.setValue("ORDERCOMP", { dealwith: true , handleType: 'offline'});
+        $scope.goView("app.oms.order.dealpage", { sono: sono });
+    }
+
 
     $scope.Additional = function () {
         /// <summary>追加出库单</summary>
@@ -60,19 +69,45 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         $scope.GetRowGoPage("app.oms.order.view");
     }
 
-    $scope.DealSurgery = function () {
-        /// <summary>处理手术订单</summary>
+    $scope.DealSurgeryOnline = function () {
+        /// <summary>线上处理手术订单</summary>
         $scope.GetRowGoPage(null, function (rowData) {
             if (rowData.status == "SOSTS00060") {//已处理订单的话
                 if (rowData.sOHandleBy == userData.userInfo.userId) {
-                    $scope.ProcessingOrders(rowData.sONo);
+                    if(rowData.sOHandleType == "ONLINE" || rowData.sOHandleType == "NOTDECIDE"){
+                        $scope.ProcessingOnlineOrders(rowData.sONo);
+                    }else{
+                        $MessagService.caveat("当前订单只允许线下处理！");
+                    }
                 } else {
                     $MessagService.caveat("当前订单已被" + rowData.sOHandleByName + "处理中！");
                 }
             } else {
                 $Api.SurgeryService.Process.Receive({ sONo: rowData.sONo, opt: "OPER_PROCESS_RECEIVE" }, function () {
                     $MessagService.loading("订单处理启动中...");
-                    setTimeout(function () { $scope.ProcessingOrders(rowData.sONo) }, 1000);
+                    setTimeout(function () { $scope.ProcessingOnlineOrders(rowData.sONo) }, 1000);
+                });
+            }
+        });
+    }
+
+    $scope.DealSurgeryOffline = function () {
+        /// <summary>线下处理手术订单</summary>
+        $scope.GetRowGoPage(null, function (rowData) {
+            if (rowData.status == "SOSTS00060") {//已处理订单的话
+                if (rowData.sOHandleBy == userData.userInfo.userId) {
+                    if(rowData.sOHandleType == "OFFLINE" || rowData.sOHandleType == "NOTDECIDE"){
+                        $scope.ProcessingOfflineOrders(rowData.sONo);
+                    }else{
+                        $MessagService.caveat("当前订单只允许线上处理！");
+                    }
+                } else {
+                    $MessagService.caveat("当前订单已被" + rowData.sOHandleByName + "处理中！");
+                }
+            } else {
+                $Api.SurgeryService.Process.Receive({ sONo: rowData.sONo, opt: "OPER_PROCESS_RECEIVE" }, function () {
+                    $MessagService.loading("订单处理启动中...");
+                    setTimeout(function () { $scope.ProcessingOfflineOrders(rowData.sONo) }, 1000);
                 });
             }
         });
@@ -302,8 +337,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
     $scope.HighSearch = function () {
         /// <summary>高级查询开关按钮</summary>
         $scope.Integrated.IsQuery = !$scope.Integrated.IsQuery
-        console.log($scope.SelectInfo.Status.dic)
-        if ($scope.SelectInfo.Status.dic.length == 0) {
+        if ($scope.SelectInfo.Status.dic.length==0) {
             $scope.ButtonList();
         }
     }
