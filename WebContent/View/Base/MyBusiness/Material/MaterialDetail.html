@@ -27,7 +27,10 @@
                 <div class="control-group">
                     <label>
                         <span class="required">*</span>
-                        物料编码：<input type="text" placeholder="请输入物料编码" ng-model="PageData.medMICode" />
+                        <div>
+                            物料编码：SY-
+                            <input type="text" style="width:127px;" placeholder="请输入物料编码" ng-model="PageData.medMICode" ng-change="MaterialFactoryCode()" />
+                        </div>
                     </label>
                     <label>
                         <span class="required">*</span>
@@ -171,15 +174,12 @@
             </div>
             <div class="widget-content nopadding collapse in" id="DetailManufacturerInfo">
                 <div class="control-group ">
-                    <label ng-if="!PageData.medMIInternalNo">
-                        <span class="required">*</span>
-                        厂商：<select ng-model="PageData.medMnfcOrgCode" ng-options="item.id as item.text for item in Material.MedManuFactureList">
-                            <option value="">请选择厂商信息</option>
-                        </select>
+                    <label >
+                        厂商：<span ng-bind="PageData.medMnfcCodeName"></span>               
                     </label>
                     <label style="width:60%">
                         <span class="required">*</span>
-                        编码：<input type="text" style="width:78%" placeholder="请输入厂家物料编码" ng-model="PageData.mnfcMedMICode" />
+                        物料原厂编码：<input type="text" style="width:78%" placeholder="请输入厂家物料编码" ng-model="PageData.mnfcMedMICode" />
                     </label>
                 </div>
                 <div class="control-group">

@@ -185,7 +185,7 @@ var BaseApp = angular.module('BaseApp', [])
         })
           .state("app.base.mybusiness.addressedit", {
               /// <summary>我的地址编辑</summary>
-              url: "/addressedit",
+              url: "/addressedit/:addopt",
               cache: false,
               controller: "AddressEditController",
               templateUrl: "View/Base/MyBusiness/Address/AddressEdit.html?data=" + Timestamp,

@@ -12,7 +12,7 @@ app.controller("AddressListController", function ($scope, $state, $local, $Api, 
         info: [],
         GetAddressList: function () {
             /// <summary>获取我的地址列表</summary>
-            var paramData = $.extend({}, $scope.Pagein);
+            var paramData = $.extend({ userID: $scope.User.userInfo.userId }, $scope.Pagein);
             console.log(paramData)
             $Api.MyAddress.GetbizDataMyAddressList(paramData, function (rData) {
                 $scope.AddressList.info = rData.rows;
@@ -48,14 +48,12 @@ app.controller("AddressListController", function ($scope, $state, $local, $Api, 
                 $MessagService.caveat("请选择一条编辑的地址信息！")
             }        
         },
-        View: function () {
-            $scope.AddressView.ShowView();
-        }
+      
     }
     $scope.AddressView = {
         Info: [],
-        ShowView: function () {
-            var adree = $scope.getSelectedRow();
+        ShowView: function (row) {
+            var adree =  row?row:$scope.getSelectedRow();
             if (adree) {
                 $scope.AddressView.model.show();
                 $Api.MyAddress.GetbizDataMyAddressList(adree, function (rData) {

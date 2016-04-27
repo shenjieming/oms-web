@@ -7,7 +7,7 @@
                 <span class="btn-group oms-btn-group" style="float:right;">
                     <a class="btn btn-primary" ng-click="AddressJumpSever.Add()">新增</a>
                     <a class="btn btn-primary" ng-click="AddressJumpSever.Edit()">编辑</a>
-                    <a class="btn btn-primary" ng-click="AddressJumpSever.View()">详情</a>
+                    <a class="btn btn-primary" ng-click="AddressView.ShowView()">详情</a>
                 </span>
             </header>
             <div class="main-box-body clearfix">
@@ -27,7 +27,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in AddressList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                            <tr ng-repeat="row in AddressList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="AddressView.ShowView(row)">
                                 <td>{{$index+1}}</td>
                                 <td><span>{{row.addressTypeName}}</span></td>
                                 <td><span>{{row.contact}}</span></td>

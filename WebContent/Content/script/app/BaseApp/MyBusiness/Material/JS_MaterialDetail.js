@@ -39,14 +39,17 @@ app.controller("MaterialDetailController", function ($scope, $stateParams, $stat
             })
         }
     }
-
+    $scope.MaterialFactoryCode = function () {
+        /// <summary>物料编码和出厂编码相同</summary>
+        $scope.PageData.mnfcMedMICode = $scope.PageData.medMICode;
+    }
     $scope.Material = {
         //条件
-        MedManuFactureList: new Array(),
         GetMedManuFactureList: function () {
-            /// <summary>获取厂商列表</summary>
-            $Api.BusinessData.MedManuFacture.GetMedManuFactureCommboxList({}, function (rData) {
-                $scope.Material.MedManuFactureList = rData;
+            /// <summary>获取厂商</summary>
+            $Api.BusinessData.MedBrand.GetQueryMedBrandDetail({ medBrandCode: $scope.PageData.medBrandCode }, function (rData) {
+                console.log(rData)
+                $scope.PageData.medMnfcCodeName = rData.medMnfcCodeName
             });
         }
     }

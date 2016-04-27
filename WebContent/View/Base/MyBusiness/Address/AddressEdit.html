@@ -19,7 +19,7 @@
                         <span class="required">*</span>联系人：<input type="text" ng-model="AddressDetail.info.contact" placeholder="请输入联系人姓名" />
                     </label>
                     <label>
-                        手机：<input type="text" ng-model="AddressDetail.info.mobile" placeholder="请输入联系人手机号码" />
+                        <span class="required">*</span>手机：<input type="text" ng-model="AddressDetail.info.mobile" placeholder="请输入联系人手机号码" />
                     </label>
                     <label>
                         <span class="required">*</span>配送方式：
@@ -34,12 +34,12 @@
                         <span class="required">*</span>地址类型：
                         <span ng-dictionary="ADDRTP" ng-model="AddressDetail.info.addressType"></span>
                     </label>
-                    <label>
+                    <label >
                         <span style="float:left;line-height:25px;">地址默认：</span>
-                        <input type="checkbox" id="checkbox_c4" class="chkbox" ng-checked="AddressDetail.info.checkisDefaultPerAddressType" ng-model="AddressDetail.Info.checkisDefaultPerAddressType" />
+                        <input type="checkbox" id="checkbox_c4" class="chkbox" ng-checked="AddressDetail.info.checkisDefaultPerAddressType" ng-model="AddressDetail.Info.checkisDefaultPerAddressType" ng-change="AddressDetail.checkIs()" />
                         <label for="checkbox_c4" style="float:left"></label>
-                        <span ng-show="AddressDetail.Info.checkisDefaultPerAddressType" style="line-height: 25px;"> 默认</span>
-                        <span ng-show="!AddressDetail.Info.checkisDefaultPerAddressType" style="line-height: 25px;">非默认</span>
+                        <span ng-show="AddressDetail.info.checkisDefaultPerAddressType" style="line-height: 25px;"> 默认</span>
+                        <span ng-show="!AddressDetail.info.checkisDefaultPerAddressType" style="line-height: 25px;">非默认</span>
                     </label>
                 </div>
                 <div class="control-group ">
@@ -61,10 +61,10 @@
                         公司：<input type="text" ng-model="AddressDetail.info.company" placeholder="请输入该联系人公司名称" />
                     </label>
                     <label>
-                        总机：<input type="text" ng-model="AddressDetail.info.dTAddress" placeholder="请输入该联系人公司总机" />
+                        总机：<input type="text" ng-model="AddressDetail.info.tel" placeholder="请输入该联系人公司总机" />
                     </label>
                     <label>
-                        电子邮箱：<input type="text" onkeyup="this.value=this.value.replace(/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/)" ng-model="AddressDetail.info.dTEmail" placeholder="请输入该联系人电子邮箱" />
+                        电子邮箱：<input type="text" onkeyup="this.value=this.value.replace(/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/)" ng-model="AddressDetail.info.email" placeholder="请输入该联系人电子邮箱" />
                     </label>
                 </div>
                 <div class="control-group">
