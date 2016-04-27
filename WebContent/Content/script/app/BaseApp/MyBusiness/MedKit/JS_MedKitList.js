@@ -38,7 +38,17 @@ app.controller("MedKitListController", function ($scope, $state, $local, $Api, $
                 $scope.MedKit.List = rData.rows;
                 $scope.Pagein.total = rData.total;//分页控件获取当前数据请求的总页数
             });
-        }
+        },
+        QueryMedKit:function(){
+            $scope.Pagein.pageIndex = 1;
+            $scope.MedKit.GetMedKitList();
+        },
+        UpEnter: function (e) {
+            var keycode = window.event ? e.keyCode : e.which;
+            if (keycode == 13) {
+                $scope.MedKit.GetMedKitList();
+            }
+        },
     };
   
     $scope.Service = {
@@ -115,13 +125,57 @@ app.controller("MedKitListController", function ($scope, $state, $local, $Api, $
             /// <summary>获取套件详细信息</summary>
             $Api.MedKitService.GetMedKitDetail(rowData,calback);
         },
+        KitValid:function(){
+            var result = true;
+            $.each($scope.Detail.PageData.prodLns,function(pindex,pro){
+                if(pro.medMaterias.length<=0){
+                    $MessagService.eorr("请选择产品线"+"  "+pro.medProdLnCodeName+"  "+"下的物料！");
+                    result = false;
+                }
+            });
+            if(!($scope.Detail.PageData.prodLns.length>0)){
+                $MessagService.eorr("请选择产品线!");
+                result = false;
+            }
+            if(!$scope.Detail.PageData.zoneCode){
+                $MessagService.eorr("请选择库区!");
+                result = false;
+            }
+            if(!$scope.Detail.PageData.medMIWarehouse){
+                $MessagService.eorr("请选择存储仓库！");
+                result = false;
+            }
+            if(!$scope.Detail.PageData.kitType){
+                $MessagService.eorr("请输入套件类型！");
+                result = false;
+            }
+            if(!$scope.Detail.PageData.kitName){
+                $MessagService.eorr("请输入套件名称！");
+                result = false;
+            }
+            if(!$scope.Detail.PageData.kitCode){
+                $MessagService.eorr("请输入套件编码！");
+                result = false;
+            }
+            if(!$scope.Detail.PageData.oIOrgCode){
+                $MessagService.eorr("请选择货主！");
+                result = false;
+            }
+            return result;
+        },
         Save: function () {
             /// <summary>保存套件</summary>
-            $Api.MedKitService.Save($scope.Detail.PageData, function () {
-                $MessagService.succ("套件保存成功！");
-                $scope.MedKit.GetMedKitList();
-                $scope.Service.isEdit(false);   
-            });
+            //必输项校验
+            if ($scope.Service.KitValid()){
+                if (!$scope.Detail.PageData.kitFullName){
+                    $scope.Detail.PageData.kitFullName = $scope.Detail.PageData.kitName
+                }
+                $Api.MedKitService.Save($scope.Detail.PageData, function () {
+                    $MessagService.succ("套件保存成功！");
+                    $scope.MedKit.GetMedKitList();
+                    $scope.Service.isEdit(false);
+                });
+            }
         }
     }
 
@@ -129,6 +183,7 @@ app.controller("MedKitListController", function ($scope, $state, $local, $Api, $
         /// <summary>分页信息</summary>
         pageSize: 10,
         pageIndex: 1,
+        searchValue:"",
         callbake: function () {
             $scope.MedKit.GetMedKitList();
         }
