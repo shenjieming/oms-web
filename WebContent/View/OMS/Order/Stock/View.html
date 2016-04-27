@@ -3,15 +3,17 @@
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
             备货订单
-            <span style="color: #0033FF">[{{sono}}]</span>
-            <span style="color: #FF3300">({{PageData.statusName}})</span>
+            <span style="color: #0033FF">{{sono}}</span>
+            <span style="color: #FF3300">{{PageData.statusName}}</span>
 
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
             <a class="btn btn-primary" ng-show="View.Competence.dealwith"><i class="fa fa-wrench"></i>处理</a>
-            <a class="btn btn-primary" ng-show="View.Competence.approval" ng-click="ApprovalConfig.Operat.show()"><i class="fa fa-eye"></i>审批</a>
+            <a class="btn btn-primary" ng-if="View.Competence.approval" ng-click="ApprovalConfig.ApprovalBy()"><i class="fa fa-check-circle-o"></i> 批准</a>
+            <a class="btn btn-primary" ng-if="View.Competence.approval" ng-click="ApprovalConfig.Operat.show()"><i class="fa fa-times-circle-o"></i> 拒绝</a> 
             <a class="btn btn-primary" ng-show="View.Competence.sign" ng-click="SignConfig.Operat.show()"><i class="fa fa-eye"></i>订单签收</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+            <a class="btn btn-danger" ng-if="View.Competence.approval" ng-click="ApprovalConfig.Cancel()"><i class="fa fa-undo"></i> 订单取消</a>
         </span>
     </div>
     <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
@@ -23,7 +25,7 @@
             <li role="presentation" class="active" href="#Original" data-toggle="tab"><a>原始订单</a></li>
             <li role="presentation" href="#Accurate" data-toggle="tab" ng-show="PageData.orderAccess.instkPreciseAccess"><a>精确订单</a></li>
             <li role="presentation" href="#Library" data-toggle="tab" ng-show="PageData.orderAccess.instkOutboundAccess"><a>出库单</a></li>
-            <li role="presentation" href="#Event" data-toggle="tab" ng-show="PageData.orderAccess.instkEventAccess"><a>订单事件</a></li>
+            <li role="presentation" href="#Event" data-toggle="tab" ng-show="PageData.orderAccess.instkEventAccess"><a>订单跟踪</a></li>
         </ul>
 
         <!-- Tab panes -->
@@ -51,9 +53,12 @@
     <div ng-sign="" ng-model="PageData" ng-operat="SignConfig.Operat"></div>
     <div class="tools">
         <span class="btn-group oms-btn-group" style="float:right;">
-            <a class="btn btn-primary" ng-show="View.Competence.approval" ng-click="ApprovalConfig.Operat.show()"><i class="fa fa-eye"></i>审批</a>
+            <a class="btn btn-primary" ng-show="View.Competence.dealwith"><i class="fa fa-wrench"></i>处理</a>
+            <a class="btn btn-primary" ng-if="View.Competence.approval" ng-click="ApprovalConfig.ApprovalBy()"><i class="fa fa-check-circle-o"></i> 批准</a>
+            <a class="btn btn-primary" ng-if="View.Competence.approval" ng-click="ApprovalConfig.Operat.show()"><i class="fa fa-times-circle-o"></i> 拒绝</a>
             <a class="btn btn-primary" ng-show="View.Competence.sign" ng-click="SignConfig.Operat.show()"><i class="fa fa-eye"></i>订单签收</a>
-            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa  fa-reply"></i> 返回</a>
+            <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i>返回</a>
+            <a class="btn btn-danger" ng-if="View.Competence.approval" ng-click="ApprovalConfig.Cancel()"><i class="fa fa-undo"></i> 订单取消</a>
         </span>
     </div>
 </div>

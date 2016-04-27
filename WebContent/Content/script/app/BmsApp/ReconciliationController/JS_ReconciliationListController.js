@@ -102,19 +102,26 @@ app.factory("$RecInfFactory", function ($BMSApi,$AppHelp) {
         /// <summary>对账管理服务器</summary>
         this.$scope = scope;
 
+        var GetBillDetailMapping = function (detail) {
+            /// <summary>获取计费单详情映射信息</summary>
+            return $.extend(detail, { medMaterialName: detail.dHMMName, offsetQty: (detail.qty - (detail.recordInHSOAQty ? detail.recordInHSOAQty : 0)) });
+        }
+
         this.GetNewRecMapping = function () {
             /// <summary>获取新的的对账单映射</summary>
-            return {
-                hSOASourceType: "HSOASTHP",
-                hSOASourceTypeName: "医院",
-                hSOAType: "HSOATPNM",
-                hSOADateFrom: $AppHelp.Data.GetDate(30,null,3),
-                hSOADateTo: $AppHelp.Data.GetDate(0, null, 3),
-                hSOAIssueDate: $AppHelp.Data.GetDate(0, null, 3),
-                hSOAIssueByName: $scope.User.userInfo.userName,
-                detail: new Array(),
-                images: new Array()
-            };
+            return { hSOASourceType: "HSOASTHP", hSOASourceTypeName: "医院", hSOAType: "HSOATPNM", hSOADateFrom: $AppHelp.Data.GetDate(30, null, 3), hSOADateTo: $AppHelp.Data.GetDate(0, null, 3), hSOAIssueDate: $AppHelp.Data.GetDate(0, null, 3), hSOAIssueByName: $scope.User.userInfo.userName, detail: new Array(), images: new Array() };
+        }
+
+        this.GetNewBillDetail = function (oldlist, newlist) {
+            /// <summary>获取新的计费单详情</summary>
+            $.each(newlist, function (index, bill) {
+                var flg = true;
+                if (flg) {
+                    oldlist.push(GetBillDetailMapping(bill));
+                }
+            });
+
+            return oldlist;
         }
 
         return this;

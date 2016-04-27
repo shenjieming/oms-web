@@ -173,8 +173,8 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
 
     //  日期格式转换
     function FormatDate(strTime) {
-        var date = new Date(strTime);
-        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+     //   var date = new Date(replace("-", "/").replace("-", "/"));         
+       return strTime.getFullYear() + "-" + (strTime.getMonth() + 1) + "-" + strTime.getDate();
     }
     //+ "  " + "星期" + "日一二三四五六".charAt(date.getDay())
     $scope.Integrated = {
@@ -230,13 +230,12 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
                 for (var i = 0; i < rData.rows.length; i++) {
                     //rData.rows[i].operationDate = rData.rows[i].operationDate.substring(0, 11)                 
                     if (rData.rows[i].operationDate) {
-                        rData.rows[i].operationDate = FormatDate(new Date(rData.rows[i].operationDate))
+                        rData.rows[i].operationDate = FormatDate(new Date(rData.rows[i].operationDate.replace("-", "/").replace("-", "/")))
                     } else {
-                        rData.rows[i].operationDate = FormatDate(new Date(rData.rows[i].initOperationDate))
+                        rData.rows[i].operationDate = FormatDate(new Date(rData.rows[i].initOperationDate.replace("-", "/").replace("-", "/")))
                     }
-                    rData.rows[i].createDate = FormatDate(new Date(rData.rows[i].createDate))
+                    rData.rows[i].createDate = FormatDate(new Date(rData.rows[i].createDate.replace("-", "/").replace("-", "/")))
                 }
-
                 $scope.Integrated.OrderList = rData.rows;
                 console.log(rData.rows)
             });

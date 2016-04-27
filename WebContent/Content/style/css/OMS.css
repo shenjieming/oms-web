@@ -305,6 +305,8 @@ input[type='number'] {
                     width: 30%;
                     padding-top: 8px;
                     float: left;
+                    font-size:12px;
+
                 }
 
                     .row-fluid .widget-box .widget-content .control-group > label.Others,
@@ -333,6 +335,7 @@ input[type='number'] {
                     .row-fluid .widget-box .widget-content .control-group > .Vessel .Text {
                         line-height: 35px;
                         float: left;
+                        font-size:12px;
                     }
 
                     .row-fluid .widget-box .widget-content .control-group > label .Left,
@@ -874,7 +877,7 @@ input[type='number'] {
     border-radius: 0 0 1px 0;
 }
 .yulan_bordered td:hover {
-    background: #2d8ac7;
+    background: #808080;
     -o-transition: all 0.1s ease-in-out;
     -webkit-transition: all 0.1s ease-in-out;
     -moz-transition: all 0.1s ease-in-out;

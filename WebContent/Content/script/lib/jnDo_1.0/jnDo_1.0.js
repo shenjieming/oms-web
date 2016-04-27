@@ -229,10 +229,10 @@ angular.module('jnDo', [])
         /// <summary>近期控件</summary>
         return {
             restrict: 'EA',
-            template: "<span class=\"input-group\" style=\"line-height:35px;\">" +
+            template: "<span class=\"input-group\" style=\"line-height:35px;font-size:14px\">" +
                     "<a href=\"javascript:void()\" ng-click=\"Service.GetClickData(false)\">全部</a>  &nbsp;" +
                     "<a href=\"javascript:void()\" ng-click=\"Service.GetClickData(7)\">近一周</a>  &nbsp;" +
-                    "<a href=\"javascript:void()\" ng-click=\"Service.GetClickData(30)\">近一个月</a> &nbsp;" +
+                    "<a href=\"javascript:void()\" ng-click=\"Service.GetClickData(30)\">近一月</a> &nbsp;" +
                     "<a href=\"javascript:void()\" ng-click=\"Service.GetClickData(365)\">近一年</a> &nbsp;" +
                 "</span>",
             scope: { ngNeardata: '=' }, //模型对象

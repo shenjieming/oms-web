@@ -10,6 +10,7 @@
         </span>
     </div>
     <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
+    <div ng-bill-list="Module.BillListConfig" ng-model="RecInfo"></div>
     <div>
         <div class="tab-content">
             <div>
@@ -90,14 +91,14 @@
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" style="width:80%;" href="#BillInfo">对账明细</h5>
+                            <h5 data-toggle="collapse" style="width:80%;" href="#RecInfo">对账明细</h5>
                             <a class="btn" href="javascript:void(0)" ng-if="!RecInfo.hPCode"><i class="fa fa-folder-open"></i> 请选择对账医院</a>
-                            <a class="btn" href="javascritp:void(0)" ng-if="RecInfo.hPCode" ng-click=""><i class="fa fa-folder-open"></i> 选择计费单</a>
+                            <a class="btn" href="javascript:void(0)" ng-if="RecInfo.hPCode" ng-click="Module.BillListConfig.show()"><i class="fa fa-folder-open"></i> 选择计费单</a>
                         </div>
-                        <div id="BillInfo" class="widget-content nopadding collapse in">
-                            <div ng-show="BillData.detail.length>0" class="main-box-body clearfix" style="padding: 15px; max-height: 450px; overflow: auto; width: 100%;">
+                        <div id="RecInfo" class="widget-content nopadding collapse in">
+                            <div ng-show="RecInfo.detail.length>0" class="main-box-body clearfix" style="padding: 15px; max-height: 450px; overflow: auto; width: 100%;">
                                 <div class="table-responsive">
-                                    <table style="width:1400px; min-width:100%; max-width:2000px;" class="table table-bordered tab-striped" st-table="BillData.detail" st-safe-src="rowCollection">
+                                    <table style="width:1000px; min-width:100%; max-width:2000px;" class="table table-bordered tab-striped" st-table="BillData.detail" st-safe-src="rowCollection">
                                         <thead>
                                             <tr>
                                                 <th><span>序号</span></th>
@@ -108,24 +109,28 @@
                                                 <th><span>规格</span> </th>
                                                 <th><span>材料</span></th>
                                                 <th><span>待对账数</span></th>
-                                                <th><span>对账数</span></th>
-                                                <th><span>有效日期</span></th>
+                                                <th><span>对账数量</span></th>
+                                                <th><span>对账单价</span></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="row in RecInfo.detail">
-                                                <td>
-                                                    <span ng-bind="$index"></span>
-                                                    <input type="hidden" ng-model="row.hOFNLineSeqNo" />
-                                                </td>
-                                                <td><span ng-bind="row.text"></span></td>
-
+                                                <td style="text-align:center;"><span ng-bind="$index+1"></span></td>
+                                                <td><span ng-bind="row.hSOANo"></span></td>
+                                                <td><span ng-bind="row.dHMedMaterialInternalNo"></span></td>
+                                                <td><span ng-bind="row.medMaterialName"></span></td>
+                                                <td><span ng-bind="row.medMaterialBrandName"></span></td>
+                                                <td><span ng-bind="row.dHMMSpecification"></span></td>
+                                                <td><span ng-bind="row.dHMMMaterials"></span></td>
+                                                <td><span ng-bind="row.qty-row.recordInHSOAQty"></span></td>
+                                                <td><input style="width:60px;" max="{{row.qty-row.recordInHSOAQty}}" min="0" type="number" ng-model="row.offsetQty" /> </td>
+                                                <td><span ng-bind="row.hPUnitEstPrice"></span> </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <div class="control-group " ng-if="!BillData.detail.length>0">
+                            <div class="control-group " ng-if="!RecInfo.detail.length>0">
                                 <label style="width:100%;color:red;" ng-click="">请选择计费单对账</label>
                             </div>
                         </div>

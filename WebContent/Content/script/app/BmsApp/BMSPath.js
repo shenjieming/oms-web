@@ -20,7 +20,9 @@ var BMSPath = {
         //发票列表
         invoicelist: "/v1/invoice/common/list",
         //发票明细
-        invoicedetail: "/v1/invoice/common/detail"
+        invoicedetail: "/v1/invoice/common/detail",
+        //获取更多计费单的详情
+        morebilldetail: "/v1/feeNote/common/detailByHOFNNos"
     },
     BillManage: {
         /// <summary>订单管理</summary>
