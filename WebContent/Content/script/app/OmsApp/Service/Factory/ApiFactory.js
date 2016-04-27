@@ -369,6 +369,10 @@ OMSApiService
                         $ApiService.PostApi(ApiPath.Surgery.Process.submit, data, callback);
                     }
                 },
+                OfflineSubmit: function(data, callback){
+                    $MessagService.loading("处理提交中，请稍等...");
+                    $ApiService.PostApi(ApiPath.Surgery.Process.offlineSubmit, data, callback);
+                },
                 Add: function (data, callback) {
                     /// <summary>配货订单追加提交</summary>
                     $MessagService.loading("配货单追加中，请稍等...");

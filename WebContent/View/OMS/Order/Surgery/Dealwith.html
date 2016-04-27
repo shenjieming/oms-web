@@ -7,8 +7,9 @@
             <span style="color: #FF3300"><span ng-bind="PageData.statusName"></span></span>
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
-            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
-            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Show()"><i class="fa fa-wrench"></i>处理</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith && View.Competence.handleType=='online'" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith && View.Competence.handleType=='online'" ng-click="DealService.Show()"><i class="fa fa-wrench"></i>线上处理</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith && View.Competence.handleType=='offline'" ng-click="DealService.OfflineSubmit()"><i class="fa fa-wrench"></i>线下处理</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
             <a class="btn btn-danger" ng-if="View.Competence.dealwith" ng-click="DealService.Cancel()"><i class="fa fa-undo"></i> 订单取消</a>
         </span>
@@ -120,7 +121,7 @@
                         </div>
                     </div>
 
-                    <div class="widget-box">
+                    <div class="widget-box" ng-show="View.Competence.handleType=='online'">
                         <div class="widget-title bg_ly">
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>
                             <h5 style="width:80%" data-toggle="collapse" href="#pro_ProductInformation">
@@ -151,6 +152,25 @@
                         </div>
                         <div id="pro_ProductInformation" class="widget-content nopadding collapse in">
                             <div ng-product-view="dealProduct" ng-model="PageData" ng-service="ProductService" ng-comp="ProductCompetence"></div>
+                        </div>
+                    </div>
+                    <div class="widget-box" ng-show="View.Competence.handleType=='offline'">
+                        <div class="widget-title bg_ly">
+                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                            <h5 data-toggle="collapse" style="width:80%" href="#pro_ProcessingOfflineInformation">处理信息</h5>
+                        </div>
+                        <div id="pro_ProcessingOfflineInformation" class="widget-content nopadding collapse in">
+                            <div class="control-group">
+                                <label>
+                                    <span class="required">*</span>线下处理原因：
+                                    <span ng-dictionary="SOOFLR" ng-model="PageData.sOOfflineHandleReasonType"></span>
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label style="width:100%">
+                                    原因描述：<input type="text" style="width:78%;" placeholder="请输入详细原因描述（200字以内s）" ng-model="PageData.sOOfflineHandleReasonDesc" />
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="widget-box">
@@ -322,8 +342,9 @@
 
 
         <span class="btn-group oms-btn-group" style="float:right;">
-            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
-            <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Show()"><i class="fa fa-wrench"></i>处理</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith && View.Competence.handleType=='online'" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
+            <a class="btn btn-primary" ng-if="View.Competence.handleType=='online'" ng-click="DealService.Show()"><i class="fa fa-wrench"></i>线上处理</a>
+            <a class="btn btn-primary" ng-if="View.Competence.handleType=='offline'" ng-click="DealService.OfflineSubmit()"><i class="fa fa-wrench"></i>线下处理</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa  fa-reply"></i> 返回</a>
             <a class="btn btn-danger" ng-if="View.Competence.dealwith" ng-click="DealService.Cancel()"><i class="fa fa-undo"></i> 订单取消</a>
         </span>

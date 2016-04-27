@@ -853,8 +853,18 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
             $scope.DealService.model.hide();
         },
         Show:function () {
+            /// <summary>线上处理订单预览</summary>
             $scope.PreViewCount.GetData();
             $scope.DealService.model.show();
+        },
+        OfflineSubmit:function () {
+            /// <summary>线下处理订单提交</summary>
+            console.log($scope.PageData);
+            if ($scope.View.Competence.handleType=='offline') {
+                $Api.SurgeryService.Process.OfflineSubmit($scope.PageData, function (rData) {
+                    $scope.goLastPage();
+                });
+            }
         },
         Cancel: function () {
             if (confirm("您确认要取消当前订单吗?")) {

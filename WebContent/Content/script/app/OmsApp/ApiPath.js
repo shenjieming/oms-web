@@ -26,6 +26,8 @@ var ApiPath = {
         save: "/v2/order/surgery/createOrder/save",
         //订单提交
         submit: "/v2/order/surgery/createOrder/submit",
+        //订单提交-线下
+        offlineSubmit: "/v2/order/surgery/createOrder/offlineSubmit",
         //订单详情
         detail: "/v2/order/surgery/createOrder/detail",
         Process: {

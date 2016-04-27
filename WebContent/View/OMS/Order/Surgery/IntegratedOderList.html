@@ -161,7 +161,8 @@
                     <a class="btn btn-primary" ng-click="editSurgery()" ng-if="Competence.submit"><i class="fa fa-check"></i>订单提交</a>
                     <a class="btn btn-primary" ng-click="ApprovalSurgery()" ng-if="Competence.approval"><i class="fa fa-eye"></i>订单审批</a>
                     <a class="btn btn-primary" ng-click="SignSurgery()" ng-if="Competence.sign"><i class="fa fa-pencil-square-o"></i>订单签收</a>
-                    <a class="btn btn-primary" ng-click="DealSurgery()" ng-if="Competence.dealwith"><i class="fa fa-wrench"></i>订单处理</a>
+                    <a class="btn btn-primary" ng-click="DealSurgeryOnline()" ng-if="Competence.dealwith"><i class="fa fa-wrench"></i>线上处理</a>
+                    <a class="btn btn-primary" ng-click="DealSurgeryOffline()" ng-if="Competence.dealwith"><i class="fa fa-wrench"></i>线下处理</a>
                     <a class="btn btn-primary" ng-click="ApplyBack()" ng-if="Competence.apply"><i class="fa fa-steam"></i>返库申请</a>
                     <a class="btn btn-primary" ng-click="OrderBack()" ng-if="Competence.back"><i class="fa fa-legal"></i>返库处理</a>
                     <a class="btn btn-primary" ng-click="Additional()" ng-if="Competence.append"> <i class="fa fa-shopping-cart"></i>追加配货</a>
@@ -195,6 +196,7 @@
                                 <th><span>下单人</span></th>
                                 <th><span>下单日期</span></th>
                                 <th><span>状态</span></th>
+                                <th><span>处理类型</span></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -235,6 +237,9 @@
                                 </td>
                                 <td>
                                     <span ng-class="(row.status=='SOSTS00200'||row.status=='SOSTS00040')?'red':''">{{row.statusName}}</span>
+                                </td>
+                                <td>
+                                    {{row.sOHandleTypeName}}
                                 </td>
                             </tr>
                         </tbody>
