@@ -48,6 +48,17 @@ app.controller("AddressListController", function ($scope, $state, $local, $Api, 
                 $MessagService.caveat("请选择一条编辑的地址信息！")
             }        
         },
+        Delect: function () {
+            var addopt = $local.getSelectedRow($scope.AddressList.info)
+            if (addopt) {                
+                $Api.MyAddress.GetbizDataMyAddressDelete(addopt, function (rData) {
+                    $MessagService.succ("该数据删除成功！");
+                    $scope.AddressList.GetAddressList();
+                });
+            } else {
+                $MessagService.caveat("请选择一条删除的数据！")
+            }
+        }
       
     }
     $scope.AddressView = {
