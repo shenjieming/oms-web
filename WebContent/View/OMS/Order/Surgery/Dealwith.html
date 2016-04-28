@@ -2,10 +2,10 @@
     <div class="tools">
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
-            手术订单
             <span style="color: #0033FF"><span ng-bind="sono"></span></span>
             <span style="color: #FF3300"><span ng-bind="PageData.statusName"></span></span>
             <span style="color: #FF3300" ng-if="View.Competence.handleType=='offline'">（线下）</span>
+
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
             <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
@@ -65,7 +65,7 @@
                                     电话：<span ng-bind="PageData.deliveryrMobile"></span>
                                 </label>
                                 <label>
-                                    <span class="required">*</span>配送：
+                                    <span class="required">*</span>配送送：
                                     <span ng-dictionary="TRANTP" ng-model="PageData.carrierTransType"></span>
                                 </label>
                             </div>
@@ -217,7 +217,7 @@
                                     <li>
                                         <ul class="yulan_gaik">
                                             <li><b>医生：</b><span ng-bind="PageData.hPCodeName"></span>，<span ng-bind="PageData.dTCodeName"></span></li>
-                                            <li><b>手术日期：</b><span ng-bind="OperationDate"></span><span ng-bind="OperationDateWeek"></span></li>
+                                            <li><b>手术日期：</b><span ng-bind="PageData.operationDate"></span></li>
                                         </ul>
                                     </li>
                                     <li><b>医院要求：</b><span ng-bind="PageData.hPPreferenceDesc"></span></li>
@@ -344,8 +344,6 @@
         </ng-dialog>
     </div>
     <div class="tools">
-
-
         <span class="btn-group oms-btn-group" style="float:right;">
             <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
             <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Show()"><i class="fa fa-wrench"></i>处理</a>
