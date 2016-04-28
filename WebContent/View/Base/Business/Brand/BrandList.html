@@ -15,14 +15,6 @@
                            style="padding:8px;" ng-model="BandJump.SearchWhere" ng-keyup="BrandList.UpEnter($event)">
                     <a class="input-group-addon" href="javascript:void(0)" ng-click="BrandList.QueryDLList()"><i class="fa fa-search"></i></a>
                 </div>
-
-                <div class="input-group" style="float: right; margin-right: 30px;">
-                    物料品牌：
-                    <select ng-change="BrandList.Brand.GetBrandList()" ng-model="BrandList.medBrandCode" style="height: 35px; min-width: 140px">
-                        <option value="">请选择品牌</option>
-                        <option ng-repeat="item in BrandList.SearchBrand.dic" value="{{item.medBrandCode}}">{{item.medBrandName}}</option>
-                    </select>
-                </div>
                 <div class="input-group" style="float: right; margin-right: 30px;">
                     物料厂商：
                     <select ng-change="BrandList.Facture.Change()" ng-model="BrandList.medMnfcCode" style="height:35px;min-width:140px">
