@@ -1,9 +1,10 @@
 
 <div class="widget-box" ng-repeat="lib in PageData.outBounds">
     <div class="widget-title bg_ly">
-        <span class="icon"><i class="fa icon-chevron-down"></i></span>
-        <h5 style="width:80%" data-toggle="collapse" href="#{{lib.wONo}}">出库单号：{{lib.wONo}}
-            <span ng-bind="lib.ShowInfo"></span>
+
+        <h5 style="width:80%" data-toggle="collapse" href="#{{lib.wONo}}">
+            <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+           <span class="oms-web-h5-fold">出库单号：{{lib.wONo}}<span ng-bind="lib.ShowInfo"></span></span>
         </h5>
     </div>
     <div class="widget-content nopadding collapse in" id="{{lib.wONo}}">

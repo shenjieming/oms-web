@@ -894,3 +894,16 @@ input[type='number'] {
 .yulan_line { background-color:#3498db;}
 .yulan_line td{ color:#ffffff; font-weight:bold;}
 .yulan_biaoge{ display:block; margin-left:6px;}
+
+
+
+/*下单按钮slide折叠*/
+.oms-web-icon-fold {
+   float: left;
+   margin: -11px;
+   width: 35px;
+   height:34px
+}
+.oms-web-h5-fold {
+  margin:23px;
+}

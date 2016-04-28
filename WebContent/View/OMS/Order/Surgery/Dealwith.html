@@ -30,9 +30,10 @@
             <div class="tab-pane active" id="Dealwith">
                 <div class="row-fluid">
                     <div class="widget-box">
-                        <div class="widget-title bg_ly">
-                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" href="#pro_BaseInformation" style="width:80%">收货信息 [货主：<span ng-bind="PageData.sOOIOrgCodeName"></span>]</h5>
+                        <div class="widget-title bg_ly" >                         
+                            <h5 data-toggle="collapse" style="width:80%" data-toggle="collapse" href="#pro_BaseInformation" >
+                            <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                            <span class="oms-web-h5-fold">收货信息 [货主：<span ng-bind="PageData.sOOIOrgCodeName"></span>]</span></h5>
                             <a class="btn" ng-click="AddressConfig.show()"><i class="fa fa-map-marker"></i>收货地址修改</a>
                         </div>
                         <div class="widget-content nopadding collapse in" id="pro_BaseInformation">
@@ -64,11 +65,11 @@
                         </div>
                         <div ng-address="address" ng-model="PageData" ng-operat="AddressConfig"></div>
                     </div>
-
                     <div class="widget-box">
-                        <div class="widget-title bg_ly">
-                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" style="width:80%" href="#pro_SurgeryInformation">手术信息</h5>
+                        <div class="widget-title bg_ly" >                           
+                            <h5 data-toggle="collapse" style="width:80%" data-toggle="collapse"  href="#pro_SurgeryInformation">
+                                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span >
+                                <span class="oms-web-h5-fold">手术信息</span></h5>
                             <a class="btn" ng-click="HospitalConfig.show()"><i class="fa fa-reddit-square"></i>主刀医生修改</a>
                         </div>
                         <div id="pro_SurgeryInformation" class="widget-content nopadding collapse in">
@@ -76,12 +77,12 @@
                                 <label>
                                     医院：<span ng-bind="PageData.hPCodeName"></span>
                                 </label>
-                                <label>
+                                    <label>
                                     科室：<span ng-bind="PageData.wardDeptCodeName"></span>
-                                </label>
-                                <label>
                                     医生：<span ng-bind="PageData.dTCodeName"></span>
-                                    <span style="color:green">[<span ng-bind="PageData.isLocalName"></span>]</span>
+                                    <span style="color:green">[<span ng-bind="PageData.isLocalName">
+                                </label>
+                                <label></span>]</span>
                                 </label>
                             </div>
                             <div class="control-group">
@@ -123,9 +124,9 @@
 
                     <div class="widget-box" ng-show="View.Competence.handleType=='online'">
                         <div class="widget-title bg_ly">
-                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
                             <h5 style="width:80%" data-toggle="collapse" href="#pro_ProductInformation">
-                                器械信息<span ng-bind="ProductCompetence.ShowInfo"></span>
+                                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                              <span class="oms-web-h5-fold"> 器械信息<span ng-bind="ProductCompetence.ShowInfo"></span></span>
                             </h5>
                             <div class="btn-group">
                                 <a class="btn" ng-click="TemplateService.show()">
@@ -175,10 +176,11 @@
                     </div>
                     <div class="widget-box" ng-show="View.Competence.handleType=='online'">
                         <div class="widget-title bg_ly">
-                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" style="width:80%" href="#pro_AdditionalInformation">附件信息</h5>
+                            <h5 data-toggle="collapse" style="width:80%" href="#pro_AdditionalInformation">
+                                <span class="icon oms-web-icon-fold" ><i class="fa icon-chevron-down"></i></span>
+                                <span class="oms-web-h5-fold">附件信息</span></h5>
                             <a class="btn j_file_panel" href="javascript:void(0)">
-                                <i class="fa fa-image"></i>
+                                <i  class="fa fa-image"></i>
                                 附件上传
                                 <div ng-file="file" ng-model="file"></div>
                             </a>

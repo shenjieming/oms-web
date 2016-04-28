@@ -62,10 +62,10 @@
             </div>
         </div>
         <div class="widget-box">
-            <div class="widget-title bg_ly">
-                <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5 data-toggle="collapse" style="width:80%" href="#SurgeryInformation">手术信息</h5>
-                <a class="btn" ng-click="HospitalConfig.show()"><i class="fa fa-reddit-square"></i> 主刀医生选择</a>
+            <div class="widget-title bg_ly">           
+                <h5 data-toggle="collapse" style="width:80%" data-toggle="collapse" href="#SurgeryInformation"> <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                    <span class="oms-web-h5-fold">手术信息</span></h5>
+                <span class="btn" ng-click="HospitalConfig.show()"><i class="fa fa-reddit-square"></i> 主刀医生选择</span>
             </div>
             <div id="SurgeryInformation" class="widget-content nopadding collapse in">
                 <div class="control-group ">
@@ -117,12 +117,12 @@
             </div>
         </div>
         <div class="widget-box">
-            <div class="widget-title bg_ly">
+            <div class="widget-title bg_ly"  data-toggle="collapse" href="#ProductInformation">
                 <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5 data-toggle="collapse" href="#ProductInformation">
+                <h5 >
                     器械信息
                     <span ng-bind="ProductCompetence.ShowInfo"></span>
-                </h5>
+                </h5 >
             </div>
             <div id="ProductInformation" class="widget-content nopadding collapse in">
                 <div ng-product-view="newProduct" ng-model="PageData" ng-service="ProductService" ng-comp="ProductCompetence"></div>
@@ -130,10 +130,11 @@
         </div>
         <div class="widget-box">
             <div class="widget-title bg_ly">
-                <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                <h5 data-toggle="collapse" style="width:80%" href="#AdditionalInformation">附件信息</h5>
+                <h5 data-toggle="collapse" style="width:80%" href="#AdditionalInformation">
+                    <span class="icon oms-web-icon-fold" ><i class="fa icon-chevron-down"></i></span>
+                    <span class="oms-web-h5-fold">附件信息</span></h5>
                 <a class="btn j_file_panel" href="javascript:void(0)">
-                    <i class="fa fa-image"></i>
+                    <i  class="fa fa-image"></i>
                     附件上传
                     <div ng-file="file" ng-model="file"></div>
                 </a>
