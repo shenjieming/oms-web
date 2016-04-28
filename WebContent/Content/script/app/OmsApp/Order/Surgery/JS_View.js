@@ -89,6 +89,10 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
         //   var date = new Date(replace("-", "/").replace("-", "/"));         
         return strTime.getFullYear() + "-" + (strTime.getMonth() + 1) + "-" + strTime.getDate() + "  星期" + "日一二三四五六".charAt(strTime.getDay());
     }
+    function FormatWeek(strTime) {
+        //   var date = new Date(replace("-", "/").replace("-", "/"));
+        return strTime.getDate() + "  星期" + "日一二三四五六".charAt(strTime.getDay());
+    }
     /*逻辑对象区域Begion*/
     $scope.PageService = {
         /// <summary>页面服务</summary>
@@ -107,7 +111,8 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
                     $scope.PageData.retrieveEstDateFmtYMDW = FormatDate(new Date($scope.PageData.retrieveEstDate.replace("-", "/").replace("-", "/")))
                 }
                 var myDate = new Date($scope.PageData.initOperationDate)
-                $scope.DisplayWeek = "  星期" + "日一二三四五六".charAt(myDate.getDay());
+                $scope.DisplayWeek =FormatDate(new Date($scope.PageData.initOperationDate.replace("-", "/").replace("-", "/")))
+                console.log($scope.DisplayWeek)
             });
 
         }
