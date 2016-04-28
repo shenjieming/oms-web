@@ -86,8 +86,8 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
     /*基础对象区域End*/
     //日期format 格式 
     function FormatDate(strTime) {
-        //   var date = new Date(replace("-", "/").replace("-", "/"));         
-        return strTime.getFullYear() + "-" + (strTime.getMonth() + 1) + "-" + strTime.getDate();
+        var date = new Date(strTime);
+        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "  " + "星期" + "日一二三四五六".charAt(date.getDay());
     }
     /*逻辑对象区域Begion*/
     $scope.PageService = {
@@ -97,17 +97,18 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
             $Api.SurgeryService.DataSources.GetDetail({ sONo: $scope.sono }, function (rData) {
                 $.extend($scope.PageData, rData);
                 console.log($scope.PageData)
-                if ($scope.PageData.initOperationDate) {
-                    $scope.PageData.DataFmtYMDW = FormatDate(new Date($scope.PageData.initOperationDate.replace("-", "/").replace("-", "/")))                   
-                    console.log($scope.PageData.DataFmtYMDW)
+                if ($scope.PageData.initOperationDate   ) {
+                    $scope.PageData.DataFmtYMDW = FormatDate(new Date($scope.PageData.initOperationDate))
+    
+                   
                 }
                 if ($scope.PageData.patientEntryDate) {
-                    $scope.PageData.patientDateFmtYMDW = FormatDate(new Date($scope.PageData.patientEntryDate.replace("-", "/").replace("-", "/")))
+                  $scope.PageData.patientDateFmtYMDW = FormatDate(new Date($scope.PageData.patientEntryDate))
                 }
                 if ($scope.PageData.retrieveEstDate) {
-                    $scope.PageData.retrieveEstDateFmtYMDW = FormatDate(new Date($scope.PageData.retrieveEstDate.replace("-", "/").replace("-", "/")))
+                   $scope.PageData.retrieveEstDateFmtYMDW = FormatDate(new Date($scope.PageData.retrieveEstDate))
                 }
-                var myDate = new Date($scope.PageData.initOperationDate.replace("-", "/").replace("-", "/"))
+                var myDate = new Date($scope.PageData.initOperationDate)
                 $scope.DisplayWeek = "  星期" + "日一二三四五六".charAt(myDate.getDay());
             });
 
@@ -858,17 +859,18 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         },
         OfflineSubmit:function () {
             /// <summary>线下处理订单提交</summary>
-            if (confirm("您确认要提交当前线下处理订单吗?")) {
-                if ($scope.View.Competence.handleType=='offline') {
-                    if($scope.PageData.sOOfflineHandleReasonType != undefined && $scope.PageData.sOOfflineHandleReasonType != ''){
-                        $Api.SurgeryService.Process.OfflineSubmit($scope.PageData, function (rData) {
-                            $scope.goLastPage();
-                        });
-                    }else{
-                        $MessagService.caveat("请填写线下处理原因");
-                    }
+            console.log($scope.PageData);
+            if ($scope.PageData.sOOfflineHandleReasonType) {
+                if ($scope.View.Competence.handleType == 'offline') {
+                    $Api.SurgeryService.Process.OfflineSubmit($scope.PageData, function (rData) {
+                        $scope.goLastPage();
+                        $MessagService.succ("该订单处理成功！");
+                    });
                 }
+            } else {
+                $MessagService.caveat("请选择线下处理原因！");
             }
+    
         },
         Cancel: function () {
             if (confirm("您确认要取消当前订单吗?")) {
