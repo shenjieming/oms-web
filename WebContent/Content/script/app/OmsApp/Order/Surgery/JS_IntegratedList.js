@@ -208,6 +208,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
     }
 
     $scope.SelectInfo = {
+        // 高级查询
         OIorg: {
             dic: new Array(),
             GetOIorgList: function () {
@@ -395,13 +396,14 @@ app.controller("IntegratedListController", function ($scope, $state, $local, $Ap
     $scope.Integrated.GetOrderList({ opt: false, soType: "OPER" });
     $scope.ListCompetence = {
         /// <summary>列表权限</summary>
-        initMedProdLnCodeName: false,
-        dTCodeName: false,//
+        initMedProdLnCodeName: false,//原始订单产品线名称
+        dTCodeName: false,//医生姓名
         sOOIOrgCodeName: false,//货主名称
         sOCreateByOrgCodeName: false, //经销商
         hPCodeName: false,  //订单医院
-        sOHandleByOrgCodeName: false, //仓库
+        sOHandleByOrgCodeName: false, //仓库人
         patientName: false,  //患者
+        sOHandleTypeName:false, //仓库处理类型
 
     }
     var UserJurisdiction = $scope.User;
@@ -413,6 +415,7 @@ app.controller("IntegratedListController", function ($scope, $state, $local, $Ap
             $scope.ListCompetence.hPCodeName = true;
             $scope.ListCompetence.dTCodeName = true;
             $scope.ListCompetence.patientName = true;
+            $scope.ListCompetence.sOHandleTypeName = true;
         }
         if (UserJurisdiction.userInfo.orgType == "OI") {
             $scope.ListCompetence.sOCreateByOrgCodeName = true;

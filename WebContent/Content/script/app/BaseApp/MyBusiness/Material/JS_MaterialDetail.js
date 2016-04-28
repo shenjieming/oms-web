@@ -50,6 +50,7 @@ app.controller("MaterialDetailController", function ($scope, $stateParams, $stat
             $Api.BusinessData.MedBrand.GetQueryMedBrandDetail({ medBrandCode: $scope.PageData.medBrandCode }, function (rData) {
                 console.log(rData)
                 $scope.PageData.medMnfcCodeName = rData.medMnfcCodeName
+                $scope.facturerCode = rData.mnfcMedMnfcCode
             });
         }
     }

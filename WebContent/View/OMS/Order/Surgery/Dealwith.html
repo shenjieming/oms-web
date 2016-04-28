@@ -5,6 +5,7 @@
             手术订单
             <span style="color: #0033FF"><span ng-bind="sono"></span></span>
             <span style="color: #FF3300"><span ng-bind="PageData.statusName"></span></span>
+            <span style="color: #FF3300" ng-if="View.Competence.handleType=='offline'">（线下）</span>
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
             <a class="btn btn-primary" ng-if="View.Competence.dealwith" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
@@ -21,7 +22,25 @@
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active" href="#Dealwith" data-toggle="tab"><a>开始处理</a></li>
             <li role="presentation" href="#Original" data-toggle="tab"><a>原始订单</a></li>
+
         </ul>
+        <div class="control-group" ng-if="View.Competence.handleType=='offline'" style="background:#ffffff;">
+            <label>
+                <span style="margin-left: 30px;font-weight:bold;color:#FF3300" >
+                   仅限该订单<span style="font-size:16px">所有</span>物料不经“仓库管理系统”处理时使用！
+                </span>
+            </label>
+        </div>
+        <div class="control-group" ng-if="View.Competence.handleType=='offline'" style="background:#ffffff;">
+            <label style="margin-left: 30px">
+                <span class="required">*</span><span style="font-weight:bold">线下处理原因：</span>
+                <span ng-dictionary="SOOFLR" ng-model="PageData.sOOfflineHandleReasonType"></span>
+
+            </label>
+            <label style="width:60%">
+                <input type="text" style="width:85%" placeholder="请输入详细原因描述（200字以内s）" ng-model="PageData.sOOfflineHandleReasonDesc" />
+            </label>
+        </div>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane" id="Original">
                 <div ui-view="Original"></div>
@@ -29,13 +48,15 @@
             <div class="tab-pane active" id="Dealwith">
                 <div class="row-fluid">
                     <div class="widget-box">
-                        <div class="widget-title bg_ly" >                         
-                            <h5 data-toggle="collapse" style="width:80%" data-toggle="collapse" href="#pro_BaseInformation" >
-                            <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
-                            <span class="oms-web-h5-fold">收货信息 [货主：<span ng-bind="PageData.sOOIOrgCodeName"></span>]</span></h5>
+                        <div class="widget-title bg_ly">
+                            <h5 data-toggle="collapse" style="width:80%" data-toggle="collapse" href="#pro_BaseInformation">
+                                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                                <span class="oms-web-h5-fold">收货信息 [货主：<span ng-bind="PageData.sOOIOrgCodeName"></span>]</span>
+                            </h5>
                             <a class="btn" ng-click="AddressConfig.show()"><i class="fa fa-map-marker"></i>收货地址修改</a>
                         </div>
                         <div class="widget-content nopadding collapse in" id="pro_BaseInformation">
+
                             <div class="control-group ">
                                 <label style="line-height:28px;">
                                     收货人：<span ng-bind="PageData.deliveryContact"></span>
@@ -65,10 +86,11 @@
                         <div ng-address="address" ng-model="PageData" ng-operat="AddressConfig"></div>
                     </div>
                     <div class="widget-box">
-                        <div class="widget-title bg_ly" >                           
-                            <h5 data-toggle="collapse" style="width:80%" data-toggle="collapse"  href="#pro_SurgeryInformation">
-                                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span >
-                                <span class="oms-web-h5-fold">手术信息</span></h5>
+                        <div class="widget-title bg_ly">
+                            <h5 data-toggle="collapse" style="width:80%" data-toggle="collapse" href="#pro_SurgeryInformation">
+                                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                                <span class="oms-web-h5-fold">手术信息</span>
+                            </h5>
                             <a class="btn" ng-click="HospitalConfig.show()"><i class="fa fa-reddit-square"></i>主刀医生修改</a>
                         </div>
                         <div id="pro_SurgeryInformation" class="widget-content nopadding collapse in">
@@ -76,12 +98,12 @@
                                 <label>
                                     医院：<span ng-bind="PageData.hPCodeName"></span>
                                 </label>
-                                    <label>
+                                <label>
                                     科室：<span ng-bind="PageData.wardDeptCodeName"></span>
-                                    医生：<span ng-bind="PageData.dTCodeName"></span>
-                                    <span style="color:green">[<span ng-bind="PageData.isLocalName">
                                 </label>
-                                <label></span>]</span>
+                                <label>
+                                    医生：<span ng-bind="PageData.dTCodeName"></span>
+                                    <span style="color:green">[<span ng-bind="PageData.isLocalName"></span>]</span>
                                 </label>
                             </div>
                             <div class="control-group">
@@ -125,7 +147,7 @@
                         <div class="widget-title bg_ly">
                             <h5 style="width:80%" data-toggle="collapse" href="#pro_ProductInformation">
                                 <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
-                              <span class="oms-web-h5-fold"> 器械信息<span ng-bind="ProductCompetence.ShowInfo"></span></span>
+                                <span class="oms-web-h5-fold"> 器械信息<span ng-bind="ProductCompetence.ShowInfo"></span></span>
                             </h5>
                             <div class="btn-group">
                                 <a class="btn" ng-click="TemplateService.show()">
@@ -154,13 +176,19 @@
                             <div ng-product-view="dealProduct" ng-model="PageData" ng-service="ProductService" ng-comp="ProductCompetence"></div>
                         </div>
                     </div>
+<<<<<<< ours
                     <div class="widget-box">
+=======
+
+                    <div class="widget-box" ng-show="View.Competence.handleType=='online'">
+>>>>>>> theirs
                         <div class="widget-title bg_ly">
                             <h5 data-toggle="collapse" style="width:80%" href="#pro_AdditionalInformation">
-                                <span class="icon oms-web-icon-fold" ><i class="fa icon-chevron-down"></i></span>
-                                <span class="oms-web-h5-fold">附件信息</span></h5>
+                                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                                <span class="oms-web-h5-fold">附件信息</span>
+                            </h5>
                             <a class="btn j_file_panel" href="javascript:void(0)">
-                                <i  class="fa fa-image"></i>
+                                <i class="fa fa-image"></i>
                                 附件上传
                                 <div ng-file="file" ng-model="file"></div>
                             </a>
