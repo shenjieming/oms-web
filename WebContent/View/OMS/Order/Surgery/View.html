@@ -5,7 +5,7 @@
             手术订单
             <span style="color: #0033FF"><span ng-bind="sono"></span></span>
             <span style="color: #FF3300"><span ng-bind="PageData.statusName"></span></span>
-
+            <span style="color: #FF3300" ng-if="PageData.sOHandleType=='OFFLINE'">（<span ng-bind="PageData.sOHandleTypeName"></span>）</span>
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
             <a class="btn btn-primary" ng-if="View.Competence.dealwith"><i class="fa fa-wrench"></i>处理</a>

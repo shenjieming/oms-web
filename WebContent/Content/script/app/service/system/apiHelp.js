@@ -8,7 +8,6 @@
 /// <reference path="../lib/Jquery/jquery-1.11.1.min.js" />
 
 var AjaxService = angular.module('AjaxService', []);
-
 AjaxService.factory("$AjaxHelp", function ($http, $rootScope, $local, $MessagService, $state) {
     var apiHelp = function (apipath) {
         var privateObjects = {
