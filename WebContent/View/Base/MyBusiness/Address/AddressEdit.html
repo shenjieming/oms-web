@@ -28,7 +28,7 @@
                 </div>
                 <div class="control-group ">
                     <label>
-                        <span class="required"></span>邮政编码：<input type="text" style="width:80%" ng-model="AddressDetail.info.postcode" placeholder="请输入医生关系描述" />
+                        <span class="required"></span>邮政编码：<input type="text"  ng-model="AddressDetail.info.postcode" placeholder="请输入邮政编码" />
                     </label>
                     <label>
                         <span class="required">*</span>地址类型：
@@ -64,7 +64,7 @@
                         总机：<input type="text" ng-model="AddressDetail.info.tel" placeholder="请输入该联系人公司总机" />
                     </label>
                     <label>
-                        电子邮箱：<input type="text" onkeyup="this.value=this.value.replace(/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/)" ng-model="AddressDetail.info.email" placeholder="请输入该联系人电子邮箱" />
+                        电子邮箱：<input type="text"  ng-model="AddressDetail.info.email" placeholder="请输入该联系人电子邮箱" />
                     </label>
                 </div>
                 <div class="control-group">
@@ -89,6 +89,11 @@
                     </label>
                     <label>
                         用途：<input type="text" ng-model="AddressDetail.info.contactPMsgDesc2" placeholder="请输入该联系人通讯描述" />
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label style="width: 100%">
+                        备注：<input type="text"  style="width: 78%" ng-model="AddressDetail.info.useDesc" placeholder="请输入该联系人备注" />
                     </label>
                 </div>
             </div>  
