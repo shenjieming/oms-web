@@ -65,16 +65,16 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
         $scope.WhzoneValid={
             ValidWhzoneInsert:function(){
                 var result = true;
-                if (!$scope.WhzoneInsert.info.medMIWarehouse){
-                    $MessagService.caveat("请选择仓库！");
-                    result=false;
-                }
                 if (!$scope.WhzoneInsert.info.zoneCode){
                     $MessagService.caveat("库区编码不能为空");
                     result=false;
                 }
                 if(!$scope.WhzoneInsert.info.zoneName){
                     $MessagService.caveat("库区名称不能为空");
+                    result=false;
+                }
+                if (!$scope.WhzoneInsert.info.medMIWarehouse){
+                    $MessagService.caveat("请选择仓库！");
                     result=false;
                 }
                 return result;
@@ -101,9 +101,30 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
         },
     }
     ///<summary>库区编辑<summary>
+    //添加和编辑参数校验
+    $scope.WhzoneValidEdit={
+        ValidWhzoneEdit:function(){
+            var result = true;
+            if (!$scope.WhzoneEdit.info.zoneCode){
+                $MessagService.caveat("库区编码不能为空");
+                result=false;
+            }
+            if(!$scope.WhzoneEdit.info.zoneName){
+                $MessagService.caveat("库区名称不能为空");
+                result=false;
+            }
+            if (!$scope.WhzoneEdit.info.medMIWarehouse){
+                $MessagService.caveat("请选择仓库！");
+                result=false;
+            }
+            return result;
+        },
+    }
     $scope.WhzoneEdit={
         info:new Object(),
+
         GETWhzoneEditView:function(){
+            $scope.WhzoneEdit.info = new Object();
             var whzone = $scope.getSelectedRow();
             if(whzone){
                 $scope.SelectInfo.Whouse.getWhoseList();
@@ -119,12 +140,8 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
         cancel:function(){
             $scope.WhzoneEdit.model.hide();
         },
-        editShow:function(){
-            $scope.SelectInfo.Whouse.getWhoseList();
-            $scope.WhzoneEdit.model.show();
-        },
         WhzoneEdit:function(){
-            if ($scope.WhzoneValid.ValidWhzoneInsert()){
+            if ($scope.WhzoneValidEdit.ValidWhzoneEdit()){
                 $Api.WhZone.WhzoneEdit($scope.WhzoneEdit.info,function(rData){
                     $MessagService.succ("库区修改成功！");
                     $scope.WhzoneEdit.model.hide();
