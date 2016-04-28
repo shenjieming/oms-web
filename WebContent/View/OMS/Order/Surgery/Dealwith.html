@@ -121,7 +121,7 @@
                                 <label>
                                     <span class="Text required" style="margin-left:-70px;margin-top:0px;">*</span>
                                     <span class="Text">手术日期：</span>
-                                    <span ng-show-data="" ng-model="PageData.initOperationDate"></span>
+                                    <span ng-show-data="" ng-model="PageData.operationDate"></span>
                                     <span style="line-height: 25px; vertical-align: 50%;" id="OrderData"> {{DisplayWeek}}</span>
                                 </label>
                                 <label style="width:60%">
@@ -218,7 +218,7 @@
                                         <li>
                                             <ul class="yulan_gaik">
                                                 <li><b>医生：</b><span ng-bind="PageData.hPCodeName"></span>，<span ng-bind="PageData.dTCodeName"></span></li>
-                                                <li><b>手术日期：</b><span ng-bind="OperationDate"></span><span ng-bind="OperationDateWeek"></span></li>
+                                                <li><b>手术日期：</b><span ng-bind="OperationDate"></span></li>
                                             </ul>
                                         </li>
                                         <li><b>医院要求：</b><span ng-bind="PageData.hPPreferenceDesc"></span></li>
