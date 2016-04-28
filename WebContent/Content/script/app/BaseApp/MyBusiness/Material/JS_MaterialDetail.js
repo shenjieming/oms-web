@@ -20,8 +20,10 @@ app.controller("MaterialDetailController", function ($scope, $stateParams, $stat
             $Api.BusinessData.MedMaterial.GetMedMaterialItemDetail($stateParams, function (rData) {
                 $scope.PageData = rData;
                 console.log($scope.PageData)
-                $scope.PageData.attachmentForms = [{images: new Array()}];
-                $scope.PageData.attachmentForms[0].images = $scope.PageData.attachments;
+                if ($scope.PageData.attachmentForms) {
+                    $scope.PageData.attachmentForms = [{ images: new Array() }];
+                    $scope.PageData.attachmentForms[0].images = $scope.PageData.attachments;
+                }         
             });
         },
         IsChecked: function (ischeck, model, sd) {
@@ -48,7 +50,8 @@ app.controller("MaterialDetailController", function ($scope, $stateParams, $stat
         GetMedManuFactureList: function () {
             /// <summary>获取厂商</summary>
             $Api.BusinessData.MedBrand.GetQueryMedBrandDetail({ medBrandCode: $scope.PageData.medBrandCode }, function (rData) {
-                console.log(rData)
+              
+                $scope.PageData.medMnfcOrgCode = rData.medMnfcCode
                 $scope.PageData.medMnfcCodeName = rData.medMnfcCodeName
                 $scope.facturerCode = rData.mnfcMedMnfcCode
             });
