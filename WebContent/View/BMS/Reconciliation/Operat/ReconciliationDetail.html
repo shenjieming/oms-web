@@ -97,8 +97,54 @@
                         </div>
                         <div id="RecInfo" class="widget-content nopadding collapse in">
                             <div ng-show="RecInfo.detail.length>0" class="main-box-body clearfix" style="padding: 15px; width: 100%;">
+                                <div class="control-group">
+                                    <div class="btn-group oms-btn-group" role="group" style="border-bottom:0px;">
+                                        <a class="btn" ng-click="BillService.IsShowMaterialView(true)" ng-class="{true: 'btn-info',false:'btn-primary'}[!BillService.ViewMaterial]"><i class="fa fa-puzzle-piece"></i> 对账详情</a>
+                                        <a class="btn" ng-click="BillService.IsShowMaterialView(false)" ng-class="{true: 'btn-info',false:'btn-primary'}[BillService.ViewMaterial]"><i class="fa fa-puzzle-piece"></i> 对账明细</a>
+                                    </div>
+                                </div>
                                 <div class="table-responsive">
-                                    <table style="width:1000px; min-width:100%; max-width:2000px;" class="table table-bordered tab-striped" st-table="BillData.detail" st-safe-src="rowCollection">
+
+                                    <table ng-show="BillService.ViewMaterial" style="width:1000px; min-width:100%; max-width:2000px;" class="table table-bordered tab-striped" st-table="BillService.MaterialList" st-safe-src="rowCollection">
+                                        <thead>
+                                            <tr>
+                                                <th><span>序号</span></th>
+                                                <th><span>医院物资编码</span> </th>
+                                                <th><span>耗材名称 </span> </th>
+                                                <th><span>品牌</span> </th>
+                                                <th><span>规格</span> </th>
+                                                <th><span>材料</span></th>
+                                                <th><span>对账数量</span></th>
+                                                <th><span>对账单价</span></th>
+                                                <th><span>金额</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="row in BillService.MaterialList">
+                                                <td style="text-align:center;"><span ng-bind="$index+1"></span></td>
+                                                <td><span ng-bind="row.dHMedMaterialInternalNo"></span></td>
+                                                <td><span ng-bind="row.medMaterialName"></span></td>
+                                                <td><span ng-bind="row.medMaterialBrandName"></span></td>
+                                                <td><span ng-bind="row.dHMMSpecification"></span></td>
+                                                <td><span ng-bind="row.dHMMMaterials"></span></td>
+                                                <td><span ng-bind="row.offsetQty"></span></td>
+                                                <td style="text-align:right;">￥<span ng-bind="row.hPUnitEstPrice.toFixed(2)"></span> </td>
+                                                <td style="text-align:right;">￥<span ng-bind="(row.hPUnitEstPrice*row.offsetQty).toFixed(2)"></span> </td>
+                                            </tr>
+                                            <tr style="text-align:right;border-top :1px solid #000">
+                                                <td style="text-align:center;">合计</td>
+                                                <td colspan="2"><span ng-bind="BillService.Gather.MaterialCount"></span> 件医疗耗材</td>
+                                                <td><span ng-bind="BillService.Gather.BrandCount"></span> 种品牌 </td>
+
+                                                <td><span ng-bind="BillService.Gather.SpeciCount"></span> 种规格</td>
+                                                <td><span ng-bind="BillService.Gather.StuffCount"></span> 种材料</td>
+                                                <td><span ng-bind="BillService.Gather.OffsetQtyCount"></span> 件对账</td>
+                                                <td colspan="2">￥<span style="color:#ff6a00" ng-bind="BillService.Gather.Amount.toFixed(2)"></span>元</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table ng-show="!BillService.ViewMaterial" style="width:1000px; min-width:100%; max-width:2000px;" class="table table-bordered tab-striped" st-table="RecInfo.detail" st-safe-src="rowCollection">
                                         <thead>
                                             <tr>
                                                 <th><span>序号</span></th>

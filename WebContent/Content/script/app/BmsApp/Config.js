@@ -115,7 +115,7 @@ BmsApp
             })
             .state("app.bms.rec.view", {
                 /// <summary>对账单管理视图</summary>
-                url: "/view",
+                url: "/view/:hSOANo",
                 cache: false,
                 templateUrl: "View/BMS/Reconciliation/View/ReconciliationView.html?data=" + Timestamp,
                 controller: "RecInfoController",
@@ -146,9 +146,9 @@ BmsApp
     .factory("$BmsMenuService", function ($BmsBillMenuService, $BmsReconciliationMenuService, $BmsInvoiceMenuService) {
         /// <summary>BMS系统菜单服务</summary>
         var service = new Array();
-        //service.push($BmsBillMenuService);
+        service.push($BmsBillMenuService);
         service.push($BmsReconciliationMenuService);
-        //service.push($BmsInvoiceMenuService);
+        service.push($BmsInvoiceMenuService);
         return service;
     })
     .factory("$BmsBillMenuService", function () {
