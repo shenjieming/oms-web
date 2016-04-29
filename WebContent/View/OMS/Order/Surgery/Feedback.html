@@ -3,8 +3,8 @@
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
             手术订单
-            <span style="color: #0033FF">[{{sono}}]</span>
-            <span style="color: #FF3300">({{PageData.statusName}})</span>
+            <span style="color: #0033FF">{{sono}}</span>
+            <span style="color: #FF3300">{{PageData.statusName}}</span>
 
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
@@ -38,9 +38,11 @@
             <div role="tabpanel" class="tab-pane active" id="Feedback">
                 <div class="row-fluid">
                     <div class="widget-box">
-                        <div class="widget-title bg_ly">
-                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" style="width:80%" href="#back_surgery">手术信息</h5>
+                        <div class="widget-title bg_ly">                        
+                            <h5 data-toggle="collapse" style="width:80%" href="#back_surgery">
+                                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                                <span class="oms-web-h5-fold">手术信息</span>  
+                            </h5>
                             <a class="btn" ng-click="HospitalConfig.show()"><i class="fa fa-reddit-square"></i>主刀医生选择</a>
                         </div>
                         <div id="back_surgery" class="widget-content nopadding collapse in">
@@ -57,9 +59,9 @@
                             </div>
                             <div class="control-group">
                                 <label>
-                                    <span style="float:left;line-height:32px;">手术时间：</span>
+                                    <span style="float:left;line-height:32px;">手术日期：</span>
                                     <div class="input-group" style="float:left;width:180px;">
-                                        <input type="text" class="form-control" placeholder="请选择手术时间"
+                                        <input type="text" class="form-control" placeholder="请选择手术日期"
                                                style="padding:8px;" ng-datatime="" ng-model="FeedBack.order.operationDate">
                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
                                     </div>
@@ -71,11 +73,12 @@
                             <div ng-doctors="" ng-model="PageData" ng-operat="HospitalConfig" ng-pagedate="PageData"></div>
                         </div>
                     </div>
-
                     <div class="widget-box">
-                        <div class="widget-title bg_ly">
-                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" href="#back_patient">患者信息</h5>
+                        <div class="widget-title bg_ly">                           
+                            <h5 data-toggle="collapse" href="#back_patient">
+                                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                                <span class="oms-web-h5-fold">患者信息</span>  
+                            </h5>
                         </div>
                         <div id="back_patient" class="widget-content nopadding collapse in">
                             <div class="control-group">
@@ -134,8 +137,11 @@
 
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
-                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" href="#back_Materials">器械消耗信息（出库清单内）</h5>
+                            
+                            <h5 data-toggle="collapse" href="#back_Materials">
+                                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                                <span class="oms-web-h5-fold"> 器械消耗信息（出库清单内）</span> 
+                            </h5>
                         </div>
                         <div class="widget-content nopadding collapse in" id="back_Materials">
                             <div class="control-group ">
@@ -190,9 +196,11 @@
                         </div>
                     </div>
                     <div class="widget-box">
-                        <div class="widget-title bg_ly">
-                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" style="width:80%" href="#other_Materials">器械消耗信息（出库清单外）</h5>
+                        <div class="widget-title bg_ly">                           
+                            <h5 data-toggle="collapse" style="width:80%" href="#other_Materials">
+                                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                                <span class="oms-web-h5-fold"> 器械消耗信息（出库清单外）</span>  
+                            </h5>
                             <a class="btn" ng-click="OtherMaterialsConfig.show()"><i class="fa fa-shopping-cart"></i>物料添加</a>
                         </div>
                         <div id="other_Materials" class="widget-content nopadding collapse in">
@@ -234,7 +242,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select ng-model="row.returnWarehouse"  ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
+                                                        <select ng-model="row.returnWarehouse" ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
                                                             <option value="">请选择仓库</option>
                                                         </select>
                                                     </td>
@@ -254,8 +262,10 @@
                     </div>
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
-                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" style="width:80%" href="#back_File">附件信息</h5>
+                            <h5 data-toggle="collapse" style="width:80%" href="#back_File">
+                                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                                <span class="oms-web-h5-fold"> 附件信息</span>                             
+                            </h5>
                             <a class="btn j_file_panel" href="javascript:void(0)">
                                 <i class="fa fa-image"></i>
                                 附件上传

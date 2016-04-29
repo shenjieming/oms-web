@@ -31,8 +31,17 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
                 $MessagService.caveat("请选择一条库区信息");
                 $scope.WhZoneList.GetWhZoneList();
             }
-        }
-
+        },
+        QueryWhzone:function(){
+            $scope.Pagein.pageIndex = 1;
+            $scope.WhZoneList.GetWhZoneList();
+        },
+        UpEnter: function (e) {
+            var keycode = window.event ? e.keyCode : e.which;
+            if (keycode == 13) {
+                $scope.WhZoneList.QueryWhzone();
+            }
+        },
     },
     $scope.WhzoneView={
         info:[],
@@ -56,18 +65,19 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
         $scope.WhzoneValid={
             ValidWhzoneInsert:function(){
                 var result = true;
-                if (!$scope.WhzoneInsert.info.medMIWarehouse){
-                    $MessagService.caveat("请选择仓库！");
-                    result=false;
-                }
                 if (!$scope.WhzoneInsert.info.zoneCode){
                     $MessagService.caveat("库区编码不能为空");
                     result=false;
                 }
-                if(!scope.WhzoneInsert.info.zoneName){
+                if(!$scope.WhzoneInsert.info.zoneName){
                     $MessagService.caveat("库区名称不能为空");
                     result=false;
                 }
+                if (!$scope.WhzoneInsert.info.medMIWarehouse){
+                    $MessagService.caveat("请选择仓库！");
+                    result=false;
+                }
+                return result;
             },
         }
     $scope.WhzoneInsert={
@@ -77,7 +87,7 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
             if ($scope.WhzoneValid.ValidWhzoneInsert()){
                 $Api.WhZone.WhzoneInsert($scope.WhzoneInsert.info,function(rData){
                     $MessagService.succ("库区添加成功！");
-                    $scope.WhzoneInsert.mode.hide();
+                    $scope.WhzoneInsert.model.hide();
                     $scope.WhZoneList.GetWhZoneList();
                 });
             }
@@ -91,9 +101,30 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
         },
     }
     ///<summary>库区编辑<summary>
+    //添加和编辑参数校验
+    $scope.WhzoneValidEdit={
+        ValidWhzoneEdit:function(){
+            var result = true;
+            if (!$scope.WhzoneEdit.info.zoneCode){
+                $MessagService.caveat("库区编码不能为空");
+                result=false;
+            }
+            if(!$scope.WhzoneEdit.info.zoneName){
+                $MessagService.caveat("库区名称不能为空");
+                result=false;
+            }
+            if (!$scope.WhzoneEdit.info.medMIWarehouse){
+                $MessagService.caveat("请选择仓库！");
+                result=false;
+            }
+            return result;
+        },
+    }
     $scope.WhzoneEdit={
         info:new Object(),
+
         GETWhzoneEditView:function(){
+            $scope.WhzoneEdit.info = new Object();
             var whzone = $scope.getSelectedRow();
             if(whzone){
                 $scope.SelectInfo.Whouse.getWhoseList();
@@ -109,12 +140,8 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
         cancel:function(){
             $scope.WhzoneEdit.model.hide();
         },
-        editShow:function(){
-            $scope.SelectInfo.Whouse.getWhoseList();
-            $scope.WhzoneEdit.model.show();
-        },
         WhzoneEdit:function(){
-            if ($scope.WhzoneValid.ValidWhzoneInsert()){
+            if ($scope.WhzoneValidEdit.ValidWhzoneEdit()){
                 $Api.WhZone.WhzoneEdit($scope.WhzoneEdit.info,function(rData){
                     $MessagService.succ("库区修改成功！");
                     $scope.WhzoneEdit.model.hide();
@@ -127,6 +154,7 @@ app.controller("WhZoneListController", function ($scope, $state, $local, $Api, $
     $scope.Pagein = {
             pageSize: 10,
             pageIndex: 1,
+            searchValue:null,
             callbake: function () {
                 $scope.Load();
             }

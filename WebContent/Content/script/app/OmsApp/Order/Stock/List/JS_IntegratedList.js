@@ -11,21 +11,15 @@
 
 app.controller("StockIntegratedListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>综合订单查询列表</summary>
-    $scope.title = "综合订单查询";
+    $scope.title = "订单列表";
     $scope.Competence = {
     };
     //数据清空
     $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
     $scope.Integrated.GetStockList({ opt: false, soType: "INSTK" });
-   
     $scope.showViewDetail = function (sono) {
         /// <summary>查看手术订单</summary>
         $local.setValue("ORDERCOMP", {});
-        $scope.GetRowGoPage("app.stock.view");
-    }
-
-    $scope.ListCompetence = {
-        /// <summary>列表权限</summary>
-        initMedProdLnCodeName: false
+        $scope.GetRowGoPage("app.oms.stock.view");
     }
 });

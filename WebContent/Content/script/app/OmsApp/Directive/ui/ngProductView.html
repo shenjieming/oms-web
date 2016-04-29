@@ -35,16 +35,13 @@
                                 </td>
                                 <td>
                                     <span ng-bind="row.kitName"></span>
+                                </td>                          
+                                <td>                                
+                                    <span  ng-bind="row.kitTypeName"></span>
                                 </td>
                                 <td>
-                                    <span ng-bind="row.kitTypeName"></span>
+                                    <input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" />
                                 </td>
-                                <td>
-                                    <span ng-show="Competence.operat"><input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" ng-change="MedKitsConfig.GetKitCount()" /></span>
-                                    <span ng-show="!Competence.operat" ng-bind="row.kitTypeName"></span>
-
-                                </td>
-
                                 <td ng-show="Competence.warehouse&&Competence.operat">
                                     <a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory(row)">{{row.inventory?row.inventory:"当前库存"}}</a>
                                 </td>
@@ -105,10 +102,7 @@
                     <label style="width: 100%; color: #808080;" ng-show="!Competence.operat">{{ProductConfig.useLine.medBrandCodeName}}（{{ProductConfig.useLine.medProdLnCodeName}}）尚未配置物料</label>
                     <label style="width:100%;color:red;" ng-show="Competence.operat">{{ProductConfig.useLine.medBrandCodeName}}（{{ProductConfig.useLine.medProdLnCodeName}}）尚未配置物料</label>
                 </div>
-
-
             </div>
-
             <label style="width:100%;color:red;" ng-show="!ngModel.prodLns.length">尚未选择产品线</label>
         </div>
         <div ng-show="ProductConfig.useLine.medMaterias.length" style="width:100%;">

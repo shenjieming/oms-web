@@ -183,6 +183,24 @@ var BaseApp = angular.module('BaseApp', [])
             loadJs: ["Content/script/app/BaseApp/MyBusiness/Address/JS_AddressList.js"],
             resolve: app.resolve
         })
+          .state("app.base.mybusiness.addressedit", {
+              /// <summary>我的地址编辑</summary>
+              url: "/addressedit/:addopt",
+              cache: false,
+              controller: "AddressEditController",
+              templateUrl: "View/Base/MyBusiness/Address/AddressEdit.html?data=" + Timestamp,
+              loadJs: ["Content/script/app/BaseApp/MyBusiness/Address/JS_AddressEdit.js"],
+              resolve: app.resolve
+          })
+          .state("app.base.mybusiness.addressview", {
+              /// <summary>我的地址详情</summary>
+              url: "/addressview",
+              cache: false,
+              controller: "AddressViewController",
+              templateUrl: "View/Base/MyBusiness/Address/AddressView.html?data=" + Timestamp,
+              loadJs: ["Content/script/app/BaseApp/MyBusiness/Address/JS_AddressView.js"],
+              resolve: app.resolve
+          })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         $stateProvider
@@ -654,10 +672,10 @@ var BaseApp = angular.module('BaseApp', [])
                 //{ name: "科室管理", url: "#/app/business/dptmanagement", state: "app.business.dptmanagement" },
                 { name: "医生管理", url: "#/app/base/business/dtrmanagement", state: "app.base.business.dtrmanagement" },
                 { name: "厂商管理", url: "#/app/base/business/ftymanagement", state: "app.base.business.ftymanagement" },
-                { name: "仓库管理", url: "#/app/base/business/whmanagement", state: "app.base.business.whmanagement" },
+                { name: "仓库管理", url: "#/app/base/business/whmanagement", state: "" },
                 { name: "品牌管理", url: "#/app/base/business/brandmanagement", state: "app.business.base.brandmanagement" },
                 { name: "产品线管理", url: "#/app/base/business/productlinemanagement", state: "app.base.business.productlinemanagement" },
-                { name: "订单仓库路由管理", url: "#/app/base/business/orderroutingmanagement", state: "app.base.business.orderroutingmanagement" },
+                { name: "订单仓库路由管理", url: "#/app/base/business/orderroutingmanagement", state: "appapp.base.business.whmanagement.base.business.orderroutingmanagement" },
                 { name: "代理产品管理", url: "#/app/base/business/productmanagement", state: "app.base.business.productmanagement" },
                 { name: "事件通知管理", url: "#/app/base/business/dlmanagementnotice", state: "app.base.business.dlmanagementnotice" },
                 { name: "库区管理", url: "#/app/base/business/whzone", state: "app.base.business.whzone" },

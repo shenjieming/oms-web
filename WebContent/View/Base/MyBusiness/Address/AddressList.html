@@ -5,8 +5,9 @@
             <header class="main-box-header clearfix">
                 <h2 class="pull-left">我的地址列表</h2>
                 <span class="btn-group oms-btn-group" style="float:right;">
-                    <a class="btn btn-primary" ng-click="AddressDetail.ShowAdd({})">新增</a>
-                    <a class="btn btn-primary" ng-click="AddressDetail.ShowEdit()">编辑</a>
+                    <a class="btn btn-primary" ng-click="AddressJumpSever.Add()">新增</a>
+                    <a class="btn btn-primary" ng-click="AddressJumpSever.Delect()">删除</a>
+                    <a class="btn btn-primary" ng-click="AddressJumpSever.Edit()">编辑</a>
                     <a class="btn btn-primary" ng-click="AddressView.ShowView()">详情</a>
                 </span>
             </header>
@@ -16,27 +17,27 @@
                         <thead>
                             <tr>
                                 <th><span>序号</span></th>
-                                <th><span>维护姓名</span></th>
-                                <th><span>手机号码</span> </th>
-                                <th><span>内部编码</span> </th>
-                                <th><span>所在省份</span></th>
-                                <th><span>所在市级</span></th>
-                                <th><span>所在区域</span></th>
-                                <th><span>所在地址</span></th>
                                 <th><span>地址类型</span></th>
+                                <th><span>联系人</span></th>
+                                <th><span>手机</span> </th>
+                                <th><span>省</span></th>
+                                <th><span>市</span></th>
+                                <th><span>区</span></th>
+                                <th><span>地址</span></th>
+                                <th><span>默认地址</span></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in AddressList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                            <tr ng-repeat="row in AddressList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" ng-dblclick="AddressView.ShowView(row)">
                                 <td>{{$index+1}}</td>
+                                <td><span>{{row.addressTypeName}}</span></td>
                                 <td><span>{{row.contact}}</span></td>
                                 <td><span>{{row.mobile}}</span></td>
-                                <td><span>{{row.lineNo}}</span></td>
                                 <td><span>{{row.provinceCodeName}}</span></td>
                                 <td><span>{{row.cityCodeName}}</span></td>
                                 <td><span>{{row.districtCodeName}}</span></td>
                                 <td><span>{{row.address}}</span></td>
-                                <td><span>{{row.addressTypeName}}</span></td>
+                                <td><span>{{row.isDefaultPerAddressTypeName}}</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -45,77 +46,6 @@
             </div>
         </div>
     </div>
-    <ng-dialog ng-model="AddressDetail.model">
-        <div class="row">
-            <div class="col-lg-1"></div>
-            <div class="col-lg-5">
-                <span class="required">*</span>维护姓名：<input type="text" ng-model="AddressDetail.Info.contact" placeholder="请输入维护姓名" />
-            </div>
-            <div class="col-lg-5">
-                <span class="required">*</span>手机号码：<input type="text" ng-model="AddressDetail.Info.mobile" placeholder="请输入手机号码" />
-            </div>
-        </div>
-        <div class="row row-mt-8">
-            <div class="col-lg-1"></div>
-            <div class="col-lg-5">
-                <span class="required">*</span>送货方式：
-                <select ng-model="AddressDetail.Info.carrierTransType" ng-change="SelectInfo.CarrierTransType.change(item)">
-                    <option value="">请选择送货方式</option>
-                    <option ng-repeat="item in SelectInfo.CarrierTransType.dic" ng-selected="item.id==AddressDetail.Info.carrierTransType" value="{{item.id}}">{{item.text}}</option>
-                </select>
-            </div>
-            <div class="col-lg-5">
-                <span class="required">*</span>地址类型：
-                <select ng-model="AddressDetail.Info.addressType" ng-change="SelectInfo.AddressType.change(item)">
-                    <option value="">请选择地址类型</option>
-                    <option ng-repeat="item in SelectInfo.AddressType.dic" ng-selected="item.id==AddressDetail.Info.addressType" value="{{item.id}}">{{item.text}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="row row-mt-8">
-            <div class="col-lg-1"></div>
-            <div class="col-lg-5">
-                <span class="required">*</span>所在省份：
-                <select ng-model="AddressDetail.Info.provinceCode" ng-change="SelectInfo.Province.change(item)">
-                    <option value="">请选择所在省份</option>
-                    <option ng-repeat="item in SelectInfo.Province.dic" ng-selected="item.divCode==AddressDetail.Info.provinceCode" value="{{item.divCode}}">{{item.divName}}</option>
-                </select>
-            </div>
-            <div class="col-lg-5">
-                <span class="required">*</span>所在市级：
-                <select ng-model="AddressDetail.Info.cityCode" ng-change="SelectInfo.City.change(item)">
-                    <option value="">请选择所在市级</option>
-                    <option ng-repeat="item in SelectInfo.City.dic" ng-selected="item.divCode==AddressDetail.Info.cityCode" value="{{item.divCode}}">{{item.divName}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="row row-mt-8">
-            <div class="col-lg-1"></div>
-            <div class="col-lg-5">
-                <span class="required">*</span>所在区县：
-                <select ng-model="AddressDetail.Info.districtCode" ng-change="SelectInfo.District.change(item)">
-                    <option value="">请选择所在区县</option>
-                    <option ng-repeat="item in SelectInfo.District.dic" ng-selected="item.divCode==AddressDetail.Info.districtCode" value="{{item.divCode}}">{{item.divName}}</option>
-                </select>
-            </div>
-            <div class="col-lg-5">
-                <span style="float:left;line-height:25px;">地址默认：</span>
-                <input type="checkbox" id="checkbox_c4" class="chkbox" ng-checked="AddressDetail.Info.checkisDefaultPerAddressType" ng-model="AddressDetail.Info.checkisDefaultPerAddressType" />
-                <label for="checkbox_c4" style="float:left"></label>
-                <span ng-show="AddressDetail.Info.checkisDefaultPerAddressType" style="line-height: 25px;"> 默认</span>
-                <span ng-show="!AddressDetail.Info.checkisDefaultPerAddressType" style="line-height: 25px;">非默认</span>
-            </div>
-
-        </div>
-        
-        <div class="row row-mt-8">
-            <div class="col-lg-1"></div>
-            <div class="col-lg-10" >
-                <!--<span style="float:left;" class="required">*</span>--><span style="float:left;"> 详细地址：</span>
-                <textarea style="width:85%;height:60px;" ng-model="AddressDetail.Info.address" placeholder="请输入详细地址"></textarea>
-            </div>
-        </div>
-    </ng-dialog>
     <ng-dialog ng-model="AddressView.model">
         <div class="row">
             <div class="col-lg-1"></div>

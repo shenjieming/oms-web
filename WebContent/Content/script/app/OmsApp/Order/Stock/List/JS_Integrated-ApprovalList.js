@@ -9,7 +9,7 @@
 
 app.controller("StockApprovalListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>备货订单审批控制器</summary>
-    $scope.title = "待审批订单列表";
+    $scope.title = "待审批订单";
 
     //数据清空
     $.extend($scope.Pagein, { pageIndex: 1, sONo: "" });
@@ -23,6 +23,6 @@ app.controller("StockApprovalListController", function ($scope, $state, $local, 
     $scope.showView = function (sono) {
         /// <summary>查看备货订单</summary>
         $local.setValue("ORDERCOMP", { approval: true });
-        $scope.goView("app.stock.view", { sono: sono });
+        $state.go("app.stock.view", { sono: sono });
     }
 });

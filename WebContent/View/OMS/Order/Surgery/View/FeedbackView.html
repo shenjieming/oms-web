@@ -1,8 +1,10 @@
 <div class="row-fluid">
     <div class="widget-box">
-        <div class="widget-title bg_ly">
-            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5 data-toggle="collapse" href="#back_surgery">患者信息</h5>
+        <div class="widget-title bg_ly">  
+            <h5 data-toggle="collapse" href="#back_surgery">
+                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                <span class="oms-web-h5-fold">患者信息</span> 
+            </h5>
         </div>
         <div id="back_surgery" class="widget-content nopadding collapse in">
             <div class="control-group">
@@ -18,7 +20,7 @@
             </div>
             <div class="control-group ">
                 <label>
-                    入院时间：<span ng-bind="PageData.patientEntryDate"></span>
+                    入院日期：<span ng-bind="PageData.patientDateFmtYMDW"></span>    <!--patientEntryDate 修改成 patientDateFmtYMDW-->
                 </label>
                 <label>
                     住院号：<span ng-bind="PageData.patientHPNo"></span>
@@ -40,7 +42,7 @@
             </div>
             <div class="control-group">
                 <label>
-                    取出日期：<span ng-bind="PageData.retrieveEstDate"></span>
+                    取出日期：<span ng-bind="PageData.retrieveEstDateFmtYMDW"></span>     <!--retrieveEstDate 修改成 retrieveEstDateFmtYMDW-->
                 </label>
                 <label style="width:60%">
                     取出描述：<span ng-bind="PageData.retrieveDesc"></span>
@@ -50,8 +52,10 @@
     </div>
     <div class="widget-box">
         <div class="widget-title bg_ly">
-            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5 data-toggle="collapse" href="#back_Materials">器械消耗信息</h5>
+            <h5 data-toggle="collapse" href="#back_Materials">
+                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                <span class="oms-web-h5-fold"> 器械消耗信息</span>
+            </h5>
         </div>
         <div class="widget-content nopadding collapse in" id="back_Materials">
             <div class="control-group ">
@@ -69,8 +73,8 @@
                                     <th><span>规格</span></th>
                                     <th><span>批次</span></th>
                                     <th><span>数量</span></th>
-                                    <th><span>使用</span></th> 
-                                    <th><span>出库清单</span></th>                             
+                                    <th><span>使用</span></th>
+                                    <th><span>出库清单</span></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -84,7 +88,7 @@
                                     <td><span ng-bind="row.specification"></span></td>
                                     <td><span ng-bind="row.lotSerial"></span></td>
                                     <td><span ng-bind="row.useQty"></span></td>
-                                    <td><span ng-bind="row.useTypeName"></span></td>                   
+                                    <td><span ng-bind="row.useTypeName"></span></td>
                                     <td>{{row.isInSODetail=="Y"?"内":"外"}}</td>
                                 </tr>
                             </tbody>
@@ -96,8 +100,10 @@
     </div>
     <div class="widget-box">
         <div class="widget-title bg_ly">
-            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5 data-toggle="collapse" href="#back_File">附件信息</h5>
+            <h5 data-toggle="collapse" href="#back_File">
+                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                <span class="oms-web-h5-fold"> 附件信息</span>
+            </h5>
         </div>
         <div id="back_File" class="widget-content nopadding collapse in">
             <div class="control-group ">

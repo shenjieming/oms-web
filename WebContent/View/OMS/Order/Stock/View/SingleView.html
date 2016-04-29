@@ -2,33 +2,36 @@
     <div class="widget-box">
         <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformation">
             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5>基础信息[货主：{{PageData.sOOIOrgCodeName}}]</h5>
+            <h5>收货信息 [货主：{{PageData.sOOIOrgCodeName}}]</h5>
         </div>
         <div class="widget-content nopadding collapse in" id="BaseInformation">
             <div class="control-group ">
                 <label>
-                    收 货 人：{{PageData.deliveryContact}}
+                    收货人：{{PageData.deliveryContact}}
                 </label>
                 <label>
-                    联系电话：{{PageData.deliveryrMobile}}
+                    电话：{{PageData.deliveryrMobile}}
                 </label>
                 <label>
-                    配送方式：{{PageData.iniitCarrierTransTypeName}}
+                    配送：{{PageData.iniitCarrierTransTypeName}}
                 </label>
             </div>
             <div class="control-group ">
-                <label style="width:100%">
-                    收货地址：
+                <label style="width:60%">
+                    地址：
                     {{PageData.deliveryProvinceName}}  {{PageData.deliveryCityName}}  {{PageData.deliveryDistrictName}} {{PageData.deliveryAddress}}
+                </label>
+                <label>
+                    送达日期：{{deliveryReqArrivalDate}}
                 </label>
             </div>
         </div>
     </div>
     <div class="widget-box">
-        <div class="widget-title bg_ly" data-toggle="collapse" href="#ProductInformation">
-            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5>产品信息
-                {{singleProduc.Competence.ShowInfo}}
+        <div class="widget-title bg_ly" >
+            <h5 style="width:80%" data-toggle="collapse" href="#ProductInformation" >
+                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+               <span class="oms-web-h5-fold"> 器械信息{{singleProduc.Competence.ShowInfo}}</span>
             </h5>
         </div>
         <div id="ProductInformation" class="widget-content nopadding collapse in">
@@ -36,9 +39,11 @@
         </div>
     </div>
     <div class="widget-box">
-        <div class="widget-title bg_ly" data-toggle="collapse" href="#AdditionalInformation">
-            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5>图片信息</h5>
+        <div class="widget-title bg_ly" >
+            <h5 data-toggle="collapse" href="#AdditionalInformation" style="width:80% ">
+                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+               <span class="oms-web-h5-fold">附件信息</span>
+            </h5>
         </div>
         <div id="AdditionalInformation" class="widget-content nopadding collapse in">
             <div class="control-group ">
@@ -46,7 +51,7 @@
             </div>
             <div class="control-group">
                 <label style="width:100%">
-                    图片说明：{{PageData.initFile.remark}}
+                    附件备注：{{PageData.initFile.remark}}
                 </label>
             </div>
         </div>

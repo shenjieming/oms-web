@@ -20,8 +20,10 @@ app.controller("MaterialDetailController", function ($scope, $stateParams, $stat
             $Api.BusinessData.MedMaterial.GetMedMaterialItemDetail($stateParams, function (rData) {
                 $scope.PageData = rData;
                 console.log($scope.PageData)
-                $scope.PageData.attachmentForms = [{images: new Array()}];
-                $scope.PageData.attachmentForms[0].images = $scope.PageData.attachments;
+                if ($scope.PageData.attachmentForms) {
+                    $scope.PageData.attachmentForms = [{ images: new Array() }];
+                    $scope.PageData.attachmentForms[0].images = $scope.PageData.attachments;
+                }         
             });
         },
         IsChecked: function (ischeck, model, sd) {
@@ -39,14 +41,19 @@ app.controller("MaterialDetailController", function ($scope, $stateParams, $stat
             })
         }
     }
-
+    $scope.MaterialFactoryCode = function () {
+        /// <summary>物料编码和出厂编码相同</summary>
+        $scope.PageData.mnfcMedMICode = $scope.PageData.medMICode;
+    }
     $scope.Material = {
         //条件
-        MedManuFactureList: new Array(),
         GetMedManuFactureList: function () {
-            /// <summary>获取厂商列表</summary>
-            $Api.BusinessData.MedManuFacture.GetMedManuFactureCommboxList({}, function (rData) {
-                $scope.Material.MedManuFactureList = rData;
+            /// <summary>获取厂商</summary>
+            $Api.BusinessData.MedBrand.GetQueryMedBrandDetail({ medBrandCode: $scope.PageData.medBrandCode }, function (rData) {
+              
+                $scope.PageData.medMnfcOrgCode = rData.medMnfcCode
+                $scope.PageData.medMnfcCodeName = rData.medMnfcCodeName
+                $scope.facturerCode = rData.mnfcMedMnfcCode
             });
         }
     }

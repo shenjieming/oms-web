@@ -10,6 +10,11 @@
                     <a class="btn btn-danger" ng-click="Service.Delete()"><i class="fa fa-times"></i> 删除套件</a>
                     <a class="btn btn-primary" ng-click="Service.View()"> <i class="fa fa-align-justify"></i> 套件详情</a>
                 </span>
+                <div class="input-group" style="float:right;width:250px;margin-right:10px;">
+                    <input type="text" class="form-control" placeholder="请输入套件编码或套件名称"
+                           style="padding:8px;" ng-model="Pagein.searchValue" ng-keyup="MedKit.UpEnter($event)">
+                    <a class="input-group-addon" href="javascript:void(0)" ng-click="MedKit.QueryMedKit()"><i class="fa fa-search"></i></a>
+                </div>
             </header>
             <div class="main-box-body">
                 <div class="table-responsive list-box">
@@ -134,27 +139,27 @@
                         </div>
                         <div class="control-group ">
                             <label>
-                                套件编码：<input type="text" placeholder="请输入套件编码" ng-model="Detail.PageData.kitCode" />
+                                <span class="required">*</span>套件编码：<input type="text" placeholder="请输入套件编码" ng-model="Detail.PageData.kitCode" />
                             </label>
                             <label>
-                                套件名称：<input type="text" placeholder="请输入套件名称" ng-model="Detail.PageData.kitFullName" />
+                                <span class="required">*</span>套件名称：<input type="text" placeholder="请输入套件名称" ng-model="Detail.PageData.kitName" />
                             </label>
                             <label>
-                                套件全称：<input type="text" placeholder="请输入套件全称" ng-model="Detail.PageData.kitName" />
+                                套件全称：<input type="text" placeholder="请输入套件全称" ng-model="Detail.PageData.kitFullName" />
                             </label>
                         </div>
                         <div class="control-group ">
                             <label>
-                                套件类型：<span ng-dictionary="KITTYP" ng-model="Detail.PageData.kitType"></span>
+                                <span class="required">*</span>套件类型：<span ng-dictionary="KITTYP" ng-model="Detail.PageData.kitType"></span>
                             </label>
                             <label>
-                                存储仓库：
+                                <span class="required">*</span>存储仓库：
                                 <select ng-model="Detail.PageData.medMIWarehouse" ng-options="item.id as item.text for item in MedKit.WarehouseList">
                                     <option value="">请选择仓库</option>
                                 </select>
                             </label>
                             <label>
-                                存储库区：
+                                <span class="required">*</span>存储库区：
                                 <select ng-model="Detail.PageData.zoneCode" ng-options="item.zoneCode as item.zoneName for item in MedKit.ZoneList">
                                     <option value="">请选择库区</option>
                                 </select>

@@ -24,13 +24,15 @@
                         <thead>
                             <tr>
                                 <th><span>序号</span></th>
-                                <th><span>订单编号</span></th>
-                                <th><span>订单货主</span></th>
-                                <th><span>处理仓库</span></th>
+                                <th><span>订单号</span></th>
+                                <th ng-if="ListCompetence.sOOIOrgCodeName"><span>货主</span></th>
+                                <th ng-if="ListCompetence.sOCreateByOrgCodeName"><span>经销商</span></th>
+                                <th ng-if="ListCompetence.initMedProdLnCodeName"><span>产品线</span></th>
+                                <th ><span>送达日期</span></th>
+                                <th ng-if="ListCompetence.sOHandleByOrgCodeName"><span>仓库</span></th>
                                 <th><span>下单人</span></th>
-                                <th><span>下单时间</span></th>
-                                <th ng-show="ListCompetence.initMedProdLnCodeName"><span>下单主产品线</span></th>
-                                <th><span>订单状态</span></th>
+                                <th><span>下单日期</span></th>                                      
+                                <th><span>状态</span></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,10 +41,19 @@
                                 <td>
                                     {{row.sONo}}
                                 </td>
-                                <td>
+                                <td ng-if="ListCompetence.sOOIOrgCodeName">
                                     {{row.sOOIOrgCodeName}}
                                 </td>
+                                <td ng-if="ListCompetence.sOCreateByOrgCodeName">
+                                    {{row.sOCreateByOrgCodeName}}
+                                </td>
+                                <td ng-if="ListCompetence.initMedProdLnCodeName">
+                                    {{row.medBrandProdLnJoin}}
+                                </td>
                                 <td>
+                                    {{row.deliveryReqArrivalDate}}
+                                </td>
+                                <td ng-if="ListCompetence.sOHandleByOrgCodeName">
                                     {{row.sOHandleByOrgCodeName}}
                                 </td>
                                 <td>
@@ -50,10 +61,7 @@
                                 </td>
                                 <td>
                                     {{row.createDate}}
-                                </td>
-                                <td ng-show="ListCompetence.initMedProdLnCodeName">
-                                    {{row.initMedProdLnCodeName}}
-                                </td>
+                                </td>                                                
                                 <td>
                                     <span ng-class="(row.status=='SOSTS00200'||row.status=='SOSTS00040')?'red':''">{{row.statusName}}</span> 
                                 </td>

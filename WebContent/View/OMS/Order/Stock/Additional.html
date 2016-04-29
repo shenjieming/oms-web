@@ -3,8 +3,8 @@
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
             手术订单
-            <span style="color: #0033FF">[{{sono}}]</span>
-            <span style="color: #FF3300">({{PageData.statusName}})</span>
+            <span style="color: #0033FF">{{sono}}</span>
+            <span style="color: #FF3300">{{PageData.statusName}}</span>
 
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
@@ -33,9 +33,10 @@
                 <div class="row-fluid">
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
-                            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 style="width:80%" data-toggle="collapse" href="#Add_ProductInformation">追加物料
-                                {{AddProduct.Competence.ShowInfo}}
+
+                            <h5 style="width:80%" data-toggle="collapse" href="#Add_ProductInformation">
+                                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                             <span class="oms-web-h5-fold">  追加物料{{AddProduct.Competence.ShowInfo}}</span>
                             </h5>
                             <a href="javascript:void(0)" class="btn" style="display:none;"><i class="fa fa-folder-open"></i>选择模板</a>
                         </div>

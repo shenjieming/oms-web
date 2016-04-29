@@ -1,9 +1,11 @@
 
 <div class="row-fluid">
     <div class="widget-box">
-        <div class="widget-title bg_ly">
-            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5 data-toggle="collapse" href="#pro_BaseInformation">收货信息 [货主：<span ng-bind="PageData.sOOIOrgCodeName"></span>]</h5>
+        <div class="widget-title bg_ly">          
+            <h5 data-toggle="collapse" href="#pro_BaseInformation">
+                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                <span class="oms-web-h5-fold">收货信息 [货主：<span ng-bind="PageData.sOOIOrgCodeName"></span>]</span> 
+            </h5>
         </div>
         <div class="widget-content nopadding collapse in" id="pro_BaseInformation">
             <div class="control-group ">
@@ -13,7 +15,8 @@
                 <label>
                     电话：<span ng-bind="PageData.deliveryrMobile"></span>
                 </label>
-                <label>配送：<span ng-bind="PageData.carrierTransTypeName"></span>
+                <label>
+                    配送：<span ng-bind="PageData.carrierTransTypeName"></span>
                 </label>
             </div>
             <div class="control-group ">
@@ -32,8 +35,10 @@
 
     <div class="widget-box">
         <div class="widget-title bg_ly">
-            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5 data-toggle="collapse" href="#pro_SurgeryInformation">手术信息</h5>
+            <h5 data-toggle="collapse" href="#pro_SurgeryInformation">
+                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                <span class="oms-web-h5-fold"> 手术信息</span> 
+            </h5>
         </div>
         <div id="pro_SurgeryInformation" class="widget-content nopadding collapse in">
             <div class="control-group ">
@@ -59,7 +64,7 @@
             </div>
             <div class="control-group">
                 <label>
-                   手术时间：<span ng-bind="PageData.operationDate"></span>
+                    手术日期：<span ng-bind="PageData.DataFmtYMDW"></span>
                 </label>
                 <label style="width:60%">
                     诊断信息：<span ng-bind="PageData.patientDiseaseInfo"></span>
@@ -74,9 +79,10 @@
     </div>
 
     <div class="widget-box">
-        <div class="widget-title bg_ly">
-            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5 style="width:80%" data-toggle="collapse" href="#pro_ProductInformation">器械信息
+        <div class="widget-title bg_ly">           
+            <h5 style="width:80%" data-toggle="collapse" href="#pro_ProductInformation">
+                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                <span class="oms-web-h5-fold">器械信息</span> 
                 <span ng-bind="AccurProduct.Competence.ShowInfo"></span>
             </h5>
         </div>
@@ -86,8 +92,10 @@
     </div>
     <div class="widget-box">
         <div class="widget-title bg_ly">
-            <span class="icon"><i class="fa icon-chevron-down"></i></span>
-            <h5 data-toggle="collapse" href="#pro_AdditionalInformation">附件信息</h5>
+            <h5 data-toggle="collapse" href="#pro_AdditionalInformation">
+                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                <span class="oms-web-h5-fold">附件信息</span>            
+            </h5>
         </div>
         <div id="pro_AdditionalInformation" class="widget-content nopadding collapse in">
             <div class="control-group ">

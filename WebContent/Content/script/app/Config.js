@@ -8,11 +8,11 @@
 /// <reference path="../lib/Jquery/jquery-1.11.1.min.js" />
 var Timestamp = new Date().getTime();
 var app = angular.module('ESurgeryApp', ["ngRoute", "ui.router", "ngRequire", "ui.bootstrap", "smart-table", "jnDo", "AjaxService","OmsApp", "BaseApp", "BmsApp"]);
-
 app.run(function ($rootScope, $state, $local, $Api, $MessagService) {
     /// <summary>系统启动事件</summary>
     ///TODO:用户有效性验证
     //若是登陆页面的话，并且存在用户信息的话，直接进入登陆页面
+
     $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams, errorType) { console.log(toState.name); if (toState.name != "login") { var data = $local.getValue("USER"); if (data) { console.log(toState.name + "页面启动"); } else { $MessagService.caveat("用户信息过期，请重新登录.."); event.preventDefault(); $state.go("login"); } } else { var data = $local.getValue("USER"); if (data) { event.preventDefault(); $state.go("app.home"); } } });
 })
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
@@ -64,7 +64,7 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
     }
     /// <summary>菜单权限控制</summary>
     //判断菜单是否有权限
-    $scope.Comp = function (code) { if (ServerConfiguration.IsDevelop) { return true; } else { return JSON.stringify($scope.User.functionInfo).indexOf(code) > -1; } }
+     $scope.Comp = function (code) { if (ServerConfiguration.IsDevelop) { return true; } else { return JSON.stringify($scope.User.functionInfo).indexOf(code) > -1; } }
     //$scope.Comp=true;
 });
 app.controller("employeeController", function ($scope, $state, $MenuService, $local, $MessagService, $Api) {

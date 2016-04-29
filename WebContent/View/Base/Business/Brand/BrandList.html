@@ -10,12 +10,10 @@
                     <a class="btn btn-primary" ng-click="BrandDelet()">删除</a>
                     <a class="btn btn-primary" ng-click="BrandView.ShowView()">详情</a>
                 </span>
-                <div class="input-group" style="float: right; margin-right: 30px;">
-                    物料品牌：
-                    <select ng-change="BrandList.Brand.GetBrandList()" ng-model="BrandList.medBrandCode" style="height: 35px; min-width: 140px">
-                        <option value="">请选择品牌</option>
-                        <option ng-repeat="item in BrandList.SearchBrand.dic" value="{{item.medBrandCode}}">{{item.medBrandName}}</option>
-                    </select>
+                <div class="input-group" style="float:right;width:250px;margin-right:10px;">
+                    <input type="text" class="form-control" placeholder="请输入品牌编码、名称"
+                           style="padding:8px;" ng-model="BandJump.SearchWhere" ng-keyup="BrandList.UpEnter($event)">
+                    <a class="input-group-addon" href="javascript:void(0)" ng-click="BrandList.QueryDLList()"><i class="fa fa-search"></i></a>
                 </div>
                 <div class="input-group" style="float: right; margin-right: 30px;">
                     物料厂商：
@@ -23,7 +21,7 @@
                         <option value="">请选择厂商</option>
                         <option ng-repeat="item in BrandList.Facture.dic" value="{{item.id}}">{{item.text}}</option>
                     </select>
-                </div>                
+                </div>
             </header>
             <div class="main-box-body clearfix">
                 <div class="table-responsive list-box" style="min-height:450px">
@@ -40,7 +38,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in BrandList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected" >
+                            <tr ng-repeat="row in BrandList.info" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
                                 <td>{{$index+1}}</td>
                                 <td><span>{{row.medMnfcCodeName}}</span></td>
                                 <td><span>{{row.medMnfcCode}}</span></td>
@@ -123,16 +121,16 @@
                 </select>
             </div>
             <div class="col-lg-5">
-                <span class="required">*</span>品牌名称：<input type="text" ng-model="BrandDetailAdd.Info.medBrandName" placeholder="请输入品牌名称" />
+                <span class="required">*</span>品牌名称：<input type="text" ng-model="BrandDetailAdd.Info.medBrandName" placeholder="请输入品牌名称" ng-change="BrandDetail.BrandNameSynchronization()" />
             </div>
         </div>
         <div class="row row-mt-8">
             <div class="col-lg-1"></div>
             <div class="col-lg-5">
-                <span class="required">*</span>品牌编码：<input type="text" ng-model="BrandDetailAdd.Info.medBrandCode" placeholder="请输入品牌名称" />
+                <span class="required">*</span>品牌编码：<input type="text" ng-model="BrandDetailAdd.Info.medBrandCode" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" placeholder="请输入品牌编码" ng-change="UpperCase()" />
             </div>
             <div class="col-lg-5">
-                品牌全称：<input type="text" ng-model="BrandDetailAdd.Info.medBrandFullName" placeholder="请输入英文全称" />
+                品牌全称：<input type="text" ng-model="BrandDetailAdd.Info.medBrandFullName" placeholder="请输入品牌全称" />
             </div>
         </div>
         <div class="row row-mt-8">
@@ -173,7 +171,7 @@
                 厂家名称：{{BrandView.Info.medMnfcCodeName}}
             </div>
             <div class="col-lg-5">
-                厂家编码：{{BrandView.Info.medMnfcCode}}
+                品牌编码：{{BrandView.Info.medBrandCode}}
             </div>
         </div>
         <div class="row row-mt-8">

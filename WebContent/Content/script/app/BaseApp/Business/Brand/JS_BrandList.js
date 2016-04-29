@@ -10,6 +10,7 @@
 app.controller("BrandListController", function ($scope, $state, $local, $Api, $MessagService) {
 
     /// <summary>品牌列表</summary>
+    $scope.BandJump = {};
     $scope.BrandList = {
         info:new Array(),
         Brand:{
@@ -48,10 +49,32 @@ app.controller("BrandListController", function ($scope, $state, $local, $Api, $M
                      
                 })
             }
+        },
+        QueryDLList: function () {
+            /// <summary>查询品牌列表</summary>
+            $scope.Pagein = $.extend($scope.Pagein, { pageIndex: 1, searchValue: $scope.BandJump.SearchWhere });
+            var opt = $.extend({}, $scope.Pagein);
+            $Api.BusinessData.MedBrand.GetQueryAllMedBrand(opt, function (rData) {
+                $scope.BrandList.info = rData.rows;
+                $scope.BrandList.Brand.dic = rData.rows;
+                $scope.Pagein.total = rData.total;
+            })
+        },
+        UpEnter: function (e) {
+            /// <summary>点击回车事件</summary>
+            var keycode = window.event ? e.keyCode : e.which;
+            if (keycode == 13) {
+                $scope.BrandList.QueryDLList();
+            }
         }
       
     }
-
+    $scope.UpperCase = function () {
+        /// <summary>小写转大写</summary>
+        if ($scope.BrandDetailAdd.Info.medBrandCode) {
+            $scope.BrandDetailAdd.Info.medBrandCode = $scope.BrandDetailAdd.Info.medBrandCode.toUpperCase()
+        }      
+    }
     $scope.BrandDetail = {
         // 品牌编辑
         Info:new Object(),
@@ -69,6 +92,9 @@ app.controller("BrandListController", function ($scope, $state, $local, $Api, $M
         },
         cancel: function () {
             $scope.BrandDetail.model.hide();
+        },
+        BrandNameSynchronization: function () {
+            $scope.BrandDetailAdd.Info.medBrandFullName = $scope.BrandDetailAdd.Info.medBrandName;
         },
         Verification: function () {
             /// <summary>验证</summary>

@@ -9,7 +9,7 @@
 
 app.controller("StockSignListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>签收订单管理控制器</summary>
-    $scope.title = "待签收订单列表";
+    $scope.title = "待签收订单";
 
     $scope.Competence = {
         sign: true
@@ -22,6 +22,6 @@ app.controller("StockSignListController", function ($scope, $state, $local, $Api
     $scope.showView = function (sono) {
         /// <summary>查看手术订单</summary>
         $local.setValue("ORDERCOMP", { sign: true });
-        $scope.goView("app.stock.view", { sono: sono });
+        $state.go("app.stock.view", { sono: sono });
     }
 });
