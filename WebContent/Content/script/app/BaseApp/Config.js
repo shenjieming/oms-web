@@ -485,18 +485,18 @@ var BaseApp = angular.module('BaseApp', [])
            })
     })
 //库区管理
-    .config(function($stateProvider,$urlRouterProvider,$requireProvider){
-    $stateProvider
-        .state("app.base.business.whzone",{
-            //<summary>库区列表<summary>
-            url:"/whzone",
-            cache:false,
-            templateUrl:"View/Base/Business/WhZone/WhZoneList.html?data="+Timestamp,
-            controller:"WhZoneListController",
-            loadJs:["Content/script/app/BaseApp/Business/WhZone/JS_WhZoneList.js"],
-            resolve:app.resolve
-        })
-})
+    .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
+        $stateProvider
+            .state("app.base.business.whzone", {
+                //<summary>库区列表<summary>
+                url: "/whzone",
+                cache: false,
+                templateUrl: "View/Base/Business/WhZone/WhZoneList.html?data=" + Timestamp,
+                controller: "WhZoneListController",
+                loadJs: ["Content/script/app/BaseApp/Business/WhZone/JS_WhZoneList.js"],
+                resolve: app.resolve
+            })
+    })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         /// <summary品牌管理</summary>
         $stateProvider
@@ -590,7 +590,7 @@ var BaseApp = angular.module('BaseApp', [])
 
             })
              .state("app.base.mybusiness.materialdetail", {
-                 /// <summary>物料详情</summary>
+                 /// <summary>物料编辑</summary>
                  url: "/material/:medMIInternalNo&:medBrandCode&:medBrandCodeName&:oIOrgCode&:oIOrgCodeName&:medProdLnCode&:medProdLnCodeName",
                  cache: false,
                  templateUrl: "View/Base/MyBusiness/Material/MaterialDetail.html?data=" + Timestamp,
@@ -608,7 +608,7 @@ var BaseApp = angular.module('BaseApp', [])
                  resolve: app.resolve
              })
             .state("app.base.mybusiness.kits", {
-                /// <summary>物料套件管理</summary>
+                /// <summary>物料套件列表</summary>
                 url: "/kits",
                 cache: false,
                 controller: "MedKitListController",
@@ -616,6 +616,24 @@ var BaseApp = angular.module('BaseApp', [])
                 loadJs: ["Content/script/app/BaseApp/MyBusiness/MedKit/JS_MedKitList.js"],
                 resolve: app.resolve
             })
+           // .state("app.base.mybusiness.kitsedit", {
+           //     /// <summary>物料套件编辑</summary>
+           //     url: "/kitsedit",
+           //     cache: false,
+           //     controller: "MedKitEditController",
+           //     templateUrl: "View/Base/MyBusiness/MedKit/MedKitEdit.html?data=" + Timestamp,
+           //     loadJs: ["Content/script/app/BaseApp/MyBusiness/MedKit/JS_MedKitEdit.js"],
+           //     resolve: app.resolve
+           // })
+        .state("app.base.mybusiness.kitsview", {
+            /// <summary>物料套件详情</summary>
+            url: "/kitsview/:medKitopt",
+            cache: false,
+            controller: "MedKitViewController",
+            templateUrl: "View/Base/MyBusiness/MedKit/MedKitView.html?data=" + Timestamp,
+            loadJs: ["Content/script/app/BaseApp/MyBusiness/MedKit/JS_MedKitView.js"],
+            resolve: app.resolve
+        })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         /// <summary>用户信息管理配置</summary>

@@ -6,7 +6,7 @@
 /// <reference path="../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
-app.directive("ngProductView", function ($Api, $MessagService, $local) {
+app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
     /// <summary>产品信息</summary>
     return {
         restrict: "EA",
@@ -15,10 +15,11 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
             ngModel: '=',//映射对象
             ngOperat: "=",//操作对象
             ngComp: "=",//权限控制对象
-            ngService:"="//公开服务
+            ngService:"=",//公开服务
+            ngIconshow:"="//图标显示
         },
         replace: true,
-        link: function ($scope, element, attrs) {
+        link: function ($scope,element,attrs){
             $scope.Statistic = {
                 /// <summary>统计</summary>
                 KitsCount: 0,//套件数
@@ -41,9 +42,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                     }
                 }
             }
-
             var userInfo = $local.getValue("USER").userInfo;
-
             $scope.$watch("ngModel.prodLns.length", function () {
                 /// <summary>产品线发生变化</summary>
                 if ($scope.ngModel.prodLns) {
@@ -51,7 +50,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                     $scope.ngService.MitDeduplication();
                 }
             });
-
             $scope.$watch("ngModel.isChangeProd", function () {
                 if ($scope.ngModel.isChangeProd) {
                     $scope.ProductConfig.tree.CreateProLineTree();
@@ -62,8 +60,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
             $scope.$watch("Statistic", function () {
                 $scope.Statistic.GetShowInfo();
             })
-
-
             $scope.rowCollection = new Array();
             $scope.MedKitsConfig = {
                 /// <summary>套件管理配置</summary>
@@ -78,6 +74,15 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                     /// <summary>删除套件</summary>
                     $scope.ngModel.medKits.splice(index, 1);
                     $scope.MedKitsConfig.GetKitCount();
+                },
+                DetailView:function (row) {
+                    // 套件详情
+                    var medKitopt = row ?row:$local.getSelectedRow($scope.ngModel.medKits);
+                    // if (medKitopt){
+                    //     $state.go('app.base.mybusiness.kitsview', {medKitopt: medKitopt.medKitInternalNo});
+                    // } else {
+                    //     $MessagService.caveat("请选择一条查看的套件信息！");
+                    // }
                 },
                 AddNewMedKits: function (lise) {
                     /// <summary>添加新的套件</summary>
@@ -124,7 +129,12 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                 },
                 useData: {}
             }
-
+            $scope.view = {
+                PageData: {},
+                Sure:function () {
+                    $scope.KitDetailModel.hide();
+                },
+            }
             //产品线选择控制
             $scope.ProductConfig = {
                 operat: {
@@ -137,7 +147,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                 deleteLine: function () {
                     /// <summary>删除产品线</summary>
                     $scope.ngModel.prodLns.splice($scope.ProductConfig.useLine.index, 1);
-                    
                     $scope.ProductConfig.GetLineMaterialCount();
                 },
                 ChangeTool: function () {
@@ -163,7 +172,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                             }
                         });
                     });
-
                     $.extend($scope.Statistic, stat);
                     $scope.MedKitsConfig.GetKitCount();
                     $scope.Statistic.GetShowInfo();
@@ -185,10 +193,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                             stat.ProToolCount += item.reqQty;
                         }
                     });
-
-
                     $.extend($scope.Statistic, stat);
-                    
                     $scope.ProductConfig.GetAllMaterialCount();
                 },
                 tree: {//树配置
@@ -234,7 +239,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                             result = medMaterialItems;
                         }
                         return result;
-
                     },
                     setting: {
                         data: { simpleData: { enable: true, idKey: "id", pIdKey: "pId", rootPId: 0 } },
@@ -256,12 +260,10 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                     treeId: attrs.ngProductView
                 }
             };
-
             $scope.MaterialsConfig = {
                 Material: new Array(),
                 categoryByPlatform:"",
                 operat: {
-                    
                     fixed: function (MaterialsList) {
                         /// <summary>确认选择物料</summary>
                         $scope.$apply(function () {
@@ -269,7 +271,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                             //$scope.ProductConfig.useLine.medMaterias = data;
                             $scope.ngModel.prodLns[$scope.ProductConfig.useLine.index].medMaterias = $scope.ProductConfig.useLine.medMaterias;
                             $scope.MaterialsConfig.GetShowMaterial('');
-
                         });
                     }
                 },
@@ -341,24 +342,26 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                 },
                 GetMedmaterialInventory: function (medmaterial) {
                     /// <summary>获取物料库存</summary>
-
+                    console.log($scope.ngModel)
                     var param = $scope.WarehouseConfig.GetMedmaterialParamData(medmaterial);
-                    $Api.MaterialsService.GetMedmaterialInventory(param, function (rData) { $scope.WarehouseConfig.AnalyticalInventory(rData, medmaterial); })
+                    $Api.MaterialsService.GetMedmaterialInventory(param, function (rData) {
+                        $scope.WarehouseConfig.AnalyticalInventory(rData, medmaterial);
+                    })
                 },
-                GetMedmaterialParamData: function (medmaterial) {
-                    /// <summary>获取物料查询库存的条件</summary>
-                    var paramData = new Array();
-                    if (medmaterial) {
-                        paramData.push($scope.WarehouseConfig.StandardizationMedmaterialParam(medmaterial));
-                    } else {
-                        $.each($scope.ProductConfig.useLine.medMaterias, function (index, item) {
-                            if (item.medMIWarehouse) {
-                                paramData.push($scope.WarehouseConfig.StandardizationMedmaterialParam(item));
-                            }
-                        });
-                    }
-                    return paramData;
-                },
+                // GetMedmaterialParamData: function (medmaterial) {
+                //     /// <summary>获取物料查询库存的条件</summary>
+                //     var paramData = new Array();
+                //     if (medmaterial) {
+                //         paramData.push($scope.WarehouseConfig.StandardizationMedmaterialParam(medmaterial));
+                //     } else {
+                //         $.each($scope.ProductConfig.useLine.medMaterias, function (index, item) {
+                //             if (item.medMIWarehouse) {
+                //                 paramData.push($scope.WarehouseConfig.StandardizationMedmaterialParam(item));
+                //             }
+                //         });
+                //     }
+                //     return paramData;
+                // },
                 StandardizationMedmaterialParam: function (medmaterial) {
                     /// <summary>标准化物料条件参数</summary>
                     medmaterial.estMedMIWarehouseName = $scope.WarehouseConfig.GetWarehouseNameByCode(medmaterial.medMIWarehouse).name
@@ -413,7 +416,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                             if (item.medKitInternalNo == kItem.medKitInternalNo) {   kItem.inventory = item.inventory ? item.inventory : "0"; }
                         });
                     });
-
                 },
                 GetWarehouseNameByCode: function (code) {
                     /// <summary>根据仓库编码获取仓库名称</summary>
@@ -427,11 +429,15 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                     return result;
                 }
             }
-
             $scope.Competence = { warehouse: true, materials: true, kits: true, tool: true, operat: true, instruction: false }
+            if($scope.ngIconshow == 'offline'){
+                // 图标显示
+                $scope.Competence.operat=false;
+            }else {
+                $scope.Competence.operat=true;
+            }
             //权限配置
             $.extend($scope.Competence, $scope.ngComp);
-
             if ($scope.Competence.warehouse && $scope.Competence.operat) {
                 /// <summary>是否启动仓库</summary>
                 $scope.WarehouseConfig.GetList();
@@ -458,7 +464,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local) {
                             }
                         });
                         Line.medMaterias = newMaterias;
-
                     });
                 },
                 MitDeduplication: function () {

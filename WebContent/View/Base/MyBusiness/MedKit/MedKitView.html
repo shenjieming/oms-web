@@ -1,0 +1,59 @@
+<div >
+    <div class="tools">
+        <span style="float:right;">
+                    <a class="btn btn-primary" ng-click="window.history.back()"><i class="fa  fa-reply"></i> 返回</a>
+        </span>
+    </div>
+    <div class="row-fluid">
+        <div class="widget-box">
+            <div class="widget-title bg_ly" data-toggle="collapse" href="#BaseInformationView">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5>套件信息</h5>
+            </div>
+            <div class="widget-content nopadding collapse in" id="BaseInformationView">
+                <div class="control-group ">
+                    <label style="width:100%;"> 货主信息：{{view.PageData.oIOrgCodeName}}</label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        套件编码：{{view.PageData.kitCode}}
+                    </label>
+                    <label>
+                        套件名称：{{view.PageData.kitFullName}}
+                    </label>
+                    <label>
+                        套件全称：{{view.PageData.kitName}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        套件类型：{{view.PageData.kitTypeName}}
+                    </label>
+                    <label>
+                        存储仓库：{{view.PageData.whName}}
+                    </label>
+                    <label>
+                        存储库区：{{view.PageData.zoneName}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-title bg_ly">
+                <span class="icon"><i class="fa icon-chevron-down"></i></span>
+                <h5 data-toggle="collapse" href="#ProductInformationView">
+                    物料信息
+                    {{ProductCompetence.ShowInfo}}
+                </h5>
+            </div>
+            <div id="ProductInformationView" class="widget-content nopadding collapse in">
+                <div ng-product-view="newProduct" ng-model="view.PageData" ng-service="view.ProductService" ng-comp="view.ProductCompetence"></div>
+            </div>
+        </div>
+    </div>
+    <div class="tools">
+        <span style="float:right;">
+            <a class="btn btn-primary"  onclick="window.history.back()" ><i class="fa  fa-reply"></i> 返回</a>
+        </span>
+    </div>
+</div>

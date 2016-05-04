@@ -75,7 +75,7 @@ OmsApp
         $stateProvider
            .state("app.oms.order.single", {
                /// <summary>手术下单</summary>
-               url: "/single/:sono",  cache: false,  templateUrl: "View/OMS/Order/Surgery/Single.html?data=" + Timestamp,  controller: "SingleController"
+               url: "/single/:sono", cache: false,  templateUrl: "View/OMS/Order/Surgery/Single.html?data=" + Timestamp,  controller: "SingleController"
            })
             .state("app.oms.order.view", {
                 /// <summary>手术订单视图</summary>
