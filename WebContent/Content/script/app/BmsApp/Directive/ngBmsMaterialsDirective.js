@@ -5,7 +5,7 @@ app.directive("ngBmsMaterials", function ($BMSApi, $MessagService, $local, $AppH
     return {
         restrict: "EA",
         templateUrl: "Content/script/app/BmsApp/Directive/ui/ngBmsMaterials.html?data=" + Timestamp,
-        scope: {  ngBmsMaterials: "=",   },
+        scope: {  ngBmsMaterials: "=", ngModel:"="   },
         replace: true,
         link: function ($scope, element, attrs) {
             $scope.Service = {
@@ -15,7 +15,7 @@ app.directive("ngBmsMaterials", function ($BMSApi, $MessagService, $local, $AppH
                 ChangeList: new Array(),
                 GetMaterialList: function () {
                     /// <summary>获取物资列表</summary>
-                    $scope.Service.GetChangeMaterials(); $BMSApi.BMSBaseService.GetMaterialList($scope.Pagein, function (queryData) { $scope.Pagein.total = queryData.total; $scope.Service.MaterialList = new Array(); $.each(queryData.rows, function (index, item) { $scope.Service.MaterialList.push($.extend(item, { reqQty: $scope.Service.GetMaterialQty(item) })); }); });
+                    $scope.Service.GetChangeMaterials(); var param = $.extend($scope.Pagein, $scope.ngModel); $BMSApi.BMSBaseService.GetMaterialList($scope.Pagein, function (queryData) { $scope.Pagein.total = queryData.total; $scope.Service.MaterialList = new Array(); $.each(queryData.rows, function (index, item) { $scope.Service.MaterialList.push($.extend(item, { reqQty: $scope.Service.GetMaterialQty(item) })); }); });
                 },
                 GetChangeMaterials: function () {
                     /// <summary>获取修改的物资信息</summary>

@@ -10,18 +10,7 @@ app.controller("BillDetailController", function ($scope, $state,$Api, $local, $B
         /// <summary>附件控制器</summary>
         Upload: function (files) {
             /// <summary>上传事件</summary>
-            $.each(files, function (index, item) {
-                if ($scope.BillData.images.length >= 5) { $MessagService.caveat("您上传的图片超过了5张。"); return false; }
-                if (item.type.indexOf("image") > -1) {
-                    $FileService.ReaderFiles(item, function (data) {
-                        /// <summary>文件读取</summary>
-                        $Api.Public.UploadFile(data, function (rData) { $scope.BillData.images.push(rData); });
-                    });
-                } else {
-                    $MessagService.caveat("您上传的不是图片！")
-                }
-
-            });
+            $.each(files, function (index, item) { if ($scope.BillData.images.length >= 5) { $MessagService.caveat("您上传的图片超过了5张。"); return false; } if (item.type.indexOf("image") > -1) { $FileService.ReaderFiles(item, function (data) { $Api.Public.UploadFile(data, function (rData) { $scope.BillData.images.push(rData); }); }); } else { $MessagService.caveat("您上传的不是图片！"); } });
         }
     }
 
