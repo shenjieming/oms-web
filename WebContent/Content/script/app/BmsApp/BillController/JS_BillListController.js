@@ -116,8 +116,7 @@ app.factory("$BillDetailFactory", function ($BMSApi) {
         }
         this.GetMateriaMappings = function (materia) {
             /// <summary>获取物资映射信息</summary>
-            var Price= parseFloat(materia.medMaterialPrice?materia.medMaterialPrice:materia.hPUnitEstPrice)
-            return $.extend(materia, { qty: materia.reqQty, dHMMName: materia.medMaterialFullName, dHMMSpecification: materia.medMaterialSpecification, dHMMMaterials: materia.medMaterialMaterials, hPUnitEstPrice: Price, patientUnitEstPrice: (Price * 1.05) });
+            var Price = parseFloat(materia.medMaterialPrice ? materia.medMaterialPrice : materia.hPUnitEstPrice); return $.extend(materia, { qty: materia.reqQty, dHMMName: materia.medMaterialFullName, dHMMSpecification: materia.medMaterialSpecification, dHMMMaterials: materia.medMaterialMaterials, hPUnitEstPrice: Price, patientUnitEstPrice: (Price * 1.05) });
         }
 
         this.AddMaterias = function (materias, aims) {

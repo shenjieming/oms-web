@@ -102,11 +102,12 @@ app.controller("MedKitListController", function ($scope, $state, $local, $Api, $
                 $MessagService.caveat("请选择一条编辑的套件信息！");
             }
         },
-        View: function () {
+        View: function (row) {
             /// <summary>点击套件详情</summary>
-            var row = $local.getSelectedRow($scope.MedKit.List);
-            if (row) {
-                this.ViewKit(row)
+            var medKitopt = row ?row:$local.getSelectedRow($scope.MedKit.List);
+            if (medKitopt){
+                $scope.goView("app.base.mybusiness.kitsview",{medKitopt:medKitopt.medKitInternalNo})
+                // this.ViewKit(row)
             } else {
                 $MessagService.caveat("请选择一条查看的套件信息！");
             }
@@ -115,15 +116,12 @@ app.controller("MedKitListController", function ($scope, $state, $local, $Api, $
             /// <summary>查看套件详情</summary>
             this.GetKitDiteil(row, function (kit) {
                 $scope.view.PageData = kit;
-
-                $scope.view.PageData.prodLns = kit.productLine;
-                $scope.view.PageData.isChangeProd = true;
                 $scope.Service.isView(true);
             });
         },
-        GetKitDiteil: function (rowData,calback) {
+        GetKitDiteil: function (rowData,callback) {
             /// <summary>获取套件详细信息</summary>
-            $Api.MedKitService.GetMedKitDetail(rowData,calback);
+            $Api.MedKitService.GetMedKitDetail(rowData,callback);
         },
         KitValid:function(){
             var result = true;
@@ -190,7 +188,6 @@ app.controller("MedKitListController", function ($scope, $state, $local, $Api, $
     }
     $scope.MedKit.GetWarehouseList();
     $scope.MedKit.GetMedKitList();
-
     $scope.view = {
         PageData: {},
         ProductService: {},

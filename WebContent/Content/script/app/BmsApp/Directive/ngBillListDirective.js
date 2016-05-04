@@ -41,12 +41,11 @@ app.directive("ngBillList", function ($BMSApi, $MessagService, $local, $AppHelp)
                 }
             }
 
-
             $scope.Pagein = { opt: "WAIT_SOA_FEENOTE", pageSize: 10, createDateBegin: null, createDateEnd: null, pageIndex: 1, callbake: function () { $scope.Integrated.GetBillList(); } }
 
             var modelConfig = {
                 /// <summary>弹出层模板配置</summary>
-                title: "计费单选择", width: "100%", position: [0], height: "90%", buttons: { "确定": function () { $scope.Service.GetSelectedBillDetail(function (list) { $scope.ngBillList.fixed(list); $scope.ngBillList.hide(); }) }, "关闭": function () { $scope.ngBillList.hide(); } }, open: function () { $scope.Service.SelectBill = new Array(); $scope.Integrated.DataQuery({}); }
+                title: "计费单选择", width: "100%", position: [0], height: "90%", buttons: { "确定": function () { $scope.Service.GetSelectedBillDetail(function (list) { $scope.ngBillList.fixed(list); $scope.ngBillList.hide(); }) }, "关闭": function () { $scope.ngBillList.hide(); } }, open: function () { $scope.Integrated.BillList = new Array(); $scope.Service.SelectBill = new Array(); $scope.Integrated.DataQuery({}); }
             }
             $.extend($scope.ngBillList, modelConfig);
 

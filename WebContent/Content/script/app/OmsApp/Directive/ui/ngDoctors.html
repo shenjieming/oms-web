@@ -16,7 +16,7 @@
                                 <th><span>科室</span></th>                           
                                 <th><span>医生</span></th>
                                 <th><span>属地</span></th>
-                                <th><span>操作<button type="button" class="btn btn-xs btn-danger" ng-click="operat.ChangeDetail()" ng-if="operat.Button" style="margin-left:4px;width:22px"><i class="fa fa-plus-square"></i></button></span></th>
+                                <th ng-if="operat.Button"><span>操作<button type="button" class="btn btn-xs btn-danger" ng-click="operat.ChangeDetail()" ng-if="operat.Button" style="margin-left:4px;width:22px"><i class="fa fa-plus-square"></i></button></span></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,8 +34,8 @@
                                 <td>
                                     <span ng-bind="row.isLocalName"></span>
                                 </td>
-                                <td>
-                                    <button type="button" class="btn btn-xs btn-danger" ng-click="operat.ChangeEdit(row)" ng-if="operat.Button" style="margin-left:6px;width:22px"><i class="fa fa-edit"></i></button>
+                                <td ng-if="operat.Button">
+                                    <button type="button" class="btn btn-xs btn-danger" ng-click="operat.ChangeEdit(row)"  style="margin-left:6px;width:22px"><i class="fa fa-edit"></i></button>
                                     <button type="button" class="btn btn-xs btn-danger" ng-click="Service.DelDoctor(row)"><i class="fa fa-times"></i></button>
                                 </td>
                             </tr>

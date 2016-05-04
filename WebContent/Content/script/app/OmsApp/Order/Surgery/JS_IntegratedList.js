@@ -31,14 +31,14 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
     //跳转到线上处理页面
     $scope.ProcessingOnlineOrders = function (sono) {
         /// <summary>处理线上订单</summary>
-        $local.setValue("ORDERCOMP", { dealwith: true , handleType: 'online' });
+        $local.setValue("ORDERCOMP", { dealwith: true , handleType: 'online',iconShow: true});
         $scope.goView("app.oms.order.dealpage", { sono: sono });
     }
 
     //跳转到线下处理页面
     $scope.ProcessingOfflineOrders = function (sono) {
         /// <summary>处理线下订单</summary>
-        $local.setValue("ORDERCOMP", { dealwith: true , handleType: 'offline'});
+        $local.setValue("ORDERCOMP", { dealwith: true , handleType: 'offline',iconShow:false});
         $scope.goView("app.oms.order.dealpage", { sono: sono });
     }
 
