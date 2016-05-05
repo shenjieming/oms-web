@@ -349,6 +349,39 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                     $Api.MaterialsService.GetMedmaterialInventory(param, function (rData) {
                         $scope.WarehouseConfig.AnalyticalInventory(rData, medmaterial);
                     })
+                    $scope.WarehouseConfig.ChangeWHNote();
+                },
+                ChangeWHNote:function(){
+                    var WarehouseNoteArray = [];
+                    console.log($scope.ngModel);
+                    if($scope.ngModel.prodLns[0].medMaterias != undefined && $scope.ngModel.prodLns[0].medMaterias.length != 0){
+                        for(var i=0;i<$scope.ngModel.prodLns[0].medMaterias.length;i++){
+                            if(WarehouseNoteArray.indexOf($scope.ngModel.prodLns[0].medMaterias[i].medMIWarehouse) == -1){
+                                var whCode = $scope.ngModel.prodLns[0].medMaterias[i].medMIWarehouse;
+                                var whName = $scope.ngModel.prodLns[0].medMaterias[i].estMedMIWarehouseName;
+                                WarehouseNoteArray.push({whCode:whCode,whName:whName});
+                            }
+                        }
+                    }
+                    if($scope.ngModel.medKits != undefined && $scope.ngModel.medKits.length != 0){
+                        for(var i=0;i<$scope.ngModel.medKits.length;i++){
+                            if(WarehouseNoteArray.indexOf($scope.ngModel.medKits[i].estMedMIWarehouse) == -1){
+                                var whCode = $scope.ngModel.medKits[i].estMedMIWarehouse;
+                                var whName = $scope.ngModel.medKits[i].estMedMIWarehouseName;
+                                WarehouseNoteArray.push({whCode:whCode,whName:whName});
+                            }
+                        }
+                    }
+                    //去重
+                    var result = [];
+                    var hash = [];
+                    for(var i=0;i<WarehouseNoteArray.length;i++){
+                        if(hash.indexOf(WarehouseNoteArray[i].whCode) == -1){
+                            result.push(WarehouseNoteArray[i]);
+                            hash.push(WarehouseNoteArray[i].whCode);
+                        }
+                    }
+                    $scope.ngModel.wsNotes = result;
                 },
                 GetMedmaterialParamData: function (medmaterial) {
                     /// <summary>获取物料查询库存的条件</summary>
@@ -388,6 +421,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                     /// <summary>获取套件库存</summary>
                     var paramData = $scope.WarehouseConfig.GetKitParam(kit);
                     $Api.MedKitService.GetKitInventory(paramData, $scope.WarehouseConfig.KitInventory);
+                    $scope.WarehouseConfig.ChangeWHNote();
                 },
                 GetKitParam: function (kit) {
                     /// <summary>获取套件库存条件</summary>
