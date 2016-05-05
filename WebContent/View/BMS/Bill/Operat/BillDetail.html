@@ -92,12 +92,15 @@
                         <div id="PatientInfo" class="widget-content nopadding collapse in">
                             <div class="control-group">
                                 <div class="Vessel">
+                                    <span class="required">*</span>
                                     患者姓名：<input type="text" placeholder="请输入患者姓名" ng-model="BillData.patientName" />
                                 </div>
                                 <div class="Vessel">
+                                    <span class="required">*</span>
                                     患者年龄：<input type="number" style="width:80px;" value="40" ng-model="BillData.patientAge" />
                                 </div>
                                 <div class="Vessel">
+                                    <span class="required">*</span>
                                     患者性别：<span ng-dictionary="PRNSEX" ng-model="BillData.patientSex"></span>
                                 </div>
                             </div>
@@ -174,7 +177,7 @@
                                                 <td><span ng-bind="row.medMaterialBrandName"></span> </td>
                                                 <td><input type="text" ng-model="row.dHMMSpecification" placeholder="请输入物资规格" /> </td>
                                                 <td><input type="text" ng-model="row.dHMMMaterials"  placeholder="请输入物资材料"/></td>
-                                                <td><input type="text" ng-model="row.lotSerial"  placeholder="请输入物资批次"/></td>
+                                                <td><span class="required">*</span><input type="text" ng-model="row.lotSerial"  placeholder="请输入物资批次"/></td>
                                                 <td><input type="number" ng-model="row.qty" style="width:60px;" placeholder="请输入计费数量" /></td>
                                                 <td><input type="number" ng-model="row.hPUnitEstPrice" ng-change="Service.Compute.HpUnitEstPrice(row)" placeholder="请输入耗材单价" onclick="this.select()" style="width:100px;" /></td>
                                                 <td><input type="number" ng-model="row.patientUnitEstPrice" onclick="this.select()" style="width:100px;" placeholder="请输入销售单价" /></td>

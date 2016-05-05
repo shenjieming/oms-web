@@ -49,7 +49,7 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
     /// <summary>调整折叠</summary>
     $scope.AdjustmentFold = function () { $scope.fold = !$scope.fold; }
     //获取菜单路径
-    $scope.includes = function (data) {  return $state.includes(data);  }
+    $scope.includes = function (data) { return $state.includes(data); }
     $scope.menuList = $MenuService;//菜单信息列表
     /// <summary>前往页面</summary>
     $scope.goView = function (name, param) { $MessagService.loading("页面信息获取中，请稍等..."); $state.go(name, param); }
@@ -64,8 +64,7 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
     }
     /// <summary>菜单权限控制</summary>
     //判断菜单是否有权限
-     $scope.Comp = function (code) { if (ServerConfiguration.IsDevelop) { return true; } else { return JSON.stringify($scope.User.functionInfo).indexOf(code) > -1; } }
-    //$scope.Comp=true;
+    $scope.Comp = function (code) { if (ServerConfiguration.IsDevelop) { return true; } else { return JSON.stringify($scope.User.functionInfo).indexOf(code) > -1; } }
 });
 app.controller("employeeController", function ($scope, $state, $MenuService, $local, $MessagService, $Api) {
     /// <summary>个人信息控制器</summary>

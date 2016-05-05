@@ -81,7 +81,7 @@ app.controller("RecInfoController", function ($scope, $state, $local, $BMSApi, $
         GetReconciliationInfo: function (param) {
             /// <summary>获取对账单明细</summary>
             $BMSApi.PublicInfoService.GetReconciliationDetail(param, function (data) {
-                $.extend($scope.RecInfo, data);
+                $.extend($scope.RecInfo, data); setTimeout(function () { $.extend($scope.RecInfo.detail, data.detail); $scope.BillService.ChangeBillList(); $scope.BillService.IsShowMaterialView(true); });
             });
         },
         GetRecByMappingData: function (data) {
@@ -101,7 +101,7 @@ app.controller("RecInfoController", function ($scope, $state, $local, $BMSApi, $
         MaterialList:new Array(),
         IsShowMaterialView: function (isshow) {
             /// <summary>是否显示物料列表</summary>
-            $scope.BillService.ViewMaterial = isshow;  if (isshow) {   $scope.BillService.GetMaterialView();   }
+            $scope.BillService.ViewMaterial = isshow; if (isshow) { $scope.BillService.GetMaterialView(); }
         },
         ChangeBillList: function () {
             /// <summary>修改订单列表信息</summary>

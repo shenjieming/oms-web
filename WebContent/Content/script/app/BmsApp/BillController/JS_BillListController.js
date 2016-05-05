@@ -101,7 +101,7 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
 });
 
 app.factory("$BillDetailFactory", function ($BMSApi) {
-    /// <summary></summary>
+    /// <summary>订单明细处理工程</summary>
     var $BillDetailFactory = function (scope) {
         var $scope = scope;
 
