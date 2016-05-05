@@ -78,11 +78,13 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                 DetailView:function (row) {
                     // 套件详情
                     var medKitopt = row ?row:$local.getSelectedRow($scope.ngModel.medKits);
-                    // if (medKitopt){
-                    //     $state.go('app.base.mybusiness.kitsview', {medKitopt: medKitopt.medKitInternalNo});
-                    // } else {
-                    //     $MessagService.caveat("请选择一条查看的套件信息！");
-                    // }
+                    if (medKitopt){
+                        $Api.SurgeryService.Process.Save($scope.ngModel, function (rData) {
+                        });
+                        $state.go('app.base.mybusiness.kitsview', {medKitopt: medKitopt.medKitInternalNo});
+                    } else {
+                        $MessagService.caveat("请选择一条查看的套件信息！");
+                    }
                 },
                 AddNewMedKits: function (lise) {
                     /// <summary>添加新的套件</summary>
@@ -348,20 +350,20 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                         $scope.WarehouseConfig.AnalyticalInventory(rData, medmaterial);
                     })
                 },
-                // GetMedmaterialParamData: function (medmaterial) {
-                //     /// <summary>获取物料查询库存的条件</summary>
-                //     var paramData = new Array();
-                //     if (medmaterial) {
-                //         paramData.push($scope.WarehouseConfig.StandardizationMedmaterialParam(medmaterial));
-                //     } else {
-                //         $.each($scope.ProductConfig.useLine.medMaterias, function (index, item) {
-                //             if (item.medMIWarehouse) {
-                //                 paramData.push($scope.WarehouseConfig.StandardizationMedmaterialParam(item));
-                //             }
-                //         });
-                //     }
-                //     return paramData;
-                // },
+                GetMedmaterialParamData: function (medmaterial) {
+                    /// <summary>获取物料查询库存的条件</summary>
+                    var paramData = new Array();
+                    if (medmaterial) {
+                        paramData.push($scope.WarehouseConfig.StandardizationMedmaterialParam(medmaterial));
+                    } else {
+                        $.each($scope.ProductConfig.useLine.medMaterias, function (index, item) {
+                            if (item.medMIWarehouse) {
+                                paramData.push($scope.WarehouseConfig.StandardizationMedmaterialParam(item));
+                            }
+                        });
+                    }
+                    return paramData;
+                },
                 StandardizationMedmaterialParam: function (medmaterial) {
                     /// <summary>标准化物料条件参数</summary>
                     medmaterial.estMedMIWarehouseName = $scope.WarehouseConfig.GetWarehouseNameByCode(medmaterial.medMIWarehouse).name
