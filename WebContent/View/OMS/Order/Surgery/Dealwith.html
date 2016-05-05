@@ -39,7 +39,7 @@
 
             </label>
             <label style="width:60%">
-                <input type="text" style="width:85%" placeholder="请输入详细原因描述（200字以内s）" ng-model="PageData.sOOfflineHandleReasonDesc" />
+                <input type="text" style="width:85%" placeholder="请输入详细原因描述（100字以内）" maxlength="100" ng-model="PageData.sOOfflineHandleReasonDesc" />
             </label>
         </div>
         <div class="tab-content">
@@ -143,7 +143,6 @@
                             <div ng-doctors="" ng-model="PageData" ng-pagedate="PageData" ng-operat="HospitalConfig"></div>
                         </div>
                     </div>
-
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
                             <h5 style="width:80%" data-toggle="collapse" href="#pro_ProductInformation">
@@ -174,7 +173,7 @@
                             </div>
                         </div>
                         <div id="pro_ProductInformation" class="widget-content nopadding collapse in">
-                            <div ng-product-view="dealProduct" ng-model="PageData" ng-service="ProductService" ng-comp="ProductCompetence"></div>
+                            <div ng-iconshow="View.Competence.handleType"  ng-product-view="dealProduct" ng-model="PageData" ng-service="ProductService" ng-comp="ProductCompetence"></div>
                         </div>
                     </div>
                     <div class="widget-box">
@@ -213,7 +212,6 @@
                         <table>
                             <tr>
                                 <td>
-
                                     <ul class="yulan_xinxi">
                                         <li>
                                             <ul class="yulan_gaik">
@@ -345,8 +343,6 @@
             </ng-dialog>
         </div>
         <div class="tools">
-
-
             <span class="btn-group oms-btn-group" style="float:right;">
                 <a class="btn btn-primary" ng-if="View.Competence.dealwith && View.Competence.handleType=='online'" ng-click="DealService.Save()"><i class="fa fa-save"></i>保存</a>
                 <a class="btn btn-primary" ng-if="View.Competence.dealwith && View.Competence.handleType=='online'" ng-click="DealService.Show()"><i class="fa fa-wrench"></i>线上处理</a>
@@ -356,3 +352,4 @@
         </span>
         </div>
     </div>
+</div>

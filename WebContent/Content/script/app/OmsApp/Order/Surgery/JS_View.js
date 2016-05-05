@@ -19,6 +19,7 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
         allCount:{implant:0,tool:0,all:0},
         Implate:new Array(),
         Tool:new Array(),
+        wsNotes:[],
     }
 
     $scope.PreViewCount= {
@@ -89,6 +90,11 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
         //   var date = new Date(replace("-", "/").replace("-", "/"));         
         return strTime.getFullYear() + "-" + (strTime.getMonth() + 1) + "-" + strTime.getDate() + "  星期" + "日一二三四五六".charAt(strTime.getDay());
     }
+    function FormatWeek(strTime) {
+        //   var date = new Date(replace("-", "/").replace("-", "/"));
+        return "星期" + "日一二三四五六".charAt(strTime.getDay());
+
+    }
     /*逻辑对象区域Begion*/
     $scope.PageService = {
         /// <summary>页面服务</summary>
@@ -96,7 +102,6 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
             /// <summary>获取订单明细</summary>
             $Api.SurgeryService.DataSources.GetDetail({ sONo: $scope.sono }, function (rData) {
                 $.extend($scope.PageData, rData);
-                console.log($scope.PageData)
                 if ($scope.PageData.initOperationDate  ) {
                     $scope.PageData.DataFmtYMDW = FormatDate(new Date($scope.PageData.initOperationDate.replace("-", "/").replace("-", "/")))
                 }
@@ -107,7 +112,8 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
                     $scope.PageData.retrieveEstDateFmtYMDW = FormatDate(new Date($scope.PageData.retrieveEstDate.replace("-", "/").replace("-", "/")))
                 }
                 var myDate = new Date($scope.PageData.initOperationDate)
-                $scope.DisplayWeek = "  星期" + "日一二三四五六".charAt(myDate.getDay());
+                $scope.DisplayWeek =FormatWeek(new Date($scope.PageData.initOperationDate.replace("-", "/").replace("-", "/")))
+                console.log($scope.DisplayWeek)
             });
 
         }
@@ -813,6 +819,8 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
     $scope.DealService = {
         /// <summary>订单处理服务</summary>
         Submit: function () {
+            // $scope.DealService.OutboundInstructions();
+            console.log($scope.PageData)
             if ($scope.DealService.Verification()) {
                 $scope.ProductService.Deduplication();//去重
                 $Api.SurgeryService.Process.Submit($scope.PageData, function (rData) {
@@ -821,6 +829,11 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
                 });
             }
         },
+        // OutboundInstructions:function () {
+        //    for(i=0;i<$scope.PageData.medKits.length;i++){
+        //        $scope.PageData.wsNotes.push({estMedMIWarehouse:$scope.PageData.medKits[i].estMedMIWarehouse,wHSpecialNotes:$scope.PageData.wHSpecialNotes})
+        //    }
+        // },
         Verification: function () {
             var verifig = true;
             $.each($scope.PageData.prodLns, function (index, item) {
@@ -857,7 +870,6 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         },
         OfflineSubmit:function () {
             /// <summary>线下处理订单提交</summary>
-            console.log($scope.PageData);
             if ($scope.PageData.sOOfflineHandleReasonType) {
                 if ($scope.View.Competence.handleType == 'offline') {
                     $Api.SurgeryService.Process.OfflineSubmit($scope.PageData, function (rData) {
@@ -868,7 +880,6 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
             } else {
                 $MessagService.caveat("请选择线下处理原因！");
             }
-    
         },
         Cancel: function () {
             if (confirm("您确认要取消当前订单吗?")) {
@@ -1056,7 +1067,8 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
             }, 10);
         }
     });
-
+    // 图标显示
+     
     /*数据监控End*/
 })
 app.controller("AdditionalController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
