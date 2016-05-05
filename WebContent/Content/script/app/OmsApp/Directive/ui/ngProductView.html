@@ -180,9 +180,10 @@
             </div>
         </div>
     </div>
-    <div class="control-group" ng-show="Competence.operat&&Competence.instruction">
-        <label style="width:100%">
-            出库指示：<input style="width:78%" type="text" ng-model="ngModel.wHSpecialNotes" />
+
+    <div class="control-group" ng-show="Competence.operat&&Competence.instruction" ng-repeat="row in ngModel.wsNotes">
+        <label style="width:100%" >
+           出库指示({{row.whName}})：<input style="width:78%" type="text" ng-model="row.wHSpecialNotes" />
         </label>
     </div>
 </div>

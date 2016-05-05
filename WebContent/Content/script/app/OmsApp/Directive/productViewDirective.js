@@ -381,6 +381,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                             hash.push(WarehouseNoteArray[i].whCode);
                         }
                     }
+                    
                     $scope.ngModel.wsNotes = result;
                 },
                 GetMedmaterialParamData: function (medmaterial) {
