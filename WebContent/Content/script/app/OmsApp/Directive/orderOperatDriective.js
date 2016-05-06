@@ -148,7 +148,7 @@ app.directive("ngSummary", function ($Api, $MessagService, $local) {
         link: function ($scope, element, attrs) {
             $scope.$watch("ngModel", function () {
                 if ($scope.ngModel) {
-                    $scope.Class = $scope.ngModel.length > 0 ? $scope.ngModel[0].toCustomerSummaryDesc : "order";
+                    $scope.Class = $scope.ngModel.length > 0 ? $scope.ngModel[0].toCustomerSummaryDesc  : "order";
                 }
             })
         }
