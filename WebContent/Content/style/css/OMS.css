@@ -485,23 +485,23 @@ input[type='number'] {
     }
 
     /*下单*/
-    .ProgressBar .Order {
+    .ProgressBar .order {
         background-image: url(../img/progressbar/progress-bar01.png);
     }
     /*受理*/
-    .ProgressBar .Accepted {
+    .ProgressBar .handle {
         background-image: url(../img/progressbar/progress-bar02.png);
     }
     /*出库*/
-    .ProgressBar .Library {
+    .ProgressBar .outbound {
         background-image: url(../img/progressbar/progress-bar03.png);
     }
     /*签收*/
-    .ProgressBar .Receipt {
+    .ProgressBar .signature {
         background-image: url(../img/progressbar/progress-bar04.png);
     }
     /*返库*/
-    .ProgressBar .Back {
+    .ProgressBar .return {
         background-image: url(../img/progressbar/progress-bar05.png);
     }
 /*订单事件流程说明End*/
