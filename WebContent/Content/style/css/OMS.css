@@ -480,28 +480,28 @@ input[type='number'] {
         width: 100%;
         background: no-repeat left;
     }
-    .ProgressBar .Cancel {
+    .ProgressBar .CANCEL {
         background-image: url(../img/progressbar/progress-bar06.png);
     }
 
     /*下单*/
-    .ProgressBar .order {
+    .ProgressBar .ORDER {
         background-image: url(../img/progressbar/progress-bar01.png);
     }
     /*受理*/
-    .ProgressBar .handle {
+    .ProgressBar .HANDLE {
         background-image: url(../img/progressbar/progress-bar02.png);
     }
     /*出库*/
-    .ProgressBar .outbound {
+    .ProgressBar .OUTBOUND {
         background-image: url(../img/progressbar/progress-bar03.png);
     }
     /*签收*/
-    .ProgressBar .signature {
+    .ProgressBar .SIGNATURE {
         background-image: url(../img/progressbar/progress-bar04.png);
     }
     /*返库*/
-    .ProgressBar .return {
+    .ProgressBar .RETURN {
         background-image: url(../img/progressbar/progress-bar05.png);
     }
 /*订单事件流程说明End*/
