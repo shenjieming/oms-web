@@ -310,11 +310,11 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                     }
                     if ($scope.Competence.warehouse && $scope.Competence.operat && $scope.MaterialsConfig.Material.length > 0) {
                         /// <summary>是否启动仓库</summary>
-                        // $scope.WarehouseConfig.GetMedmaterialInventory()
-                        // var param = $scope.WarehouseConfig.GetMedmaterialParamData(medmaterial);
-                        // $Api.MaterialsService.GetMedmaterialInventory(param, function (rData) {
-                        //     $scope.WarehouseConfig.AnalyticalInventory(rData, medmaterial);
-                        // })
+                         $scope.WarehouseConfig.GetMedmaterialInventory()
+                         var param = $scope.WarehouseConfig.GetMedmaterialParamData(medmaterial);
+                         $Api.MaterialsService.GetMedmaterialInventory(param, function (rData) {
+                             $scope.WarehouseConfig.AnalyticalInventory(rData, medmaterial);
+                         })
 
                     }
                 },
