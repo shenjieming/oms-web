@@ -363,15 +363,25 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                 ChangeWHNote: function () {
                     /// <summary>物料仓库分析，获取物料仓库指示</summary>
                     var WarehouseNoteArray = new Array();
+                    alert(1)
                     $.each($scope.ngModel.prodLns, function (pindex, prod) {
                         /// <summary>遍历产品线</summary>
                         $.each(prod.medMaterias, function (mindex, materia) {
                             /// <summary>遍历物料</summary>
                             var flg = true;
                             /// <summary>遍历仓库结果集</summary>
-                            $.each(WarehouseNoteArray, function (windex, warehouse) { if (warehouse.estMedMIWarehouse == materia.medMIWarehouse) { flg = false; return false; } });
+                            $.each(WarehouseNoteArray, function (windex, warehouse)
+                            {
+                                console.log(warehouse.estMedMIWarehouse)
+                                console.log(materia.medMIWarehouse)
+                                if (warehouse.estMedMIWarehouse == materia.medMIWarehouse)
+                                { flg = false; return false; }
+                            });
                             if (flg) {
-                                WarehouseNoteArray.push({ estMedMIWarehouse: materia.medMIWarehouse, estMedMIWarehouseName: materia.estMedMIWarehouseName ? materia.estMedMIWarehouseName : userInfo.orgName });
+                                WarehouseNoteArray.push({
+                                    estMedMIWarehouse: materia.medMIWarehouse,
+                                    estMedMIWarehouseName: materia.estMedMIWarehouseName ? materia.estMedMIWarehouseName : userInfo.orgName
+                                });
                             }
                         })
                     });
@@ -379,8 +389,12 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                     $.each($scope.ngModel.medKits, function (kindex, kit) {
                         /// <summary>遍历套件集合</summary>
                         var flg = true;
-
-                        $.each(WarehouseNoteArray, function (windex, warehouse) { if (warehouse.estMedMIWarehouse == kit.medMIWarehouse) { flg = false; return false; } });
+                        $.each(WarehouseNoteArray, function (windex, warehouse) {
+                            console.log(kit.medMIWarehouse)
+                            console.log(warehouse)
+                            if (warehouse.estMedMIWarehouse == kit.medMIWarehouse)
+                            { flg = false; return false; }
+                        });
                         if (flg) {
                             WarehouseNoteArray.push({
                                 estMedMIWarehouse: kit.estMedMIWarehouse,
