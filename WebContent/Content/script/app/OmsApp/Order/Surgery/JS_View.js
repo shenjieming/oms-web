@@ -114,8 +114,9 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
                 var myDate = new Date($scope.PageData.initOperationDate)
                 $scope.DisplayWeek =FormatWeek(new Date($scope.PageData.initOperationDate.replace("-", "/").replace("-", "/")))
                 console.log($scope.DisplayWeek)
+                console.log($scope.PageData)
             });
-
+        
         }
     }
     $scope.ApprovalConfig = {
@@ -856,6 +857,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
             /// <summary>订单处理保存</summary>
             $scope.ProductService.Deduplication();//去重
             $Api.SurgeryService.Process.Save($scope.PageData, function (rData) {
+                $MessagService.loading("处理保存中，请稍等...");
                 $scope.goLastPage();
             });
         },
@@ -868,6 +870,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
             $scope.PreViewCount.GetData();
             $scope.DealService.model.show();
         },
+      
         OfflineSubmit:function () {
             /// <summary>线下处理订单提交</summary>
             if ($scope.PageData.sOOfflineHandleReasonType) {

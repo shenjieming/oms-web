@@ -149,7 +149,7 @@
                                 <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
                                 <span class="oms-web-h5-fold"> 器械信息<span ng-bind="ProductCompetence.ShowInfo"></span></span>
                             </h5>
-                            <div class="btn-group">
+                            <div class="btn-group" ng-if="View.Competence.handleType!='offline'">
                                 <a class="btn" ng-click="TemplateService.show()">
                                     <!--<i class="fa fa-folder-open"></i>-->通过模板添加器械
                                 </a>
@@ -173,7 +173,7 @@
                             </div>
                         </div>
                         <div id="pro_ProductInformation" class="widget-content nopadding collapse in">
-                            <div ng-iconshow="View.Competence.handleType"  ng-product-view="dealProduct" ng-model="PageData" ng-service="ProductService" ng-comp="ProductCompetence"></div>
+                                <div ng-iconshow="View.Competence.handleType"  ng-product-view="dealProduct" ng-model="PageData" ng-service="ProductService" ng-comp="ProductCompetence"></div>
                         </div>
                     </div>
                     <div class="widget-box">

@@ -1,12 +1,22 @@
 
 <div class="row-fluid">
     <div class="widget-box">
+        <div class="control-group" style="background:#ffffff;">
+            <label style="margin-left: 30px">
+                <span style="font-weight:bold">线下处理原因：</span>
+                  {{PageData.sOOfflineHandleReasonTypeName}}
+            </label>
+            <label style="width:60%">
+           {{PageData.sOOfflineHandleReasonDesc}}
+            </label>
+        </div>
         <div class="widget-title bg_ly">          
             <h5 data-toggle="collapse" href="#pro_BaseInformation">
                 <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
                 <span class="oms-web-h5-fold">收货信息 [货主：<span ng-bind="PageData.sOOIOrgCodeName"></span>]</span> 
             </h5>
         </div>
+        
         <div class="widget-content nopadding collapse in" id="pro_BaseInformation">
             <div class="control-group ">
                 <label>

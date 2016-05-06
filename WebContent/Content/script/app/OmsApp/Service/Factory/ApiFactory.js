@@ -341,7 +341,6 @@ OMSApiService
                 },
                 Save: function (data, callback) {
                     /// <summary>手术订单暂存</summary>
-                    $MessagService.loading("处理保存中，请稍等...");
                     $ApiService.PostApi(ApiPath.Surgery.Process.save, data, callback);
                 },
                 Submit: function (data, callback) {
