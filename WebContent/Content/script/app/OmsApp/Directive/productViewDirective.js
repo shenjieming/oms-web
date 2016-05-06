@@ -305,7 +305,12 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                     }
                     if ($scope.Competence.warehouse && $scope.Competence.operat && $scope.MaterialsConfig.Material.length > 0) {
                         /// <summary>是否启动仓库</summary>
-                        $scope.WarehouseConfig.GetMedmaterialInventory()
+                        // $scope.WarehouseConfig.GetMedmaterialInventory()
+                        // var param = $scope.WarehouseConfig.GetMedmaterialParamData(medmaterial);
+                        // $Api.MaterialsService.GetMedmaterialInventory(param, function (rData) {
+                        //     $scope.WarehouseConfig.AnalyticalInventory(rData, medmaterial);
+                        // })
+
                     }
                 },
                 Deduplication: function () {
@@ -343,8 +348,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                     });
                 },
                 GetMedmaterialInventory: function (medmaterial) {
-                    /// <summary>获取套件物料库存</summary>          
-                    console.log($scope.ngModel)
+                    /// <summary>获取套件物料库存</summary>
                     var param = $scope.WarehouseConfig.GetMedmaterialParamData(medmaterial);
                     $Api.MaterialsService.GetMedmaterialInventory(param, function (rData) {
                         $scope.WarehouseConfig.AnalyticalInventory(rData, medmaterial);
@@ -353,7 +357,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                 },
                 ChangeWHNote:function(){
                     var WarehouseNoteArray = [];
-                    console.log($scope.ngModel);
                     if($scope.ngModel.prodLns[0].medMaterias != undefined && $scope.ngModel.prodLns[0].medMaterias.length != 0){
                         for(var i=0;i<$scope.ngModel.prodLns[0].medMaterias.length;i++){
                             if(WarehouseNoteArray.indexOf($scope.ngModel.prodLns[0].medMaterias[i].medMIWarehouse) == -1){
@@ -373,15 +376,15 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                         }
                     }
                     //去重
-                    var result = [];
-                    var hash = [];
-                    for(var i=0;i<WarehouseNoteArray.length;i++){
-                        if (hash.indexOf(WarehouseNoteArray[i].estMedMIWarehouse) == -1) {
-                            result.push(WarehouseNoteArray[i]);
-                            hash.push(WarehouseNoteArray[i].estMedMIWarehouse);
+                        var result = [];
+                        var hash = [];
+                        for(var i=0;i<WarehouseNoteArray.length;i++){
+                            if (hash.indexOf(WarehouseNoteArray[i].estMedMIWarehouse) == -1) {
+                                result.push(WarehouseNoteArray[i]);
+                                hash.push(WarehouseNoteArray[i].estMedMIWarehouse);
+                            }
                         }
-                    }
-                        $scope.ngModel.wsNotes = result;                    
+                        $scope.ngModel.wsNotes = result;
                 },
                 GetMedmaterialParamData: function (medmaterial) {
                     /// <summary>获取物料查询库存的条件</summary>
@@ -419,7 +422,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                 },
                 GetKitInventory: function (kit) {
                     /// <summary>获取套件库存</summary>
-      
                     var paramData = $scope.WarehouseConfig.GetKitParam(kit);
                     $Api.MedKitService.GetKitInventory(paramData, $scope.WarehouseConfig.KitInventory);
                     $scope.WarehouseConfig.ChangeWHNote();                
@@ -523,6 +525,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                         });
                     }
                     $scope.ngModel.medKits = data;
+                    console.log($scope.ngModel.medKits)
                 }
             });
         }

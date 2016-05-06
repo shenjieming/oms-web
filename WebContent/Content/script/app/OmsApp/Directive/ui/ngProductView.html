@@ -184,9 +184,9 @@
 
     <div class="control-group"  ng-repeat="row in ngModel.wsNotes">
         <label style="width:100%" ng-if="!Competence.wHSpecialNotes">
-            出库指示({{row.whName}})：<input style="width:78%" type="text" ng-model="row.wHSpecialNotes" />
+            出库指示({{row.whName}})：<input style="width:78%" type="text" ng-model="row.wHSpecialNotes" maxlength="100" />
         </label>
-        <label style="width:100%" ng-if="Competence.wHSpecialNotes">
+        <label style="width:100%" ng-if="Competence.wHSpecialNotes" m>
             出库指示({{row.whName}})：{{row.wHSpecialNotes}}
         </label>
     </div>
