@@ -237,7 +237,9 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                         var result = new Array();
                         if (medMaterialItems) {
                             $.each(medMaterialItems, function (index, item) {
-                                item.medMIWarehouse = item.medMIWarehouse ? item.medMIWarehouse : userInfo.orgCode
+                                if (item.estMedMIWarehouse) {//判断是否存在已有仓库
+                                    item.medMIWarehouse = item.estMedMIWarehouse;
+                                } else { item.medMIWarehouse = item.medMIWarehouse ? item.medMIWarehouse : userInfo.orgCode }
                             });
                             result = medMaterialItems;
                         }
@@ -358,40 +360,37 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                     })
                     $scope.WarehouseConfig.ChangeWHNote();
                 },
-                ChangeWHNote:function(){
-                    var WarehouseNoteArray = [];
-                    if($scope.ngModel.prodLns[0].medMaterias != undefined && $scope.ngModel.prodLns[0].medMaterias.length != 0){
-                        for(var i=0;i<$scope.ngModel.prodLns[0].medMaterias.length;i++){
-                            if(WarehouseNoteArray.indexOf($scope.ngModel.prodLns[0].medMaterias[i].medMIWarehouse) == -1){
-                                var whCode = $scope.ngModel.prodLns[0].medMaterias[i].medMIWarehouse;
-                                var whName = $scope.ngModel.prodLns[0].medMaterias[i].estMedMIWarehouseName;
-                                if(whName==null&&whName==undefined){
-                                    whName=userInfo.orgName;
-                                }
-                                WarehouseNoteArray.push({ estMedMIWarehouse: whCode, estMedMIWarehouseName: whName });
+                ChangeWHNote: function () {
+                    /// <summary>物料仓库分析，获取物料仓库指示</summary>
+                    var WarehouseNoteArray = new Array();
+                    $.each($scope.ngModel.prodLns, function (pindex, prod) {
+                        /// <summary>遍历产品线</summary>
+                        $.each(prod.medMaterias, function (mindex, materia) {
+                            /// <summary>遍历物料</summary>
+                            var flg = true;
+                            /// <summary>遍历仓库结果集</summary>
+                            $.each(WarehouseNoteArray, function (windex, warehouse) { if (warehouse.estMedMIWarehouse == materia.medMIWarehouse) { flg = false; return false; } });
+                            if (flg) {
+                                WarehouseNoteArray.push({ estMedMIWarehouse: materia.medMIWarehouse, estMedMIWarehouseName: materia.estMedMIWarehouseName ? materia.estMedMIWarehouseName : userInfo.orgName });
                             }
-                        }
-                    }
-                    if($scope.ngModel.medKits != undefined && $scope.ngModel.medKits.length != 0){
-                        for(var i=0;i<$scope.ngModel.medKits.length;i++){
-                            if(WarehouseNoteArray.indexOf($scope.ngModel.medKits[i].estMedMIWarehouse) == -1){
-                                var whCode = $scope.ngModel.medKits[i].estMedMIWarehouse;
-                                var whName = $scope.ngModel.medKits[i].estMedMIWarehouseName;
-                                WarehouseNoteArray.push({ estMedMIWarehouse: whCode, estMedMIWarehouseName: whName });
-                            }
-                        }
-                    }
-                    //去重
-                        var result = [];
-                        var hash = [];
-                        for(var i=0;i<WarehouseNoteArray.length;i++){
-                            if (hash.indexOf(WarehouseNoteArray[i].estMedMIWarehouse) == -1) {
-                                result.push(WarehouseNoteArray[i]);
-                                hash.push(WarehouseNoteArray[i].estMedMIWarehouse);
-                            }
-                        }
+                        })
+                    });
 
-                        $scope.ngModel.wsNotes = result;
+                    $.each($scope.ngModel.medKits, function (kindex, kit) {
+                        /// <summary>遍历套件集合</summary>
+                        var flg = true;
+
+                        $.each(WarehouseNoteArray, function (windex, warehouse) { if (warehouse.estMedMIWarehouse == kit.medMIWarehouse) { flg = false; return false; } });
+                        if (flg) {
+                            WarehouseNoteArray.push({
+                                estMedMIWarehouse: kit.estMedMIWarehouse,
+                                estMedMIWarehouseName: kit.estMedMIWarehouseName ? kit.estMedMIWarehouseName : userInfo.orgName
+                            });
+                        }
+                    });
+
+
+                    $scope.ngModel.wsNotes = WarehouseNoteArray;
 
                 },
                 GetMedmaterialParamData: function (medmaterial) {
