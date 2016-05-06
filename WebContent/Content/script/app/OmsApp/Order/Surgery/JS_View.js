@@ -19,7 +19,7 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
         allCount:{implant:0,tool:0,all:0},
         Implate:new Array(),
         Tool:new Array(),
-        wsNotes:[],
+        wsNotes:new Array(),
     }
 
     $scope.PreViewCount= {
@@ -255,7 +255,7 @@ app.controller("AccurateController", function ($scope, $state, $local, $Api, $Me
     $scope.AccurProduct = {
         data: new Object(),
         Service: {},
-        Competence: { tool: false, operat: false }
+        Competence: { tool: true, operat: false,wHSpecialNotes:true }
     }
 
 })
