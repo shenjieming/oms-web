@@ -1084,7 +1084,7 @@ app.controller("AdditionalController", function ($scope, $state, $local, $Api, $
         }
     }
     $scope.AddProduct = {
-        Service: {}, Competence: { tool: false, instruction: true }
+        Service: {}, Competence: { tool: false, instruction: false, }
     }
 
     /*数据监控Begion*/
