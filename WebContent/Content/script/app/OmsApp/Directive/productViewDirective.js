@@ -477,12 +477,12 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
             }
        
             $scope.Competence = { warehouse: true, materials: true, kits: true, tool: true, operat: true, instruction: false,wHSpecialNotes:false }
-            //if($scope.ngIconshow == 'offline'){
-            //    // 图标显示
-            //    $scope.Competence.operat=false;
-            //}else {
-            //    $scope.Competence.operat=true;
-            //}
+            if($scope.ngIconshow == 'offline'){
+                // 图标显示
+                $scope.Competence.operat=false;
+            }else {
+                $scope.Competence.operat=true;
+            }
             //权限配置
             $.extend($scope.Competence, $scope.ngComp);
             if ($scope.Competence.warehouse && $scope.Competence.operat) {
