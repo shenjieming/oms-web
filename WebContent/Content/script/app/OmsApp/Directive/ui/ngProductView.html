@@ -40,8 +40,9 @@
                                 <td>                                
                                     <span  ng-bind="row.kitTypeName"></span>
                                 </td>
-                                <td>
-                                    <input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" />
+                                <td >
+                                    <span ng-show="Competence.operat"><input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" ng-change="MedKitsConfig.GetKitCount()" /></span>
+                                   <span ng-show="!Competence.operat" ng-bind="row.reqQty"></span>
                                 </td>
                                 <td ng-show="Competence.warehouse&&Competence.operat">
                                     <a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory(row)">{{row.inventory?row.inventory:"当前库存"}}</a>
@@ -181,9 +182,12 @@
         </div>
     </div>
 
-    <div class="control-group" ng-show="Competence.operat&&Competence.instruction" ng-repeat="row in ngModel.wsNotes">
-        <label style="width:100%" >
-           出库指示({{row.whName}})：<input style="width:78%" type="text" ng-model="row.wHSpecialNotes" />
+    <div class="control-group"  ng-repeat="row in ngModel.wsNotes">
+        <label style="width:100%" ng-if="!Competence.wHSpecialNotes">
+            出库指示({{row.whName}})：<input style="width:78%" type="text" ng-model="row.wHSpecialNotes" />
+        </label>
+        <label style="width:100%" ng-if="Competence.wHSpecialNotes">
+            出库指示({{row.whName}})：{{row.wHSpecialNotes}}
         </label>
     </div>
 </div>

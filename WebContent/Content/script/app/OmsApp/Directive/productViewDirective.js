@@ -343,7 +343,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                     });
                 },
                 GetMedmaterialInventory: function (medmaterial) {
-                    /// <summary>获取物料库存</summary>
+                    /// <summary>获取套件物料库存</summary>          
                     console.log($scope.ngModel)
                     var param = $scope.WarehouseConfig.GetMedmaterialParamData(medmaterial);
                     $Api.MaterialsService.GetMedmaterialInventory(param, function (rData) {
@@ -359,7 +359,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                             if(WarehouseNoteArray.indexOf($scope.ngModel.prodLns[0].medMaterias[i].medMIWarehouse) == -1){
                                 var whCode = $scope.ngModel.prodLns[0].medMaterias[i].medMIWarehouse;
                                 var whName = $scope.ngModel.prodLns[0].medMaterias[i].estMedMIWarehouseName;
-                                WarehouseNoteArray.push({whCode:whCode,whName:whName});
+                                WarehouseNoteArray.push({ estMedMIWarehouse: whCode, whName: whName });
                             }
                         }
                     }
@@ -368,7 +368,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                             if(WarehouseNoteArray.indexOf($scope.ngModel.medKits[i].estMedMIWarehouse) == -1){
                                 var whCode = $scope.ngModel.medKits[i].estMedMIWarehouse;
                                 var whName = $scope.ngModel.medKits[i].estMedMIWarehouseName;
-                                WarehouseNoteArray.push({whCode:whCode,whName:whName});
+                                WarehouseNoteArray.push({ estMedMIWarehouse: whCode, whName: whName });
                             }
                         }
                     }
@@ -376,13 +376,12 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                     var result = [];
                     var hash = [];
                     for(var i=0;i<WarehouseNoteArray.length;i++){
-                        if(hash.indexOf(WarehouseNoteArray[i].whCode) == -1){
+                        if (hash.indexOf(WarehouseNoteArray[i].estMedMIWarehouse) == -1) {
                             result.push(WarehouseNoteArray[i]);
-                            hash.push(WarehouseNoteArray[i].whCode);
+                            hash.push(WarehouseNoteArray[i].estMedMIWarehouse);
                         }
                     }
-                    
-                    $scope.ngModel.wsNotes = result;
+                        $scope.ngModel.wsNotes = result;                    
                 },
                 GetMedmaterialParamData: function (medmaterial) {
                     /// <summary>获取物料查询库存的条件</summary>
@@ -420,9 +419,10 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                 },
                 GetKitInventory: function (kit) {
                     /// <summary>获取套件库存</summary>
+      
                     var paramData = $scope.WarehouseConfig.GetKitParam(kit);
                     $Api.MedKitService.GetKitInventory(paramData, $scope.WarehouseConfig.KitInventory);
-                    $scope.WarehouseConfig.ChangeWHNote();
+                    $scope.WarehouseConfig.ChangeWHNote();                
                 },
                 GetKitParam: function (kit) {
                     /// <summary>获取套件库存条件</summary>
@@ -466,13 +466,14 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                     return result;
                 }
             }
-            $scope.Competence = { warehouse: true, materials: true, kits: true, tool: true, operat: true, instruction: false }
-            if($scope.ngIconshow == 'offline'){
-                // 图标显示
-                $scope.Competence.operat=false;
-            }else {
-                $scope.Competence.operat=true;
-            }
+       
+            $scope.Competence = { warehouse: true, materials: true, kits: true, tool: true, operat: true, instruction: false,wHSpecialNotes:false }
+            //if($scope.ngIconshow == 'offline'){
+            //    // 图标显示
+            //    $scope.Competence.operat=false;
+            //}else {
+            //    $scope.Competence.operat=true;
+            //}
             //权限配置
             $.extend($scope.Competence, $scope.ngComp);
             if ($scope.Competence.warehouse && $scope.Competence.operat) {

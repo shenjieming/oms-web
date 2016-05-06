@@ -255,7 +255,7 @@ app.controller("AccurateController", function ($scope, $state, $local, $Api, $Me
     $scope.AccurProduct = {
         data: new Object(),
         Service: {},
-        Competence: { tool: false, operat: false }
+        Competence: { tool: true, operat: false,wHSpecialNotes:true }
     }
 
 })
