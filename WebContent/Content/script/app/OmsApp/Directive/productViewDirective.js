@@ -363,7 +363,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                 ChangeWHNote: function () {
                     /// <summary>物料仓库分析，获取物料仓库指示</summary>
                     var WarehouseNoteArray = new Array();
-                    alert(1)
+     
                     $.each($scope.ngModel.prodLns, function (pindex, prod) {
                         /// <summary>遍历产品线</summary>
                         $.each(prod.medMaterias, function (mindex, materia) {
