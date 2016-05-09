@@ -1,0 +1,41 @@
+<div>
+    <ng-dialog ng-model="ngOperat">
+    <div class="row-fluid">
+        <div class="widget-box" style="margin-top:0px;">
+            <h5>套件信息</h5>
+            <div class="widget-content">
+                <div class="control-group ">
+                    <label>
+                        套件编码：{{view.PageData.kitCode}}
+                    </label>
+                    <label>
+                        套件名称：{{view.PageData.kitFullName}}
+                    </label>
+                    <label>
+                        套件全称：{{view.PageData.kitName}}
+                    </label>
+                </div>
+                <div class="control-group ">
+                    <label>
+                        套件类型：{{view.PageData.kitTypeName}}
+                    </label>
+                    <label>
+                        存储仓库：{{view.PageData.whName}}
+                    </label>
+                    <label>
+                        存储库区：{{view.PageData.zoneName}}
+                    </label>
+                </div>
+            </div>
+            <h5>
+                物料信息
+                {{ProductCompetence.ShowInfo}}
+            </h5>
+            <span  ng-click="Config.show()">测试 </span>
+            <div id="ProductInformationView" class="widget-content nopadding collapse in">
+                <div ng-product-view="newProduct" ng-model="view.PageData" ng-service="view.ProductService" ng-comp="view.ProductCompetence"></div>
+            </div>
+        </div>
+    </div>
+</ng-dialog>
+</div>

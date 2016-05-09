@@ -1,5 +1,6 @@
 
 <div>
+    <!--<div ng-kit-detail="" ng-model="ngModel" ng-operat="KitConfig.operat"></div>-->
     <div ng-med-kits="med" ng-model="MedKitsConfig.useData" ng-operat="MedKitsConfig.operat" ng-cargo-model="ngModel.sOOIOrgCode"></div>
     <div ng-materials="" ng-model="ngModel.prodLns" ng-operat="MaterialsConfig.operat" ng-linename="ProductConfig.useLine.medProdLnCodeName" ng-line="ProductConfig.useLine.medProdLnCode" ng-change="ProductConfig.useLine.medMaterias"></div>
     <div ng-productline="{{ngModel.sOCreateByOrgCode}}" ng-model="ngModel.prodLns" ng-operat="ProductConfig.operat" ng-cargo-model="ngModel.sOOIOrgCode"></div>
@@ -20,7 +21,7 @@
                                 <th><span>套件编码</span></th>
                                 <th><span>套件名称</span></th>
                                 <th><span>类型</span></th>
-                                <th><span>需求数aa量</span></th>
+                                <th><span>需求数量</span></th>
                                 <th ng-show="Competence.warehouse&&Competence.operat"><span><a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory()"><i class="fa fa-cubes"></i> 库存</a> </span> </th>
                                 <th ng-show="Competence.warehouse"><span>仓库</span></th>
                                 <th><span>库区</span></th>
@@ -39,8 +40,9 @@
                                 <td>                                
                                     <span  ng-bind="row.kitTypeName"></span>
                                 </td>
-                                <td>
-                                    <input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" />
+                                <td >
+                                    <span ng-show="Competence.operat"><input type="number" value="0" ng-model="row.reqQty" style="width:60px" min="0" ng-change="MedKitsConfig.GetKitCount()" /></span>
+                                   <span ng-show="!Competence.operat" ng-bind="row.reqQty"></span>
                                 </td>
                                 <td ng-show="Competence.warehouse&&Competence.operat">
                                     <a href="javascript:void(0)" ng-click="WarehouseConfig.GetKitInventory(row)">{{row.inventory?row.inventory:"当前库存"}}</a>
@@ -128,7 +130,7 @@
                                 <th><span>物料名称</span></th>
                                 <th><span>规格</span></th>
                                 <th><span>类型</span></th>
-                                <th><span>需求数量aaa</span></th>
+                                <th><span>需求数量</span></th>
                                 <th ng-show="Competence.warehouse"><span>仓库</span> </th>
                                 <th ng-show="Competence.warehouse&&Competence.operat"><span><a href="javascript:void(0)" ng-click="WarehouseConfig.GetMedmaterialInventory()"><i class="fa fa-cubes"></i> 库存</a> </span> </th>
                                 <th ng-show="Competence.operat"><span>操作</span> </th>
@@ -149,7 +151,6 @@
                                 <td>
                                     <span ng-bind="row.categoryByPlatformName"></span>
                                 </td>
-
                                 <td ng-show="Competence.operat">
                                     <input type="number" value="0" ng-change="ProductConfig.GetLineMaterialCount()" ng-model="row.reqQty" style="width:60px" min="0" />{{row.medMIUnitName}}
                                 </td>
@@ -179,9 +180,13 @@
             </div>
         </div>
     </div>
-    <div class="control-group" ng-show="Competence.operat&&Competence.instruction">
-        <label style="width:100%">
-            出库指示：<input style="width:78%" type="text" ng-model="ngModel.wHSpecialNotes" />
+
+    <div class="control-group" ng-repeat="row in ngModel.wsNotes" ng-if="Competence.operat&&Competence.instruction">
+        <label style="width:100%" ng-if="!Competence.wHSpecialNotes">
+            出库指示（{{row.estMedMIWarehouseName}}）：<input style="width:78%" type="text" ng-model="row.wHSpecialNotes" maxlength="100" />
+        </label>
+        <label style="width:100%" ng-if="Competence.wHSpecialNotes">
+            出库指示（{{row.estMedMIWarehouseName}}）：{{row.wHSpecialNotes}}
         </label>
     </div>
 </div>
