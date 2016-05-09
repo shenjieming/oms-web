@@ -13,11 +13,9 @@ app.controller("NoticeListController", function ($scope, $state, $local, $Api, $
         GetNoticeList: function () {
             /// <summary>获取经销商事件通知配置列表</summary>
             var paramData = $.extend({}, $scope.Pagein);
-            console.log(paramData)
             $Api.ManaEvent.GetqueryAllDlsoEventNoTificationCfg(paramData, function (rData) {
                 $scope.NoticeList.info = rData.rows;
                 $scope.Pagein.total = rData.total;
-                console.log(rData)
             })
         }
     }
@@ -53,7 +51,6 @@ app.controller("NoticeListController", function ($scope, $state, $local, $Api, $
         Info: { isEmailopen: true, isApplyTeam: true, isSMS: true, isWeChat: true, isApplyDLAL: true },
         Load: function (callback) {
             if ($stateParams.dlnoticeopt) {
-                console.log($stateParams.dlnoticeopt)
                 $scope.dlnoticeopt = $stateParams.dlnoticeopt;
                 $scope.NoticePageInfo.GetNoticeDetail();
             }
@@ -67,7 +64,6 @@ app.controller("NoticeListController", function ($scope, $state, $local, $Api, $
         },
         showAdd: function (row) {
             $scope.NoticePageInfo.model.show();
-            console.log($scope.NoticePageInfo.Info)
             $scope.NoticePageInfo.Info = row;
             $scope.NoticePageInfo.Info.isApplyTeam = true;
                 $scope.NoticePageInfo.Info.isEmailopen = true;
@@ -92,7 +88,6 @@ app.controller("NoticeListController", function ($scope, $state, $local, $Api, $
                 var option = { dLOrgCode: noticeopt.dLOrgCode, sOEventCode: noticeopt.sOEventCode }
                 $Api.ManaEvent.GetqueryAllDlsoEventNoTificationCfg(option, function (rData) {
                     $scope.NoticePageInfo.Info = rData.rows[0];
-                    console.log(rData.rows)
                     if ($scope.NoticePageInfo.Info.isApplyToTeam == "Y") {
                         $scope.NoticePageInfo.Info.isApplyTeam = true;
                     } else {
@@ -125,7 +120,6 @@ app.controller("NoticeListController", function ($scope, $state, $local, $Api, $
         },
         Save: function () {
             /// <summary>经销商事件通知操作</summary>
-            console.log($scope.NoticePageInfo.Info)          
             $Api.ManaEvent.Save($scope.NoticePageInfo.Info, function (rData) {
                 $MessagService.succ("用户保存成功！");
                 $scope.goView('app.base.business.dlmanagementnotice');
@@ -152,7 +146,6 @@ app.controller("NoticeListController", function ($scope, $state, $local, $Api, $
                 /// <summary>获取经销商信息</summary>
                 $Api.ManageDl.GetqueryAllDealer({}, function (rData) {
                     $scope.SelectInfo.DLlist.dic = rData.rows;
-                    console.log(rData)
                 });
             },
         },
@@ -172,7 +165,6 @@ app.controller("NoticeListController", function ($scope, $state, $local, $Api, $
                 /// <summary>获取邮件通知信息</summary>
                 $Api.Public.GetDictionary({ dictType: "TPSOEM" }, function (rData) {
                     $scope.SelectInfo.EmailList.dic = rData;
-                    console.log(rData)
                 });
             },
         },
@@ -192,7 +184,6 @@ app.controller("NoticeListController", function ($scope, $state, $local, $Api, $
                 /// <summary>获取短信通知信息</summary>
                 $Api.Public.GetDictionary({ dictType: "TPSOSS" }, function (rData) {
                     $scope.SelectInfo.SMSList.dic = rData;
-                    console.log(rData)
                 });
             },
         },
@@ -212,7 +203,6 @@ app.controller("NoticeListController", function ($scope, $state, $local, $Api, $
                 /// <summary>获取微信通知信息</summary>
                 $Api.Public.GetDictionary({ dictType: "TPSOWC" }, function (rData) {
                     $scope.SelectInfo.WeChatList.dic = rData;
-                    console.log(rData)
                 });
             },
         },
@@ -232,7 +222,6 @@ app.controller("NoticeListController", function ($scope, $state, $local, $Api, $
                 /// <summary>获取微信通知信息</summary>
                 $Api.ManaEvent.GetqueryEventCode({}, function (rData) {
                     $scope.SelectInfo.DlEventList.dic = rData;
-                    console.log(rData)
                 });
             },
         },
@@ -246,7 +235,6 @@ app.controller("NoticeListController", function ($scope, $state, $local, $Api, $
         },
         isApplyDLAL: function () {
             /// <summary>订单人所在订单共享组</summary>
-           alert(1)
             $scope.NoticePageInfo.Info.isApplyDLAL = !$scope.NoticePageInfo.Info.isApplyDLAL;
             $scope.NoticePageInfo.Info.isApplyToDLALL = $scope.NoticePageInfo.Info.isApplyDLAL ? "Y" : "N";
         },
@@ -277,7 +265,6 @@ app.controller("NoticeListController", function ($scope, $state, $local, $Api, $
                 $scope.NoticePageView.model.show();
                 $Api.ManaEvent.GetqueryAllDlsoEventNoTificationCfg(noticeopt, function (rData) {
                     $scope.NoticePageView.Info = rData.rows[0];
-                    console.log(rData)
                 })
             } else {
                 $MessagService.caveat("请选择一条查看的事件通知!");
