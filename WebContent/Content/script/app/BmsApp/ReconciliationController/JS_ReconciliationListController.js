@@ -74,17 +74,27 @@ app.controller("RecInfoController", function ($scope, $state, $local, $BMSApi, $
     $scope.MaterialView = new Array();
 
     $scope.Factory = $RecInfFactory($scope);
+
+    $scope.Module = {
+        /// <summary>组件控制器</summary>
+        BillListConfig: {
+            /// <summary>订单列表配置器</summary>
+        },
+        BillListService: {
+            /// <summary>订单服务</summary>
+        }
+    }
     $scope.QueryService = {
         /// <summary>对账管理，查询服务</summary>
         GetReconciliationInfo: function (param) {
             /// <summary>获取对账单明细</summary>
             $BMSApi.PublicInfoService.GetReconciliationDetail(param, function (data) {
-                $.extend($scope.RecInfo, data); setTimeout(function () { $.extend($scope.RecInfo.detail, data.detail); $scope.BillService.ChangeBillList(); $scope.BillService.IsShowMaterialView(true); });
+                $.extend($scope.RecInfo, data);
+                setTimeout(function () {
+                    $.extend($scope.RecInfo.detail, data.detail);
+                    $scope.Module.BillListService.IsShowMaterialView(true);
+                },500);
             });
-        },
-        GetRecByMappingData: function (data) {
-            /// <summary>根据映射数据获取对账信息</summary>
-            $.extend($scope.RecInfo, data)
         },
         GetMaterialView: function () {
             /// <summary>获取新的物料列表</summary>
@@ -92,47 +102,7 @@ app.controller("RecInfoController", function ($scope, $state, $local, $BMSApi, $
         }
     };
 
-
-    if ($stateParams.hSOANo) { $scope.QueryService.GetReconciliationInfo($stateParams); } else { $scope.QueryService.GetRecByMappingData($scope.Factory.GetNewRecMapping()); }
-});
-app.factory("$RecInfFactory", function ($BMSApi,$AppHelp) {
-    /// <summary>对账管理服务平台工厂</summary>
-    var $RecInfFactory = function (scope) {
-        /// <summary>对账管理服务器</summary>
-        this.$scope = scope;
-
-        var GetBillDetailMapping = function (detail) {
-            /// <summary>获取计费单详情映射信息</summary>
-            return $.extend(detail, { medMaterialName: detail.dHMMName, hOFNLineSeqNo: detail.lineSeqNo, offsetQty: (detail.qty - (detail.recordInHSOAQty ? detail.recordInHSOAQty : 0)) });
-        }
-
-        var GetDictionaryCount = function (dictionary) {
-            /// <summary>获取字典的属性数量</summary>
-            var result = 0; for (var key in dictionary) { result++; } return result;
-        }
-
-        this.GetNewRecMapping = function () {
-            /// <summary>获取新的的对账单映射</summary>
-            return { hSOASourceType: "HSOASTHP", hSOASourceTypeName: "医院", hSOAType: "HSOATPNM", hSOADateFrom: $AppHelp.Data.GetDate(30, null, 3), hSOADateTo: $AppHelp.Data.GetDate(0, null, 3), hSOAIssueDate: $AppHelp.Data.GetDate(0, null, 3), hSOAIssueByName: $scope.User.userInfo.userName, detail: new Array(), images: new Array() };
-        }
-
-        this.GetNewBillDetail = function (oldlist, newlist) {
-            /// <summary>获取新的计费单详情</summary>
-            $.each(newlist, function (index, bill) { var newbill = GetBillDetailMapping(bill); var flg = true; $.each(oldlist, function (oindex, item) { if (newbill.hOFNNo == item.hOFNNo && newbill.hOFNLineSeqNo == item.hOFNLineSeqNo) { flg = false; return false; } }); if (flg) { oldlist.push(newbill); } }); return oldlist;
-        }
-
-        this.BillAnalysis = function (list) {
-            /// <summary>订单数据分析</summary>
-            var result = { BillCount: 0, MaterialCount: 0, BrandCount: 0, SpeciCount: 0, StuffCount: 0, HsQtyCount: 0, OffsetQtyCount: 0, Amount: 0 }; var Dictionary = { bill: new Array(), Material: new Array(), Brand: new Array(), Speci: new Array(), Stuff: new Array() }; $.each(list, function (index, bill) { Dictionary.bill[bill.hOFNNo] = 1; Dictionary.Material[bill.dHMedMaterialInternalNo] = 1; Dictionary.Brand[bill.medMaterialBrandName] = 1; Dictionary.Speci[bill.dHMMSpecification] = 1; Dictionary.Stuff[bill.dHMMMaterials] = 1; var OffsetQty = bill.offsetQty; var HsQty = (bill.qty - (bill.recordInHSOAQty ? bill.recordInHSOAQty : 0)); var Amount = OffsetQty * bill.hPUnitEstPrice; $.extend(result, { HsQtyCount: result.HsQtyCount + HsQty, OffsetQtyCount: result.OffsetQtyCount + OffsetQty, Amount: result.Amount + Amount }); }); $.extend(result, { BillCount: GetDictionaryCount(Dictionary.bill), MaterialCount: GetDictionaryCount(Dictionary.Material), BrandCount: GetDictionaryCount(Dictionary.Brand), SpeciCount: GetDictionaryCount(Dictionary.Speci), StuffCount: GetDictionaryCount(Dictionary.Stuff) }); return result;
-        }
-
-        this.GetMaterialView = function (list) {
-            /// <summary>获取物料分析试图</summary>
-            var result = new Array(); $.each(list, function (index, item) { var flg = true; $.each(result, function (mindex, material) { if (item.medMaterialName == material.medMaterialName) { material.offsetQty = (material.offsetQty + item.offsetQty); flg = false; return false; } }); if (flg) { result.push($.extend({}, item)); } }); return result;
-        }
-        var RecInfFactory = this; return this;
-    }
-    return $RecInfFactory;
+    if ($stateParams.hSOANo) { $scope.QueryService.GetReconciliationInfo($stateParams); } else { $.extend($scope.RecInfo, $scope.Factory.GetNewRecMapping()); }
 });
 
 
