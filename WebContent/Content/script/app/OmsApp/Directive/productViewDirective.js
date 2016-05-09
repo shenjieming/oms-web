@@ -6,7 +6,7 @@
 /// <reference path="../../lib/Jquery/jquery-1.11.1.min.js" />
 /// <reference path="../service/system/localService.js" />
 /// <reference path="../Config.js" />
-app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
+app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
     /// <summary>产品信息</summary>
     return {
         restrict: "EA",
@@ -291,7 +291,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                     $.each(MaterialsList, function (index, item) {
                         if (item.reqQty > 0) {
                             oldList.push($.extend({ medMIWarehouse: userInfo.orgCode, inventory: "" }, item));
-                            $scope.WarehouseConfig.ChangeWHNote();
+                           
                         }
                     });
                 },
@@ -313,9 +313,9 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                          var param = $scope.WarehouseConfig.GetMedmaterialParamData(medmaterial);
                          $Api.MaterialsService.GetMedmaterialInventory(param, function (rData) {
                              $scope.WarehouseConfig.AnalyticalInventory(rData, medmaterial);
-                         })
-
+                         })                
                     }
+                    $scope.WarehouseConfig.ChangeWHNote();
                 },
                 Deduplication: function () {
                     /// <summary>去重</summary>
@@ -362,6 +362,8 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                 ChangeWHNote: function () {
                     /// <summary>物料仓库分析，获取物料仓库指示</summary>
                     var WarehouseNoteArray = new Array();
+          
+              
                     $.each($scope.ngModel.prodLns, function (pindex, prod) {
                         /// <summary>遍历产品线</summary>
                         $.each(prod.medMaterias, function (mindex, materia) {
@@ -381,25 +383,26 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                             }
                         })
                     });
-
-                    $.each($scope.ngModel.medKits, function (kindex, kit) {
-                        /// <summary>遍历套件集合</summary>
-                        var flg = true;
-                        $.each(WarehouseNoteArray, function (windex, warehouse) {
-                            if (warehouse.estMedMIWarehouse == kit.medMIWarehouse)
-                            { flg = false; return false; }
+                    if (!$scope.ngModel.medKits) {
+                        $Api.SurgeryService.DataSources.GetDetail($scope.ngModel, function (rData) {
+                            $scope.ngModel.medKits = rData.orderKits;
                         });
-                        if (flg) {
-                            WarehouseNoteArray.push({
-                                estMedMIWarehouse: kit.estMedMIWarehouse,
-                                estMedMIWarehouseName: kit.estMedMIWarehouseName ? kit.estMedMIWarehouseName : userInfo.orgName
+                    }
+                    $.each($scope.ngModel.medKits, function (kindex, kit) {
+                            /// <summary>遍历套件集合</summary>
+                            var flg = true;
+                            $.each(WarehouseNoteArray, function (windex, warehouse) {
+                                if (warehouse.estMedMIWarehouse == kit.estMedMIWarehouse)
+                                { flg = false; return false; }
                             });
-                        }
-                    });
-
-
-                    $scope.ngModel.wsNotes = WarehouseNoteArray;
-
+                            if (flg) {
+                                WarehouseNoteArray.push({
+                                    estMedMIWarehouse: kit.estMedMIWarehouse,
+                                    estMedMIWarehouseName: kit.estMedMIWarehouseName ? kit.estMedMIWarehouseName : userInfo.orgName
+                                });
+                            }
+                        });                             
+                    $scope.ngModel.wsNotes = WarehouseNoteArray;       
                 },
                 GetMedmaterialParamData: function (medmaterial) {
                     /// <summary>获取物料查询库存的条件</summary>
@@ -542,6 +545,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                     $scope.ngModel.medKits = data;
                 }
             });
+       
         }
     }
 });

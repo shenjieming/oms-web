@@ -17,8 +17,8 @@ app.controller("ReconciliationDetailController", function ($scope, $state, $loca
         BillListConfig: {
             /// <summary>订单列表配置器</summary>
             fixed: function (list) {
-                /// <summary>选择医生事件</summary>
-                $scope.QueryService.GetRecByMappingData({ detail: $scope.Factory.GetNewBillDetail($scope.RecInfo.detail, list) }); $scope.BillService.ChangeBillList();$scope.BillService.IsShowMaterialView(true);
+                /// <summary>选择订单物料</summary>
+                $scope.QueryService.GetRecByMappingData({ detail: $scope.Factory.GetNewBillDetail($scope.RecInfo.detail, list) }); $scope.BillService.ChangeBillList(); $scope.BillService.IsShowMaterialView(true);
             }
         }
     }
