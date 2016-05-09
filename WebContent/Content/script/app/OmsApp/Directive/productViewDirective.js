@@ -213,7 +213,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                     GetNewDataByProdLns: function () {
                         /// <summary>根据产品线获取新的树信息</summary>
                         var treeData = [{ id: 0, name: "散件", isParent: true, open: true }];
-                        console.log($scope.ngModel.prodLns)
                         $.each($scope.ngModel.prodLns, function (index, item) {
                             var brandNode = { id: item.medBrandCode, name: item.medBrandCodeName, isParent: true, pId: 0, open: true };
                             if (JSON.stringify(treeData).indexOf(JSON.stringify(brandNode)) < 0) {//判断节点是否重复
@@ -363,7 +362,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                 ChangeWHNote: function () {
                     /// <summary>物料仓库分析，获取物料仓库指示</summary>
                     var WarehouseNoteArray = new Array();
-     
                     $.each($scope.ngModel.prodLns, function (pindex, prod) {
                         /// <summary>遍历产品线</summary>
                         $.each(prod.medMaterias, function (mindex, materia) {
@@ -372,8 +370,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                             /// <summary>遍历仓库结果集</summary>
                             $.each(WarehouseNoteArray, function (windex, warehouse)
                             {
-                                console.log(warehouse.estMedMIWarehouse)
-                                console.log(materia.medMIWarehouse)
                                 if (warehouse.estMedMIWarehouse == materia.medMIWarehouse)
                                 { flg = false; return false; }
                             });
@@ -390,8 +386,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                         /// <summary>遍历套件集合</summary>
                         var flg = true;
                         $.each(WarehouseNoteArray, function (windex, warehouse) {
-                            console.log(kit.medMIWarehouse)
-                            console.log(warehouse)
                             if (warehouse.estMedMIWarehouse == kit.medMIWarehouse)
                             { flg = false; return false; }
                         });
@@ -546,7 +540,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                         });
                     }
                     $scope.ngModel.medKits = data;
-                    console.log($scope.ngModel.medKits)
                 }
             });
         }
