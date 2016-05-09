@@ -112,11 +112,9 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
                     $scope.PageData.retrieveEstDateFmtYMDW = FormatDate(new Date($scope.PageData.retrieveEstDate.replace("-", "/").replace("-", "/")))
                 }
                 var myDate = new Date($scope.PageData.initOperationDate)
-                $scope.DisplayWeek =FormatWeek(new Date($scope.PageData.initOperationDate.replace("-", "/").replace("-", "/")))
-                console.log($scope.DisplayWeek)
+                $scope.DisplayWeek =FormatWeek(new Date($scope.PageData.initOperationDate.replace("-", "/").replace("-", "/")))       
                 console.log($scope.PageData)
-            });
-        
+            });       
         }
     }
     $scope.ApprovalConfig = {
@@ -414,8 +412,9 @@ app.controller("SingleController", function ($rootScope,$scope, $state, $local, 
             }
             return result
         },
+
         Save: function () {
-            /// <summary>下单保存</summary>
+            /// <summary>下单保存</summary>       
             if ($scope.PageService.Verification()) {
                 $Api.SurgeryService.Save($scope.PageData, function (rData) {
                     /// <summary>保存手术订单</summary>
@@ -491,7 +490,6 @@ app.controller("SingleController", function ($rootScope,$scope, $state, $local, 
             return result;
         }
     }
-
     //医院选择配置
     $scope.HospitalConfig = {
         fixed: function (rowInfo) {
@@ -562,7 +560,6 @@ app.controller("SingleController", function ($rootScope,$scope, $state, $local, 
         }
         $scope.PageData.prodLns = new Array();
     });
-
     /*数据监控区域End*/
 })
 app.controller("FeedbackController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
