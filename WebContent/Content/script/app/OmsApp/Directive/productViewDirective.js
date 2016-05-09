@@ -363,7 +363,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                 ChangeWHNote: function () {
                     /// <summary>物料仓库分析，获取物料仓库指示</summary>
                     var WarehouseNoteArray = new Array();
-                    alert(1)
                     $.each($scope.ngModel.prodLns, function (pindex, prod) {
                         /// <summary>遍历产品线</summary>
                         $.each(prod.medMaterias, function (mindex, materia) {
@@ -385,14 +384,11 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                             }
                         })
                     });
-
                     $.each($scope.ngModel.medKits, function (kindex, kit) {
                         /// <summary>遍历套件集合</summary>
                         var flg = true;
                         $.each(WarehouseNoteArray, function (windex, warehouse) {
-                            console.log(kit.medMIWarehouse)
-                            console.log(warehouse)
-                            if (warehouse.estMedMIWarehouse == kit.medMIWarehouse)
+                            if (warehouse.estMedMIWarehouse == kit.estMedMIWarehouse)
                             { flg = false; return false; }
                         });
                         if (flg) {
