@@ -386,7 +386,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local,$state) {
                         /// <summary>遍历套件集合</summary>
                         var flg = true;
                         $.each(WarehouseNoteArray, function (windex, warehouse) {
-                            if (warehouse.estMedMIWarehouse == kit.medMIWarehouse)
+                            if (warehouse.estMedMIWarehouse == kit.estMedMIWarehouse)
                             { flg = false; return false; }
                         });
                         if (flg) {
