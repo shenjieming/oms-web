@@ -29,7 +29,7 @@ app.directive("ngBillMaterials", function ($BMSApi, $MessagService, $local, $App
 
             $scope.BillConfig = {
                 /// <summary>物料选择配置</summary>
-                fixed: function () {
+                fixed: function (list) {
                     $scope.QueryService.GetRecByMappingData({
                         detail: $scope.Factory.GetNewBillDetail($scope.RecInfo.detail, list)
                     });
@@ -40,7 +40,7 @@ app.directive("ngBillMaterials", function ($BMSApi, $MessagService, $local, $App
 
             $.extend($scope.ngBillService, $scope.BillService);
 
-
+            $.extend($scope.ngBillMaterials, $scope.BillConfig);
 
         }
     }

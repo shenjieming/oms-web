@@ -10,7 +10,6 @@
         </span>
     </div>
     <div ng-img="img" ng-model="file" style="height:0px;width:0px;"></div>
-    <div ng-bill-list="Module.BillListConfig" ng-model="RecInfo"></div>
     <div>
         <div class="tab-content">
             <div>
@@ -97,7 +96,7 @@
                         </div>
                         <div id="RecInfo" class="widget-content nopadding collapse in">
                             <div ng-show="RecInfo.detail.length>0" class="main-box-body clearfix" style="padding: 15px; width: 100%;">
-                                
+                                <span ng-bill-materials="Module.BillListConfig"></span>
                             </div>
                             <div class="control-group " ng-if="!RecInfo.detail.length>0">
                                 <label style="width:100%;color:red;" ng-click="">请选择计费单对账</label>

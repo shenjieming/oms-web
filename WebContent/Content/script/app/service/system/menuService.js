@@ -17,6 +17,5 @@ app.factory("$MenuService", function ($OMSMenuService, $BaseMenuService, $BmsMen
 
     var BmsMenu = $BmsMenuService; if (BmsMenu && ServerConfiguration.StartBMS) { AddMenu(BmsMenu); }
     service.sort(function (x, y) { if (!y.order) { y.order = service.length } return (x.order > y.order) ? 1 : -1 });
-    console.log(service)
     return service;
 });
