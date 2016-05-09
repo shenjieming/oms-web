@@ -35,8 +35,7 @@ app.controller("ReconciliationController", function ($scope, $state, $local, $BM
         /// <summary>页面控制</summary>
         SetCompetence: function (comp) {
             /// <summary>设置页面权限</summary>
-            this.InitCompetence();
-            $.extend($scope.Competence, comp);
+            this.InitCompetence(); $.extend($scope.Competence, comp);
         },
         InitCompetence: function () {
             /// <summary>初始化权限</summary>
@@ -64,9 +63,8 @@ app.controller("ReconciliationController", function ($scope, $state, $local, $BM
         }
     }
 
-
     /// <summary>分页配置信息对象</summary>
-    $scope.Pagein = { pageSize: 10, createDateBegin: null, createDateEnd: null, pageIndex: 1, callbake: function () { $scope.Integrated.GetBillList(); } }
+    $scope.Pagein = { pageSize: 10, createDateBegin: null, createDateEnd: null, pageIndex: 1, callbake: function () { $scope.Integrated.GetReconciliationList(); } }
 });
 
 app.controller("RecInfoController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams, $RecInfFactory) {
@@ -94,24 +92,6 @@ app.controller("RecInfoController", function ($scope, $state, $local, $BMSApi, $
         }
     };
 
-    $scope.BillService = {
-        /// <summary>计费单信息处理服务</summary>
-        Gather: new Object(),
-        ViewMaterial: false,
-        MaterialList:new Array(),
-        IsShowMaterialView: function (isshow) {
-            /// <summary>是否显示物料列表</summary>
-            $scope.BillService.ViewMaterial = isshow; if (isshow) { $scope.BillService.GetMaterialView(); }
-        },
-        ChangeBillList: function () {
-            /// <summary>修改订单列表信息</summary>
-            $scope.BillService.Gather = $scope.Factory.BillAnalysis($scope.RecInfo.detail);
-        },
-        GetMaterialView: function () {
-            /// <summary>获取物料维度的订单视图</summary>
-            $scope.BillService.MaterialList = $scope.Factory.GetMaterialView($scope.RecInfo.detail);
-        }
-    }
 
     if ($stateParams.hSOANo) { $scope.QueryService.GetReconciliationInfo($stateParams); } else { $scope.QueryService.GetRecByMappingData($scope.Factory.GetNewRecMapping()); }
 });

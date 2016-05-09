@@ -5,7 +5,7 @@ app.directive("ngBmsMaterials", function ($BMSApi, $MessagService, $local, $AppH
     return {
         restrict: "EA",
         templateUrl: "Content/script/app/BmsApp/Directive/ui/ngBmsMaterials.html?data=" + Timestamp,
-        scope: {  ngBmsMaterials: "=", ngModel:"="   },
+        scope: { ngBmsMaterials: "=", ngModel: "=" },
         replace: true,
         link: function ($scope, element, attrs) {
             $scope.Service = {
@@ -45,9 +45,7 @@ app.directive("ngBmsMaterials", function ($BMSApi, $MessagService, $local, $AppH
             }
 
             /// <summary>分页信息</summary>
-            $scope.Pagein = { pageSize: 20, pageIndex: 1, callbake: function () { $scope.Service.GetMaterialList(); } }
-
-
+            $scope.Pagein = { pageSize: 20, pageIndex: 1, callbake: function () { $scope.Service.GetMaterialList(); } };
 
             var modelConfig = {
                 open: function () {
