@@ -37,7 +37,7 @@ app.controller("BillDetailController", function ($scope, $state,$Api, $local, $B
             /// <summary>计算服务</summary>
             HpUnitEstPrice: function (row) {
                 /// <summary>计算销售代表单价</summary>
-                row.patientUnitEstPrice = parseFloat((row.hPUnitEstPrice * 1.05).toFixed(2));
+                row.patientUnitEstPrice = parseFloat((row.hPUnitEstPrice * 1.05).toFixed(2)); row.patientUnitPrice = parseFloat((row.hPUnitPrice * 1.05).toFixed(2));
             }
         },
         Submit: function () {

@@ -141,7 +141,7 @@
                             <h5 data-toggle="collapse" href="#MaterialsInfo">物资信息</h5>
                         </div>
                         <div id="MaterialsInfo" class="widget-content nopadding collapse in">
-                            <div class="main-box-body clearfix" style="padding: 15px; max-height: 450px; overflow: auto; width: 100%;">
+                            <div class="main-box-body clearfix" style="padding: 15px; width: 100%;">
                                 <div class="table-responsive">
                                     <table style="width:1400px; min-width:100%; max-width:2000px;" class="table table-bordered tab-striped" st-table="BillData.detail" st-safe-src="rowCollection">
                                         <thead>
@@ -166,8 +166,8 @@
                                                 <td><span ng-bind="row.dHMMMaterials"></span></td>
                                                 <td><span ng-bind="row.lotSerial"></span></td>
                                                 <td><span ng-bind="row.qty"></span></td>
-                                                <td><span ng-bind="row.hPUnitEstPrice"></span></td>
-                                                <td><span ng-bind="row.patientUnitEstPrice"></span></td>
+                                                <td><span ng-bind="row.hPUnitPrice"></span></td>
+                                                <td><span ng-bind="row.patientUnitPrice"></span></td>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -4,7 +4,7 @@ app.directive("ngBillMaterials", function ($BMSApi, $MessagService, $local, $App
     return {
         restrict: "EA",
         templateUrl: "Content/script/app/BmsApp/Directive/ui/ngBillMaterials.html?data=" + Timestamp,
-        scope: { ngBillMaterials: "=", ngModel: "=" },
+        scope: { ngBillMaterials: "=", ngModel: "=" ,ngBillService:"="},
         replace: true,
         link: function ($scope, element, attrs) {
 
@@ -26,6 +26,21 @@ app.directive("ngBillMaterials", function ($BMSApi, $MessagService, $local, $App
                     $scope.BillService.MaterialList = $scope.Factory.GetMaterialView($scope.RecInfo.detail);
                 }
             }
+
+            $scope.BillConfig = {
+                /// <summary>物料选择配置</summary>
+                fixed: function () {
+                    $scope.QueryService.GetRecByMappingData({
+                        detail: $scope.Factory.GetNewBillDetail($scope.RecInfo.detail, list)
+                    });
+                    $scope.BillService.ChangeBillList();
+                    $scope.BillService.IsShowMaterialView(true);
+                }
+            };
+
+            $.extend($scope.ngBillService, $scope.BillService);
+
+
 
         }
     }
