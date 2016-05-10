@@ -17,11 +17,9 @@ app.controller("DptListController", function ($scope, $state, $local, $Api, $Mes
         GetDepartmentList: function () {
             /// <summary>获取科室列表</summary>
             var opt = $.extend( {hPCode:$scope.DepartmentDetail.hPCode} , $scope.Pagein);
-            console.log(opt)
             $Api.ManaDepartment.GetbizDataWDList(opt, function (rData) {
                 $scope.DepartmentList.info = rData.rows;
                 $scope.Pagein.total = rData.total;
-                console.log(rData.rows)
                 for (var i = 0; i < $scope.DepartmentList.info.length; i++) {
                     if ($scope.DepartmentList.info[i].validStatusName == "无效") {
                         $scope.DepartmentList.info[i].isEnable = true;
@@ -98,7 +96,6 @@ app.controller("DptListController", function ($scope, $state, $local, $Api, $Mes
             if (row) {
                 $scope.DepartmentJump.isEdit(true);
                 $Api.ManaDepartment.GetbizDataWDDetail({ wardDeptCode: row.wardDeptCode }, function (rData) {
-                    console.log(rData)
                     $scope.DepartmentDetail.Info = rData;
                     if ($scope.DepartmentDetail.Info.validStatusName == "无效") {
                         $scope.DepartmentDetail.Info.isvalidStatus = true;
@@ -140,7 +137,6 @@ app.controller("DptListController", function ($scope, $state, $local, $Api, $Mes
         Save: function () {
             /// <summary>保存科室</summary>
             if ($scope.DepartmentJump.verification()) {
-                console.log($scope.DepartmentDetail.Info)
                 $Api.ManaDepartment.Save($scope.DepartmentDetail.Info, function (rData) {
                     $MessagService.succ("科室保存成功！");
                     $scope.DepartmentList.GetDepartmentList();
@@ -157,7 +153,6 @@ app.controller("DptListController", function ($scope, $state, $local, $Api, $Mes
                 /// <summary>获取医院类型</summary>
                 $Api.ManaHospital.GetqueryAllHospital({}, function (rData) {
                     $scope.SelectInfo.Hosptail.dic = rData.rows;
-                    console.log(rData)
                 })
             }
         },
@@ -167,7 +162,6 @@ app.controller("DptListController", function ($scope, $state, $local, $Api, $Mes
                 /// <summary>获取第一联系人用途类型</summary>
                 $Api.Public.GetDictionary({ dictType: "CTCFUN" }, function (rData) {
                     $scope.SelectInfo.contact1Func.dic = rData;
-                    console.log(rData)
                 })
             },
         },
@@ -177,7 +171,6 @@ app.controller("DptListController", function ($scope, $state, $local, $Api, $Mes
                 /// <summary>获取第一联系人通讯工具<</summary>
                 $Api.Public.GetDictionary({ dictType: "PMSGTP" }, function (rData) {
                     $scope.SelectInfo.contact1PMsgType.dic = rData;
-                    console.log(rData)
                 })
             },
         },
@@ -214,7 +207,6 @@ app.controller("DptListController", function ($scope, $state, $local, $Api, $Mes
     $scope.Load = function () {
         /// <summary>页面初始化</summary>
         $scope.DepartmentDetail.hPCode = $stateParams.dptopt;
-        console.log($scope.DepartmentDetail.hPCode)
         $scope.DepartmentList.GetDepartmentList();
     }
     $scope.Load();

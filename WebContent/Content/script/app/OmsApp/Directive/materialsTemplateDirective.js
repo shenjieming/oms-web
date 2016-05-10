@@ -60,7 +60,6 @@ app.directive("ngMaterialsTemplate", function ($Api, $MessagService, $local) {
                     $Api.MaterialsService.GetMaterialsTemplateList($scope.Pagein, function (rData) {
                         $scope.Service.List = rData.rows;
                         $scope.Pagein.total = rData.total;//分页控件获取当前数据请求的总页数
-                        console.log(rData)
                     })
                 },
                 Select: function (template) {

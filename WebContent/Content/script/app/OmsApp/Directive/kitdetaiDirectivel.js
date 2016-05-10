@@ -33,10 +33,8 @@ app.directive("ngKitDetail", function ($Api, $MessagService) {
                 ProductCompetence: { operat: false, kits: false, tool: false, warehouse: false },
                 GetKitDetail: function () {
                     /// <summary>获取套件详细信息</summary>
-                    console.log($scope.ngModel)
                     $Api.MedKitService.GetMedKitDetail({ medKitInternalNo: $scope.ngModel.medKitopt }, function (row) {
                         $scope.view.PageData = row;
-                        console.log(row)
                         $scope.view.PageData.prodLns = row.productLine;
                     });
                 },

@@ -21,7 +21,7 @@ app.controller("DictionaryListController", function ($scope, $state, $local, $Ap
                 $(".Dictionary_page").show();
             } else {
                 $MessagService.caveat("请选择一条查看数据！");
-            } console.log($scope.Dictionaryvalue)
+            }
         }
     },
 

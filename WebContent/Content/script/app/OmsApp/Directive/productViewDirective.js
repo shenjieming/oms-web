@@ -353,7 +353,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                 },
                 GetMedmaterialInventory: function (medmaterial) {
                     /// <summary>获取套件物料库存</summary>
-                    console.log(medmaterial)
                     var param = $scope.WarehouseConfig.GetMedmaterialParamData(medmaterial);
                     $Api.MaterialsService.GetMedmaterialInventory(param, function (rData) {
                         $scope.WarehouseConfig.AnalyticalInventory(rData, medmaterial);
