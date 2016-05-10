@@ -6,37 +6,37 @@ app.directive("ngBillMaterials", function ($BMSApi, $MessagService, $local, $App
         templateUrl: "Content/script/app/BmsApp/Directive/ui/ngBillMaterials.html?data=" + Timestamp,
         scope: { ngBillMaterials: "=", ngModel: "=" ,ngBillService:"=",ngOperat:"="},
         replace: true,
-        link: function ($scope, element, attrs) {
-            $scope.Factory = $RecInfFactory($scope);
-            $scope.BillService = {
+        link: function (s, e, a) {
+            s.Factory = $RecInfFactory(s);
+            s.BillService = {
                 /// <summary>计费单信息处理服务</summary>
                 Gather: new Object(),
                 ViewMaterial: false,
                 MaterialList: new Array(),
                 IsShowMaterialView: function (isshow) {
                     /// <summary>是否显示物料列表</summary>
-                    $scope.BillService.ViewMaterial = isshow; if (isshow) { $scope.BillService.ChangeBillList(); $scope.BillService.GetMaterialView(); }
+                    s.BillService.ViewMaterial = isshow; if (isshow) { s.BillService.ChangeBillList(); s.BillService.GetMaterialView(); }
                 },
                 ChangeBillList: function () {
                     /// <summary>修改订单列表信息</summary>
-                    $scope.BillService.Gather = $scope.Factory.BillAnalysis($scope.ngModel.detail);
+                    s.BillService.Gather = s.Factory.BillAnalysis(s.ngModel.detail);
                 },
                 GetMaterialView: function () {
                     /// <summary>获取物料维度的订单视图</summary>
-                    $scope.BillService.MaterialList = $scope.Factory.GetMaterialView($scope.ngModel.detail);
+                    s.BillService.MaterialList = s.Factory.GetMaterialView(s.ngModel.detail);
                 },
                 GetRecByMappingData: function (data) {
                     /// <summary>根据映射数据获取对账信息</summary>
-                    $.extend($scope.ngModel, data); $scope.BillService.ChangeBillList();
+                    $.extend(s.ngModel, data); s.BillService.ChangeBillList();
                 }
             }
 
-            $scope.BillConfig = {
+            s.BillConfig = {
                 /// <summary>物料选择配置</summary>
-                fixed: function (list) { $scope.BillService.GetRecByMappingData({ detail: $scope.Factory.GetNewBillDetail($scope.ngModel.detail, list) }); }
+                fixed: function (list) { s.BillService.GetRecByMappingData({ detail: s.Factory.GetNewBillDetail(s.ngModel.detail, list) }); }
             };
 
-            if ($scope.ngBillService) { $scope.ngBillService = $.extend($scope.BillService, $scope.ngBillService); } if ($scope.ngBillMaterials) { $scope.ngBillMaterials = $.extend($scope.BillConfig, $scope.ngBillMaterials); }
+            if (s.ngBillService) { s.ngBillService = $.extend(s.BillService, s.ngBillService); } if (s.ngBillMaterials) { s.ngBillMaterials = $.extend(s.BillConfig, s.ngBillMaterials); }
         }
     }
 });
