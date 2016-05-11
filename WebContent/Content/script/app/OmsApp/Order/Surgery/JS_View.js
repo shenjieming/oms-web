@@ -213,7 +213,6 @@ app.controller("OriginalController", function ($scope, $state, $local, $Api, $Me
             $.extend($scope.singleProduc, {
                 prodLns: $scope.PageData.initOrderProdlns
             });
-            console.log($scope.PageData)
         }
     });
 
@@ -383,7 +382,6 @@ app.controller("SingleController", function ($rootScope,$scope, $state, $local, 
     /*后台时间格式转换修改 YY-MM-DD (星期 几)*/
     var myDate = new Date($scope.PageData.initOperationDate)
     $scope.DisplayWeek = "  星期" + "日一二三四五六".charAt(myDate.getDay());
-    //console.log($scope.PageData.DisplayWeek)
     /*基础对象区域End*/
     /*逻辑对象区域Begion*/
     $scope.PageService = {
@@ -607,7 +605,6 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
             /// <summary>获取用户使用类型</summary>
             $Api.Public.GetDictionary({ dictType: "MMIUTP" }, function (rData) {
                 $scope.dictionary.UseTypeList = rData;
-                console.log(rData)
             });
         },
         DefaultUseType: function (row) {
@@ -633,7 +630,6 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
         /// <summary>订单处理服务</summary>
         Submit: function () {
             //校验并添加默认数据
-            console.log($scope.FeedBack)
             if($scope.FeedBack.notInDetail.length > 0){
                 $.each($scope.FeedBack.notInDetail,function(index,item){
                     if(item.lotSerial == null){
@@ -709,12 +705,10 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                     $scope.FeedBack.notInDetail[i].returnWarehouse = $scope.User.userInfo.orgCode;
                     $scope.FeedBack.notInDetail[i].useType = $scope.dictionary.UseTypeList[0].id;
                 }
-                console.log($scope.FeedBack.notInDetail)
             })
         },
         DelKit:function(index){
             $scope.FeedBack.notInDetail.splice(index, 1);
-            console.log($scope.FeedBack.notInDetail);
         }
     }
 
@@ -818,7 +812,6 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         /// <summary>订单处理服务</summary>
         Submit: function () {
             // $scope.DealService.OutboundInstructions();
-            console.log($scope.PageData)
             if ($scope.DealService.Verification()) {
                 $scope.ProductService.Deduplication();//去重
                 $Api.SurgeryService.Process.Submit($scope.PageData, function (rData) {
@@ -937,7 +930,6 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         title: "手术下单预览", width: 960, height: 800, buttons: { "提交": $scope.DealService.Submit, "提交并打印": $scope.DealService.Print, "返回": $scope.DealService.DealServicehide, }, open: function () {
             $(".ui-dialog-title").html("订单 " + $scope.PageData.sONo + " 配货清单确认")
             $scope.OperationDate = FormatDate(new Date($scope.PageData.operationDate.replace("-", "/").replace("-", "/")))
-            console.log($scope.PageData)
         }
     };
     $scope.OutboundOrdermodel = { title: "出库单", width: 730, height: 200, buttons: { "确定": $scope.DealService.PrintCancel }, open: function () { $(".ui-dialog-title").html("订单 " + $scope.PageData.sONo + " ,请复制您所在仓库的出库单号用于之后的打印...") }, close: function () { $scope.goLastPage(); } };
@@ -1005,7 +997,6 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         },
         GetEventMapping: function (eventList, statusCode) {
             /// <summary>获取附件映射</summary>
-            console.log(eventList)
             var result = { images: new Array(), remark: "" }
             $.each(eventList, function (index, event) {
                 if (event.eventCode == statusCode) {

@@ -16,7 +16,6 @@ app.controller("OiOrgViewController", function ($scope, $state, $local, $Api, $M
             $scope.oiopt = $stateParams.oiopt;
             $Api.ManageOi.GetqueryOwnerOfInventoryDetail({ orgCode: $scope.oiopt }, function (rData) {
                 $scope.OiOrgView.Info = rData;
-                console.log(rData)
                 $scope.OiOrgView.BackpackcorpRegCapital = $scope.OiOrgView.Info.corpRegCapital / 10000;
             })
         },

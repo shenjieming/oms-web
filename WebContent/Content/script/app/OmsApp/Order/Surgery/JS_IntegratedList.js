@@ -15,7 +15,6 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
     $scope.GetRowGoPage = function (view, callback) {
         /// <summary>Description</summary>
         var rowData = $local.getSelectedRow($scope.Integrated.OrderList);
-        console.log(rowData)
         if (rowData) {
             $MessagService.loading("页面启动中，请稍等...");
             if (callback) {
@@ -226,7 +225,6 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
 
             GetList(paramData, function (rData) {
                 $scope.Pagein.total = rData.total;
-                console.log(rData.rows)
                 for (var i = 0; i < rData.rows.length; i++) {
                     //rData.rows[i].operationDate = rData.rows[i].operationDate.substring(0, 11)                 
                     if (rData.rows[i].operationDate) {
@@ -237,7 +235,6 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
                     rData.rows[i].createDate = FormatDate(new Date(rData.rows[i].createDate.replace("-", "/").replace("-", "/")))
                 }
                 $scope.Integrated.OrderList = rData.rows;
-                console.log(rData.rows)
             });
         }
     }
@@ -285,7 +282,6 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             },
             GetHosptailList: function () {
                 /// <summary>医院下拉框</summary>
-                console.log($scope.Integrated.OrderList)
                 $Api.ManaHospital.GetqueryAllHospital({}, function (rData) {
                     $scope.SelectInfo.Hosptail.dic = rData.rows;
                 })

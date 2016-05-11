@@ -17,7 +17,6 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
             /// <summary>获取医生列表</summary>
             var opt = $.extend({}, $scope.Pagein);
             $Api.ManaDocter.GetbizDataDoctorList(opt, function (rData) {
-                console.log(rData)
                 $scope.DoctorList.info = rData.rows;
                 $scope.Pagein.total = rData.total;
             })
@@ -147,7 +146,6 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
             } else {
                 $scope.DoctorDetail.Info.isLocal = "UNLOCAL"
             }
-            console.log($scope.DoctorDetail.Info)
             $Api.ManaDocter.Save($scope.DoctorDetail.Info, function (rData) {
                 $MessagService.succ("医生保存成功！");
                 $scope.DoctorList.GetDoctorList();
@@ -200,7 +198,6 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
                 /// <summary>获取医院列表</summary>
                 $Api.ManaHospital.GetqueryAllHospital({}, function (rData) {
                     $scope.SelectInfo.Hosptail.dic = rData.rows;
-                    console.log(rData)
                 })
             }
         },
@@ -211,7 +208,6 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
                 if ($scope.DoctorDetail.Info.hPCode) {
                     $Api.ManaDepartment.GetbizDataWDList({ hPCode: $scope.DoctorDetail.Info.hPCode }, function (rData) {
                         $scope.SelectInfo.Department.dic = rData.rows;
-                        console.log(rData)
                     });
                 }
             }
@@ -244,7 +240,6 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
                 /// <summary>获取医院列表</summary>
                 $Api.ManaHospital.GetqueryAllHospital({}, function (rData) {
                     $scope.SelectButton.Hosptail.dic = rData.rows;
-                    console.log(rData)
                 })
             }
         },
@@ -255,7 +250,6 @@ app.controller("DtrListController", function ($scope, $state, $local, $Api, $Mes
                 if ($scope.DoctorList.hPCode) {
                     $Api.ManaDepartment.GetbizDataWDList({ hPCode: $scope.DoctorList.wardDeptCode }, function (rData) {
                         $scope.SelectButton.Department.dic = rData.rows;
-                        console.log(rData)
                     })
                 }
             }

@@ -24,7 +24,6 @@ app.controller("JournalInfoController", function ($scope, $state, $local, $Api, 
          $Api.AccountService.GetLoginAccountLog($scope.Pagein, function (rdata) {
              $scope.JournalEdit.JournalList = rdata.rows;
              $scope.Pagein.total = rdata.total;
-             console.log($scope.JournalEdit.JournalList)
          });
      }
     $scope.Load();
