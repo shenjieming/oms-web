@@ -1175,3 +1175,68 @@ app.controller("FeedbackViewController", function ($scope, $state, $local, $Api,
         $scope.FeedBack = $scope.file.GetEventMapping($scope.PageData.events, "0080_0011")
     })
 })
+app.controller("TobeshippedController", function ($scope, $state, $local, $Api, $MessagService, $stateParams) {
+    $scope.shipped = new Object();
+    $scope.sONo=$stateParams.sono;
+    $scope.shipped.sONo = $scope.sono;
+    $scope.shippedSubmit = {
+        Direct: function () {
+            /// <summary>直送发货提交</summary>
+            alert("提交成功！")
+            $scope.shipped.carrierTransType=DIRECT;
+            console.log($scope.shipped)
+        },
+        Express: function () {
+            /// <summary>快递发货提交</summary>
+            alert("提交成功！")
+            $scope.shipped.carrierTransType=EXPRESS;
+            console.log($scope.shipped)
+        },
+        Bus: function () {
+            /// <summary>大巴发货提交</summary>
+            alert("提交成功！")
+            $scope.shipped.carrierTransType=BUS;
+            console.log($scope.shipped)
+        },
+        Air: function () {
+            /// <summary>航空发货提交</summary>
+            alert("提交成功！")
+            $scope.shipped.carrierTransType=BUS;
+            console.log($scope.shipped)
+        },
+        Selfpick: function () {
+            /// <summary>自提发货提交</summary>
+            alert("提交成功！")
+            $scope.shipped.carrierTransType=SELFPICK
+            console.log($scope.shipped)
+        }
+    }
+    $scope.Cancel = {
+        Direct: function () {
+            /// <summary>直送发货清空</summary>
+            alert("清空成功！")
+            console.log($scope.shipped)
+        },
+        Express: function () {
+            /// <summary>快递发货清空</summary>
+            alert("清空成功！")
+            console.log($scope.shipped)
+        },
+        Bus: function () {
+            /// <summary>大巴发货清空</summary>
+            alert("清空成功！")
+            console.log($scope.shipped)
+        },
+        Air: function () {
+            /// <summary>航空发货清空</summary>
+            alert("清空成功！")
+            console.log($scope.shipped)
+        },
+        Selfpick: function () {
+            /// <summary>自提发货清空</summary>
+            alert("清空成功！")
+            console.log($scope.shipped)
+        }
+    }
+    console.log($scope.PageData)
+})

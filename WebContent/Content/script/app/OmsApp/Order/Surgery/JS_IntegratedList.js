@@ -124,11 +124,15 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         $local.setValue("ORDERCOMP", {});
         $scope.GetRowGoPage("app.oms.order.fback");
     }
-
+    $scope.Shipping = function (sono) {
+        /// <summary>订单发货处理</summary>
+        $local.setValue("ORDERCOMP", {});
+        $scope.GetRowGoPage("app.oms.order.shippinghandler");
+    }
     $scope.showViewDetail = function (sono) {
         /// <summary>查看手术订单</summary>
         $local.setValue("ORDERCOMP", {});
-        $scope.GetRowGoPage("app.oms.order.view");
+        $scope.GetRowGoPage("app.oms.order.view", { sono: sono });
     }
     $scope.showView = function (sono) {
         /// <summary>查看手术订单</summary>
@@ -237,7 +241,6 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
                     rData.rows[i].createDate = FormatDate(new Date(rData.rows[i].createDate.replace("-", "/").replace("-", "/")))
                 }
                 $scope.Integrated.OrderList = rData.rows;
-                console.log(rData.rows)
             });
         }
     }
@@ -404,6 +407,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         apply: false,
         back: false,
         append: false,
+        shipped:false
     }
 
     $scope.ListCompetence = {
@@ -535,6 +539,27 @@ app.controller("DealWithListController", function ($scope, $state, $local, $Api,
         $scope.goView("app.oms.order.view", { sono: sono });
     }
 
+})
+app.controller("TobeshippedListController", function ($scope, $state, $local, $Api, $MessagService) {
+    /// <summary>订单处理控制器</summary>
+    $scope.title = "待发货订单";
+    $scope.Competence = {
+        shipped: true
+    };
+    $scope.ListCompetence.sOOIOrgCodeName = true;
+    $scope.ListCompetence.sOCreateByOrgCodeName = true;
+    $scope.ListCompetence.hPCodeName = true;
+    $scope.ListCompetence.dTCodeName = true;
+    //条件清空
+    $scope.Integrated.ClearWhere(true);
+    // OPER_CAN_ADD_ORDER_LIST 修改成 INSTK_SIGN_LIST
+    $scope.Integrated.GetOrderList({ opt: "OPER_CAN_ADD_ORDER_LIST" });
+    $scope.showView = function (sono) {
+        /// <summary>查看手术订单</summary>
+        $local.setValue("ORDERCOMP", {});
+        $scope.goView("app.oms.order.view", { sono: sono });
+    }
+    
 })
 app.controller("FeedbackListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>反馈单草稿控制器</summary>
