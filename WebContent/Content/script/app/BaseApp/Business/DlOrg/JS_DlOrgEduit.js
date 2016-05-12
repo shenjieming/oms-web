@@ -37,7 +37,6 @@ app.controller("DlOrgEduitController", function ($scope, $state, $local, $Api, $
                 $scope.dlPageInfo.Info.deliveryProvinceCode = rData.corpRegProvinceCode;
                 $scope.dlPageInfo.Info.deliveryCityCode = rData.corpRegCityCode;
                 $scope.dlPageInfo.Info.deliveryDistrictCode = rData.corpRegDistrictCode;
-                console.log(rData)
 
                 if ($scope.dlPageInfo.Info.certStatus == "Y") {
                     $scope.dlPageInfo.Info.iscertStatus = true;
@@ -73,7 +72,6 @@ app.controller("DlOrgEduitController", function ($scope, $state, $local, $Api, $
         },
         Save: function () {
             /// <summary>经销商管理操作</summary>   
-            console.log($scope.dlPageInfo.Info)
             if ($scope.dlPageInfo.verification()) {
                 $scope.dlPageInfo.Info.corpRegCapital = $scope.dlPageInfo.Info.BackPackcorpRegCapital*10000
                 $scope.dlPageInfo.Info.corpRegProvinceCode = $scope.dlPageInfo.Info.deliveryProvinceCode;

@@ -13,11 +13,9 @@ app.controller("DlOrgListController", function ($scope, $state, $local, $Api, $M
         GetDlOrgList: function () {
             /// <summary>获取经销商列表</summary>
             var paramData = $.extend({}, $scope.Pagein);
-            console.log(paramData)
             $Api.ManageDl.GetqueryAllDealer(paramData, function (rData) {
                 $scope.DlOrgList.info = rData.rows;
                 $scope.Pagein.total = rData.total;
-                console.log(rData)
             })
         }
     }
@@ -38,7 +36,6 @@ app.controller("DlOrgListController", function ($scope, $state, $local, $Api, $M
         View: function (row) {
             /// <summary>经销商详情</summary>
             var dlopt = row ? row : $local.getSelectedRow($scope.DlOrgList.info);
-            console.log(dlopt)
             if (dlopt) {
                 $scope.goView("app.base.business.dlorganizationView", { dlopt: dlopt.orgCode });
             }

@@ -38,6 +38,9 @@ app.directive("ngOrderApproval", function ($Api, $MessagService, $local) {
                 open: function () {
                     $scope.SelectInfo.GetSofarrList();
                     $(".ui-dialog-title").html("拒绝申请")
+                },
+                close:function () {
+                    $(".box-80").val("");
                 }
             }
             $.extend($scope.ngOperat, modelConfig);
@@ -100,7 +103,6 @@ app.directive("ngSign", function ($Api, $MessagService, $local) {
         }
     };
 });
-
 app.directive("ngObSign", function ($Api, $MessagService, $local) {
     /// <summary>订单签收</summary>
     return {

@@ -18,11 +18,9 @@ app.controller("OiOrgListController", function ($scope, $state, $local, $Api, $M
             $scope.relorgCode = $local.getSelectedRow($scope.OiOrgList.info)
             if ($scope.relorgCode) {
                 var paramData = $.extend({ oIorgCode: $scope.relorgCode.orgCode }, $scope.Pagein);
-                console.log(paramData)
                 $Api.ManageOIDLRel.GetqueryAllOIDLRel(paramData, function (rData) {
                     $scope.RelManList.info = rData.rows;
                     $scope.Pagein.total = rData.total;
-                    console.log($scope.RelManList.info)
                 })
             } else {
                 $MessagService.caveat("请选择一条货主数据！")
@@ -32,11 +30,9 @@ app.controller("OiOrgListController", function ($scope, $state, $local, $Api, $M
         Delete: function () {
             /// <summary>删除套件</summary>
             var row = row ? row : $local.getSelectedRow($scope.RelManList.info)
-            console.log(row)
             if (row) {
                 if (confirm("您确认要解除该经销商绑定吗?")) {
                     row.certStatus = "Y" ? "N" : "Y";
-                    console.log(row)
                     $Api.ManageOIDLRel.GetdeleteOwnerOfInventory(row, function () {
                         $MessagService.succ("该操作成功！");
                         $scope.RelManList.GetRelManList();
@@ -55,14 +51,12 @@ app.controller("OiOrgListController", function ($scope, $state, $local, $Api, $M
             }
         },
         Select: function (row) {
-           console.log(row)
            if (confirm("您确认要操作该经销商绑定关系吗?")) {
                if (row.certStatus == "APPRED") {
                    row.certStatus = "N";
                } else {
                    row.certStatus = "Y";
                }
-                    console.log(row)
                     $Api.ManageOIDLRel.GetdeleteOwnerOfInventory(row, function () {
                         $MessagService.succ("该操作成功！");
                         $scope.ManageOIDLRel.GetqueryAllOIDLRel();

@@ -41,7 +41,6 @@ app.controller("LanguageListController", function ($scope, $state, $local, $Api,
                 result = item
             }
         });
-        console.log(result)
         return result;
     }
     $scope.Load = function () {
