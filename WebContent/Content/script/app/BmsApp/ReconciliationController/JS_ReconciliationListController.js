@@ -43,7 +43,7 @@ app.controller("ReconciliationController", function ($scope, $state, $local, $BM
         },
         GoPageBySedRow: function (callback) {
             /// <summary>根据选择的列表调整页面</summary>
-            $local.setValue("ORDERCOMP", $scope.Competence); $local.CarriedSelectedRow($scope.Integrated.ReconciliationList, callback);
+           $local.CarriedSelectedRow($scope.Integrated.ReconciliationList, callback);
         },
         GoDetailPage: function (row) {
             /// <summary>前往对账操作明细页面</summary>
@@ -51,6 +51,7 @@ app.controller("ReconciliationController", function ($scope, $state, $local, $BM
         },
         GoViewPage: function (row) {
             /// <summary>前往对账明细视图页面</summary>
+            $local.setValue("ORDERCOMP", $scope.Competence);
             $scope.goView("app.bms.rec.view", row);
         },
         GoViewByDetail: function () {
@@ -59,7 +60,7 @@ app.controller("ReconciliationController", function ($scope, $state, $local, $BM
         },
         EditDetail: function () {
             /// <summary>编辑对账数据</summary>
-            $scope.PageControl.GoPageBySedRow($scope.PageControl.GoDetailPage);
+            $scope.PageControl.GoPageBySedRow($scope.PageControl.GoViewPage);
         }
     }
 
@@ -72,9 +73,8 @@ app.controller("RecInfoController", function ($scope, $state, $local, $BMSApi, $
     console.log("对账管理-对账详情启动");
     $scope.RecInfo = { detail: new Array(), images: new Array() }; $scope.Competence = $local.getValue("ORDERCOMP");
     $scope.MaterialView = new Array();
-
     $scope.Factory = $RecInfFactory($scope);
-
+    debugger
     $scope.Module = {
         /// <summary>组件控制器</summary>
         BillListConfig: {
