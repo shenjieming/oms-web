@@ -157,7 +157,7 @@ BMSApiService.factory("$ReconciliationFactory", function ($BMSApiFactory, $Messa
             $MessagService.loading("对账单取消审核中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.ReconciliationManage.antiCheck, data, callback);
         },
-        Disabale: function (data, callback) {
+        Disable: function (data, callback) {
             /// <summary>对账单作废</summary>
             $MessagService.loading("对账单作废中，请稍等...");
             $BMSApiFactory.PostApi(BMSPath.ReconciliationManage.disabale, data, callback);

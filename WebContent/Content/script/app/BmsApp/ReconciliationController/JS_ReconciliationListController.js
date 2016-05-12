@@ -70,7 +70,7 @@ app.controller("ReconciliationController", function ($scope, $state, $local, $BM
 app.controller("RecInfoController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams, $RecInfFactory) {
     /// <summary>对账信息管理</summary>
     console.log("对账管理-对账详情启动");
-    $scope.RecInfo = { detail: new Array(), images: new Array() };
+    $scope.RecInfo = { detail: new Array(), images: new Array() }; $scope.Competence = $local.getValue("ORDERCOMP");
     $scope.MaterialView = new Array();
 
     $scope.Factory = $RecInfFactory($scope);

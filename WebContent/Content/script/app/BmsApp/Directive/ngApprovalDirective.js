@@ -81,11 +81,15 @@ app.directive("ngApprovalReconciliation", function ($BMSApi, $MessagService, $lo
                 hSOANo: s.ngModel.hSOANo,
                 Approval: function (callback) {
                     /// <summary>计费单审批</summary>
-                    $BMSApi.BillService.Check(s.ngModel, function (rData) { $MessagService.succ("计费单审批成功！"); if (callback) { callback(); } s.ngApprovalReconciliation.hide(); });
+                    $BMSApi.ReconciliationService.Check(s.ngModel, function (rData) { $MessagService.succ("对账单" + s.ngModel.hSOANo + "审批成功！"); if (callback) { callback(); } s.ngApprovalReconciliation.hide(); });
                 }
             }
 
-            var modelConfig = { title: "对账单审批", width: "500", height: "350", buttons: { "确定": function () { s.Service.Approval(s.ngApprovalReconciliation.fixed); }, "关闭": function () { s.ngApprovalReconciliation.hide(); } } }
+            var modelConfig = {
+                title: "对账单审批", width: "500", height: "350", buttons: {
+                    "确定": function () { s.Service.Approval(s.ngApprovalReconciliation.fixed); }, "关闭": function () { s.ngApprovalReconciliation.hide(); }
+                }
+            }
             $.extend(s.ngApprovalReconciliation, modelConfig);
 
         }
@@ -94,19 +98,18 @@ app.directive("ngApprovalReconciliation", function ($BMSApi, $MessagService, $lo
 
 
 app.directive("ngAntiApprovalReconciliation", function ($BMSApi, $MessagService, $local, $AppHelp) {
-    /// <summary>计费反审批</summary>  
+    /// <summary>对账单反审批</summary>  
     return {
         restrict: "EA",
         templateUrl: "Content/script/app/BmsApp/Directive/ui/ngAntiApprovalReconciliation.html?data=" + Timestamp,
         scope: { ngAntiApprovalReconciliation: "=", ngModel: "=" },
         replace: true,
         link: function (s, e, a) {
-
             s.Service = {
                 hSOANo: s.ngModel.hSOANo,
                 AntiApproval: function (callback) {
                     /// <summary>计费单反审批</summary>
-                    $BMSApi.BillService.AntiCheck(s.ngModel, function (rData) { $MessagService.succ("计费单反审批成功！"); if (callback) { callback(); } s.ngAntiApprovalReconciliation.hide(); });
+                    $BMSApi.ReconciliationService.AntiCheck(s.ngModel, function (rData) { $MessagService.succ("对账单" + s.ngModel.hSOANo + "反审批成功！"); if (callback) { callback(); } s.ngAntiApprovalReconciliation.hide(); });
                 }
             }
 
@@ -129,7 +132,7 @@ app.directive("ngDisableReconciliation", function ($BMSApi, $MessagService, $loc
                 hSOANo: s.ngModel.hSOANo,
                 Disable: function (callback) {
                     /// <summary>计费单反审批</summary>
-                    $BMSApi.BillService.Disable(s.ngModel, function (rData) { $MessagService.succ("计费单废弃成功！"); if (callback) { callback(); } s.ngDisableReconciliation.hide(); });
+                    $BMSApi.ReconciliationService.Disable(s.ngModel, function (rData) { $MessagService.succ("对账单" + s.ngModel.hSOANo + "废弃成功！"); if (callback) { callback(); } s.ngDisableReconciliation.hide(); });
                 }
             }
 
