@@ -74,7 +74,6 @@ app.controller("RecInfoController", function ($scope, $state, $local, $BMSApi, $
     $scope.RecInfo = { detail: new Array(), images: new Array() }; $scope.Competence = $local.getValue("ORDERCOMP");
     $scope.MaterialView = new Array();
     $scope.Factory = $RecInfFactory($scope);
-    debugger
     $scope.Module = {
         /// <summary>组件控制器</summary>
         BillListConfig: {
@@ -82,19 +81,17 @@ app.controller("RecInfoController", function ($scope, $state, $local, $BMSApi, $
         },
         BillListService: {
             /// <summary>订单服务</summary>
+        },
+        EditMain: {
+            /// <summary>对账主表调整</summary>
+            fixed: function () { $scope.QueryService.GetReconciliationInfo($stateParams); }
         }
     }
     $scope.QueryService = {
         /// <summary>对账管理，查询服务</summary>
         GetReconciliationInfo: function (param) {
             /// <summary>获取对账单明细</summary>
-            $BMSApi.PublicInfoService.GetReconciliationDetail(param, function (data) {
-                $.extend($scope.RecInfo, data);
-                setTimeout(function () {
-                    $.extend($scope.RecInfo.detail, data.detail);
-                    $scope.Module.BillListService.IsShowMaterialView(true);
-                },500);
-            });
+            $BMSApi.PublicInfoService.GetReconciliationDetail(param, function (data) { $.extend($scope.RecInfo, data); setTimeout(function () { $.extend($scope.RecInfo.detail, data.detail); $scope.Module.BillListService.IsShowMaterialView(true); }, 500); });
         },
         GetMaterialView: function () {
             /// <summary>获取新的物料列表</summary>

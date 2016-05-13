@@ -26,7 +26,7 @@ app.controller("InvoiceController", function ($scope, $state, $local, $BMSApi, $
         },
         GetInvoiceList: function (param, isNew) {
             /// <summary>获取计费发票列表</summary>
-            $scope.Integrated.InvoiceList = new Array(); if (isNew) { $scope.Integrated.ClearWhere(); };    var paramData = $.extend($scope.Pagein, param);     $BMSApi.PublicInfoService.GetInvoiceList(paramData, function (getResult) {     $scope.Pagein.total = getResult.total;    $scope.Integrated.InvoiceList = getResult.rows;   });
+            $scope.Integrated.InvoiceList = new Array(); if (isNew) { $scope.Integrated.ClearWhere(); }; var paramData = $.extend($scope.Pagein, param); $BMSApi.PublicInfoService.GetInvoiceList(paramData, function (getResult) { $scope.Pagein.total = getResult.total; $scope.Integrated.InvoiceList = getResult.rows; });
         }
     };
 
@@ -43,8 +43,7 @@ app.controller("InvoiceController", function ($scope, $state, $local, $BMSApi, $
         },
         GoPageBySedRow: function (callback) {
             /// <summary>根据选择的列表调整页面</summary>
-            $local.setValue("ORDERCOMP", $scope.Competence);
-            $local.CarriedSelectedRow($scope.Integrated.InvoiceList, callback);
+            $local.setValue("ORDERCOMP", $scope.Competence); $local.CarriedSelectedRow($scope.Integrated.InvoiceList, callback);
         }
     }
 
