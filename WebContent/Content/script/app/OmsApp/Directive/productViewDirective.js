@@ -600,7 +600,11 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                     $scope.ngModel.medKits = data;
                 }
             });
-
+            var list = window.location.hash.substring(0, 24)
+            if (list == "#/app/oms/order/addition") {
+                $scope.ngModel.wsNotes = new Array();
+            }
+         
         }
     }
 });

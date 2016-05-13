@@ -25,10 +25,14 @@ app.directive("ngOrderApproval", function ($Api, $MessagService, $local) {
                     "确定": function () {
                         $.extend($scope.Service, $scope.ngModel);
                         $scope.Service.eventReasonDesc = $(".box-80").val();
-                        $Api.SurgeryService.RejectApproval($scope.Service, function (rData) {
-                            $scope.ngOperat.fixed($scope.Service);
-                            $scope.ngOperat.hide();
-                        });
+                        if ($scope.Service.operat) {
+                            $Api.SurgeryService.RejectApproval($scope.Service, function (rData) {
+                                $scope.ngOperat.fixed($scope.Service);
+                                $scope.ngOperat.hide();
+                            });
+                        } else {
+                            $MessagService.caveat("请选择拒绝原因！")
+                        }                     
                     },
                     "关闭": function () {
                         $(".box-80").val("");
