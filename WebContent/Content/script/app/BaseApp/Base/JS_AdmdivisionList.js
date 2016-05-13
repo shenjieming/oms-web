@@ -16,7 +16,6 @@ app.controller("AdmdivisionListController", function ($scope, $state, $local, $A
             /// <summary>显示选择的行政区域列表信息</summary>
             $scope.AdmdivisionView.Info = row ? row : $scope.getSelectedRow();
             /// <summary>获取选中的行</summary>
-            console.log($scope.AdmdivisionView.Info)
             if ($scope.AdmdivisionView.Info) {
                 $scope.AdmdivisionView.model.show();
             } else {

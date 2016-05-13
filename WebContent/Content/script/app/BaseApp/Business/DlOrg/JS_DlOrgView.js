@@ -20,7 +20,6 @@ app.controller("DlOrgViewController", function ($scope, $state, $local, $Api, $M
                 if ($scope.DlOrgView.BackpackcorpRegCapital) {
                     $scope.DlOrgView.BackpackcorpRegCapital = $scope.DlOrgView.BackpackcorpRegCapital / 10000;
                 }
-                console.log(rData)
             })
         },
     }

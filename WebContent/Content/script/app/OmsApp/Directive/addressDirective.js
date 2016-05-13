@@ -55,7 +55,6 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                         $scope.Service.AddressDetail.provinceCode= $scope.Service.AddressDetail.deliveryProvinceCode ;
                         $scope.Service.AddressDetail.cityCode = $scope.Service.AddressDetail.deliveryCityCode;
                         $scope.Service.AddressDetail.districtCode = $scope.Service.AddressDetail.deliveryDistrictCode;
-                        console.log()
                         $Api.RepresentativeService.SaveAddress($scope.Service.AddressDetail, function (rData) {
                             $MessagService.succ("该信息保存成功！");
                             $.extend($scope.operat, { isDetail: !$scope.operat.isDetail, isEdit: !$scope.operat.isEdit });

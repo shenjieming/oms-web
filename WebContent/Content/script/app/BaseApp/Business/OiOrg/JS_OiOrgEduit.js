@@ -20,10 +20,8 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
         },
         GetOiOrgDetail: function () {
             /// <summary>获取货主详情</summary>
-            console.log($scope.oiPageInfo.Info)
             $Api.ManageOi.GetqueryOwnerOfInventoryDetail({ orgCode: $scope.oiopt }, function (rData) {
                 $scope.oiPageInfo.Info = rData;
-                console.log($scope.oiPageInfo.Info)
                 $scope.oiPageInfo.Info.BackPackcorpRegCapital=$scope.oiPageInfo.Info.corpRegCapital/10000
                 $scope.oiPageInfo.Info.deliveryProvinceCode = rData.corpRegProvinceCode;
                 $scope.oiPageInfo.Info.deliveryCityCode = rData.corpRegCityCode;
@@ -76,7 +74,6 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
         },
         Save: function () {     
             /// <summary>货主组操作</summary>
-            console.log($scope.oiPageInfo.Info)
             if ($scope.oiPageInfo.verification()) {
                 $scope.oiPageInfo.Info.corpRegCapital = $scope.oiPageInfo.Info.BackPackcorpRegCapital * 10000
                 $scope.oiPageInfo.Info.corpRegProvinceCode = $scope.oiPageInfo.Info.deliveryProvinceCode;
@@ -115,7 +112,6 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
                 $Api.Public.GetDictionary({ dictType: "OITYPE" }, function (rData) {
                     if (!rData.code) {
                         $scope.SelectInfo.oiType.dic = rData;
-                        console.log(rData)
                     };
                 });
             },
@@ -128,7 +124,6 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
                 $Api.BasisService.GetCurrencyList({}, function (rData) {
                     if (!rData.code) {
                         $scope.SelectInfo.Currency.dic = rData.rows;
-                        console.log(rData)
                     };
                     if (!$scope.oiPageInfo.Info.corpRegCurrencyCode) {
                         $scope.oiPageInfo.Info.corpRegCurrencyCode = "CNY";
@@ -142,7 +137,6 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
                 /// <summary>获取第一联系人用途类型</summary>
                 $Api.Public.GetDictionary({ dictType: "CTCFUN" }, function (rData) {
                     $scope.SelectInfo.contact1Func.dic = rData;
-                    console.log(rData)
                     if (!$scope.oiPageInfo.Info.contact1Func) {
                         $scope.oiPageInfo.Info.contact1Func = "DAL"
                     }
@@ -155,7 +149,6 @@ app.controller("OiOrgEduitController", function ($scope, $state, $local, $Api, $
                 /// <summary>获取第一联系人通讯工具<</summary>
                 $Api.Public.GetDictionary({ dictType: "PMSGTP" }, function (rData) {
                     $scope.SelectInfo.contact1PMsgType.dic = rData;
-                    console.log(rData)
                     if (!$scope.oiPageInfo.Info.contact1PMsgType) {
                         $scope.oiPageInfo.Info.contact1PMsgType = "QQ"
                     }

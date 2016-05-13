@@ -56,7 +56,6 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                         medProdLnCode: $scope.ngLine,
                         isQueryInventory: "N"
                     }, $scope.Pagein);//条件合并
-                    console.log(options)
                     $Api.MaterialsService.GetMaterialsList(options, function (rData) {
                         $scope.Service.MaterialList = new Array();
                         $scope.Pagein.total = rData.total;//分页控件获取当前数据请求的总页数
@@ -72,14 +71,12 @@ app.directive("ngMaterials", function ($Api, $MessagService, $local) {
                     if (!$scope.Service.brandLine && !$scope.Service.productLine && !$scope.Service.all && $scope.Pagein.categoryByPlatform == "TOOL") {
                         $scope.Service.option = true;
                     }
-                    console.log($scope.Service)
                     $.extend($scope.Pagein, {
                         pageIndex: 1,
                         productLine: $scope.Service.productLine ? "Y" : "N",//品牌内通用(跨产品线)
                         brandLine: $scope.Service.brandLine ? "Y" : "N",
                         all: $scope.Service.all ? "Y" : "N"
                     });
-                    console.log($scope.Pagein)
                     $scope.Pagein.ReLoad();
                      //$scope.Service.GetList();
                 },

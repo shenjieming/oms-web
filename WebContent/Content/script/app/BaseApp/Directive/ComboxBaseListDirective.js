@@ -22,7 +22,7 @@ app.directive("ngSelectBase", function ($Api, $MessagService) {
                             //医院下拉列表
                         case "doctors": this.BaseQuseyService = $Api.HospitalService.GetDoctors; break;
                         default: this.BaseQuseyService = $Api.HospitalService.GetHospital; break;
-                    }
+                    }8
                     callback();
                 }
             };
