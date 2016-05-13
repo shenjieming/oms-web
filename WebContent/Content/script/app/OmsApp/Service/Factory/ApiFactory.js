@@ -346,7 +346,7 @@ OMSApiService
                 Submit: function (data, callback) {
                     /// <summary>手术订单处理提交</summary>
                     $MessagService.loading("处理提交中，请稍等...");
-                    var verifig = true;
+                    //var verifig = true;
                     //$.each(data.prodLns, function (index, item) {
                     //    if (!item.medMaterias.length) {
                     //        $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
@@ -364,9 +364,18 @@ OMSApiService
                     //    }
                     //})
 
-                    if (verifig) {
-                        $ApiService.PostApi(ApiPath.Surgery.Process.submit, data, callback);
-                    }
+                    //if (verifig) {
+                       
+                    //}
+                    $ApiService.PostApi(ApiPath.Surgery.Process.submit, data, callback);
+                },
+                deliverylist: function (data, callback) {
+                    /// <summary>发货订单列表</summary>
+                    $ApiService.PostApi(ApiPath.Surgery.Process.deliverylist, data, callback);
+                },
+                deliverySubmit: function (data, callback) {
+                    /// <summary>发货订单提交</summary>
+                    $ApiService.PostApi(ApiPath.Surgery.Process.deliverySubmit, data, callback);
                 },
                 OfflineSubmit: function(data, callback){
                     $MessagService.loading("处理提交中，请稍等...");

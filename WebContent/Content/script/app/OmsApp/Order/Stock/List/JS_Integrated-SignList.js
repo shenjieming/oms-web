@@ -22,6 +22,6 @@ app.controller("StockSignListController", function ($scope, $state, $local, $Api
     $scope.showView = function (sono) {
         /// <summary>查看手术订单</summary>
         $local.setValue("ORDERCOMP", { sign: true });
-        $state.go("app.stock.view", { sono: sono });
+        $state.go("app.oms.stock.view", { sono: sono });
     }
 });

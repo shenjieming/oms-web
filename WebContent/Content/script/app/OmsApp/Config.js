@@ -45,10 +45,6 @@ OmsApp
                 /// <summary>订单处理列表</summary>
                 url: "/deal", cache: false, templateUrl: "View/OMS/Order/Surgery/IntegratedOderList.html?data=" + Timestamp, controller: "DealWithListController"
             })
-            .state("app.oms.order.toshipped", {
-                /// <summary>订单代发货列表</summary>
-                url: "/toshipped", cache: false, templateUrl: "View/OMS/Order/Surgery/IntegratedOderList.html?data=" + Timestamp, controller: "TobeshippedListController"
-            })
             .state("app.oms.order.stock", {
                 /// <summary>追加备货信息</summary>
                 url: "/stock", cache: false, templateUrl: "View/OMS/Order/Surgery/IntegratedOderList.html?data=" + Timestamp, controller: "AppendListController"
@@ -69,10 +65,15 @@ OmsApp
                 /// <summary>反馈单草稿</summary>
                 url: "/feedback", cache: false, templateUrl: "View/OMS/Order/Surgery/IntegratedOderList.html?data=" + Timestamp, controller: "FeedbackListController"
             })
+            .state("app.oms.order.toshipped", {
+                /// <summary>订单代发货列表</summary>
+                url: "/toshipped", cache: false, templateUrl: "View/OMS/Order/Surgery/IntegrateddeliveryList.html?data=" + Timestamp, controller: "TobeshippedListController"
+            })
             .state("app.oms.order.delivery", {
                 /// <summary>出库单查询</summary>
                 url: "/delivery", cache: false
             });
+
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         /// <summary>手术订单订单管理</summary>
@@ -101,9 +102,13 @@ OmsApp
                 /// <summary>仓库返库处理</summary>
                 url: "/fback/:sono", cache: false, views: { "": { templateUrl: "View/OMS/Order/Surgery/Feedback.html?data=" + Timestamp, controller: "OrderViewController" }, "Original@app.oms.order.fback": { templateUrl: "View/OMS/Order/Surgery/View/SingleView.html?data=" + Timestamp, controller: "OriginalController" }, "Accurate@app.oms.order.fback": { templateUrl: "View/OMS/Order/Surgery/View/AccurateView.html?data=" + Timestamp, controller: "AccurateController", }, "Library@app.oms.order.fback": { templateUrl: "View/OMS/Order/Surgery/View/LibraryView.html?data=" + Timestamp, controller: "LibraryController" } }, authenticate: true, viewAuth: true
             })
-           .state("app.oms.order.shippinghandler", {
-               /// <summary>仓库返库处理</summary>
-               url: "/shippinghandler/:sono", cache: false, templateUrl: "View/OMS/Order/Surgery/Shipping.html?data=" + Timestamp, controller: "TobeshippedController"
+           .state("app.oms.order.orderdelivery", {
+               /// <summary>订单发货处理</summary>
+               url: "/orderdelivery/:wONo/:sONo", cache: false, templateUrl: "View/OMS/Order/Surgery/OrderDelivery.html?data=" + Timestamp, controller: "OrderDeliveryController"
+           })
+           .state("app.oms.order.outbounddelivery", {
+               /// <summary>出库单发货处理</summary>
+               url: "/outbounddelivery/:sONo", cache: false, templateUrl: "View/OMS/Order/Surgery/OutboundDelivery.html?data=" + Timestamp, controller: "OutboundDeliveryController"
            })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
@@ -133,11 +138,14 @@ OmsApp
                 /// <summary>备货订单综合查询</summary>
                 url: "/complex", cache: false, templateUrl: "View/OMS/Order/Stock/IntegratedStockList.html?data=" + Timestamp, controller: "StockIntegratedListController", loadJs: ["Content/script/app/OmsApp/Order/Stock/List/JS_IntegratedList.js"], resolve: app.resolve
             })
-            .state("app.oms.stock.delivery", {
+            .state("app.oms.stock.toshipped", {
                 /// <summary>备货订单出库单查询</summary>
+                url: "/toshipped", cache: false, templateUrl: "View/OMS/Order/Stock/IntegratedStockdeliveryList.html?data=" + Timestamp, controller: "StockTobeshippedListController", loadJs: ["Content/script/app/OmsApp/Order/Stock/List/JS_Integrated-toshipped.js"], resolve: app.resolve
+            })
+            .state("app.oms.stock.delivery", {
+                /// <summary>订单发货列表查询</summary>
                 url: "/delivery", cache: false, templateUrl: "View/OMS/Order/Stock/IntegratedStockList.html?data=" + Timestamp, resolve: app.resolve
             })
-
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
         /// <summary>备货订单管理</summary>
@@ -153,6 +161,14 @@ OmsApp
             .state("app.oms.stock.dealpage", {
                 /// <summary>备货订单处理</summary>
                 url: "/dealpage/:sono", cache: false, views: { "": { templateUrl: "View/OMS/Order/Stock/Dealwith.html?data=" + Timestamp, controller: "StockViewController" }, "Original@app.oms.stock.dealpage": { templateUrl: "View/OMS/Order/Stock/View/SingleView.html?data=" + Timestamp, controller: "StockOriginalController" } }, authenticate: true, viewAuth: true
+            })
+            .state("app.oms.stock.orderdelivery", {
+                /// <summary>订单发货处理</summary>
+                url: "/orderdelivery/:wONo/:sONo", cache: false, templateUrl: "View/OMS/Order/Stock/OrderDelivery.html?data=" + Timestamp, controller: "StockOrderDeliveryController"
+            })
+            .state("app.oms.stock.outbounddelivery", {
+                /// <summary>出库单发货处理</summary>
+                url: "/outbounddelivery/:sONo", cache: false, templateUrl: "View/OMS/Order/Stock/OutboundDelivery.html?data=" + Timestamp, controller: "StockOutboundDeliveryController"
             })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {

@@ -20,7 +20,7 @@ app.controller("StockDealWithListController", function ($scope, $state, $local, 
     $scope.showView = function (sono) {
         /// <summary>查看备货订单</summary>
         $local.setValue("ORDERCOMP", {});
-        $state.go("app.stock.view", { sono: sono });
+        $state.go("app.oms.stock.view", { sono: sono });
     }
 
 });

@@ -52,7 +52,7 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
     $scope.includes = function (data) { return $state.includes(data); }
     $scope.menuList = $MenuService;//菜单信息列表
     /// <summary>前往页面</summary>
-    $scope.goView = function (name, param) { $MessagService.loading("页面信息获取中，请稍等..."); $state.go(name, param); }
+    $scope.goView = function (name, param) { $MessagService.loading("页面信息获取中，请稍等...");  $state.go(name, param); }
     /// <summary>返回上一页</summary>
     $scope.goLastPage = function () { $window.history.back(); }
 
