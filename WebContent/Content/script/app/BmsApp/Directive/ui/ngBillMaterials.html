@@ -29,9 +29,9 @@
                     <td><span ng-bind="row.medMaterialBrandName"></span></td>
                     <td><span ng-bind="row.dHMMSpecification"></span></td>
                     <td><span ng-bind="row.dHMMMaterials"></span></td>
-                    <td><span ng-bind="row.offsetQty"></span></td>
-                    <td style="text-align:right;">￥<span ng-bind="row.hPUnitEstPrice.toFixed(2)"></span> </td>
-                    <td style="text-align:right;">￥<span ng-bind="(row.hPUnitEstPrice*row.offsetQty).toFixed(2)"></span> </td>
+                    <td style="text-align:right;"><span ng-bind="row.offsetQty"></span></td>
+                    <td style="text-align:right;">￥<span ng-bind="(row.hPUnitPrice*1).toFixed(2)"></span> </td>
+                    <td style="text-align:right;">￥<span ng-bind="(row.hPUnitPrice*row.offsetQty).toFixed(2)"></span> </td>
                 </tr>
                 <tr style="text-align:right;border-top :1px solid #000">
                     <td style="text-align:center;">合计</td>
@@ -56,7 +56,7 @@
                     <th><span>品牌</span> </th>
                     <th><span>规格</span> </th>
                     <th><span>材料</span></th>
-                    <th><span><span style="color:#ff6a00;" ng-bind="BillService.Gather.HsQtyCount"></span> 待对账数</span></th>
+                    <th ng-if="ngOperat"><span><span style="color:#ff6a00;" ng-bind="BillService.Gather.HsQtyCount"></span> 待对账数</span></th>
                     <th><span>对账数量</span></th>
                     <th><span>对账单价</span></th>
                     <th><span>金额</span></th>
@@ -71,10 +71,13 @@
                     <td><span ng-bind="row.medMaterialBrandName"></span></td>
                     <td><span ng-bind="row.dHMMSpecification"></span></td>
                     <td><span ng-bind="row.dHMMMaterials"></span></td>
-                    <td><span ng-bind="row.qty-row.recordInHSOAQty"></span></td>
-                    <td><input style="width:60px;" ng-change="BillService.ChangeBillList()" max="{{row.qty-row.recordInHSOAQty}}" min="0" type="number" ng-model="row.offsetQty" /> </td>
-                    <td style="text-align:right;">￥<span ng-bind="row.hPUnitEstPrice.toFixed(2)"></span> </td>
-                    <td style="text-align:right;">￥<span ng-bind="(row.hPUnitEstPrice*row.offsetQty).toFixed(2)"></span> </td>
+                    <td ng-if="ngOperat"><span ng-bind="row.qty-(row.recordInHSOAQty?row.recordInHSOAQty:0)"></span></td>
+                    <td style="text-align:right;">
+                        <input ng-if="ngOperat" ng-change="BillService.ChangeBillList()" style="width:60px;" max="{{row.qty-(row.recordInHSOAQty?row.recordInHSOAQty:0)}}" min="0" type="number" ng-model="row.offsetQty" />
+                        <span ng-if="!ngOperat" ng-bind="row.offsetQty"></span>
+                    </td>
+                    <td style="text-align:right;">￥<span ng-bind="(row.hPUnitPrice*1).toFixed(2)"></span> </td>
+                    <td style="text-align:right;">￥<span ng-bind="(row.hPUnitPrice*row.offsetQty).toFixed(2)"></span> </td>
                 </tr>
                 <tr style="text-align:right;border-top :1px solid #000">
                     <td style="text-align:center;">合计</td>
@@ -84,7 +87,7 @@
 
                     <td><span ng-bind="BillService.Gather.SpeciCount"></span> 种规格</td>
                     <td><span ng-bind="BillService.Gather.StuffCount"></span> 种材料</td>
-                    <td><span ng-bind="BillService.Gather.HsQtyCount-BillService.Gather.OffsetQtyCount"></span> 件未对账</td>
+                    <td ng-if="ngOperat"><span ng-bind="BillService.Gather.HsQtyCount-BillService.Gather.OffsetQtyCount"></span> 件未对账</td>
                     <td><span ng-bind="BillService.Gather.OffsetQtyCount"></span> 件对账</td>
                     <td colspan="2">￥<span style="color:#ff6a00" ng-bind="BillService.Gather.Amount.toFixed(2)"></span>元</td>
                 </tr>
@@ -92,5 +95,5 @@
         </table>
     </div>
 
-    <div ng-bill-list="BillListConfig" ng-model="RecInfo"></div>
+    <div ng-bill-list="ngBillMaterials" ng-model="ngModel"></div>
 </div>

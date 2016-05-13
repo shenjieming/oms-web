@@ -1,0 +1,20 @@
+﻿<div>
+    <ng-dialog ng-model="ngDisableReconciliation">
+        <div class="row-fluid">
+            <div class="widget-box" style="margin-top:0px;">
+                <div class="widget-content">
+                    <div class="control-group">
+                        <div class="Vessel All">
+                            对账单号：<span ng-bind="Service.hSOANo"></span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label style="width:100%;">
+                            <textarea class="box-100" placeholder="请输入废弃对账单的原因" style="height:80px;" ng-model="ngModel.eventReasonDesc"></textarea>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-dialog>
+</div>
