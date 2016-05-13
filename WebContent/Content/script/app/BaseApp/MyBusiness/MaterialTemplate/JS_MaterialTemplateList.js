@@ -60,6 +60,7 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
         },
         GoTemplateDetail: function (param) {
             /// <summary>前往模板编辑明细页</summary>
+            console.log(param)
             $scope.goView("app.base.mybusiness.materialtemplatedetail", param);
         },
         Delete: function () {
@@ -98,6 +99,7 @@ app.controller("MaterialTemplateController", function ($scope, $stateParams, $st
         ProductCompetence: { operat: true, tool: false, warehouse: false }
     }
     $scope.typeTmplate = "";
+    console.log($stateParams)
     if($stateParams.typeTmplate=="PUBLIC"){
         $scope.typeTmplate = "PUBLIC";
     }

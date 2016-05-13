@@ -104,6 +104,8 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
                 $.extend($scope.PageData, rData);
                 if ($scope.PageData.initOperationDate  ) {
                     $scope.PageData.DataFmtYMDW = FormatDate(new Date($scope.PageData.initOperationDate.replace("-", "/").replace("-", "/")))
+                    var myDate = new Date($scope.PageData.initOperationDate)
+                    $scope.DisplayWeek = FormatWeek(new Date($scope.PageData.initOperationDate.replace("-", "/").replace("-", "/")))
                 }
                 if ($scope.PageData.patientEntryDate) {
                     $scope.PageData.patientDateFmtYMDW = FormatDate(new Date($scope.PageData.patientEntryDate.replace("-", "/").replace("-", "/")))
@@ -111,9 +113,15 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
                 if ($scope.PageData.retrieveEstDate) {
                     $scope.PageData.retrieveEstDateFmtYMDW = FormatDate(new Date($scope.PageData.retrieveEstDate.replace("-", "/").replace("-", "/")))
                 }
-                var myDate = new Date($scope.PageData.initOperationDate)
-                $scope.DisplayWeek =FormatWeek(new Date($scope.PageData.initOperationDate.replace("-", "/").replace("-", "/")))       
                 console.log($scope.PageData)
+                if ($scope.PageData.events.length>0) {
+                    for (var i = 0; i < $scope.PageData.events.length; i++) {
+                        if ($scope.PageData.events[i].eventCode == "0030_0001") {
+                            $scope.PageData.events[i].ExternalRemark1 = $scope.PageData.events[i].ExternalRemark1 + $scope.PageData.events[i].CarrierTransRemark
+                        }
+                    }
+                }
+          
             });       
         }
     }
@@ -213,6 +221,7 @@ app.controller("OriginalController", function ($scope, $state, $local, $Api, $Me
             $.extend($scope.singleProduc, {
                 prodLns: $scope.PageData.initOrderProdlns
             });
+            console.log($scope.PageData)
         }
     });
 
@@ -382,6 +391,7 @@ app.controller("SingleController", function ($rootScope,$scope, $state, $local, 
     /*后台时间格式转换修改 YY-MM-DD (星期 几)*/
     var myDate = new Date($scope.PageData.initOperationDate)
     $scope.DisplayWeek = "  星期" + "日一二三四五六".charAt(myDate.getDay());
+    //console.log($scope.PageData.DisplayWeek)
     /*基础对象区域End*/
     /*逻辑对象区域Begion*/
     $scope.PageService = {
@@ -605,6 +615,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
             /// <summary>获取用户使用类型</summary>
             $Api.Public.GetDictionary({ dictType: "MMIUTP" }, function (rData) {
                 $scope.dictionary.UseTypeList = rData;
+                console.log(rData)
             });
         },
         DefaultUseType: function (row) {
@@ -630,6 +641,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
         /// <summary>订单处理服务</summary>
         Submit: function () {
             //校验并添加默认数据
+            console.log($scope.FeedBack)
             if($scope.FeedBack.notInDetail.length > 0){
                 $.each($scope.FeedBack.notInDetail,function(index,item){
                     if(item.lotSerial == null){
@@ -705,10 +717,12 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                     $scope.FeedBack.notInDetail[i].returnWarehouse = $scope.User.userInfo.orgCode;
                     $scope.FeedBack.notInDetail[i].useType = $scope.dictionary.UseTypeList[0].id;
                 }
+                console.log($scope.FeedBack.notInDetail)
             })
         },
         DelKit:function(index){
             $scope.FeedBack.notInDetail.splice(index, 1);
+            console.log($scope.FeedBack.notInDetail);
         }
     }
 
@@ -812,6 +826,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         /// <summary>订单处理服务</summary>
         Submit: function () {
             // $scope.DealService.OutboundInstructions();
+            console.log($scope.PageData)
             if ($scope.DealService.Verification()) {
                 $scope.ProductService.Deduplication();//去重
                 $Api.SurgeryService.Process.Submit($scope.PageData, function (rData) {
@@ -820,11 +835,6 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
                 });
             }
         },
-        // OutboundInstructions:function () {
-        //    for(i=0;i<$scope.PageData.medKits.length;i++){
-        //        $scope.PageData.wsNotes.push({estMedMIWarehouse:$scope.PageData.medKits[i].estMedMIWarehouse,wHSpecialNotes:$scope.PageData.wHSpecialNotes})
-        //    }
-        // },
         Verification: function () {
             var verifig = true;
             $.each($scope.PageData.prodLns, function (index, item) {
@@ -930,6 +940,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         title: "手术下单预览", width: 960, height: 800, buttons: { "提交": $scope.DealService.Submit, "提交并打印": $scope.DealService.Print, "返回": $scope.DealService.DealServicehide, }, open: function () {
             $(".ui-dialog-title").html("订单 " + $scope.PageData.sONo + " 配货清单确认")
             $scope.OperationDate = FormatDate(new Date($scope.PageData.operationDate.replace("-", "/").replace("-", "/")))
+            console.log($scope.PageData)
         }
     };
     $scope.OutboundOrdermodel = { title: "出库单", width: 730, height: 200, buttons: { "确定": $scope.DealService.PrintCancel }, open: function () { $(".ui-dialog-title").html("订单 " + $scope.PageData.sONo + " ,请复制您所在仓库的出库单号用于之后的打印...") }, close: function () { $scope.goLastPage(); } };
@@ -997,6 +1008,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         },
         GetEventMapping: function (eventList, statusCode) {
             /// <summary>获取附件映射</summary>
+            console.log(eventList)
             var result = { images: new Array(), remark: "" }
             $.each(eventList, function (index, event) {
                 if (event.eventCode == statusCode) {
@@ -1165,4 +1177,231 @@ app.controller("FeedbackViewController", function ($scope, $state, $local, $Api,
         /// <summary>获取数据信息</summary>
         $scope.FeedBack = $scope.file.GetEventMapping($scope.PageData.events, "0080_0011")
     })
+})
+app.controller("OrderDeliveryController", function ($scope, $state, $local, $Api, $MessagService, $stateParams) {
+    /// <summary>订单发货信息</summary>
+    $scope.shipped = new Object();
+    $scope.sONo = $stateParams.sONo;
+    console.log($stateParams.wONo)
+    if ($stateParams.wONo) {
+        $scope.shipped.wONo = $stateParams.wONo;
+        $scope.shipped.shipType = "outbound";
+    } else { 
+        $scope.shipped.shipType = "order";
+    }
+    $scope.shipped.sONo = $scope.sONo; 
+    $scope.shippedSubmit = {
+        Direct: function () {
+            /// <summary>直送发货提交</summary>
+            //alert("提交成功！")
+            var result = true;
+            if (!$scope.shipped.directSendMan) {
+                $MessagService.caveat("请输入送货人！")
+                result = false;
+            }
+            else if (!$scope.shipped.directSendManPhone) {
+                $MessagService.caveat("请输入送货人手机！")
+                result = false;
+            }
+            if (result) {
+                $scope.shipped.carrierTransType = "DIRECT";
+                $Api.SurgeryService.Process.deliverySubmit($scope.shipped, function (rData) {
+                    $MessagService.caveat("提交成功")
+                    $scope.goLastPage();
+                });
+            }          
+        },
+        Express: function () {
+            /// <summary>快递发货提交</summary>
+            //alert("提交成功！")     
+            var result = true;
+            if (!$scope.shipped.expressCompany) {
+                $MessagService.caveat("请选择快递公司！")
+                result = false;
+            }
+            else if (!$scope.shipped.expressNumber) {
+                $MessagService.caveat("请输入快递单号！")
+                result = false;
+            }
+            if (result) {
+                $scope.shipped.carrierTransType = "EXPRESS";
+                $Api.SurgeryService.Process.deliverySubmit($scope.shipped, function (rData) {
+                    $MessagService.caveat("提交成功")
+                    $scope.goLastPage();
+                });
+            }       
+        },
+        Bus: function () {
+            /// <summary>大巴发货提交</summary>
+            //alert("提交成功！")
+            var result = true;
+            if (!$scope.shipped.busNumber) {
+                $MessagService.caveat("请输入车牌号！")
+                result = false;
+            }
+            else if (!$scope.shipped.busDriverPhone) {
+                $MessagService.caveat("请输入司机电话！")
+                result = false;
+            }
+            else if (!$scope.shipped.busDriverName) {
+                $MessagService.caveat("请输入司机姓名！")
+                result = false;
+            }
+            if (result) {
+                $scope.shipped.carrierTransType = "BUS";
+                $Api.SurgeryService.Process.deliverySubmit($scope.shipped, function (rData) {
+                    $MessagService.caveat("提交成功")
+                    $scope.goLastPage();
+                });
+            }         
+        },
+        Air: function () {
+            /// <summary>航空发货提交</summary>
+            //alert("提交成功！")
+            var result = true;
+            if (!$scope.shipped.airCompany) {
+                $MessagService.caveat("请选择航空公司！")
+                result = false;
+            }
+            else if (!$scope.shipped.airFlightNumber) {
+                $MessagService.caveat("请输入航班号！")
+                result = false;
+            }
+            else if (!$scope.shipped.airSendMan) {
+                $MessagService.caveat("请输入送货人！")
+                result = false;
+            }
+            else if (!$scope.shipped.airSendManPhone) {
+                $MessagService.caveat("请输入送货人手机！")
+                result = false;
+            }
+            if (result) {
+                $scope.shipped.carrierTransType = "AIR";
+                $Api.SurgeryService.Process.deliverySubmit($scope.shipped, function (rData) {
+                    $MessagService.caveat("提交成功")
+                    $scope.goLastPage();
+                });
+            }
+        },
+        Selfpick: function () {
+            /// <summary>自提发货提交</summary>
+            //alert("提交成功！")
+            var result = true;
+            if (!$scope.shipped.pickedUpMan) {
+                $MessagService.caveat("请输入提货人！")
+                result = false;
+            }
+            else if (!$scope.shipped.pickedUpManPhone) {
+                $MessagService.caveat("请输入提货人手机！")
+                result = false;
+            }
+            if (result) {
+                $scope.shipped.carrierTransType = "SELFPICK";
+                $Api.SurgeryService.Process.deliverySubmit($scope.shipped, function (rData) {
+                    $MessagService.caveat("提交成功")
+                    $scope.goLastPage();
+                });
+            }
+        }
+    }
+    $scope.Cancel = {
+        Direct: function () {
+            /// <summary>直送发货清空</summary>       
+            $scope.shipped.directSendMan = "";
+            $scope.shipped.directSendManPhone = "";
+            $scope.shipped.directSendRemark = "";
+        },
+        Express: function () {
+            /// <summary>快递发货清空</summary>
+            $scope.shipped.expressCompany = "";
+            $scope.shipped.expressCompanyName = "";
+            $scope.shipped.directSendMan = "";
+            $scope.shipped.directSendMan = "";
+
+        },
+        Bus: function () {
+            /// <summary>大巴发货清空</summary>
+            $scope.shipped.busNumber = "";
+            $scope.shipped.busDriverPhone = "";
+            $scope.shipped.busDriverName = "";
+            $scope.shipped.busSendRemark = "";
+        },
+        Air: function () {
+            /// <summary>航空发货清空</summary>
+            $scope.shipped.airCompany = "";
+            $scope.shipped.airCompanyName = "";
+            $scope.shipped.airFlightNumber = "";
+            $scope.shipped.airSendMan = "";
+            $scope.shipped.airSendManPhone = "";
+            $scope.shipped.airSendRemark = "";
+        },
+        Selfpick: function () {
+            /// <summary>自提发货清空</summary>
+            $scope.shipped.pickedUpMan = "";
+            $scope.shipped.pickedUpManPhone = "";
+            $scope.shipped.pickedUpRemark = "";
+        }
+    }
+  
+    $scope.SelectInfo = {
+        // 下拉框
+        expressCompany: {
+            //快递公司下拉框
+            dic: new Array(),
+            change: function () {
+                /// <summary>快递修改事件</summary>
+                for (var i = 0; i < $scope.SelectInfo.expressCompany.dic.length; i++) {
+                    if ($scope.SelectInfo.expressCompany.dic[i].id == $scope.shipped.expressCompany) {
+                        $scope.shipped.expressCompanyName = $scope.SelectInfo.expressCompany.dic[i].text;
+                        return;
+                    }
+                }
+            },
+            getList: function () {
+                /// <summary>获取快递公司信息</summary>
+                $Api.Public.GetDictionary({ dictType: "RFNOTP", dictSubClass1: "Express" }, function (rData) {
+                    $scope.SelectInfo.expressCompany.dic = rData;
+                });
+            },
+        },
+        airCompany: {
+            //航空公司下拉框
+            dic: new Array(),
+            change: function () {
+                /// <summary>航空修改事件</summary>
+                for (var i = 0; i < $scope.SelectInfo.airCompany.dic.length; i++) {
+                    if ($scope.SelectInfo.airCompany.dic[i].id == $scope.shipped.airCompany) {
+                        $scope.shipped.airCompanyName = $scope.SelectInfo.airCompany.dic[i].text;
+                        return;
+                    }
+                }
+            },
+            getList: function () {
+                /// <summary>获取航空公司信息</summary>
+                $Api.Public.GetDictionary({ dictType: "RFNOTP", dictSubClass1: "AIR" }, function (rData) {
+                    $scope.SelectInfo.airCompany.dic = rData;
+                });
+            },
+        },
+    }
+    $scope.SelectInfo.expressCompany.getList();
+    $scope.SelectInfo.airCompany.getList();
+})
+app.controller("OutboundDeliveryController", function ($scope, $state, $local, $Api, $MessagService, $stateParams) {
+    /// <summary>出库单发货信息</summary>
+    $scope.sONo = $stateParams.sONo;
+      $scope.OutboundDelivery=new Object();
+      $scope.OutboundDelivery.sONo = $scope.sONo;
+      $Api.SurgeryService.DataSources.GetOutBoundList({ sONo: $scope.sONo }, function (rData) {
+        $scope.OutboundDelivery = rData;
+    });
+    $scope.goDeliveryType = function () {
+       var row= $local.getSelectedRow($scope.OutboundDelivery)
+        console.log(row)
+        if (row) {
+            $state.go("app.oms.order.orderdelivery", row)
+        } else {
+            $MessagService.caveat("请选择一条出库单进行发货！")
+        }       
+    }
 })

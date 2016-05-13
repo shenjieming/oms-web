@@ -1,0 +1,260 @@
+﻿
+<div class="row" >
+    <div class="tools">
+        <h5 style="float:left; font-weight:bold; margin-left:8px;" ng-if="shipped.shipType=='order'">
+            <i class="fa fa-file-archive-o"></i>
+            手术订单
+            <span style="color: #0033FF">{{sONo}}</span>
+            <span style="color: #FF3300">订单发货</span>
+        </h5>
+        <h5 style="float:left; font-weight:bold; margin-left:8px;" ng-if="shipped.shipType=='outbound'">
+            <i class="fa fa-file-archive-o"></i>
+            出库订单
+            <span style="color: #0033FF">{{shipped.wONo}}</span>
+            <span style="color: #FF3300">订单发货</span>
+        </h5>
+    </div>
+    <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active" href="#Order_DirectDelivery" data-toggle="tab"><a>直送发货</a></li>
+            <li role="presentation" href="#Order_ExpressDelivery" data-toggle="tab"><a>快递发货</a></li>
+            <li role="presentation" href="#Order_BusDelivery" data-toggle="tab"><a>大巴发货</a></li>
+            <li role="presentation" href="#Order_AirDelivery" data-toggle="tab"><a>航空发货</a></li>
+            <li role="presentation" href="#Order_SelfpickDelivery" data-toggle="tab"><a>自提发货</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="Order_DirectDelivery">
+                <div class="row-fluid">
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <h5 data-toggle="collapse" style="width:80%" href="#Direct_DeliveryInformation">
+                                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                                <span class="oms-web-h5-fold">直送发货信息</span>
+                            </h5>
+                        </div>
+                        <div id="Direct_DeliveryInformation" class="widget-content nopadding collapse in">
+                            <div class="control-group" style="float:right">
+                                <span class="btn-group oms-btn-group">
+                                    <a class="btn btn-primary" ng-click="shippedSubmit.Direct()"><i class="fa fa-save"></i> 提交</a>
+                                    <a class="btn btn-primary" ng-click="Cancel.Direct()"><i class="fa fa-check"></i> 清空</a>
+                                    <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+                                </span>
+                            </div>
+                            <div style="margin-left:100px;margin-bottom:200px">
+                                <div>
+                                    <label style="margin-top: 100px;width: 100% ">
+                                        <span class="required">*</span> 送货人：
+                                        <input style="width: 40%" type="text" ng-model="shipped.directSendMan" />
+                                    </label>
+                                </div>
+                                <div style="margin-top:15px">
+                                    <label style="margin-left:-25px;width: 100%">
+                                        <span class="required">*</span> 送货人手机：
+                                        <input style="width: 40%" type="text" ng-model="shipped.directSendManPhone" />
+                                    </label>
+                                </div>
+                                <div style="margin-top:15px">
+                                    <label style="margin-left: -12px;width: 100%">
+                                        送货备注：
+                                        <input style="width: 40%" type="text" ng-model="shipped.directSendRemark" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Order_ExpressDelivery">
+                <div class="row-fluid">
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <h5 data-toggle="collapse" style="width:80%" href="#Express_DeliveryInformation">
+                                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                                <span class="oms-web-h5-fold">快递发货信息</span>
+                            </h5>
+                        </div>
+                        <div id="Express_DeliveryInformation" class="widget-content nopadding collapse in">
+                            <div class="control-group" style="float:right">
+                                <span class="btn-group oms-btn-group">
+                                    <a class="btn btn-primary" ng-click="shippedSubmit.Express()"><i class="fa fa-save"></i> 提交</a>
+                                    <a class="btn btn-primary" ng-click="Cancel.Express()"><i class="fa fa-check"></i> 清空</a>
+                                    <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+                                </span>
+                            </div>
+                            <div style="margin-left:100px;margin-bottom:200px">
+                                <div>
+                                    <label style="margin-left: -12px; margin-top: 100px;width: 100% ">
+                                        <span class="required">*</span>
+                                        快递公司：
+                                        <select ng-model="shipped.expressCompany" ng-change="SelectInfo.expressCompany.change()">
+                                            <option value="">请选择快递公司</option>
+                                            <option ng-repeat="item in SelectInfo.expressCompany.dic"value="{{item.id}}">{{item.text}}</option>
+                                        </select>
+                                        
+                                         <!--快递公司：  <input style="width: 40%" type="text" ng-model="shipped.expressCompany" />-->
+                                    </label>
+                                </div>
+                                <div style="margin-top:10px">
+                                    <label style="margin-left: -12px; width: 100%">
+                                        <span class="required">*</span>  快递单号：
+                                        <input style="width: 40%" type="text" ng-model="shipped.expressNumber" />
+                                    </label>
+                                </div>
+                                <div style="margin-top:10px">
+                                    <label style="margin-left: -12px;width: 100%">
+                                        送货备注：  <input style="width: 40%" type="text" ng-model="shipped.expressRemark" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Order_BusDelivery">
+                <div class="row-fluid">
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <h5 data-toggle="collapse" style="width:80%" href="#Bus_DeliveryInformation">
+                                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                                <span class="oms-web-h5-fold">大巴发货信息</span>
+                            </h5>
+                        </div>
+                        <div id="Bus_DeliveryInformation" class="widget-content nopadding collapse in">
+                            <div class="control-group" style="float:right">
+                                <span class="btn-group oms-btn-group">
+                                    <a class="btn btn-primary" ng-click="shippedSubmit.Bus()"><i class="fa fa-save"></i> 提交</a>
+                                    <a class="btn btn-primary" ng-click="Cancel.Bus()"><i class="fa fa-check"></i> 清空</a>
+                                    <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+                                </span>
+                            </div>
+                            <div style="margin-left:100px;margin-bottom:200px">
+                                <div>
+                                    <label style="margin-top: 100px;width: 100% ">
+                                        <span class="required">*</span> 车牌号：  <input style="width: 40%" type="text" ng-model="shipped.busNumber" />
+                                    </label>
+                                </div>
+                                <div style="margin-top:10px">
+                                    <label style="margin-left:-12px;width: 100%">
+                                        <span class="required">*</span> 司机电话：
+                                        <input style="width: 40%" type="text" ng-model="shipped.busDriverPhone" />
+                                    </label>
+                                </div>
+                                <div style="margin-top:10px">
+                                    <label style="margin-left:12px;width: 100%">
+                                        <span class="required">*</span> 司机：
+                                        <input style="width: 40%" type="text" ng-model="shipped.busDriverName" />
+                                    </label>
+                                </div>
+                                <div style="margin-top:10px">
+                                    <label style="margin-left: -12px;width: 100%">
+                                        送货备注：  <input style="width: 40%" type="text" ng-model="shipped.busSendRemark" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Order_AirDelivery">
+                <div class="row-fluid">
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <h5 data-toggle="collapse" style="width:80%" href="#Air_DeliveryInformation">
+                                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                                <span class="oms-web-h5-fold">航空发货信息</span>
+                            </h5>
+                        </div>
+                        <div id="Air_DeliveryInformation" class="widget-content nopadding collapse in">
+                            <div class="control-group" style="float:right">
+                                <span class="btn-group oms-btn-group">
+                                    <a class="btn btn-primary" ng-click="shippedSubmit.Air()"><i class="fa fa-save"></i> 提交</a>
+                                    <a class="btn btn-primary" ng-click="Cancel.Air()"><i class="fa fa-check"></i> 清空</a>
+                                    <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+                                </span>
+                            </div>
+                            <div style="margin-left:100px;margin-bottom:200px;"  >
+                                <div>
+                                    <label style="margin-top: 146px;margin-left:-12px">
+                                        <span class="required">*</span>
+                                        航空公司：
+                                        <select ng-model="shipped.airCompany" ng-change="SelectInfo.airCompany.change()">
+                                            <option value="">请选择航空公司</option>
+                                            <option ng-repeat="item in SelectInfo.airCompany.dic" value="{{item.id}}">{{item.text}}</option>
+                                        </select>
+                                         <!--航空公司：  <input type="text" ng-model="shipped.airCompany" />-->
+                                    </label>
+                                    <label  style="margin-left:120px">
+                                        <span class="required">*</span> 航班号：  <input type="text" ng-model="shipped.airFlightNumber" />
+                                    </label>
+                                </div>
+                                <div style="margin-top:10px">
+                                    <label style="margin-left:-7px">
+                                        <span class="required">*</span> 送货人 ：
+                                        <input type="text" ng-model="shipped.airSendMan" />
+                                    </label>
+                                    <label style="margin-left:90px">
+                                        <span class="required">*</span>   送货人手机 ：
+                                        <input type="text" ng-model="shipped.airSendManPhone" />
+                                    </label>
+                                </div>
+                                <div style="margin-top:10px">
+                                    <label style="margin-left: -20px;width: 100%">
+                                        送货备注  ：  <input style="width: 55%" type="text" ng-model="shipped.airSendRemark" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Order_SelfpickDelivery">
+                <div class="row-fluid">
+                    <div class="widget-box">
+                        <div class="widget-title bg_ly">
+                            <h5 data-toggle="collapse" style="width:80%" href="#Selfpick_DeliveryInformation">
+                                <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
+                                <span class="oms-web-h5-fold">自提发货信息</span>
+                            </h5>
+                        </div>
+                        <div id="Selfpick_DeliveryInformation" class="widget-content nopadding collapse in">
+                            <div class="control-group" style="float:right">
+                                <span class="btn-group oms-btn-group">
+                                    <a class="btn btn-primary" ng-click="shippedSubmit.Selfpick()"><i class="fa fa-save"></i> 提交</a>
+                                    <a class="btn btn-primary" ng-click="Cancel.Selfpick()"><i class="fa fa-check"></i> 清空</a>
+                                    <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
+                                </span>
+                            </div>
+                            <div style="margin-left:100px;margin-bottom:200px">
+                                <div>
+                                    <label style="margin-top: 100px;width: 100% ">
+                                        <span class="required">*</span> 
+                                        提货人： 
+                                        <input style="width: 40%" type="text" ng-model="shipped.pickedUpMan" />
+                                    </label>
+                                </div>
+                                <div>
+                                    <label style="margin-left:-25px;width: 100%">
+                                        <span class="required">*</span> 
+                                         提货人手机：
+                                        <input style="width: 40%" type="text" ng-model="shipped.pickedUpManPhone" />
+                                    </label>
+                                </div>
+                                <div>
+                                    <label style="margin-left: -12px;width: 100%">
+                                        <span class="required">*</span>   
+                                         提货备注： 
+                                        <input style="width: 40%" type="text" ng-model="shipped.pickedUpRemark" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
