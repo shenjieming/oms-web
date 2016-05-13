@@ -1393,7 +1393,12 @@ app.controller("OutboundDeliveryController", function ($scope, $state, $local, $
       $scope.OutboundDelivery=new Object();
       $scope.OutboundDelivery.sONo = $scope.sONo;
       $Api.SurgeryService.DataSources.GetOutBoundList({ sONo: $scope.sONo }, function (rData) {
-        $scope.OutboundDelivery = rData;
+          for (var i = 0; i < rData.length; i++) {
+              if (rData[i].createDate) {
+                  rData[i].createDate = rData[i].createDate.substring(0,11)
+              }
+          }
+          $scope.OutboundDelivery = rData;
     });
     $scope.goDeliveryType = function () {
        var row= $local.getSelectedRow($scope.OutboundDelivery)
