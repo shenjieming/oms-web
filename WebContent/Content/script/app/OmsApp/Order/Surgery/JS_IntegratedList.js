@@ -15,14 +15,14 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
     $scope.GetRowGoPage = function (view, callback) {
         /// <summary>Description</summary>
         var rowData = $local.getSelectedRow($scope.Integrated.OrderList);
-        console.log(rowData)
+        console.log(callback)
         if (rowData) {
             $MessagService.loading("页面启动中，请稍等...");
-            if (callback) {
-                callback(rowData);
-            } else {
+            //if (callback) {
+            //    callback(rowData);
+            //} else {
                 $scope.goView(view, { sono: rowData.sONo });
-            }
+            //}
         } else {
             $MessagService.caveat("请选择一条订单数据！");
         }
