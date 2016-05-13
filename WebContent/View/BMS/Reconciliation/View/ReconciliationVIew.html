@@ -15,6 +15,7 @@
     <div ng-approval-reconciliation="Config.Approval" ng-model="RecInfo"></div>
     <div ng-anti-approval-reconciliation="Config.UnApproval" ng-model="RecInfo"></div>
     <div ng-disable-reconciliation="Config.Disable" ng-model="RecInfo"></div>
+    <div ng-reconciliation-main="Module.EditMain" ng-model="RecInfo"></div>
     <div>
         <div class="tab-content">
             <div>
@@ -23,7 +24,7 @@
                         <div class="widget-title bg_ly">
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>
                             <h5 data-toggle="collapse" style="width:80%;" href="#Information">基础对账信息</h5>
-                            <a class="btn" href="javascript:void(0)" ng-click="goLastPage()"><i class="fa fa-clipboard"></i> 修改对账</a>
+                            <a class="btn" ng-if="Competence.modify" href="javascript:void(0)" ng-click="Module.EditMain.show()"><i class="fa fa-clipboard"></i> 修改对账</a>
                         </div>
                         <div id="Information" class="widget-content nopadding collapse in">
                             <div class="control-group">
@@ -57,7 +58,7 @@
                         <div class="widget-title bg_ly">
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>
                             <h5 data-toggle="collapse" style="width:80%;" href="#RecInfo">对账明细</h5>
-                            <a class="btn" href="javascript:void(0)" ng-click="goLastPage()" ><i class="fa fa-clipboard"></i> 修改明细</a>
+                            <a class="btn" ng-if="Competence.modify" href="javascript:void(0)" ng-click="goLastPage()"><i class="fa fa-clipboard"></i> 修改明细</a>
                         </div>
                         <div id="RecInfo" class="widget-content nopadding collapse in">
                             <span ng-bill-materials="Module.BillListConfig" ng-model="RecInfo" ng-bill-service="Module.BillListService"></span>
@@ -87,6 +88,9 @@
     </div>
     <div class="tools">
         <span class="btn-group oms-btn-group" style="float:right;">
+            <a class="btn btn-primary" ng-if="Competence.approval" ng-click="Config.Approval.show()"><i class="fa fa-eye"></i> 审批</a>
+            <a class="btn btn-primary" ng-if="Competence.unapproval" ng-click="Config.UnApproval.show()"><i class="fa fa-eye"></i> 反审批</a>
+            <a class="btn btn-primary" ng-if="Competence.discard" ng-click="Config.Disable.show()"><i class="fa fa-eye"></i> 取消</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>

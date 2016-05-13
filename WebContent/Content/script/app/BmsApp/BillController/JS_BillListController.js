@@ -60,6 +60,7 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
         },
         ViewBillByRow: function (row) {
             /// <summary>根据选中的行</summary>
+            $local.setValue("ORDERCOMP", $scope.Competence);
             $scope.goView("app.bms.bill.view", row);
         },
         ViewBill: function () {
