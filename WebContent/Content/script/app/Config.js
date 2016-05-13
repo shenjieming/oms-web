@@ -52,7 +52,7 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
     $scope.includes = function (data) { return $state.includes(data); }
     $scope.menuList = $MenuService;//菜单信息列表
     /// <summary>前往页面</summary>
-    $scope.goView = function (name, param) { $MessagService.loading("页面信息获取中，请稍等..."); $state.go(name, param); }
+    $scope.goView = function (name, param) { $MessagService.loading("页面信息获取中，请稍等...");  $state.go(name, param); }
     /// <summary>返回上一页</summary>
     $scope.goLastPage = function () { $window.history.back(); }
 
@@ -64,7 +64,9 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
     }
     /// <summary>菜单权限控制</summary>
     //判断菜单是否有权限
-    $scope.Comp = function (code) { if (ServerConfiguration.IsDevelop) { return true; } else { return JSON.stringify($scope.User.functionInfo).indexOf(code) > -1; } }
+    $scope.Comp = function (code) {
+        if (ServerConfiguration.IsDevelop) { return true; } else { return JSON.stringify($scope.User.functionInfo).indexOf(code) > -1; }
+    }
 });
 app.controller("employeeController", function ($scope, $state, $MenuService, $local, $MessagService, $Api) {
     /// <summary>个人信息控制器</summary>

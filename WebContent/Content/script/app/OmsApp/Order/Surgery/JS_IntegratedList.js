@@ -15,6 +15,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
     $scope.GetRowGoPage = function (view, callback) {
         /// <summary>Description</summary>
         var rowData = $local.getSelectedRow($scope.Integrated.OrderList);
+        console.log(rowData)
         if (rowData) {
             $MessagService.loading("页面启动中，请稍等...");
             if (callback) {
@@ -123,18 +124,51 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         $local.setValue("ORDERCOMP", {});
         $scope.GetRowGoPage("app.oms.order.fback");
     }
+    $scope.OrderDelivery = function () {
+        /// <summary>订单发货处理</summary>
+        var rowData = $local.getSelectedRow($scope.Integrated.OrderList);
+        console.log(rowData)
+        if (rowData) {
+            $state.go("app.oms.order.orderdelivery", rowData);   
+        } else {
+            $MessagService.caveat("请选择一条订单数据！");
+        }
+        //$scope.GetRowGoPage();
+    }
+    $scope.OutboundDelivery = function (callback) {
+        /// <summary>出库单处理</summary>   
+        var rowData = $local.getSelectedRow($scope.Integrated.OrderList);
+        if (rowData) {
+            if (callback) {
+                callback(rowData);
+            } else {
+                $state.go("app.oms.order.outbounddelivery", rowData);
+            }       
+        } else {
+            $MessagService.caveat("请选择一条订单数据！");
+        }
 
+        //$scope.GetRowGoPage("app.oms.order.outbounddelivery");
+    }
     $scope.showViewDetail = function (sono) {
         /// <summary>查看手术订单</summary>
         $local.setValue("ORDERCOMP", {});
-        $scope.GetRowGoPage("app.oms.order.view");
+        $scope.GetRowGoPage("app.oms.order.view", { sono: sono });
     }
     $scope.showView = function (sono) {
         /// <summary>查看手术订单</summary>
+        console.log(sono)
         $local.setValue("ORDERCOMP", {});
         $scope.goView("app.oms.order.view", { sono: sono });
     }
-
+    $scope.showdeliveryView = function () {
+        var row = $local.getSelectedRow($scope.Integrated.OrderList)
+        if (row) {
+            $scope.goView("app.oms.order.view", { sono: row.sONo });
+        } else {
+            $MessagService.caveat("请选择一条订单数据！");
+        }
+    }
     /*页面操作End*/
 
     /*页面列表Begion*/
@@ -225,6 +259,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
 
             GetList(paramData, function (rData) {
                 $scope.Pagein.total = rData.total;
+                console.log(rData.rows)
                 for (var i = 0; i < rData.rows.length; i++) {
                     //rData.rows[i].operationDate = rData.rows[i].operationDate.substring(0, 11)                 
                     if (rData.rows[i].operationDate) {
@@ -282,6 +317,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             },
             GetHosptailList: function () {
                 /// <summary>医院下拉框</summary>
+                console.log($scope.Integrated.OrderList)
                 $Api.ManaHospital.GetqueryAllHospital({}, function (rData) {
                     $scope.SelectInfo.Hosptail.dic = rData.rows;
                 })
@@ -400,6 +436,7 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         apply: false,
         back: false,
         append: false,
+        shipped:false
     }
 
     $scope.ListCompetence = {
@@ -506,7 +543,8 @@ app.controller("BackListController", function ($scope, $state, $local, $Api, $Me
     /// <summary>待报台订单控制器</summary>
     $scope.title = "待报台订单";
     $scope.Competence = {
-        back: true
+        back: true,
+        Print:true
     };
     //条件清空
     $scope.Integrated.ClearWhere(true);
@@ -516,7 +554,8 @@ app.controller("DealWithListController", function ($scope, $state, $local, $Api,
     /// <summary>订单处理控制器</summary>
     $scope.title = "待处理订单";
     $scope.Competence = {
-        dealwith: true
+        dealwith: true,
+        Print:true
     };
     $scope.ListCompetence.sOOIOrgCodeName = true;
     $scope.ListCompetence.sOCreateByOrgCodeName = true;
@@ -532,6 +571,63 @@ app.controller("DealWithListController", function ($scope, $state, $local, $Api,
     }
 
 })
+app.controller("TobeshippedListController", function ($scope, $state, $local, $Api, $MessagService) {
+    /// <summary>订单处理控制器</summary>
+    $scope.deliveryPagein = {
+        pageSize: 10,
+        pageIndex: 1,
+        callbake: function () {
+            var pram = $.extend($scope.deliveryPagein, { soType: "OPER" })
+            $Api.SurgeryService.Process.deliverylist(pram, function (rData) {
+                $scope.Integrated.OrderList = rData.rows;
+                $scope.deliveryPagein.total = rData.total;
+                for (var i = 0; i < rData.rows.length; i++) {
+                    //rData.rows[i].operationDate = rData.rows[i].operationDate.substring(0, 11)                                  
+                    if (rData.rows[i].operationDate) {
+                        rData.rows[i].operationDate = FormatDate(new Date(rData.rows[i].operationDate.replace("-", "/").replace("-", "/")))
+                    }
+                    if (rData.rows[i].createDate) {
+                        rData.rows[i].createDate = FormatDate(new Date(rData.rows[i].createDate.replace("-", "/").replace("-", "/")))
+                    }
+                }
+            });
+        }
+    }
+    $scope.title = "待发货订单";
+    $scope.Competence = {
+        shipped: true
+    };
+    $scope.ListCompetence.sOOIOrgCodeName = true;
+    $scope.ListCompetence.sOCreateByOrgCodeName = true;
+    $scope.ListCompetence.hPCodeName = true;
+    $scope.ListCompetence.dTCodeName = true;
+    //条件清空
+    $scope.Integrated.ClearWhere(true);
+    // OPER_CAN_ADD_ORDER_LIST 修改成 INSTK_SIGN_LIST
+    function FormatDate(strTime) {
+        //   var date = new Date(replace("-", "/").replace("-", "/"));         
+        return strTime.getFullYear() + "-" + (strTime.getMonth() + 1) + "-" + strTime.getDate();
+    }
+    var pram = $.extend($scope.deliveryPagein,{ soType: "OPER" })
+    $Api.SurgeryService.Process.deliverylist(pram, function (rData) {
+        $scope.Integrated.OrderList = rData.rows;
+        $scope.deliveryPagein.total = rData.total;
+        for (var i = 0; i < rData.rows.length; i++) {
+            if (rData.rows[i].operationDate) {
+                rData.rows[i].operationDate = FormatDate(new Date(rData.rows[i].operationDate.replace("-", "/").replace("-", "/")))
+            }
+            if (rData.rows[i].createDate) {
+                rData.rows[i].createDate = FormatDate(new Date(rData.rows[i].createDate.replace("-", "/").replace("-", "/")))
+            }
+            
+        }
+    });
+    $scope.showView = function (sono) {
+        /// <summary>查看手术订单</summary>
+        $local.setValue("ORDERCOMP", {});
+        $scope.goView("app.oms.order.view", { sono: sono });
+    }    
+}) 
 app.controller("FeedbackListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>反馈单草稿控制器</summary>
     $scope.title = "报台草稿";
@@ -578,7 +674,6 @@ app.controller("MyOrderListController", function ($scope, $state, $local, $Api, 
 app.controller("SignListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>签收订单管理控制器</summary>
     $scope.title = "待签收订单";
-
     $scope.Competence = {
         sign: true
     };

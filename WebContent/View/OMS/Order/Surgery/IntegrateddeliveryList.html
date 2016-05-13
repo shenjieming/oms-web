@@ -1,4 +1,4 @@
-<div class="row">
+﻿<div class="row">
     <div class="col-lg-12 row-mt-8">
         <div class="main-box clearfix">
 
@@ -157,21 +157,21 @@
                 <h2 class="pull-left">{{title}}</h2>
                 <div style="margin-top:25px">
                     <span class="btn-group oms-btn-group" style="float:right">
-                        <a class="btn btn-primary" ng-click="addSurgery()" ng-if="User.userInfo.orgType=='DL'&&!competence.approval&&!Competence.back&&!Competence.dealwith&&!Competence.approval&&!Competence.append"> <i class="fa fa-pencil"></i> 手术下单</a>
+                        <!--<a class="btn btn-primary" ng-click="addSurgery()" ng-if="User.userInfo.orgType=='DL'&&!competence.approval&&!Competence.back&&!Competence.dealwith&&!Competence.approval&&!Competence.append"> <i class="fa fa-pencil"></i> 手术下单</a>
                         <a class="btn btn-primary" ng-click="editSurgery()" ng-if="competence.modify"> <i class="fa fa-clipboard"></i> 手术修改</a>
                         <a class="btn btn-primary" ng-click="editSurgery()" ng-if="Competence.submit"><i class="fa fa-check"></i>订单提交</a>
                         <a class="btn btn-primary" ng-click="ApprovalSurgery()" ng-if="Competence.approval"><i class="fa fa-eye"></i>订单审批</a>
                         <a class="btn btn-primary" ng-click="SignSurgery()" ng-if="Competence.sign"><i class="fa fa-pencil-square-o"></i>订单签收</a>
-                        <!--<a class="btn btn-primary" ng-click="OrderDelivery()" ng-if="Competence.shipped"><i class="medlog-font-s medlog-icon-peihuo" style="font-size:14px;-webkit-text-stroke-width: 0px;font-weight: bold "></i> 发货</a>
-                        <a class="btn btn-primary" ng-click="OutboundDelivery()" ng-if="Competence.shipped"><i class="medlog-font-s medlog-icon-peihuo" style="font-size:14px;-webkit-text-stroke-width: 0px;font-weight: bold "></i> 出库单发货</a>-->
                         <a class="btn btn-primary" ng-click="DealSurgeryOnline()" ng-if="Competence.dealwith"><i class="fa fa-wrench"></i>线上处理</a>
                         <a class="btn btn-primary" ng-click="DealSurgeryOffline()" ng-if="Competence.dealwith"><i class="fa fa-wrench"></i>线下处理</a>
                         <a class="btn btn-primary" ng-click="ApplyBack()" ng-if="Competence.apply"><i class="fa fa-steam"></i>返库申请</a>
                         <a class="btn btn-primary" ng-click="OrderBack()" ng-if="Competence.back"><i class="fa fa-legal"></i>返库处理</a>
-                        <a class="btn btn-primary" ng-click="Additional()" ng-if="Competence.append"> <i class="fa fa-shopping-cart"></i>追加配货</a>
-                        <a class="btn btn-primary" ng-click="showViewDetail()"><i class="fa fa-align-justify"></i> 订单详情</a>
-                        <a class="btn btn-primary" ng-click="HighSearch()"><i class="fa fa-search"></i> 高级查询</a>
+                        <a class="btn btn-primary" ng-click="Additional()" ng-if="Competence.append"> <i class="fa fa-shopping-cart"></i>追加配货</a>-->
                         <a class="btn btn-primary" ng-if="User.userInfo.orgType=='WH'&&Competence.Print" href="http://wmstest.med-log.cn/Reports/Pages/Report.aspx?ItemPath=%2freport+project1%2fpicklist" target="_blank"><i class="fa fa-print"></i> 出库单打印</a>
+                        <a class="btn btn-primary" ng-click="OrderDelivery()" ng-if="Competence.shipped"><i class="medlog-font-s medlog-icon-peihuo" style="font-size:14px;-webkit-text-stroke-width: 0px;font-weight: bold "></i> 发货</a>
+                        <a class="btn btn-primary" ng-click="OutboundDelivery()" ng-if="Competence.shipped"><i class="medlog-font-s medlog-icon-peihuo" style="font-size:14px;-webkit-text-stroke-width: 0px;font-weight: bold "></i> 出库单发货</a>
+                        <a class="btn btn-primary" ng-click="HighSearch()"><i class="fa fa-search"></i> 高级查询</a>
+                        <a class="btn btn-primary" ng-click="showdeliveryView()"><i class="fa fa-align-justify"></i> 订单详情</a>
                     </span>
                     <div class="input-group" style="float: right; width: 250px; margin-right: 10px">
                         <input type="text" class="form-control" placeholder="请输入订单号"
@@ -188,18 +188,18 @@
                             <tr>
                                 <th><span>序号</span></th>
                                 <th><span>订单号</span></th>
-                                <th ng-if="ListCompetence.sOOIOrgCodeName" width="120px"><span>货主</span></th>
-                                <th ng-if="ListCompetence.sOCreateByOrgCodeName" width="120px"><span>经销商</span></th>
+                                <th  width="120px"><span>货主</span></th>
+                                <th  width="120px"><span>经销商</span></th>
                                 <th><span style="width:10px">医院</span></th>
-                                <th ng-if="ListCompetence.dTCodeName"><span>医生</span></th>
+                                <th ><span>医生</span></th>
                                 <th><span>手术日期</span></th>
-                                <th ng-if="ListCompetence.initMedProdLnCodeName" style="width: 200px;"><span>产品线</span></th>
-                                <th ng-if="ListCompetence.patientName"><span>患者</span></th>
-                                <th ng-if="ListCompetence.sOHandleByOrgCodeName"><span>仓库</span></th>
+                                <th  style="width: 200px;"><span>产品线</span></th>
+                                <!--<th ng-if="ListCompetence.patientName"><span>患者</span></th>
+                                <th ng-if="ListCompetence.sOHandleByOrgCodeName"><span>仓库</span></th>-->
                                 <th><span>下单人</span></th>
                                 <th><span>下单日期</span></th>
                                 <th><span>状态</span></th>
-                                <th ng-if="ListCompetence.sOHandleTypeName"><span>处理</span></th>
+                                <!--<th ng-if="ListCompetence.sOHandleTypeName"><span>处理</span></th>-->
                             </tr>
                         </thead>
                         <tbody>
@@ -208,30 +208,30 @@
                                 <td>
                                     {{row.sONo}}
                                 </td>
-                                <td ng-if="ListCompetence.sOOIOrgCodeName">
-                                    {{row.sOOIOrgCodeName?row.sOOIOrgCodeName:row.oIOrgCodeName}}
-                                </td>
-                                <td ng-if="ListCompetence.sOCreateByOrgCodeName">
-                                    {{row.sOCreateByOrgCodeName?row.sOCreateByOrgCodeName:row.dLOrgCodeName}}
+                                <td >
+                                    {{row.oIOrgCodeName}}
                                 </td>
                                 <td>
-                                    {{row.hPCodeName?row.hPCodeName:row.initHPCodeName}}
-                                </td>
-                                <td ng-if="ListCompetence.dTCodeName">
-                                    {{row.dTCodeName?row.dTCodeName:row.initDTCodeName}}
+                                    {{row.dLOrgCodeName}}
                                 </td>
                                 <td>
-                                    {{row.operationDate?row.operationDate:row.initOperationDate}}
+                                    {{row.hPCodeName}}
                                 </td>
-                                <td ng-if="ListCompetence.initMedProdLnCodeName">
-                                    {{row.medBrandProdLnJoin?row.medBrandProdLnJoin:row.medProdLnCodeName}}
+                                <td >
+                                    {{row.dTCodeName}}
                                 </td>
-                                <td ng-if="ListCompetence.patientName">
+                                <td>
+                                    {{row.operationDate}}
+                                </td>
+                                <td>
+                                    {{row.medProdLnCodeName}}
+                                </td>
+                                <!--<td ng-if="ListCompetence.patientName">
                                     {{row.patientName}}
                                 </td>
                                 <td ng-if="ListCompetence.sOHandleByOrgCodeName">
                                     {{row.sOHandleByOrgCodeName}}
-                                </td>
+                                </td>-->
                                 <td>
                                     {{row.sOCreateByName}}
                                 </td>
@@ -241,14 +241,14 @@
                                 <td>
                                     <span ng-class="(row.status=='SOSTS00200'||row.status=='SOSTS00040')?'red':''">{{row.statusName}}</span>
                                 </td>
-                                <td ng-if="ListCompetence.sOHandleTypeName">
+                                <!--<td ng-if="ListCompetence.sOHandleTypeName">
                                     {{row.sOHandleTypeName}}
-                                </td>
+                                </td>-->
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div ng-pagein="page" ng-model="Pagein"></div>
+                <div ng-pagein="page" ng-model="deliveryPagein"></div>
             </div>
         </div>
     </div>
