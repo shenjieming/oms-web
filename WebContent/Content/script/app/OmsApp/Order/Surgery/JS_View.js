@@ -104,6 +104,8 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
                 $.extend($scope.PageData, rData);
                 if ($scope.PageData.initOperationDate  ) {
                     $scope.PageData.DataFmtYMDW = FormatDate(new Date($scope.PageData.initOperationDate.replace("-", "/").replace("-", "/")))
+                    var myDate = new Date($scope.PageData.initOperationDate)
+                    $scope.DisplayWeek = FormatWeek(new Date($scope.PageData.initOperationDate.replace("-", "/").replace("-", "/")))
                 }
                 if ($scope.PageData.patientEntryDate) {
                     $scope.PageData.patientDateFmtYMDW = FormatDate(new Date($scope.PageData.patientEntryDate.replace("-", "/").replace("-", "/")))
@@ -111,9 +113,15 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
                 if ($scope.PageData.retrieveEstDate) {
                     $scope.PageData.retrieveEstDateFmtYMDW = FormatDate(new Date($scope.PageData.retrieveEstDate.replace("-", "/").replace("-", "/")))
                 }
-                var myDate = new Date($scope.PageData.initOperationDate)
-                $scope.DisplayWeek =FormatWeek(new Date($scope.PageData.initOperationDate.replace("-", "/").replace("-", "/")))       
                 console.log($scope.PageData)
+                if ($scope.PageData.events.length>0) {
+                    for (var i = 0; i < $scope.PageData.events.length; i++) {
+                        if ($scope.PageData.events[i].eventCode == "0030_0001") {
+                            $scope.PageData.events[i].ExternalRemark1 = $scope.PageData.events[i].ExternalRemark1 + $scope.PageData.events[i].CarrierTransRemark
+                        }
+                    }
+                }
+          
             });       
         }
     }
