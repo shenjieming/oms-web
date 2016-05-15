@@ -280,7 +280,7 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
         var rowData = $local.getSelectedRow($scope.Integrated.OrderList);
         console.log(rowData)
         if (rowData) {
-            $state.go("app.oms.order.orderdelivery", rowData);
+            $state.go("app.oms.stock.orderdelivery", rowData);
         } else {
             $MessagService.caveat("请选择一条订单数据！");
         }
@@ -293,7 +293,7 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
             if (callback) {
                 callback(rowData);
             } else {
-                $state.go("app.oms.order.outbounddelivery", rowData);
+                $state.go("app.oms.stock.outbounddelivery", rowData);
             }
         } else {
             $MessagService.caveat("请选择一条订单数据！");
