@@ -18,11 +18,11 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         console.log(callback)
         if (rowData) {
             $MessagService.loading("页面启动中，请稍等...");
-            //if (callback) {
-            //    callback(rowData);
-            //} else {
+            if (callback) {
+                callback(rowData);
+            } else {
                 $scope.goView(view, { sono: rowData.sONo });
-            //}
+            }
         } else {
             $MessagService.caveat("请选择一条订单数据！");
         }
@@ -502,7 +502,12 @@ app.controller("AppendListController", function ($scope, $state, $local, $Api, $
     /// <summary>待追加备货单列表</summary>
     $scope.title = "可追加配货";
     //条件清空
+    $scope.showViewDetail = function (sono) {
+        /// <summary>查看手术订单</summary>
+        $local.setValue("ORDERCOMP", {});
+        $scope.GetRowGoPage("app.oms.order.view");
 
+    }
     $scope.Integrated.GetOrderList({ opt: "OPER_CAN_ADD_ORDER_LIST" });
     $scope.Integrated.ClearWhere(true);
     $scope.Competence = { append: true };
@@ -520,6 +525,12 @@ app.controller("ApplyListController", function ($scope, $state, $local, $Api, $M
     $scope.ListCompetence.dTCodeName = true;
     $scope.ListCompetence.initMedProdLnCodeName = false;
     $scope.ListCompetence.sOOIOrgCodeName = true;
+    $scope.showViewDetail = function (sono) {
+        /// <summary>查看手术订单</summary>
+        $local.setValue("ORDERCOMP", {});
+        $scope.GetRowGoPage("app.oms.order.view");
+
+    }
 })
 app.controller("ApprovalListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>待审批订单控制器</summary>
@@ -532,11 +543,17 @@ app.controller("ApprovalListController", function ($scope, $state, $local, $Api,
 
     //条件清空
     $scope.Integrated.ClearWhere(true);
-    $scope.showView = function (sono) {
+    $scope.showViewDetail = function (sono) {
         /// <summary>查看手术订单</summary>
         $local.setValue("ORDERCOMP", { approval: true });
-        $scope.goView("app.oms.order.view", { sono: sono });
+        $scope.GetRowGoPage("app.oms.order.view");
+
     }
+    //$scope.showView = function (sono) {
+    //    /// <summary>查看手术订单</summary>
+    //    $local.setValue("ORDERCOMP", { approval: true });
+    //    $scope.goView("app.oms.order.view", { sono: sono });
+    //}
 })
 app.controller("BackListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>待报台订单控制器</summary>
@@ -546,6 +563,12 @@ app.controller("BackListController", function ($scope, $state, $local, $Api, $Me
         Print:true
     };
     //条件清空
+    $scope.showViewDetail = function (sono) {
+        /// <summary>查看手术订单</summary>
+        $local.setValue("ORDERCOMP", {});
+        $scope.GetRowGoPage("app.oms.order.view");
+
+    }
     $scope.Integrated.ClearWhere(true);
     $scope.Integrated.GetOrderList({ opt: "OPER_PROCESSBACK_LIST" });
 })
@@ -563,10 +586,15 @@ app.controller("DealWithListController", function ($scope, $state, $local, $Api,
     //条件清空
     $scope.Integrated.ClearWhere(true);
     $scope.Integrated.GetOrderList({ opt: "OPER_PROCESS_LIST" });
-    $scope.showView = function (sono) {
+    //$scope.showView = function (sono) {
+    //    /// <summary>查看手术订单</summary>
+    //    $local.setValue("ORDERCOMP", {});
+    //    $scope.goView("app.oms.order.view", { sono: sono });
+    //}
+    $scope.showViewDetail = function (sono) {
         /// <summary>查看手术订单</summary>
         $local.setValue("ORDERCOMP", {});
-        $scope.goView("app.oms.order.view", { sono: sono });
+        $scope.GetRowGoPage("app.oms.order.view");
     }
 
 })
@@ -610,12 +638,7 @@ app.controller("TobeshippedListController", function ($scope, $state, $local, $A
 
         });
     }
-    $scope.deliveryList();
-    $scope.showView = function (sono) {
-        /// <summary>查看手术订单</summary>
-        $local.setValue("ORDERCOMP", {});
-        $scope.goView("app.oms.order.view", { sono: sono });
-    }    
+    $scope.deliveryList(); 
 }) 
 app.controller("FeedbackListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>反馈单草稿控制器</summary>
@@ -626,6 +649,11 @@ app.controller("FeedbackListController", function ($scope, $state, $local, $Api,
     //条件清空
     $scope.Integrated.ClearWhere(true);
     $scope.Integrated.GetOrderList({ opt: "OPER_PROCESSBACK_DRAFT" });
+    $scope.showViewDetail = function (sono) {
+        /// <summary>查看手术订单</summary>
+        $local.setValue("ORDERCOMP", {});
+        $scope.GetRowGoPage("app.oms.order.view");
+    }
 })
 app.controller("MyDraftListController", function ($scope, $state, $local, $Api, $MessagService) {
     /// <summary>订单草稿数据控制器</summary>
@@ -635,9 +663,14 @@ app.controller("MyDraftListController", function ($scope, $state, $local, $Api, 
         modify: true,
         submit: true,
     };
-    $scope.showView = function (sono) {
+    //$scope.showView = function (sono) {
+    //    /// <summary>查看手术订单</summary>
+    //    $scope.goView("app.oms.order.single", { sono: sono });
+    //}
+    $scope.showViewDetail = function (sono) {
         /// <summary>查看手术订单</summary>
-        $scope.goView("app.oms.order.single", { sono: sono });
+        $local.setValue("ORDERCOMP", {});
+        $scope.GetRowGoPage("app.oms.order.view");
     }
     //条件清空
     $scope.Integrated.ClearWhere(true);
@@ -674,9 +707,14 @@ app.controller("SignListController", function ($scope, $state, $local, $Api, $Me
     $scope.ListCompetence.initMedProdLnCodeName = false;
     $scope.ListCompetence.sOOIOrgCodeName = true;
 
-    $scope.showView = function (sono) {
+    //$scope.showView = function (sono) {
+    //    /// <summary>查看手术订单</summary>
+    //    $local.setValue("ORDERCOMP", { sign: true });
+    //    $scope.goView("app.oms.order.view", { sono: sono });
+    //}
+    $scope.showViewDetail = function (sono) {
         /// <summary>查看手术订单</summary>
         $local.setValue("ORDERCOMP", { sign: true });
-        $scope.goView("app.oms.order.view", { sono: sono });
+        $scope.GetRowGoPage("app.oms.order.view");
     }
 })
