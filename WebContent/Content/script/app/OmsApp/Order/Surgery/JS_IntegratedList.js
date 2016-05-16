@@ -253,7 +253,6 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             $scope.Pagein.total = 0;
             $scope.Integrated.OrderList = new Array();
             var paramData = $.extend($scope.Pagein, param);
-            console.log(window.location.hash)
             if (window.location.hash == "#/app/oms/order/toshipped") {
                 var GetList = $Api.SurgeryService.Process.deliverylist;
             } else {

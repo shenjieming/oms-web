@@ -21,19 +21,12 @@ app.controller("StockTobeshippedListController", function ($scope, $state, $loca
     
     $scope.deliveryList = function () {
         $MessagService.loading("列表获取中...")
-        var pram = $.extend($scope.deliveryPagein, { soType: "OPER" })
+        var pram = $.extend($scope.deliveryPagein, { soType: "INSTK" })
         $Api.SurgeryService.Process.deliverylist(pram, function (rData) {
             for (var i = 0; i < rData.rows.length; i++) {
-                if (rData.rows[i].operationDate) {
-                    rData.rows[i].operationDate = rData.rows[i].operationDate.substring(0, 11)
-                }
-                if (rData.rows[i].createDate) {
-                    rData.rows[i].createDate = rData.rows[i].createDate.substring(0, 11)
-                }
+                rData.rows[i].createDate = rData.rows[i].createDate.substring(0, 11).replace("/", "-").replace("/", "-");
             }
             $scope.Integrated.OrderList = rData.rows;
-            console.log($scope.Integrated.OrderList)
-
             $scope.deliveryPagein.total = rData.total;
 
         });
