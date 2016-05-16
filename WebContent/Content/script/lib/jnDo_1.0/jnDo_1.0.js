@@ -75,19 +75,22 @@ angular.module('jnDo', [])
             },
             replace: true,
             link: function ($scope, element, attrs) {
-                $scope.ngModel = $.extend($scope.ngModel, { modal: true, autoOpen: false });
                 $scope.$watch("ngModel", function () {
                     /// <summary>监控模型对象</summary>
-                    $(element).dialog($scope.ngModel);
+                    if (!$scope.ngModel.show) { InitDialog(); } $(element).dialog($scope.ngModel);
                 })
-                $scope.ngModel.show = function () {
-                    /// <summary>显示弹出层</summary>
-                    $(element).dialog("open");
+                var InitDialog = function () {
+                    $scope.ngModel = $.extend($scope.ngModel, { modal: true, autoOpen: false });
+                    $scope.ngModel.show = function () {
+                        /// <summary>显示弹出层</summary>
+                        $(element).dialog("open");
+                    }
+                    $scope.ngModel.hide = function () {
+                        /// <summary>隐藏弹出层</summary>
+                        $(element).dialog("close");
+                    }
                 }
-                $scope.ngModel.hide = function () {
-                    /// <summary>隐藏弹出层</summary>
-                    $(element).dialog("close");
-                }
+                InitDialog();
             }
         };
     })

@@ -1,77 +1,80 @@
 ﻿<div>
     <ng-dialog ng-model="ngReconciliationMain">
+
+     
         <div class="tab-content">
-            <div>
-                <div class="row-fluid">
-                    <div class="widget-box">
-                        <div id="Information" class="widget-content nopadding collapse in">
-                            <div class="control-group">
-                                <div class="Vessel">
-                                    对账医院：<span ng-bind="ngModel.hPCodeName"></span>
+                <div>
+                    <div class="row-fluid">
+                        <div class="widget-box">
+                            <div id="Information" class="widget-content nopadding collapse in">
+                                <div class="control-group">
+                                    <div class="Vessel">
+                                        <a href="javascript:void(0)" ng-click="testMode.show()">测试哦</a>
+                                        对账医院：<span ng-bind="ngModel.hPCodeName"></span>
+                                    </div>
+                                    <div class="Vessel Second">
+                                        对账时间：
+                                        <span ng-bind="ngModel.hSOADateFrom"></span>
+                                        至
+                                        <span ng-bind="ngModel.hSOADateTo"></span>
+                                    </div>
                                 </div>
-                                <div class="Vessel Second">
-                                    对账时间：
-                                    <span ng-bind="ngModel.hSOADateFrom"></span>
-                                   至
-                                    <span ng-bind="ngModel.hSOADateTo"></span>
-                                </div>
-                            </div>
 
-                            <div class="control-group ">
-                                <div class="Vessel">
-                                    对账类型：<span ng-dictionary="HSOATP" ng-model="ngModel.hSOAType"></span>
-                                </div>
-                                <div class="Vessel Second">
-                                    <span style="float:left;line-height:35px;">对账信息：</span>
-                                    <span class="input-group">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-info dropdown-toggle"
-                                                    data-toggle="dropdown" aria-haspopup="true" style="font-size:14px;" aria-expanded="false">
-                                                <span ng-bind="ngModel.hSOASourceTypeName"></span>
-                                                <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li ng-repeat="row in Service.OrderSource">
-                                                    <a href="javascript:void(0)" ng-click="Service.ChangeOrderSource(row)" ng-bind="row.text"></a>
-                                                </li>
-                                            </ul>
+                                <div class="control-group ">
+                                    <div class="Vessel">
+                                        对账类型：<span ng-dictionary="HSOATP" ng-model="ngModel.hSOAType"></span>
+                                    </div>
+                                    <div class="Vessel Second">
+                                        <span style="float:left;line-height:35px;">对账信息：</span>
+                                        <span class="input-group">
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-info dropdown-toggle"
+                                                        data-toggle="dropdown" aria-haspopup="true" style="font-size:14px;" aria-expanded="false">
+                                                    <span ng-bind="ngModel.hSOASourceTypeName"></span>
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li ng-repeat="row in Service.OrderSource">
+                                                        <a href="javascript:void(0)" ng-click="Service.ChangeOrderSource(row)" ng-bind="row.text"></a>
+                                                    </li>
+                                                </ul>
+                                            </span>
+                                            <input type="text" class="Input" ng-model="ngModel.hSOAHospitalNo" placeholder="请选择对账单来源后输入对账单票据号">
                                         </span>
-                                        <input type="text" class="Input" ng-model="ngModel.hSOAHospitalNo" placeholder="请选择对账单来源后输入对账单票据号">
-                                    </span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="control-group">
-                                <div class="Vessel">
-                                    制 单 人：<input type="text" ng-model="ngModel.hSOAIssueByName" />
+                                <div class="control-group">
+                                    <div class="Vessel">
+                                        制 单 人：<input type="text" ng-model="ngModel.hSOAIssueByName" />
+                                    </div>
+                                    <div class="Vessel">
+                                        <span class="Text">制单日期：</span>
+                                        <span class="Left" ng-show-data="" ng-model="ngModel.hSOAIssueDate"></span>
+                                    </div>
                                 </div>
-                                <div class="Vessel">
-                                    <span class="Text">制单日期：</span>
-                                    <span class="Left" ng-show-data="" ng-model="ngModel.hSOAIssueDate"></span>
-                                </div>
-                            </div>
 
-                            <div class="control-group">
-                                <div class="Vessel All">
-                                    医院备注：<input type="text" class="Input" ng-model="ngModel.hSOAHospitalRemark" placeholder="请输入医院对账单的备注说明" />
+                                <div class="control-group">
+                                    <div class="Vessel All">
+                                        医院备注：<input type="text" class="Input" ng-model="ngModel.hSOAHospitalRemark" placeholder="请输入医院对账单的备注说明" />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="control-group">
-                                <div class="Vessel All">
-                                    业务说明：<input type="text" class="Input" ng-model="ngModel.hSOABizDesc" placeholder="请输入处理业务说明" />
+                                <div class="control-group">
+                                    <div class="Vessel All">
+                                        业务说明：<input type="text" class="Input" ng-model="ngModel.hSOABizDesc" placeholder="请输入处理业务说明" />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="control-group">
-                                <div class="Vessel All">
-                                    备注说明：<input type="text" class="Input" ng-model="ngModel.hSOARemark" placeholder="请输入对账单备注说明" />
+                                <div class="control-group">
+                                    <div class="Vessel All">
+                                        备注说明：<input type="text" class="Input" ng-model="ngModel.hSOARemark" placeholder="请输入对账单备注说明" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </ng-dialog>
+        </ng-dialog>
 </div>
