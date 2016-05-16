@@ -9,7 +9,6 @@
  
 app.directive("ngKitDetail", function ($Api, $MessagService) {
     /// <summary>产品线选择</summary>
-    debugger
     return {
         restrict: "EAC",
         templateUrl: "Content/script/app/OmsApp/Directive/ui/ngKitDetail.html?data=" + Timestamp,
@@ -31,13 +30,13 @@ app.directive("ngKitDetail", function ($Api, $MessagService) {
             $scope.view = {
                 ProductService: {},
                 ProductCompetence: { operat: false, kits: false, tool: false, warehouse: false },
-                GetKitDetail: function () {
-                    /// <summary>获取套件详细信息</summary>
-                    $Api.MedKitService.GetMedKitDetail({ medKitInternalNo: $scope.ngModel.medKitopt }, function (row) {
-                        $scope.view.PageData = row;
-                        $scope.view.PageData.prodLns = row.productLine;
-                    });
-                },
+                //GetKitDetail: function () {
+                //    /// <summary>获取套件详细信息</summary>
+                //    $Api.MedKitService.GetMedKitDetail({ medKitInternalNo: $scope.ngModel.medKitopt }, function (row) {
+                //        $scope.view.PageData = row;
+                //        $scope.view.PageData.prodLns = row.productLine;
+                //    });
+                //},
             };
         }
     }
