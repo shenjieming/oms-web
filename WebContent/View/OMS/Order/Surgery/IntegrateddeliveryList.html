@@ -23,91 +23,8 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="control-group" ng-if="User.userInfo.orgType=='DL'">
-                                <div class="Vessel ">
-                                    订单：<input type="text" ng-model="Pagein.sONo" placeholder="请输入订单号" style="width: 180px;" />
-                                </div>
-                                <div class="Vessel">
-                                    货主：
-                                    <select ng-model="Pagein.oIOrgCode" style="margin-left:-8px;min-width:180px;">
-                                        <option value="">请选择货主...</option>
-                                        <option ng-repeat="item in SelectInfo.OIorg.dic" value="{{item.id}}">{{item.text}}</option>
-                                    </select>
-                                </div>
-                                <div class="Vessel  ">
-                                    状态：
-                                    <select ng-model="Pagein.status" style="margin-left: -8px; min-width: 180px;">
-                                        <option value="">
-                                            请选择订单状态...
-                                        </option>
-                                        <option ng-repeat="item in SelectInfo.Status.dic" selected="{{item.id}}" value="{{item.id}}">{{item.text}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="control-group" ng-if="User.userInfo.orgType=='DL'">
-                                <div class="Vessel  ">
-                                    医院：
-                                    <select ng-model="Pagein.hPCode" ng-change="SelectInfo.Hosptail.change()" style="margin-left:-8px;min-width:180px">
-                                        <option value="">请选择医院...</option>
-                                        <option ng-repeat="item in SelectInfo.Hosptail.dic" value="{{item.hPCode}}">{{item.hPName}}</option>
-                                    </select>
-                                </div>
-                                <!--<div class="Vessel  ">
-                                    科&nbsp;&nbsp;室：
-                                    <select ng-model="Pagein.wardDeptCode" ng-change="SelectInfo.wardDeptCode.change()" style="min-width:180px;margin-left:-8px;">
-                                        <option value="">请选择科室...</option>
-                                        <option ng-repeat="item in SelectInfo.wardDeptCode.dic" value="{{item.wardDeptCode}}">{{item.wardDeptName}}</option>
-                                    </select>
-                                </div>-->
-                                <div class="Vessel">
-                                    医生：
-                                    <select ng-model="Pagein.dTCode" style="min-width:180px;margin-left:-8px;">
-                                        <option value="">请选择医生...</option>
-                                        <option ng-repeat="item in SelectInfo.Doctor.dic" value="{{item.dTCode}}">{{item.wardDeptCodeName}}[{{item.dTName}}]</option>
-                                    </select>
-                                </div>
-
-                            </div>
-                            <div class="control-group" ng-if="User.userInfo.orgType=='OI'">
-                                <div class="Vessel">
-                                    订单：<input type="text" ng-model="Pagein.sONo" placeholder="请输入订单号" style="width:180px" />
-                                </div>
-                                <div class="Vessel">
-                                    仓库：
-                                    <select ng-model="Pagein.sOHandleByOrgCode" style="margin-left:-8px;min-width:180px">
-                                        <option value="">请选择订单处理仓库...</option>
-                                        <option ng-repeat="item in SelectInfo.Warehouse.dic" value="{{item.orgCode}}">{{item.wHName}}</option>
-                                    </select>
-                                </div>
-                                <div class="Vessel">
-                                    经销商：
-                                    <select ng-model="Pagein.sOCreateByOrgCode" style="margin-left:-8px;min-width:180px">
-                                        <option value="">请选择经销商...</option>
-                                        <option ng-repeat="item in SelectInfo.DLorg.dic" value="{{item.orgCode}}">{{item.dLName}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="control-group" ng-if="User.userInfo.orgType=='OI'">
-                                <div class="Vessel">
-                                    医院：
-                                    <select ng-model="Pagein.hPCode" ng-change="SelectInfo.Hosptail.change()" style="margin-left:-8px;min-width:180px">
-                                        <option value="">请选择医院...</option>
-                                        <option ng-repeat="item in SelectInfo.Hosptail.dic" value="{{item.hPCode}}">{{item.hPName}}</option>
-                                    </select>
-                                </div>
-                                <div class="Vessel">
-                                    下单人：<input type="text" ng-model="Pagein.sOCreateByName" placeholder="请输入下单人姓名" style="width:180px" />
-                                </div>
-                                <div class="Vessel">
-                                    状态：
-                                    <select ng-model="Pagein.status" style="margin-left:-8px;min-width:180px">
-                                        <option value="">
-                                            请选择订单状态...
-                                        </option>
-                                        <option ng-repeat="item in SelectInfo.Status.dic" selected="{{item.id}}" value="{{item.id}}">{{item.text}}</option>
-                                    </select>
-                                </div>
-                            </div>
+                            
+                            
                             <div class="control-group" ng-if="User.userInfo.orgType=='WH'">
                                 <div class="Vessel ">
                                     订单：<input type="text" ng-model="Pagein.sONo" placeholder="请输入订单号" style="width:180px" />
@@ -134,9 +51,6 @@
                                         <option value="">请选择医院...</option>
                                         <option ng-repeat="item in SelectInfo.Hosptail.dic" value="{{item.hPCode}}">{{item.hPName}}</option>
                                     </select>
-                                </div>
-                                <div class="Vessel ">
-                                    患者：<input type="text" ng-model="Pagein.patientName" placeholder="请输入患者姓名" style="width:180px" />
                                 </div>
                                 <div class="Vessel  ">
                                     状态：
@@ -248,7 +162,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div ng-pagein="page" ng-model="deliveryPagein"></div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
             </div>
         </div>
     </div>
