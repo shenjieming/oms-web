@@ -1,8 +1,13 @@
 ﻿<div>
-    <div class="control-group">
-        <div class="btn-group oms-btn-group" role="group" style="border-bottom:0px;">
+    <div class="control-group" style="display:inline-block;width:100%;">
+        <div class="btn-group oms-btn-group" role="group" style="border-bottom:0px;float:left">
             <a class="btn" ng-click="BillService.IsShowMaterialView(true)" ng-class="{true: 'btn-info',false:'btn-primary'}[!BillService.ViewMaterial]"><i class="fa fa-puzzle-piece"></i> 对账详情</a>
             <a class="btn" ng-click="BillService.IsShowMaterialView(false)" ng-class="{true: 'btn-info',false:'btn-primary'}[BillService.ViewMaterial]"><i class="fa fa-puzzle-piece"></i> 对账明细</a>
+        </div>
+        <div class="btn-group oms-btn-group" role="group" style="border-bottom:0px;float:right;">
+            <a class="btn btn-primary" ng-click=""><i class="fa fa-puzzle-piece"></i> 新增明细</a>
+            <a class="btn btn-primary" ng-click=""><i class="fa fa-puzzle-piece"></i> 取消修改</a>
+
         </div>
     </div>
     <div class="table-responsive">
@@ -60,6 +65,7 @@
                     <th><span>对账数量</span></th>
                     <th><span>对账单价</span></th>
                     <th><span>金额</span></th>
+                    <td><span>操作</span></td>
                 </tr>
             </thead>
             <tbody>
@@ -78,13 +84,13 @@
                     </td>
                     <td style="text-align:right;">￥<span ng-bind="(row.hPUnitPrice*1).toFixed(2)"></span> </td>
                     <td style="text-align:right;">￥<span ng-bind="(row.hPUnitPrice*row.offsetQty).toFixed(2)"></span> </td>
+                    <td></td>
                 </tr>
-                <tr style="text-align:right;border-top :1px solid #000">
+                <tr style="text-align:right;border-top :1px solid #000" ng-slide="true">
                     <td style="text-align:center;">合计</td>
                     <td><span ng-bind="BillService.Gather.BillCount"></span> 张计费单 </td>
                     <td colspan="2"><span ng-bind="BillService.Gather.MaterialCount"></span> 件医疗耗材</td>
                     <td><span ng-bind="BillService.Gather.BrandCount"></span> 种品牌 </td>
-
                     <td><span ng-bind="BillService.Gather.SpeciCount"></span> 种规格</td>
                     <td><span ng-bind="BillService.Gather.StuffCount"></span> 种材料</td>
                     <td ng-if="ngOperat"><span ng-bind="BillService.Gather.HsQtyCount-BillService.Gather.OffsetQtyCount"></span> 件未对账</td>

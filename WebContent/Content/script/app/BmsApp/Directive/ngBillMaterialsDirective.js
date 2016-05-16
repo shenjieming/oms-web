@@ -36,7 +36,8 @@ app.directive("ngBillMaterials", function ($BMSApi, $MessagService, $local, $App
                 fixed: function (list) { s.BillService.GetRecByMappingData({ detail: s.Factory.GetNewBillDetail(s.ngModel.detail, list) }); }
             };
 
-            if (s.ngBillService) { s.ngBillService = $.extend(s.BillService, s.ngBillService); } if (s.ngBillMaterials) { s.ngBillMaterials = $.extend(s.BillConfig, s.ngBillMaterials); }
+            if (s.ngBillService) { s.ngBillService = $.extend(s.BillService, s.ngBillService); }
+            if (s.ngBillMaterials) { s.ngBillMaterials = $.extend(s.BillConfig, s.ngBillMaterials); }
         }
     }
 });
