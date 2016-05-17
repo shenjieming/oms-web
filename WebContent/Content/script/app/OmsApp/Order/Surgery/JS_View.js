@@ -113,15 +113,7 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
                 if ($scope.PageData.retrieveEstDate) {
                     $scope.PageData.retrieveEstDateFmtYMDW = FormatDate(new Date($scope.PageData.retrieveEstDate.replace("-", "/").replace("-", "/")))
                 }
-                console.log($scope.PageData)
-                if ($scope.PageData.events.length>0) {
-                    for (var i = 0; i < $scope.PageData.events.length; i++) {
-                        if ($scope.PageData.events[i].eventCode == "0030_0001") {
-                            $scope.PageData.events[i].ExternalRemark1 = $scope.PageData.events[i].ExternalRemark1 + $scope.PageData.events[i].CarrierTransRemark
-                        }
-                    }
-                }
-          
+                console.log($scope.PageData)          
             });       
         }
     }
