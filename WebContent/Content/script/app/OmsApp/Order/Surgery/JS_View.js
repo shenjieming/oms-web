@@ -1170,12 +1170,12 @@ app.controller("AddEventController", function ($scope, $state, $local, $Api, $Me
         }
     }
 })
-app.controller("FeedbackViewController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $route) {
+app.controller("FeedbackViewController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $route, $OMSSpecially) {
     /// <summary>出库单</summary>
     $scope.FeedBack = { images: new Array(), remark: "" }
     $scope.$watch("PageData.sONo", function () {
         /// <summary>获取数据信息</summary>
-        $scope.FeedBack = $scope.file.GetEventMapping($scope.PageData.events, "0080_0011")
+        $scope.FeedBack = $OMSSpecially.File.GetEventMapping($scope.PageData.events, "0080_0011")
     })
 })
 app.controller("OrderDeliveryController", function ($scope, $state, $local, $Api, $MessagService, $stateParams) {

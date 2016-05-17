@@ -77,7 +77,7 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
     $scope.Pagein = { pageSize: 10, createDateBegin: null, createDateEnd: null, pageIndex: 1, callbake: function () { $scope.Integrated.GetBillList(); } }
 });
 
-app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams, $BillDetailFactory) {
+app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams, $BillDetailFactory, $AppHelp) {
     /// <summary>计费单详情</summary>
     console.log("计费单管理-计费单详情管理");
 
@@ -106,7 +106,7 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
 
 });
 
-app.factory("$BillDetailFactory", function ($BMSApi) {
+app.factory("$BillDetailFactory", function ($BMSApi, $AppHelp) {
     /// <summary>订单明细处理工程</summary>
     var $BillDetailFactory = function (scope) {
         var $scope = scope;
@@ -122,7 +122,7 @@ app.factory("$BillDetailFactory", function ($BMSApi) {
         }
         this.GetMateriaMappings = function (materia) {
             /// <summary>获取物资映射信息</summary>
-            var Price = parseFloat(materia.medMaterialPrice ? materia.medMaterialPrice : materia.hPUnitEstPrice); var hPrice = parseFloat(materia.medMaterialPrice ? materia.medMaterialPrice : materia.hPUnitPrice); return $.extend(materia, { qty: materia.reqQty, dHMMName: materia.medMaterialFullName, dHMMSpecification: materia.medMaterialSpecification, dHMMMaterials: materia.medMaterialMaterials, hPUnitEstPrice: Price, patientUnitEstPrice: (Price * 1.05), hPUnitPrice: hPrice, patientUnitPrice: (hPrice * 1.05) });
+            var Price = parseFloat(materia.medMaterialPrice ? materia.medMaterialPrice : materia.hPUnitEstPrice); var hPrice = parseFloat(materia.medMaterialPrice ? materia.medMaterialPrice : materia.hPUnitPrice); return $.extend(materia, { qty: materia.reqQty, dHMMName: materia.medMaterialFullName, dHMMSpecification: materia.medMaterialSpecification, dHMMMaterials: materia.medMaterialMaterials, hPUnitEstPrice: Price, patientUnitEstPrice: (Price * 1.05), hPUnitPrice: hPrice, patientUnitPrice: (hPrice * 1.05), effectiveToDate: materia.effectiveToDate ? materia.effectiveToDate : $AppHelp.Data.GetDate(-6, null, 2) });
         }
 
         this.AddMaterias = function (materias, aims) {

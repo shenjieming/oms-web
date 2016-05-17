@@ -17,6 +17,8 @@
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active" href="#Bill" data-toggle="tab"><a>计费单</a></li>
             <li role="presentation" href="#Order" data-toggle="tab"><a>订单</a></li>
+            <li role="presentation" href="#Feedback" data-toggle="tab" ng-show="PageData.orderAccess.operFeedbackAccess"><a>反馈单</a></li>
+            <li role="presentation" href="#Event" data-toggle="tab" ng-show="PageData.orderAccess.operEventAccess"><a>订单跟踪</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="Bill">
@@ -166,7 +168,7 @@
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="row in BillData.detail">
-                                                <td><span ng-bind="row.dHMedMaterialInternalNo"></span></td>
+                                                <td><span ng-bind="row.medMaterialCode"></span></td>
                                                 <td><span ng-bind="row.dHMMName"></span></td>
                                                 <td><span ng-bind="row.medMaterialBrandName"></span> </td>
                                                 <td><span ng-bind="row.dHMMSpecification"></span></td>
@@ -205,6 +207,14 @@
             </div>
             <div role="tabpanel" class="tab-pane" id="Order">
                 <div ui-view="Accurate"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Feedback">
+                <div ui-view="Feedback"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Event">
+                <div class="row-fluid">
+                    <div ui-view="Event"></div>
+                </div>
             </div>
         </div>
         <span ng-approval-bill="ApprovalConfig" ng-model="BillData"></span>

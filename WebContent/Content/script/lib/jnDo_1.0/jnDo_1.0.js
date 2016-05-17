@@ -384,7 +384,7 @@ angular.module('jnDo', [])
                 DataToStr: function (data, type) {
                     ///<summary>将时间转换成字符串格式</summary>
                     ///<param name="data" type="data">转换成字符串形式的日期</param>
-                    var myYear = data.getFullYear(); var myMonth = data.getMonth(); var myDay = data.getDate(); var myHours = data.getHours();
+                    var myYear = parseInt(data.getFullYear()); var myMonth = parseInt(data.getMonth()); var myDay = parseInt(data.getDate()); var myHours = parseInt(data.getHours());
                     var myMinute = data.getMinutes(); var mySecond = data.getSeconds();
                     //如果月份大于12 ，年加1，月份减12
                     if (myMonth > 12) { myYear++; myMonth = myMonth - 12; }
@@ -418,7 +418,7 @@ angular.module('jnDo', [])
                     ///<param name="Minutes" type="int">差异分钟数，整数为往前推，负数为往后推,空则没有差异时间</param>
                     var myDate = new Date();
                     //如果算差异天使不为空的话，日期对象用差异天数的对象的数值
-                    if (newData) { myDate = new Date(Date.parse(newData.replace(/-/g, '/'))); }
+                    if (newData) { myDate = new Date(parseInt(Date.parse(newData.replace(/-/g, '/')),10)); }
                     //如果差异天数是0，并且没有差异分钟数的话
                     if (day == 0 && !Minutes) { return AppHelpService.Data.DataToStr(myDate, type); }
                     else {

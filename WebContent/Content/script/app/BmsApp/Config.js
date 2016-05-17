@@ -60,11 +60,29 @@ BmsApp
         $stateProvider
             .state("app.bms.bill.detail", {
                 /// <summary>订单计费管理</summary>
-                url: "/detail/:hOFNNo/:sONo", cache: false,    views: {     "": {    templateUrl: "View/BMS/Bill/Operat/BillDetail.html?data=" + Timestamp,   controller: "BillInfoController",   },    "Accurate@app.bms.bill.detail": {    templateUrl: "View/OMS/Order/Surgery/View/AccurateView.html?data=" + Timestamp,   controller: "AccurateController",    }    },    loadJs: ["Content/script/app/BmsApp/BillController/OperatController/JS_BillDetail.js"], resolve: app.resolve
+                url: "/detail/:hOFNNo/:sONo", cache: false, views: {
+                    "": {
+                        templateUrl: "View/BMS/Bill/Operat/BillDetail.html?data=" + Timestamp, controller: "BillInfoController",
+                    },
+                    "Accurate@app.bms.bill.detail": {
+                        templateUrl: "View/OMS/Order/Surgery/View/AccurateView.html?data=" + Timestamp,
+                        controller: "AccurateController",
+                    },
+                    "Feedback@app.bms.bill.detail": { templateUrl: "View/OMS/Order/Surgery/View/FeedbackView.html?data=" + Timestamp, controller: "FeedbackViewController", },
+                    "Event@app.bms.bill.detail": { templateUrl: "View/OMS/Order/Surgery/View/EventView.html?data=" + Timestamp }
+                }, loadJs: ["Content/script/app/BmsApp/BillController/OperatController/JS_BillDetail.js"], resolve: app.resolve
             })
             .state("app.bms.bill.view", {
                 /// <summary>计费单视图管理</summary>
-                url: "/view/:hOFNNo/:sONo",   cache: false,    views: {    "": {  templateUrl: "View/BMS/Bill/View/BillView.html?data=" + Timestamp,    controller: "BillInfoController",    },    "Accurate@app.bms.bill.view": {    templateUrl: "View/OMS/Order/Surgery/View/AccurateView.html?data=" + Timestamp,   controller: "AccurateController",     }    },   loadJs: ["Content/script/app/BmsApp/BillController/OperatController/JS_BillView.js"], resolve: app.resolve
+                url: "/view/:hOFNNo/:sONo", cache: false, views: {
+                    "": {
+                        templateUrl: "View/BMS/Bill/View/BillView.html?data=" + Timestamp, controller: "BillInfoController",
+                    }, "Accurate@app.bms.bill.view": {
+                        templateUrl: "View/OMS/Order/Surgery/View/AccurateView.html?data=" + Timestamp, controller: "AccurateController",
+                    },
+                    "Feedback@app.bms.bill.view": { templateUrl: "View/OMS/Order/Surgery/View/FeedbackView.html?data=" + Timestamp, controller: "FeedbackViewController", },
+                    "Event@app.bms.bill.view": { templateUrl: "View/OMS/Order/Surgery/View/EventView.html?data=" + Timestamp }
+                }, loadJs: ["Content/script/app/BmsApp/BillController/OperatController/JS_BillView.js"], resolve: app.resolve
             })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {

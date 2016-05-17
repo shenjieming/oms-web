@@ -16,6 +16,9 @@
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active" href="#Bill" data-toggle="tab"><a>开始计费</a></li>
             <li role="presentation" href="#Order" data-toggle="tab"><a>订单</a></li>
+            <li role="presentation" href="#Feedback" data-toggle="tab" ng-show="PageData.orderAccess.operFeedbackAccess"><a>反馈单</a></li>
+            <li role="presentation" href="#Event" data-toggle="tab" ng-show="PageData.orderAccess.operEventAccess"><a>订单跟踪</a></li>
+
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="Bill">
@@ -155,37 +158,39 @@
                         <div id="MaterialsInfo" class="widget-content nopadding collapse in">
                             <div ng-show="BillData.detail.length>0" class="main-box-body clearfix" style="padding: 15px; width: 100%;">
                                 <div class="table-responsive">
-                                    <table style="width:800px; min-width:100%; max-width:2000px;" class="table table-bordered tab-striped" st-table="BillData.detail" st-safe-src="rowCollection">
+                                    <table style="width:1400px; min-width:100%; max-width:2000px;" class="table table-bordered tab-striped" st-table="BillData.detail" st-safe-src="rowCollection">
                                         <thead>
                                             <tr>
                                                 <th><span>序号</span></th>
                                                 <th><span>物资编码</span></th>
-                                                <th><span>名称</span> </th>
-                                                <th><span>品牌</span> </th>
-                                                <th><span>规格 </span> </th>
-                                                <th><span>材料</span> </th>
-                                                <th><span>批次</span> </th>
+                                                <th><span>名称</span></th>
+                                                <th><span>品牌</span></th>
+                                                <th><span>规格 </span></th>
                                                 <th><span>数量</span></th>
                                                 <th><span>单价</span></th>
-                                                <th><span>患者单价(+5%)</span></th>
                                                 <th><span>金额</span></th>
+                                                <th><span>患者单价(+5%)</span></th>
+                                                <th><span>患者金额</span></th>
+                                                <th><span>批次</span></th>
                                                 <th><span>有效日期</span></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="row in BillData.detail">
                                                 <td><span ng-bind="$index+1"></span></td>
-                                                <td><input type="text" ng-model="row.dHMedMaterialInternalNo" placeholder="请输入医院物资编码" /></td>
+                                                <td><span ng-bind="row.medMaterialCode"></span></td>
                                                 <td><input type="text" ng-model="row.dHMMName" placeholder="请输入物资名称" /></td>
                                                 <td><span ng-bind="row.medMaterialBrandName"></span> </td>
                                                 <td><input type="text" ng-model="row.dHMMSpecification" placeholder="请输入物资规格" /> </td>
-                                                <td><input type="text" ng-model="row.dHMMMaterials"  placeholder="请输入物资材料"/></td>
-                                                <td><span class="required">*</span><input type="text" ng-model="row.lotSerial"  placeholder="请输入物资批次"/></td>
                                                 <td><input type="number" ng-model="row.qty" style="width:60px;" placeholder="请输入计费数量" /></td>
-                                                <td><input type="number" style="width:80px;" ng-model="row.hPUnitPrice" ng-change="Service.Compute.HpUnitEstPrice(row)" placeholder="请输入耗材单价" onclick="this.select()" /></td>
-                                                <td><input type="number" style="width:80px;" ng-model="row.patientUnitPrice" onclick="this.select()" placeholder="请输入销售单价" /></td>
+                                                <td>
+                                                    <span ng-bind="row.hPUnitPrice"></span>
+                                                <input ng-if="false" type="number" style="width:80px;" ng-model="row.hPUnitPrice" ng-change="Service.Compute.HpUnitEstPrice(row)" placeholder="请输入耗材单价" onclick="this.select()" /></td>
                                                 <td style="text-align:right"><span ng-bind="(row.qty*row.hPUnitPrice).toFixed(2)"></span> </td>
-                                                 <td><span ng-bind="row.medMaterialEffectiveDateFrom?row.medMaterialEffectiveDateFrom:row.effectiveToDate"></span></td>
+                                                <td><input type="number" style="width:80px;" ng-model="row.patientUnitPrice" onclick="this.select()" placeholder="请输入销售单价" /></td>
+                                                <td style="text-align:right"><span ng-bind="(row.qty*row.patientUnitPrice).toFixed(2)"></span> </td>
+                                                <td><input type="text" ng-model="row.lotSerial" placeholder="请输入批次" /></td>
+                                                 <td><span class="Left" ng-show-data="" ng-model="row.effectiveToDate"></span></td>
                                              </tr>
                                         </tbody>
                                     </table>
@@ -226,6 +231,14 @@
             </div>
             <div role="tabpanel" class="tab-pane" id="Order">
                 <div ui-view="Accurate"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Feedback">
+                <div ui-view="Feedback"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Event">
+                <div class="row-fluid">
+                    <div ui-view="Event"></div>
+                </div>
             </div>
 
         </div>

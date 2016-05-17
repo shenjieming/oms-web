@@ -26,7 +26,7 @@ app.controller("BillDetailController", function ($scope, $state,$Api, $local, $B
         MateriaConfig: {
             /// <summary>物资配置</summary>
             fixed: function (MateriasList) {
-                $scope.$Factory.AddMaterias(MateriasList, $scope.BillData.detail);
+                $scope.$Factory.AddMaterias(MateriasList, $scope.BillData);
             }
         }
     }
