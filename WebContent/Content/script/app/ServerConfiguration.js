@@ -8,8 +8,8 @@ var ServerConfiguration = {
     //OMS请求地址
     //开启OMS系统
     StartOMS: true,
-     OMSPath: "http://192.168.1.84:8081/oms-api",
-    //OMSPath: "http://192.168.1.116:8080/oms-api",
+     // OMSPath: "http://192.168.1.84:8081/oms-api",
+    OMSPath: "http://192.168.1.116:8080/oms-api",
     //OMSPath: "  http://115.28.129.13:8081/oms-api",
     //开启BMS系统
     StartBMS: false,
@@ -17,5 +17,5 @@ var ServerConfiguration = {
     BMSPath: "http://192.168.1.84:8081/bms-api",
     //是否启动开发,True的话全部菜单可用，false的话全部菜单与数据库的权限对接
     Version: "dev",
-    IsDevelop: false,
+    IsDevelop: true,
 }

@@ -1206,7 +1206,10 @@ app.controller("OrderDeliveryController", function ($scope, $state, $local, $Api
     } else { 
         $scope.shipped.shipType = "order";
     }
-    $scope.shipped.sONo = $scope.sONo; 
+    $scope.shipped.sONo = $scope.sONo;
+    $scope.shipped.expressRemark = "运费已付";
+    $scope.shipped.busSendRemark = "运费已付";
+    $scope.shipped.airSendRemark = "运费已付";
     $scope.shippedSubmit = {
         Direct: function () {
             /// <summary>直送发货提交</summary>
@@ -1332,8 +1335,8 @@ app.controller("OrderDeliveryController", function ($scope, $state, $local, $Api
             /// <summary>快递发货清空</summary>
             $scope.shipped.expressCompany = "";
             $scope.shipped.expressCompanyName = "";
-            $scope.shipped.directSendMan = "";
-            $scope.shipped.directSendMan = "";
+            $scope.shipped.expressNumber = "";
+            $scope.shipped.expressRemark = "";
 
         },
         Bus: function () {
