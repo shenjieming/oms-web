@@ -4,9 +4,9 @@
             <a class="btn" ng-click="BillService.IsShowMaterialView(true)" ng-class="{true: 'btn-info',false:'btn-primary'}[!BillService.ViewMaterial]"><i class="fa fa-puzzle-piece"></i> 对账详情</a>
             <a class="btn" ng-click="BillService.IsShowMaterialView(false)" ng-class="{true: 'btn-info',false:'btn-primary'}[BillService.ViewMaterial]"><i class="fa fa-puzzle-piece"></i> 对账明细</a>
         </div>
-        <div class="btn-group oms-btn-group" role="group" style="border-bottom:0px;float:right;">
+        <div class="btn-group oms-btn-group" role="group" style="border-bottom:0px;float:right;" ng-show="ngBillMaterials.Edit">
             <a class="btn btn-primary" ng-click=""><i class="fa fa-puzzle-piece"></i> 新增明细</a>
-            <a class="btn btn-primary" ng-click=""><i class="fa fa-puzzle-piece"></i> 取消修改</a>
+            <a class="btn btn-primary" ng-click="ngBillMaterials.IsEditDetail(false)"><i class="fa fa-puzzle-piece"></i> 取消修改</a>
 
         </div>
     </div>
@@ -65,7 +65,7 @@
                     <th><span>对账数量</span></th>
                     <th><span>对账单价</span></th>
                     <th><span>金额</span></th>
-                    <td><span>操作</span></td>
+                    <td ng-show="ngBillMaterials.Edit"><span>操作</span></td>
                 </tr>
             </thead>
             <tbody>
@@ -84,9 +84,13 @@
                     </td>
                     <td style="text-align:right;">￥<span ng-bind="(row.hPUnitPrice*1).toFixed(2)"></span> </td>
                     <td style="text-align:right;">￥<span ng-bind="(row.hPUnitPrice*row.offsetQty).toFixed(2)"></span> </td>
-                    <td></td>
+                    <td ng-show="ngBillMaterials.Edit" style="text-align:center;">
+                        <button type="button" ng-click="BillService.DeletBillMaterial(row)" class="btn btn-xs btn-danger">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </td>
                 </tr>
-                <tr style="text-align:right;border-top :1px solid #000" ng-slide="true">
+                <tr style="text-align:right;border-top :1px solid #000" ng-slide="!ngBillMaterials.Edit">
                     <td style="text-align:center;">合计</td>
                     <td><span ng-bind="BillService.Gather.BillCount"></span> 张计费单 </td>
                     <td colspan="2"><span ng-bind="BillService.Gather.MaterialCount"></span> 件医疗耗材</td>

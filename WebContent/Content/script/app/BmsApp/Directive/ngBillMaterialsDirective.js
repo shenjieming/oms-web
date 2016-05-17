@@ -28,11 +28,23 @@ app.directive("ngBillMaterials", function ($BMSApi, $MessagService, $local, $App
                 GetRecByMappingData: function (data) {
                     /// <summary>根据映射数据获取对账信息</summary>
                     $.extend(s.ngModel, data); s.BillService.ChangeBillList();
+                },
+                DeletBillMaterial: function (row) {
+                    /// <summary>删除计费单物料</summary>
+                    $BMSApi.ReconciliationService.FndDelete(row, s.BillService.GetNewReconciliation);
+                },
+                GetNewReconciliation :function () {
+                    /// <summary>获取新的对账单信息</summary>
                 }
             }
 
             s.BillConfig = {
                 /// <summary>物料选择配置</summary>
+                Edit: false,
+                IsEditDetail: function (is) {
+                    /// <summary>编辑对账明细</summary>
+                    s.BillConfig.Edit = is; s.BillService.IsShowMaterialView(!is);
+                },
                 fixed: function (list) { s.BillService.GetRecByMappingData({ detail: s.Factory.GetNewBillDetail(s.ngModel.detail, list) }); }
             };
 

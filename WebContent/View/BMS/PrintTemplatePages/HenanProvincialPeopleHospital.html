@@ -1,0 +1,446 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="templateApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>河南省人民医院三联单</title>
+    <link href="Content/style/css/PrintTemplate.css" rel="stylesheet" />
+    <script src="../../Content/script/app/MicroChannelConfiguration.js"></script>
+    <script src="../../Content/script/lib/angular-1.2.20/angular.min.js"></script>
+    <script src="../../Content/script/lib/Jquery/jquery-1.11.1.min.js"></script>
+    <script src="../../Content/script/app/service/ApiPath.js"></script>
+    <script src="../../Content/script/help/jquery.common.functions.js"></script>
+    <script src="../../Content/script/help/angular.common.printtemplate.js"></script>
+
+</head>
+<body ng-controller="templatContr">
+    <div class="printOrder">
+        <table>
+            <tr>
+                <td>
+                    <img style="width:150px;" src="http://www.hnsrmyy.net/images/logo.jpg" />
+                </td>
+                <td class="logoTitle">
+                    植入性耗材使用质量跟踪记录单(手术室联)
+                </td>
+            </tr>
+        </table>
+        <table class="table">
+            <tr>
+                <td rowspan="2" class="title">患者信息</td>
+                <td>姓名</td>
+                <td class="input Info">{{OrderInfo.patientName}}</td>
+                <td>住院(门诊)号</td>
+                <td class="input Info">{{OrderInfo.patientHPNo}}</td>
+                <td>手术医生(签字)</td>
+                <td class="input Info"></td>
+                <td>巡回护士签字</td>
+                <td class="input Info"></td>
+            </tr>
+            <tr>
+                <td>住院科室</td>
+                <td class="input Info">{{OrderInfo.wardDeptCodeName}}</td>
+                <td>手术日期</td>
+                <td class="input Info">{{Service.ToDate.(OrderInfo.operationDate)}}</td>
+                <td>计费人员(签字)</td>
+                <td colspan="3" style="width:*;"></td>
+            </tr>
+        </table>
+        <table class="table">
+            <tr>
+                <td rowspan="4" class="title">耗材信息</td>
+                <td style="padding:0px;">
+                    <table class="table" style="margin-left:-1px;margin-right:-2px;margin-bottom:-1px;">
+                        <tr>
+                            <th>耗材名称</th>
+                            <th>物资编号</th>
+                            <th>品牌</th>
+                            <th>规格型号</th>
+                            <th>数量</th>
+                            <th>单价</th>
+                            <th>+5%单价</th>
+                            <th>批号</th>
+                            <th>有效日期</th>
+                        </tr>
+                        <tr style="color:blue;" ng-repeat="item in OrderInfo.chargings">
+                            <td><label style="font-size:8px;">{{item.medMIPrintName}}</label> </td>
+                            <td><label style="font-size:8px;">{{item.medMIHPSupplyCode}}</label></td>
+                            <td><label style="font-size:8px;">{{item.medMIBrandPrintName}}</label></td>
+                            <td><label style="font-size:8px;">{{item.medMISpecification}}</label></td>
+                            <td><label style="font-size:8px;text-align:right;float:right;">{{item.medMIQty}}</label></td>
+                            <td><label style="font-size: 8px; text-align: right;float:right;">{{item.medMIHPUnitPrice}}</label></td>
+                            <td><label style="font-size: 8px; text-align: right;float:right;">{{item.medMIPatientUnitPrice}}</label></td>
+                            <td><label style="font-size:8px;">{{item.lotSerial}}</label></td>
+                            <td><label style="font-size:8px;">{{item?Service.ToDate(item.effectiveToDate):"-"}}</label></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:0px;">
+                    <table class="table" style="margin-left:-1px;margin-right:-2px;margin-bottom:-1px;">
+                        <tr>
+                            <td class="Tip">合计金额</td>
+                            <td class="Info">
+                                {{OrderInfo.ChPOPFeeNoteHPtoDLAmt}}< ￥{{OrderInfo.hPOPFeeNoteHPtoDLAmt}}元>
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:0px;">
+                    <table class="table" style="margin-left:-1px;margin-right:-2px;margin-bottom:-1px;">
+                        <tr>
+                            <td class="Tip">+5%合计金额</td>
+                            <td class="Info">
+                                {{OrderInfo.ChPOPFeeNoteHPtoPatientAmt}}< ￥{{OrderInfo.hPOPFeeNoteHPtoPatientAmt}}元>
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:0px;">
+                    <table class="table" style="margin-left:-1px;margin-right:-2px;margin-bottom:-1px;">
+                        <tr>
+                            <td class="Tip">供货单位</td>
+                            <td class="Info">
+                                {{OrderInfo.sOCreateByOrgCodeName}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+        </table>
+        <table class="table">
+            <tr>
+                <td class="title">填写日期</td>
+                <td style="width:*">
+                    <span style="color:blue;">{{today}}</span>
+                </td>
+            </tr>
+        </table>
+        <span style="color:#ccc;">{{OrderInfo.sONo}}</span>
+        <span style="color:#ccc; float:right;">迈骆(上海)医疗供应链管理有限公司</span>
+        <table class="table">
+
+            <tr>
+                <td style=" text-align: center; padding: 50px;height:200px;border:0px">
+                    相关证、码贴处
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="printOrder">
+        <table>
+            <tr>
+                <td>
+                    <img style="width:150px;" src="http://www.hnsrmyy.net/images/logo.jpg" />
+                </td>
+                <td class="logoTitle">
+                    植入性耗材使用质量跟踪记录单(供应商联)
+                </td>
+            </tr>
+        </table>
+        <table class="table">
+            <tr>
+                <td rowspan="2" class="title">患者信息</td>
+                <td>姓名</td>
+                <td class="input Info">{{OrderInfo.patientName}}</td>
+                <td>住院(门诊)号</td>
+                <td class="input Info">{{OrderInfo.patientHPNo}}</td>
+                <td>手术医生(签字)</td>
+                <td class="input Info"></td>
+                <td>巡回护士签字</td>
+                <td class="input Info"></td>
+            </tr>
+            <tr>
+                <td>住院科室</td>
+                <td class="input Info">{{OrderInfo.wardDeptCodeName}}</td>
+                <td>手术日期</td>
+                <td class="input Info">{{Service.ToDate.(OrderInfo.operationDate)}}</td>
+                <td>计费人员(签字)</td>
+                <td colspan="3" style="width:*;"></td>
+            </tr>
+        </table>
+        <table class="table">
+            <tr>
+                <td rowspan="4" class="title">耗材信息</td>
+                <td style="padding:0px;">
+                    <table class="table" style="margin-left:-1px;margin-right:-2px;margin-bottom:-1px;">
+                        <tr>
+                            <th>耗材名称</th>
+                            <th>物资编号</th>
+                            <th>品牌</th>
+                            <th>规格型号</th>
+                            <th>数量</th>
+                            <th>单价</th>
+                            <th>+5%单价</th>
+                            <th>批号</th>
+                            <th>有效日期</th>
+                        </tr>
+                        <tr style="color:blue;" ng-repeat="item in OrderInfo.chargings">
+                            <td><label style="font-size:8px;">{{item.medMIPrintName}}</label> </td>
+                            <td><label style="font-size:8px;">{{item.medMIHPSupplyCode}}</label></td>
+                            <td><label style="font-size:8px;">{{item.medMIBrandPrintName}}</label></td>
+                            <td><label style="font-size:8px;">{{item.medMISpecification}}</label></td>
+                            <td><label style="font-size:8px;text-align:right;float:right;">{{item.medMIQty}}</label></td>
+                            <td><label style="font-size: 8px; text-align: right;float:right;">{{item.medMIHPUnitPrice}}</label></td>
+                            <td><label style="font-size: 8px; text-align: right;float:right;">{{item.medMIPatientUnitPrice}}</label></td>
+                            <td><label style="font-size:8px;">{{item.lotSerial}}</label></td>
+                            <td><label style="font-size:8px;">{{item?Service.ToDate(item.effectiveToDate):"-"}}</label></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:0px;">
+                    <table class="table" style="margin-left:-1px;margin-right:-2px;margin-bottom:-1px;">
+                        <tr>
+                            <td class="Tip">合计金额</td>
+                            <td class="Info">
+                                {{OrderInfo.ChPOPFeeNoteHPtoDLAmt}}< ￥{{OrderInfo.hPOPFeeNoteHPtoDLAmt}}元>
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:0px;">
+                    <table class="table" style="margin-left:-1px;margin-right:-2px;margin-bottom:-1px;">
+                        <tr>
+                            <td class="Tip">+5%合计金额</td>
+                            <td class="Info">
+                                {{OrderInfo.ChPOPFeeNoteHPtoPatientAmt}}< ￥{{OrderInfo.hPOPFeeNoteHPtoPatientAmt}}元>
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:0px;">
+                    <table class="table" style="margin-left:-1px;margin-right:-2px;margin-bottom:-1px;">
+                        <tr>
+                            <td class="Tip">供货单位</td>
+                            <td class="Info">
+                                {{OrderInfo.sOCreateByOrgCodeName}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+        </table>
+        <table class="table">
+            <tr>
+                <td class="title">填写日期</td>
+                <td style="width:*">
+                    <span style="color:blue;">{{today}}</span>
+                </td>
+            </tr>
+        </table>
+        <span style="color:#ccc;">{{OrderInfo.sONo}}</span>
+        <span style="color:#ccc; float:right;">迈骆(上海)医疗供应链管理有限公司</span>
+        <table class="table">
+
+            <tr>
+                <td style=" text-align: center; padding: 50px;height:200px;border:0px">
+                    相关证、码贴处
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="printOrder">
+        <table>
+            <tr>
+                <td>
+                    <img style="width:150px;" src="http://www.hnsrmyy.net/images/logo.jpg" />
+                </td>
+                <td class="logoTitle">
+                    植入性耗材使用质量跟踪记录单(采购处联)
+                </td>
+            </tr>
+        </table>
+        <table class="table">
+            <tr>
+                <td rowspan="2" class="title">患者信息</td>
+                <td>姓名</td>
+                <td class="input Info">{{OrderInfo.patientName}}</td>
+                <td>住院(门诊)号</td>
+                <td class="input Info">{{OrderInfo.patientHPNo}}</td>
+                <td>手术医生(签字)</td>
+                <td class="input Info"></td>
+                <td>巡回护士签字</td>
+                <td class="input Info"></td>
+            </tr>
+            <tr>
+                <td>住院科室</td>
+                <td class="input Info">{{OrderInfo.wardDeptCodeName}}</td>
+                <td>手术日期</td>
+                <td class="input Info">{{Service.ToDate.(OrderInfo.operationDate)}}</td>
+                <td>计费人员(签字)</td>
+                <td colspan="3" style="width:*;"></td>
+            </tr>
+        </table>
+        <table class="table">
+            <tr>
+                <td rowspan="4" class="title">耗材信息</td>
+                <td style="padding:0px;">
+                    <table class="table" style="margin-left:-1px;margin-right:-2px;margin-bottom:-1px;">
+                        <tr>
+                            <th>耗材名称</th>
+                            <th>物资编号</th>
+                            <th>品牌</th>
+                            <th>规格型号</th>
+                            <th>数量</th>
+                            <th>单价</th>
+                            <th>+5%单价</th>
+                            <th>批号</th>
+                            <th>有效日期</th>
+                        </tr>
+                        <tr style="color:blue;" ng-repeat="item in OrderInfo.chargings">
+                            <td><label style="font-size:8px;">{{item.medMIPrintName}}</label> </td>
+                            <td><label style="font-size:8px;">{{item.medMIHPSupplyCode}}</label></td>
+                            <td><label style="font-size:8px;">{{item.medMIBrandPrintName}}</label></td>
+                            <td><label style="font-size:8px;">{{item.medMISpecification}}</label></td>
+                            <td><label style="font-size:8px;text-align:right;float:right;">{{item.medMIQty}}</label></td>
+                            <td><label style="font-size: 8px; text-align: right;float:right;">{{item.medMIHPUnitPrice}}</label></td>
+                            <td><label style="font-size: 8px; text-align: right;float:right;">{{item.medMIPatientUnitPrice}}</label></td>
+                            <td><label style="font-size:8px;">{{item.lotSerial}}</label></td>
+                            <td><label style="font-size:8px;">{{item?Service.ToDate(item.effectiveToDate):"-"}}</label></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:0px;">
+                    <table class="table" style="margin-left:-1px;margin-right:-2px;margin-bottom:-1px;">
+                        <tr>
+                            <td class="Tip">合计金额</td>
+                            <td class="Info">
+                                {{OrderInfo.ChPOPFeeNoteHPtoDLAmt}}< ￥{{OrderInfo.hPOPFeeNoteHPtoDLAmt}}元>
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:0px;">
+                    <table class="table" style="margin-left:-1px;margin-right:-2px;margin-bottom:-1px;">
+                        <tr>
+                            <td class="Tip">+5%合计金额</td>
+                            <td class="Info">
+                                {{OrderInfo.ChPOPFeeNoteHPtoPatientAmt}}< ￥{{OrderInfo.hPOPFeeNoteHPtoPatientAmt}}元>
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:0px;">
+                    <table class="table" style="margin-left:-1px;margin-right:-2px;margin-bottom:-1px;">
+                        <tr>
+                            <td class="Tip">供货单位</td>
+                            <td class="Info">
+                                {{OrderInfo.sOCreateByOrgCodeName}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+        </table>
+        <table class="table">
+            <tr>
+                <td class="title">填写日期</td>
+                <td style="width:*">
+                    <span style="color:blue;">{{today}}</span>
+                </td>
+            </tr>
+        </table>
+        <span style="color:#ccc;">{{OrderInfo.sONo}}</span>
+        <span style="color:#ccc; float:right;">迈骆(上海)医疗供应链管理有限公司</span>
+        <table class="table">
+
+            <tr>
+                <td style=" text-align: center; padding: 50px;height:200px;border:0px">
+                    相关证、码贴处
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

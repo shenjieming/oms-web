@@ -1,0 +1,51 @@
+﻿
+ body {
+            font-size: 11px;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        table {
+            width: 100%;
+        }
+
+
+.printOrder {
+    min-height: 870px;
+    padding: 10px;
+    height: 870px;
+    max-height: 870px;
+    overflow-y: auto;
+}
+.printOrder .logoTitle{
+    font-size: 18px; font-weight: bold; float: left; text-align: right;line-height:50px;width:95%;
+}
+    .printOrder .table {
+        font-size: 11px;
+        margin-top: -1px;
+        border-collapse: collapse;
+    }
+
+        .printOrder .table tr {
+        }
+
+            .printOrder .table tr td, .table tr th {
+                border: 1px solid #ccc;
+                padding: 5px;
+            }
+
+                .printOrder .table tr td.title {
+                    width: 6%;
+                }
+                .printOrder .table tr td.input {
+                    width: 10%;
+                }
+                .printOrder .table tr td.Tip {
+                    width: 12%;
+                }
+
+                .printOrder .table tr td.Info {
+                    color: #8A8A8A;
+                }

@@ -148,35 +148,35 @@ BmsApp
         var service = new Array();
         service.push($BmsBillMenuService);
         service.push($BmsReconciliationMenuService);
-        service.push($BmsInvoiceMenuService);
+        //service.push($BmsInvoiceMenuService);
         return service;
     })
     .factory("$BmsBillMenuService", function () {
         /// <summary>BMS系统计费单菜单管理</summary>
         return {
-            name: "订单计费管理", url: "", state: "app.bms.bill", icon: "fa-laptop", order: 3,
+            name: "计费管理", url: "", state: "app.bms.bill", icon: "fa-laptop", order: 3,
             detail: [
-                { name: "综合计费单查询", url: "#/app/bms/bill/complex", state: "app.bms.bill.complex" },
-                { name: "待计费订单", url: "#/app/bms/bill/pending", state: "app.bms.bill.pending" },
+                { name: "综合查询", url: "#/app/bms/bill/complex", state: "app.bms.bill.complex" },
                 { name: "我的计费单", url: "#/app/bms/bill/list", state: "app.bms.bill.list" },
-                { name: "未审批计费", url: "#/app/bms/bill/notapproval", state: "app.bms.bill.notapproval" },
-                { name: "待审批计费", url: "#/app/bms/bill/approval", state: "app.bms.bill.approval" },
-                { name: "已审批计费", url: "#/app/bms/bill/approveded", state: "app.bms.bill.approveded" },
-                { name: "已对账计费", url: "#/app/bms/bill/posting", state: "app.bms.bill.posting" }
+                { name: "待计费", url: "#/app/bms/bill/pending", state: "app.bms.bill.pending" },
+                { name: "未审批", url: "#/app/bms/bill/notapproval", state: "app.bms.bill.notapproval" },
+                { name: "待审批", url: "#/app/bms/bill/approval", state: "app.bms.bill.approval" },
+                { name: "已审批", url: "#/app/bms/bill/approveded", state: "app.bms.bill.approveded" },
+                { name: "已对账", url: "#/app/bms/bill/posting", state: "app.bms.bill.posting" }
             ]
         };
     })
     .factory("$BmsReconciliationMenuService", function () {
         /// <summary>BMS系统对账单菜单管理</summary>
         return {
-            name: "计费对账管理", url: "", state: "app.bms.rec", icon: "fa-laptop", order: 3,
+            name: "对账管理", url: "", state: "app.bms.rec", icon: "fa-laptop", order: 3,
             detail: [
-                { name: "对账单综合查询", url: "#/app/bms/rec/complex", state: "app.bms.rec.complex" },
+                { name: "综合查询", url: "#/app/bms/rec/complex", state: "app.bms.rec.complex" },
                 { name: "我的对账单", url: "#/app/bms/rec/list", state: "app.bms.rec.list" },
-                { name: "未审批对账单", url: "#/app/bms/rec/notapproval", state: "app.bms.rec.notapproval" },
-                { name: "待审批对账单", url: "#/app/bms/rec/approval", state: "app.bms.rec.approval" },
-                { name: "已审批对账单", url: "#/app/bms/rec/approveded", state: "app.bms.rec.approveded" },
-                { name: "已开票对账单", url: "#/app/bms/rec/already", state: "app.bms.rec.already" }
+                { name: "未审批", url: "#/app/bms/rec/notapproval", state: "app.bms.rec.notapproval" },
+                { name: "待审批", url: "#/app/bms/rec/approval", state: "app.bms.rec.approval" },
+                { name: "已审批", url: "#/app/bms/rec/approveded", state: "app.bms.rec.approveded" },
+                { name: "已开票", url: "#/app/bms/rec/already", state: "app.bms.rec.already" }
             ]
         };
     })

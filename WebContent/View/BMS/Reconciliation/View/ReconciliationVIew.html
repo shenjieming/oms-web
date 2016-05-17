@@ -58,7 +58,10 @@
                         <div class="widget-title bg_ly">
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>
                             <h5 data-toggle="collapse" style="width:80%;" href="#RecInfo">对账明细</h5>
-                            <a class="btn" ng-if="Competence.modify" href="javascript:void(0)" ng-click="goLastPage()"><i class="fa fa-clipboard"></i> 修改明细</a>
+                            <span ng-if="Competence.modify">
+                                <a class="btn" ng-show="!Module.BillListConfig.Edit" href="javascript:void(0)" ng-click="Module.BillListConfig.IsEditDetail(true)"><i class="fa fa-clipboard"></i> 修改明细</a>
+                                <a class="btn" ng-show="Module.BillListConfig.Edit" href="javascript:void(0)" ng-click="Module.BillListConfig.IsEditDetail(false)"><i class="fa fa-clipboard"></i> 取消修改</a>
+                             </span>
                         </div>
                         <div id="RecInfo" class="widget-content nopadding collapse in">
                             <span ng-bill-materials="Module.BillListConfig" ng-model="RecInfo" ng-bill-service="Module.BillListService"></span>
