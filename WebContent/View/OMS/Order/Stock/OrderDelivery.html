@@ -90,10 +90,10 @@
                                         快递公司：
                                         <select ng-model="shipped.expressCompany" ng-change="SelectInfo.expressCompany.change()">
                                             <option value="">请选择快递公司</option>
-                                            <option ng-repeat="item in SelectInfo.expressCompany.dic"value="{{item.id}}">{{item.text}}</option>
+                                            <option ng-repeat="item in SelectInfo.expressCompany.dic" value="{{item.id}}">{{item.text}}</option>
                                         </select>
-                                        
-                                         <!--快递公司：  <input style="width: 40%" type="text" ng-model="shipped.expressCompany" />-->
+
+                                        <!--快递公司：  <input style="width: 40%" type="text" ng-model="shipped.expressCompany" />-->
                                     </label>
                                 </div>
                                 <div style="margin-top:10px">
@@ -129,9 +129,9 @@
                                     <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
                                 </span>
                             </div>
-                            <div style="margin-left:60px;margin-bottom:200px">
+                            <div style="margin-left:100px;margin-bottom:200px">
                                 <div>
-                                    <label style="margin-top: 100px;width: 100% ">
+                                    <label style="margin-top:60px;width: 100% ">
                                         <span class="required">*</span> 车牌号：  <input style="width: 40%" type="text" ng-model="shipped.busNumber" />
                                     </label>
                                 </div>
@@ -175,7 +175,7 @@
                                     <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
                                 </span>
                             </div>
-                            <div style="margin-left:100px;margin-bottom:200px;"  >
+                            <div style="margin-left:100px;margin-bottom:200px;">
                                 <div>
                                     <label style="margin-top: 106px;margin-left:-12px">
                                         <span class="required">*</span>
@@ -184,9 +184,9 @@
                                             <option value="">请选择航空公司</option>
                                             <option ng-repeat="item in SelectInfo.airCompany.dic" value="{{item.id}}">{{item.text}}</option>
                                         </select>
-                                         <!--航空公司：  <input type="text" ng-model="shipped.airCompany" />-->
+                                        <!--航空公司：  <input type="text" ng-model="shipped.airCompany" />-->
                                     </label>
-                                    <label  style="margin-left:120px">
+                                    <label style="margin-left:120px">
                                         <span class="required">*</span> 航班号：  <input type="text" ng-model="shipped.airFlightNumber" />
                                     </label>
                                 </div>
@@ -228,25 +228,25 @@
                                     <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
                                 </span>
                             </div>
-                            <div style="margin-left:60px;margin-bottom:200px">
+                            <div style="margin-left:100px;margin-bottom:200px">
                                 <div>
-                                    <label style="margin-top: 100px;width: 100% ">
-                                        <span class="required">*</span> 
-                                        提货人： 
+                                    <label style="margin-top: 60px;width: 100% ">
+                                        <span class="required">*</span>
+                                        提货人：
                                         <input style="width: 40%" type="text" ng-model="shipped.pickedUpMan" />
                                     </label>
                                 </div>
                                 <div>
                                     <label style="margin-left:-25px;width: 100%">
-                                        <span class="required">*</span> 
-                                         提货人手机：
+                                        <span class="required">*</span>
+                                        提货人手机：
                                         <input style="width: 40%" type="text" ng-model="shipped.pickedUpManPhone" />
                                     </label>
                                 </div>
                                 <div>
                                     <label style="margin-left: -12px;width: 100%">
-                                        <span class="required">*</span>   
-                                         提货备注： 
+                                        <span class="required">*</span>
+                                        提货备注：
                                         <input style="width: 40%" type="text" ng-model="shipped.pickedUpRemark" />
                                     </label>
                                 </div>

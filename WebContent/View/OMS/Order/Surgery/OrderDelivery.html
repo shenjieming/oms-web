@@ -46,19 +46,19 @@
                                 <div>
                                     <label style="margin-top: 60px;width: 100% ">
                                         <span class="required">*</span> 送货人：
-                                        <input style="width: 40%" type="text" ng-model="shipped.directSendMan" />
+                                        <input style="width: 40%" type="text" placeholder="请输入送货人" ng-model="shipped.directSendMan" />
                                     </label>
                                 </div>
                                 <div style="margin-top:15px">
                                     <label style="margin-left:-25px;width: 100%">
                                         <span class="required">*</span> 送货人手机：
-                                        <input style="width: 40%" type="text" ng-model="shipped.directSendManPhone" />
+                                        <input style="width: 40%" type="text" placeholder="请输入送货人手机" ng-model="shipped.directSendManPhone" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"  maxlength="11" />
                                     </label>
                                 </div>
                                 <div style="margin-top:15px">
                                     <label style="margin-left: -12px;width: 100%">
                                         送货备注：
-                                        <input style="width: 40%" type="text" ng-model="shipped.directSendRemark" />
+                                        <input style="width: 40%" type="text" placeholder="对送货的特殊提醒，如下午13：00前送到" ng-model="shipped.directSendRemark" />
                                     </label>
                                 </div>
                             </div>
@@ -78,6 +78,7 @@
                         <div id="Express_DeliveryInformation" class="widget-content nopadding collapse in">
                             <div class="control-group" style="float:right">
                                 <span class="btn-group oms-btn-group">
+
                                     <a class="btn btn-primary" ng-click="shippedSubmit.Express()"><i class="fa fa-save"></i> 发货</a>
                                     <a class="btn btn-primary" ng-click="Cancel.Express()"><i class="fa fa-check"></i> 清空</a>
                                     <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
@@ -92,19 +93,19 @@
                                             <option value="">请选择快递公司</option>
                                             <option ng-repeat="item in SelectInfo.expressCompany.dic"value="{{item.id}}">{{item.text}}</option>
                                         </select>
-                                        
+
                                          <!--快递公司：  <input style="width: 40%" type="text" ng-model="shipped.expressCompany" />-->
                                     </label>
                                 </div>
                                 <div style="margin-top:10px">
                                     <label style="margin-left: -12px; width: 100%">
                                         <span class="required">*</span>  快递单号：
-                                        <input style="width: 40%" type="text" ng-model="shipped.expressNumber" />
+                                        <input style="width: 40%" type="text" ng-model="shipped.expressNumber" placeholder="请输入快递单号" />
                                     </label>
                                 </div>
                                 <div style="margin-top:10px">
                                     <label style="margin-left: -12px;width: 100%">
-                                        送货备注：  <input style="width: 40%" type="text" ng-model="shipped.expressRemark" />
+                                        送货备注：  <input style="width: 40%" type="text" ng-model="shipped.expressRemark"/>
                                     </label>
                                 </div>
                             </div>
@@ -132,19 +133,19 @@
                             <div style="margin-left:100px;margin-bottom:200px">
                                 <div>
                                     <label style="margin-top:60px;width: 100% ">
-                                        <span class="required">*</span> 车牌号：  <input style="width: 40%" type="text" ng-model="shipped.busNumber" />
+                                        <span class="required">*</span> 车牌号：  <input style="width: 40%" type="text" ng-model="shipped.busNumber" placeholder="请输入大巴车主车牌号" />
                                     </label>
                                 </div>
                                 <div style="margin-top:10px">
                                     <label style="margin-left:-12px;width: 100%">
                                         <span class="required">*</span> 司机电话：
-                                        <input style="width: 40%" type="text" ng-model="shipped.busDriverPhone" />
+                                        <input style="width: 40%" type="text" ng-model="shipped.busDriverPhone" placeholder="请输入大巴司机手机号码" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="11" />
                                     </label>
                                 </div>
                                 <div style="margin-top:10px">
                                     <label style="margin-left:12px;width: 100%">
                                         <span class="required">*</span> 司机：
-                                        <input style="width: 40%" type="text" ng-model="shipped.busDriverName" />
+                                        <input style="width: 40%" type="text" ng-model="shipped.busDriverName" placeholder="请输入司机姓名" />
                                     </label>
                                 </div>
                                 <div style="margin-top:10px">
@@ -187,17 +188,17 @@
                                          <!--航空公司：  <input type="text" ng-model="shipped.airCompany" />-->
                                     </label>
                                     <label  style="margin-left:120px">
-                                        <span class="required">*</span> 航班号：  <input type="text" ng-model="shipped.airFlightNumber" />
+                                        <span class="required">*</span> 航班号：  <input type="text" ng-model="shipped.airFlightNumber" placeholder="请输入航班号" />
                                     </label>
                                 </div>
                                 <div style="margin-top:10px">
                                     <label style="margin-left:-7px">
                                         <span class="required">*</span> 送货人 ：
-                                        <input type="text" ng-model="shipped.airSendMan" />
+                                        <input type="text" ng-model="shipped.airSendMan" placeholder="请输入送货人"/>
                                     </label>
                                     <label style="margin-left:90px">
                                         <span class="required">*</span>   送货人手机 ：
-                                        <input type="text" ng-model="shipped.airSendManPhone" />
+                                        <input type="text" ng-model="shipped.airSendManPhone" placeholder="请输入送货人手机" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="11" />
                                     </label>
                                 </div>
                                 <div style="margin-top:10px">
@@ -231,23 +232,23 @@
                             <div style="margin-left:100px;margin-bottom:200px">
                                 <div>
                                     <label style="margin-top: 60px;width: 100% ">
-                                        <span class="required">*</span> 
-                                        提货人： 
-                                        <input style="width: 40%" type="text" ng-model="shipped.pickedUpMan" />
+                                        <span class="required">*</span>
+                                        提货人：
+                                        <input style="width: 40%" type="text" ng-model="shipped.pickedUpMan" placeholder="请输入提货人" />
                                     </label>
                                 </div>
                                 <div>
                                     <label style="margin-left:-25px;width: 100%">
-                                        <span class="required">*</span> 
+                                        <span class="required">*</span>
                                          提货人手机：
-                                        <input style="width: 40%" type="text" ng-model="shipped.pickedUpManPhone" />
+                                        <input style="width: 40%" type="text" ng-model="shipped.pickedUpManPhone" placeholder="请输入提货人手机" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="11" />
                                     </label>
                                 </div>
                                 <div>
                                     <label style="margin-left: -12px;width: 100%">
-                                        <span class="required">*</span>   
-                                         提货备注： 
-                                        <input style="width: 40%" type="text" ng-model="shipped.pickedUpRemark" />
+                                        <span class="required">*</span>
+                                         提货备注：
+                                        <input style="width: 40%" type="text" ng-model="shipped.pickedUpRemark" placeholder="对提货的特殊提醒，如张三360102187832560" />
                                     </label>
                                 </div>
                             </div>

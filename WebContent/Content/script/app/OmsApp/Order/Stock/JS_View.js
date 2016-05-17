@@ -997,6 +997,9 @@ app.controller("StockOrderDeliveryController", function ($scope, $state, $local,
         $scope.shipped.shipType = "stockorder";
     }
     $scope.shipped.sONo = $scope.sONo;
+    $scope.shipped.expressRemark = "运费已付";
+    $scope.shipped.busSendRemark = "运费已付";
+    $scope.shipped.airSendRemark = "运费已付";
     $scope.shippedSubmit = {
         Direct: function () {
             /// <summary>直送发货提交</summary>
@@ -1107,30 +1110,40 @@ app.controller("StockOrderDeliveryController", function ($scope, $state, $local,
         }
     }
     $scope.Cancel = {
-        Direct: function () {
-            /// <summary>直送发货清空</summary>
-            alert("清空成功！")
-            console.log($scope.shipped)
+        Direct:function () {
+            /// <summary>直送发货清空</summary>       
+            $scope.shipped.directSendMan = "";
+            $scope.shipped.directSendManPhone = "";
+            $scope.shipped.directSendRemark = "";
         },
-        Express: function () {
+        Express:function () {
             /// <summary>快递发货清空</summary>
-            alert("清空成功！")
-            console.log($scope.shipped)
+            $scope.shipped.expressCompany = "";
+            $scope.shipped.expressCompanyName = "";
+            $scope.shipped.expressNumber = "";
+            $scope.shipped.expressRemark = "";
         },
-        Bus: function () {
+        Bus:function () {
             /// <summary>大巴发货清空</summary>
-            alert("清空成功！")
-            console.log($scope.shipped)
+            $scope.shipped.busNumber = "";
+            $scope.shipped.busDriverPhone = "";
+            $scope.shipped.busDriverName = "";
+            $scope.shipped.busSendRemark = "";
         },
         Air: function () {
             /// <summary>航空发货清空</summary>
-            alert("清空成功！")
-            console.log($scope.shipped)
+            $scope.shipped.airCompany = "";
+            $scope.shipped.airCompanyName = "";
+            $scope.shipped.airFlightNumber = "";
+            $scope.shipped.airSendMan = "";
+            $scope.shipped.airSendManPhone = "";
+            $scope.shipped.airSendRemark = "";
         },
         Selfpick: function () {
             /// <summary>自提发货清空</summary>
-            alert("清空成功！")
-            console.log($scope.shipped)
+            $scope.shipped.pickedUpMan = "";
+            $scope.shipped.pickedUpManPhone = "";
+            $scope.shipped.pickedUpRemark = "";
         }
     }
 
