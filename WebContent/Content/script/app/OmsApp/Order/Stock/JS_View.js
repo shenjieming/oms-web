@@ -1208,7 +1208,7 @@ app.controller("StockOutboundDeliveryController", function ($scope, $state, $loc
         var row = $local.getSelectedRow($scope.OutboundDelivery)
         console.log(row)
         if (row) {
-            $state.go("app.oms.stock.outbounddelivery", row)
+            $state.go("app.oms.stock.orderdelivery", row)
         } else {
             $MessagService.caveat("请选择一条出库单进行发货！")
         }
