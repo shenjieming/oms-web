@@ -115,4 +115,10 @@ app.service("$OMSSpecially", function () {
             return result;
         }
     }
+    this.PrintBill = function (param) {
+        /// <summary>打印计费单</summary>
+        var Template = "HenanProvincialPeopleHospital";
+        window.open("/View/Print/TemplatePages/" + Template + ".html?hOFNNo=" + param.hOFNNo);
+
+    }
 })

@@ -34,9 +34,9 @@
                 <td>住院(门诊)号</td>
                 <td class="input Info"><span ng-bind="BillData.patientHPNo"></span></td>
                 <td>手术医生(签字)</td>
-                <td class="input Info"><span ng-bind="BillData.hOFNSignPerson1"></span></td>
+                <td class="input Info"></td>
                 <td>巡回护士(签字)</td>
-                <td class="input Info"><span ng-bind="BillData.hOFNSignPerson3"></span></td>
+                <td class="input Info"></td>
             </tr>
             <tr>
                 <td>住院科室</td>
@@ -44,7 +44,7 @@
                 <td>手术日期</td>
                 <td class="input Info">{{Help.Data.GetDate(0,BillData.operationDate)}}</td>
                 <td>计费人员(签字)</td>
-                <td colspan="3" style="width:*;"><span ng-bind="BillData.createByName"></span> </td>
+                <td colspan="3" style="width:*;"></td>
             </tr>
         </table>
         <table class="table">
@@ -151,7 +151,7 @@
         <table class="table">
 
             <tr>
-                <td style=" text-align: center; padding: 50px;height:200px;border:0px">
+                <td style=" text-align: center; padding: 50px;max-height:200px;border:0px">
                     相关证、码贴处
                 </td>
             </tr>

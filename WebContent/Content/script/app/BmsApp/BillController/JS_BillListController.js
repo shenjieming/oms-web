@@ -5,7 +5,7 @@
 /// <reference path="../../../lib/angular-1.2.20/angular-route.js" />
 /// <reference path="../../../lib/jnDo_1.0/jnDo_1.0.js" />
 
-app.controller("BillController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
+app.controller("BillController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams, $OMSSpecially) {
     /// <summary>计费单管理</summary>
     console.log("计费管理主程序运行");
     $scope.title = "订单计费";
@@ -70,7 +70,7 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
         PrintBill: function () {
             /// <summary>打印</summary>
             this.GoPageBySedRow(function (row) {
-                window.open("/View/Print/TemplatePages/HenanProvincialPeopleHospital.html?hOFNNo=" + row.hOFNNo);
+                $OMSSpecially.PrintBill(row);
             });
         }
     }
@@ -83,7 +83,7 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
     $scope.Pagein = { pageSize: 10, createDateBegin: null, createDateEnd: null, pageIndex: 1, callbake: function () { $scope.Integrated.GetBillList(); } }
 });
 
-app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams, $BillDetailFactory, $AppHelp) {
+app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams, $BillDetailFactory, $AppHelp, $OMSSpecially) {
     /// <summary>计费单详情</summary>
     console.log("计费单管理-计费单详情管理");
 
@@ -98,6 +98,10 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
         GetBillInfo: function (param) {
             /// <summary>获取计费单明细</summary>
             $BMSApi.PublicInfoService.GetBillDetail(param, function (billInfo) { $.extend($scope.BillData, billInfo); $.extend($scope.BillData, $stateParams); setTimeout(function () { $scope.$Factory.AddMaterias(billInfo.detail, $scope.BillData) }); });
+        },
+        PrintBill: function () {
+            /// <summary>打印</summary>
+            $OMSSpecially.PrintBill($scope.BillData);
         }
     };
 
