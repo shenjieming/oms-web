@@ -2,7 +2,8 @@
 /// <reference path="../../../lib/angular-1.2.20/angular.min.js" />
 /// <reference path="../../Config.js" />
 /// <summary>本地资源服务</summary>
-app.service("$local", function ($MessagService) {
+var LocalService = angular.module('LocalService', []);
+LocalService.service("$local", function ($MessagService) {
     /// <summary>本地服务</summary>
     /// <summary>这是本地信息</summary>
     this.setValue = function (key, value) { localStorage.setItem(key, JSON.stringify(value)); }
@@ -17,26 +18,3 @@ app.service("$local", function ($MessagService) {
     this.CarriedSelectedRow = function (tableData, callback, notdataback) { var data = this.getSelectedRow(tableData); if (data) { callback(data); } else { $MessagService.caveat("请选择一条数据..."); if (notdataback) { notdataback(); } } }
 });
 
-app.service("$OMSSpecially", function () {
-    /// <summary>OMS特殊事件服务</summary>
-    this.File = {
-        /// <summary>附件控制器</summary>
-        GetEventMapping: function (eventList, statusCode) {
-            /// <summary>获取附件映射</summary>
-            var result = { images: new Array(), remark: "" }
-            $.each(eventList, function (index, event) {
-                if (event.eventCode == statusCode) {
-                    $.each(event.attachments, function (fileindex, item) {
-                        result.remark = item.attachmentDesc;
-                        var img = { id: item.attachmentId, url: item.attachmentDir }
-                        if (JSON.stringify(result.images).indexOf(JSON.stringify(img)) == -1) {
-                            result.images.push(img);
-                        }
-                    });
-                    return result;
-                }
-            });
-            return result;
-        }
-    }
-})

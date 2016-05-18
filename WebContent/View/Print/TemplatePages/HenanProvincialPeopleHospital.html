@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="PrintApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>河南省人民医院三联单</title>
+    <link href="/Content/style/css/PrintTemplate.css" rel="stylesheet" />
+    <link href="/Content/script/lib/jnDo_1.0/style/css/jnDo_1.0.css" rel="stylesheet" />
+    <script src="/Content/script/lib/angular-1.2.20/angular.min.js"></script>
+    <script src="/Content/script/lib/Jquery/jquery-1.11.1.min.js"></script>
+    <script src="/Content/script/lib/jnDo_1.0/jnDo_1.0.js"></script>
+    <script src="/Content/script/app/ServerConfiguration.js"></script>
+    <script src="/Content/script/app/service/system/apiHelp.js"></script>
+    <script src="/Content/script/app/service/system/localService.js"></script>
+    <script src="/Content/script/app/PrintApp/Config.js"></script>
+    <script src="/Content/script/app/PrintApp/Template/BillController.js"></script>
+</head>
+<body ng-controller="BillTemplatController">
+    <div class="printOrder" ng-repeat="order in Triple">
+        <table>
+            <tr>
+                <td>
+                    <img style="width:150px;" src="http://www.hnsrmyy.net/images/logo.jpg" />
+                </td>
+                <td class="logoTitle">
+                    <span ng-bind="order.name"></span>
+                </td>
+            </tr>
+        </table>
+        <table class="table">
+            <tr>
+                <td rowspan="2" class="title">患者<br />信息</td>
+                <td>姓名</td>
+                <td class="input Info"><span ng-bind="BillData.patientName"></span></td>
+                <td>住院(门诊)号</td>
+                <td class="input Info"><span ng-bind="BillData.patientHPNo"></span></td>
+                <td>手术医生(签字)</td>
+                <td class="input Info"><span ng-bind="BillData.hOFNSignPerson1"></span></td>
+                <td>巡回护士(签字)</td>
+                <td class="input Info"><span ng-bind="BillData.hOFNSignPerson3"></span></td>
+            </tr>
+            <tr>
+                <td>住院科室</td>
+                <td class="input Info">{{BillData.wardDeptCodeName}}</td>
+                <td>手术日期</td>
+                <td class="input Info">{{Help.Data.GetDate(0,BillData.operationDate)}}</td>
+                <td>计费人员(签字)</td>
+                <td colspan="3" style="width:*;"><span ng-bind="BillData.createByName"></span> </td>
+            </tr>
+        </table>
+        <table class="table">
+            <tr>
+                <td rowspan="4" class="title">耗材<br />信息</td>
+                <td style="padding:0px;">
+                    <table class="table" style="margin-left:-1px;margin-right:-2px;margin-bottom:-1px;">
+                        <tr>
+                            <th>耗材名称</th>
+                            <th>物资编号</th>
+                            <th>品牌</th>
+                            <th>规格型号</th>
+                            <th>数量</th>
+                            <th>单价</th>
+                            <th>+5%单价</th>
+                            <th>批号</th>
+                            <th>有效日期</th>
+                        </tr>
+                        <tr style="color:blue;" ng-repeat="row in BillData.detail">
+                            <td><label style="font-size:8px;">{{row.dHMMName}}</label> </td>
+                            <td><label style="font-size:8px;">{{row.medMaterialCode}}</label></td>
+                            <td><label style="font-size:8px;">{{row.medMaterialBrandName}}</label></td>
+                            <td><label style="font-size:8px;">{{row.dHMMSpecification}}</label></td>
+                            <td><label style="font-size:8px;text-align:right;float:right;">{{row.qty}}</label></td>
+                            <td><label style="font-size: 8px; text-align: right;float:right;">{{row.hPUnitPrice.toFixed(2)}}</label></td>
+                            <td><label style="font-size: 8px; text-align: right;float:right;">{{row.patientUnitPrice.toFixed(2)}}</label></td>
+                            <td><label style="font-size:8px;">{{row.lotSerial}}</label></td>
+                            <td><label style="font-size:8px;">{{Help.Data.GetDate(0,row.effectiveToDate)}}</label></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:0px;">
+                    <table class="table" style="margin-left:-1px;margin-right:-2px;margin-bottom:-1px;">
+                        <tr>
+                            <td class="Tip">合计金额</td>
+                            <td class="Info">
+                                {{Help.Tool.ToCapital(BillData.Money)}}< ￥{{BillData.Money}}元>
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:0px;">
+                    <table class="table" style="margin-left:-1px;margin-right:-2px;margin-bottom:-1px;">
+                        <tr>
+                            <td class="Tip">+5%合计金额</td>
+                            <td class="Info">
+                                {{Help.Tool.ToCapital(BillData.UserMoney)}}< ￥{{BillData.UserMoney}}元>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:0px;">
+                    <table class="table" style="margin-left:-1px;margin-right:-2px;margin-bottom:-1px;">
+                        <tr>
+                            <td class="Tip">供货单位</td>
+                            <td class="Info">
+                                {{BillData.sOCreateByOrgCodeName}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+        </table>
+        <table class="table">
+            <tr>
+                <td class="title">填写<br />日期</td>
+                <td style="width:*">
+                    <span style="color:blue;">{{Help.Data.GetDate(0)}}</span>
+                </td>
+            </tr>
+        </table>
+        <span style="color:#ccc;">{{BillData.sONo}}</span>
+        <span style="color:#ccc; float:right;">迈骆(上海)医疗供应链管理有限公司</span>
+        <table class="table">
+
+            <tr>
+                <td style=" text-align: center; padding: 50px;height:200px;border:0px">
+                    相关证、码贴处
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

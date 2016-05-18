@@ -66,6 +66,12 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
         ViewBill: function () {
             /// <summary>查看订单详情</summary>
             this.GoPageBySedRow(this.ViewBillByRow);
+        },
+        PrintBill: function () {
+            /// <summary>打印</summary>
+            this.GoPageBySedRow(function (row) {
+                window.open("/View/Print/TemplatePages/HenanProvincialPeopleHospital.html?hOFNNo=" + row.hOFNNo);
+            });
         }
     }
 
@@ -83,8 +89,6 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
 
     $scope.PageData = {}; $scope.BillData = { detail: new Array(), images: new Array() }; $scope.$Factory = new $BillDetailFactory($scope); $scope.Competence = $local.getValue("ORDERCOMP");
 
-
-
     $scope.QueryService = {
         /// <summary>查询服务</summary>
         GetOrderInfo: function (param) {
@@ -93,12 +97,7 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
         },
         GetBillInfo: function (param) {
             /// <summary>获取计费单明细</summary>
-            $BMSApi.PublicInfoService.GetBillDetail(param, function (billInfo) {
-                $.extend($scope.BillData, billInfo); $.extend($scope.BillData, $stateParams); setTimeout(function () {
-
-                    $scope.$Factory.AddMaterias(billInfo.detail, $scope.BillData)
-                });
-            });
+            $BMSApi.PublicInfoService.GetBillDetail(param, function (billInfo) { $.extend($scope.BillData, billInfo); $.extend($scope.BillData, $stateParams); setTimeout(function () { $scope.$Factory.AddMaterias(billInfo.detail, $scope.BillData) }); });
         }
     };
 
@@ -106,32 +105,4 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
 
 });
 
-app.factory("$BillDetailFactory", function ($BMSApi, $AppHelp) {
-    /// <summary>订单明细处理工程</summary>
-    var $BillDetailFactory = function (scope) {
-        var $scope = scope;
-
-        this.GetOrderMapping = function (orderInfo) {
-            /// <summary>获取订单映射</summary>
-            return { sONo: orderInfo.sONo, createDate: orderInfo.createDate, statusName: orderInfo.statusName, deliveryProvinceName: orderInfo.deliveryProvinceName, deliveryCityName: orderInfo.deliveryCityName, deliveryDistrictName: orderInfo.deliveryDistrictName, deliveryAddress: orderInfo.deliveryAddress, deliveryContact: orderInfo.deliveryContact, deliveryrMobile: orderInfo.deliveryrMobile, dLOrgCode: orderInfo.soCreateOrgCode, hPCode: orderInfo.hPCode, hPCodeName: orderInfo.hPCodeName, wardDeptCode: orderInfo.wardDeptCode, wardDeptCodeName: orderInfo.wardDeptCodeName, dTCode: orderInfo.dTCode, dTCodeName: orderInfo.dTCodeName, operationDate: orderInfo.operationDate, operationOperationRoom: orderInfo.operationOperationRoom, operationFeedbackRemark: orderInfo.operationFeedbackRemark, patientHPNo: orderInfo.patientHPNo, patientWard: orderInfo.patientWard, patientRoom: orderInfo.patientRoom, patientBedNo: orderInfo.patientBedNo, patientName: orderInfo.patientName, patientSex: orderInfo.patientSex, patientAge: orderInfo.patientAge, patientAddress: orderInfo.patientAddress, patientTel: orderInfo.patientTel, patientRemark: orderInfo.patientRemark, patientDiseaseInfo: orderInfo.patientDiseaseInfo, patientEntryDate: orderInfo.patientEntryDate }
-        }
-
-        this.GetDoctorMapping = function (doc) {
-            /// <summary>获取医生模型映射</summary>
-            return { hPCode: doc.hPCode, hPCodeName: doc.hPName, wardDeptCode: doc.wardDeptCode, wardDeptCodeName: doc.wardDeptname, dTCode: doc.dTCode, dTCodeName: doc.dTName };
-        }
-        this.GetMateriaMappings = function (materia) {
-            /// <summary>获取物资映射信息</summary>
-            var Price = parseFloat(materia.medMaterialPrice ? materia.medMaterialPrice : materia.hPUnitEstPrice); var hPrice = parseFloat(materia.medMaterialPrice ? materia.medMaterialPrice : materia.hPUnitPrice); return $.extend(materia, { qty: materia.reqQty, dHMMName: materia.medMaterialFullName, dHMMSpecification: materia.medMaterialSpecification, dHMMMaterials: materia.medMaterialMaterials, hPUnitEstPrice: Price, patientUnitEstPrice: (Price * 1.05), hPUnitPrice: hPrice, patientUnitPrice: materia.patientUnitPrice?materia.patientUnitPrice: (hPrice * 1.05), effectiveToDate: materia.effectiveToDate ? materia.effectiveToDate : $AppHelp.Data.GetDate(-6, null, 2) });
-        }
-
-        this.AddMaterias = function (materias, aims) {
-            /// <summary>批量添加物料信息</summary>
-            if (!aims.detail) { aims.detail = new Array(); } aims.MateriaCount = 0; aims.Money = 0; $.each(materias, function (index, item) { var materia = BillDetailFactory.GetMateriaMappings(item); aims.MateriaCount += materia.qty; aims.Money += materia.qty * materia.hPUnitPrice; var flg = true; $.each(aims.detail, function (i, data) { if (materia.dHMedMaterialInternalNo == data.dHMedMaterialInternalNo) { data.qty += materia.qty; flg = false; return false; } }); if (flg) { aims.detail.push(materia); } }); aims.Money = parseFloat(aims.Money).toFixed(2); return aims.detail;
-        }
-
-        var BillDetailFactory = this; return this;
-    }
-    return $BillDetailFactory;
-});
 

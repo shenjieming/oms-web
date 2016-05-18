@@ -11,16 +11,23 @@
             width: 100%;
         }
 
-
-.printOrder {
+/*竖向排版*/
+/*.printOrder {
     min-height: 870px;
     padding: 10px;
     height: 870px;
     max-height: 870px;
     overflow-y: auto;
+}*/
+/*横向排版*/
+.printOrder {
+    min-height: 640px;
+    padding: 10px;
+    height: 640px;
+    max-height: 640px;
 }
 .printOrder .logoTitle{
-    font-size: 18px; font-weight: bold; float: left; text-align: right;line-height:50px;width:95%;
+    font-size: 18px; font-weight: bold; float: left; line-height:50px;width:95%;
 }
     .printOrder .table {
         font-size: 11px;
@@ -35,10 +42,16 @@
                 border: 1px solid #ccc;
                 padding: 5px;
             }
-
-                .printOrder .table tr td.title {
+                /*竖向排版*/
+                /*.printOrder .table tr td.title {
                     width: 6%;
+                }*/
+                /*横向排版*/
+                .printOrder .table tr td.title {
+                    text-align:center;
+                    width: 4%;
                 }
+
                 .printOrder .table tr td.input {
                     width: 10%;
                 }
