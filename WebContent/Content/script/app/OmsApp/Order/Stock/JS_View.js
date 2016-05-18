@@ -280,7 +280,7 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
         var rowData = $local.getSelectedRow($scope.Integrated.OrderList);
         console.log(rowData)
         if (rowData) {
-            $state.go("app.oms.order.orderdelivery", rowData);
+            $state.go("app.oms.stock.orderdelivery", rowData);
         } else {
             $MessagService.caveat("请选择一条订单数据！");
         }
@@ -293,7 +293,7 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
             if (callback) {
                 callback(rowData);
             } else {
-                $state.go("app.oms.order.outbounddelivery", rowData);
+                $state.go("app.oms.stock.outbounddelivery", rowData);
             }
         } else {
             $MessagService.caveat("请选择一条订单数据！");
@@ -997,6 +997,9 @@ app.controller("StockOrderDeliveryController", function ($scope, $state, $local,
         $scope.shipped.shipType = "stockorder";
     }
     $scope.shipped.sONo = $scope.sONo;
+    $scope.shipped.expressRemark = "运费已付";
+    $scope.shipped.busSendRemark = "运费已付";
+    $scope.shipped.airSendRemark = "运费已付";
     $scope.shippedSubmit = {
         Direct: function () {
             /// <summary>直送发货提交</summary>
@@ -1107,30 +1110,40 @@ app.controller("StockOrderDeliveryController", function ($scope, $state, $local,
         }
     }
     $scope.Cancel = {
-        Direct: function () {
-            /// <summary>直送发货清空</summary>
-            alert("清空成功！")
-            console.log($scope.shipped)
+        Direct:function () {
+            /// <summary>直送发货清空</summary>       
+            $scope.shipped.directSendMan = "";
+            $scope.shipped.directSendManPhone = "";
+            $scope.shipped.directSendRemark = "";
         },
-        Express: function () {
+        Express:function () {
             /// <summary>快递发货清空</summary>
-            alert("清空成功！")
-            console.log($scope.shipped)
+            $scope.shipped.expressCompany = "";
+            $scope.shipped.expressCompanyName = "";
+            $scope.shipped.expressNumber = "";
+            $scope.shipped.expressRemark = "";
         },
-        Bus: function () {
+        Bus:function () {
             /// <summary>大巴发货清空</summary>
-            alert("清空成功！")
-            console.log($scope.shipped)
+            $scope.shipped.busNumber = "";
+            $scope.shipped.busDriverPhone = "";
+            $scope.shipped.busDriverName = "";
+            $scope.shipped.busSendRemark = "";
         },
         Air: function () {
             /// <summary>航空发货清空</summary>
-            alert("清空成功！")
-            console.log($scope.shipped)
+            $scope.shipped.airCompany = "";
+            $scope.shipped.airCompanyName = "";
+            $scope.shipped.airFlightNumber = "";
+            $scope.shipped.airSendMan = "";
+            $scope.shipped.airSendManPhone = "";
+            $scope.shipped.airSendRemark = "";
         },
         Selfpick: function () {
             /// <summary>自提发货清空</summary>
-            alert("清空成功！")
-            console.log($scope.shipped)
+            $scope.shipped.pickedUpMan = "";
+            $scope.shipped.pickedUpManPhone = "";
+            $scope.shipped.pickedUpRemark = "";
         }
     }
 
@@ -1183,15 +1196,19 @@ app.controller("StockOutboundDeliveryController", function ($scope, $state, $loc
     $scope.sONo = $stateParams.sONo;
     $scope.OutboundDelivery = new Object();
     $scope.OutboundDelivery.sONo = $scope.sONo;
-    $Api.SurgeryService.DataSources.GetOutBoundList({ sONo: $scope.sONo }, function (rData) {
+    $Api.SurgeryService.DataSources.GetOutBoundList({ sONo: $scope.sONo }, function (rData) {      
+        for (var i = 0; i < rData.length; i++) {
+            if (rData[i].createDate) {
+                rData[i].createDate = rData[i].createDate.substring(0, 11)
+            }
+        }
         $scope.OutboundDelivery = rData;
-        console.log(rData);
     });
     $scope.goDeliveryType = function () {
         var row = $local.getSelectedRow($scope.OutboundDelivery)
         console.log(row)
         if (row) {
-            $state.go("app.oms.stock.outbounddelivery", row)
+            $state.go("app.oms.stock.orderdelivery", row)
         } else {
             $MessagService.caveat("请选择一条出库单进行发货！")
         }

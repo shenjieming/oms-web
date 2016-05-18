@@ -1,4 +1,4 @@
-﻿<div class="row" ng-controller="OutboundDeliveryController">
+﻿<div class="row" ng-controller="StockOutboundDeliveryController">
     <div class="tools">
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
@@ -9,79 +9,71 @@
     </div>
     <div class="row-fluid">
         <div class="widget-box">
-            <div class="widget-title bg_ly" >
-                <h5 style="width:80%" data-toggle="collapse" href="#BaseInformation"  >
+            <div class="widget-title bg_ly">
+                <h5 style="width:80%" data-toggle="collapse" href="#BaseInformation">
                     <span class="oms-web-h5-fold">出库单发货信息</span>
                     <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
                 </h5>
             </div>
             <div class="control-group" style="float:right">
                 <span class="btn-group oms-btn-group">
-                    <a class="btn btn-primary" ng-click="goDeliveryType()"><i class="fa fa-save"></i> 提交</a>
+                    <a class="btn btn-primary" ng-click="goDeliveryType()"><i class="fa fa-save"></i> 发货</a>
                     <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
                 </span>
-                </div>
-                <div class="main-box-body clearfix">
-                    <div class="table-responsive list-box" style="min-height:450px;margin: 80px 10px">
-                        <table class="table table-bordered table-striped" st-table="OutboundDelivery">
-                            <thead>
-                                <tr>
-                                    <th><span>序号</span></th>
-                                    <th><span>出库单编号</span></th>
-                                    <th><span>订单编号</span></th>
-                                    <th><span>出库仓库</span></th>
-                                    <th><span>出库状态</span></th>
-                                    <th><span>医院</span></th>
-                                    <th><span>医生</span></th>
-                                    <th><span>货主</span></th>
-                                    <th><span>经销商</span></th>
-                                    <th><span>下单人</span></th>
-                                    <th><span>创建人</span></th>
-                                    <th><span>创建时间</span></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="row in OutboundDelivery" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
-                                    <td>{{$index+1}}</td>
-                                    <td>
-                                        {{row.wONo}}
-                                    </td>
-                                    <td>
-                                        {{row.sONo}}
-                                    </td>
-                                    <td>
-                                        {{row.medMIWarehouseName}}
-                                    </td>
-                                    <td>
-                                        {{row.statusName}}
-                                    </td>
-                                    <td>
-                                        {{row.hPCodeName}}
-                                    </td>
-                                    <td>
-                                        {{row.dTCodeName}}
-                                    </td>
-                                    <td>
-                                        {{row.oIOrgCodeName}}
-                                    </td>
-                                    <td>
-                                        {{row.dLOrgCodeName}}
-                                    </td>
-                                    <td>
-                                        {{row.soCreateByName}}
-                                    </td>
-                                    <td>
-                                        {{row.createByName}}
-                                    </td>
-                                    <td>
-                                        {{row.createDate}}
-                                    </td>                                   
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div ng-pagein="page" ng-model="Pagein"></div>
-                </div>
             </div>
+            <div class="main-box-body clearfix">
+                <div class="table-responsive list-box" style="min-height:450px;margin: 80px 10px">
+                    <table class="table table-bordered table-striped" st-table="OutboundDelivery">
+                        <thead>
+                            <tr>
+                                <th><span>序号</span></th>
+                                <th><span>出库单编号</span></th>
+                                <th><span>订单编号</span></th>
+                                <th><span>出库仓库</span></th>
+                                <th><span>出库状态</span></th>
+                                <th><span>货主</span></th>
+                                <th><span>经销商</span></th>
+                                <th><span>下单人</span></th>
+                                <!--<th><span>创建人</span></th>-->
+                                <th><span>创建时间</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in OutboundDelivery" st-select-row="row" class="ng-scope ng-isolate-scope st-selected">
+                                <td>{{$index+1}}</td>
+                                <td>
+                                    {{row.wONo}}
+                                </td>
+                                <td>
+                                    {{row.sONo}}
+                                </td>
+                                <td>
+                                    {{row.medMIWarehouseName}}
+                                </td>
+                                <td>
+                                    {{row.statusName}}
+                                </td>
+                                <td>
+                                    {{row.oIOrgCodeName}}
+                                </td>
+                                <td>
+                                    {{row.dLOrgCodeName}}
+                                </td>
+                                <td>
+                                    {{row.soCreateByName}}
+                                </td>
+                                <!--<td>
+                                    {{row.createByName}}
+                                </td>-->
+                                <td>
+                                    {{row.createDate}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-pagein="page" ng-model="Pagein"></div>
+            </div>
+        </div>
     </div>
-    </div>
+</div>

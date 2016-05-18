@@ -151,7 +151,8 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                     /// <summary>删除产品线</summary>
                     $scope.ngModel.prodLns.splice($scope.ProductConfig.useLine.index, 1);
                     $scope.ProductConfig.GetLineMaterialCount();
-
+                    //减产品线遍历仓库
+                    $scope.WarehouseConfig.SelectChangeWHNote();
                 },
                 ChangeTool: function () {
                     /// <summary>修改是否需要工具</summary>
@@ -600,7 +601,11 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                     $scope.ngModel.medKits = data;
                 }
             });
-
+            var list = window.location.hash.substring(0, 24)
+            if (list == "#/app/oms/order/addition") {
+                $scope.ngModel.wsNotes = new Array();
+            }
+         
         }
     }
 });

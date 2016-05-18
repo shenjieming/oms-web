@@ -409,7 +409,11 @@ OMSApiService
                 ProView:function (data,callback) {
                     ///<summary>预览页面<summary>
                     $ApiService.PostApi(ApiPath.Surgery.Process.proView,data,callback);
-                }
+                },
+                BackSave: function (data, callback) {
+                    /// <summary></summary>
+                    $ApiService.PostApi(ApiPath.Surgery.Process.backsave, data, callback);
+                },
             },
             DataSources: {
                 /// <summary>手术订单数据源</summary>

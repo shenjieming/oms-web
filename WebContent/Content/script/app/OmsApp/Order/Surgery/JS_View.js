@@ -113,15 +113,7 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
                 if ($scope.PageData.retrieveEstDate) {
                     $scope.PageData.retrieveEstDateFmtYMDW = FormatDate(new Date($scope.PageData.retrieveEstDate.replace("-", "/").replace("-", "/")))
                 }
-                console.log($scope.PageData)
-                if ($scope.PageData.events.length>0) {
-                    for (var i = 0; i < $scope.PageData.events.length; i++) {
-                        if ($scope.PageData.events[i].eventCode == "0030_0001") {
-                            $scope.PageData.events[i].ExternalRemark1 = $scope.PageData.events[i].ExternalRemark1 + $scope.PageData.events[i].CarrierTransRemark
-                        }
-                    }
-                }
-          
+                console.log($scope.PageData)          
             });       
         }
     }
@@ -221,7 +213,6 @@ app.controller("OriginalController", function ($scope, $state, $local, $Api, $Me
             $.extend($scope.singleProduc, {
                 prodLns: $scope.PageData.initOrderProdlns
             });
-            console.log($scope.PageData)
         }
     });
 
@@ -822,11 +813,11 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
 })
 app.controller("DealwithController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>订单处理</summary>
+    console.log($scope.PageData)
     $scope.DealService = {
         /// <summary>订单处理服务</summary>
         Submit: function () {
             // $scope.DealService.OutboundInstructions();
-            console.log($scope.PageData)
             if ($scope.DealService.Verification()) {
                 $scope.ProductService.Deduplication();//去重
                 $Api.SurgeryService.Process.Submit($scope.PageData, function (rData) {
@@ -868,9 +859,28 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         Show:function () {
             /// <summary>线上处理订单预览</summary>
             $scope.PreViewCount.GetData();
+            console.log($scope.PageData.carrierTransType)       
             $scope.DealService.model.show();
-        },
-      
+            //精确订单 预览显示 配送字段  key value
+            if ($scope.PageData.carrierTransType == "AIR") {
+                $scope.PageData.carrierTransTypeName = "航空";
+            }
+            else if ($scope.PageData.carrierTransType == "BUS") {
+                $scope.PageData.carrierTransTypeName = "大巴";
+            }
+            else if ($scope.PageData.carrierTransType == "DIRECT") {
+                $scope.PageData.carrierTransTypeName = "直送";
+            }
+            else if ($scope.PageData.carrierTransType == "EXPRESS") {
+                $scope.PageData.carrierTransTypeName = "快递";
+            }
+            else if ($scope.PageData.carrierTransType == "PERWH") {
+                $scope.PageData.carrierTransTypeName = "不限";
+            }
+            else if ($scope.PageData.carrierTransType == "SELFPICK") {
+                $scope.PageData.carrierTransTypeName = "自提";
+            }
+        },  
         OfflineSubmit:function () {
             /// <summary>线下处理订单提交</summary>
             if ($scope.PageData.sOOfflineHandleReasonType) {
@@ -940,7 +950,6 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         title: "手术下单预览", width: 960, height: 800, buttons: { "提交": $scope.DealService.Submit, "提交并打印": $scope.DealService.Print, "返回": $scope.DealService.DealServicehide, }, open: function () {
             $(".ui-dialog-title").html("订单 " + $scope.PageData.sONo + " 配货清单确认")
             $scope.OperationDate = FormatDate(new Date($scope.PageData.operationDate.replace("-", "/").replace("-", "/")))
-            console.log($scope.PageData)
         }
     };
     $scope.OutboundOrdermodel = { title: "出库单", width: 730, height: 200, buttons: { "确定": $scope.DealService.PrintCancel }, open: function () { $(".ui-dialog-title").html("订单 " + $scope.PageData.sONo + " ,请复制您所在仓库的出库单号用于之后的打印...") }, close: function () { $scope.goLastPage(); } };
@@ -1189,7 +1198,10 @@ app.controller("OrderDeliveryController", function ($scope, $state, $local, $Api
     } else { 
         $scope.shipped.shipType = "order";
     }
-    $scope.shipped.sONo = $scope.sONo; 
+    $scope.shipped.sONo = $scope.sONo;
+    $scope.shipped.expressRemark = "运费已付";
+    $scope.shipped.busSendRemark = "运费已付";
+    $scope.shipped.airSendRemark = "运费已付";
     $scope.shippedSubmit = {
         Direct: function () {
             /// <summary>直送发货提交</summary>
@@ -1315,8 +1327,8 @@ app.controller("OrderDeliveryController", function ($scope, $state, $local, $Api
             /// <summary>快递发货清空</summary>
             $scope.shipped.expressCompany = "";
             $scope.shipped.expressCompanyName = "";
-            $scope.shipped.directSendMan = "";
-            $scope.shipped.directSendMan = "";
+            $scope.shipped.expressNumber = "";
+            $scope.shipped.expressRemark = "";
 
         },
         Bus: function () {
@@ -1393,7 +1405,12 @@ app.controller("OutboundDeliveryController", function ($scope, $state, $local, $
       $scope.OutboundDelivery=new Object();
       $scope.OutboundDelivery.sONo = $scope.sONo;
       $Api.SurgeryService.DataSources.GetOutBoundList({ sONo: $scope.sONo }, function (rData) {
-        $scope.OutboundDelivery = rData;
+          for (var i = 0; i < rData.length; i++) {
+              if (rData[i].createDate) {
+                  rData[i].createDate = rData[i].createDate.substring(0,11)
+              }
+          }
+          $scope.OutboundDelivery = rData;
     });
     $scope.goDeliveryType = function () {
        var row= $local.getSelectedRow($scope.OutboundDelivery)
