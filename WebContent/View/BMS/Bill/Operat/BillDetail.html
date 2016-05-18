@@ -139,7 +139,7 @@
                                 <div class="Vessel">
                                     病床：<input type="text" placeholder="请输入患者病床信息" ng-model="BillData.patientBedNo" />
                                 </div>
-                              
+
                             </div>
                             <div class="control-group">
                                 <div class="Vessel All">
@@ -173,6 +173,7 @@
                                                 <th><span>患者金额</span></th>
                                                 <th><span>批次</span></th>
                                                 <th><span>有效日期</span></th>
+                                                <th><span>操作</span></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -185,13 +186,19 @@
                                                 <td><input type="number" ng-model="row.qty" style="width:60px;" placeholder="请输入计费数量" /></td>
                                                 <td>
                                                     <span ng-bind="row.hPUnitPrice"></span>
-                                                <input ng-if="false" type="number" style="width:80px;" ng-model="row.hPUnitPrice" ng-change="Service.Compute.HpUnitEstPrice(row)" placeholder="请输入耗材单价" onclick="this.select()" /></td>
+                                                    <input ng-if="false" type="number" style="width:80px;" ng-model="row.hPUnitPrice" ng-change="Service.Compute.HpUnitEstPrice(row)" placeholder="请输入耗材单价" onclick="this.select()" />
+                                                </td>
                                                 <td style="text-align:right"><span ng-bind="(row.qty*row.hPUnitPrice).toFixed(2)"></span> </td>
                                                 <td><input type="number" style="width:80px;" ng-model="row.patientUnitPrice" onclick="this.select()" placeholder="请输入销售单价" /></td>
                                                 <td style="text-align:right"><span ng-bind="(row.qty*row.patientUnitPrice).toFixed(2)"></span> </td>
                                                 <td><input type="text" ng-model="row.lotSerial" placeholder="请输入批次" /></td>
-                                                 <td><span class="Left" ng-show-data="" ng-model="row.effectiveToDate"></span></td>
-                                             </tr>
+                                                <td><span class="Left" ng-show-data="" ng-model="row.effectiveToDate"></span></td>
+                                                <td>
+                                                    <button type="button" ng-click="Service.DelMaterial($index)" class="btn btn-xs btn-danger">
+                                                        <i class="fa fa-times"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

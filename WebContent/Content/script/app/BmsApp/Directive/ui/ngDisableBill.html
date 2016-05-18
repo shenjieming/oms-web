@@ -4,13 +4,16 @@
             <div class="widget-box" style="margin-top:0px;">
                 <div class="widget-content">
                     <div class="control-group">
-                        <div class="Vessel All">
-                            计费单号：<span ng-bind="Service.hOFNNo"></span>
+                        <div class="Vessel">
+                            订单号：<span ng-bind="ngModel.sONo"></span>
+                        </div>
+                        <div class="Vessel">
+                            计费单号：<span ng-bind="ngModel.hOFNHospitalNo"></span>
                         </div>
                     </div>
                     <div class="control-group">
                         <label style="width:100%;">
-                            <textarea class="box-100" placeholder="请输入废弃计费单的原因" style="height:80px;" ng-model="ngModel.eventReasonDesc"></textarea>
+                            <textarea class="box-100" placeholder="请输入计费单作废原因" style="height:80px;" ng-model="ngModel.eventReasonDesc"></textarea>
                         </label>
                     </div>
                 </div>

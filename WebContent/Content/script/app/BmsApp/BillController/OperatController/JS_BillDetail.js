@@ -43,6 +43,10 @@ app.controller("BillDetailController", function ($scope, $state,$Api, $local, $B
         Submit: function () {
             /// <summary>计费单提交</summary>
             $BMSApi.BillService.Submit($scope.BillData, function (rData) { $MessagService.succ("计费单" + rData + "保存成功");; $scope.goLastPage(); });
+        },
+        DelMaterial: function (index) {
+            /// <summary>删除物料明细</summary>
+            $scope.BillData.detail.splice(index, 1);
         }
     }
 });

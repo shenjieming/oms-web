@@ -16,7 +16,7 @@ app.directive("ngApprovalBill", function ($BMSApi, $MessagService, $local, $AppH
                 }
             }
 
-            var modelConfig = { title: "计费单审批", width: "500", height: "350", buttons: { "确定": function () { s.Service.Approval(s.ngApprovalBill.fixed); }, "关闭": function () { s.ngApprovalBill.hide(); } } }
+            var modelConfig = { title: "计费单批准", width: "600", height: "350", buttons: { "确定": function () { s.Service.Approval(s.ngApprovalBill.fixed); }, "关闭": function () { s.ngApprovalBill.hide(); } } }
             $.extend(s.ngApprovalBill, modelConfig);
 
         }
@@ -40,7 +40,7 @@ app.directive("ngAntiApprovalBill", function ($BMSApi, $MessagService, $local, $
                 }
             }
 
-            var modelConfig = { title: "计费单反审批", width: "500", height: "350", buttons: { "确定": function () { s.Service.AntiApproval(s.ngAntiApprovalBill.fixed); }, "关闭": function () { s.ngAntiApprovalBill.hide(); } } }; $.extend(s.ngAntiApprovalBill, modelConfig);
+            var modelConfig = { title: "计费单反审核", width: "600", height: "350", buttons: { "确定": function () { s.Service.AntiApproval(s.ngAntiApprovalBill.fixed); }, "关闭": function () { s.ngAntiApprovalBill.hide(); } } }; $.extend(s.ngAntiApprovalBill, modelConfig);
         }
     }
 });
@@ -62,7 +62,7 @@ app.directive("ngDisableBill", function ($BMSApi, $MessagService, $local, $AppHe
                 }
             }
 
-            var modelConfig = { title: "计费单反审批", width: "500", height: "350", buttons: { "确定": function () { s.Service.Disable(s.ngDisableBill.fixed); }, "关闭": function () { s.ngDisableBill.hide(); } } }; $.extend(s.ngDisableBill, modelConfig);
+            var modelConfig = { title: "计费单作废", width: "600", height: "350", buttons: { "确定": function () { s.Service.Disable(s.ngDisableBill.fixed); }, "关闭": function () { s.ngDisableBill.hide(); } } }; $.extend(s.ngDisableBill, modelConfig);
         }
     }
 });

@@ -6,9 +6,9 @@
             <span style="color: #FF3300"><span ng-bind="BillData.sTATUSName"></span></span>
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
-            <a class="btn btn-primary" ng-if="Competence.approval" ng-click="ApprovalConfig.show()"><i class="fa fa-eye"></i> 审批</a>
-            <a class="btn btn-primary" ng-if="Competence.unapproval" ng-click="UnApprovalConfig.show()"><i class="fa fa-eye"></i> 反审批</a>
-            <a class="btn btn-primary" ng-if="Competence.discard" ng-click="DisableConfig.show()"><i class="fa fa-eye"></i> 取消</a>
+            <a class="btn btn-primary" ng-if="Competence.approval" ng-click="ApprovalConfig.show()"><i class="fa fa-eye"></i> 批准</a>
+            <a class="btn btn-primary" ng-if="Competence.unapproval" ng-click="UnApprovalConfig.show()"><i class="fa fa-eye"></i> 反审核</a>
+            <a class="btn btn-primary" ng-if="Competence.discard" ng-click="DisableConfig.show()"><i class="fa fa-eye"></i> 作废</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
@@ -34,7 +34,7 @@
                                     订单号：<span ng-bind="BillData.sONo"></span>
                                 </div>
                                 <div class="Vessel">
-                                    计费单：<span ng-bind="BillData.hOFNHospitalNo"></span>
+                                    计费单号：<span ng-bind="BillData.hOFNHospitalNo"></span>
                                 </div>
                                 <div class="Vessel ">
                                     计费单系统编号：  <span ng-bind="BillData.hOFNNo"></span>
@@ -146,7 +146,7 @@
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
                             <span class="icon"><i class="fa icon-chevron-down"></i></span>
-                            <h5 data-toggle="collapse" href="#MaterialsInfo">植入物耗用 植入物：<span ng-bind="BillData.MateriaCount"></span>件，金额：￥<span ng-bind="BillData.Money"></span>元</h5>
+                            <h5 data-toggle="collapse" href="#MaterialsInfo">植入物耗用 植入物：<span ng-bind="BillData.MateriaCount"></span>件，金额：<span ng-bind="BillData.Money"></span>元</h5>
                         </div>
                         <div id="MaterialsInfo" class="widget-content nopadding collapse in">
                             <div class="main-box-body clearfix" style="padding: 15px; width: 100%;">
@@ -158,12 +158,12 @@
                                                 <th><span>名称</span> </th>
                                                 <th><span>品牌</span> </th>
                                                 <th><span>规格</span> </th>
-                                                <th><span>材料</span> </th>
-                                                <th><span>批次</span> </th>
                                                 <th><span>数量</span></th>
                                                 <th><span>单价</span></th>
                                                 <th ng-if="false"><span>患者单价</span></th>
                                                 <th><span>金额</span></th>
+                                                <th><span>批次</span> </th>
+                                                <th><span>有效日期</span></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -172,12 +172,12 @@
                                                 <td><span ng-bind="row.dHMMName"></span></td>
                                                 <td><span ng-bind="row.medMaterialBrandName"></span> </td>
                                                 <td><span ng-bind="row.dHMMSpecification"></span></td>
-                                                <td><span ng-bind="row.dHMMMaterials"></span></td>
-                                                <td><span ng-bind="row.lotSerial"></span></td>
                                                 <td style="text-align:right"><span ng-bind="row.qty"></span><span ng-bind="row.dHMMUnitName"></span> </td>
                                                 <td style="text-align:right"><span ng-bind="row.hPUnitPrice.toFixed(2)"></span></td>
                                                 <td ng-if="false"><span ng-bind="row.patientUnitPrice"></span></td>
                                                 <td style="text-align:right"><span ng-bind="(row.qty*row.hPUnitPrice).toFixed(2)"></span> </td>
+                                                <td><span ng-bind="row.lotSerial"></span></td>
+                                                <td><span ng-bind="AppHelp.Data.GetDate(0,row.effectiveToDate)"></span></td>
                                             </tr>
                                         </tbody>
                                     </table>

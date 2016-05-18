@@ -122,7 +122,7 @@ app.factory("$BillDetailFactory", function ($BMSApi, $AppHelp) {
         }
         this.GetMateriaMappings = function (materia) {
             /// <summary>获取物资映射信息</summary>
-            var Price = parseFloat(materia.medMaterialPrice ? materia.medMaterialPrice : materia.hPUnitEstPrice); var hPrice = parseFloat(materia.medMaterialPrice ? materia.medMaterialPrice : materia.hPUnitPrice); return $.extend(materia, { qty: materia.reqQty, dHMMName: materia.medMaterialFullName, dHMMSpecification: materia.medMaterialSpecification, dHMMMaterials: materia.medMaterialMaterials, hPUnitEstPrice: Price, patientUnitEstPrice: (Price * 1.05), hPUnitPrice: hPrice, patientUnitPrice: (hPrice * 1.05), effectiveToDate: materia.effectiveToDate ? materia.effectiveToDate : $AppHelp.Data.GetDate(-6, null, 2) });
+            var Price = parseFloat(materia.medMaterialPrice ? materia.medMaterialPrice : materia.hPUnitEstPrice); var hPrice = parseFloat(materia.medMaterialPrice ? materia.medMaterialPrice : materia.hPUnitPrice); return $.extend(materia, { qty: materia.reqQty, dHMMName: materia.medMaterialFullName, dHMMSpecification: materia.medMaterialSpecification, dHMMMaterials: materia.medMaterialMaterials, hPUnitEstPrice: Price, patientUnitEstPrice: (Price * 1.05), hPUnitPrice: hPrice, patientUnitPrice: materia.patientUnitPrice?materia.patientUnitPrice: (hPrice * 1.05), effectiveToDate: materia.effectiveToDate ? materia.effectiveToDate : $AppHelp.Data.GetDate(-6, null, 2) });
         }
 
         this.AddMaterias = function (materias, aims) {
