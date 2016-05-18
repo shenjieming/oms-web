@@ -40,9 +40,9 @@
             </tr>
             <tr>
                 <td>住院科室</td>
-                <td class="input Info">{{BillData.wardDeptCodeName}}</td>
+                <td class="input Info"><span ng-bind="BillData.wardDeptCodeName"></span></td>
                 <td>手术日期</td>
-                <td class="input Info">{{Help.Data.GetDate(0,BillData.operationDate)}}</td>
+                <td class="input Info"><span ng-bind="Help.Data.GetDate(0,BillData.operationDate)"></span></td>
                 <td>计费人员(签字)</td>
                 <td colspan="3" style="width:*;"></td>
             </tr>
@@ -64,15 +64,15 @@
                             <th>有效日期</th>
                         </tr>
                         <tr style="color:blue;" ng-repeat="row in BillData.detail">
-                            <td><label style="font-size:8px;">{{row.dHMMName}}</label> </td>
-                            <td><label style="font-size:8px;">{{row.medMaterialCode}}</label></td>
-                            <td><label style="font-size:8px;">{{row.medMaterialBrandName}}</label></td>
-                            <td><label style="font-size:8px;">{{row.dHMMSpecification}}</label></td>
-                            <td><label style="font-size:8px;text-align:right;float:right;">{{row.qty}}</label></td>
-                            <td><label style="font-size: 8px; text-align: right;float:right;">{{row.hPUnitPrice.toFixed(2)}}</label></td>
-                            <td><label style="font-size: 8px; text-align: right;float:right;">{{row.patientUnitPrice.toFixed(2)}}</label></td>
-                            <td><label style="font-size:8px;">{{row.lotSerial}}</label></td>
-                            <td><label style="font-size:8px;">{{Help.Data.GetDate(0,row.effectiveToDate)}}</label></td>
+                            <td><label style="font-size:8px;"><span ng-bind="row.dHMMName"></span></label> </td>
+                            <td><label style="font-size:8px;"><span ng-bind="row.medMaterialCode"></span></label></td>
+                            <td><label style="font-size:8px;"><span ng-bind="row.medMaterialBrandName"></span></label></td>
+                            <td><label style="font-size:8px;"><span ng-bind="row.dHMMSpecification"></span></label></td>
+                            <td><label style="font-size:8px;text-align:right;float:right;"><span ng-bind="row.qty"></span></label></td>
+                            <td><label style="font-size: 8px; text-align: right;float:right;"><span ng-bind="row.hPUnitPrice.toFixed(2)"></span></label></td>
+                            <td><label style="font-size: 8px; text-align: right;float:right;"><span ng-bind="row.patientUnitPrice.toFixed(2)"></span></label></td>
+                            <td><label style="font-size:8px;"><span ng-bind="row.lotSerial"></span></label></td>
+                            <td><label style="font-size:8px;"><span ng-bind="Help.Data.GetDate(0,row.effectiveToDate)"></span></label></td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
@@ -105,8 +105,7 @@
                         <tr>
                             <td class="Tip">合计金额</td>
                             <td class="Info">
-                                {{Help.Tool.ToCapital(BillData.Money)}}< ￥{{BillData.Money}}元>
-
+                                <span ng-bind="Help.Tool.ToCapital(BillData.Money)"></span>< ￥<span ng-bind="BillData.Money"></span>元>
                             </td>
                         </tr>
                     </table>
@@ -118,7 +117,7 @@
                         <tr>
                             <td class="Tip">+5%合计金额</td>
                             <td class="Info">
-                                {{Help.Tool.ToCapital(BillData.UserMoney)}}< ￥{{BillData.UserMoney}}元>
+                                <span ng-bind="Help.Tool.ToCapital(BillData.UserMoney)"></span>< ￥<span ng-bind="BillData.UserMoney"></span>元>
                             </td>
                         </tr>
                     </table>
@@ -130,7 +129,7 @@
                         <tr>
                             <td class="Tip">供货单位</td>
                             <td class="Info">
-                                {{BillData.sOCreateByOrgCodeName}}
+                                <span ng-bind="BillData.sOCreateByOrgCodeName"></span>
                             </td>
                         </tr>
                     </table>
@@ -142,11 +141,11 @@
             <tr>
                 <td class="title">填写<br />日期</td>
                 <td style="width:*">
-                    <span style="color:blue;">{{Help.Data.GetDate(0)}}</span>
+                    <span style="color:blue;"><span ng-bind="Help.Data.GetDate(0)"></span></span>
                 </td>
             </tr>
         </table>
-        <span style="color:#ccc;">{{BillData.sONo}}</span>
+        <span style="color:#ccc;"><span ng-bind="BillData.sONo"></span></span>
         <span style="color:#ccc; float:right;">迈骆(上海)医疗供应链管理有限公司</span>
         <table class="table">
 
