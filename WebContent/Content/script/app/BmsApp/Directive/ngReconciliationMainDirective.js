@@ -31,37 +31,14 @@ app.directive("ngReconciliationMain", function ($BMSApi, $MessagService, $local,
     }
 });
 
-app.directive("ngReconciliationDetail", function ($BMSApi, $MessagService, $local, $AppHelp, $Api) {
-    /// <summary>对账单子表控制</summary>  
+app.directive("ngOperatReconciliationDetail", function ($BMSApi, $MessagService, $local, $AppHelp, $RecInfFactory) {
+    /// <summary>编辑操作对账单明细</summary>  
     return {
         restrict: "EA",
-        templateUrl: "Content/script/app/BmsApp/Directive/ui/ngReconciliationDetail.html?data=" + Timestamp,
-        scope: { ngReconciliationDetail: "=", ngModel: "=" },
+        templateUrl: "Content/script/app/BmsApp/Directive/ui/ngOperatReconciliationDetail.html?data=" + Timestamp,
+        scope: { ngOperatReconciliationDetail: "=", ngModel: "=" },
         replace: true,
         link: function ($scope, e, a) {
-            $scope.Service = {
-                Save: function () {
-                    /// <summary>保存对账单字表明细</summary>
-                    $BMSApi.ReconciliationService.Modify($scope.ngModel, function (rData) {
-                        $MessagService.succ("对账单" + $scope.ngModel.hSOANo + "修改成功！");
-                        if (callback) { callback(); }
-                        $scope.ngReconciliationDetail.hide();
-                    });
-
-                }
-            }
-
-            var modelConfig = {
-                title: "对账信息修改", width: "950", height: "350",
-                buttons: {
-                    "确定": function () {
-                    },
-                    "关闭": function () {
-                        $scope.ngReconciliationDetail.hide();
-                    }
-                }
-            }; $scope.ngReconciliationMain = $.extend($scope.ngReconciliationMain, modelConfig);
-
         }
     }
 });

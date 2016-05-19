@@ -35,8 +35,7 @@ app.directive("ngBillMaterials", function ($BMSApi, $MessagService, $local, $App
                 },
                 GetNewReconciliation: function () {
                     /// <summary>获取新的对账单信息</summary>
-                    $MessagService.succ("耗材删除成功！");
-                    $BMSApi.PublicInfoService.GetReconciliationDetail(s.ngModel, function (data) { $.extend(s.ngModel, data); });
+                    $BMSApi.PublicInfoService.GetReconciliationDetail(s.ngModel, function (data) { $MessagService.succ("耗材删除成功！"); $.extend(s.ngModel, data); });
                 }
             }
 
@@ -50,11 +49,44 @@ app.directive("ngBillMaterials", function ($BMSApi, $MessagService, $local, $App
                 fixed: function (list) { s.BillService.GetRecByMappingData({ detail: s.Factory.GetNewBillDetail(s.ngModel.detail, list) }); }
             };
 
-            if (s.ngBillService) { s.ngBillService = $.extend(s.BillService, s.ngBillService); }
-            if (s.ngBillMaterials) { s.ngBillMaterials = $.extend(s.BillConfig, s.ngBillMaterials); }
+            if (s.ngBillService) { s.ngBillService = $.extend(s.BillService, s.ngBillService); } if (s.ngBillMaterials) { s.ngBillMaterials = $.extend(s.BillConfig, s.ngBillMaterials); }
         }
     }
 });
+
+
+app.directive("ngOperatBillList", function ($BMSApi, $MessagService, $local, $AppHelp, $RecInfFactory) {
+    /// <summary>计费单操作列表</summary>  
+    return {
+        restrict: "EA",
+        templateUrl: "Content/script/app/BmsApp/Directive/ui/ngOperatBillList.html?data=" + Timestamp,
+        scope: { ngOperatBillList: "=", ngModel: "=" },
+        replace: true,
+        link: function ($scope, e, a) {
+            $scope.BillService = {
+                /// <summary>计费单服务</summary>
+            }
+        }
+    }
+});
+
+app.directive("ngOperatBillMaterialList", function ($BMSApi, $MessagService, $local, $AppHelp, $RecInfFactory) {
+    /// <summary>计费单物料操作列表</summary>  
+    return {
+        restrict: "EA",
+        templateUrl: "Content/script/app/BmsApp/Directive/ui/ngOperatBillMaterialList.html?data=" + Timestamp,
+        scope: { ngOperatBillMaterialList: "=", ngModel: "=" },
+        replace: true,
+        link: function ($scope, e, a) {
+            $scope.MaterialService = {
+                /// <summary>计费单物料服务</summary>
+                
+            }
+        }
+    }
+});
+
+
 
 
 app.factory("$RecInfFactory", function ($BMSApi, $AppHelp) {
