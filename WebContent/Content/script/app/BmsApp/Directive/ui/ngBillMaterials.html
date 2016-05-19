@@ -85,7 +85,7 @@
                     <td style="text-align:right;">￥<span ng-bind="(row.hPUnitPrice*1).toFixed(2)"></span> </td>
                     <td style="text-align:right;">￥<span ng-bind="(row.hPUnitPrice*row.offsetQty).toFixed(2)"></span> </td>
                     <td ng-show="ngBillMaterials.Edit" style="text-align:center;">
-                        <button type="button" ng-click="BillService.DeletBillMaterial(row)" class="btn btn-xs btn-danger">
+                        <button type="button" title="删除" ng-click="BillService.DeletBillMaterial(row)" class="btn btn-xs btn-danger">
                             <i class="fa fa-times"></i>
                         </button>
                     </td>

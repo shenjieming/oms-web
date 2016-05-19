@@ -33,8 +33,10 @@ app.directive("ngBillMaterials", function ($BMSApi, $MessagService, $local, $App
                     /// <summary>删除计费单物料</summary>
                     $BMSApi.ReconciliationService.FndDelete(row, s.BillService.GetNewReconciliation);
                 },
-                GetNewReconciliation :function () {
+                GetNewReconciliation: function () {
                     /// <summary>获取新的对账单信息</summary>
+                    $MessagService.succ("耗材删除成功！");
+                    $BMSApi.PublicInfoService.GetReconciliationDetail(s.ngModel, function (data) { $.extend(s.ngModel, data); });
                 }
             }
 
