@@ -55,7 +55,9 @@ var ApiPath = {
             //上一次手术信息（获取服务器端手术时间）
             findUserLastOrder:"/v2/common/order/findUserLastOrder",
             //预览
-            proView:"/v2/common/order/proview",
+            proView: "/v2/common/order/proview",
+            //查询物料、套件 库存
+            inventoryValid: "/v2/common/order/inventoryValid",
         },
         Approval: {
             /// <summary>订单审批</summary>
@@ -100,8 +102,10 @@ var ApiPath = {
             receive: "/v2/common/order/receive",
             //暂存备货订单
             save: "/v2/common/stock/process/save",
-            //提交备货订单
+            //提交线上备货订单
             submit: "/v2/common/stock/process/submit",
+            //提交线下备货订单
+            offlinesubmit:"/common/stock/process/offlinesubmit",
             //事件添加
             addevent: "/v2/common/order/addEvent"
         },

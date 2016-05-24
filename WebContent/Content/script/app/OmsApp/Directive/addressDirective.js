@@ -47,9 +47,9 @@ app.directive("ngAddress", function ($Api, $MessagService, $local) {
                     $scope.operat.isDetail = !$scope.operat.isDetail; $scope.operat.isEdit = !$scope.operat.isEdit; $scope.Service.AddressDetail = new Object(); $scope.Service.GetAddressList(); $(".ui-dialog-buttonset").show(); $(".ui-dialog-title").val("收货地址选择")
                 },
                 verification: function () {
-                    var result = true; if (!$scope.Service.AddressDetail.contact) { result = false; $MessagService.caveat("请维护该联系人姓名！"); } else if (!$scope.Service.AddressDetail.mobile) { result = false; $MessagService.caveat("请维护该联系人号码！"); } else if (!$scope.Service.AddressDetail.deliveryProvinceCode || !$scope.Service.AddressDetail.deliveryCityCode || !$scope.Service.AddressDetail.deliveryDistrictCode || !$scope.Service.AddressDetail.address) { result = false; $MessagService.caveat("请维护该联系人地址！"); } return result;
+                    var result = true; if (!$scope.Service.AddressDetail.contact) { result = false; $MessagService.caveat("请维护该联系人姓名！"); } else if (!$scope.Service.AddressDetail.mobile) { result = false; $MessagService.caveat("请维护该联系人号码！"); } else if (!$scope.Service.AddressDetail.carrierTransType) { result = false; $MessagService.caveat("请选择配送方式！"); } else if (!$scope.Service.AddressDetail.deliveryProvinceCode || !$scope.Service.AddressDetail.deliveryCityCode || !$scope.Service.AddressDetail.deliveryDistrictCode || !$scope.Service.AddressDetail.address) { result = false; $MessagService.caveat("请维护该联系人地址！"); } return result;
                 },
-                Save: function () {
+                Save: function () { 
                     //我的地址保存
                     if ($scope.operat.verification()) {
                         $scope.Service.AddressDetail.provinceCode= $scope.Service.AddressDetail.deliveryProvinceCode ;

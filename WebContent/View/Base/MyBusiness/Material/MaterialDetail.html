@@ -25,16 +25,19 @@
                     </label>
                 </div>
                 <div class="control-group">
-                    <label>
+                    <label ng-if="!ControlAuthority.medMICode">
                         <span class="required">*</span>
-                        <div>
-                            物料编码：{{facturerCode}}-
-                            <input type="text" style="width:127px;" placeholder="请输入物料编码" ng-model="PageData.medMICode" ng-change="MaterialFactoryCode()" />
-                        </div>
+                        物料编码：{{facturerCode}}-
+                        <input type="text" style="width:127px;" placeholder="请输入物料编码" ng-model="PageData.medMICode" ng-change="MaterialFactoryCode()" />
+                    </label>
+                    <label ng-if="ControlAuthority.medMICode">
+                        <span class="required">*</span>
+                        物料编码：
+                        <input type="text" style="width:127px;" placeholder="请输入物料编码" ng-model="PageData.medMICode" ng-change="MaterialFactoryCode()" />
                     </label>
                     <label>
                         <span class="required">*</span>
-                        物料类型：<!--<span ng-dictionary="MMICTG" ng-model="PageData.categoryByPlatform"></span>-->
+                        物料类型：
                         <select ng-model="PageData.categoryByPlatform" ng-change="SelectedInfo.MaterialType.change()">
                             <option value="">请选择...</option>
                             <option ng-repeat="item in SelectedInfo.MaterialType.dic" ng-selected="item.id==PageData.categoryByPlatform" value="{{item.id}}">{{item.text}}</option>
@@ -42,7 +45,7 @@
                     </label>
                     <label>
                         <span class="required">*</span>
-                        通用性：<!--<span ng-dictionary="MIACTP" ng-model="PageData.applyCommonType"></span>-->
+                        通用性：
                         <select ng-model="PageData.applyCommonType">
                             <option value="">请选择...</option>
                             <option ng-repeat="item in SelectedInfo.Generality.dic" ng-selected="item.id==PageData.applyCommonType" value="{{item.id}}">{{item.text}}</option>

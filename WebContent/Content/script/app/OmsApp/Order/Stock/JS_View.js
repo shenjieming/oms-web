@@ -100,14 +100,10 @@ app.controller("StockViewController", function ($scope, $state, $local, $Api, $M
 
         }
     }
-    function FormatDate(strTime) {
-        console.log(strTime)        
+    function FormatDate(strTime) {     
         return strTime.getFullYear() + "-" + (strTime.getMonth() + 1) + "-" + strTime.getDate();
     }
     //+ "  " + "星期" + "日一二三四五六".charAt(date.getDay())
-
-    console.log($scope.PageData)
-
     $scope.ApprovalConfig = {
         /// <summary>订单审批配置</summary>
         Operat: { fixed: function () { $scope.goLastPage(); } },
@@ -226,20 +222,57 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
         $local.setValue("ORDERCOMP", { sign: true });
         $scope.GetRowGoPage("app.oms.stock.view");
     }
+    $scope.ProcessingOnlineOrders = function (sono) {
+        /// <summary>处理线上订单</summary>
+        $local.setValue("ORDERCOMP", { dealwith: true, handleType: 'online', iconShow: true });
+        $scope.goView("app.oms.stock.dealpage", { sono: sono });
+    }
 
-    $scope.DealStock = function () {
-        /// <summary>处理备货订单</summary>
+    //跳转到线下处理页面
+    $scope.ProcessingOfflineOrders = function (sono) {
+        /// <summary>处理线下订单</summary>
+        $local.setValue("ORDERCOMP", { dealwith: true, handleType: 'offline', iconShow: false });
+        $scope.goView("app.oms.stock.dealpage", { sono: sono });
+    }
+   $scope.DealSurgeryOnline = function () {
+        /// <summary>线上处理手术订单</summary>
         $scope.GetRowGoPage(null, function (rowData) {
             if (rowData.status == "SOSTS00060") {//已处理订单的话
                 if (rowData.sOHandleBy == userData.userInfo.userId) {
-                    $scope.ProcessingOrders(rowData.sONo);
+                    if (rowData.sOHandleType == "ONLINE" || rowData.sOHandleType == "NOTDECIDE") {
+                        $scope.ProcessingOnlineOrders(rowData.sONo);
+                    } else {
+                        $MessagService.caveat("当前订单只允许线下处理！");
+                    }
                 } else {
                     $MessagService.caveat("当前订单已被" + rowData.sOHandleByName + "处理中！");
                 }
             } else {
-                $Api.StockService.Process.Receive({ sONo: rowData.sONo, opt: "INSTK_PROCESS_RECEIVE" }, function () {
+                $Api.SurgeryService.Process.Receive({ sONo: rowData.sONo, opt: "INSTK_PROCESS_RECEIVE" }, function () {
                     $MessagService.loading("订单处理启动中...");
-                    setTimeout(function () { $scope.ProcessingOrders(rowData.sONo) }, 1000);
+                    setTimeout(function () { $scope.ProcessingOnlineOrders(rowData.sONo) }, 1000);
+                });
+            }
+        });
+    }
+
+    $scope.DealSurgeryOffline = function () {
+        /// <summary>线下处理手术订单</summary>
+        $scope.GetRowGoPage(null, function (rowData) {
+            if (rowData.status == "SOSTS00060") {//已处理订单的话
+                if (rowData.sOHandleBy == userData.userInfo.userId) {
+                    if (rowData.sOHandleType == "OFFLINE" || rowData.sOHandleType == "NOTDECIDE") {
+                        $scope.ProcessingOfflineOrders(rowData.sONo);
+                    } else {
+                        $MessagService.caveat("当前订单只允许线上处理！");
+                    }
+                } else {
+                    $MessagService.caveat("当前订单已被" + rowData.sOHandleByName + "处理中！");
+                }
+            } else {
+                $Api.SurgeryService.Process.Receive({ sONo: rowData.sONo, opt: "INSTK_PROCESS_RECEIVE" }, function () {
+                    $MessagService.loading("订单处理启动中...");
+                    setTimeout(function () { $scope.ProcessingOfflineOrders(rowData.sONo) }, 1000);
                 });
             }
         });
@@ -278,7 +311,6 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
     $scope.OrderDelivery = function () {
         /// <summary>订单发货处理</summary>
         var rowData = $local.getSelectedRow($scope.Integrated.OrderList);
-        console.log(rowData)
         if (rowData) {
             $state.go("app.oms.stock.orderdelivery", rowData);
         } else {
@@ -307,7 +339,6 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
 
     //  日期格式转换
     function FormatDate(strTime) {
-        console.log(strTime)
         //   var date = new Date(replace("-", "/").replace("-", "/"));         
         return strTime.getFullYear() + "-" + (strTime.getMonth() + 1) + "-" + strTime.getDate();
     }
@@ -347,7 +378,6 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
                     }
                 }
                 $scope.Integrated.StockList = rData.rows;
-                console.log($scope.Integrated.StockList)
             });
         }
     }
@@ -479,7 +509,6 @@ app.controller("StockSingleController", function ($scope, $state, $local, $Api, 
         Upload: function (files) {
             /// <summary>上传事件</summary>
             $.each(files, function (index, item) {
-                console.log($scope.PageData.attachments.images.length)
                 if ($scope.PageData.attachments.images.length >= 5) {
                     $MessagService.caveat("您上传的图片超过了5张!")
                     return false;
@@ -763,12 +792,43 @@ app.controller("StockDealwithController", function ($scope, $state, $local, $Api
                 $scope.goLastPage();
             });
         },
+        OfflineSubmit: function () {
+            /// <summary>线下处理订单提交</summary>
+            if ($scope.PageData.sOOfflineHandleReasonType) {
+                if ($scope.View.Competence.handleType == 'offline') {
+                    $Api.StockService.Process.Offlinesubmit($scope.PageData, function (rData) {
+                        $scope.goLastPage();
+                        $MessagService.succ("该订单处理成功！");
+                    });
+                }
+            } else {
+                $MessagService.caveat("请选择线下处理原因！");
+            }
+        },
         Hide: function () {
             $scope.DealService.model.hide();
         },
         Show: function () {
             $scope.PreViewCount.GetData();
             $scope.DealService.model.show();
+            if ($scope.PageData.carrierTransType == "AIR") {
+                $scope.PageData.carrierTransTypeName = "航空";
+            }
+            else if ($scope.PageData.carrierTransType == "BUS") {
+                $scope.PageData.carrierTransTypeName = "大巴";
+            }
+            else if ($scope.PageData.carrierTransType == "DIRECT") {
+                $scope.PageData.carrierTransTypeName = "直送";
+            }
+            else if ($scope.PageData.carrierTransType == "EXPRESS") {
+                $scope.PageData.carrierTransTypeName = "快递";
+            }
+            else if ($scope.PageData.carrierTransType == "PERWH") {
+                $scope.PageData.carrierTransTypeName = "不限";
+            }
+            else if ($scope.PageData.carrierTransType == "SELFPICK") {
+                $scope.PageData.carrierTransTypeName = "自提";
+            }
         }
     }
     $scope.DealService.model = { title: "备货单预览", width: 780, height: 800, buttons: { "提交": $scope.DealService.Submit, "返回": $scope.DealService.Hide },open:function(){
@@ -863,14 +923,25 @@ app.controller("StockDealwithController", function ($scope, $state, $local, $Api
         instruction: true
     }
 
-    /*数据监控Begion*/
     $scope.$watch("PageData.sONo", function () {
         /// <summary>获取数据信息</summary>
         if ($scope.PageData.sONo) {
-            $.extend($scope.PageData.prodLns, $scope.PageData.initOrderProdlns);
-            $scope.PageData.medKits = new Array();
+            $.extend($scope.PageData, {
+                prodLns: $scope.PageData.orderProdlns,
+                attachments: $scope.file.GetEventMapping($scope.PageData.events, "0020_0001")
+            });
+
+            setTimeout(function () {
+                $scope.$apply(function () {
+                    $.extend($scope.PageData, {
+                        medKits: $scope.PageData.orderKits
+                    });
+                });
+            }, 10);
         }
     });
+   
+
 
     /*数据监控End*/
 })
@@ -989,7 +1060,6 @@ app.controller("StockOrderDeliveryController", function ($scope, $state, $local,
 
     $scope.shipped = new Object();
     $scope.sONo = $stateParams.sONo;
-    console.log($stateParams.wONo)
     if ($stateParams.wONo) {
         $scope.shipped.wONo = $stateParams.wONo;
         $scope.shipped.shipType = "stockoutbound";
@@ -1206,7 +1276,6 @@ app.controller("StockOutboundDeliveryController", function ($scope, $state, $loc
     });
     $scope.goDeliveryType = function () {
         var row = $local.getSelectedRow($scope.OutboundDelivery)
-        console.log(row)
         if (row) {
             $state.go("app.oms.stock.orderdelivery", row)
         } else {

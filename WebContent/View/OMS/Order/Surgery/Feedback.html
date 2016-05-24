@@ -1,4 +1,5 @@
 <div class="row" ng-controller="FeedbackController">
+    <div ng-materials="" ng-model="FeedBack.notInDetail" ng-operat="OtherMaterialsConfig.operat" ></div>
     <div class="tools">
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
@@ -70,6 +71,11 @@
                                     诊断信息：<input type="text" style=" width:78%" ng-model="FeedBack.order.operationDesc" />
                                 </label>
                             </div>
+                            <div class="control-group">
+                                <label style="width:100%">
+                                      备注：<input type="text" style=" width:78%" ng-model="FeedBack.order.operationFeedbackRemark" />
+                                </label>
+                            </div>
                             <div ng-doctors="" ng-model="PageData" ng-operat="HospitalConfig" ng-pagedate="PageData"></div>
                         </div>
                     </div>
@@ -134,7 +140,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="widget-box">
                         <div class="widget-title bg_ly">
                             
@@ -214,17 +219,18 @@
                                                     <th><span>品牌</span></th>
                                                     <th><span>产品线</span></th>
                                                     <th><span>物料编码</span></th>
-                                                    <th><span>物料名称</span></th>
+                                                    <th width="120px"><span>物料名称</span></th>
                                                     <th><span>类型</span></th>
                                                     <th><span>规格</span></th>
                                                     <th><span>批次</span></th>
                                                     <th><span>使用数量</span></th>
+                                                    <th width="100px"><span>备注</span></th>
                                                     <th><span>返库仓库</span></th>
-                                                    <th><span>操作</span></th>
+                                                    <th width="70px"><span>操作</span></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="row in FeedBack.notInDetail">
+                                                <tr ng-repeat="row in FeedBack.notInDetail track by $index">
                                                     <td>{{$index+1}}</td>
                                                     <td>{{row.medBrandName}}</td>
                                                     <td>{{row.medProdLnName}}</td>
@@ -236,20 +242,25 @@
                                                         <input type="text" style="width:60px" ng-model="row.lotSerial" />
                                                     </td>
                                                     <td>
-                                                        <input type="number" ng-value="row.reqQty" ng-change="dictionary.DefaultUseType(row)" style="width:60px;" ng-model="row.reqQty" min="0" />
-                                                        <select ng-selected="0" ng-show="row.reqQty>0" ng-model="row.useType" ng-options="item.id as item.text for item in dictionary.UseTypeList">
+                                                        <input type="number" ng-value="row.useQty" ng-change="dictionary.DefaultUseType(row)" style="width:60px;" ng-model="row.useQty" min="0" />
+                                                        <select ng-selected="0" ng-show="row.useQty>0" ng-model="row.useType" ng-options="item.id as item.text for item in dictionary.UseTypeList">
                                                             <option value="">使用类型</option>
                                                         </select>
                                                     </td>
+                                                    <td><input type="text" ng-model="row.remark" /></td>
                                                     <td>
                                                         <select ng-model="row.returnWarehouse" ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
                                                             <option value="">请选择仓库</option>
                                                         </select>
                                                     </td>
-                                                    <td>
-                                                        <button type="button" ng-click="OtherMaterialsConfig.DelKit($index)" class="btn btn-xs btn-danger">
+                                                    <td style="display: inline-flex; vertical-align: middle; ">
+                                                        <button type="button" ng-click="OtherMaterialsConfig.Add(row)" class="btn btn-xs btn-danger">
+                                                            <i class="fa  fa-plus-square"></i>
+                                                        </button>
+                                                        <button type="button" ng-click="OtherMaterialsConfig.DelKit($index)" style="margin-left:5px" class="btn btn-xs btn-danger">
                                                             <i class="fa fa-times"></i>
                                                         </button>
+
                                                     </td>
                                                 </tr>
                                             </tbody>

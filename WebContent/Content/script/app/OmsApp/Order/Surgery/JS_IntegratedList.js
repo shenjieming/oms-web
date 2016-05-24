@@ -698,6 +698,11 @@ app.controller("MyOrderListController", function ($scope, $state, $local, $Api, 
     $scope.Competence = {
     };
     //条件清空
+    $scope.showViewDetail = function (sono) {
+        /// <summary>查看手术订单</summary>
+        $local.setValue("ORDERCOMP", { sign: true });
+        $scope.GetRowGoPage("app.oms.order.view");
+    }
     $scope.Integrated.ClearWhere(true);
     $scope.Integrated.GetOrderList({ opt: "OPER_MYORDER_LIST" });
     $scope.ListCompetence.hPCodeName = true;

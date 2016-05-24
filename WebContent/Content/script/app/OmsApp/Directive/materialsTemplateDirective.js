@@ -45,13 +45,12 @@ app.directive("ngMaterialsTemplate", function ($Api, $MessagService, $local) {
                 UpEnter: function (e) {
                     var keycode = window.event ? e.keyCode : e.which;
                     if (keycode == 13) {
-
                         $scope.Service.QueryMaterialsTemplateList();
                     }
                 },
                 QueryMaterialsTemplateList: function () {
                     /// <summary>查询模板列表</summary>
-                    $scope.Pagein.pageIndex = 1;
+                    $scope.Pagein = $.extend($scope.Pagein, { searchValue: $scope.Pagein.searchValue });
                     $scope.Service.GetMaterialsTemplate();
                 },
                 GetMaterialsTemplate: function () {
