@@ -12,15 +12,18 @@
 app.controller("MaterialDetailController", function ($scope, $stateParams, $state, $local, $Api, $MessagService, $FileService) {
     /// <summary>经销商物料查询</summary>
     $scope.PageData = { certMultiQty: 4, isScanSupported: "Y", disinfectionNeeded: "Y", effectiveControl: "Y", attachmentForms: [{ images: new Array() }] };
-
+    $scope.ControlAuthority = {
+        //列表控制权限
+        medMICode:false,
+    }
     $scope.Service = {
         /// <summary>物料管理服务</summary>
         GetDetail: function () {
             /// <summary>获取物料明细</summary>
             $Api.BusinessData.MedMaterial.GetMedMaterialItemDetail($stateParams, function (rData) {
                 $scope.PageData = rData;
-                console.log($scope.PageData)
-                if ($scope.PageData.attachmentForms) {
+                $scope.ControlAuthority.medMICode = true;
+                if ($scope.PageData.attachmentForms) {                  
                     $scope.PageData.attachmentForms = [{ images: new Array() }];
                     $scope.PageData.attachmentForms[0].images = $scope.PageData.attachments;
                 }         

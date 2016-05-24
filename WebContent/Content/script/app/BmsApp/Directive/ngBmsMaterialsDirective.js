@@ -33,7 +33,7 @@ app.directive("ngBmsMaterials", function ($BMSApi, $MessagService, $local, $AppH
                     /// <summary>添加使用数量</summary>
                     row.reqQty++;
                 },
-                GetDayToData: $AppHelp.Data.GetDate,
+                GetDayToData: $AppHelp.Data,
                 GetMaterialQty: function (data) {
                     /// <summary>获取物资的数量</summary>
                     var result = 0; $.each(s.Service.ChangeList, function (i, changeData) { if (data.dHMedMaterialInternalNo == changeData.dHMedMaterialInternalNo) { result = changeData.reqQty; return false; } }); return result;

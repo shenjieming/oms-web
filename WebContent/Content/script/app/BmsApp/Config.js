@@ -60,11 +60,29 @@ BmsApp
         $stateProvider
             .state("app.bms.bill.detail", {
                 /// <summary>订单计费管理</summary>
-                url: "/detail/:hOFNNo/:sONo", cache: false,    views: {     "": {    templateUrl: "View/BMS/Bill/Operat/BillDetail.html?data=" + Timestamp,   controller: "BillInfoController",   },    "Accurate@app.bms.bill.detail": {    templateUrl: "View/OMS/Order/Surgery/View/AccurateView.html?data=" + Timestamp,   controller: "AccurateController",    }    },    loadJs: ["Content/script/app/BmsApp/BillController/OperatController/JS_BillDetail.js"], resolve: app.resolve
+                url: "/detail/:hOFNNo/:sONo", cache: false, views: {
+                    "": {
+                        templateUrl: "View/BMS/Bill/Operat/BillDetail.html?data=" + Timestamp, controller: "BillInfoController",
+                    },
+                    "Accurate@app.bms.bill.detail": {
+                        templateUrl: "View/OMS/Order/Surgery/View/AccurateView.html?data=" + Timestamp,
+                        controller: "AccurateController",
+                    },
+                    "Feedback@app.bms.bill.detail": { templateUrl: "View/OMS/Order/Surgery/View/FeedbackView.html?data=" + Timestamp, controller: "FeedbackViewController", },
+                    "Event@app.bms.bill.detail": { templateUrl: "View/OMS/Order/Surgery/View/EventView.html?data=" + Timestamp }
+                }, loadJs: ["Content/script/app/BmsApp/BillController/OperatController/JS_BillDetail.js"], resolve: app.resolve
             })
             .state("app.bms.bill.view", {
                 /// <summary>计费单视图管理</summary>
-                url: "/view/:hOFNNo/:sONo",   cache: false,    views: {    "": {  templateUrl: "View/BMS/Bill/View/BillView.html?data=" + Timestamp,    controller: "BillInfoController",    },    "Accurate@app.bms.bill.view": {    templateUrl: "View/OMS/Order/Surgery/View/AccurateView.html?data=" + Timestamp,   controller: "AccurateController",     }    },   loadJs: ["Content/script/app/BmsApp/BillController/OperatController/JS_BillView.js"], resolve: app.resolve
+                url: "/view/:hOFNNo/:sONo", cache: false, views: {
+                    "": {
+                        templateUrl: "View/BMS/Bill/View/BillView.html?data=" + Timestamp, controller: "BillInfoController",
+                    }, "Accurate@app.bms.bill.view": {
+                        templateUrl: "View/OMS/Order/Surgery/View/AccurateView.html?data=" + Timestamp, controller: "AccurateController",
+                    },
+                    "Feedback@app.bms.bill.view": { templateUrl: "View/OMS/Order/Surgery/View/FeedbackView.html?data=" + Timestamp, controller: "FeedbackViewController", },
+                    "Event@app.bms.bill.view": { templateUrl: "View/OMS/Order/Surgery/View/EventView.html?data=" + Timestamp }
+                }, loadJs: ["Content/script/app/BmsApp/BillController/OperatController/JS_BillView.js"], resolve: app.resolve
             })
     })
     .config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
@@ -148,35 +166,35 @@ BmsApp
         var service = new Array();
         service.push($BmsBillMenuService);
         service.push($BmsReconciliationMenuService);
-        service.push($BmsInvoiceMenuService);
+        //service.push($BmsInvoiceMenuService);
         return service;
     })
     .factory("$BmsBillMenuService", function () {
         /// <summary>BMS系统计费单菜单管理</summary>
         return {
-            name: "订单计费管理", url: "", state: "app.bms.bill", icon: "fa-laptop", order: 3,
+            name: "计费管理", url: "", state: "app.bms.bill", icon: "fa-laptop", order: 3,
             detail: [
-                { name: "综合计费单查询", url: "#/app/bms/bill/complex", state: "app.bms.bill.complex" },
-                { name: "待计费订单", url: "#/app/bms/bill/pending", state: "app.bms.bill.pending" },
+                { name: "综合查询", url: "#/app/bms/bill/complex", state: "app.bms.bill.complex" },
                 { name: "我的计费单", url: "#/app/bms/bill/list", state: "app.bms.bill.list" },
-                { name: "未审批计费", url: "#/app/bms/bill/notapproval", state: "app.bms.bill.notapproval" },
-                { name: "待审批计费", url: "#/app/bms/bill/approval", state: "app.bms.bill.approval" },
-                { name: "已审批计费", url: "#/app/bms/bill/approveded", state: "app.bms.bill.approveded" },
-                { name: "已对账计费", url: "#/app/bms/bill/posting", state: "app.bms.bill.posting" }
+                { name: "待计费", url: "#/app/bms/bill/pending", state: "app.bms.bill.pending" },
+                { name: "未审核", url: "#/app/bms/bill/notapproval", state: "app.bms.bill.notapproval" },
+                { name: "待审核", url: "#/app/bms/bill/approval", state: "app.bms.bill.approval" },
+                { name: "已审核", url: "#/app/bms/bill/approveded", state: "app.bms.bill.approveded" },
+                { name: "已对账", url: "#/app/bms/bill/posting", state: "app.bms.bill.posting" }
             ]
         };
     })
     .factory("$BmsReconciliationMenuService", function () {
         /// <summary>BMS系统对账单菜单管理</summary>
         return {
-            name: "计费对账管理", url: "", state: "app.bms.rec", icon: "fa-laptop", order: 3,
+            name: "对账管理", url: "", state: "app.bms.rec", icon: "fa-laptop", order: 3,
             detail: [
-                { name: "对账单综合查询", url: "#/app/bms/rec/complex", state: "app.bms.rec.complex" },
+                { name: "综合查询", url: "#/app/bms/rec/complex", state: "app.bms.rec.complex" },
                 { name: "我的对账单", url: "#/app/bms/rec/list", state: "app.bms.rec.list" },
-                { name: "未审批对账单", url: "#/app/bms/rec/notapproval", state: "app.bms.rec.notapproval" },
-                { name: "待审批对账单", url: "#/app/bms/rec/approval", state: "app.bms.rec.approval" },
-                { name: "已审批对账单", url: "#/app/bms/rec/approveded", state: "app.bms.rec.approveded" },
-                { name: "已开票对账单", url: "#/app/bms/rec/already", state: "app.bms.rec.already" }
+                { name: "未审核", url: "#/app/bms/rec/notapproval", state: "app.bms.rec.notapproval" },
+                { name: "待审核", url: "#/app/bms/rec/approval", state: "app.bms.rec.approval" },
+                { name: "已审核", url: "#/app/bms/rec/approveded", state: "app.bms.rec.approveded" },
+                { name: "已开票", url: "#/app/bms/rec/already", state: "app.bms.rec.already" }
             ]
         };
     })
@@ -187,9 +205,37 @@ BmsApp
             detail: [
                 { name: "票据综合查询", url: "#/app/bms/invoice/complex", state: "app.bms.invoice.complex" },
                 { name: "我的发票", url: "#/app/bms/invoice/list", state: "app.bms.invoice.list" },
-                { name: "未审批发票", url: "#/app/bms/invoice/notapproval", state: "app.bms.invoice.notapproval" },
-                { name: "待审批发票", url: "#/app/bms/invoice/approval", state: "app.bms.invoice.approval" },
-                { name: "已审批发票", url: "#/app/bms/invoice/approveded", state: "app.bms.invoice.approveded" }
+                { name: "未审核", url: "#/app/bms/invoice/notapproval", state: "app.bms.invoice.notapproval" },
+                { name: "待审核", url: "#/app/bms/invoice/approval", state: "app.bms.invoice.approval" },
+                { name: "已审核", url: "#/app/bms/invoice/approveded", state: "app.bms.invoice.approveded" }
             ]
         };
+    })
+    .factory("$BillDetailFactory", function ($BMSApi, $AppHelp) {
+        /// <summary>订单明细处理工程</summary>
+        var $BillDetailFactory = function (scope) {
+            var $scope = scope;
+
+            this.GetOrderMapping = function (orderInfo) {
+                /// <summary>获取订单映射</summary>
+                return { sONo: orderInfo.sONo, createDate: orderInfo.createDate, statusName: orderInfo.statusName, deliveryProvinceName: orderInfo.deliveryProvinceName, deliveryCityName: orderInfo.deliveryCityName, deliveryDistrictName: orderInfo.deliveryDistrictName, deliveryAddress: orderInfo.deliveryAddress, deliveryContact: orderInfo.deliveryContact, deliveryrMobile: orderInfo.deliveryrMobile, dLOrgCode: orderInfo.soCreateOrgCode, hPCode: orderInfo.hPCode, hPCodeName: orderInfo.hPCodeName, wardDeptCode: orderInfo.wardDeptCode, wardDeptCodeName: orderInfo.wardDeptCodeName, dTCode: orderInfo.dTCode, dTCodeName: orderInfo.dTCodeName, operationDate: orderInfo.operationDate, operationOperationRoom: orderInfo.operationOperationRoom, operationFeedbackRemark: orderInfo.operationFeedbackRemark, patientHPNo: orderInfo.patientHPNo, patientWard: orderInfo.patientWard, patientRoom: orderInfo.patientRoom, patientBedNo: orderInfo.patientBedNo, patientName: orderInfo.patientName, patientSex: orderInfo.patientSex, patientAge: orderInfo.patientAge, patientAddress: orderInfo.patientAddress, patientTel: orderInfo.patientTel, patientRemark: orderInfo.patientRemark, patientDiseaseInfo: orderInfo.patientDiseaseInfo, patientEntryDate: orderInfo.patientEntryDate }
+            }
+
+            this.GetDoctorMapping = function (doc) {
+                /// <summary>获取医生模型映射</summary>
+                return { hPCode: doc.hPCode, hPCodeName: doc.hPName, wardDeptCode: doc.wardDeptCode, wardDeptCodeName: doc.wardDeptname, dTCode: doc.dTCode, dTCodeName: doc.dTName };
+            }
+            this.GetMateriaMappings = function (materia) {
+                /// <summary>获取物资映射信息</summary>
+                var Price = parseFloat(materia.medMaterialPrice ? materia.medMaterialPrice : materia.hPUnitEstPrice); var hPrice = parseFloat(materia.medMaterialPrice ? materia.medMaterialPrice : materia.hPUnitPrice); return $.extend(materia, { qty: materia.reqQty, dHMMName: materia.medMaterialFullName, dHMMSpecification: materia.medMaterialSpecification, dHMMMaterials: materia.medMaterialMaterials, hPUnitEstPrice: Price, patientUnitEstPrice: (Price * 1.05), hPUnitPrice: hPrice, patientUnitPrice: materia.patientUnitPrice ? materia.patientUnitPrice : (hPrice * 1.05), effectiveToDate: materia.effectiveToDate ? materia.effectiveToDate : $AppHelp.Data.GetDate(-6, null, 2) });
+            }
+
+            this.AddMaterias = function (materias, aims) {
+                /// <summary>批量添加物料信息</summary>
+                if (!aims.detail) { aims.detail = new Array(); } aims.MateriaCount = 0; aims.Money = 0; $.each(materias, function (index, item) { var materia = BillDetailFactory.GetMateriaMappings(item); aims.MateriaCount += materia.qty; aims.Money += materia.qty * materia.hPUnitPrice; var flg = true; $.each(aims.detail, function (i, data) { if (materia.dHMedMaterialInternalNo == data.dHMedMaterialInternalNo) { data.qty += materia.qty; flg = false; return false; } }); if (flg) { aims.detail.push(materia); } }); aims.Money = parseFloat(aims.Money).toFixed(2); return aims.detail;
+            }
+
+            var BillDetailFactory = this; return this;
+        }
+        return $BillDetailFactory;
     })

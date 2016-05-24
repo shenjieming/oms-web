@@ -7,12 +7,11 @@
 /// <reference path="../lib/angular-1.2.20/angular-loader.js" />
 /// <reference path="../lib/Jquery/jquery-1.11.1.min.js" />
 var Timestamp = new Date().getTime();
-var app = angular.module('ESurgeryApp', ["ngRoute", "ui.router", "ngRequire", "ui.bootstrap", "smart-table", "jnDo", "AjaxService","OmsApp", "BaseApp", "BmsApp"]);
+var app = angular.module('ESurgeryApp', ["ngRoute", "ui.router", "ngRequire", "ui.bootstrap", "smart-table", "jnDo", "AjaxService", "OmsApp", "BaseApp", "BmsApp", "LocalService"]);
 app.run(function ($rootScope, $state, $local, $Api, $MessagService) {
     /// <summary>系统启动事件</summary>
     ///TODO:用户有效性验证
     //若是登陆页面的话，并且存在用户信息的话，直接进入登陆页面
-
     $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams, errorType) { console.log(toState.name); if (toState.name != "login") { var data = $local.getValue("USER"); if (data) { console.log(toState.name + "页面启动"); } else { $MessagService.caveat("用户信息过期，请重新登录.."); event.preventDefault(); $state.go("login"); } } else { var data = $local.getValue("USER"); if (data) { event.preventDefault(); $state.go("app.home"); } } });
 })
 app.config(function ($stateProvider, $urlRouterProvider, $requireProvider) {
@@ -93,3 +92,33 @@ app.controller("employeeController", function ($scope, $state, $MenuService, $lo
         }
     }
 });
+
+app.service("$OMSSpecially", function () {
+    /// <summary>OMS特殊事件服务</summary>
+    this.File = {
+        /// <summary>附件控制器</summary>
+        GetEventMapping: function (eventList, statusCode) {
+            /// <summary>获取附件映射</summary>
+            var result = { images: new Array(), remark: "" }
+            $.each(eventList, function (index, event) {
+                if (event.eventCode == statusCode) {
+                    $.each(event.attachments, function (fileindex, item) {
+                        result.remark = item.attachmentDesc;
+                        var img = { id: item.attachmentId, url: item.attachmentDir }
+                        if (JSON.stringify(result.images).indexOf(JSON.stringify(img)) == -1) {
+                            result.images.push(img);
+                        }
+                    });
+                    return result;
+                }
+            });
+            return result;
+        }
+    }
+    this.PrintBill = function (param) {
+        /// <summary>打印计费单</summary>
+        var Template = "HenanProvincialPeopleHospital";
+        window.open("View/Print/TemplatePages/" + Template + ".html?hOFNNo=" + param.hOFNNo);
+
+    }
+})

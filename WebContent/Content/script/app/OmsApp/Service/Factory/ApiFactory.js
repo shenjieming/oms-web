@@ -414,6 +414,10 @@ OMSApiService
                     /// <summary></summary>
                     $ApiService.PostApi(ApiPath.Surgery.Process.backsave, data, callback);
                 },
+                QueryStock: function (data, callback) {
+                    /// <summary>查询物料套件库存</summary>
+                    $ApiService.PostApi(ApiPath.Surgery.Process.inventoryValid, data, callback);
+                },
             },
             DataSources: {
                 /// <summary>手术订单数据源</summary>
@@ -497,14 +501,15 @@ OMSApiService
                         $ApiService.PostApi(ApiPath.Stock.Process.submit, data, callback);
                     }
                 },
-                AddEvent: function (data, callback) {
-                    /// <summary>添加事件</summary>
-                    $ApiService.PostApi(ApiPath.Stock.Process.addevent, data, callback);
+                Offlinesubmit: function (data, callback) {
+                    /// <summary>备货订单处理提交</summary>
+                    $MessagService.loading("处理提交中，请稍等...");
+                        $ApiService.PostApi(ApiPath.Stock.Process.offlinesubmit, data, callback);
                 },
                 AddEvent: function (data, callback) {
                     /// <summary>添加事件</summary>
                     $ApiService.PostApi(ApiPath.Stock.Process.addevent, data, callback);
-                }
+                },
             },
             DataSources: {
                 /// <summary>备货单数据源</summary>

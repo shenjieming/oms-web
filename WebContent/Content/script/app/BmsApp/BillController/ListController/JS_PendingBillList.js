@@ -2,7 +2,7 @@
 app.controller("PendingBillListController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams) {
     /// <summary>计费单管理</summary>
     console.log("计费管理-待计费订单管理");
-    $scope.title = "订单计费管理";
+    $scope.title = "待计费";
     $scope.Integrated = {
         //计费单列表
         OrderList: new Array(),

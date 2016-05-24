@@ -16,7 +16,7 @@ app.directive("ngApprovalBill", function ($BMSApi, $MessagService, $local, $AppH
                 }
             }
 
-            var modelConfig = { title: "计费单审批", width: "500", height: "350", buttons: { "确定": function () { s.Service.Approval(s.ngApprovalBill.fixed); }, "关闭": function () { s.ngApprovalBill.hide(); } } }
+            var modelConfig = { title: "计费单批准", width: "660", height: "350", buttons: { "确定": function () { s.Service.Approval(s.ngApprovalBill.fixed); }, "关闭": function () { s.ngApprovalBill.hide(); } } }
             $.extend(s.ngApprovalBill, modelConfig);
 
         }
@@ -40,7 +40,7 @@ app.directive("ngAntiApprovalBill", function ($BMSApi, $MessagService, $local, $
                 }
             }
 
-            var modelConfig = { title: "计费单反审批", width: "500", height: "350", buttons: { "确定": function () { s.Service.AntiApproval(s.ngAntiApprovalBill.fixed); }, "关闭": function () { s.ngAntiApprovalBill.hide(); } } }; $.extend(s.ngAntiApprovalBill, modelConfig);
+            var modelConfig = { title: "计费单反审核", width: "660", height: "350", buttons: { "确定": function () { s.Service.AntiApproval(s.ngAntiApprovalBill.fixed); }, "关闭": function () { s.ngAntiApprovalBill.hide(); } } }; $.extend(s.ngAntiApprovalBill, modelConfig);
         }
     }
 });
@@ -62,7 +62,7 @@ app.directive("ngDisableBill", function ($BMSApi, $MessagService, $local, $AppHe
                 }
             }
 
-            var modelConfig = { title: "计费单反审批", width: "500", height: "350", buttons: { "确定": function () { s.Service.Disable(s.ngDisableBill.fixed); }, "关闭": function () { s.ngDisableBill.hide(); } } }; $.extend(s.ngDisableBill, modelConfig);
+            var modelConfig = { title: "计费单作废", width: "660", height: "350", buttons: { "确定": function () { s.Service.Disable(s.ngDisableBill.fixed); }, "关闭": function () { s.ngDisableBill.hide(); } } }; $.extend(s.ngDisableBill, modelConfig);
         }
     }
 });
@@ -86,7 +86,7 @@ app.directive("ngApprovalReconciliation", function ($BMSApi, $MessagService, $lo
             }
 
             var modelConfig = {
-                title: "对账单审批", width: "500", height: "350", buttons: {
+                title: "对账单审批", width: "660", height: "350", buttons: {
                     "确定": function () { s.Service.Approval(s.ngApprovalReconciliation.fixed); }, "关闭": function () { s.ngApprovalReconciliation.hide(); }
                 }
             }
@@ -113,7 +113,7 @@ app.directive("ngAntiApprovalReconciliation", function ($BMSApi, $MessagService,
                 }
             }
 
-            var modelConfig = { title: "计费单反审批", width: "500", height: "350", buttons: { "确定": function () { s.Service.AntiApproval(s.ngAntiApprovalReconciliation.fixed); }, "关闭": function () { s.ngAntiApprovalReconciliation.hide(); } } }; $.extend(s.ngAntiApprovalReconciliation, modelConfig);
+            var modelConfig = { title: "计费单反审批", width: "660", height: "350", buttons: { "确定": function () { s.Service.AntiApproval(s.ngAntiApprovalReconciliation.fixed); }, "关闭": function () { s.ngAntiApprovalReconciliation.hide(); } } }; $.extend(s.ngAntiApprovalReconciliation, modelConfig);
         }
     }
 });
@@ -136,7 +136,7 @@ app.directive("ngDisableReconciliation", function ($BMSApi, $MessagService, $loc
                 }
             }
 
-            var modelConfig = { title: "计费单反审批", width: "500", height: "350", buttons: { "确定": function () { s.Service.Disable(s.ngDisableReconciliation.fixed); }, "关闭": function () { s.ngDisableReconciliation.hide(); } } }; $.extend(s.ngDisableReconciliation, modelConfig);
+            var modelConfig = { title: "计费单反审批", width: "660", height: "350", buttons: { "确定": function () { s.Service.Disable(s.ngDisableReconciliation.fixed); }, "关闭": function () { s.ngDisableReconciliation.hide(); } } }; $.extend(s.ngDisableReconciliation, modelConfig);
         }
     }
 });

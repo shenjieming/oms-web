@@ -1,3 +1,4 @@
+/// <reference path="materialsImportTemplateDirective.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-route.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular.min.js" />
 /// <reference path="../../lib/angular-1.2.20/angular-touch.js" />
@@ -80,8 +81,14 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                     // 套件详情
                     var medKitopt = row ? row : $local.getSelectedRow($scope.ngModel.medKits);
                     if (medKitopt) {
-                        $Api.SurgeryService.Process.Save($scope.ngModel, function (rData) {
-                        });
+                        if ($scope.ngModel.sOType == "OPER") {
+                            $Api.SurgeryService.Process.Save($scope.ngModel, function (rData) {
+                            });
+                        }
+                        if ($scope.ngModel.sOType == "INSTK") {
+                            $Api.StockService.Process.Save($scope.ngModel, function (rData) {
+                            });
+                        }                      
                         $state.go('app.base.mybusiness.kitsview', { medKitopt: medKitopt.medKitInternalNo });
                     } else {
                         $MessagService.caveat("请选择一条查看的套件信息！");
@@ -417,6 +424,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                 SelectChangeWHNote: function () {
                     /// <summary>物料仓库分析，获取物料仓库指示</summary>
                     var WarehouseNoteArray = new Array();
+                    var wsNotesList = new Array();              
                     $.each($scope.ngModel.prodLns, function (pindex, prod) {
                         /// <summary>遍历产品线</summary>
                         $.each(prod.medMaterias, function (mindex, materia) {
@@ -428,20 +436,22 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                                 { flg = false; return false; }
                             });
                             if (flg) {
-                                WarehouseNoteArray.push({
-                                    estMedMIWarehouse: materia.medMIWarehouse,
-                                    estMedMIWarehouseName: materia.estMedMIWarehouseName ? materia.estMedMIWarehouseName : userInfo.orgName
-                                });
+                                if (materia.medMIWarehouse) {
+                                    WarehouseNoteArray.push({
+                                        estMedMIWarehouse: materia.medMIWarehouse,
+                                        estMedMIWarehouseName: materia.estMedMIWarehouseName ? materia.estMedMIWarehouseName : userInfo.orgName
+                                    });
+                                }                           
                             }
                         })
                     });
-                    if (!$scope.ngModel.medKits) {
-                        if ($scope.ngModel.sONo) {
-                            $Api.SurgeryService.DataSources.GetDetail($scope.ngModel, function (rData) {
-                                $scope.ngModel.medKits = rData.orderKits;
-                            });
-                        }
-                    }
+                    //if (!$scope.ngModel.medKits) {
+                    //    if ($scope.ngModel.sONo) {
+                    //        $Api.SurgeryService.DataSources.GetDetail($scope.ngModel, function (rData) {
+                    //            $scope.ngModel.medKits = rData.orderKits;
+                    //        });
+                    //    }
+                    //}
                     if ($scope.ngModel.medKits) {
                         $.each($scope.ngModel.medKits, function (kindex, kit) {
                             /// <summary>遍历套件集合</summary>
@@ -451,12 +461,26 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                                 { flg = false; return false; }
                             });
                             if (flg) {
-                                WarehouseNoteArray.push({
-                                    estMedMIWarehouse: kit.estMedMIWarehouse,
-                                    estMedMIWarehouseName: kit.estMedMIWarehouseName ? kit.estMedMIWarehouseName : userInfo.orgName
-                                });
+                                if (kit.estMedMIWarehouse) {
+                                    WarehouseNoteArray.push({
+                                        estMedMIWarehouse: kit.estMedMIWarehouse,
+                                        estMedMIWarehouseName: kit.estMedMIWarehouseName ? kit.estMedMIWarehouseName : userInfo.orgName
+                                    });
+                                }
+                            
                             }
                         });
+                    }
+                    wsNotes = $scope.ngModel.wsNotes;
+                    if (wsNotesList && WarehouseNoteArray) {
+                        //   保留上一次仓库的出库指示
+                        $.each(wsNotes, function (sindex, wsNotesList) {                   
+                            $.each(WarehouseNoteArray, function (aindex, WarehouseList) {           
+                                if (wsNotesList.estMedMIWarehouse == WarehouseList.estMedMIWarehouse) {                        
+                                    WarehouseNoteArray[aindex].wHSpecialNotes = wsNotesList.wHSpecialNotes;                                    
+                                }
+                            })                 
+                        })                 
                     }
                     $scope.ngModel.wsNotes = WarehouseNoteArray;
                 },
@@ -604,8 +628,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
             var list = window.location.hash.substring(0, 24)
             if (list == "#/app/oms/order/addition") {
                 $scope.ngModel.wsNotes = new Array();
-            }
-         
+            }        
         }
     }
 });

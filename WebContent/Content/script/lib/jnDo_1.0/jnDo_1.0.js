@@ -75,19 +75,22 @@ angular.module('jnDo', [])
             },
             replace: true,
             link: function ($scope, element, attrs) {
-                $scope.ngModel = $.extend($scope.ngModel, { modal: true, autoOpen: false });
                 $scope.$watch("ngModel", function () {
                     /// <summary>监控模型对象</summary>
-                    $(element).dialog($scope.ngModel);
+                    if (!$scope.ngModel.show) { InitDialog(); } $(element).dialog($scope.ngModel);
                 })
-                $scope.ngModel.show = function () {
-                    /// <summary>显示弹出层</summary>
-                    $(element).dialog("open");
+                var InitDialog = function () {
+                    $scope.ngModel = $.extend($scope.ngModel, { modal: true, autoOpen: false });
+                    $scope.ngModel.show = function () {
+                        /// <summary>显示弹出层</summary>
+                        $(element).dialog("open");
+                    }
+                    $scope.ngModel.hide = function () {
+                        /// <summary>隐藏弹出层</summary>
+                        $(element).dialog("close");
+                    }
                 }
-                $scope.ngModel.hide = function () {
-                    /// <summary>隐藏弹出层</summary>
-                    $(element).dialog("close");
-                }
+                InitDialog();
             }
         };
     })
@@ -374,6 +377,19 @@ angular.module('jnDo', [])
                 ContrastList: function (obj, toObj) {
                     ///<summary>判断数据是否相同</summary>
                     if (obj && obj.length > 0) { var flg = false; for (var i = 0; i < obj.length; i++) { if (obj[i] == toObj) { flg = true; break; } } return flg; } else { return true; }
+                },
+                ToCapital: function (num) {
+                    /// <summary>数字转换成大写</summary>
+                    var strOutput = "";
+                    var strUnit = '仟佰拾亿仟佰拾万仟佰拾元角分';
+                    num += "00";
+                    var intPos = num.indexOf('.');
+                    if (intPos >= 0)
+                        num = num.substring(0, intPos) + num.substr(intPos + 1, 2);
+                    strUnit = strUnit.substr(strUnit.length - num.length);
+                    for (var i = 0; i < num.length; i++)
+                        strOutput += '零壹贰叁肆伍陆柒捌玖'.substr(num.substr(i, 1), 1) + strUnit.substr(i, 1);
+                    return strOutput.replace(/零角零分$/, '整').replace(/零[仟佰拾]/g, '零').replace(/零{2,}/g, '零').replace(/零([亿|万])/g, '$1').replace(/零+元/, '元').replace(/亿零{0,3}万/, '亿').replace(/^元/, "零元");
                 }
             },
             Data: {
@@ -381,7 +397,7 @@ angular.module('jnDo', [])
                 DataToStr: function (data, type) {
                     ///<summary>将时间转换成字符串格式</summary>
                     ///<param name="data" type="data">转换成字符串形式的日期</param>
-                    var myYear = data.getFullYear(); var myMonth = data.getMonth(); var myDay = data.getDate(); var myHours = data.getHours();
+                    var myYear = parseInt(data.getFullYear()); var myMonth = parseInt(data.getMonth()); var myDay = parseInt(data.getDate()); var myHours = parseInt(data.getHours());
                     var myMinute = data.getMinutes(); var mySecond = data.getSeconds();
                     //如果月份大于12 ，年加1，月份减12
                     if (myMonth > 12) { myYear++; myMonth = myMonth - 12; }
@@ -415,7 +431,7 @@ angular.module('jnDo', [])
                     ///<param name="Minutes" type="int">差异分钟数，整数为往前推，负数为往后推,空则没有差异时间</param>
                     var myDate = new Date();
                     //如果算差异天使不为空的话，日期对象用差异天数的对象的数值
-                    if (newData) { myDate = new Date(Date.parse(newData.replace(/-/g, '/'))); }
+                    if (newData) { myDate = new Date(parseInt(Date.parse(newData.replace(/-/g, '/')),10)); }
                     //如果差异天数是0，并且没有差异分钟数的话
                     if (day == 0 && !Minutes) { return AppHelpService.Data.DataToStr(myDate, type); }
                     else {
