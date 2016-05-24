@@ -83,7 +83,7 @@ app.controller("MaterialTemplateListController", function ($scope, $state, $loca
         },
         QueryTemplate: function () {
             /// <summary>条件查询模板信息</summary>
-            $scope.Pagein.pageIndex = 1;
+            $scope.Pagein = $.extend($scope.Pagein, { searchValue: $scope.Pagein.tmplName });
             $scope.MaterialTemplate.GetMaterialTemplateList();
         }
     }

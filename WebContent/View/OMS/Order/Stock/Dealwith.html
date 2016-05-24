@@ -3,11 +3,13 @@
         <h5 style="float:left; font-weight:bold; margin-left:8px;">
             <i class="fa fa-file-archive-o"></i>
             备货订单
-            <span style="color: #0033FF">{{sono}}</span>
-            <span style="color: #FF3300">{{PageData.statusName}}</span>
+            <span style="color: #0033FF"><span ng-bind="sono"></span></span>
+            <span style="color: #FF3300"><span ng-bind="PageData.statusName"></span></span>
+            <span style="color: #FF3300" ng-if="View.Competence.handleType=='offline'">（线下）</span>
         </h5>
         <span class="btn-group oms-btn-group" style="float:right;">
-            <a class="btn btn-primary" ng-show="View.Competence.dealwith" ng-click="DealService.Show()"><i class="fa fa-wrench"></i>提交</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith && View.Competence.handleType=='online'" ng-click="DealService.Show()"><i class="fa fa-wrench"></i>线上处理</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith && View.Competence.handleType=='offline'" ng-click="DealService.OfflineSubmit()"><i class="fa fa-wrench"></i>线下处理</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa fa-reply"></i> 返回</a>
         </span>
     </div>
@@ -18,6 +20,23 @@
             <li role="presentation" class="active" href="#Dealwith" data-toggle="tab"><a>开始处理</a></li>
             <li role="presentation" href="#Original" data-toggle="tab"><a>原始订单</a></li>
         </ul>
+        <div class="control-group" ng-if="View.Competence.handleType=='offline'" style="background:#ffffff;">
+            <label>
+                <span style="margin-left: 30px;font-weight:bold;color:#FF3300">
+                    仅限该订单<span style="font-size:16px">所有</span>物料不经“仓库管理系统”处理时使用！
+                </span>
+            </label>
+        </div>
+        <div class="control-group" ng-if="View.Competence.handleType=='offline'" style="background:#ffffff;">
+            <label style="margin-left: 30px">
+                <span class="required">*</span><span style="font-weight:bold">线下处理原因：</span>
+                <span ng-dictionary="SOOFLR" ng-model="PageData.sOOfflineHandleReasonType"></span>
+
+            </label>
+            <label style="width:60%">
+                <input type="text" style="width:85%" placeholder="请输入详细原因描述（100字以内）" maxlength="100" ng-model="PageData.sOOfflineHandleReasonDesc" />
+            </label>
+        </div>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane" id="Original">
                 <div ui-view="Original"></div>
@@ -53,17 +72,6 @@
                                     <span ng-dictionary="TRANTP" ng-model="PageData.carrierTransType"></span>
                                 </label>
                             </div>
-                            <!--<div class="control-group ">
-                                <label style="width:100%">
-                                    <span>地址：</span>
-                                    <span>
-                                        {{PageData.deliveryProvinceName}}
-                                        {{PageData.deliveryCityName}}
-                                        {{PageData.deliveryDistrictName}}
-                                        <input type="text" ng-model="PageData.deliveryAddress" style="width:50%;" />
-                                    </span>
-                                </label>
-                            </div>-->
                             <div class="control-group ">
                                 <label style="width:100%">
                                     地址：<span ng-area="" ng-model="PageData"></span>
@@ -126,7 +134,7 @@
                                             <ul class="yulan_gaik">
                                                 <li><b>收件人：</b><span ng-bind="PageData.deliveryContact"></span></li>
                                                 <li><b>联系电话：</b><span ng-bind="PageData.deliveryrMobile"></span></li>
-                                                <li><b>配送：</b><span ng-bind="PageData.iniitCarrierTransTypeName"></span></li>
+                                                <li><b>配送：</b><span ng-bind="PageData.carrierTransTypeName"></span></li>
                                             </ul>
                                     </li>
                                     <li><b>地址：</b><span ng-bind="PageData.deliveryProvinceName"></span><span ng-bind="PageData.deliveryCityName"></span>
@@ -211,7 +219,8 @@
     </div>
     <div class="tools">
         <span class="btn-group oms-btn-group" style="float:right;">
-            <a class="btn btn-primary" ng-show="View.Competence.dealwith" ng-click="DealService.Show()"><i class="fa fa-wrench"></i>提交</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith && View.Competence.handleType=='online'" ng-click="DealService.Show()"><i class="fa fa-wrench"></i>线上处理</a>
+            <a class="btn btn-primary" ng-if="View.Competence.dealwith && View.Competence.handleType=='offline'" ng-click="DealService.OfflineSubmit()"><i class="fa fa-wrench"></i>线下处理</a>
             <a class="btn btn-primary" ng-click="goLastPage()"><i class="fa  fa-reply"></i> 返回</a>
         </span>
     </div>

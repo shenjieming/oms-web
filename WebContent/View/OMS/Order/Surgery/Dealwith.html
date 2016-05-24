@@ -23,7 +23,6 @@
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active" href="#Dealwith" data-toggle="tab"><a>开始处理</a></li>
             <li role="presentation" href="#Original" data-toggle="tab"><a>原始订单</a></li>
-
         </ul>
         <div class="control-group" ng-if="View.Competence.handleType=='offline'" style="background:#ffffff;">
             <label>
@@ -75,13 +74,6 @@
                                     地址：<span ng-area="" ng-model="PageData"></span>
                                     <input type="text" ng-model="PageData.deliveryAddress" style="border:0;border-bottom:1px solid #ccc;font-size:12px;width:370px" />
                                 </label>
-                                <!--<table class="Vessel" style="width:100%">
-                                    <tr>
-                                        <td style="padding-left:2.2%;"><span  style="font-size:12px"> &nbsp;地址：</span></td>
-                                        <td style="padding:0px;"><span ng-area="" ng-model="PageData"></span></td>
-                                        <td style="width:50%;padding:0px;"><input type="text" ng-model="PageData.deliveryAddress" style="width:99%;border:0;border-bottom:1px solid #ccc;font-size:12px" /></td>
-                                    </tr>
-                                </table>-->
                             </div>
                         </div>
                         <div ng-address="address" ng-model="PageData" ng-operat="AddressConfig"></div>
@@ -151,7 +143,7 @@
                             </h5>
                             <div class="btn-group" ng-if="View.Competence.handleType!='offline'">
                                 <a class="btn" ng-click="TemplateService.show()">
-                                    <!--<i class="fa fa-folder-open"></i>-->通过模板添加器械
+                                    <i class="fa fa-folder-open"></i>通过模板添加器械
                                 </a>
                                 <a class="btn" style="border-left:1px solid #ccc;"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
