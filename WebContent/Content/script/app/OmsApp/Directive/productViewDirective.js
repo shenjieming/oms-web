@@ -624,7 +624,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                     }
                     $scope.ngModel.medKits = data;
                 }
-            });        
+            });
         }
     }
 });

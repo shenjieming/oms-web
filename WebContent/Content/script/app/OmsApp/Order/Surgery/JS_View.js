@@ -585,7 +585,8 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
             })
             $scope.WarehouseConfig.GetList();
             $scope.dictionary.GetUseType();
-            $scope.MaterialsConfig.GetMaterialList($scope.PageData.feedBackProcess, $scope.PageData.feedBack);
+            $scope.lotSerialTransformation();      
+            $scope.MaterialsConfig.GetMaterialList($scope.PageData.feedBackProcess, $scope.PageData.feedBack);         
         }
     });
     /*数据监控End*/
@@ -599,7 +600,19 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
             remark: ""
         }
     }
-
+    $scope.lotSerialTransformation = function () {
+        if ($scope.PageData.feedBack.medMaterial.length != 0) {
+            $Api.Public.GetDictionary({ dictType: "DEFLOT" }, function (data) {
+                $.each(data, function (dndex, itemdata) {
+                    $.each($scope.PageData.feedBack.medMaterial, function (pndex, itemPageData) {
+                        if (itemdata.id == "NOLOTINFO") {
+                            itemPageData.lotSerial = "无批次号信息";
+                        }
+                    })
+                })
+            })
+        }
+    }
     $scope.dictionary = {
         /// <summary>字典对象</summary>
         UseTypeList: new Array(),
@@ -635,7 +648,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
             console.log($scope.FeedBack)
             if ($scope.FeedBack.notInDetail.length > 0) {
                 $.each($scope.FeedBack.notInDetail, function (index, item) {
-                    if (item.lotSerial == null) {
+                    if (item.lotSerial == null || item.lotSerial == "" || item.lotSerial == "无批次号信息") {
                         item.lotSerial = "NOLOTINFO";//设置默认值
                     }
                     if (item.returnWarehouse == null) {
@@ -654,7 +667,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
             /// <summary>反馈单暂存</summary>
             if ($scope.FeedBack.notInDetail.length > 0) {
                 $.each($scope.FeedBack.notInDetail, function (index, item) {
-                    if (item.lotSerial == null) {
+                    if (item.lotSerial == null || item.lotSerial == "" || item.lotSerial == "无批次号信息") {
                         item.lotSerial = "NOLOTINFO";//设置默认值
                     }
                     if (item.returnWarehouse == null) {
@@ -664,6 +677,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                     }
                 })
             }
+            console.log($scope.FeedBack)
             $Api.SurgeryService.Process.BackSave($scope.FeedBack, function (rData) {
                 $scope.goLastPage();
             });
@@ -796,7 +810,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                 //     });
                 // });
                 $.each(ulist.medMaterial,function (uindex,item) {
-                     if(item.isInSODetail=="y" ){
+                     if(item.isInSODetail=="Y" ){
                          result.push(item)
                      }else if (item.isInSODetail=="N"){
                          $scope.FeedBack.notInDetail.push(item)
@@ -854,28 +868,35 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
     $scope.DealService = {
         /// <summary>订单处理服务</summary>
         Submit: function () {
-            // $scope.DealService.OutboundInstructions();
-            if ($scope.DealService.Verification()) {
+            // $scope.DealService.OutboundInstructions();   
                 $scope.ProductService.Deduplication();//去重
                 $Api.SurgeryService.Process.Submit($scope.PageData, function (rData) {
                     $scope.DealService.model.hide();
                     $scope.goLastPage();
-                });
-            }
+            })
         },
         Verification: function () {
-            var verifig = true;      
-            $Api.SurgeryService.Process.QueryStock($scope.PageData, function (rData) {
-                // 查询库存提示
-                if (rData == "SOHDLMLSFR") {
-                    $MessagService.caveat("该仓库物料库存不足，无法提交，请与仓库确认！")
+            debugger
+            var verifig = true;
+            $.each($scope.PageData.prodLns, function (index, item) {
+                if (!item.medMaterias.length) {                
                     verifig = false;
-                } else if (rData == "SOHDLMLSNF") {
-                    if (!confirm("存在不满足库存数量的套件，请问是否继续提交？")) {
-                        verifig = false;
-                    }
+                    $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
                 }
             });
+            if (verifig) {
+                $Api.SurgeryService.Process.QueryStock($scope.PageData, function (rData) {
+                    // 查询库存提示
+                    if (rData == "SOHDLMLSFR") {
+                        $MessagService.caveat("该仓库物料库存不足，无法提交，请与仓库确认！")
+                        verifig = false;
+                    } else if (rData == "SOHDLMLSNF") {
+                        if (!confirm("存在不满足库存数量的套件，请问是否继续提交？")) {
+                            verifig = false;
+                        }
+                    }
+                });
+            }       
             return verifig;
         },
         Save: function () {
@@ -892,14 +913,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         },
         Show: function () {
             /// <summary>线上处理订单预览</summary>
-            var verifig = true;
-            $.each($scope.PageData.prodLns, function (index, item) {
-                if (!item.medMaterias.length) {
-                    $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
-                    verifig = false;
-                }
-            });
-            if (verifig) {
+            if ($scope.DealService.Verification()) {
                 $scope.PreViewCount.GetData();
                 $scope.DealService.model.show();
                 //精确订单 预览显示 配送字段  key value

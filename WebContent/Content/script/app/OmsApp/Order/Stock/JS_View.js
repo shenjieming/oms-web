@@ -792,6 +792,29 @@ app.controller("StockDealwithController", function ($scope, $state, $local, $Api
                 $scope.goLastPage();
             });
         },
+        Verification: function () {
+            var verifig = true;
+            $.each($scope.PageData.prodLns, function (index, item) {
+                if (!item.medMaterias.length) {
+                    $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
+                    verifig = false;
+                }
+            });
+            if (verifig) {
+                $Api.SurgeryService.Process.QueryStock($scope.PageData, function (rData) {
+                    // 查询库存提示
+                    if (rData == "SOHDLMLSFR") {
+                        $MessagService.caveat("该仓库物料库存不足，无法提交，请与仓库确认！")
+                        verifig = false;
+                    } else if (rData == "SOHDLMLSNF") {
+                        if (!confirm("存在不满足库存数量的套件，请问是否继续提交？")) {
+                            verifig = false;
+                        }
+                    }
+                });
+            }
+            return verifig;
+        },
         OfflineSubmit: function () {
             /// <summary>线下处理订单提交</summary>
             if ($scope.PageData.sOOfflineHandleReasonType) {
@@ -808,15 +831,8 @@ app.controller("StockDealwithController", function ($scope, $state, $local, $Api
         Hide: function () {
             $scope.DealService.model.hide();
         },
-        Show: function () {
-            var verifig = true;
-            $.each($scope.PageData.prodLns, function (index, item) {
-                if (!item.medMaterias.length) {
-                    $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
-                    verifig = false;
-                }
-            });
-            if (verifig) {
+        Show: function () {          
+            if ($scope.DealService.Verification()) {
                 $scope.PreViewCount.GetData();
                 $scope.DealService.model.show();
                 if ($scope.PageData.carrierTransType == "AIR") {

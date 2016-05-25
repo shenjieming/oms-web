@@ -178,7 +178,7 @@
                                                     <td>{{row.categoryByPlatformName}}</td>
                                                     <td>{{row.specification}}</td>
                                                     <td>
-                                                        <input type="text" style="width:60px" ng-model="row.lotSerial" />
+                                                        <input type="text"ng-model="row.lotSerial" />
                                                     </td>
                                                     <td>{{row.actQty}}</td>
                                                     <td>
@@ -219,7 +219,7 @@
                                                     <th><span>品牌</span></th>
                                                     <th><span>产品线</span></th>
                                                     <th><span>物料编码</span></th>
-                                                    <th width="120px"><span>物料名称</span></th>
+                                                    <th width="100px"><span>物料名称</span></th>
                                                     <th><span>类型</span></th>
                                                     <th><span>规格</span></th>
                                                     <th><span>批次</span></th>
@@ -239,7 +239,7 @@
                                                     <td>{{row.categoryByPlatformName}}</td>
                                                     <td>{{row.specification}}</td>
                                                     <td>
-                                                        <input type="text" style="width:60px" ng-model="row.lotSerial" />
+                                                        <input type="text" style="width:90px" ng-model="row.lotSerial" />
                                                     </td>
                                                     <td>
                                                         <input type="number" ng-value="row.useQty" ng-change="dictionary.DefaultUseType(row)" style="width:60px;" ng-model="row.useQty" min="0" />
@@ -247,7 +247,7 @@
                                                             <option value="">使用类型</option>
                                                         </select>
                                                     </td>
-                                                    <td><input type="text" ng-model="row.remark" /></td>
+                                                    <td><input type="text"  style="width:80px"  ng-model="row.remark" /></td>
                                                     <td>
                                                         <select ng-model="row.returnWarehouse" ng-options="item.id as item.text for item in WarehouseConfig.WarehouseList">
                                                             <option value="">请选择仓库</option>
