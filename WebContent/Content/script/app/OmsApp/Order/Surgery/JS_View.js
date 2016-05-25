@@ -605,8 +605,8 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
             $Api.Public.GetDictionary({ dictType: "DEFLOT" }, function (data) {
                 $.each(data, function (dndex, itemdata) {
                     $.each($scope.PageData.feedBack.medMaterial, function (pndex, itemPageData) {
-                        if (itemdata.id == "NOLOTINFO") {
-                            itemPageData.lotSerial = "无批次号信息";
+                        if (itemdata.lotSerial == itemPageData.lotSerial) {
+                            itemdata.lotSerial = itemdata.text;
                         }
                     })
                 })
@@ -876,10 +876,10 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
             })
         },
         Verification: function () {
-            debugger
             var verifig = true;
             $.each($scope.PageData.prodLns, function (index, item) {
-                if (!item.medMaterias.length) {                
+                console.log(item.medMaterias.length)
+                if (!item.medMaterias.length) {
                     verifig = false;
                     $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
                 }
@@ -896,7 +896,15 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
                         }
                     }
                 });
-            }       
+            }
+            if (verifig) {
+                $.each($scope.PageData.orderProdlns[0].medMaterias, function (mindex, itemMedMaterias) {
+                    if (itemMedMaterias.reqQty == 0) {
+                        $MessagService.caveat("请添加改物料需求数量！")
+                        verifig = false;
+                    }
+                })
+            }
             return verifig;
         },
         Save: function () {
@@ -913,6 +921,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         },
         Show: function () {
             /// <summary>线上处理订单预览</summary>
+    
             if ($scope.DealService.Verification()) {
                 $scope.PreViewCount.GetData();
                 $scope.DealService.model.show();
