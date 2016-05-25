@@ -624,11 +624,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                     }
                     $scope.ngModel.medKits = data;
                 }
-            });
-             //  判断是否需出库指示清零
-            if ($scope.ngComp.wHSpecialNotes) {
-                $scope.ngModel.wsNotes = new Array();
-            }        
+            });        
         }
     }
 });

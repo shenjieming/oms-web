@@ -864,8 +864,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
             }
         },
         Verification: function () {
-            var verifig = true;
-      
+            var verifig = true;      
             $Api.SurgeryService.Process.QueryStock($scope.PageData, function (rData) {
                 // 查询库存提示
                 if (rData == "SOHDLMLSFR") {
