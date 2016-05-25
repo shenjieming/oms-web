@@ -482,8 +482,7 @@ OMSApiService
                     $ApiService.PostApi(ApiPath.Stock.Process.receive, data, callback);
                 },
                 Save: function (data, callback) {
-                    /// <summary>备货订单暂存</summary>
-                    $MessagService.loading("处理保存中，请稍等...");
+                    /// <summary>备货订单暂存</summary>               
                     $ApiService.PostApi(ApiPath.Stock.Process.save, data, callback);
                 },
                 Submit: function (data, callback) {
