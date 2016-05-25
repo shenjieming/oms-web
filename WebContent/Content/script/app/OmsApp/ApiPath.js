@@ -105,7 +105,7 @@ var ApiPath = {
             //提交线上备货订单
             submit: "/v2/common/stock/process/submit",
             //提交线下备货订单
-            offlinesubmit:"/common/stock/process/offlinesubmit",
+            offlinesubmit:"/v2/common/stock/process/offlinesubmit",
             //事件添加
             addevent: "/v2/common/order/addEvent"
         },
