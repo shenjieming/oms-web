@@ -876,6 +876,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
             })
         },
         Verification: function () {
+            console.log($scope.PageData.orderProdlns[0].medMaterias)
             var verifig = true;
             $.each($scope.PageData.prodLns, function (index, item) {
                 console.log(item.medMaterias.length)
@@ -884,6 +885,22 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
                     $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
                 }
             });
+            if (verifig) {
+                $.each($scope.PageData.orderProdlns[0].medMaterias, function (mindex, itemMedMaterias) {
+                    if (itemMedMaterias.reqQty == 0) {
+                        $MessagService.caveat("请添加改仓库物料需求数量！")
+                        verifig = false;
+                    }
+                })
+            }
+            if (verifig) {
+                $.each($scope.PageData.orderProdlns[0].medMaterias, function (mindex, itemMedMaterias) {
+                    if (itemMedMaterias.medMIWarehouse == null || itemMedMaterias.medMIWarehouse == "") {
+                        $MessagService.caveat("请选择该物料仓库！")
+                        verifig = false;
+                    }
+                })
+            }
             if (verifig) {
                 $Api.SurgeryService.Process.QueryStock($scope.PageData, function (rData) {
                     // 查询库存提示
@@ -896,15 +913,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
                         }
                     }
                 });
-            }
-            if (verifig) {
-                $.each($scope.PageData.orderProdlns[0].medMaterias, function (mindex, itemMedMaterias) {
-                    if (itemMedMaterias.reqQty == 0) {
-                        $MessagService.caveat("请添加改物料需求数量！")
-                        verifig = false;
-                    }
-                })
-            }
+            }       
             return verifig;
         },
         Save: function () {
