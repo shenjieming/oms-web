@@ -809,26 +809,36 @@ app.controller("StockDealwithController", function ($scope, $state, $local, $Api
             $scope.DealService.model.hide();
         },
         Show: function () {
-            $scope.PreViewCount.GetData();
-            $scope.DealService.model.show();
-            if ($scope.PageData.carrierTransType == "AIR") {
-                $scope.PageData.carrierTransTypeName = "航空";
+            var verifig = true;
+            $.each($scope.PageData.prodLns, function (index, item) {
+                if (!item.medMaterias.length) {
+                    $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
+                    verifig = false;
+                }
+            });
+            if (verifig) {
+                $scope.PreViewCount.GetData();
+                $scope.DealService.model.show();
+                if ($scope.PageData.carrierTransType == "AIR") {
+                    $scope.PageData.carrierTransTypeName = "航空";
+                }
+                else if ($scope.PageData.carrierTransType == "BUS") {
+                    $scope.PageData.carrierTransTypeName = "大巴";
+                }
+                else if ($scope.PageData.carrierTransType == "DIRECT") {
+                    $scope.PageData.carrierTransTypeName = "直送";
+                }
+                else if ($scope.PageData.carrierTransType == "EXPRESS") {
+                    $scope.PageData.carrierTransTypeName = "快递";
+                }
+                else if ($scope.PageData.carrierTransType == "PERWH") {
+                    $scope.PageData.carrierTransTypeName = "不限";
+                }
+                else if ($scope.PageData.carrierTransType == "SELFPICK") {
+                    $scope.PageData.carrierTransTypeName = "自提";
+                }
             }
-            else if ($scope.PageData.carrierTransType == "BUS") {
-                $scope.PageData.carrierTransTypeName = "大巴";
-            }
-            else if ($scope.PageData.carrierTransType == "DIRECT") {
-                $scope.PageData.carrierTransTypeName = "直送";
-            }
-            else if ($scope.PageData.carrierTransType == "EXPRESS") {
-                $scope.PageData.carrierTransTypeName = "快递";
-            }
-            else if ($scope.PageData.carrierTransType == "PERWH") {
-                $scope.PageData.carrierTransTypeName = "不限";
-            }
-            else if ($scope.PageData.carrierTransType == "SELFPICK") {
-                $scope.PageData.carrierTransTypeName = "自提";
-            }
+     
         }
     }
     $scope.DealService.model = { title: "备货单预览", width: 780, height: 800, buttons: { "提交": $scope.DealService.Submit, "返回": $scope.DealService.Hide },open:function(){
