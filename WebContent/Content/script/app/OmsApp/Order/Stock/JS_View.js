@@ -801,6 +801,22 @@ app.controller("StockDealwithController", function ($scope, $state, $local, $Api
                 }
             });
             if (verifig) {
+                $.each($scope.PageData.orderProdlns[0].medMaterias, function (mindex, itemMedMaterias) {
+                    if (itemMedMaterias.reqQty == 0) {
+                        $MessagService.caveat("请添加改仓库物料需求数量！")
+                        verifig = false;
+                    }
+                })
+            }
+            if (verifig) {
+                $.each($scope.PageData.orderProdlns[0].medMaterias, function (mindex, itemMedMaterias) {
+                    if (itemMedMaterias.medMIWarehouse == null || itemMedMaterias.medMIWarehouse == "") {
+                        $MessagService.caveat("请选择该物料仓库！")
+                        verifig = false;
+                    }
+                })
+            }
+            if (verifig) {
                 $Api.SurgeryService.Process.QueryStock($scope.PageData, function (rData) {
                     // 查询库存提示
                     if (rData == "SOHDLMLSFR") {
