@@ -625,10 +625,8 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                     $scope.ngModel.medKits = data;
                 }
             });
-        
-            var list = window.location.hash.substring(0, 24)
-            console.log(list)
-            if (list == "#/app/oms/order/addition") {
+             //  判断是否需出库指示清零
+            if ($scope.ngComp.wHSpecialNotes) {
                 $scope.ngModel.wsNotes = new Array();
             }        
         }

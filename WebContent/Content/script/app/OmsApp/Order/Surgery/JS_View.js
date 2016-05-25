@@ -865,12 +865,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         },
         Verification: function () {
             var verifig = true;
-            $.each($scope.PageData.prodLns, function (index, item) {
-                if (!item.medMaterias.length) {
-                    $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
-                    verifig = false;
-                }
-            });
+      
             $Api.SurgeryService.Process.QueryStock($scope.PageData, function (rData) {
                 // 查询库存提示
                 if (rData == "SOHDLMLSFR") {
@@ -898,26 +893,35 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         },
         Show: function () {
             /// <summary>线上处理订单预览</summary>
-            $scope.PreViewCount.GetData();
-            $scope.DealService.model.show();
-            //精确订单 预览显示 配送字段  key value
-            if ($scope.PageData.carrierTransType == "AIR") {
-                $scope.PageData.carrierTransTypeName = "航空";
-            }
-            else if ($scope.PageData.carrierTransType == "BUS") {
-                $scope.PageData.carrierTransTypeName = "大巴";
-            }
-            else if ($scope.PageData.carrierTransType == "DIRECT") {
-                $scope.PageData.carrierTransTypeName = "直送";
-            }
-            else if ($scope.PageData.carrierTransType == "EXPRESS") {
-                $scope.PageData.carrierTransTypeName = "快递";
-            }
-            else if ($scope.PageData.carrierTransType == "PERWH") {
-                $scope.PageData.carrierTransTypeName = "不限";
-            }
-            else if ($scope.PageData.carrierTransType == "SELFPICK") {
-                $scope.PageData.carrierTransTypeName = "自提";
+            var verifig = true;
+            $.each($scope.PageData.prodLns, function (index, item) {
+                if (!item.medMaterias.length) {
+                    $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
+                    verifig = false;
+                }
+            });
+            if (verifig) {
+                $scope.PreViewCount.GetData();
+                $scope.DealService.model.show();
+                //精确订单 预览显示 配送字段  key value
+                if ($scope.PageData.carrierTransType == "AIR") {
+                    $scope.PageData.carrierTransTypeName = "航空";
+                }
+                else if ($scope.PageData.carrierTransType == "BUS") {
+                    $scope.PageData.carrierTransTypeName = "大巴";
+                }
+                else if ($scope.PageData.carrierTransType == "DIRECT") {
+                    $scope.PageData.carrierTransTypeName = "直送";
+                }
+                else if ($scope.PageData.carrierTransType == "EXPRESS") {
+                    $scope.PageData.carrierTransTypeName = "快递";
+                }
+                else if ($scope.PageData.carrierTransType == "PERWH") {
+                    $scope.PageData.carrierTransTypeName = "不限";
+                }
+                else if ($scope.PageData.carrierTransType == "SELFPICK") {
+                    $scope.PageData.carrierTransTypeName = "自提";
+                }
             }
         },
         OfflineSubmit: function () {
@@ -1134,7 +1138,7 @@ app.controller("AdditionalController", function ($scope, $state, $local, $Api, $
         }
     }
     $scope.AddProduct = {
-        Service: {}, Competence: { tool: false, instruction: false, }
+        Service: {}, Competence: { tool: false, instruction: false,wHSpecialNotes:true }
     }
 
     /*数据监控Begion*/
