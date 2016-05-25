@@ -578,7 +578,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                     patientEntryDate: $scope.PageData.patientEntryDate, patientHPNo: $scope.PageData.patientHPNo,
                     patientWard: $scope.PageData.patientWard, patientRoom: $scope.PageData.patientRoom, patientBedNo: $scope.PageData.patientBedNo,
                     retrieveEstDate: $scope.PageData.retrieveEstDate, retrieveDesc: $scope.PageData.retrieveDesc,
-                    //operationFeedbackRemark: $scope.PageData.operationFeedbackRemark
+                    operationFeedbackRemark: $scope.PageData.operationFeedbackRemark
                 },
                 medMaterial: {},
                 attachment: $scope.file.GetEventMapping($scope.PageData.events, "0080_0001")
