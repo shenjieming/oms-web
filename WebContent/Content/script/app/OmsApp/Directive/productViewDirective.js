@@ -191,6 +191,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                 },
                 GetLineMaterialCount: function () {
                     /// <summary>获取当前产品线的物料个数</summary>
+                    console.log($scope.ProductConfig.useLine.medMaterias)
                     var stat = {
                         ProMaterielCount: 0, ProImplantCount: 0, ProToolCount: 0//产品线工具数
                     }
@@ -319,13 +320,16 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                     if ($scope.Competence.warehouse && $scope.Competence.operat && $scope.MaterialsConfig.Material.length > 0) {
                         /// <summary>是否启动仓库</summary>
                         //$scope.WarehouseConfig.GetMedmaterialInventory();
-                        if ($scope.ngModel.wsNotes.length == 0) {
-                            $scope.WarehouseConfig.SelectChangeWHNote();
-                        } else {
-                            $scope.WarehouseConfig.LoadChangeWHNote();
+                        if ($scope.ngModel.wsNotes!=null) {
+                            if ($scope.ngModel.wsNotes.length == 0) {
+                                $scope.WarehouseConfig.SelectChangeWHNote();
+                            } else {
+                                $scope.WarehouseConfig.LoadChangeWHNote();
+                            }
+
                         }
+                      
                         var param = $scope.WarehouseConfig.GetMedmaterialParamData();
-                        console.log(param)
                         $Api.MaterialsService.GetMedmaterialInventory(param, function (rData) {
                             $scope.WarehouseConfig.AnalyticalInventory(rData);
                         })
@@ -370,7 +374,9 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                     /// <summary>获取套件物料库存</summary>
                     var param = $scope.WarehouseConfig.GetMedmaterialParamData(medmaterial);
                     $Api.MaterialsService.GetMedmaterialInventory(param, function (rData) {
+                        console.log(rData)
                         $scope.WarehouseConfig.AnalyticalInventory(rData, medmaterial);
+                        
                     })
                     $scope.WarehouseConfig.SelectChangeWHNote();
                 },
