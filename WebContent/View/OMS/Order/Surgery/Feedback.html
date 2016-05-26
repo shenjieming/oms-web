@@ -163,7 +163,8 @@
                                                     <th><span>类型</span></th>
                                                     <th><span>规格</span></th>
                                                     <th><span>批次</span></th>
-                                                    <th><span>出库数量</span></th>
+                                                    <th><span>数量</span></th>
+                                                    <th><span>备注</span></th>
                                                     <th><span>使用数量</span></th>
                                                     <th><span>返库仓库</span></th>
                                                 </tr>
@@ -181,6 +182,7 @@
                                                         <input type="text"ng-model="row.lotSerial" />
                                                     </td>
                                                     <td>{{row.actQty}}</td>
+                                                    <td><input type="text" ng-model="row.remark" /></td>
                                                     <td>
                                                         <input type="number" ng-change="dictionary.DefaultUseType(row)" style="width:60px;" ng-model="row.useQty" min="0" max="{{row.actQty}}" />
                                                         <select ng-selected="0" ng-show="row.useQty>0" ng-model="row.useType" ng-options="item.id as item.text for item in dictionary.UseTypeList">

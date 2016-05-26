@@ -585,8 +585,8 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
             })
             $scope.WarehouseConfig.GetList();
             $scope.dictionary.GetUseType();
-            $scope.lotSerialTransformation();      
-            $scope.MaterialsConfig.GetMaterialList($scope.PageData.feedBackProcess, $scope.PageData.feedBack);         
+            $scope.lotSerialTransformation();
+            $scope.MaterialsConfig.GetMaterialList($scope.PageData.feedBackProcess, $scope.PageData.feedBack);
         }
     });
     /*数据监控End*/
@@ -605,8 +605,8 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
             $Api.Public.GetDictionary({ dictType: "DEFLOT" }, function (data) {
                 $.each(data, function (dndex, itemdata) {
                     $.each($scope.PageData.feedBack.medMaterial, function (pndex, itemPageData) {
-                        if (itemdata.lotSerial == itemPageData.lotSerial) {
-                            itemdata.lotSerial = itemdata.text;
+                        if (itemdata.id == itemPageData.lotSerial) {
+                            itemPageData.lotSerial = itemdata.text;
                         }
                     })
                 })
@@ -786,38 +786,33 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                         item.isProdLineRowPan = false;
                     }
                     if (mItem.medMIInternalNo == item.medMIInternalNo && item.lotSerial == mItem.lotSerial) {//同批次物料
+                        console.log(mItem)
                         $.extend(mItem, {
-                            actQty: mItem.actQty + item.actQty
+                            actQty: mItem.actQty + item.actQty,
+                            remark: mItem.remark
                         });
                         return false;
                     }
                 });
                 if (flg) {
-                    result.push($.extend(item, {
+                    console.log(item)
+                    result.push($.extend(item, {                       
                         returnWarehouse: item.medMIWarehouse,
-                        useQty: 0
+                        useQty: 0,
+                        remark: item.remark
                     }));
                 }
             });
             if (ulist.medMaterial.length) {
-                // $.each(result, function (index, item) {
-                //     $.each(ulist.medMaterial, function (uIndex, uItem) {
-                //         if (uItem.medMIInternalNo == item.medMIInternalNo && item.lotSerial == uItem.lotSerial) {//同批次物料
-                //             $.extend(item, {
-                //                 useQty: uItem.useQty
-                //             });
-                //         }
-                //     });
-                // });
-                $.each(ulist.medMaterial,function (uindex,item) {
-                     if(item.isInSODetail=="Y" ){
+                $.each(ulist.medMaterial, function (uindex, item) {
+                    console.log(item)
+                    if (item.isInSODetail == "Y") {
                          result.push(item)
                      }else if (item.isInSODetail=="N"){
                          $scope.FeedBack.notInDetail.push(item)
                      }
                 });
             }
-
             $scope.FeedBack.medMaterial = result;
         }
     };
