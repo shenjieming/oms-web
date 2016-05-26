@@ -876,13 +876,13 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
                 console.log(item.medMaterias.length)
                 if (!item.medMaterias.length) {
                     verifig = false;
-                    $MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料");
+                    setTimeout($MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料"),3000);
                 }
             });
             if (verifig) {
                 $.each($scope.PageData.orderProdlns[0].medMaterias, function (mindex, itemMedMaterias) {
                     if (itemMedMaterias.reqQty == 0) {
-                        $MessagService.caveat("请添加改仓库物料需求数量！")
+                        setTimeout($MessagService.caveat("请添加改仓库物料需求数量！"),3000)
                         verifig = false;
                     }
                 })
@@ -890,7 +890,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
             if (verifig) {
                 $.each($scope.PageData.orderProdlns[0].medMaterias, function (mindex, itemMedMaterias) {
                     if (itemMedMaterias.medMIWarehouse == null || itemMedMaterias.medMIWarehouse == "") {
-                        $MessagService.caveat("请选择该物料仓库！")
+                        setTimeout($MessagService.caveat("请选择该物料仓库！"),3000)
                         verifig = false;
                     }
                 })
@@ -899,7 +899,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
                 $Api.SurgeryService.Process.QueryStock($scope.PageData, function (rData) {
                     // 查询库存提示
                     if (rData == "SOHDLMLSFR") {
-                        $MessagService.caveat("该仓库物料库存不足，无法提交，请与仓库确认！")
+                        setTimeout($MessagService.caveat("订单中存在库存不足的物料，无法提交，请与仓库确认！"),3000)
                         verifig = false;
                     } else if (rData == "SOHDLMLSNF") {
                         if (!confirm("存在不满足库存数量的套件，请问是否继续提交？")) {
