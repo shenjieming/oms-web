@@ -389,6 +389,7 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
         sOOIOrgCodeName: false, //货主
         initMedProdLnCodeName: false, //产品线
         sOHandleByOrgCodeName: false, //仓库
+        sOHandleTypeName:false,
     }
     var UserJurisdiction = $scope.User;
     $scope.jurisdiction = function () {
@@ -397,6 +398,7 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
             $scope.ListCompetence.sOCreateByOrgCodeName = true;
             $scope.ListCompetence.sOOIOrgCodeName = true;
             $scope.ListCompetence.initMedProdLnCodeName = true;
+            $scope.ListCompetence.sOHandleTypeName=true;
         }
         if (UserJurisdiction.userInfo.orgType == "OI") {
             $scope.ListCompetence.sOCreateByOrgCodeName = true;
