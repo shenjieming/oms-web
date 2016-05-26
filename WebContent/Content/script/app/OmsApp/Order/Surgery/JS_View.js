@@ -789,17 +789,16 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                         console.log(mItem)
                         $.extend(mItem, {
                             actQty: mItem.actQty + item.actQty,
-                            remark: mItem.remark
+                    
                         });
                         return false;
                     }
                 });
                 if (flg) {
-                    console.log(item)
                     result.push($.extend(item, {                       
                         returnWarehouse: item.medMIWarehouse,
                         useQty: 0,
-                        remark: item.remark
+                  
                     }));
                 }
             });
