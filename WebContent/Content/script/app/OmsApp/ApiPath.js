@@ -41,6 +41,8 @@ var ApiPath = {
             deliverylist:"/v2/order/delivery/list", 
             //发货订单提交
             deliverySubmit: "/v2/order/delivery/submit",
+            //获取直送发货方式默认值
+            getDefaultDeliveryConfig:"/v2/order/delivery/getDefaultDeliveryConfig",
             //订单提交-线下
             offlineSubmit: "/v2/common/order/process/offlineSubmit",
             //追加配货单提交
