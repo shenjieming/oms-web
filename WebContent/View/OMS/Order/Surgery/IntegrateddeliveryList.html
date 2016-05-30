@@ -108,12 +108,9 @@
                                 <th ><span>医生</span></th>
                                 <th><span>手术日期</span></th>
                                 <th  style="width: 200px;"><span>产品线</span></th>
-                                <!--<th ng-if="ListCompetence.patientName"><span>患者</span></th>
-                                <th ng-if="ListCompetence.sOHandleByOrgCodeName"><span>仓库</span></th>-->
                                 <th><span>下单人</span></th>
                                 <th><span>下单日期</span></th>
                                 <th><span>状态</span></th>
-                                <!--<th ng-if="ListCompetence.sOHandleTypeName"><span>处理</span></th>-->
                             </tr>
                         </thead>
                         <tbody>
@@ -140,12 +137,6 @@
                                 <td>
                                     {{row.medProdLnCodeName}}
                                 </td>
-                                <!--<td ng-if="ListCompetence.patientName">
-                                    {{row.patientName}}
-                                </td>
-                                <td ng-if="ListCompetence.sOHandleByOrgCodeName">
-                                    {{row.sOHandleByOrgCodeName}}
-                                </td>-->
                                 <td>
                                     {{row.sOCreateByName}}
                                 </td>
@@ -155,9 +146,6 @@
                                 <td>
                                     <span ng-class="(row.status=='SOSTS00200'||row.status=='SOSTS00040')?'red':''">{{row.statusName}}</span>
                                 </td>
-                                <!--<td ng-if="ListCompetence.sOHandleTypeName">
-                                    {{row.sOHandleTypeName}}
-                                </td>-->
                             </tr>
                         </tbody>
                     </table>

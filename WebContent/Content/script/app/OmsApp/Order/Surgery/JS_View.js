@@ -221,6 +221,11 @@ app.controller("AccurateController", function ($scope, $state, $local, $Api, $Me
     /// <summary>精确订单</summary>
     $scope.$watch("PageData.sONo", function () {
         /// <summary>获取数据信息</summary>
+        if ($scope.PageData.sOOfflineHandleReasonTypeName==null){
+            $scope.isshowsOOfflineHandleReasonTypeName=false;
+        }else {
+            $scope.isshowsOOfflineHandleReasonTypeName=true;
+        }
         if ($scope.PageData.sONo) {
             $.extend($scope.PageData, {
                 orderFile: $OMSSpecially.File.GetEventMapping($scope.PageData.events, "0020_0011")
@@ -586,7 +591,15 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
             $scope.WarehouseConfig.GetList();
             $scope.dictionary.GetUseType();
             $scope.lotSerialTransformation();
-            $scope.MaterialsConfig.GetMaterialList($scope.PageData.feedBackProcess, $scope.PageData.feedBack);
+            // 根据local Storage  判断是否为报台处理页面和 报台草稿箱页面
+            $scope.judgeDraftBox = $local.getValue("ORDERCOMP")
+            console.log($scope.FeedBack.medMaterial.isBrandRowPan)
+            if($scope.judgeDraftBox.feedback){
+                $scope.MaterialsConfig.GetMaterialList($scope.PageData.feedBackProcess);
+            }
+            if($scope.judgeDraftBox.feedbackdrafts){
+                $scope.DraftBoxConfig.GetMaterialList($scope.PageData.feedBack.medMaterial);
+            }
         }
     });
     /*数据监控End*/
@@ -767,10 +780,64 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
     }
     $scope.MaterialsConfig = {
         Material: new Array(),
-        GetMaterialList: function (mlist, ulist) {
+            GetMaterialList: function (mlist) {
             /// <summary>获取物料信息</summary>
             var result = new Array();
             $.each(mlist, function (index, item) {
+                var flg = true;
+                 item.BrandRowPan = 1;
+                 item.isBrandRowPan = true;
+                 item.ProdLineRowPan = 1;
+                 item.isProdLineRowPan = true;
+                 $.each(result, function (mIndex, mItem) {
+                     if (item.medBrandCode == mItem.medBrandCode && mItem.isBrandRowPan) {
+                         mItem.BrandRowPan++;
+                         item.isBrandRowPan = false;
+                     }
+                     if (item.medProdLnCode == mItem.medProdLnCode && mItem.isProdLineRowPan) {
+                         mItem.ProdLineRowPan++;
+                         item.isProdLineRowPan = false;
+                     }
+                     // if (mItem.medMIInternalNo == item.medMIInternalNo && item.lotSerial == mItem.lotSerial) {//同批次物料
+                     //     console.log(mItem)
+                     //     $.extend(mItem, {
+                     //         actQty: mItem.actQty + item.actQty,
+                     //
+                     //     });
+                     //     return false;
+                     // }
+                 });
+                 if (flg) {
+                     result.push($.extend(item, {
+                         returnWarehouse: item.medMIWarehouse,
+                         useQty: 0,
+                     }));
+                 }
+            });
+                console.log(result)
+            $scope.FeedBack.medMaterial = result;
+        }
+    };
+    $scope.DraftBoxConfig={
+        // 报台草稿箱物料分析
+        GetMaterialList:function (mlist) {
+            var OutOrder= new Array();
+            var OutOrderForm = new Array();
+            $.each(mlist, function (mindex, item) {
+
+                item.medMICodeName = item.medMIName;
+                item.medBrandCodeName = item.medBrandName;
+                item.medProdLnCodeName = item.medProdLnName;
+                if (item.isInSODetail == "Y") {
+                    OutOrder.push(item)
+                } else if (item.isInSODetail == "N") {
+                    OutOrderForm.push(item)
+                }
+            })
+            $scope.FeedBack.medMaterial= OutOrder;
+            $scope.FeedBack.notInDetail= OutOrderForm;
+            var result = new Array();
+            $.each( $scope.FeedBack.medMaterial, function (index, item) {
                 var flg = true;
                 item.BrandRowPan = 1;
                 item.isBrandRowPan = true;
@@ -785,36 +852,17 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                         mItem.ProdLineRowPan++;
                         item.isProdLineRowPan = false;
                     }
-                    if (mItem.medMIInternalNo == item.medMIInternalNo && item.lotSerial == mItem.lotSerial) {//同批次物料
-                        console.log(mItem)
-                        $.extend(mItem, {
-                            actQty: mItem.actQty + item.actQty,
-                    
-                        });
-                        return false;
-                    }
                 });
                 if (flg) {
-                    result.push($.extend(item, {                       
+                    result.push($.extend(item, {
                         returnWarehouse: item.medMIWarehouse,
-                        useQty: 0,
-                  
                     }));
                 }
             });
-            if (ulist.medMaterial.length) {
-                $.each(ulist.medMaterial, function (uindex, item) {
-                    console.log(item)
-                    if (item.isInSODetail == "Y") {
-                         result.push(item)
-                     }else if (item.isInSODetail=="N"){
-                         $scope.FeedBack.notInDetail.push(item)
-                     }
-                });
-            }
+            console.log(result)
             $scope.FeedBack.medMaterial = result;
         }
-    };
+    }
     $scope.file = {
         /// <summary>附件控制器</summary>
         Upload: function (files) {
@@ -870,7 +918,6 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
             })
         },
         Verification: function () {
-            console.log($scope.PageData.orderProdlns[0].medMaterias)
             var verifig = true;
             $.each($scope.PageData.prodLns, function (index, item) {
                 console.log(item.medMaterias.length)
@@ -1010,8 +1057,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
 
         },
     }
-    function FormatDate(strTime) {
-        //   var date = new Date(replace("-", "/").replace("-", "/"));         
+    function FormatDate(strTime) {         
         return strTime.getFullYear() + "-" + (strTime.getMonth() + 1) + "-" + strTime.getDate() + "  星期" + "日一二三四五六".charAt(strTime.getDay());
     }
     $scope.DealService.model = {

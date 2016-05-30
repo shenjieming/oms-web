@@ -15,7 +15,6 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
     $scope.GetRowGoPage = function (view, callback) {
         /// <summary>Description</summary>
         var rowData = $local.getSelectedRow($scope.Integrated.OrderList);
-        console.log(callback)
         if (rowData) {
             $MessagService.loading("页面启动中，请稍等...");
             if (callback) {
@@ -121,7 +120,12 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
 
     $scope.OrderBack = function (sono) {
         /// <summary>订单返库处理</summary>
-        $local.setValue("ORDERCOMP", {});
+        $local.setValue("ORDERCOMP", {feedback:true});
+        $scope.GetRowGoPage("app.oms.order.fback");
+    }
+    $scope.BackDrafts = function (sono) {
+        /// <summary>订单返库处理</summary>
+        $local.setValue("ORDERCOMP", {feedbackdrafts:true});
         $scope.GetRowGoPage("app.oms.order.fback");
     }
     $scope.OrderDelivery = function () {
@@ -656,7 +660,7 @@ app.controller("FeedbackListController", function ($scope, $state, $local, $Api,
     /// <summary>反馈单草稿控制器</summary>
     $scope.title = "报台草稿";
     $scope.Competence = {
-        back: true
+        backdrafts: true
     };
     //条件清空
     $scope.Integrated.ClearWhere(true);

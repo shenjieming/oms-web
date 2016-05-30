@@ -10,10 +10,4 @@
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
-  <component name="SvnConfiguration">
-    <configuration>C:\Users\xuezhiyu\AppData\Roaming\Subversion</configuration>
-    <option name="sshExecutablePath" value="ssh" />
-    <option name="sshUserName" value="xuezhiyu" />
-    <option name="sshPrivateKeyPath" value="C:\Program Files\Git\ssh_key\private.ppk" />
-  </component>
 </project>

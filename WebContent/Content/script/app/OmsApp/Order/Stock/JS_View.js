@@ -19,6 +19,7 @@ app.controller("StockViewController", function ($scope, $state, $local, $Api, $M
         allCount: { implant: 0, tool: 0, all: 0 },
         Implate: new Array(),
         Tool: new Array(),
+        wsNotes: new Array(),
     }
 
     $scope.PreViewCount = {
@@ -379,6 +380,12 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
                 }
                 $scope.Integrated.StockList = rData.rows;
             });
+        },
+        Enter: function (e) {
+            var keycode = window.event ? e.keyCode : e.which;
+            if (keycode == 13) {
+                $scope.Integrated.GetStockList();
+            }
         }
     }
 
@@ -641,12 +648,16 @@ app.controller("StockOriginalController", function ($scope, $state, $local, $Api
 app.controller("StockAccurateController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService) {
     /// <summary>精确订单</summary>
     $scope.$watch("PageData.sONo", function () {
-        /// <summary>获取数据信息</summary>
+        /// <summary>获取数据信息</
+        if ($scope.PageData.sOOfflineHandleReasonTypeName==null){
+            $scope.isshowsOOfflineHandleReasonTypeName=false;
+        }else {
+            $scope.isshowsOOfflineHandleReasonTypeName=true;
+        }
         if ($scope.PageData.sONo) {
             $.extend($scope.PageData, {
                 orderFile: $scope.file.GetEventMapping($scope.PageData.events, "0020_0011")
             });
-
             setTimeout(function () {
                 $.extend($scope.AccurProduct.data, {
                     medKits: $scope.PageData.orderKits,
@@ -1110,6 +1121,11 @@ app.controller("StockOrderDeliveryController", function ($scope, $state, $local,
     } else {
         $scope.shipped.shipType = "stockorder";
     }
+    // 查询直送方式默认值
+    $Api.SurgeryService.Process.getDefaultDeliveryConfig({carrierTransType:"DIRECT",currentUserId:$scope.User.currentUserId},function (rData) {
+        $scope.shipped.directSendMan = rData.EventOpByName;
+        $scope.shipped.directSendManPhone = rData.EventOpByMobile;
+    });
     $scope.shipped.sONo = $scope.sONo;
     $scope.shipped.expressRemark = "运费已付";
     $scope.shipped.busSendRemark = "运费已付";
