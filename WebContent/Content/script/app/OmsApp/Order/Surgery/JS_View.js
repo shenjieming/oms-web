@@ -1265,6 +1265,11 @@ app.controller("OrderDeliveryController", function ($scope, $state, $local, $Api
     } else {
         $scope.shipped.shipType = "order";
     }
+    // 查询直送方式默认值
+    $Api.SurgeryService.Process.getDefaultDeliveryConfig({carrierTransType:"DIRECT",currentUserId:$scope.User.currentUserId},function (rData) {
+            $scope.shipped.directSendMan = rData.EventOpByName;
+            $scope.shipped.directSendManPhone = rData.EventOpByMobile;
+    });
     $scope.shipped.sONo = $scope.sONo;
     $scope.shipped.expressRemark = "运费已付";
     $scope.shipped.busSendRemark = "运费已付";
@@ -1272,7 +1277,6 @@ app.controller("OrderDeliveryController", function ($scope, $state, $local, $Api
     $scope.shippedSubmit = {
         Direct: function () {
             /// <summary>直送发货提交</summary>
-            //alert("提交成功！")
             var result = true;
             if (!$scope.shipped.directSendMan) {
                 $MessagService.caveat("请输入送货人！")

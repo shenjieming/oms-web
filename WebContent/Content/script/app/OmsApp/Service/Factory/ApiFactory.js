@@ -377,6 +377,10 @@ OMSApiService
                     /// <summary>发货订单提交</summary>
                     $ApiService.PostApi(ApiPath.Surgery.Process.deliverySubmit, data, callback);
                 },
+                getDefaultDeliveryConfig:function (data,callback) {
+                    ///<summary>获取直送方式发货默认值</summary>
+                    $ApiService.PostApi(ApiPath.Surgery.Process.getDefaultDeliveryConfig,data,callback);
+                },
                 OfflineSubmit: function(data, callback){
                     $MessagService.loading("处理提交中，请稍等...");
                     $ApiService.PostApi(ApiPath.Surgery.Process.offlineSubmit, data, callback);
@@ -385,10 +389,6 @@ OMSApiService
                     /// <summary>配货订单追加提交</summary>
                     $MessagService.loading("配货单追加中，请稍等...");
                     $ApiService.PostApi(ApiPath.Surgery.Process.addOB, data, callback);
-                },
-                AddEvent: function (data, callback) {
-                    /// <summary>添加事件</summary>
-                    $ApiService.PostApi(ApiPath.Surgery.Process.addevent, data, callback);
                 },
                 AddEvent: function (data, callback) {
                     /// <summary>添加事件</summary>
