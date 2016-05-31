@@ -44,11 +44,13 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
 
     $scope.Additional = function () {
         /// <summary>追加出库单</summary>
+        $local.setValue("ORDERCOMP", {additional:true});
         $scope.GetRowGoPage("app.oms.order.additional");
     }
 
     $scope.addSurgery = function () {
         /// <summary>添加手术下单</summary>
+        $local.setValue("ORDERCOMP", { dlorder: true });
         $scope.goView("app.oms.order.single", { sono: "" });
     }
 
@@ -131,7 +133,6 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
     $scope.OrderDelivery = function () {
         /// <summary>订单发货处理</summary>
         var rowData = $local.getSelectedRow($scope.Integrated.OrderList);
-        console.log(rowData)
         if (rowData) {
             $state.go("app.oms.order.orderdelivery", rowData);
         } else {
@@ -151,8 +152,6 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         } else {
             $MessagService.caveat("请选择一条订单数据！");
         }
-
-        //$scope.GetRowGoPage("app.oms.order.outbounddelivery");
     }
     $scope.showViewDetail = function (sono) {
         /// <summary>查看手术订单</summary>
@@ -174,7 +173,6 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
         }
     }
     /*页面操作End*/
-
     /*页面列表Begion*/
     $scope.Pagein = {
         /// <summary>分页配置信息对象</summary>
@@ -193,21 +191,6 @@ app.controller("SurgeryController", function ($scope, $state, $local, $Api, $Mes
             $scope.Integrated.GetOrderList();
         }
     }
-    // 查询条件
-    //sONo
-    //createDateBegin
-    //createDateEnd
-    //status
-    //hPCode
-    //dTCode
-    //oIOrgCode
-    //soType
-    //sOCreateByOrgCode
-    //patientName
-    //sOCreateBy  
-
-
-
     //  日期格式转换
     function FormatDate(strTime) {
         //   var date = new Date(replace("-", "/").replace("-", "/"));      

@@ -1203,9 +1203,10 @@ app.controller("AdditionalController", function ($scope, $state, $local, $Api, $
         /// <summary>出库单追加服务</summary>
         Submit: function () {
             /// <summary>提交追加出库单</summary>
-            $Api.SurgeryService.Process.Add($scope.PageData, function (rData) {
-                $scope.goLastPage();
-            });
+            console.log($scope.PageData)
+            // $Api.SurgeryService.Process.Add($scope.PageData, function (rData) {
+            //     $scope.goLastPage();
+            // });
         }
     }
     $scope.AddProduct = {
@@ -1342,7 +1343,6 @@ app.controller("OrderDeliveryController", function ($scope, $state, $local, $Api
         },
         Express: function () {
             /// <summary>快递发货提交</summary>
-            //alert("提交成功！")     
             var result = true;
             if (!$scope.shipped.expressCompany) {
                 $MessagService.caveat("请选择快递公司！")
@@ -1362,7 +1362,6 @@ app.controller("OrderDeliveryController", function ($scope, $state, $local, $Api
         },
         Bus: function () {
             /// <summary>大巴发货提交</summary>
-            //alert("提交成功！")
             var result = true;
             if (!$scope.shipped.busNumber) {
                 $MessagService.caveat("请输入车牌号！")
@@ -1386,7 +1385,6 @@ app.controller("OrderDeliveryController", function ($scope, $state, $local, $Api
         },
         Air: function () {
             /// <summary>航空发货提交</summary>
-            //alert("提交成功！")
             var result = true;
             if (!$scope.shipped.airCompany) {
                 $MessagService.caveat("请选择航空公司！")
@@ -1414,7 +1412,6 @@ app.controller("OrderDeliveryController", function ($scope, $state, $local, $Api
         },
         Selfpick: function () {
             /// <summary>自提发货提交</summary>
-            //alert("提交成功！")
             var result = true;
             if (!$scope.shipped.pickedUpMan) {
                 $MessagService.caveat("请输入提货人！")

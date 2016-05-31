@@ -204,11 +204,13 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
 
     $scope.addStock = function () {
         /// <summary>添加备货下单</summary>
+
         $scope.goView("app.oms.stock.single", { sono: "" });
     }
 
     $scope.editStock = function (sono) {
         /// <summary>编辑手术订单</summary>
+        $local.setValue("ORDERCOMP", { dlorder: true });
         $scope.GetRowGoPage("app.oms.stock.single");
     }
 

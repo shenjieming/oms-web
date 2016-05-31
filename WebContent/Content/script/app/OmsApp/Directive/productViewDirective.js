@@ -34,7 +34,16 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                 ProToolCount: 0,//产品线工具数
                 GetShowInfo: function () {
                     /// <summary>获取显示信息</summary>
+                 //判断是否为追加配货页面
                     $scope.ngComp.ShowInfo = "";
+                    if($local.getValue("ORDERCOMP").additional){
+                        if($scope.Statistic.KitsCount||$scope.Statistic.AllMaterialCount){
+                            $scope.Competence.wHSpecialNotes=false;
+                        }else {
+                            $scope.ngModel.wsNotes=new Array();
+                        }
+                    }
+                    // 信息统计
                     if ($scope.Statistic.KitsCount) {
                         $scope.ngComp.ShowInfo += " 套件：" + $scope.Statistic.KitsCount + "套（" + $scope.Statistic.KitMCount + "件）";
                     }
@@ -191,6 +200,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                 },
                 GetLineMaterialCount: function () {
                     /// <summary>获取当前产品线的物料个数</summary>
+                    console.log($scope.ProductConfig.useLine.medMaterias)
                     var stat = {
                         ProMaterielCount: 0, ProImplantCount: 0, ProToolCount: 0//产品线工具数
                     }
@@ -293,7 +303,10 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                     $scope.ngModel.prodLns[$scope.ProductConfig.useLine.index].medMaterias = $scope.ProductConfig.useLine.medMaterias;
                     $scope.MaterialsConfig.GetShowMaterial('');
                     $scope.ProductConfig.GetLineMaterialCount();
-                    $scope.WarehouseConfig.SelectChangeWHNote();
+                    //若经销商下单 则不用增加出库指示
+                    if(!$local.getValue("ORDERCOMP").dlorder){
+                        $scope.WarehouseConfig.SelectChangeWHNote();
+                    }
                 },
                 GetRequtMaterial: function (MaterialsList, oldList) {
                     /// <summary>获取请求的物料</summary>
