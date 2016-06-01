@@ -1204,9 +1204,9 @@ app.controller("AdditionalController", function ($scope, $state, $local, $Api, $
         Submit: function () {
             /// <summary>提交追加出库单</summary>
             console.log($scope.PageData)
-            // $Api.SurgeryService.Process.Add($scope.PageData, function (rData) {
-            //     $scope.goLastPage();
-            // });
+            $Api.SurgeryService.Process.Add($scope.PageData, function (rData) {
+                $scope.goLastPage();
+            });
         }
     }
     $scope.AddProduct = {
