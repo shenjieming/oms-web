@@ -1314,8 +1314,12 @@ app.controller("OrderDeliveryController", function ($scope, $state, $local, $Api
     }
     // 查询直送方式默认值
     $Api.SurgeryService.Process.getDefaultDeliveryConfig({carrierTransType:"DIRECT",currentUserId:$scope.User.currentUserId},function (rData) {
-            $scope.shipped.directSendMan = rData.EventOpByName;
+         if(rData.EventOpByName!=null){
+             $scope.shipped.directSendMan = rData.EventOpByName;
+         }
+        if(rData.EventOpByMobile!=null){
             $scope.shipped.directSendManPhone = rData.EventOpByMobile;
+        }
     });
     $scope.shipped.sONo = $scope.sONo;
     $scope.shipped.expressRemark = "运费已付";
