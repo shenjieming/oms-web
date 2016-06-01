@@ -8,7 +8,7 @@
 	
 	<properties>
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
-		<version>FWP${maven.build.timestamp}</version>
+		<version>OMSAPIDEV${maven.build.timestamp}</version>
 	</properties>
 	
 	<build>
