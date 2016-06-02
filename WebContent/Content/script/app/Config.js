@@ -54,13 +54,13 @@ app.controller("masterController", function ($scope, $state, $MenuService, $loca
     $scope.goView = function (name, param) { $MessagService.loading("页面信息获取中，请稍等...");  $state.go(name, param); }
     /// <summary>返回上一页</summary>
     $scope.goLastPage = function () { $window.history.back(); }
-
     $scope.AppHelp = $AppHelp;
-
     /// <summary>登出</summary>
     $scope.SignOut = function () {
         var LoginOut = function () { $local.setValue("USER", null); $scope.goView("login"); }; try { $Api.AccountService.LoginOut({}, LoginOut, LoginOut); } catch (e) { LoginOut(); } finally { LoginOut(); }//强制退出
     }
+    //打印页面地址
+    $scope.PrintPath=ServerConfiguration.PrintPath;
     /// <summary>菜单权限控制</summary>
     //判断菜单是否有权限
     $scope.Comp = function (code) {

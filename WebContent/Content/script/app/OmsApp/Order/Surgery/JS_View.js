@@ -1047,14 +1047,13 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
                             }, 5000)
                             setTimeout(function () {
                                 $scope.OutboundOrdermodel.hide();
-                                window.open("http://wmstest.med-log.cn/Reports/Pages/Report.aspx?ItemPath=%2freport+project1%2fpicklist");
+                                window.open($scope.PrintPath);
                                 $state.go("app.oms.order.deal")
                             }, 5000);
                         }, 5000);
                     }, 5000);
                 }, 5000);
             }, 5000);
-
         },
     }
     function FormatDate(strTime) {         
