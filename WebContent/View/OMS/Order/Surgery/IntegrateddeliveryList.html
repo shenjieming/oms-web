@@ -81,7 +81,7 @@
                         <a class="btn btn-primary" ng-click="ApplyBack()" ng-if="Competence.apply"><i class="fa fa-steam"></i>返库申请</a>
                         <a class="btn btn-primary" ng-click="OrderBack()" ng-if="Competence.back"><i class="fa fa-legal"></i>返库处理</a>
                         <a class="btn btn-primary" ng-click="Additional()" ng-if="Competence.append"> <i class="fa fa-shopping-cart"></i>追加配货</a>-->
-                        <a class="btn btn-primary" ng-if="User.userInfo.orgType=='WH'&&Competence.Print" href="http://wmstest.med-log.cn/Reports/Pages/Report.aspx?ItemPath=%2freport+project1%2fpicklist" target="_blank"><i class="fa fa-print"></i> 出库单打印</a>
+                        <a class="btn btn-primary" ng-if="User.userInfo.orgType=='WH'&&Competence.Print" href={{PrintPath}} target="_blank"><i class="fa fa-print"></i> 出库单打印</a>
                         <a class="btn btn-primary" ng-click="OrderDelivery()" ng-if="Competence.shipped"><i class="medlog-font-s medlog-icon-peihuo" style="font-size:14px;-webkit-text-stroke-width: 0px;font-weight: bold "></i> 发货</a>
                         <a class="btn btn-primary" ng-click="OutboundDelivery()" ng-if="Competence.shipped"><i class="medlog-font-s medlog-icon-peihuo" style="font-size:14px;-webkit-text-stroke-width: 0px;font-weight: bold "></i> 出库单发货</a>
                         <a class="btn btn-primary" ng-click="HighSearch()"><i class="fa fa-search"></i> 高级查询</a>
