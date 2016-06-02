@@ -15,5 +15,5 @@ var ServerConfiguration = {
     //是否启动开发,True的话全部菜单可用，false的话全部菜单与数据库的权限对接
     Version: "${version}",
     IsDevelop: false,
-    PrintPath:"http://139.129.118.100/Reports/Pages/Report.aspx?ItemPath=%2freport+project1%2fpicklist"
+    PrintPath:"http://wms.med-log.com.cn/Reports/Pages/Report.aspx?ItemPath=%2freport+project1%2fpicklist"
 }
