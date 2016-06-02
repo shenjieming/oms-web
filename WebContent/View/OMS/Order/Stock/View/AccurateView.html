@@ -50,11 +50,16 @@
         <div class="widget-title bg_ly">
             <h5 style="width:80%" data-toggle="collapse" href="#pro_ProductInformation">
                 <span class="icon oms-web-icon-fold"><i class="fa icon-chevron-down"></i></span>
-              <span class="oms-web-h5-fold">产品信息{{AccurProduct.Competence.ShowInfo}}</span>
+              <span class="oms-web-h5-fold">器械信息{{AccurProduct.Competence.ShowInfo}}</span>
             </h5>
         </div>
         <div id="pro_ProductInformation" class="widget-content nopadding collapse in">
             <div ng-product-view="AccurProduct" ng-model="AccurProduct.data" ng-service="AccurProduct.Service" ng-comp="AccurProduct.Competence"></div>
+            <div class="control-group" ng-repeat="row in PageData.wsNotes" ng-if="PageData.wsNotes.length>0">
+                <label style="width:100%;margin-left:20px;">
+                    出库指示（{{row.estMedMIWarehouseName}}）：{{row.wHSpecialNotes}}
+                </label>
+            </div>
         </div>
     </div>
     <div class="widget-box">
