@@ -324,7 +324,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                     $scope.MaterialsConfig.categoryByPlatform = type;
                     if ($scope.ProductConfig.useLine.medMaterias) {
                         $.each($scope.ProductConfig.useLine.medMaterias, function (index, item) {
-                            if ((!type || type == item.categoryByPlatform) && item.reqQty > 0) {
+                            if ((!type || type == item.categoryByPlatform) && item.reqQty >= 0) {
                                 $scope.MaterialsConfig.Material.push(item);
                             }
                         });
@@ -341,11 +341,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                         }
                         if ($scope.ngModel.wsNotes.length == 0) {                       
                                 $scope.WarehouseConfig.SelectChangeWHNote();
-                            }
-                        
-                      
-                    
-                    
+                            }                                                                                     
                     }
                 },
                 Deduplication: function () {
@@ -431,8 +427,7 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                             
                             }
                         });
-                    }
-              
+                    }              
                     if ($scope.ngModel.wsNotes==null) {
                         $scope.ngModel.wsNotes = new Array();
                     }
