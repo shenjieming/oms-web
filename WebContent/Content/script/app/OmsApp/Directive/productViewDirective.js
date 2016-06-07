@@ -200,7 +200,6 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                 },
                 GetLineMaterialCount: function () {
                     /// <summary>获取当前产品线的物料个数</summary>
-                    console.log($scope.ProductConfig.useLine.medMaterias)
                     var stat = {
                         ProMaterielCount: 0, ProImplantCount: 0, ProToolCount: 0//产品线工具数
                     }

@@ -56,6 +56,11 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
         },
         ApprovalBill: function () {
             /// <summary>审批订单</summary>
+            $local.setValue("ORDERCOMP", {Approval:true});
+            this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.view", row); });
+        },
+        InvalidBill:function () {
+            $local.setValue("ORDERCOMP", { Invalid:true});
             this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.view", row); });
         },
         ViewBillByRow: function (row) {
@@ -93,11 +98,24 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
         /// <summary>查询服务</summary>
         GetOrderInfo: function (param) {
             /// <summary>获取订单明细</summary>
-            $BMSApi.PublicInfoService.GetPendingDetail(param, function (orderInfo) { $.extend($scope.PageData, orderInfo); if (!param.hOFNNo) { $.extend($scope.BillData, $scope.$Factory.GetOrderMapping(orderInfo)); } });
+            $BMSApi.PublicInfoService.GetPendingDetail(param, function (orderInfo) {
+                console.log(orderInfo)
+                console.log(param.hOFNNo)
+                $.extend($scope.PageData, orderInfo);
+                if (!param.hOFNNo) {
+                    $.extend($scope.BillData, $scope.$Factory.GetOrderMapping(orderInfo));
+                } });
         },
         GetBillInfo: function (param) {
             /// <summary>获取计费单明细</summary>
-            $BMSApi.PublicInfoService.GetBillDetail(param, function (billInfo) { $.extend($scope.BillData, billInfo); $.extend($scope.BillData, $stateParams); setTimeout(function () { $scope.$Factory.AddMaterias(billInfo.detail, $scope.BillData) }); });
+            $BMSApi.PublicInfoService.GetBillDetail(param, function (billInfo) {
+                console.log(billInfo)
+                $.extend($scope.BillData, billInfo);
+                $.extend($scope.BillData, $stateParams);
+                setTimeout(function () {
+                    $scope.$Factory.AddMaterias(billInfo.detail, $scope.BillData)
+                });
+            });
         },
         PrintBill: function () {
             /// <summary>打印</summary>

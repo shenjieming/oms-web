@@ -15,7 +15,16 @@ app.directive("ngBmsMaterials", function ($BMSApi, $MessagService, $local, $AppH
                 ChangeList: new Array(),
                 GetMaterialList: function () {
                     /// <summary>获取物资列表</summary>
-                    s.Service.GetChangeMaterials(); var param = $.extend(s.Pagein, s.ngModel); $BMSApi.BMSBaseService.GetMaterialList(s.Pagein, function (queryData) { s.Pagein.total = queryData.total; s.Service.MaterialList = new Array(); $.each(queryData.rows, function (index, item) { s.Service.MaterialList.push($.extend(item, { reqQty: s.Service.GetMaterialQty(item) })); }); });
+                    s.Service.GetChangeMaterials();
+                    var param = $.extend(s.Pagein, s.ngModel);
+                    console.log(s.Pagein)
+                    $BMSApi.BMSBaseService.GetMaterialList(s.Pagein, function (queryData) {
+                        s.Pagein.total = queryData.total;
+                        s.Service.MaterialList = new Array();
+                        $.each(queryData.rows, function (index, item) {
+                            s.Service.MaterialList.push($.extend(item, { reqQty: s.Service.GetMaterialQty(item) }));
+                        });
+                    });
                 },
                 GetChangeMaterials: function () {
                     /// <summary>获取修改的物资信息</summary>
@@ -23,7 +32,13 @@ app.directive("ngBmsMaterials", function ($BMSApi, $MessagService, $local, $AppH
                 },
                 UpEnter: function (e) {
                     /// <summary>点击回车事件</summary>
-                    var keycode = window.event ? e.keyCode : e.which; if (keycode == 13) { s.Pagein.ReLoad(); }
+                    var keycode = window.event ? e.keyCode : e.which; if (keycode == 13) { s.Service.SelectMaterialList(); }
+                },
+                SelectMaterialList:function () {
+                    $.extend(s.Pagein, {
+                        pageIndex: 1,
+                    });
+                    s.Pagein.ReLoad()
                 },
                 AddAllQty: function () {
                     /// <summary>添加全部的数据</summary>
@@ -52,6 +67,7 @@ app.directive("ngBmsMaterials", function ($BMSApi, $MessagService, $local, $AppH
                     /// <summary>弹出层打开事件</summary>
                     //清空冗余数据
                     s.Service.InitializeDirective();
+                    $(".ui-dialog-title").html("物资选择");
                 },
                 title: "物资选择", width: "100%", position: [0], height: "90%", buttons: { "确定": function () { s.Service.GetChangeMaterials(); var data = s.Service.ChangeList; if (data.length) { s.$apply(function () { s.ngBmsMaterials.fixed(data); }); s.ngBmsMaterials.hide(); } else { $MessagService.caveat("请至少添加一件物资...") } }, "关闭": function () { s.ngBmsMaterials.hide(); } }
             }

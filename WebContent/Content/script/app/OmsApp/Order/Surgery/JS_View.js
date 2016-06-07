@@ -798,14 +798,6 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                          mItem.ProdLineRowPan++;
                          item.isProdLineRowPan = false;
                      }
-                     // if (mItem.medMIInternalNo == item.medMIInternalNo && item.lotSerial == mItem.lotSerial) {//同批次物料
-                     //     console.log(mItem)
-                     //     $.extend(mItem, {
-                     //         actQty: mItem.actQty + item.actQty,
-                     //
-                     //     });
-                     //     return false;
-                     // }
                  });
                  if (flg) {
                      result.push($.extend(item, {

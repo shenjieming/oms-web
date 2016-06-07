@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../lib/Jquery/jquery-1.11.1.min.js" />
+﻿    /// <reference path="../../../lib/Jquery/jquery-1.11.1.min.js" />
 app.directive("ngApprovalBill", function ($BMSApi, $MessagService, $local, $AppHelp) {
     /// <summary>计费单审批</summary>  
     return {

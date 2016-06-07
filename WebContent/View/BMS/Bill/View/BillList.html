@@ -8,7 +8,7 @@
                     <a class="btn btn-primary" ng-if="Competence.batchapproval" ng-click="PageControl.()"><i class="fa fa-eye"></i> 批量审核</a>
                     <a class="btn btn-primary" ng-if="Competence.approval" ng-click="PageControl.ApprovalBill()"><i class="fa fa-eye"></i> 审核</a>
                     <a class="btn btn-primary" ng-if="Competence.unapproval" ng-click="PageControl.ApprovalBill()"><i class="fa fa-eye"></i> 反审核</a>
-                    <a class="btn btn-primary" ng-if="Competence.discard" ng-click="PageControl.ApprovalBill()"><i class="fa fa-eye"></i> 作废</a>
+                    <a class="btn btn-primary" ng-if="Competence.discard" ng-click="PageControl.InvalidBill()"><i class="fa fa-eye"></i> 作废</a>
                     <a class="btn btn-primary" ng-click="PageControl.PrintBill()"><i class="fa fa-print"></i> 打印</a>
                     <a class="btn btn-primary" ng-click="PageControl.ViewBill()"><i class="fa fa-align-justify"></i> 详情</a>
                 </span>

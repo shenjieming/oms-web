@@ -42,6 +42,14 @@ app.controller("BillDetailController", function ($scope, $state,$Api, $local, $B
         },
         Submit: function () {
             /// <summary>计费单提交</summary>
+            console.log( $scope.BillData.detail)
+            $scope.BillData.hOFNHospitalNo= $scope.BillData.autoGenerateHOFNNo;
+            for(var i=0;i<$scope.BillData.detail.length;i++){
+                if(!$scope.BillData.detail[i].lotSerial){
+                    $scope.BillData.detail[i].lotSerial="NOLOTINFO";
+                }
+            }
+            console.log( $scope.BillData)
             $BMSApi.BillService.Submit($scope.BillData, function (rData) { $MessagService.succ("计费单" + rData + "保存成功");; $scope.goLastPage(); });
         },
         DelMaterial: function (index) {
