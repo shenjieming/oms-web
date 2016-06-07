@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4819ac92-bc72-44f1-9280-7af9a5017d68" name="默认的" comment="备货订单">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Directive/productViewDirective.js" afterPath="$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Directive/productViewDirective.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Order/Stock/JS_View.js" afterPath="$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Order/Stock/JS_View.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Order/Surgery/JS_View.js" afterPath="$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Order/Surgery/JS_View.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/Content/script/app/ServerConfiguration.js" afterPath="$PROJECT_DIR$/WebContent/Content/script/app/ServerConfiguration.js" />
     </list>
     <ignored path="oms-web.iws" />
@@ -29,19 +30,32 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WebContent/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="57" column="89" selection-start-line="57" selection-start-column="89" selection-end-line="57" selection-end-column="89" />
+            <state relative-caret-position="19">
+              <caret line="55" column="16" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="productViewDirective.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Directive/productViewDirective.js">
+      <file leaf-file-name="JS_View.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Order/Stock/JS_View.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="526">
-              <caret line="320" column="68" selection-start-line="320" selection-start-column="68" selection-end-line="320" selection-end-column="68" />
-              <folding />
+            <state relative-caret-position="203">
+              <caret line="820" column="51" selection-start-line="820" selection-start-column="51" selection-end-line="820" selection-end-column="51" />
+              <folding>
+                <element signature="e#652#7004#0" expanded="false" />
+                <element signature="e#7110#16888#0" expanded="false" />
+                <element signature="e#14310#15258#0" expanded="false" />
+                <element signature="e#17014#24682#0" expanded="false" />
+                <element signature="e#24810#25591#0" expanded="false" />
+                <element signature="e#25719#27107#0" expanded="false" />
+                <element signature="e#27242#31106#0" expanded="false" />
+                <element signature="e#39544#40155#0" expanded="false" />
+                <element signature="e#40283#43134#0" expanded="false" />
+                <element signature="e#43274#43553#0" expanded="false" />
+                <element signature="e#43673#51798#0" expanded="false" />
+                <element signature="e#51920#52691#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -49,20 +63,38 @@
       <file leaf-file-name="ServerConfiguration.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/WebContent/Content/script/app/ServerConfiguration.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+            <state relative-caret-position="228">
+              <caret line="12" column="50" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="50" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ngProductView.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Directive/ui/ngProductView.html">
+      <file leaf-file-name="JS_View.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Order/Surgery/JS_View.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="139" column="74" selection-start-line="139" selection-start-column="50" selection-end-line="139" selection-end-column="74" />
+            <state relative-caret-position="399">
+              <caret line="931" column="62" selection-start-line="931" selection-start-column="62" selection-end-line="931" selection-end-column="62" />
               <folding>
-                <element signature="n#div#1;n#div#3;n#div#0;n#!!top" expanded="false" />
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#652#7909#0" expanded="false" />
+                <element signature="e#7045#7887#0" expanded="false" />
+                <element signature="e#8047#8842#0" expanded="false" />
+                <element signature="e#8980#10407#0" expanded="false" />
+                <element signature="e#10537#14398#0" expanded="false" />
+                <element signature="e#14556#22552#0" expanded="false" />
+                <element signature="e#22675#37402#0" expanded="false" />
+                <element signature="e#29155#32093#0" expanded="false" />
+                <element signature="e#32333#33697#0" expanded="false" />
+                <element signature="e#44989#45778#0" expanded="false" />
+                <element signature="e#45821#46477#0" expanded="false" />
+                <element signature="e#46498#48274#0" expanded="false" />
+                <element signature="e#48305#48443#0" expanded="false" />
+                <element signature="e#49712#50382#0" expanded="false" />
+                <element signature="e#50505#53395#0" expanded="false" />
+                <element signature="e#53545#53829#0" expanded="false" />
+                <element signature="e#53943#62099#0" expanded="false" />
+                <element signature="e#62216#63006#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -90,12 +122,12 @@
         <option value="$PROJECT_DIR$/WebContent/View/OMS/Order/Stock/IntegratedStockList.html" />
         <option value="$PROJECT_DIR$/WebContent/View/OMS/Order/Surgery/Additional.html" />
         <option value="$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Order/Surgery/JS_IntegratedList.js" />
-        <option value="$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Order/Surgery/JS_View.js" />
         <option value="$PROJECT_DIR$/WebContent/index.html" />
-        <option value="$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Order/Stock/JS_View.js" />
         <option value="$PROJECT_DIR$/WebContent/View/OMS/Order/Surgery/View/AccurateView.html" />
         <option value="$PROJECT_DIR$/WebContent/View/OMS/Order/Stock/View/AccurateView.html" />
         <option value="$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Directive/productViewDirective.js" />
+        <option value="$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Order/Stock/JS_View.js" />
+        <option value="$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Order/Surgery/JS_View.js" />
         <option value="$PROJECT_DIR$/WebContent/Content/script/app/ServerConfiguration.js" />
       </list>
     </option>
@@ -145,7 +177,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -193,6 +224,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="View" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oms-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oms-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebContent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="View" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OMS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Order" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -325,38 +382,8 @@
               <option name="myItemId" value="Order" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="oms-web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="oms-web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WebContent" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Content" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="script" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OmsApp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Directive" />
+              <option name="myItemId" value="Surgery" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -390,17 +417,52 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Directive" />
+              <option name="myItemId" value="Order" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ui" />
+              <option name="myItemId" value="Stock" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oms-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oms-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebContent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Content" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OmsApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Order" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -505,6 +567,7 @@
       <workItem from="1464856769553" duration="2011000" />
       <workItem from="1464860008469" duration="2000" />
       <workItem from="1464860690558" duration="5246000" />
+      <workItem from="1465279606330" duration="4895000" />
     </task>
     <task id="LOCAL-00001" summary="更新gitignore">
       <created>1463489337130</created>
@@ -566,28 +629,28 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45695000" />
+    <option name="totallyTimeSpent" value="50590000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.284041" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.9858268" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32913387" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="消息" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3277311" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32786885" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -641,40 +704,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="11" />
+      <option name="time" value="12" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Order/Surgery/JS_View.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23820">
-          <caret line="1198" column="6" selection-start-line="1198" selection-start-column="6" selection-end-line="1198" selection-end-column="6" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#652#7909#0" expanded="false" />
-            <element signature="e#7045#7887#0" expanded="false" />
-            <element signature="e#8047#8842#0" expanded="false" />
-            <element signature="e#8980#10407#0" expanded="false" />
-            <element signature="e#10537#14398#0" expanded="false" />
-            <element signature="e#14556#22552#0" expanded="false" />
-            <element signature="e#22675#37402#0" expanded="false" />
-            <element signature="e#29155#32093#0" expanded="false" />
-            <element signature="e#32333#33697#0" expanded="false" />
-            <element signature="e#37525#49587#0" expanded="false" />
-            <element signature="e#44989#45778#0" expanded="false" />
-            <element signature="e#45821#46477#0" expanded="false" />
-            <element signature="e#46498#48274#0" expanded="false" />
-            <element signature="e#48305#48443#0" expanded="false" />
-            <element signature="e#49712#50382#0" expanded="false" />
-            <element signature="e#50505#53395#0" expanded="false" />
-            <element signature="e#53545#53829#0" expanded="false" />
-            <element signature="e#53943#62099#0" expanded="false" />
-            <element signature="e#62216#63006#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WebContent/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -729,7 +763,6 @@
             <element signature="e#22675#37402#0" expanded="false" />
             <element signature="e#29155#32093#0" expanded="false" />
             <element signature="e#32333#33697#0" expanded="false" />
-            <element signature="e#37525#49587#0" expanded="false" />
             <element signature="e#44989#45778#0" expanded="false" />
             <element signature="e#45821#46477#0" expanded="false" />
             <element signature="e#46498#48274#0" expanded="false" />
@@ -807,7 +840,6 @@
             <element signature="e#22675#37402#0" expanded="false" />
             <element signature="e#29155#32093#0" expanded="false" />
             <element signature="e#32333#33697#0" expanded="false" />
-            <element signature="e#37525#49587#0" expanded="false" />
             <element signature="e#44989#45778#0" expanded="false" />
             <element signature="e#45821#46477#0" expanded="false" />
             <element signature="e#46498#48274#0" expanded="false" />
@@ -986,35 +1018,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Order/Surgery/JS_View.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="568" column="121" selection-start-line="568" selection-start-column="121" selection-end-line="568" selection-end-column="121" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#652#7909#0" expanded="false" />
-            <element signature="e#7045#7887#0" expanded="false" />
-            <element signature="e#8047#8842#0" expanded="false" />
-            <element signature="e#8980#10407#0" expanded="false" />
-            <element signature="e#10537#14398#0" expanded="false" />
-            <element signature="e#14556#22552#0" expanded="false" />
-            <element signature="e#22675#37402#0" expanded="false" />
-            <element signature="e#29155#32093#0" expanded="false" />
-            <element signature="e#32333#33697#0" expanded="false" />
-            <element signature="e#37525#49587#0" expanded="false" />
-            <element signature="e#44989#45778#0" expanded="false" />
-            <element signature="e#45821#46477#0" expanded="false" />
-            <element signature="e#46498#48274#0" expanded="false" />
-            <element signature="e#48305#48443#0" expanded="false" />
-            <element signature="e#49712#50382#0" expanded="false" />
-            <element signature="e#50505#53395#0" expanded="false" />
-            <element signature="e#53545#53829#0" expanded="false" />
-            <element signature="e#53943#62099#0" expanded="false" />
-            <element signature="e#62216#63006#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Order/Surgery/JS_IntegratedList.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="855">
@@ -1034,7 +1037,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3192">
           <caret line="168" column="65" selection-start-line="168" selection-start-column="65" selection-end-line="168" selection-end-column="65" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1050,36 +1052,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="274">
           <caret line="47" column="4" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="4" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#label#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#1;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h5#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#1;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#1;n#div#1;n#div#2;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Order/Stock/JS_View.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="568">
-          <caret line="202" column="5" selection-start-line="202" selection-start-column="5" selection-end-line="202" selection-end-column="5" />
-          <folding>
-            <element signature="e#652#7004#0" expanded="false" />
-            <element signature="e#14310#15258#0" expanded="false" />
-            <element signature="e#17014#24682#0" expanded="false" />
-            <element signature="e#24810#25591#0" expanded="false" />
-            <element signature="e#25719#27107#0" expanded="false" />
-            <element signature="e#27242#31106#0" expanded="false" />
-            <element signature="e#31234#39414#0" expanded="false" />
-            <element signature="e#39544#40155#0" expanded="false" />
-            <element signature="e#40283#43134#0" expanded="false" />
-            <element signature="e#43274#43553#0" expanded="false" />
-            <element signature="e#51920#52691#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1087,9 +1059,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
           <caret line="94" column="50" selection-start-line="94" selection-start-column="46" selection-end-line="94" selection-end-column="50" />
-          <folding>
-            <element signature="n#style#0;n#label#0;n#div#1;n#div#1;n#div#2;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1097,29 +1066,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="8" column="67" selection-start-line="8" selection-start-column="67" selection-end-line="8" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Directive/productViewDirective.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="526">
-          <caret line="320" column="68" selection-start-line="320" selection-start-column="68" selection-end-line="320" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WebContent/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="57" column="89" selection-start-line="57" selection-start-column="89" selection-end-line="57" selection-end-column="89" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Directive/ui/ngProductView.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
+        <state relative-caret-position="1501">
           <caret line="139" column="74" selection-start-line="139" selection-start-column="50" selection-end-line="139" selection-end-column="74" />
           <folding>
             <element signature="n#div#1;n#div#3;n#div#0;n#!!top" expanded="false" />
@@ -1127,10 +1079,85 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Directive/productViewDirective.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="526">
+          <caret line="320" column="50" selection-start-line="320" selection-start-column="50" selection-end-line="320" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebContent/View/System/SignIn.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-30">
+          <caret line="3" column="70" selection-start-line="3" selection-start-column="70" selection-end-line="3" selection-end-column="70" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Order/Stock/JS_View.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="820" column="51" selection-start-line="820" selection-start-column="51" selection-end-line="820" selection-end-column="51" />
+          <folding>
+            <element signature="e#652#7004#0" expanded="false" />
+            <element signature="e#7110#16888#0" expanded="false" />
+            <element signature="e#14310#15258#0" expanded="false" />
+            <element signature="e#17014#24682#0" expanded="false" />
+            <element signature="e#24810#25591#0" expanded="false" />
+            <element signature="e#25719#27107#0" expanded="false" />
+            <element signature="e#27242#31106#0" expanded="false" />
+            <element signature="e#39544#40155#0" expanded="false" />
+            <element signature="e#40283#43134#0" expanded="false" />
+            <element signature="e#43274#43553#0" expanded="false" />
+            <element signature="e#43673#51798#0" expanded="false" />
+            <element signature="e#51920#52691#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebContent/Content/script/app/OmsApp/Order/Surgery/JS_View.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="931" column="62" selection-start-line="931" selection-start-column="62" selection-end-line="931" selection-end-column="62" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#652#7909#0" expanded="false" />
+            <element signature="e#7045#7887#0" expanded="false" />
+            <element signature="e#8047#8842#0" expanded="false" />
+            <element signature="e#8980#10407#0" expanded="false" />
+            <element signature="e#10537#14398#0" expanded="false" />
+            <element signature="e#14556#22552#0" expanded="false" />
+            <element signature="e#22675#37402#0" expanded="false" />
+            <element signature="e#29155#32093#0" expanded="false" />
+            <element signature="e#32333#33697#0" expanded="false" />
+            <element signature="e#44989#45778#0" expanded="false" />
+            <element signature="e#45821#46477#0" expanded="false" />
+            <element signature="e#46498#48274#0" expanded="false" />
+            <element signature="e#48305#48443#0" expanded="false" />
+            <element signature="e#49712#50382#0" expanded="false" />
+            <element signature="e#50505#53395#0" expanded="false" />
+            <element signature="e#53545#53829#0" expanded="false" />
+            <element signature="e#53943#62099#0" expanded="false" />
+            <element signature="e#62216#63006#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebContent/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="55" column="16" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/WebContent/Content/script/app/ServerConfiguration.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        <state relative-caret-position="228">
+          <caret line="12" column="50" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="50" />
           <folding />
         </state>
       </provider>

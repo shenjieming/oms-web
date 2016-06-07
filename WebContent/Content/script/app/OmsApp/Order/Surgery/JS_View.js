@@ -929,7 +929,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
             if (verifig) {
                 $.each($scope.PageData.orderProdlns[0].medMaterias, function (mindex, itemMedMaterias) {
                     if (itemMedMaterias.reqQty == 0) {
-                        setTimeout($MessagService.caveat("请添加改仓库物料需求数量！"),3000)
+                        setTimeout($MessagService.caveat("请添加该仓库物料需求数量！"),3000)
                         verifig = false;
                     }
                 })

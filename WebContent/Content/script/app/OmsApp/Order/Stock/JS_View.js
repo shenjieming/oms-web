@@ -818,7 +818,7 @@ app.controller("StockDealwithController", function ($scope, $state, $local, $Api
             if (verifig) {
                 $.each($scope.PageData.orderProdlns[0].medMaterias, function (mindex, itemMedMaterias) {
                     if (itemMedMaterias.reqQty == 0) {
-                        $MessagService.caveat("请添加改仓库物料需求数量！")
+                        $MessagService.caveat("请添加该仓库物料需求数量！")
                         verifig = false;
                     }
                 })
