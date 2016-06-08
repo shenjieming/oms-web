@@ -1119,7 +1119,7 @@ app.controller("StockOrderDeliveryController", function ($scope, $state, $local,
     $scope.sONo = $stateParams.sONo;
     if ($stateParams.wONo) {
         $scope.shipped.wONo = $stateParams.wONo;
-        $scope.shipped.shipType = "stockoutbound";
+            $scope.shipped.shipType = "stockoutbound";
     } else {
         $scope.shipped.shipType = "stockorder";
     }

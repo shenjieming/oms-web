@@ -1,13 +1,13 @@
 ﻿
 <div class="row">
     <div class="tools">
-        <h5 style="float:left; font-weight:bold; margin-left:8px;" ng-if="shipped.shipType=='order'">
+        <h5 style="float:left; font-weight:bold; margin-left:8px;" ng-if="shipped.shipType=='stockorder'">
             <i class="fa fa-file-archive-o"></i>
             手术订单
             <span style="color: #0033FF">{{sONo}}</span>
             <span style="color: #FF3300">发货</span>
         </h5>
-        <h5 style="float:left; font-weight:bold; margin-left:8px;" ng-if="shipped.shipType=='outbound'">
+        <h5 style="float:left; font-weight:bold; margin-left:8px;" ng-if="shipped.shipType=='stockoutbound'">
             <i class="fa fa-file-archive-o"></i>
             出库订单
             <span style="color: #0033FF">{{shipped.wONo}}</span>
