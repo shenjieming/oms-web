@@ -62,7 +62,8 @@ app.directive("ngDisableBill", function ($BMSApi, $MessagService, $local, $AppHe
                 }
             }
 
-            var modelConfig = { title: "计费单作废", width: "660", height: "350", buttons: { "确定": function () { s.Service.Disable(s.ngDisableBill.fixed); }, "关闭": function () { s.ngDisableBill.hide(); } } }; $.extend(s.ngDisableBill, modelConfig);
+            var modelConfig = {title: "计费单作废", width: "660", height: "350", buttons: {"确定": function () {if(s.ngModel.eventReasonDesc){s.Service.Disable(s.ngDisableBill.fixed);}else {$MessagService.caveat("请输入计费单作废原因！")}}, "关闭": function () {s.ngDisableBill.hide();}}};
+            $.extend(s.ngDisableBill, modelConfig);
         }
     }
 });

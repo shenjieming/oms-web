@@ -56,11 +56,12 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
         },
         ApprovalBill: function () {
             /// <summary>审批订单</summary>
-            $local.setValue("ORDERCOMP", {Approval:true});
+            $local.setValue("MenuDisplay", {approval:true});
             this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.view", row); });
         },
         InvalidBill:function () {
-            $local.setValue("ORDERCOMP", { Invalid:true});
+            //作废订单
+            $local.setValue("MenuDisplay", {discard:true});
             this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.view", row); });
         },
         ViewBillByRow: function (row) {

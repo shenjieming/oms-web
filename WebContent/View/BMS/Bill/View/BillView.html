@@ -177,7 +177,7 @@
                                                 <td style="text-align:right"><span ng-bind="row.hPUnitPrice.toFixed(2)"></span></td>
                                                 <td ng-if="false"><span ng-bind="row.patientUnitPrice"></span></td>
                                                 <td style="text-align:right"><span ng-bind="(row.qty*row.hPUnitPrice).toFixed(2)"></span> </td>
-                                                <td><span ng-bind="row.lotSerial"></span></td>
+                                                <td>{{row.lotSerial=="NOLOTINFO"?"无批次号信息":row.lotSerial}}</td>
                                                 <td><span ng-bind="AppHelp.Data.GetDate(0,row.effectiveToDate)"></span></td>
                                             </tr>
                                         </tbody>

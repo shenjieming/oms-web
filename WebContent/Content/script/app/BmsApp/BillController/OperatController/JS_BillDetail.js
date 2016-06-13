@@ -40,18 +40,39 @@ app.controller("BillDetailController", function ($scope, $state,$Api, $local, $B
                 row.patientUnitEstPrice = parseFloat((row.hPUnitEstPrice * 1.05).toFixed(2)); row.patientUnitPrice = parseFloat((row.hPUnitPrice * 1.05).toFixed(2));
             }
         },
+        verification:function () {
+            var result =true;
+                if(!$scope.BillData.operationDesc){
+                result=false;
+                $MessagService.caveat("请输入手术信息！")
+            }
+            else if (!$scope.BillData.patientName){
+                result=false;
+                $MessagService.caveat("请输入患者姓名！")
+            }
+            else if (!$scope.BillData.patientAge){
+                result=false;
+                $MessagService.caveat("请输入患者年龄！")
+            }
+            else if (!$scope.BillData.patientSex){
+                result=false;
+                $MessagService.caveat("请输入患者性别！")
+            }
+            return result;
+        },
         Submit: function () {
             /// <summary>计费单提交</summary>
-            console.log( $scope.BillData.detail)
-            $scope.BillData.hOFNHospitalNo= $scope.BillData.autoGenerateHOFNNo;
-            for(var i=0;i<$scope.BillData.detail.length;i++){
-                if(!$scope.BillData.detail[i].lotSerial){
-                    $scope.BillData.detail[i].lotSerial="NOLOTINFO";
+            if( $scope.Service.verification()){
+               
+                for(var i=0;i<$scope.BillData.detail.length;i++){
+                    if(!$scope.BillData.detail[i].lotSerial){
+                        $scope.BillData.detail[i].lotSerial="NOLOTINFO";
+                    }
                 }
-            }
-            console.log( $scope.BillData)
-            $BMSApi.BillService.Submit($scope.BillData, function (rData) { $MessagService.succ("计费单" + rData + "保存成功");; $scope.goLastPage(); });
-        },
+                console.log( $scope.BillData)
+                $BMSApi.BillService.Submit($scope.BillData, function (rData) { $MessagService.succ("计费单" + rData + "保存成功");; $scope.goLastPage(); });
+             }
+            },
         DelMaterial: function (index) {
             /// <summary>删除物料明细</summary>
             $scope.BillData.detail.splice(index, 1);

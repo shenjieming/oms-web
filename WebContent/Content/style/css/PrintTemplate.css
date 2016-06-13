@@ -25,6 +25,7 @@
     padding: 10px;
     height: 640px;
     max-height: 640px;
+    margin-bottom: 200px;
 }
 .printOrder .logoTitle{
     font-size: 18px; font-weight: bold; float: left; line-height:50px;width:95%;

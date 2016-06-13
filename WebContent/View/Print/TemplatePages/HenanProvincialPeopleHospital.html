@@ -17,6 +17,7 @@
 <body ng-controller="BillTemplatController">
     <div class="printOrder" ng-repeat="order in Triple">
         <table>
+            <div>
             <tr>
                 <td>
                     <img style="width:150px;" src="http://www.hnsrmyy.net/images/logo.jpg" />
@@ -25,6 +26,7 @@
                     <span ng-bind="order.name"></span>
                 </td>
             </tr>
+            </div>
         </table>
         <table class="table">
             <tr>
@@ -148,7 +150,6 @@
         <span style="color:#ccc;"><span ng-bind="BillData.sONo"></span></span>
         <span style="color:#ccc; float:right;">迈骆(上海)医疗供应链管理有限公司</span>
         <table class="table">
-
             <tr>
                 <td style=" text-align: center; padding: 50px;max-height:200px;border:0px">
                     相关证、码贴处

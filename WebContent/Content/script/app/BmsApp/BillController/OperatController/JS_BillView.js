@@ -15,4 +15,14 @@ app.controller("BillViewController", function ($scope, $state, $local, $BMSApi, 
         /// <summary>计费单作废配置</summary>
         fixed: function () { $scope.goLastPage(); }
     }
+    $scope.Competence={
+        approval:false,
+        discard:false,
+    }
+   if($local.getValue("MenuDisplay").discard){
+       $scope.Competence.discard= $local.getValue("MenuDisplay").discard;
+   }
+    if($local.getValue("MenuDisplay").approval){
+        $scope.Competence.approval=$local.getValue("MenuDisplay").approval;
+    }
 });

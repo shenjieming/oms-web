@@ -219,6 +219,10 @@ app.controller("OriginalController", function ($scope, $state, $local, $Api, $Me
 })
 app.controller("AccurateController", function ($scope, $state, $local, $Api, $MessagService, $stateParams, $FileService, $OMSSpecially) {
     /// <summary>精确订单</summary>
+    function FormatDate(strTime) {
+        //   var date = new Date(replace("-", "/").replace("-", "/"));
+        return strTime.getFullYear() + "-" + (strTime.getMonth() + 1) + "-" + strTime.getDate() + "  星期" + "日一二三四五六".charAt(strTime.getDay());
+    }
     $scope.$watch("PageData.sONo", function () {
         /// <summary>获取数据信息</summary>
         if ($scope.PageData.sOOfflineHandleReasonTypeName==null){
@@ -236,6 +240,9 @@ app.controller("AccurateController", function ($scope, $state, $local, $Api, $Me
                     prodLns: $scope.PageData.orderProdlns
                 });
             });
+            if($scope.BillData.patientEntryDate){
+                $scope.PageData.DataFmtYMDW= FormatDate(new Date($scope.BillData.patientEntryDate.replace("-", "/").replace("-", "/")))
+            }
         }
     });
 
@@ -658,7 +665,6 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
         /// <summary>订单处理服务</summary>
         Submit: function () {
             //校验并添加默认数据
-            console.log($scope.FeedBack)
             if ($scope.FeedBack.notInDetail.length > 0) {
                 $.each($scope.FeedBack.notInDetail, function (index, item) {
                     if (item.lotSerial == null || item.lotSerial == "" || item.lotSerial == "无批次号信息") {
@@ -690,7 +696,6 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                     }
                 })
             }
-            console.log($scope.FeedBack)
             $Api.SurgeryService.Process.BackSave($scope.FeedBack, function (rData) {
                 $scope.goLastPage();
             });
@@ -720,7 +725,6 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
         //  出库清单外物料添加
         fixed: function (OtherMaterialsList) {
             $scope.$apply(function () {
-                console.log(OtherMaterialsList)
                 if (OtherMaterialsList) {
                     for (var i = 0; i < OtherMaterialsList.length; i++) {
                         OtherMaterialsList[i].remark = "";
@@ -806,7 +810,6 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                      }));
                  }
             });
-                console.log(result)
             $scope.FeedBack.medMaterial = result;
         }
     };
@@ -851,7 +854,6 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                     }));
                 }
             });
-            console.log(result)
             $scope.FeedBack.medMaterial = result;
         }
     }
@@ -912,7 +914,6 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
         Verification: function () {
             var verifig = true;
             $.each($scope.PageData.prodLns, function (index, item) {
-                console.log(item.medMaterias.length)
                 if (!item.medMaterias.length) {
                     verifig = false;
                     setTimeout($MessagService.caveat("产品线：" + item.medBrandCodeName + "未配置出库物料"),3000);

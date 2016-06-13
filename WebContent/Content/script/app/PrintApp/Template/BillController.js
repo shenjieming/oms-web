@@ -4,7 +4,8 @@
 PrintApp.controller("BillTemplatController", function ($scope, $PrintHelp, $AppHelp) {
     /// <summary>计费单模板控制器</summary>
     console.log("打印模板管理-计费单模板管理");
-    $scope.Triple = [  { name: "植入性耗材使用质量跟踪记录单(手术室联)" },   { name: "植入性耗材使用质量跟踪记录单(采购处联)" },   { name: "植入性耗材使用质量跟踪记录单(供应商联)" }   ];$scope.BillData = { detail: new Array(), images: new Array() };   $scope.msgBox = {}; $scope.Help = $AppHelp;
+    $scope.Triple = [  { name: "植入性耗材使用质量跟踪记录单(手术室联)" },   { name: "植入性耗材使用质量跟踪记录单(采购处联)" },   { name: "植入性耗材使用质量跟踪记录单(供应商联)" }   ];
+    $scope.BillData = { detail: new Array(), images: new Array() };   $scope.msgBox = {}; $scope.Help = $AppHelp;
 
     var Service = {
         /// <summary>计费单服务</summary>

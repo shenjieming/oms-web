@@ -28,7 +28,7 @@ app.controller("SignInController", function ($scope, $state, $local, $Api, $Mess
         $.extend($scope.SignData, { password: "" });//输入完毕，密码清空
     }
 
-    $scope.keyUp = function (e) {
+        $scope.keyUp = function (e) {
         /// <summary>键盘事件</summary>
         var keycode = window.event ? e.keyCode : e.which;
         if (keycode == 13) {
