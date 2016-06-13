@@ -141,7 +141,7 @@ app.directive("ngObSign", function ($Api, $MessagService, $local) {
 });
 
 app.directive("ngSummary", function ($Api, $MessagService, $local) {
-    /// <summary>订单返库申请</summary>
+    /// <summary>订单时间</summary>
     return {
         restrict: "EA",
         template: " <div class=\"ProgressBar control-group\">"+

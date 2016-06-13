@@ -110,9 +110,14 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
         GetBillInfo: function (param) {
             /// <summary>获取计费单明细</summary>
             $BMSApi.PublicInfoService.GetBillDetail(param, function (billInfo) {
-                console.log(billInfo)
+                $.each(billInfo.detail, function (index, item) {
+                    if( item.lotSerial=="NOLOTINFO"){
+                        item.lotSerial="无批次号信息";
+                    }
+                })
                 $.extend($scope.BillData, billInfo);
                 $.extend($scope.BillData, $stateParams);
+                console.log($scope.BillData)
                 setTimeout(function () {
                     $scope.$Factory.AddMaterias(billInfo.detail, $scope.BillData)
                 });

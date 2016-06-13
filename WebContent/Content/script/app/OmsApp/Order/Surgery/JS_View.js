@@ -240,8 +240,8 @@ app.controller("AccurateController", function ($scope, $state, $local, $Api, $Me
                     prodLns: $scope.PageData.orderProdlns
                 });
             });
-            if($scope.BillData.patientEntryDate){
-                $scope.PageData.DataFmtYMDW= FormatDate(new Date($scope.BillData.patientEntryDate.replace("-", "/").replace("-", "/")))
+            if($scope.PageData.initOperationDate){
+                $scope.PageData.DataFmtYMDW= FormatDate(new Date($scope.PageData.initOperationDate.replace("-", "/").replace("-", "/")))
             }
         }
     });
@@ -425,7 +425,7 @@ app.controller("SingleController", function ($rootScope, $scope, $state, $local,
         },
 
         Save: function () {
-            /// <summary>下单保存</summary>       
+            /// <summary>下单保存</summary>
             if ($scope.PageService.Verification()) {
                 $Api.SurgeryService.Save($scope.PageData, function (rData) {
                     /// <summary>保存手术订单</summary>
@@ -733,7 +733,7 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                 if ($scope.FeedBack.notInDetail.length > 0) {
                     var result = new Array();
                     var hash = {};
-                    var allMaterials = $scope.FeedBack.notInDetail.concat(OtherMaterialsList);                  
+                    var allMaterials = $scope.FeedBack.notInDetail.concat(OtherMaterialsList);
                     for (var i = 0, elem; (elem = allMaterials[i]) != null; i++) {
                         if (hash[elem.medMIInternalNo]) {
                             $.each(result, function (index, item) {
@@ -763,8 +763,8 @@ app.controller("FeedbackController", function ($scope, $state, $local, $Api, $Me
                 $scope.dictionary.GetUseType();
                 for (var i = 0; i < $scope.FeedBack.notInDetail.length; i++) {
                     $scope.FeedBack.notInDetail[i].returnWarehouse = $scope.User.userInfo.orgCode;
-                    $scope.FeedBack.notInDetail[i].useType = $scope.dictionary.UseTypeList[0].id;         
-                }       
+                    $scope.FeedBack.notInDetail[i].useType = $scope.dictionary.UseTypeList[0].id;
+                }
             })
         },
         DelKit: function (index) {
@@ -904,7 +904,7 @@ app.controller("DealwithController", function ($scope, $state, $local, $Api, $Me
     $scope.DealService = {
         /// <summary>订单处理服务</summary>
         Submit: function () {
-            // $scope.DealService.OutboundInstructions();   
+            // $scope.DealService.OutboundInstructions();
                 $scope.ProductService.Deduplication();//去重
                 $Api.SurgeryService.Process.Submit($scope.PageData, function (rData) {
                     $scope.DealService.model.hide();

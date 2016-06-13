@@ -63,7 +63,6 @@ app.controller("BillDetailController", function ($scope, $state,$Api, $local, $B
         Submit: function () {
             /// <summary>计费单提交</summary>
             if( $scope.Service.verification()){
-               
                 for(var i=0;i<$scope.BillData.detail.length;i++){
                     if(!$scope.BillData.detail[i].lotSerial){
                         $scope.BillData.detail[i].lotSerial="NOLOTINFO";
