@@ -89,7 +89,7 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
     $scope.Pagein = { pageSize: 10, createDateBegin: null, createDateEnd: null, pageIndex: 1, callbake: function () { $scope.Integrated.GetBillList(); } }
 });
 
-app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, $MessagService, $stateParams, $BillDetailFactory, $AppHelp, $OMSSpecially) {
+app.controller("BillInfoController", function ($Api,$scope, $state, $local, $BMSApi, $MessagService, $stateParams, $BillDetailFactory, $AppHelp, $OMSSpecially) {
     /// <summary>计费单详情</summary>
     console.log("计费单管理-计费单详情管理");
 
@@ -105,7 +105,8 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
                 $.extend($scope.PageData, orderInfo);
                 if (!param.hOFNNo) {
                     $.extend($scope.BillData, $scope.$Factory.GetOrderMapping(orderInfo));
-                } });
+                } 
+            });
         },
         GetBillInfo: function (param) {
             /// <summary>获取计费单明细</summary>
@@ -128,9 +129,18 @@ app.controller("BillInfoController", function ($scope, $state, $local, $BMSApi, 
             $OMSSpecially.PrintBill($scope.BillData);
         }
     };
-
-    if ($stateParams.sONo) { $scope.QueryService.GetOrderInfo($stateParams); } if ($stateParams.hOFNNo) { $scope.QueryService.GetBillInfo($stateParams); }
-
+    if ($stateParams.sONo) {
+        $scope.QueryService.GetOrderInfo($stateParams); }
+    if ($stateParams.hOFNNo)
+        //如果有计费单号， 则调用计费单详情
+    {
+        $scope.QueryService.GetBillInfo($stateParams);
+    }else {
+        //判断订单事件跟踪显示
+        $Api.SurgeryService.DataSources.GetDetail($scope.PageData, function (rData) {
+            $scope.PageData.events=rData.events;
+        })
+    }
 });
 
 

@@ -69,7 +69,7 @@ app.controller("BillDetailController", function ($scope, $state,$Api, $local, $B
                     }
                 }
                 console.log( $scope.BillData)
-                $BMSApi.BillService.Submit($scope.BillData, function (rData) { $MessagService.succ("计费单" + rData + "保存成功");; $scope.goLastPage(); });
+                $Api.BillService.Submit($scope.BillData, function (rData) { $MessagService.succ("计费单" + rData + "保存成功");; $scope.goLastPage(); });
              }
             },
         DelMaterial: function (index) {

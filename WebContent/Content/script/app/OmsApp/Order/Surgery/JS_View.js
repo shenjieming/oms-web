@@ -113,7 +113,6 @@ app.controller("OrderViewController", function ($scope, $state, $local, $Api, $M
                 if ($scope.PageData.retrieveEstDate) {
                     $scope.PageData.retrieveEstDateFmtYMDW = FormatDate(new Date($scope.PageData.retrieveEstDate.replace("-", "/").replace("-", "/")))
                 }
-                console.log($scope.PageData)
             });
         }
     }
