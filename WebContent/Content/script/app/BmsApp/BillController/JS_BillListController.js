@@ -59,6 +59,11 @@ app.controller("BillController", function ($scope, $state, $local, $BMSApi, $Mes
             $local.setValue("MenuDisplay", {approval:true});
             this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.view", row); });
         },
+        UnApprovalBill: function () {
+            /// <summary>反审批订单</summary>
+            $local.setValue("MenuDisplay", {unapproval:true});
+            this.GoPageBySedRow(function (row) { $scope.goView("app.bms.bill.view", row); });
+        },
         InvalidBill:function () {
             //作废订单
             $local.setValue("MenuDisplay", {discard:true});
@@ -118,7 +123,7 @@ app.controller("BillInfoController", function ($Api,$scope, $state, $local, $BMS
                 })
                 $.extend($scope.BillData, billInfo);
                 $.extend($scope.BillData, $stateParams);
-                console.log($scope.BillData)
+                $.extend($scope.PageData.events, billInfo.events);
                 setTimeout(function () {
                     $scope.$Factory.AddMaterias(billInfo.detail, $scope.BillData)
                 });
@@ -141,6 +146,7 @@ app.controller("BillInfoController", function ($Api,$scope, $state, $local, $BMS
             $scope.PageData.events=rData.events;
         })
     }
+    console.log($scope.PageData)
 });
 
 

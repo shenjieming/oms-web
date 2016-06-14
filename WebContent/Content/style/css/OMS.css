@@ -504,6 +504,14 @@ input[type='number'] {
     .ProgressBar .RETURN {
         background-image: url(../img/progressbar/progress-bar05.png);
     }
+    /*"计费"*/
+    .ProgressBar .HPOPFEENOTE {
+    background-image: url(../img/progressbar/progress-bar08.png);
+    }
+    /*"计费审核"*/
+    .ProgressBar .OPFEENOTEREV {
+    background-image: url(../img/progressbar/progress-bar09.png);
+    }
 /*订单事件流程说明End*/
 /*Timeline Begion*/
 .timeline {

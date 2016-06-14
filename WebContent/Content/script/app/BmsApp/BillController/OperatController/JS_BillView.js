@@ -18,13 +18,17 @@ app.controller("BillViewController", function ($scope, $state, $local, $BMSApi, 
     $scope.Competence={
         approval:false,
         discard:false,
+        unapproval:false,
     }
     if($local.getValue("MenuDisplay")){
         if($local.getValue("MenuDisplay").discard){
             $scope.Competence.discard= $local.getValue("MenuDisplay").discard;
         }
         if($local.getValue("MenuDisplay").approval){
-            $scope.Competence.approval=$local.getValue("MenuDisplay").approval;
+            $scope.Competence.approval= $local.getValue("MenuDisplay").approval;
+        }
+        if($local.getValue("MenuDisplay").unapproval){
+            $scope.Competence.unapproval= $local.getValue("MenuDisplay").unapproval;
         }
     }
 });
