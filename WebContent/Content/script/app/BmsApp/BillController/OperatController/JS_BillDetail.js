@@ -58,18 +58,25 @@ app.controller("BillDetailController", function ($scope, $state,$Api, $local, $B
                 result=false;
                 $MessagService.caveat("请输入患者性别！")
             }
+            else  if(!$scope.BillData.detail||$scope.BillData.detail.length==0){
+                    result=false;
+                    $MessagService.caveat("请选择物资！")
+                }
             return result;
         },
         Submit: function () {
             /// <summary>计费单提交</summary>
+            console.log( $scope.BillData)
             if( $scope.Service.verification()){
                 for(var i=0;i<$scope.BillData.detail.length;i++){
                     if(!$scope.BillData.detail[i].lotSerial){
                         $scope.BillData.detail[i].lotSerial="NOLOTINFO";
                     }
                 }
-                console.log( $scope.BillData)
-                $Api.BillService.Submit($scope.BillData, function (rData) { $MessagService.succ("计费单" + rData + "保存成功");; $scope.goLastPage(); });
+                $BMSApi.BillService.Submit($scope.BillData, function (rData) {
+                    $MessagService.succ("计费单" + rData + "保存成功");;
+                    $scope.goLastPage();
+                });
              }
             },
         DelMaterial: function (index) {
