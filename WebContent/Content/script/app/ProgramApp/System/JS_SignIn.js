@@ -47,5 +47,6 @@ app.controller("SignInController", function ($scope, $state, $local, $Api, $Mess
         }
         return result;
     }
-
+    $scope.dev=ServerConfiguration.Version;
+    $scope.EnvironmentDisplay=ServerConfiguration.EnvironmentDisplay;
 });
