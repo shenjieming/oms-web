@@ -363,8 +363,12 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
             $MessagService.loading("备货订单信息获取中，请稍等...");
             var paramData = $.extend($scope.Pagein, param);
             var GetList = $Api.StockService.DataSources.GetStockList;
-            if (!paramData.opt) {
-                GetList = $Api.StockService.DataSources.GetIntegratedStockInquiry;
+            if (window.location.hash == "#/app/oms/stock/toshipped") {
+                var GetList = $Api.SurgeryService.Process.deliverylist;
+            }else {
+                if (!paramData.opt) {
+                    GetList = $Api.StockService.DataSources.GetIntegratedStockInquiry;
+                }
             }
             GetList(paramData, function (rData) {
                 $scope.Pagein.total = rData.total;
@@ -381,6 +385,9 @@ app.controller("StockController", function ($scope, $state, $local, $Api, $Messa
                     }
                 }
                 $scope.Integrated.StockList = rData.rows;
+                if (window.location.hash == "#/app/oms/stock/toshipped") {
+                    $scope.Integrated.OrderList = rData.rows;
+                }
             });
         },
         Enter: function (e) {
