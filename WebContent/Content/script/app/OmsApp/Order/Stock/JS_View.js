@@ -1195,10 +1195,6 @@ app.controller("StockOrderDeliveryController", function ($scope, $state, $local,
                 $MessagService.caveat("请输入司机电话！")
                 result = false;
             }
-            else if (!$scope.shipped.busDriverName) {
-                $MessagService.caveat("请输入司机姓名！")
-                result = false;
-            }
             if (result) {
                 $scope.shipped.carrierTransType = "BUS";
                 $Api.SurgeryService.Process.deliverySubmit($scope.shipped, function (rData) {
