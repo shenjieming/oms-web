@@ -73,6 +73,9 @@ app.controller("BillDetailController", function ($scope, $state,$Api, $local, $B
                         $scope.BillData.detail[i].lotSerial="NOLOTINFO";
                     }
                 }
+                $.each($scope.BillData.images, function (index, item) {
+                    item.remark= $scope.BillData.eventReasonDesc;
+                })
                 $BMSApi.BillService.Submit($scope.BillData, function (rData) {
                     $MessagService.succ("计费单" + rData + "保存成功");;
                     $scope.goLastPage();

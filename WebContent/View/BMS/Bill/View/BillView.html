@@ -196,9 +196,9 @@
                             <div class="control-group ">
                                 <div ng-img-list="img" ng-comp="{delImg:false}" ng-model="BillData.images"></div>
                             </div>
-                            <div class="control-group" ng-if="false">
+                            <div class="control-group">
                                 <label style="width:100%">
-                                    图片说明：<span ng-bind=""></span>
+                                    图片说明：<span ng-bind="BillData.images[0].remark"></span>
                                 </label>
                             </div>
                         </div>

@@ -36,13 +36,16 @@ app.directive("ngProductView", function ($Api, $MessagService, $local, $state) {
                     /// <summary>获取显示信息</summary>
                  //判断是否为追加配货页面
                     $scope.ngComp.ShowInfo = "";
-                    if($local.getValue("ORDERCOMP").additional){
-                        if($scope.Statistic.KitsCount||$scope.Statistic.AllMaterialCount){
-                            $scope.Competence.wHSpecialNotes=false;
-                        }else {
-                            $scope.ngModel.wsNotes=new Array();
-                        }
-                    }
+                     if($local.getValue("ORDERCOMP")){
+                         if($local.getValue("ORDERCOMP").additional){
+                             if($scope.Statistic.KitsCount||$scope.Statistic.AllMaterialCount){
+                                 $scope.Competence.wHSpecialNotes=false;
+                             }else {
+                                 $scope.ngModel.wsNotes=new Array();
+                             }
+                         }
+                     }
+
                     // 信息统计
                     if ($scope.Statistic.KitsCount) {
                         $scope.ngComp.ShowInfo += " 套件：" + $scope.Statistic.KitsCount + "套（" + $scope.Statistic.KitMCount + "件）";
